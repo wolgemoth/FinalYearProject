@@ -1,2 +1,2 @@
 # FinalYearProject
-Final Year "Invidual" Project Loui Eriksson (2023-24)
+Final Year "Individual" Project Loui Eriksson (2023-24)
