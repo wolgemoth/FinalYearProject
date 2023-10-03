@@ -1,37 +1,40 @@
 #pragma once
 
-#ifndef _LIGHT_H
-#define _LIGHT_H
+#ifndef FINALYEARPROJECT_LIGHT_H
+#define FINALYEARPROJECT_LIGHT_H
 
 #include "Component.h"
 #include "Transform.h"
 
-class Light : public Component {
-
-private:
+namespace LouiEriksson {
 	
-	/// <summary> Transform of the Light. </summary>
-	std::shared_ptr<Transform> m_Transform;
-
-public:
+	class Light : public Component {
 	
-	 Light(std::weak_ptr<GameObject> _parent);
-	~Light() = default;
-
-	/// <summary> Type of the Light. </summary>
-	enum Type {
-		/// <summary> Light is a Point Light. </summary>
-		Point,
-		/// <summary> Light is a Directional Light. </summary>
-		Directional
+	private:
+		
+		/// <summary> Transform of the Light. </summary>
+		std::shared_ptr<Transform> m_Transform;
+	
+	public:
+		
+		explicit Light(std::weak_ptr<GameObject> _parent);
+		~Light() override = default;
+	
+		/// <summary> Type of the Light. </summary>
+		enum Type {
+			/// <summary> Light is a Point Light. </summary>
+			Point,
+			/// <summary> Light is a Directional Light. </summary>
+			Directional
+		};
+	
+		/// <summary> Set the Transform of the Light. </summary>
+		void SetTransform(const std::weak_ptr<Transform>& _transform);
+	
+		/// <summary> Get the Transform of the Light. </summary>
+		std::weak_ptr<Transform> GetTransform();
+	
 	};
+}
 
-	/// <summary> Set the Transform of the Light. </summary>
-	void SetTransform(std::weak_ptr<Transform> _transform);
-
-	/// <summary> Get the Transform of the Light. </summary>
-	std::weak_ptr<Transform> GetTransform();
-
-};
-
-#endif // !_LIGHT_H
+#endif //FINALYEARPROJECT_LIGHT_H

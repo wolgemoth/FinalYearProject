@@ -1,21 +1,24 @@
-#ifndef _PLANECOLLIDER_H
-#define _PLANECOLLIDER_H
+#ifndef FINALYEARPROJECT_PLANECOLLIDER_H
+#define FINALYEARPROJECT_PLANECOLLIDER_H
 
 #include "Collider.h"
 
-class PlaneCollider final : Collider {
+namespace LouiEriksson {
+	
+	class PlaneCollider final : Collider {
+	
+	public:
+		
+		explicit PlaneCollider(std::weak_ptr<GameObject> _parent);
+		
+		~PlaneCollider() override;
+		
+		float DistanceToPlane(glm::vec3 _point, glm::vec3 _pointOnPlane);
+		
+		bool Evaluate(const std::shared_ptr<Collider>& _other);
+		
+		glm::vec3 Normal();
+	};
+}
 
-public:
-	
-	PlaneCollider(std::weak_ptr<GameObject> _parent);
-	
-	~PlaneCollider();
-	
-	float DistanceToPlane(glm::vec3 _point, glm::vec3 _pointOnPlane);
-	
-	bool Evaluate(std::shared_ptr<Collider> _other);
-	
-	glm::vec3 Normal();
-};
-
-#endif //_PLANECOLLIDER_H
+#endif //FINALYEARPROJECT_PLANECOLLIDER_H

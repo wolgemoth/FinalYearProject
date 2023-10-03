@@ -1,31 +1,34 @@
 #pragma once
 
-#ifndef _APPLICATION_H
-#define _APPLICATION_H
+#ifndef FINALYEARPROJECT_APPLICATION_H
+#define FINALYEARPROJECT_APPLICATION_H
 
 #include "Time.h"
 
 #include "Scene.h"
 
-class Application {
+namespace LouiEriksson {
+	
+	class Application {
+	
+	private:
+	
+		inline static bool  s_Quit        = false;
+		inline static bool  s_Initialised = false;
+	
+	public:
+	
+		 Application()                          = delete;
+		 Application(const Application& _other) = delete;
+		~Application()                          = delete;
+		
+		Application& operator = (const Application&  _other) = delete;
+		Application& operator =       (Application&& _other) = delete;
+	
+		static void Quit();
+	
+		static int Main();
+	};
+}
 
-private:
-
-	inline static bool  s_Quit        = false;
-	inline static bool  s_Initialised = false;
-
-	 Application() = delete;
-	 Application(const Application& _other) = delete;
-	~Application() = delete;
-
-	Application& operator = (const Application& _other) = delete;
-	Application& operator = (Application&& _other) = delete;
-
-public:
-
-	static void Quit();
-
-	static int Main();
-};
-
-#endif // !_APPLICATION_H
+#endif //FINALYEARPROJECT_APPLICATION_H

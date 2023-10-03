@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _STDAFX_H
-#define _STDAFX_H
+#ifndef FINALYEARPROJECT_STDAFX_H
+#define FINALYEARPROJECT_STDAFX_H
 
 /* SDL & OPENGL */
 #include "SDL2/SDL.h"
@@ -23,12 +23,14 @@
 #include <chrono>
 #include <vector>
 #include <memory>
+#include <utility>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <typeindex>
 #include <stdexcept>
+#include <exception>
 #include <algorithm>
 #include <filesystem>
 
-#endif // !_STDAFX_H
+#endif //FINALYEARPROJECT_STDAFX_H

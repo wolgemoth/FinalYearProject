@@ -6,66 +6,102 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
-target_precompile_headers(src/engine/scripts/stdafx.h)
-
 add_executable(FinalYearProject
+
+        src/engine/scripts/stdafx.h
+
         src/engine/scripts/main.cpp
+
         src/engine/scripts/Application.cpp
-        src/engine/scripts/Collision.cpp
-        src/engine/scripts/GameObject.cpp
-        src/engine/scripts/Mesh.h
-        src/engine/scripts/Renderer.cpp
-        src/engine/scripts/Script.h
         src/engine/scripts/Application.h
-        src/engine/scripts/Collision.h
-        src/engine/scripts/GameObject.h
-        src/engine/scripts/OrbitCam.cpp
-        src/engine/scripts/Renderer.h
-        src/engine/scripts/Scripts.h
-        src/engine/scripts/Time.cpp
+
         src/engine/scripts/Ball.cpp
-        src/engine/scripts/Component.cpp
-        src/engine/scripts/Hashmap.h
-        src/engine/scripts/OrbitCam.h
-        src/engine/scripts/RenderTexture.cpp
-        src/engine/scripts/Serialisation.cpp
-        src/engine/scripts/Time.h
         src/engine/scripts/Ball.h
-        src/engine/scripts/Component.h
-        src/engine/scripts/Light.cpp
-        src/engine/scripts/PlaneCollider.cpp
-        src/engine/scripts/RenderTexture.h
-        src/engine/scripts/Serialisation.h
-        src/engine/scripts/Transform.cpp
+
         src/engine/scripts/Camera.cpp
-        src/engine/scripts/Components.h
-        src/engine/scripts/Light.h
-        src/engine/scripts/PlaneCollider.h
-        src/engine/scripts/Rigidbody.cpp
-        src/engine/scripts/Shader.cpp
-        src/engine/scripts/Transform.h
         src/engine/scripts/Camera.h
-        src/engine/scripts/Entity.cpp
-        src/engine/scripts/main.cpp
-        src/engine/scripts/Plane.cpp
-        src/engine/scripts/Rigidbody.h
-        src/engine/scripts/Shader.h
-        src/engine/scripts/Window.cpp
+
         src/engine/scripts/Collider.cpp
-        src/engine/scripts/Entity.h
-        src/engine/scripts/Material.cpp
-        src/engine/scripts/Plane.h
-        src/engine/scripts/Scene.cpp
-        src/engine/scripts/SphereCollider.cpp
-        src/engine/scripts/Window.h
         src/engine/scripts/Collider.h
-        src/engine/scripts/File.cpp
-        src/engine/scripts/Material.h
-        src/engine/scripts/Player.cpp
-        src/engine/scripts/Scene.h
-        src/engine/scripts/SphereCollider.h
+
         src/engine/scripts/Colliders.h
+
+        src/engine/scripts/Collision.cpp
+        src/engine/scripts/Collision.h
+
+        src/engine/scripts/Component.cpp
+        src/engine/scripts/Component.h
+
+        src/engine/scripts/Components.h
+
+        src/engine/scripts/Entity.cpp
+        src/engine/scripts/Entity.h
+
+        src/engine/scripts/File.cpp
         src/engine/scripts/File.h
+
+        src/engine/scripts/GameObject.cpp
+        src/engine/scripts/GameObject.h
+
+        src/engine/scripts/Hashmap.h
+
+        src/engine/scripts/Light.cpp
+        src/engine/scripts/Light.h
+
+        src/engine/scripts/Material.cpp
+        src/engine/scripts/Material.h
+
         src/engine/scripts/Mesh.cpp
+        src/engine/scripts/Mesh.h
+
+        src/engine/scripts/OrbitCam.cpp
+        src/engine/scripts/OrbitCam.h
+
+        src/engine/scripts/Plane.cpp
+        src/engine/scripts/Plane.h
+
+        src/engine/scripts/PlaneCollider.cpp
+        src/engine/scripts/PlaneCollider.h
+
+        src/engine/scripts/Player.cpp
         src/engine/scripts/Player.h
-        src/engine/scripts/Script.cpp)
+
+        src/engine/scripts/RenderTexture.cpp
+        src/engine/scripts/RenderTexture.h
+
+        src/engine/scripts/Renderer.cpp
+        src/engine/scripts/Renderer.h
+
+        src/engine/scripts/Rigidbody.cpp
+        src/engine/scripts/Rigidbody.h
+
+        src/engine/scripts/Scene.cpp
+        src/engine/scripts/Scene.h
+
+        src/engine/scripts/Script.cpp
+        src/engine/scripts/Script.h
+
+        src/engine/scripts/Scripts.h
+
+        src/engine/scripts/Serialisation.cpp
+        src/engine/scripts/Serialisation.h
+
+        src/engine/scripts/Shader.cpp
+        src/engine/scripts/Shader.h
+
+        src/engine/scripts/SphereCollider.cpp
+        src/engine/scripts/SphereCollider.h
+
+        src/engine/scripts/Time.cpp
+        src/engine/scripts/Time.h
+
+        src/engine/scripts/Transform.cpp
+        src/engine/scripts/Transform.h
+
+        src/engine/scripts/Window.cpp
+        src/engine/scripts/Window.h
+
+        src/engine/scripts/main.cpp
+)
+
+target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

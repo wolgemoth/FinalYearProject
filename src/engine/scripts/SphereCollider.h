@@ -1,23 +1,25 @@
-#ifndef _SPHERECOLLIDER_H
-#define _SPHERECOLLIDER_H
+#ifndef FINALYEARPROJECT_SPHERECOLLIDER_H
+#define FINALYEARPROJECT_SPHERECOLLIDER_H
 
 #include "Collider.h"
 
-class SphereCollider final : Collider {
+namespace LouiEriksson {
+	
+	class SphereCollider final : Collider {
+	
+	private:
+		
+		float m_Radius;
+		
+	public:
+		
+		explicit SphereCollider(std::weak_ptr<GameObject> _parent);
+		~SphereCollider() override;
+		
+		void  Radius(const float& _radius) override;
+		float Radius()                     override;
+		
+	};
+}
 
-private:
-	
-	float m_Radius;
-	
-public:
-	
-	 SphereCollider(std::weak_ptr<GameObject> _parent);
-	~SphereCollider();
-	
-	void Radius(const float &_radius);
-	
-	float Radius();
-	
-};
-
-#endif //_SPHERECOLLIDER_H
+#endif //FINALYEARPROJECT_SPHERECOLLIDER_H

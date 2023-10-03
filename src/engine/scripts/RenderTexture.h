@@ -1,31 +1,33 @@
 #pragma once
 
-#ifndef _RENDER_TEXTURE_H
-#define _RENDER_TEXTURE_H
+#ifndef FINALYEARPROJECT_RENDER_TEXTURE_H
+#define FINALYEARPROJECT_RENDER_TEXTURE_H
 
-class RenderTexture {
+namespace LouiEriksson {
+	
+	class RenderTexture {
+	
+	private:
+	
+		GLuint m_FBO_ID;
+		GLuint m_RBO_ID;
+		GLuint m_TextureID;
+		
+	public:
+		
+		RenderTexture(const RenderTexture& _other) = delete;
+		RenderTexture& operator = (const RenderTexture& _other) = delete;
+		
+		RenderTexture(int _width, int _height);
+	
+		~RenderTexture();
+	
+		void Bind() const;
+	
+		static void Unbind();
+		
+		[[nodiscard]] GLuint TextureID() const;
+	};
+}
 
-private:
-
-	GLuint m_FBO_ID;
-	GLuint m_RBO_ID;
-	GLuint m_TextureID;
-
-	RenderTexture(const RenderTexture& _other) = delete; 
-	RenderTexture& operator = (const RenderTexture& _other) = delete;
-
-public:
-
-	RenderTexture(int _width, int _height);
-
-	~RenderTexture();
-
-	void Bind();
-
-	void Unbind();
-
-	GLuint TextureID();
-
-};
-
-#endif // !_RENDER_TEXTURE_H_
+#endif //FINALYEARPROJECT_RENDER_TEXTURE_H

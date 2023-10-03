@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _SCRIPTS_H
-#define _SCRIPTS_H
+#ifndef FINALYEARPROJECT_SCRIPTS_H
+#define FINALYEARPROJECT_SCRIPTS_H
 
 /* BASE */
 #include "Script.h"
@@ -12,4 +12,4 @@
 #include "Plane.h"
 #include "Player.h"
 
-#endif // !_SCRIPTS_H
+#endif //FINALYEARPROJECT_SCRIPTS_H

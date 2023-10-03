@@ -2,8 +2,6 @@
 
 #include "Application.h"
 
-class Application;
-
-int main(int argc, char* argv[]) {
-	return Application::Main();
+int main([[maybe_unused]] int _argc, [[maybe_unused]] char* _argv[]) {
+	return LouiEriksson::Application::Main();
 }

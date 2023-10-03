@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _COLLIDERS_H
-#define _COLLIDERS_H
+#ifndef FINALYEARPROJECT_COLLIDERS_H
+#define FINALYEARPROJECT_COLLIDERS_H
 
 /* BASE */
 #include "Collider.h"
@@ -10,4 +10,4 @@
 #include "SphereCollider.h"
 #include  "PlaneCollider.h"
 
-#endif // !_COLLIDERS_H
+#endif //FINALYEARPROJECT_COLLIDERS_H

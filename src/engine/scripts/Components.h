@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _COMPONENTS_H
-#define _COMPONENTS_H
+#ifndef FINALYEARPROJECT_COMPONENTS_H
+#define FINALYEARPROJECT_COMPONENTS_H
 
 /* Transformation */
 #include "Transform.h"
@@ -23,4 +23,4 @@
 /* GameObject */
 #include "GameObject.h"
 
-#endif // !_COMPONENTS_H
+#endif //FINALYEARPROJECT_COMPONENTS_H

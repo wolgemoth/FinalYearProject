@@ -1,28 +1,31 @@
 #pragma once
 
-#ifndef _MODEL_H
-#define _MODEL_H
+#ifndef FINALYEARPROJECT_MODEL_H
+#define FINALYEARPROJECT_MODEL_H
 
-class Mesh {
+namespace LouiEriksson {
+	
+	class Mesh {
+	
+	private:
+	
+		WfModel m_Mesh;
+	
+	public:
+	
+		[[maybe_unused]] [[nodiscard]] GLuint PositionVBO_ID() const;
+		[[maybe_unused]] [[nodiscard]] GLuint TexCoordVBO_ID() const;
+		[[maybe_unused]] [[nodiscard]] GLuint   NormalVBO_ID() const;
+		[[maybe_unused]] [[nodiscard]] GLuint         VAO_ID() const;
+		[[maybe_unused]] [[nodiscard]] GLuint     Texture_ID() const;
+		[[maybe_unused]] [[nodiscard]]    int    VertexCount() const;
+	
+		 Mesh();
+		~Mesh();
+	
+		/// <summary> Load a mesh from a path. </summary>
+		static std::shared_ptr<Mesh> Load(const char* _path);
+	};
+}
 
-private:
-
-	WfModel m_Mesh;
-
-public:
-
-	GLuint PositionVBO_ID();
-	GLuint TexCoordVBO_ID();
-	GLuint   NormalVBO_ID();
-	GLuint         VAO_ID();
-	GLuint     Texture_ID();
-	   int    VertexCount();
-
-	 Mesh();
-	~Mesh();
-
-	/// <summary> Load a mesh from a path. </summary>
-	static std::shared_ptr<Mesh> Load(const char* _path);
-};
-
-#endif // !_MODEL_H
+#endif //FINALYEARPROJECT_MODEL_H

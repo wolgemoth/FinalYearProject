@@ -1,64 +1,67 @@
 #pragma once
 
-#ifndef _ORBITCAM_H
-#define _ORBITCAM_H
+#ifndef FINALYEARPROJECT_ORBITCAM_H
+#define FINALYEARPROJECT_ORBITCAM_H
 
 #include "Scene.h"
 
-/// <summary>
-/// Camera that orbits a target.
-/// </summary>
-class OrbitCam final : public Script {
-
-	friend class Scene;
-
-protected:
-
-	/// <summary> Camera of the OrbitCam. </summary>
-	std::weak_ptr<Camera>    m_Camera;
-
+namespace LouiEriksson {
+	
 	/// <summary>
-	/// Transform of the OrbitCam.
+	/// Camera that orbits a target.
 	/// </summary>
-	std::weak_ptr<Transform> m_Transform;
+	class OrbitCam final : public Script {
 	
-	/// <summary> Target of the OrbitCam. </summary>
-	glm::vec3 m_Target;
-
-	/// <summary> Speed of orbit. </summary>
-	float m_OrbitSpeed;
-
-	/// <summary> Distance from target. </summary>
-	float m_OrbitDistance;
-
-	/// <summary> Called at the beginning of the first frame. </summary>
-	void Begin();
-
-	/// <summary> Called every frame. </summary>
-	void Tick();
-
-public:
-
-	OrbitCam(std::weak_ptr<GameObject> _parent);
-	~OrbitCam();
-
-	/// <summary> Get the Camera of the OrbitCam. </summary>
-	std::weak_ptr<Camera>    GetCamera();
-
-	/// <summary> Get the Transform of the OrbitCam. </summary>
-	std::weak_ptr<Transform> GetTransform();
-
-	/// <summary> Set the target of the OrbitCam. </summary>
-	void Target(const glm::vec3 _target);
+		friend class Scene;
 	
-	/// <summary> Get the target of the OrbitCam. </summary>
-	const glm::vec3& Target();
+	protected:
+	
+		/// <summary> Camera of the OrbitCam. </summary>
+		std::weak_ptr<Camera>    m_Camera;
+	
+		/// <summary>
+		/// Transform of the OrbitCam.
+		/// </summary>
+		std::weak_ptr<Transform> m_Transform;
+		
+		/// <summary> Target of the OrbitCam. </summary>
+		glm::vec3 m_Target;
+	
+		/// <summary> Speed of orbit. </summary>
+		float m_OrbitSpeed;
+	
+		/// <summary> Distance from target. </summary>
+		float m_OrbitDistance;
+	
+		/// <summary> Called at the beginning of the first frame. </summary>
+		void Begin() override;
+	
+		/// <summary> Called every frame. </summary>
+		void Tick() override;
+	
+	public:
+	
+		explicit OrbitCam(std::weak_ptr<GameObject> _parent);
+		~OrbitCam() override;
+	
+		/// <summary> Get the Camera of the OrbitCam. </summary>
+		std::weak_ptr<Camera>    GetCamera();
+	
+		/// <summary> Get the Transform of the OrbitCam. </summary>
+		std::weak_ptr<Transform> GetTransform();
+	
+		/// <summary> Set the target of the OrbitCam. </summary>
+		void Target(glm::vec3 _target);
+		
+		/// <summary> Get the target of the OrbitCam. </summary>
+		const glm::vec3& Target();
+	
+		/// <summary> Set the FOV of the OrbitCam. </summary>
+		void FOV(const float& _fov);
+	
+		/// <summary> Get the FOV of the OrbitCam. </summary>
+		const float& FOV();
+	};
+}
 
-	/// <summary> Set the FOV of the OrbitCam. </summary>
-	void FOV(const float& _fov);
-
-	/// <summary> Get the FOV of the OrbitCam. </summary>
-	const float& FOV();
-};
-
-#endif // !_ORBITCAM_H
+#endif //FINALYEARPROJECT_ORBITCAM_H

@@ -1,32 +1,35 @@
 #pragma once
 
-#ifndef _SCRIPT_H
-#define _SCRIPT_H
+#ifndef FINALYEARPROJECT_SCRIPT_H
+#define FINALYEARPROJECT_SCRIPT_H
 
 #include "Time.h"
 #include "Component.h"
 
-class Scene;
+namespace LouiEriksson {
 
-/// <summary>
-/// Base class to be inherited by scriptable types.
-/// </summary>
-class Script : public Component {
+	class Scene;
+	
+	/// <summary>
+	/// Base class to be inherited by scriptable types.
+	/// </summary>
+	class Script : public Component {
+	
+		friend class Scene;
+	
+	protected:
+	
+		explicit Script(std::weak_ptr<GameObject> _parent);
+	
+		~Script() override = default;
+	
+		/// <summary> Called at the beginning of the first frame. </summary>
+		virtual void Begin();
+	
+		/// <summary> Called every frame. </summary>
+		virtual void Tick();
+	
+	};
+}
 
-friend class Scene;
-
-protected:
-
-	Script(std::weak_ptr<GameObject> _parent);
-
-	virtual ~Script() = default;
-
-	/// <summary> Called at the beginning of the first frame. </summary>
-	virtual void Begin();
-
-	/// <summary> Called every frame. </summary>
-	virtual void Tick();
-
-};
-
-#endif // !_SCRIPT_H
+#endif //FINALYEARPROJECT_SCRIPT_H
