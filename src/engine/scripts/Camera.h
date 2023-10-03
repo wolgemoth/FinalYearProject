@@ -8,6 +8,8 @@
 
 namespace LouiEriksson {
 	
+	class Window;
+	
 	class Camera : public Component {
 	
 		friend class Window;

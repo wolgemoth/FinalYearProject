@@ -7,6 +7,8 @@
 
 namespace LouiEriksson {
 	
+	class GameObject;
+	
 	/// <summary> Represents a Component which can be attached to a GameObject. </summary>
 	class Component {
 	

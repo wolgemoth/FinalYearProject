@@ -8,6 +8,8 @@
 
 namespace LouiEriksson {
 	
+	class Camera;
+	
 	class Window {
 	
 		friend class Application;

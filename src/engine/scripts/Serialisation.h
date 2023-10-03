@@ -55,12 +55,12 @@ namespace LouiEriksson {
 	
 			return result;
 		}
-	
-		template<>
-		float Deserialise(const std::string& _str, const Format& _method) {
-			return std::stof(_str);
-		}
 	};
+	
+	template<>
+	inline float Serialisation::Deserialise(const std::string& _str, const Serialisation::Format& _method) {
+		return std::stof(_str);
+	}
 }
 
 #endif //FINALYEARPROJECT_SERIALISATION_H

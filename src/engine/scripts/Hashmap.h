@@ -64,7 +64,7 @@ namespace LouiEriksson {
 		/// Initialise hashmap.
 		/// </summary>
 		/// <param name="_capacity">Initial capacity of the hashmap. Must be larger than 0.</param>
-		explicit Hashmap(size_t _capacity = 1) {
+		Hashmap(size_t _capacity = 1) {
 	
 			m_Size = 0;
 	
