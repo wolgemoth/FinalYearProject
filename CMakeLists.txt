@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(FinalYearProject)
 
 set(CMAKE_CXX_STANDARD 17)
-
-include_directories(${PROJECT_SOURCE_DIR}/include)
-link_directories(${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 
 add_executable(FinalYearProject
 
@@ -100,8 +98,51 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Window.cpp
         src/engine/scripts/Window.h
+)
 
-        src/engine/scripts/main.cpp
+set(SDL2_PATH ${PROJECT_SOURCE_DIR}/external/SDL2)
+set(SDL2_INCLUDE_DIR ${SDL2_PATH}/include)
+set(SDL2_LIB_DIR ${SDL2_PATH}/lib/x86/SDL2.lib)
+
+set(GLEW_PATH ${PROJECT_SOURCE_DIR}/external/glew)
+set(GLEW_INCLUDE_DIR ${GLEW_PATH}/include)
+set(GLEW_LIB_DIR ${GLEW_PATH}/lib)
+
+set(WAVEFRONT_PATH ${PROJECT_SOURCE_DIR}/external/wavefront)
+set(WAVEFRONT_INCLUDE_DIR ${WAVEFRONT_PATH}/include)
+set(WAVEFRONT_LIB_DIR ${WAVEFRONT_PATH}/lib)
+
+include_directories(
+        ${PROJECT_SOURCE_DIR}/external/cereal/include
+        ${GLEW_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/external/glm
+        ${SDL2_INCLUDE_DIR}
+        ${WAVEFRONT_INCLUDE_DIR}
+)
+
+link_directories(FinalYearProject
+        ${GLEW_LIB_DIR}
+        ${SDL2_LIB_DIR}
+        ${WAVEFRONT_LIB_DIR}
+)
+
+add_library(wavefront
+        ${WAVEFRONT_INCLUDE_DIR}/wavefront.h
+        ${WAVEFRONT_LIB_DIR}/wavefront.lib
+        ${WAVEFRONT_LIB_DIR}/wavefront_noassert.lib
+)
+
+set_target_properties(wavefront PROPERTIES LINKER_LANGUAGE CXX)
+
+target_link_libraries(FinalYearProject
+        glut
+        glfw
+        GLEW
+        GL
+        GLU
+        SDL2main
+        SDL2
+        wavefront
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

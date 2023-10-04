@@ -4,7 +4,7 @@
 #define FINALYEARPROJECT_STDAFX_H
 
 /* SDL & OPENGL */
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "GL/glew.h"
 
 /* GLM */
@@ -14,7 +14,7 @@
 #include "glm/gtx/projection.hpp"
 
 /* EXTERNAL */
-#include "wavefront/wavefront.h"
+#include "wavefront.h"
 #include "cereal/archives/xml.hpp"
 
 /* STL */
