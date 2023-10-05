@@ -88,27 +88,23 @@ namespace LouiEriksson {
 		SetDirty();
 	}
 	
-	#pragma warning(disable : 4172)
-	
 	/// <summary>
 	/// Returns the window's x,y dimensions as a c-style array.
 	/// <remarks>The size of the returned array is 2.</remarks>
 	/// </summary>
-	int* Window::Dimensions() {
+	glm::ivec2 Window::Dimensions() {
+		
+		glm::ivec2 result { -1, -1 };
 	
-		int result[2] { -1, -1 };
-	
-		SDL_GetWindowSize(m_Window, &result[0], &result[1]);
+		SDL_GetWindowSize(m_Window, &result.x, &result.y);
 	
 		return result;
 	}
 	
-	#pragma warning(default : 4172)
-	
 	float Window::Aspect() {
 		auto dimensions = Dimensions();
 	
-		return (float)dimensions[0] / (float)dimensions[1];
+		return (float)dimensions.x / (float)dimensions.y;
 	}
 	
 	void Window::Link(Camera& _camera) {
@@ -130,6 +126,6 @@ namespace LouiEriksson {
 		}
 		
 		auto dimensions = Dimensions();
-		glViewport(0, 0, dimensions[0], dimensions[1]);
+		glViewport(0, 0, dimensions.x, dimensions.y);
 	}
 }

@@ -13,6 +13,7 @@
       <file path="$PROJECT_DIR$/lib" />
     </libraryRoots>
     <excludeRoots>
+      <file path="$PROJECT_DIR$/cmake_build_debug" />
       <file path="$PROJECT_DIR$/external" />
     </excludeRoots>
   </component>

@@ -46,7 +46,7 @@ namespace LouiEriksson {
 		void Update();
 	
 		void Dimensions(int _width, int _height);
-		int* Dimensions();
+		glm::ivec2 Dimensions();
 	
 		float Aspect();
 	

@@ -132,4 +132,12 @@ target_link_libraries(FinalYearProject
         SDL2
 )
 
+set( LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels)
+set( MODELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/models)
+set(SHADERS_PATH ${PROJECT_SOURCE_DIR}/src/engine/shaders)
+
+file(COPY  ${LEVELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY  ${MODELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY ${SHADERS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
