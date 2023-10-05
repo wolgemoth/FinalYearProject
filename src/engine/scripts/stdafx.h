@@ -14,7 +14,6 @@
 #include "glm/gtx/projection.hpp"
 
 /* EXTERNAL */
-#include "wavefront.h"
 #include "cereal/archives/xml.hpp"
 
 /* STL */

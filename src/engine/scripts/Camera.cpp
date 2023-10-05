@@ -69,16 +69,12 @@ namespace LouiEriksson {
 	void Camera::SetWindow(const std::weak_ptr<Window>& _window) {
 		_window.lock()->Link(*this);
 	}
-	std::weak_ptr<Window> Camera::GetWindow() {
-		return m_Window;
-	}
+	std::weak_ptr<Window> Camera::GetWindow() { return m_Window; }
 	
 	void Camera::SetTransform(const std::weak_ptr<Transform>& _transform) {
 		m_Transform = _transform.lock();
 	}
-	std::weak_ptr<Transform> Camera::GetTransform() {
-		return m_Transform;
-	}
+	std::weak_ptr<Transform> Camera::GetTransform() { return m_Transform; }
 	
 	float Camera::Aspect() {
 		return m_Window->Aspect();
@@ -89,27 +85,21 @@ namespace LouiEriksson {
 	
 		m_FOV = _fov;
 	}
-	float Camera::FOV() const {
-		return m_FOV;
-	}
+	float Camera::FOV() const { return m_FOV; }
 	
 	void Camera::NearClip(float _nearClip) {
 		SetDirty();
 	
 		m_NearClip = _nearClip;
 	}
-	float Camera::NearClip() const {
-		return m_NearClip;
-	}
+	float Camera::NearClip() const { return m_NearClip; }
 	
 	void Camera::FarClip(float _farClip) {
 		SetDirty();
 	
 		m_FarClip = _farClip;
 	}
-	float Camera::FarClip() const {
-		return m_FarClip;
-	}
+	float Camera::FarClip() const { return m_FarClip; }
 	
 	void Camera::ClearColor(glm::vec4 _color) {
 	
