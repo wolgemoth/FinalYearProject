@@ -16,6 +16,9 @@ namespace LouiEriksson {
 	
 	protected:
 	
+		/// <summary> Mesh of the Ball. </summary>
+		std::shared_ptr<Mesh> m_Mesh;
+		
 		/// <summary> Material of the Ball. </summary>
 		std::shared_ptr<Material> m_Material;
 	
@@ -27,8 +30,8 @@ namespace LouiEriksson {
 	
 	public:
 	
-		explicit Ball(std::weak_ptr<GameObject> _parent);
-		~Ball() override;
+		explicit Ball(const std::shared_ptr<GameObject>& _parent);
+		~Ball();
 	
 	};
 }

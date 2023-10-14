@@ -3,38 +3,48 @@
 #ifndef FINALYEARPROJECT_MODEL_H
 #define FINALYEARPROJECT_MODEL_H
 
+#include "../../external/wavefront/include/wavefront/wavefront.h"
+
 namespace LouiEriksson {
 	
 	class Mesh {
 	
-		friend class Wavefront;
-		
 	private:
 		
+		WfModel m_Mesh;
+	
 		Mesh();
 		
-		GLuint m_PositionVBO_ID;
-		GLuint m_TexCoordVBO_ID;
-		GLuint   m_NormalVBO_ID;
-		GLuint         m_VAO_ID;
-		GLuint     m_Texture_ID;
-		
-		unsigned long m_VertexCount;
-		
 	public:
+		
+		struct Quad {
+
+			// Every screen and texture coordinate for every vertex in the mesh.
+			static constexpr glm::vec4 s_VertexData[] {
+				glm::vec4(-1.0f, -1.0f, 0.0f, 0.0f),
+				glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
+				glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
+				glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
+				glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
+				glm::vec4( 1.0f,  1.0f, 1.0f, 1.0f),
+			};
+	
+			// Number of vertices in the mesh.
+			static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
+		};
 		
 		~Mesh();
 		
 		/// <summary> Load a mesh from a path. </summary>
-		[[maybe_unused]] static std::shared_ptr<Mesh> Load(const std::string& _path);
+		static std::shared_ptr<Mesh> Load(const std::string& _path);
 		
-		[[maybe_unused]] [[nodiscard]] GLuint PositionVBO_ID() const;
-		[[maybe_unused]] [[nodiscard]] GLuint TexCoordVBO_ID() const;
-		[[maybe_unused]] [[nodiscard]] GLuint   NormalVBO_ID() const;
-		[[maybe_unused]] [[nodiscard]] GLuint         VAO_ID() const;
-		[[maybe_unused]] [[nodiscard]] GLuint     Texture_ID() const;
+		[[nodiscard]] GLuint PositionVBO_ID() const;
+		[[nodiscard]] GLuint TexCoordVBO_ID() const;
+		[[nodiscard]] GLuint   NormalVBO_ID() const;
+		[[nodiscard]] GLuint         VAO_ID() const;
+		[[nodiscard]] GLuint     Texture_ID() const;
 		
-		[[maybe_unused]] [[nodiscard]] unsigned long VertexCount() const;
+		[[nodiscard]] unsigned long VertexCount() const;
 	};
 }
 

@@ -4,8 +4,8 @@
 
 namespace LouiEriksson {
 	
-	Component::Component(std::weak_ptr<GameObject> _parent) {
-		m_GameObject = std::move(_parent);
+	Component::Component(const std::shared_ptr<GameObject>& _parent) {
+		m_GameObject = _parent;
 		m_Index = 0;
 	}
 	
@@ -13,7 +13,7 @@ namespace LouiEriksson {
 		m_GameObject.lock()->RemoveComponent<Component>(m_Index);
 	}
 	
-	std::weak_ptr<GameObject> Component::GetGameObject() {
-		return m_GameObject;
+	std::shared_ptr<GameObject> Component::Parent() const {
+		return m_GameObject.lock();
 	}
 }

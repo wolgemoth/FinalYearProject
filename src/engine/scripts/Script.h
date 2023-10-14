@@ -4,6 +4,7 @@
 #define FINALYEARPROJECT_SCRIPT_H
 
 #include "Time.h"
+
 #include "Component.h"
 
 namespace LouiEriksson {
@@ -19,7 +20,7 @@ namespace LouiEriksson {
 	
 	protected:
 	
-		explicit Script(std::weak_ptr<GameObject> _parent);
+		explicit Script(const std::shared_ptr<GameObject>& _parent);
 	
 		~Script() override = default;
 	
@@ -28,7 +29,7 @@ namespace LouiEriksson {
 	
 		/// <summary> Called every frame. </summary>
 		virtual void Tick();
-	
+		
 	};
 }
 

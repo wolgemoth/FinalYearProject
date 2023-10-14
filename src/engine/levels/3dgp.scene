@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cereal>
 	<Entities>
-		<GameObjects>
-			<Player>
-				<Transform>
-					<Position>0 0 0</Position>
-					<Rotation>0 0 0 1</Rotation>
-					<Scale>1 1 1</Scale>
-				</Transform>
-				<Script>
-					<Type>class std::shared_ptr&lt;class Player&gt;</Type>
-				</Script>
-			</Player>
-		</GameObjects>
+		<Player>
+			<Transform>
+				<Position>0 0 0</Position>
+				<Rotation>0 0 0 1</Rotation>
+				<Scale>1 1 1</Scale>
+			</Transform>
+			<Script>
+				<Type>class std::shared_ptr&lt;class Player&gt;</Type>
+			</Script>
+		</Player>
 	</Entities>
 </cereal>
 

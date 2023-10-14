@@ -11,7 +11,6 @@ namespace LouiEriksson {
 	
 	class Application;
 	class GameObject;
-	class Script;
 	
 	class Scene : public std::enable_shared_from_this<Scene> {
 	
@@ -66,14 +65,14 @@ namespace LouiEriksson {
 	
 		/// <summary> Detach an instance of a type from the Scene. </summary>
 		template<typename T>
-		void Detach(std::weak_ptr<T> _entity) {
+		void Detach(std::shared_ptr<T> _entity) {
 			
 			std::vector<std::any> category;
 			if (m_Entities.Get(typeid(T), category)) {
 	
 				T* ptr1 = _entity.get();
 	
-				for (auto itr = category.begin(); itr < category.end(); itr++) {
+				for (auto itr = category.begin(); itr < category.end(); ++itr) {
 	
 					T* ptr2 = std::any_cast<std::shared_ptr<T>>(*itr).get();
 	

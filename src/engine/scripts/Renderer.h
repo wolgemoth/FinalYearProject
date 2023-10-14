@@ -27,26 +27,26 @@ namespace LouiEriksson {
 		GLint m_ProjectionMatrixID;
 		GLint      m_ModelMatrixID;
 	
-		explicit Renderer(std::weak_ptr<GameObject> _parent);
+		explicit Renderer(const std::shared_ptr<GameObject>& _parent);
 		~Renderer() override;
 	
 		/// <summary> Set the Mesh of the Renderer. </summary>
-		void SetMesh(const std::weak_ptr<Mesh>& _mesh);
+		void SetMesh(const std::shared_ptr<Mesh>& _mesh);
 	
 		/// <summary> Get the Mesh of the Renderer. </summary>
-		std::weak_ptr<Mesh> GetMesh();
+		std::shared_ptr<Mesh> GetMesh();
 	
 		/// <summary> Set the Material of the Renderer. </summary>
-		void SetMaterial(const std::weak_ptr<Material>& _material);
+		void SetMaterial(const std::shared_ptr<Material>& _material);
 	
 		/// <summary> Get the Material of the Renderer. </summary>
-		std::weak_ptr<Material> GetMaterial();
+		std::shared_ptr<Material> GetMaterial();
 	
 		/// <summary> Set the Transform of the Renderer. </summary>
-		void SetTransform(const std::weak_ptr<Transform>& _transform);
+		void SetTransform(const std::shared_ptr<Transform>& _transform);
 	
 		/// <summary> Get the Transform of the Renderer. </summary>
-		std::weak_ptr<Transform> GetTransform();
+		std::shared_ptr<Transform> GetTransform();
 	};
 }
 

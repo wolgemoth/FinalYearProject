@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 	
-	Script::Script(std::weak_ptr<GameObject> _parent) : Component(std::move(_parent)) {}
+	Script::Script(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {}
 	
 	void Script::Begin() {}
 	void Script::Tick() {}

@@ -21,18 +21,24 @@ namespace LouiEriksson {
 		~Material();
 	
 	public:
-	
+		
+		GLuint m_ProjectionMatrixID;
+		GLuint      m_ModelMatrixID;
+		GLuint       m_ViewMatrixID;
+		
 		/// <summary> Factory function which creates a new Material from a Shader. </summary>
 		[[nodiscard]] static std::shared_ptr<Material> Create(const std::shared_ptr<Shader>& _shader);
-	
+		
 		/// <summary> Get the currently assigned Shader. </summary>
 		std::shared_ptr<Shader> GetShader();
 		
 		/// <summary> Set the current Texture. </summary>
-		void Texture_ID(GLuint _texture);
-	
+		void Texture_ID(GLuint _textureID);
+		
 		/// <summary> Get the current Texture. </summary>
-		[[nodiscard]] GLuint Texture_ID() const;
+		[[nodiscard]] const GLuint& Texture_ID() const;
+		
+		explicit operator GLuint() const { return this->Texture_ID(); }
 	
 	};
 }

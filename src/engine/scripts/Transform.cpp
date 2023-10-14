@@ -4,10 +4,16 @@
 
 namespace LouiEriksson {
 	
-	Transform::Transform(std::weak_ptr<GameObject> _parent) : Component(std::move(_parent)) {
-		m_Position = glm::vec3(0.0f);
-		m_Rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		m_Scale    = glm::vec3(1.0f);
+	Transform::Transform(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
+		
+		m_Position = VEC_ZERO;
+		m_Rotation = QUAT_IDENTITY;
+		m_Scale    = VEC_ONE;
+	}
+
+	/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
+	glm::vec3 Transform::ToWorld(const glm::vec3& _vector) const {
+		return _vector * m_Rotation;
 	}
 	
 	glm::mat4 Transform::TRS() const {

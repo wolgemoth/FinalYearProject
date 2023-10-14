@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 	
-	Light::Light(std::weak_ptr<GameObject> _parent) : Component(std::move(_parent)) {
+	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 	
 	}
 	

@@ -9,7 +9,7 @@ namespace LouiEriksson {
 	
 	public:
 		
-		explicit PlaneCollider(std::weak_ptr<GameObject> _parent);
+		explicit PlaneCollider(const std::shared_ptr<GameObject>& _parent);
 		
 		~PlaneCollider() override;
 		

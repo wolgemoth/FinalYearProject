@@ -7,7 +7,11 @@ namespace LouiEriksson {
 	Material::Material(const std::shared_ptr<Shader>& _shader) {
 	
 		m_Texture_ID = -1;
-	
+		
+		m_ProjectionMatrixID = _shader->AttributeID("u_Projection");
+		     m_ModelMatrixID = _shader->AttributeID("u_Model");
+		      m_ViewMatrixID = _shader->AttributeID("u_View");
+		
 		m_Shader = _shader;
 	}
 	
@@ -19,7 +23,6 @@ namespace LouiEriksson {
 		return { new Material(_shader), [](Material* _ptr) { delete _ptr; } };
 	}
 	
-	
 	std::shared_ptr<Shader> Material::GetShader() {
 		return m_Shader;
 	}
@@ -28,7 +31,7 @@ namespace LouiEriksson {
 		m_Texture_ID = _textureID;
 	}
 	
-	GLuint Material::Texture_ID() const {
+	const GLuint& Material::Texture_ID() const {
 		return m_Texture_ID;
 	}
 }

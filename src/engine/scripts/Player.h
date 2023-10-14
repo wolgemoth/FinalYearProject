@@ -12,25 +12,50 @@ namespace LouiEriksson {
 		friend class Scene;
 	
 	private:
-	
-		/// <summary> Test model m_Curuthers. </summary>
-		std::weak_ptr<GameObject> m_Curuthers;
-	
+		
+		/// <summary> Test model curuthers. </summary>
+		std::weak_ptr<GameObject> m_Player;
+		
 		/// <summary> Player Camera. </summary>
-		std::weak_ptr<Camera> m_Camera;
+		std::weak_ptr<GameObject> m_Camera;
+		
+		/// <summary> Floor planes. </summary>
+		std::vector<std::weak_ptr<GameObject>> m_Planes;
+		std::vector<std::weak_ptr<GameObject>> m_Obstacles;
+		
+		int m_NumObstacles;
+		
+		float m_MinPlaneX;
+		float m_MaxPlaneX;
+		float m_PlayerSpeed;
+		float m_CameraSpeed;
+		float m_GameSpeed;
+		
+		float m_PlayerMoveFreedom;
+		
+		glm::vec3 m_TargetOffset;
+		glm::vec3 m_CameraOffset;
 	
 	protected:
-	
+		
 		/// <summary> Called at the beginning of the first frame. </summary>
 		void Begin() override;
-	
+		
 		/// <summary> Called every frame. </summary>
 		void Tick() override;
+		
+		void SpawnPlanes();
+		
+		void SpawnCamera();
+		
+		void SpawnPlayer();
+		
+		void SpawnBalls();
 	
 	public:
 	
-		 explicit Player(std::weak_ptr<GameObject> _parent);
-		~Player() override;
+		 explicit Player(const std::shared_ptr<GameObject>& _parent);
+		~Player();
 	
 	};
 }

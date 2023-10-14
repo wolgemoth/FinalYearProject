@@ -4,24 +4,32 @@
 
 namespace LouiEriksson {
 	
-	Window::Window(int _width, int _height, const char* _name) {
+	Window::Window(const int& _width, const int& _height, const char* _name) {
 	
-		m_Window = SDL_CreateWindow(_name,
-			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			_width, _height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+		m_Window = std::shared_ptr<SDL_Window>(
+			SDL_CreateWindow(_name,
+				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+				_width, _height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL
+			),
+			[](SDL_Window* _ptr) { SDL_DestroyWindow(_ptr); } // Custom deleter calls SDL_DestroyWindow();
+		);
 	
-		m_ID = SDL_GetWindowID(m_Window);
+		m_ID = SDL_GetWindowID(m_Window.get());
 	
-		if (SDL_GL_CreateContext(m_Window) == NULL) {
-			throw std::runtime_error("ERROR (Window.cpp [Window(int, int, const char*)]): Failed to create OpenGL context.");
+		if (SDL_GL_CreateContext(m_Window.get()) == NULL) { // NOLINT(*-use-nullptr)
+	
+			std::stringstream err;
+			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
+				SDL_GetError();
+	
+			std::cout << err.str() << "\n";
+	
+			throw std::runtime_error(err.str());
 		}
 	}
 	
-	Window::~Window() {
-		SDL_DestroyWindow(m_Window);
-	}
+	std::shared_ptr<Window> Window::Create(const int& _width, const int& _height, const char* _name) {
 	
-	std::shared_ptr<Window> Window::Create(int _width, int _height, const char* _name) {
 		std::shared_ptr<Window> result(new Window(_width, _height, _name), [](Window* _ptr) { delete _ptr; });
 	
 		m_Windows.Add(result->ID(), result);
@@ -29,7 +37,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	std::shared_ptr<Window> Window::Get(uint _id) {
+	std::shared_ptr<Window> Window::Get(const int& _id) {
 	
 		std::shared_ptr<Window> result(nullptr);
 	
@@ -45,7 +53,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	void Window::Destroy(int _id) {
+	void Window::Destroy(const int& _id) {
 	
 		std::shared_ptr<Window> window(Get(_id));
 	
@@ -74,58 +82,62 @@ namespace LouiEriksson {
 		}
 	}
 	
-	uint Window::ID() const {
+	const int& Window::ID() const {
 		return m_ID;
 	}
 	
-	void Window::Update() {
-		SDL_GL_SwapWindow(m_Window);
+	void Window::Update() const {
+		SDL_GL_SwapWindow(m_Window.get());
 	}
 	
-	void Window::Dimensions(int _width, int _height) {
-		SDL_SetWindowSize(m_Window, _width, _height);
+	void Window::Dimensions(const int& _width, const int& _height) {
+		SDL_SetWindowSize(m_Window.get(), _width, _height);
 	
 		SetDirty();
 	}
+	
+	#pragma warning(disable : 4172)
 	
 	/// <summary>
 	/// Returns the window's x,y dimensions as a c-style array.
 	/// <remarks>The size of the returned array is 2.</remarks>
 	/// </summary>
-	glm::ivec2 Window::Dimensions() {
-		
-		glm::ivec2 result { -1, -1 };
+	glm::ivec2 Window::Dimensions() const {
 	
-		SDL_GetWindowSize(m_Window, &result.x, &result.y);
+		glm::ivec2 result(-1, -1);
+	
+		SDL_GetWindowSize(m_Window.get(), &result[0], &result[1]);
 	
 		return result;
 	}
 	
-	float Window::Aspect() {
-		auto dimensions = Dimensions();
+	#pragma warning(default : 4172)
 	
-		return (float)dimensions.x / (float)dimensions.y;
+	float Window::Aspect() const {
+		const auto dimensions = Dimensions();
+	
+		return static_cast<float>(dimensions[0]) / static_cast<float>(dimensions[1]);
 	}
 	
 	void Window::Link(Camera& _camera) {
 		_camera.m_Window = Window::Get(ID());
-		m_Cameras.Add((size_t)&_camera, std::reference_wrapper<Camera>(_camera));
+		m_Cameras.Add((int)(size_t)&_camera, std::reference_wrapper(_camera));
 	}
 	
 	void Window::Unlink(Camera& _camera) {
 		_camera.m_Window = std::shared_ptr<Window>(nullptr);
-		m_Cameras.Remove((size_t)&_camera);
+		m_Cameras.Remove((int)(size_t)&_camera);
 	}
 	
 	void Window::SetDirty() {
 		
-		auto cameras = m_Cameras.Values();
+		const auto cameras = m_Cameras.Values();
 	
 		for (auto camera : cameras) {
 			camera.get().SetDirty();
 		}
-		
-		auto dimensions = Dimensions();
-		glViewport(0, 0, dimensions.x, dimensions.y);
+	
+		const auto dimensions = Dimensions();
+		glViewport(0, 0, dimensions[0], dimensions[1]);
 	}
 }

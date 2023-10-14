@@ -4,7 +4,9 @@
 
 namespace LouiEriksson {
 	
-	Ball::Ball(std::weak_ptr<GameObject> _parent) : Script(std::move(_parent)) {
+	Ball::Ball(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
+		
+		m_Mesh     = std::shared_ptr<Mesh>    (nullptr);
 		m_Material = std::shared_ptr<Material>(nullptr);
 	}
 	
@@ -12,47 +14,43 @@ namespace LouiEriksson {
 	
 	void Ball::Begin() {
 	
-		auto parent = GetGameObject().lock();
+		auto scene = Parent()->GetScene();
 	
-		auto scene = parent->GetScene().lock();
-	
-		auto mesh = Mesh::Load("models/sphere/sphere.obj");
-	
-		// Compile shader.
-		auto diffuse = scene->Attach(Shader::Create({
-			{ "shaders/diffuse/diffuse.vert", GL_VERTEX_SHADER   },
-			{ "shaders/diffuse/diffuse.frag", GL_FRAGMENT_SHADER }
-		}));
-		diffuse->BindAttribute(0, "a_Position");
-		diffuse->BindAttribute(1, "a_TexCoord");
-	
-		// Create material from shader.
-		m_Material = Material::Create(diffuse);
-		m_Material->Texture_ID(mesh->Texture_ID());
+		// Load mesh.
+		if (m_Mesh == nullptr) {
+			m_Mesh = Mesh::Load("models/sphere/sphere.obj");
+		}
+		
+		if (m_Material == nullptr) {
+			
+			// Create material from shader.
+			m_Material = Material::Create(Shader::m_Cache.Return("surface"));
+			m_Material->Texture_ID(m_Mesh->Texture_ID());
+		}
 	
 		// Get or add component.
-		auto transform = parent->GetComponent<Transform>().lock();
+		auto transform = Parent()->GetComponent<Transform>();
 		if (transform == nullptr) {
-			transform = parent->AddComponent<Transform>().lock();
+			transform = Parent()->AddComponent<Transform>();
 		}
 	
 		// Get radius.
 		float r = glm::length(transform->m_Scale) / 2.0f;
 	
 		// Get or add renderer.
-		auto renderer = scene->Attach(parent->AddComponent<Renderer>().lock());
+		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());
 		if (renderer == nullptr) {
-			renderer = parent->AddComponent<Renderer>().lock();
+			renderer = Parent()->AddComponent<Renderer>();
 		}
 	
-		renderer->SetMesh(mesh);
+		renderer->SetMesh(m_Mesh);
 		renderer->SetMaterial(m_Material);
 		renderer->SetTransform(transform);
 	
 		// Get or add collider.
-		auto collider = scene->Attach<Collider>(parent->AddComponent<Collider>().lock());
+		auto collider = scene->Attach<Collider>(Parent()->AddComponent<Collider>());
 		if (collider == nullptr) {
-			collider = parent->AddComponent<Collider>().lock();
+			collider = Parent()->AddComponent<Collider>();
 		}
 	
 		collider->SetTransform(transform);
@@ -60,9 +58,9 @@ namespace LouiEriksson {
 		collider->Radius(r);
 	
 		// Get or add rigidbody.
-		auto rigidbody = scene->Attach(parent->AddComponent<Rigidbody>().lock());
+		auto rigidbody = scene->Attach(Parent()->AddComponent<Rigidbody>());
 		if (rigidbody == nullptr) {
-			rigidbody = parent->AddComponent<Rigidbody>().lock();
+			rigidbody = Parent()->AddComponent<Rigidbody>();
 		}
 		
 		rigidbody->SetTransform(transform);

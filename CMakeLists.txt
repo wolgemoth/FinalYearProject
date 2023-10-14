@@ -42,6 +42,9 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Hashmap.h
 
+        src/engine/scripts/Input.cpp
+        src/engine/scripts/Input.h
+
         src/engine/scripts/Light.cpp
         src/engine/scripts/Light.h
 
@@ -95,16 +98,13 @@ add_executable(FinalYearProject
         src/engine/scripts/Transform.cpp
         src/engine/scripts/Transform.h
 
-        src/engine/scripts/Wavefront.h
-
         src/engine/scripts/Window.cpp
         src/engine/scripts/Window.h
-
 )
 
 set(SDL2_PATH ${PROJECT_SOURCE_DIR}/external/SDL2)
 set(SDL2_INCLUDE_DIR ${SDL2_PATH}/include)
-set(SDL2_LIB_DIR ${SDL2_PATH}/lib/x86/SDL2.lib)
+set(SDL2_LIB_DIR ${SDL2_PATH}/lib/x86/)
 
 set(GLEW_PATH ${PROJECT_SOURCE_DIR}/external/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_PATH}/include)
@@ -115,7 +115,11 @@ include_directories(
         ${GLEW_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/glm
         ${SDL2_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/external/wavefront/include/
 )
+
+# Add the external .c file as a library target
+add_library(WAVEFRONT ${PROJECT_SOURCE_DIR}/external/wavefront/src/wavefront/Model.c)
 
 link_directories(FinalYearProject
         ${GLEW_LIB_DIR}
@@ -123,13 +127,12 @@ link_directories(FinalYearProject
 )
 
 target_link_libraries(FinalYearProject
-        glut
-        glfw
         GLEW
         GL
         GLU
         SDL2main
         SDL2
+        WAVEFRONT
 )
 
 set( LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels)

@@ -8,10 +8,10 @@
 namespace LouiEriksson {
 	
 	class GameObject;
-	
+
 	/// <summary> Represents a Component which can be attached to a GameObject. </summary>
 	class Component {
-	
+		
 		friend class GameObject;
 	
 	private:
@@ -28,13 +28,13 @@ namespace LouiEriksson {
 		
 	protected:
 	
-		explicit Component(std::weak_ptr<GameObject> _parent);
+		explicit Component(const std::shared_ptr<GameObject>& _parent);
 		virtual ~Component();
 	
 	public:
 	
 		/// <summary> Get the Component's parent GameObject. </summary>
-		virtual std::weak_ptr<GameObject> GetGameObject();
+		[[nodiscard]] virtual std::shared_ptr<GameObject> Parent() const;
 	};
 }
 

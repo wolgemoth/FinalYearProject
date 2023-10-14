@@ -46,7 +46,7 @@ namespace LouiEriksson {
 	
 	public:
 	
-		explicit Rigidbody(std::weak_ptr<GameObject> _parent);
+		explicit Rigidbody(const std::shared_ptr<GameObject>& _parent);
 		~Rigidbody() override = default;
 	
 		/// <summary> Set the Transform of the Rigidbody. </summary>

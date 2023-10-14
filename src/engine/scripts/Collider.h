@@ -24,7 +24,7 @@ namespace LouiEriksson {
 			Plane
 		};
 	
-		explicit Collider(std::weak_ptr<GameObject> _parent);
+		explicit Collider(const std::shared_ptr<GameObject>& _parent);
 		~Collider() override = default;
 	
 		/// <summary>

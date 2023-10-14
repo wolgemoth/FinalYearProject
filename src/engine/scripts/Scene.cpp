@@ -9,25 +9,27 @@ namespace LouiEriksson {
 	}
 	
 	void Scene::Draw() {
-	
+		
+		std::vector<std::shared_ptr<Renderer>> casted_renderers;
+		
+		std::vector<std::any> renderers;
+		if (m_Entities.Get(typeid(Renderer), renderers)) {
+			for (auto& r: renderers) {
+				casted_renderers.push_back(std::any_cast<std::shared_ptr<Renderer>>(r));
+			}
+		}
+		
 		std::vector<std::any> cameras;
 		if (m_Entities.Get(typeid(Camera), cameras)) {
-	
-			std::vector<std::any> renderers;
-			if (m_Entities.Get(typeid(Renderer), renderers)) {
-	
-				for (std::any c : cameras) {
-	
-					auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
-					camera->Clear();
-	
-					for (std::any r : renderers) {
-	
-						auto renderer = std::any_cast<std::shared_ptr<Renderer>>(r);
-	
-						camera->Draw(renderer);
-					}
-				}
+			
+			/* RENDER */
+			for (auto& c: cameras) {
+				
+				const auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
+				camera->PreRender();
+				camera->Clear();
+				camera->Render(casted_renderers);
+				camera->PostRender();
 			}
 		}
 	}
@@ -303,7 +305,7 @@ namespace LouiEriksson {
 	
 				if (componentName == "Transform") {			// Deserialise Transform.
 	
-					auto transform = gameObject->AddComponent<Transform>().lock();
+					auto transform = gameObject->AddComponent<Transform>();
 	
 					xml.startNode();
 	
@@ -315,7 +317,7 @@ namespace LouiEriksson {
 				}
 				else if (componentName == "Rigidbody") {	// Deserialise Rigidbody.
 	
-					auto rigidbody = gameObject->AddComponent<Rigidbody>().lock();
+					auto rigidbody = gameObject->AddComponent<Rigidbody>();
 	
 					xml.startNode();
 	
@@ -329,14 +331,14 @@ namespace LouiEriksson {
 				}
 				else if (componentName == "Camera") {		// Deserialise Camera.
 				
-					auto camera = gameObject->AddComponent<Camera>().lock();
+					auto camera = gameObject->AddComponent<Camera>();
 	
 					xml.startNode();
 					xml.finishNode();
 				}
 				else if (componentName == "Collider") {		// Deserialise Collider.
 	
-					auto collider = gameObject->AddComponent<Collider>().lock();
+					auto collider = gameObject->AddComponent<Collider>();
 	
 					xml.startNode();
 	
@@ -349,14 +351,14 @@ namespace LouiEriksson {
 				}
 				else if (componentName == "Light") {		// Deserialise Light
 					
-					auto light = gameObject->AddComponent<Light>().lock();
+					auto light = gameObject->AddComponent<Light>();
 	
 					xml.startNode();
 					xml.finishNode();
 				}
 				else if (componentName == "Renderer") {		// Deserialise Renderer.
 	
-					auto renderer = gameObject->AddComponent<Renderer>().lock();
+					auto renderer = gameObject->AddComponent<Renderer>();
 	
 					xml.startNode();
 					xml.finishNode();
@@ -373,16 +375,16 @@ namespace LouiEriksson {
 					std::cout << "\t\t\t\"" << type << "\"\n";
 	
 					if (type == "class std::shared_ptr<class Player>") {		// Player
-						script = gameObject->AddComponent<Player>().lock();
+						script = gameObject->AddComponent<Player>();
 					}
 					else if (type == "class std::shared_ptr<class Ball>") {		// Ball
-						script = gameObject->AddComponent<Ball>().lock();
+						script = gameObject->AddComponent<Ball>();
 					}
 					else if (type == "class std::shared_ptr<class Plane>") {	// Plane
-						script = gameObject->AddComponent<Plane>().lock();
+						script = gameObject->AddComponent<Plane>();
 					}
 					else if (type == "class std::shared_ptr<class OrbitCam>") {	// OrbitCam
-						script = gameObject->AddComponent<OrbitCam>().lock();
+						script = gameObject->AddComponent<OrbitCam>();
 					}
 					else {
 						Serialisation::NotImplementedException(type);

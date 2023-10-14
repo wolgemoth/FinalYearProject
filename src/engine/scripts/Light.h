@@ -17,7 +17,7 @@ namespace LouiEriksson {
 	
 	public:
 		
-		explicit Light(std::weak_ptr<GameObject> _parent);
+		explicit Light(const std::shared_ptr<GameObject>& _parent);
 		~Light() override = default;
 	
 		/// <summary> Type of the Light. </summary>

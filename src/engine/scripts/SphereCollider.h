@@ -13,11 +13,11 @@ namespace LouiEriksson {
 		
 	public:
 		
-		explicit SphereCollider(std::weak_ptr<GameObject> _parent);
+		explicit SphereCollider(const std::shared_ptr<GameObject>& _parent);
 		~SphereCollider() override;
 		
 		void  Radius(const float& _radius) override;
-		float Radius()                     override;
+		[[nodiscard]] float Radius() const;
 		
 	};
 }

@@ -4,13 +4,13 @@
 
 namespace LouiEriksson {
 	
-	std::shared_ptr<GameObject> GameObject::Create(std::weak_ptr<Scene> _scene, std::string _name) {
-	
-		// NOTE: GameObject has a private destructor as the scene manages it. Lambda used for smart pointer.
+	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene>& _scene, const std::string& _name) {
+		
+		// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
 		std::shared_ptr<GameObject> result(new GameObject(), [](GameObject* _ptr) { delete _ptr; });
-		result->m_Scene = std::move(_scene);
-		result->m_Name = std::move(_name);
-	
+		result->m_Scene = _scene;
+		result->m_Name = _name;
+		
 		return result;
 	}
 	
@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		return m_Name;
 	}
 	
-	std::weak_ptr<Scene> GameObject::GetScene() {
-		return m_Scene;
+	std::shared_ptr<Scene> GameObject::GetScene() {
+		return m_Scene.lock();
 	}
 }

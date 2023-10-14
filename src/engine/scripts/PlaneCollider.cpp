@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 	
-	PlaneCollider::PlaneCollider(std::weak_ptr<GameObject> _parent) : Collider(std::move(_parent)) {}
+	PlaneCollider::PlaneCollider(const std::shared_ptr<GameObject>& _parent) : Collider(_parent) {}
 	PlaneCollider::~PlaneCollider() = default;
 	
 	float PlaneCollider::DistanceToPlane(glm::vec3 _point, glm::vec3 _pointOnPlane) {

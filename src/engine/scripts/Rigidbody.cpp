@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 	
-	Rigidbody::Rigidbody(std::weak_ptr<GameObject> _parent) : Component(std::move(_parent)) {
+	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 	
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Collider  = std::shared_ptr<Collider>(nullptr);

@@ -8,26 +8,41 @@ namespace LouiEriksson {
 	class RenderTexture {
 	
 	private:
-	
-		GLuint m_FBO_ID;
-		GLuint m_RBO_ID;
-		GLuint m_TextureID;
 		
+		int m_Width,
+			m_Height;
+		
+		GLuint m_FBO_ID,
+			   m_RBO_ID,
+			   m_TextureID;
+		
+		void Create(const int& _width, const int& _height);
+	
 	public:
 		
-		RenderTexture(const RenderTexture& _other) = delete;
+		RenderTexture(const int& _width, const int& _height);
+		
+		~RenderTexture();
+		
+		RenderTexture(            const RenderTexture& _other) = delete;
 		RenderTexture& operator = (const RenderTexture& _other) = delete;
 		
-		RenderTexture(int _width, int _height);
-	
-		~RenderTexture();
-	
-		void Bind() const;
-	
-		static void Unbind();
+		[[nodiscard]] const int& Width()  const;
+		[[nodiscard]] const int& Height() const;
 		
-		[[nodiscard]] GLuint TextureID() const;
+		void Resize(const int& _width, const int& _height);
+		
+		void Bind() const;
+		
+		static void Unbind() ;
+		
+		void Discard() const;
+		
+		[[nodiscard]] const GLuint& ID() const;
+		
+		explicit operator GLuint() const { return this->ID(); }
 	};
+	
 }
 
 #endif //FINALYEARPROJECT_RENDER_TEXTURE_H

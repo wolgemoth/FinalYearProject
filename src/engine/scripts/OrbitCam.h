@@ -41,14 +41,14 @@ namespace LouiEriksson {
 	
 	public:
 	
-		explicit OrbitCam(std::weak_ptr<GameObject> _parent);
-		~OrbitCam() override;
-	
+		explicit OrbitCam(const std::shared_ptr<GameObject>& _parent);
+		~OrbitCam();
+		
 		/// <summary> Get the Camera of the OrbitCam. </summary>
-		std::weak_ptr<Camera>    GetCamera();
-	
+		std::shared_ptr<Camera> GetCamera();
+		
 		/// <summary> Get the Transform of the OrbitCam. </summary>
-		std::weak_ptr<Transform> GetTransform();
+		std::shared_ptr<Transform> GetTransform();
 	
 		/// <summary> Set the target of the OrbitCam. </summary>
 		void Target(glm::vec3 _target);

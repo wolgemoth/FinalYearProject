@@ -3,11 +3,12 @@
 #ifndef FINALYEARPROJECT_WINDOW_H
 #define FINALYEARPROJECT_WINDOW_H
 
-#include "Hashmap.h"
 #include "Camera.h"
 
+#include "Time.h"
+
 namespace LouiEriksson {
-	
+
 	class Camera;
 	
 	class Window {
@@ -17,44 +18,43 @@ namespace LouiEriksson {
 	
 	private:
 		
-		inline static Hashmap<size_t, std::shared_ptr<Window>> m_Windows;
+		inline static Hashmap<int, std::shared_ptr<Window>> m_Windows;
 	
-		uint m_ID;
+		int m_ID;
 	
-		SDL_Window* m_Window;
+		std::shared_ptr<SDL_Window> m_Window;
 	
-		Hashmap<size_t, std::reference_wrapper<Camera>> m_Cameras;
+		Hashmap<int, std::reference_wrapper<Camera>> m_Cameras;
 	
-		 Window(int _width, int _height, const char* _name);
-	    ~Window();
-		
 		void   Link(Camera& _camera);
 		void Unlink(Camera& _camera);
 	
+		 Window(const int& _width, const int& _height, const char* _name);
+		~Window() = default;
+	
 	public:
-		
-		Window(const Window &_other) = delete;
-		
-		static std::shared_ptr<Window> Create(int _width, int _height, const char* _name);
 	
-		static std::shared_ptr<Window> Get(uint _id);
+		Window             (const Window& _other) = delete;
+		Window& operator = (const Window& _other) = delete;
 	
-		static void Destroy(int _id);
+		static std::shared_ptr<Window> Create(const int& _width, const int& _height, const char* _name);
 	
-		[[nodiscard]] uint ID() const;
+		static std::shared_ptr<Window> Get(const int& _id);
 	
-		void Update();
+		static void Destroy(const int& _id);
 	
-		void Dimensions(int _width, int _height);
-		glm::ivec2 Dimensions();
+		[[nodiscard]] const int& ID() const;
 	
-		float Aspect();
+		void Update() const;
+	
+		void Dimensions(const int& _width, const int& _height);
+		[[nodiscard]] glm::ivec2 Dimensions() const;
+	
+		[[nodiscard]] float Aspect() const;
 	
 		void SetDirty();
 	
-		Window& operator = (const Window &_other) = delete;
-		
-		explicit operator SDL_Window*() { return m_Window; }
+		explicit operator SDL_Window* () { return m_Window.get(); }
 	};
 }
 

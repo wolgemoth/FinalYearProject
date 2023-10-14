@@ -3,6 +3,9 @@
 #ifndef FINALYEARPROJECT_CAMERA_H
 #define FINALYEARPROJECT_CAMERA_H
 
+#include "stdafx.h"
+
+#include "RenderTexture.h"
 #include "Renderer.h"
 #include "Window.h"
 
@@ -21,68 +24,89 @@ namespace LouiEriksson {
 	
 		/// <summary> Transform of the Camera. </summary>
 		std::shared_ptr<Transform> m_Transform;
-	
+		
 		float m_FOV;
 		float m_NearClip;
 		float m_FarClip;
-	
-		glm::mat4 m_Projection;
-	
+		
 		bool m_IsDirty;
+		
+		unsigned int VAO0, VBO;
+		
+		RenderTexture m_RT;
+		
+		glm::mat4 m_Projection;
+		
+		void PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const;
+		
+		void Copy(const RenderTexture& _src, const RenderTexture& _dest) const;
+		
+		void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) const;
+		
+		void Bloom() const;
 		
 	public:
 	
-		 explicit Camera(std::weak_ptr<GameObject> _parent);
+		 explicit Camera(const std::shared_ptr<GameObject>& _parent);
 		~Camera() override;
 	
 		/// <summary> Render clear the m_Camera. </summary>
 		static void Clear();
-	
-		/// <summary> Draw the Renderer using the Camera. </summary>
-		void Draw(const std::weak_ptr<Renderer>& _renderer);
-	
+		
+		/// <summary> Called before rendering. </summary>
+		void PreRender();
+		
+		/// <summary> Renders each Renderer using the Camera. </summary>
+		void Render(const std::vector<std::shared_ptr<Renderer>>& _renderers);
+		
+		/// <summary> Called after rendering. </summary>
+		void PostRender();
+		
 		/// <summary> Set the Camera's Window. </summary>
-		void SetWindow(const std::weak_ptr<Window>& _window);
+		void SetWindow(std::shared_ptr<Window> _window);
 		
 		/// <summary> Get the Camera's Window. </summary>
-		std::weak_ptr<Window> GetWindow();
-	
+		[[nodiscard]] std::shared_ptr<Window> GetWindow() const;
+		
 		/// <summary> Set the Camera's Transform. </summary>
-		void SetTransform(const std::weak_ptr<Transform>& _transform);
+		void SetTransform(std::shared_ptr<Transform> _transform);
 		
 		/// <summary> Get the Camera's Transform. </summary>
-		std::weak_ptr<Transform> GetTransform();
-	
+		[[nodiscard]] std::shared_ptr<Transform> GetTransform() const;
+		
 		/// <summary> Get the Camera's Aspect. </summary>
-		float Aspect();
-	
+		[[nodiscard]] float Aspect() const;
+		
 		/// <summary> Set the Camera's field of view. </summary>
-		void FOV(float _fov);
-	
+		void FOV(const float& _fov);
+		
 		/// <summary> Get the Camera's field of view. </summary>
-		[[nodiscard]] float FOV() const;
-	
+		[[nodiscard]] const float& FOV() const;
+		
 		/// <summary> Set the Camera's near clip plane. </summary>
-		void NearClip(float _nearClip);
+		void NearClip(const float& _nearClip);
 		
 		/// <summary> Get the Camera's near clip plane. </summary>
-		[[nodiscard]] float NearClip() const;
-	
+		[[nodiscard]] const float& NearClip() const;
+		
 		/// <summary> Set the Camera's far clip plane. </summary>
-		void FarClip(float _farClip);
+		void FarClip(const float& _farClip);
 		
 		/// <summary> Get the Camera's far clip plane. </summary>
-		[[nodiscard]] float FarClip() const;
-	
+		[[nodiscard]] const float& FarClip() const;
+		
 		/// <summary> Set the Camera's clear color. </summary>
-		static void ClearColor(glm::vec4 _color);
+		void ClearColor(glm::vec4 _color);
 		
 		/// <summary> Get the Camera's clear color. </summary>
-		static glm::vec4 ClearColor();
-	
+		[[nodiscard]] glm::vec4 ClearColor() const;
+		
 		/// <summary> Get the Camera's projection matrix. </summary>
 		const glm::mat4& Projection();
-	
+		
+		/// <summary> Get the Camera's view matrix. </summary>
+		[[nodiscard]] glm::mat4 View() const;
+		
 		/// <summary> Set the Camera dirty, so that it computes a new projection matrix. </summary>
 		void SetDirty();
 	};

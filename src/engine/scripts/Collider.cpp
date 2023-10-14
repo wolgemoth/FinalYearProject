@@ -4,7 +4,8 @@
 
 namespace LouiEriksson {
 	
-	Collider::Collider(std::weak_ptr<GameObject> _parent) : Component(std::move(_parent)) {
+	Collider::Collider(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
+		
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Rigidbody = std::shared_ptr<Rigidbody>(nullptr);
 	

@@ -4,53 +4,50 @@
 
 namespace LouiEriksson {
 	
-	Plane::Plane(std::weak_ptr<GameObject> _parent) : Script(std::move(_parent)) {
+	Plane::Plane(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
+		
+		m_Mesh     = std::shared_ptr<Mesh>    (nullptr);
 		m_Material = std::shared_ptr<Material>(nullptr);
 	}
 	
 	Plane::~Plane() = default;
 	
 	void Plane::Begin() {
-	
-		auto parent = GetGameObject().lock();
-	
-		auto scene = parent->GetScene().lock();
-	
-		// Compile shader.
-		auto diffuse = scene->Attach(Shader::Create({
-				{ "shaders/diffuse/diffuse.vert", GL_VERTEX_SHADER   },
-				{ "shaders/diffuse/diffuse.frag", GL_FRAGMENT_SHADER }
-		}));
-		diffuse->BindAttribute(0, "a_Position");
-		diffuse->BindAttribute(1, "a_TexCoord");
-	
+		
+		auto scene = Parent()->GetScene();
+		
 		// Load mesh.
-		auto mesh = Mesh::Load("models/woodfloor/woodfloor.obj");
-	
-		// Create material from shader.
-		m_Material = Material::Create(diffuse);
-		m_Material->Texture_ID(mesh->Texture_ID());
-	
+		if (m_Mesh == nullptr) {
+			m_Mesh = Mesh::Load("models/woodfloor/woodfloor.obj");
+		}
+		
+		if (m_Material == nullptr) {
+			
+			// Create material from shader.
+			m_Material = Material::Create(Shader::m_Cache.Return("surface"));
+			m_Material->Texture_ID(m_Mesh->Texture_ID());
+		}
+		
 		// Get or add Transform.
-		auto transform = parent->GetComponent<Transform>().lock();
+		auto transform = Parent()->GetComponent<Transform>();
 		if (transform == nullptr) {
-			transform = parent->AddComponent<Transform>().lock();
+			transform = Parent()->AddComponent<Transform>();
 		}
-	
+		
 		// Get or add Renderer.
-		auto renderer = scene->Attach(parent->AddComponent<Renderer>().lock());
+		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());
 		if (renderer == nullptr) {
-			renderer = parent->AddComponent<Renderer>().lock();
+			renderer = Parent()->AddComponent<Renderer>();
 		}
-	
-		renderer->SetMesh(mesh);
+		
+		renderer->SetMesh(m_Mesh);
 		renderer->SetMaterial(m_Material);
 		renderer->SetTransform(transform);
-	
+		
 		// Get or add Collider.
-		auto collider = scene->Attach<Collider>(parent->AddComponent<Collider>().lock());
+		auto collider = scene->Attach(Parent()->AddComponent<Collider>());
 		if (collider == nullptr) {
-			collider = parent->AddComponent<Collider>().lock();
+			collider = Parent()->AddComponent<Collider>();
 		}
 		
 		collider->SetTransform(transform);

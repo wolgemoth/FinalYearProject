@@ -10,19 +10,21 @@ namespace LouiEriksson {
 	
 	int Application::Main() {
 	
-		srand(0); // Use a constant seed (like '0') for deterministic behaviour.
-	
 		if (!s_Initialised) {
 			s_Initialised = true;
-	
+			
+			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
+			
 			/* INIT */
 			Window::Create(640, 480, "My Game");
 	
 			if (glewInit() != GLEW_OK) {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
-	
-			auto scene = Scene::Load("levels/pfg.scene");
+			
+			Shader::PreloadShaders();
+			
+			auto scene = Scene::Load("levels/3dgp.scene");
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.
@@ -33,26 +35,29 @@ namespace LouiEriksson {
 	
 			/* LOOP */
 			while (!Application::s_Quit) {
-	
+				
 				auto frame_start = std::chrono::high_resolution_clock::now();
-	
+				
 				SDL_Event event = { 0 };
-	
+				
 				while (SDL_PollEvent(&event)) {
-	
-					if (event.type == SDL_QUIT) {
-						Application::Quit();
-	
-						goto NestedBreak;
-					}
-					else if (event.type == SDL_WINDOWEVENT) {
-	
+					
+					if (event.type == SDL_WINDOWEVENT) {
+						
 						if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
 							Window::Get(event.window.windowID)->SetDirty();
 						}
+					} else if (event.type == SDL_QUIT) {
+						Application::Quit();
+						
+						goto NestedBreak;
 					}
 				}
-	
+				
+				// Get input.
+				SDL_PumpEvents();
+				Input::KeyboardState(SDL_GetKeyboardState(NULL)); // NOLINT(*-use-nullptr)
+				
 				scene->Tick();
 	
 				if (physics_step <= 0.0f) {
@@ -60,7 +65,7 @@ namespace LouiEriksson {
 	
 					scene->FixedTick();
 				}
-	
+				
 				auto windows = Window::m_Windows.Values();
 				for (const auto& window : windows) {
 					window->Update();
