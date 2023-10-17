@@ -113,7 +113,7 @@ namespace LouiEriksson {
 			}
 			
 			std::vector<std::any> entries;
-			bool exists = m_Components.Get(category, entries);
+			const bool exists = m_Components.Get(category, entries);
 			
 			entries.push_back(result);
 			

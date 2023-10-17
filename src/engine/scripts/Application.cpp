@@ -17,6 +17,8 @@ namespace LouiEriksson {
 			
 			/* INIT */
 			Window::Create(640, 480, "My Game");
+			
+			SDL_GL_SetSwapInterval(0); // Disable vsync!
 	
 			if (glewInit() != GLEW_OK) {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
@@ -28,7 +30,7 @@ namespace LouiEriksson {
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.
-			Time::FixedDeltaTime(1.0f / 60.0f);
+			Time::FixedDeltaTime(0.02f);
 	
 			float physics_step = 0.0f;
 			float fps_timer    = 0.0f;
@@ -40,14 +42,15 @@ namespace LouiEriksson {
 				
 				SDL_Event event = { 0 };
 				
-				while (SDL_PollEvent(&event)) {
+				while (SDL_PollEvent(&event) != 0) {
 					
 					if (event.type == SDL_WINDOWEVENT) {
 						
 						if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
 							Window::Get(event.window.windowID)->SetDirty();
 						}
-					} else if (event.type == SDL_QUIT) {
+					}
+					else if (event.type == SDL_QUIT) {
 						Application::Quit();
 						
 						goto NestedBreak;
@@ -70,7 +73,7 @@ namespace LouiEriksson {
 				for (const auto& window : windows) {
 					window->Update();
 				}
-	
+				
 				// Update the delta time.
 				Time::s_DeltaTime =
 					(float)std::chrono::duration_cast<std::chrono::microseconds>(
@@ -90,7 +93,7 @@ namespace LouiEriksson {
 	
 					std::cout << "\n~ Performance Metrics ~\n" <<
 						"Rigidbodies:\t" << entities.size() << "\n"
-						"FPS:\t\t" << 1.0f / Time::s_DeltaTime << "\n";
+						"FPS:\t\t\t" << 1.0f / Time::s_DeltaTime << "\n";
 				}
 	
 				physics_step -= Time::DeltaTime();

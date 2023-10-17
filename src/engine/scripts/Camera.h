@@ -39,9 +39,9 @@ namespace LouiEriksson {
 		
 		void PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const;
 		
-		void Copy(const RenderTexture& _src, const RenderTexture& _dest) const;
+		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
-		void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) const;
+		static void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
 		
 		void Bloom() const;
 		

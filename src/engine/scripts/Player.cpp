@@ -91,7 +91,7 @@ namespace LouiEriksson {
 		cam->SetTransform(transform);
 		cam->SetWindow(Window::Get(2));
 		
-		const float skyIntensity = 1.2f;
+		const float skyIntensity = 0.0f;//1.2f;
 		cam->ClearColor(glm::vec4(0.34f, 0.764f, 1.2f, 0.0f) * skyIntensity);
 	}
 	
@@ -202,11 +202,11 @@ namespace LouiEriksson {
 		cam->m_Rotation = glm::slerp(cam->m_Rotation, targetRot, Time::DeltaTime() * m_CameraSpeed);
 		
 		/* MOVE PLAYER */
-		auto input = Input::KeyboardState();
+		const auto& input = Input::KeyboardState();
 		
 		auto direction = (float)(-(input[SDL_SCANCODE_D] - input[SDL_SCANCODE_A]));
 		
-		float dt = Time::DeltaTime();
+		const float dt = Time::DeltaTime();
 		
 		auto l = player->ToWorld(glm::vec3(1, 0, 0));
 		
@@ -219,7 +219,7 @@ namespace LouiEriksson {
 		);
 		
 		/* MOVE ENVIRONMENT */
-		float step = Time::DeltaTime() * m_GameSpeed;
+		const float& step = Time::DeltaTime() * m_GameSpeed;
 		
 		for (auto& plane : m_Planes) {
 			

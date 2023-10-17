@@ -7,7 +7,7 @@ namespace LouiEriksson {
 	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 	
 		m_Transform = std::shared_ptr<Transform>(nullptr);
-		m_Collider  = std::shared_ptr<Collider>(nullptr);
+		m_Collider  = std::shared_ptr<Collider> (nullptr);
 	
 		m_Velocity        = glm::vec3(0.0f);
 		m_AngularVelocity = glm::vec3(0.0f);
@@ -19,14 +19,14 @@ namespace LouiEriksson {
 	}
 	
 	void Rigidbody::SetTransform(const std::weak_ptr<Transform>& _transform) {
-		m_Transform = _transform.lock();
+		m_Transform = _transform;
 	}
 	std::weak_ptr<Transform> Rigidbody::GetTransform() {
 		return m_Transform;
 	}
 	
 	void Rigidbody::SetCollider(const std::weak_ptr<Collider>& _transform) {
-		m_Collider = _transform.lock();
+		m_Collider = _transform;
 	}
 	std::weak_ptr<Collider> Rigidbody::GetCollider() {
 		return m_Collider;

@@ -25,15 +25,15 @@ namespace LouiEriksson {
 		// Generate the "Frame Buffer Object".
 		glGenFramebuffers(1, &m_FBO_ID);
 		
-		if (m_FBO_ID) {
+		if (m_FBO_ID != 0u) {
 			
-			Bind();
+			RenderTexture::Bind(*this);
 			
 			// Generate the texture.
 			glGenTextures(1, &m_TextureID);
 			glBindTexture(GL_TEXTURE_2D, m_TextureID);
 			
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _width, _height, 0, GL_RGBA, GL_FLOAT, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _width, _height, 0, GL_RGBA, GL_FLOAT, NULL); // NOLINT(*-use-nullptr)
 			
 			// Bilinear color filtering.
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -53,7 +53,7 @@ namespace LouiEriksson {
 			glBindRenderbuffer(GL_RENDERBUFFER, 0);
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
 			
-			Unbind();
+			RenderTexture::Unbind();
 			
 			m_Width  = _width;
 			m_Height = _height;
@@ -72,8 +72,8 @@ namespace LouiEriksson {
 		Create(_width, _height);
 	}
 	
-	void RenderTexture::Bind() const {
-		glBindFramebuffer(GL_FRAMEBUFFER, m_FBO_ID);
+	void RenderTexture::Bind(const RenderTexture& _rt) {
+		glBindFramebuffer(GL_FRAMEBUFFER, _rt.m_FBO_ID);
 	}
 	
 	void RenderTexture::Unbind() {
@@ -81,9 +81,10 @@ namespace LouiEriksson {
 	}
 	
 	void RenderTexture::Discard() const {
-		glDeleteFramebuffers(1, &m_FBO_ID);
+		
+		glDeleteFramebuffers (1, &m_FBO_ID);
 		glDeleteRenderbuffers(1, &m_RBO_ID);
-		glDeleteTextures(1, &m_TextureID);
+		glDeleteTextures     (1, &m_TextureID);
 	}
 	
 	const GLuint& RenderTexture::ID() const {

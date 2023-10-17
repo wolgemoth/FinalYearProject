@@ -68,7 +68,7 @@ namespace LouiEriksson {
 	
 				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
 	
-				float radius = rigidbody->GetCollider().lock()->Radius();
+				const float radius = rigidbody->GetCollider().lock()->Radius();
 	
 				rigidbody->ClearForce();
 	

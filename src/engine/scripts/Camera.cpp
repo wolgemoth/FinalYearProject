@@ -48,7 +48,7 @@ namespace LouiEriksson {
 		m_RT.Resize(dimensions[0], dimensions[1]);
 		
 		/* BIND FRAME BUFFER */
-		m_RT.Bind();
+		RenderTexture::Bind(m_RT);
 	}
 	
 	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
@@ -59,17 +59,17 @@ namespace LouiEriksson {
 			
 			// Get references to various components needed for rendering.
 			const auto transform = renderer->GetTransform();
-			const auto material = renderer->GetMaterial();
-			const auto mesh = renderer->GetMesh();
-			const auto program = material->GetShader();
+			const auto material  = renderer->GetMaterial();
+			const auto mesh      = renderer->GetMesh();
+			const auto program   = material->GetShader();
 			
 			// Bind program.
 			Shader::Bind(program->ID());
 			
 			// Assign matrices.
-			program->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
-			program->Assign(material->m_ViewMatrixID, View()); /* VIEW       */
-			program->Assign(material->m_ModelMatrixID, transform->TRS()); /* MODEL      */
+			program->Assign(material->m_ProjectionMatrixID, Projection()    ); /* PROJECTION */
+			program->Assign(material->m_ViewMatrixID,       View()          ); /* VIEW       */
+			program->Assign(material->m_ModelMatrixID,      transform->TRS()); /* MODEL      */
 			
 			// Assign parameters.
 			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
@@ -81,7 +81,7 @@ namespace LouiEriksson {
 			program->Assign(program->AttributeID("u_PointLightBrightness"), 2.2f);
 			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec4(1, 1, 1, 1));
 			
-			glm::quat dirRot = glm::quat(
+			 const auto dirRot = glm::quat(
 				glm::radians(
 					glm::vec3(
 						-25.0f, 90.0f, 0.0f
@@ -117,7 +117,7 @@ namespace LouiEriksson {
 	void Camera::PostRender() {
 		
 		/* UNBIND FRAME BUFFER */
-		m_RT.Unbind();
+		RenderTexture::Unbind();
 		
 		// Buffers to store mesh data.
 		glGenVertexArrays(1, &VAO0);
@@ -207,8 +207,8 @@ namespace LouiEriksson {
 				(int) std::ceil(std::log2((float) std::min(dimensions[0], dimensions[1])))
 			);
 		
-		RenderTexture rt1(dimensions[0], dimensions[1]);
-		RenderTexture rt2(dimensions[0], dimensions[1]);
+		const RenderTexture rt1(dimensions[0], dimensions[1]);
+		const RenderTexture rt2(dimensions[0], dimensions[1]);
 		
 		Copy(m_RT, rt1, *threshold);
 		
@@ -231,9 +231,9 @@ namespace LouiEriksson {
 		combine->Assign(combine->AttributeID("u_Texture0"), 0);
 		glBindTexture(GL_TEXTURE_2D, m_RT.ID());
 		
-		m_RT.Bind();
+		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		m_RT.Unbind();
+		RenderTexture::Unbind();
 		
 		Shader::Unbind();
 		
@@ -249,54 +249,49 @@ namespace LouiEriksson {
 		
 		while (!_effects.empty()) {
 			
-			const auto& shader = _effects.front();
+			const auto shader = _effects.front();
 			_effects.pop();
 			
 			Copy(m_RT, m_RT, *shader);
 		}
 	}
 	
-	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) const {
+	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
 		
 		Copy(_src, _dest, *Shader::m_Cache.Return("passthrough"));
 	}
 	
-	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) const {
+	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) {
 		
 		Shader::Bind(_shader.ID());
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _src.ID());
 		
-		_dest.Bind();
+		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		_dest.Unbind();
+		RenderTexture::Unbind();
 		
 		Shader::Unbind();
 	}
 	
 	void Camera::SetWindow(std::shared_ptr<Window> _window) {
-		
 		_window->Link(*this);
 	}
 	
 	std::shared_ptr<Window> Camera::GetWindow() const {
-		
 		return m_Window;
 	}
 	
 	void Camera::SetTransform(std::shared_ptr<Transform> _transform) {
-		
 		m_Transform = _transform;
 	}
 	
 	std::shared_ptr<Transform> Camera::GetTransform() const {
-		
 		return m_Transform;
 	}
 	
 	float Camera::Aspect() const {
-		
 		return m_Window->Aspect();
 	}
 	
@@ -308,7 +303,6 @@ namespace LouiEriksson {
 	}
 	
 	const float& Camera::FOV() const {
-		
 		return m_FOV;
 	}
 	
@@ -320,7 +314,6 @@ namespace LouiEriksson {
 	}
 	
 	const float& Camera::NearClip() const {
-		
 		return m_NearClip;
 	}
 	
@@ -332,7 +325,6 @@ namespace LouiEriksson {
 	}
 	
 	const float& Camera::FarClip() const {
-		
 		return m_FarClip;
 	}
 	
@@ -376,7 +368,6 @@ namespace LouiEriksson {
 	}
 	
 	void Camera::SetDirty() {
-		
 		m_IsDirty = true;
 	}
 }

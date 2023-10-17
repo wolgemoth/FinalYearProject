@@ -35,7 +35,7 @@ namespace LouiEriksson {
 		}
 	
 		// Get radius.
-		float r = glm::length(transform->m_Scale) / 2.0f;
+		const float r = glm::length(transform->m_Scale) / 2.0f;
 	
 		// Get or add renderer.
 		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());
