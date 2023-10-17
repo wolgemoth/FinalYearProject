@@ -6,7 +6,6 @@
 *.lo
 *.o
 *.obj
-!/src/engine/**/*.models
 
 # Precompiled Headers
 *.gch
@@ -31,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+#WHITELIST /src/engine
+!/src/engine/**
