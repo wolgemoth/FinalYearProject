@@ -64,7 +64,7 @@ namespace LouiEriksson {
 		
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
-		GetCamera()->ClearColor(glm::vec4(0.34f, 0.764f, 1.0f, 0.0f));
+		GetCamera()->ClearColor(glm::vec4(0.0f)); //glm::vec4(0.34f, 0.764f, 1.0f, 0.0f)
 	}
 	
 	void OrbitCam::Tick() {

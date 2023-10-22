@@ -91,7 +91,7 @@ namespace LouiEriksson {
 		cam->SetTransform(transform);
 		cam->SetWindow(Window::Get(2));
 		
-		const float skyIntensity = 1.2f;
+		const float skyIntensity = 0.0f;//1.2f;
 		cam->ClearColor(glm::vec4(0.34f, 0.764f, 1.2f, 0.0f) * skyIntensity);
 	}
 	
