@@ -9,11 +9,8 @@ uniform vec2 u_Resolution;
 uniform float u_Diffusion;
 
 vec4 BoxBlur(vec2 _coordinate, float _diffusion) {
-	
-	vec4 s;
 
-	// Compute the length to sample our box blur.
-	const float diffusion = 3.0f;
+	vec4 s;
 
 	vec2 l = 1.0 / u_Resolution;
 	l -= l * 0.5;

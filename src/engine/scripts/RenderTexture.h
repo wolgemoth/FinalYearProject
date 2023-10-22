@@ -24,7 +24,7 @@ namespace LouiEriksson {
 		
 		~RenderTexture();
 		
-		RenderTexture(            const RenderTexture& _other) = delete;
+		RenderTexture(             const RenderTexture& _other) = delete;
 		RenderTexture& operator = (const RenderTexture& _other) = delete;
 		
 		[[nodiscard]] const int& Width()  const;

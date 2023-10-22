@@ -33,7 +33,7 @@ CMAKE_CODEBLOCKS_EXECUTABLE:FILEPATH=CMAKE_CODEBLOCKS_EXECUTABLE-NOTFOUND
 
 //Additional command line arguments when CodeBlocks invokes make.
 // Enter e.g. -j<some_number> to get parallel builds
-CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j24
+CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j32
 
 //Enable colored diagnostics throughout.
 CMAKE_COLOR_DIAGNOSTICS:BOOL=ON
@@ -237,12 +237,6 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
-
-//Path to a library.
-WAVEFRONT:FILEPATH=WAVEFRONT-NOTFOUND
-
-//Path to a library.
-wavefront:FILEPATH=wavefront-NOTFOUND
 
 
 ########################

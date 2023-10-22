@@ -50,7 +50,7 @@ namespace LouiEriksson {
 			m_Planes.push_back(plane);
 			
 			// Compile shader.
-			auto surface = Shader::m_Cache.Return("surface");
+			auto surface = Shader::m_Cache.Return("pbr");
 			
 			// Load mesh.
 			auto mesh = Mesh::Load("models/woodfloor/woodfloor.obj");
@@ -91,7 +91,7 @@ namespace LouiEriksson {
 		cam->SetTransform(transform);
 		cam->SetWindow(Window::Get(2));
 		
-		const float skyIntensity = 0.0f;//1.2f;
+		const float skyIntensity = 1.2f;
 		cam->ClearColor(glm::vec4(0.34f, 0.764f, 1.2f, 0.0f) * skyIntensity);
 	}
 	
@@ -103,7 +103,7 @@ namespace LouiEriksson {
 		m_Player = scene->Attach(GameObject::Create(scene, "Curuthers"));
 		
 		// Compile shader.
-		auto surface = Shader::m_Cache.Return("surface");
+		auto surface = Shader::m_Cache.Return("pbr");
 		
 		// Load mesh.
 		auto mesh = Mesh::Load("models/curuthers/curuthers.obj");
@@ -143,7 +143,7 @@ namespace LouiEriksson {
 			auto mesh = Mesh::Load("models/sphere/sphere.obj");
 			
 			// Compile shader.
-			auto surface = Shader::m_Cache.Return("surface");
+			auto surface = Shader::m_Cache.Return("pbr");
 			
 			// Create material from shader.
 			auto material = Material::Create(surface);
@@ -155,9 +155,9 @@ namespace LouiEriksson {
 			// Get or add component.
 			auto transform = obstacle->AddComponent<Transform>();
 			transform->m_Position = glm::vec3(
-					((float)rand() / (float)RAND_MAX) * (m_MinPlaneX + obstacleMargin) - obstacleMargin,
-					0,
-					((((float)rand() / (float)RAND_MAX) - 0.5f) * 2.0f) * (m_PlayerMoveFreedom + 1.0f / 2.0f)
+				((float)rand() / (float)RAND_MAX) * (m_MinPlaneX + obstacleMargin) - obstacleMargin,
+				0,
+				((((float)rand() / (float)RAND_MAX) - 0.5f) * 2.0f) * (m_PlayerMoveFreedom + 1.0f / 2.0f)
 			);
 			
 			// Get or add renderer.
@@ -213,9 +213,9 @@ namespace LouiEriksson {
 		auto t = player->m_Position + (player->RIGHT * direction * dt * m_PlayerSpeed);
 		
 		player->m_Position = glm::clamp(
-				t,
-				-m_PlayerMoveFreedom,
-				m_PlayerMoveFreedom
+			t,
+			-m_PlayerMoveFreedom,
+			m_PlayerMoveFreedom
 		);
 		
 		/* MOVE ENVIRONMENT */

@@ -48,7 +48,6 @@ float EdwardsLambertIrradiance(const vec3 _normal, const vec3 _lightDirection) {
 	return max(4.0 * dot(_normal, _lightDirection) * 0.2, 0.0);
 }
 
-// You know and love it. It's blinn-phong.
 float BlinnPhongSpecular(const vec3 _normal, const vec3 _lightDirection, const vec3 _viewDirection, float _roughness) {
 
 	vec3  halfDir   = normalize(_lightDirection + _viewDirection);

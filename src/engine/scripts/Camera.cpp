@@ -70,32 +70,43 @@ namespace LouiEriksson {
 			program->Assign(material->m_ProjectionMatrixID, Projection()    ); /* PROJECTION */
 			program->Assign(material->m_ViewMatrixID,       View()          ); /* VIEW       */
 			program->Assign(material->m_ModelMatrixID,      transform->TRS()); /* MODEL      */
-			
-			// Assign parameters.
-			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
+
+			// Assign parameters (PBR).
+			program->Assign(program->AttributeID("u_Metallic"), 0.1f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.334f);
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec4(0.5f, 0.5f, 0.8f, 1.0f));
-			
-			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(-5.0f, 5.0f, 0.0f));
-			program->Assign(program->AttributeID("u_PointLightRange"), 30.0f);
-			program->Assign(program->AttributeID("u_PointLightBrightness"), 2.2f);
+
+			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
+			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
+			program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
 			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec4(1, 1, 1, 1));
-			
-			 const auto dirRot = glm::quat(
-				glm::radians(
-					glm::vec3(
-						-25.0f, 90.0f, 0.0f
-					)
-				)
-			);
-			
-			program->Assign(program->AttributeID("u_DirectionalLightNormal"), dirRot * glm::vec3(0, 0, 1));
-			program->Assign(program->AttributeID("u_DirectionalLightBrightness"), 0.5f);
-			program->Assign(program->AttributeID("u_DirectionalLightColor"), glm::vec4(1, 1, 0.7, 1));
-			
-			program->Assign(program->AttributeID("u_FogColor"), ClearColor());
-			program->Assign(program->AttributeID("u_FogDensity"), 0.0002f);
-			
+
+//			// Assign parameters.
+//			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
+//			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+//			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec4(0.5f, 0.5f, 0.8f, 1.0f));
+//
+//			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(-5.0f, 5.0f, 0.0f));
+//			program->Assign(program->AttributeID("u_PointLightRange"), 30.0f);
+//			program->Assign(program->AttributeID("u_PointLightBrightness"), 2.2f);
+//			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec4(1, 1, 1, 1));
+//
+//			 const auto dirRot = glm::quat(
+//				glm::radians(
+//					glm::vec3(
+//						-25.0f, 90.0f, 0.0f
+//					)
+//				)
+//			);
+//
+//			program->Assign(program->AttributeID("u_DirectionalLightNormal"), dirRot * glm::vec3(0, 0, 1));
+//			program->Assign(program->AttributeID("u_DirectionalLightBrightness"), 0.5f);
+//			program->Assign(program->AttributeID("u_DirectionalLightColor"), glm::vec4(1, 1, 0.7, 1));
+//
+//			program->Assign(program->AttributeID("u_FogColor"), ClearColor());
+//			program->Assign(program->AttributeID("u_FogDensity"), 0.0002f);
+//
 			// Bind texture and VAO.
 			glBindVertexArray(mesh->VAO_ID());
 			glBindTexture(GL_TEXTURE_2D, material->Texture_ID());
@@ -187,39 +198,43 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		auto downscale = Shader::m_Cache.Return("downscale");
-		Shader::Bind(downscale->ID());
-		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		downscale->Assign(downscale->AttributeID("u_Diffusion"), 4.5f);
-		Shader::Unbind();
+		float diffusion = 6.0f;
 		
 		auto threshold = Shader::m_Cache.Return("threshold");
 		Shader::Bind(threshold->ID());
 		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.2f);
 		Shader::Unbind();
 		
-		// Determine number of passes to perform.
-		// If the number of passes provided exceeds the amount of times the screen can be subdivided by 2 (typically no more than 10 times),
-		// Then clamp the number of passes to that value.
+		// Determine number of passes to perform using the amount of times the screen can be divided by 2.
+		// Clamp the number of passes to a maximum value.
 		const int scalingPasses =
 			std::min(
-				13,
-				(int) std::ceil(std::log2((float) std::min(dimensions[0], dimensions[1])))
+				32,
+				(int)(std::ceil(std::log2((float)std::min(dimensions[0], dimensions[1]))) * diffusion)
 			);
 		
-		const RenderTexture rt1(dimensions[0], dimensions[1]);
-		const RenderTexture rt2(dimensions[0], dimensions[1]);
+		auto downscale = Shader::m_Cache.Return("downscale");
+		Shader::Bind(downscale->ID());
+		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
+		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
+		
+		float intensity = 0.3f;
+		
+		RenderTexture rt1(dimensions[0], dimensions[1]);
+		RenderTexture rt2(dimensions[0], dimensions[1]);
 		
 		Copy(m_RT, rt1, *threshold);
 		
 		for (size_t i = 0; i < scalingPasses; i++) {
+			
 			Copy(rt1, rt2, *downscale);
 			Copy(rt2, rt1, *upscale);
 		}
 		
+		Shader::Unbind();
 		Shader::Bind(combine->ID());
 		
-		combine->Assign(combine->AttributeID("u_Strength"), 5.0f);
+		combine->Assign(combine->AttributeID("u_Strength"), intensity);
 		
 		glActiveTexture(GL_TEXTURE1);
 		glEnable(GL_TEXTURE_2D);
@@ -361,9 +376,9 @@ namespace LouiEriksson {
 		const auto transform = GetTransform();
 		
 		return glm::lookAt(
-				transform->m_Position,
-				transform->m_Position + transform->FORWARD,
-				transform->UP
+			transform->m_Position,
+			transform->m_Position + transform->FORWARD,
+			transform->UP
 		);
 	}
 	

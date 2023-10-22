@@ -58,11 +58,20 @@ namespace LouiEriksson {
 		glLinkProgram(m_ProgramID);
 		glGetProgramiv(m_ProgramID, GL_LINK_STATUS, &success);
 		
-		if (!success) {
+		if (success == 0) {
 			
 			std::stringstream err;
-			err << "ERROR (Shader.cpp [LinkShaders()]): " <<
-			    glGetError();
+			err << "ERROR (Shader.cpp [LinkShaders()]): \"" <<
+				m_Name << "\", " << glGetError() << "\n";
+			
+			{
+				char buff[4096] = { 0 };
+				int buff_length = 0;
+				
+				glGetProgramInfoLog(m_ProgramID, sizeof(buff) / sizeof(buff[0]), &buff_length, buff);
+			
+				err << buff;
+			}
 			
 			std::cout << err.str() << "\n";
 			
@@ -79,7 +88,7 @@ namespace LouiEriksson {
 		glCompileShader(m_SubShaders.back());
 		glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);
 		
-		if (!success) {
+		if (success == 0) {
 			
 			GLint maxLength = 0;
 			
@@ -94,8 +103,6 @@ namespace LouiEriksson {
 			for (const auto& error: errorLog) {
 				err << error;
 			}
-			
-			std::cout << err.str() << "\n";
 			
 			throw std::runtime_error(err.str());
 		}
@@ -116,48 +123,51 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 	        /* Lit Surface Shader */ {
-                     { "shaders/surface/surface.vert",           GL_VERTEX_SHADER },
-                     { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
+                 { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
+                 { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
              },
-	        
+	        /* Lit Surface Shader */ {
+                 { "shaders/pbr/pbr.vert",                     GL_VERTEX_SHADER },
+                 { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
+             },
 	        /* Passthrough */ {
-                     { "shaders/passthrough/passthrough.vert",   GL_VERTEX_SHADER },
-                     { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }
+                 { "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
+                 { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }
              },
 	        
 	        /* ACES Tonemapping */ {
-                     { "shaders/aces/aces.vert",                 GL_VERTEX_SHADER },
-                     { "shaders/aces/aces.frag",                 GL_FRAGMENT_SHADER }
+                 { "shaders/aces/aces.vert",                   GL_VERTEX_SHADER },
+                 { "shaders/aces/aces.frag",                 GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Vignette */ {
-                     { "shaders/vignette/vignette.vert",         GL_VERTEX_SHADER },
-                     { "shaders/vignette/vignette.frag",         GL_FRAGMENT_SHADER }
+                 { "shaders/vignette/vignette.vert",           GL_VERTEX_SHADER },
+                 { "shaders/vignette/vignette.frag",         GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Grain */ {
-                     { "shaders/grain/grain.vert",               GL_VERTEX_SHADER },
-                     { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
+                 { "shaders/grain/grain.vert",                 GL_VERTEX_SHADER },
+                 { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Bloom - Threshold */ {
-                     { "shaders/bloom/threshold/threshold.vert", GL_VERTEX_SHADER },
-                     { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
+                 { "shaders/bloom/threshold/threshold.vert",   GL_VERTEX_SHADER },
+                 { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Bloom - Downscale */ {
-                     { "shaders/bloom/downscale/downscale.vert", GL_VERTEX_SHADER },
-                     { "shaders/bloom/downscale/downscale.frag", GL_FRAGMENT_SHADER }
+                 { "shaders/bloom/downscale/downscale.vert",   GL_VERTEX_SHADER },
+                 { "shaders/bloom/downscale/downscale.frag", GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Bloom - Upscale */ {
-                     { "shaders/bloom/upscale/upscale.vert",     GL_VERTEX_SHADER },
-                     { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
+                 { "shaders/bloom/upscale/upscale.vert",       GL_VERTEX_SHADER },
+                 { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
              },
 	        
 	        /* Bloom - Combine */ {
-                     { "shaders/bloom/combine/combine.vert",     GL_VERTEX_SHADER },
-                     { "shaders/bloom/combine/combine.frag",     GL_FRAGMENT_SHADER }
+                 { "shaders/bloom/combine/combine.vert",       GL_VERTEX_SHADER },
+                 { "shaders/bloom/combine/combine.frag",     GL_FRAGMENT_SHADER }
              },
         });
 	}
@@ -179,7 +189,7 @@ namespace LouiEriksson {
 		glBindAttribLocation(this->ID(), _pos, _name);
 		
 		const GLenum errorCode(glGetError());
-		if (errorCode) {
+		if (errorCode != 0u) {
 			
 			std::stringstream err;
 			

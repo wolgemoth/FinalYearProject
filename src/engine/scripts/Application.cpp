@@ -16,9 +16,9 @@ namespace LouiEriksson {
 			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
 			
 			/* INIT */
-			Window::Create(640, 480, "My Game");
+			Window::Create(1920, 1080, "My Game");
 			
-			SDL_GL_SetSwapInterval(0); // Disable vsync!
+			SDL_GL_SetSwapInterval(1); // 0 = Disable vsync. 1 = Enable vsync. -1 = Adaptive
 	
 			if (glewInit() != GLEW_OK) {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
