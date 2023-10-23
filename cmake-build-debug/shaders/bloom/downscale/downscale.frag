@@ -10,17 +10,15 @@ uniform float u_Diffusion;
 
 vec4 BoxBlur(vec2 _coordinate, float _diffusion) {
 
-	vec4 s;
-
-	vec2 l = 1.0 / u_Resolution;
-	l -= l * 0.5;
-	l *= 2 * _diffusion;
+	vec2 l = vec2(1.0) / u_Resolution;
+	l -= l / 2.0;
+	l *= 2.0 * _diffusion;
 
 	// Get samples.
-	s += texture2D(u_Texture, v_TexCoord + vec2(-l.x, -l.y));
-	s += texture2D(u_Texture, v_TexCoord + vec2( l.x, -l.y));
-	s += texture2D(u_Texture, v_TexCoord + vec2(-l.x,  l.y));
-	s += texture2D(u_Texture, v_TexCoord + vec2( l.x,  l.y));
+	vec4 s  = texture2D(u_Texture, v_TexCoord + vec2(-l.x, -l.y));
+	     s += texture2D(u_Texture, v_TexCoord + vec2( l.x, -l.y));
+	     s += texture2D(u_Texture, v_TexCoord + vec2(-l.x,  l.y));
+	     s += texture2D(u_Texture, v_TexCoord + vec2( l.x,  l.y));
 
 	// Average.
 	return s / 4.0;
