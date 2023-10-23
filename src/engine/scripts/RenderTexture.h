@@ -3,18 +3,16 @@
 #ifndef FINALYEARPROJECT_RENDER_TEXTURE_H
 #define FINALYEARPROJECT_RENDER_TEXTURE_H
 
+#include "Texture.h"
+
 namespace LouiEriksson {
 	
-	class RenderTexture {
+	class RenderTexture : public Texture {
 	
 	private:
 		
-		int m_Width,
-			m_Height;
-		
 		GLuint m_FBO_ID,
-			   m_RBO_ID,
-			   m_TextureID;
+			   m_RBO_ID;
 		
 		void Create(const int& _width, const int& _height);
 	
@@ -27,20 +25,13 @@ namespace LouiEriksson {
 		RenderTexture(             const RenderTexture& _other) = delete;
 		RenderTexture& operator = (const RenderTexture& _other) = delete;
 		
-		[[nodiscard]] const int& Width()  const;
-		[[nodiscard]] const int& Height() const;
-		
 		void Resize(const int& _width, const int& _height);
+		
+		void Discard() const;
 		
 		static void Bind(const RenderTexture& _rt);
 		
 		static void Unbind();
-		
-		void Discard() const;
-		
-		[[nodiscard]] const GLuint& ID() const;
-		
-		explicit operator GLuint() const { return this->ID(); }
 	};
 	
 }

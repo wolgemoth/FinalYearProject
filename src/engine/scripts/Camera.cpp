@@ -218,7 +218,7 @@ namespace LouiEriksson {
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
 		
-		float intensity = 0.3f;
+		float intensity = 0.1f;
 		
 		RenderTexture rt1(dimensions[0], dimensions[1]);
 		RenderTexture rt2(dimensions[0], dimensions[1]);

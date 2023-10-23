@@ -68,3 +68,7 @@ CXX_FLAGS = -g -fdiagnostics-color=always
 
 # PCH options: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o_OPTIONS = -Winvalid-pch;-include;/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx
 
+# PCH options: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.o_OPTIONS = -Winvalid-pch;-include;/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx
+
+# PCH options: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.o_OPTIONS = -Winvalid-pch;-include;/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx
+

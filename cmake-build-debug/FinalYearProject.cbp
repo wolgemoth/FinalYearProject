@@ -197,6 +197,12 @@
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Components.h">
 			<Option target="FinalYearProject"/>
 		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.cpp">
+			<Option target="FinalYearProject"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h">
+			<Option target="FinalYearProject"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Entity.cpp">
 			<Option target="FinalYearProject"/>
 		</Unit>
@@ -315,6 +321,12 @@
 			<Option target="FinalYearProject"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/SphereCollider.h">
+			<Option target="FinalYearProject"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.cpp">
+			<Option target="FinalYearProject"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h">
 			<Option target="FinalYearProject"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Time.cpp">

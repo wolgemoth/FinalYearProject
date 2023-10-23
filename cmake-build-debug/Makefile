@@ -325,6 +325,30 @@ src/engine/scripts/Component.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Component.cpp.s
 .PHONY : src/engine/scripts/Component.cpp.s
 
+src/engine/scripts/Cubemap.o: src/engine/scripts/Cubemap.cpp.o
+.PHONY : src/engine/scripts/Cubemap.o
+
+# target to build an object file
+src/engine/scripts/Cubemap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.o
+.PHONY : src/engine/scripts/Cubemap.cpp.o
+
+src/engine/scripts/Cubemap.i: src/engine/scripts/Cubemap.cpp.i
+.PHONY : src/engine/scripts/Cubemap.i
+
+# target to preprocess a source file
+src/engine/scripts/Cubemap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.i
+.PHONY : src/engine/scripts/Cubemap.cpp.i
+
+src/engine/scripts/Cubemap.s: src/engine/scripts/Cubemap.cpp.s
+.PHONY : src/engine/scripts/Cubemap.s
+
+# target to generate assembly for a file
+src/engine/scripts/Cubemap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.s
+.PHONY : src/engine/scripts/Cubemap.cpp.s
+
 src/engine/scripts/Entity.o: src/engine/scripts/Entity.cpp.o
 .PHONY : src/engine/scripts/Entity.o
 
@@ -781,6 +805,30 @@ src/engine/scripts/SphereCollider.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/SphereCollider.cpp.s
 .PHONY : src/engine/scripts/SphereCollider.cpp.s
 
+src/engine/scripts/Texture.o: src/engine/scripts/Texture.cpp.o
+.PHONY : src/engine/scripts/Texture.o
+
+# target to build an object file
+src/engine/scripts/Texture.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.o
+.PHONY : src/engine/scripts/Texture.cpp.o
+
+src/engine/scripts/Texture.i: src/engine/scripts/Texture.cpp.i
+.PHONY : src/engine/scripts/Texture.i
+
+# target to preprocess a source file
+src/engine/scripts/Texture.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.i
+.PHONY : src/engine/scripts/Texture.cpp.i
+
+src/engine/scripts/Texture.s: src/engine/scripts/Texture.cpp.s
+.PHONY : src/engine/scripts/Texture.s
+
+# target to generate assembly for a file
+src/engine/scripts/Texture.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.s
+.PHONY : src/engine/scripts/Texture.cpp.s
+
 src/engine/scripts/Time.o: src/engine/scripts/Time.cpp.o
 .PHONY : src/engine/scripts/Time.o
 
@@ -911,6 +959,9 @@ help:
 	@echo "... src/engine/scripts/Component.o"
 	@echo "... src/engine/scripts/Component.i"
 	@echo "... src/engine/scripts/Component.s"
+	@echo "... src/engine/scripts/Cubemap.o"
+	@echo "... src/engine/scripts/Cubemap.i"
+	@echo "... src/engine/scripts/Cubemap.s"
 	@echo "... src/engine/scripts/Entity.o"
 	@echo "... src/engine/scripts/Entity.i"
 	@echo "... src/engine/scripts/Entity.s"
@@ -968,6 +1019,9 @@ help:
 	@echo "... src/engine/scripts/SphereCollider.o"
 	@echo "... src/engine/scripts/SphereCollider.i"
 	@echo "... src/engine/scripts/SphereCollider.s"
+	@echo "... src/engine/scripts/Texture.o"
+	@echo "... src/engine/scripts/Texture.i"
+	@echo "... src/engine/scripts/Texture.s"
 	@echo "... src/engine/scripts/Time.o"
 	@echo "... src/engine/scripts/Time.i"
 	@echo "... src/engine/scripts/Time.s"

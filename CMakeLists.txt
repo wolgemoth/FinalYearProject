@@ -100,6 +100,10 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Window.cpp
         src/engine/scripts/Window.h
+        src/engine/scripts/Texture.cpp
+        src/engine/scripts/Texture.h
+        src/engine/scripts/Cubemap.cpp
+        src/engine/scripts/Cubemap.h
 )
 
 set(SDL2_PATH ${PROJECT_SOURCE_DIR}/external/SDL2)

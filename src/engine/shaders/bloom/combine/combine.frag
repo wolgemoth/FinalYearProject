@@ -11,5 +11,6 @@ in vec2 v_TexCoord;
 layout (location = 2) uniform float u_Strength;
 
 void main() {
-	gl_FragColor += texture2D(u_Texture0, v_TexCoord) + (texture2D(u_Texture1, v_TexCoord) * u_Strength);
+
+	gl_FragColor = texture2D(u_Texture0, v_TexCoord) + (texture2D(u_Texture1, v_TexCoord) * u_Strength);
 }

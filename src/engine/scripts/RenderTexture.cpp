@@ -4,14 +4,10 @@
 
 namespace LouiEriksson {
 	
-	RenderTexture::RenderTexture(const int& _width, const int& _height) {
+	RenderTexture::RenderTexture(const int& _width, const int& _height) : Texture(_width, _height) {
 		
-		m_Width  = -1;
-		m_Height = -1;
-		
-		   m_FBO_ID = -1;
-		   m_RBO_ID = -1;
-		m_TextureID = -1;
+		m_FBO_ID = -1;
+		m_RBO_ID = -1;
 		
 		Create(_width, _height);
 	}
@@ -63,9 +59,6 @@ namespace LouiEriksson {
 		}
 	}
 	
-	const int& RenderTexture::Width()  const { return m_Width;  }
-	const int& RenderTexture::Height() const { return m_Height; }
-	
 	void RenderTexture::Resize(const int& _width, const int& _height) {
 		
 		Discard();
@@ -84,10 +77,7 @@ namespace LouiEriksson {
 		
 		glDeleteFramebuffers (1, &m_FBO_ID);
 		glDeleteRenderbuffers(1, &m_RBO_ID);
-		glDeleteTextures     (1, &m_TextureID);
-	}
-	
-	const GLuint& RenderTexture::ID() const {
-		return m_TextureID;
+		
+		Texture::Discard();
 	}
 }
