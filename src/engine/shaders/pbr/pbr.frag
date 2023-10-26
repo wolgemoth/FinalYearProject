@@ -118,5 +118,5 @@ void main() {
 
     vec3 skyColor = texture(u_Sky, reflect(-viewDir, normal)).rgb;
 
-    gl_FragColor = vec4(directLighting + (skyColor * 0.6), 1.0);
+    gl_FragColor = vec4(directLighting + (skyColor * 1.0), 1.0);
 }

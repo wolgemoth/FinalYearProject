@@ -146,7 +146,7 @@ namespace LouiEriksson {
 			
 			auto trs = glm::scale(
 				glm::mat4(1.0),
-				glm::vec3(10.0)
+				glm::vec3(2.0)
 			);
 			
 			// Assign matrices.
@@ -160,6 +160,8 @@ namespace LouiEriksson {
 				0,
 				GL_TEXTURE_CUBE_MAP
 			);
+			
+			skybox->Assign(skybox->AttributeID("u_Exposure"), 1.6f);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
@@ -211,8 +213,8 @@ namespace LouiEriksson {
 		
 		auto aces = Shader::m_Cache.Return("aces");
 		Shader::Bind(aces->ID());
-		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.3f);
+		aces->Assign(aces->AttributeID("u_Gain"), 0.0f);
+		aces->Assign(aces->AttributeID("u_Exposure"), 1.0f);
 		Shader::Unbind();
 		
 		auto grain = Shader::m_Cache.Return("grain");
@@ -223,7 +225,7 @@ namespace LouiEriksson {
 		
 		auto vignette = Shader::m_Cache.Return("vignette");
 		Shader::Bind(vignette->ID());
-		vignette->Assign(vignette->AttributeID("u_Amount"), 0.5f);
+		vignette->Assign(vignette->AttributeID("u_Amount"), 0.33f);
 		Shader::Unbind();
 		
 		// Push effects to queue.
@@ -279,7 +281,7 @@ namespace LouiEriksson {
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
 		
-		float intensity = 0.1f;
+		float intensity = 0.3f;
 		
 		RenderTexture rt1(dimensions[0], dimensions[1]);
 		RenderTexture rt2(dimensions[0], dimensions[1]);
