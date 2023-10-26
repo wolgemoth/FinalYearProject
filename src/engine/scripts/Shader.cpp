@@ -32,7 +32,7 @@ namespace LouiEriksson {
 	}
 	
 	std::shared_ptr<Shader> Shader::Create(const std::vector<Shader::SubShader>& _subShaders) {
-		return {new Shader(_subShaders), [](const Shader* _ptr) { delete _ptr; }};
+		return { new Shader(_subShaders), [](const Shader* _ptr) { delete _ptr; } };
 	}
 	
 	void Shader::AttachShaders() const {
@@ -126,10 +126,17 @@ namespace LouiEriksson {
                  { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
                  { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
              },
-	        /* Lit Surface Shader */ {
+			 
+	        /* Lit Surface Shader (PBR) */ {
                  { "shaders/pbr/pbr.vert",                     GL_VERTEX_SHADER },
                  { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
              },
+				
+			/* Lit Surface Shader (PBR) */ {
+				{ "shaders/skybox/skybox.vert",                GL_VERTEX_SHADER },
+				{ "shaders/skybox/skybox.frag",              GL_FRAGMENT_SHADER }
+			},
+			 
 	        /* Passthrough */ {
                  { "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
                  { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }

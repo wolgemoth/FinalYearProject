@@ -19,6 +19,7 @@ namespace LouiEriksson {
 	
 	private:
 	
+		std::shared_ptr<Mesh> m_Cube;
 		Cubemap m_Sky;
 		
 		/// <summary> Window of the Camera. </summary>
@@ -33,7 +34,7 @@ namespace LouiEriksson {
 		
 		bool m_IsDirty;
 		
-		unsigned int VAO0, VBO;
+		unsigned int VAO, VBO;
 		
 		RenderTexture m_RT;
 		

@@ -116,7 +116,7 @@ void main() {
 
     vec3 directLighting = albedo.rgb * (u_PointLightColor * lighting);
 
-    vec3 skyColor = texture(u_Sky, reflect(viewDir, normal)).rgb;
+    vec3 skyColor = texture(u_Sky, reflect(-viewDir, normal)).rgb;
 
     gl_FragColor = vec4(directLighting + (skyColor * 0.6), 1.0);
 }

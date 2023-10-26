@@ -35,7 +35,7 @@ vec3 ACES(vec3 _hdr) {
 
 void main() {
 
-    vec3 tonemapped = ACES(vec3(texture2D(u_Texture, v_TexCoord) * u_Exposure) + u_Gain);
+    vec3 tonemapped = ACES(max(vec3(texture2D(u_Texture, v_TexCoord) * u_Exposure) + u_Gain, vec3(0.0)));
 
 	gl_FragColor = vec4(tonemapped, 1.0);
 }

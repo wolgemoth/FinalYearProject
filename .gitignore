@@ -31,8 +31,8 @@
 *.out
 *.app
 
-#WHITELIST /src/engine
-!/src/engine/**
-
 /cmake-build-debug
 /cmake-build-debug/**
+
+#WHITELIST /src/engine
+!/src/engine/**

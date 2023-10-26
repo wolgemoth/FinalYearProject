@@ -15,20 +15,23 @@ namespace LouiEriksson {
 	
 		m_Projection = glm::mat4(1.0f);
 		
-		VAO0 = -1;
+		VAO = -1;
 		VBO  = -1;
 		
 		m_IsDirty = true;
 		
-		m_Sky = std::move(File::Load({
-				"textures/cubemaps/another_planet/px.png",
-				"textures/cubemaps/another_planet/nx.png",
-				"textures/cubemaps/another_planet/py.png",
-				"textures/cubemaps/another_planet/ny.png",
-				"textures/cubemaps/another_planet/pz.png",
-				"textures/cubemaps/another_planet/nz.png"
+		m_Cube = Mesh::Load("models/cube/cube.obj");
+		
+		m_Sky = std::move(
+			File::Load({
+				"textures/cubemaps/san_francisco_3/posx.jpg",
+				"textures/cubemaps/san_francisco_3/negx.jpg",
+				"textures/cubemaps/san_francisco_3/posy.jpg",
+				"textures/cubemaps/san_francisco_3/negy.jpg",
+				"textures/cubemaps/san_francisco_3/posz.jpg",
+				"textures/cubemaps/san_francisco_3/negz.jpg"
 			},
-		                             false
+			false
 		));
 	}
 	
@@ -66,6 +69,14 @@ namespace LouiEriksson {
 		
 		glEnable(GL_DEPTH_TEST);
 		
+		const auto  cullMode = GL_BACK;
+		const auto depthMode = GL_LESS;
+		
+		glCullFace ( cullMode);
+		glDepthFunc(depthMode);
+		
+		/* DRAW ALL RENDERERS */
+		
 		for (const auto& renderer : _renderers) {
 			
 			// Get references to various components needed for rendering.
@@ -101,13 +112,13 @@ namespace LouiEriksson {
 			);
 
 			program->Assign(
-					program->AttributeID("u_Sky"),
-					m_Sky.ID(),
-					1,
-					GL_TEXTURE_CUBE_MAP
+				program->AttributeID("u_Sky"),
+				m_Sky.ID(),
+				1,
+				GL_TEXTURE_CUBE_MAP
 			);
 			
-			// Bind texture and VAO.
+			// Bind VAO.
 			glBindVertexArray(mesh->VAO_ID());
 			
 			/* DRAW */
@@ -120,7 +131,53 @@ namespace LouiEriksson {
 			Texture::Unbind();
 			Cubemap::Unbind();
 			
+			// Unbind VAO.
 			glBindVertexArray(0);
+		}
+		
+		/* DRAW SKY */
+		{
+			glCullFace (GL_FRONT );
+			glDepthFunc(GL_LEQUAL);
+		
+			auto skybox = Shader::m_Cache.Return("skybox");
+			
+			Shader::Bind(skybox->ID());
+			
+			auto trs = glm::scale(
+				glm::mat4(1.0),
+				glm::vec3(10.0)
+			);
+			
+			// Assign matrices.
+			skybox->Assign(skybox->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
+			skybox->Assign(skybox->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
+			skybox->Assign(skybox->AttributeID("u_Model"),                         trs); /* MODEL      */
+			
+			skybox->Assign(
+				skybox->AttributeID("u_Texture"),
+				m_Sky.ID(),
+				0,
+				GL_TEXTURE_CUBE_MAP
+			);
+			
+			// Bind VAO.
+			glBindVertexArray(m_Cube->VAO_ID());
+			
+			/* DRAW */
+			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(m_Cube->VertexCount()));
+			
+			// Unbind program.
+			Shader::Unbind();
+			
+			// Unbind textures.
+			Cubemap::Unbind();
+			
+			// Unbind VAO.
+			glBindVertexArray(0);
+			
+			glCullFace ( cullMode);
+			glDepthFunc(depthMode);
 		}
 		
 		glDisable(GL_DEPTH_TEST);
@@ -132,9 +189,9 @@ namespace LouiEriksson {
 		RenderTexture::Unbind();
 		
 		// Buffers to store mesh data.
-		glGenVertexArrays(1, &VAO0);
+		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
-		glBindVertexArray(VAO0);
+		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, Mesh::Quad::s_VertexCount, &Mesh::Quad::s_VertexData, GL_STATIC_DRAW);
 		
@@ -154,19 +211,19 @@ namespace LouiEriksson {
 		
 		auto aces = Shader::m_Cache.Return("aces");
 		Shader::Bind(aces->ID());
-		aces->Assign(aces->AttributeID("u_Gain"), -0.10f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.30f);
+		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
+		aces->Assign(aces->AttributeID("u_Exposure"), 1.3f);
 		Shader::Unbind();
 		
 		auto grain = Shader::m_Cache.Return("grain");
 		Shader::Bind(grain->ID());
-		grain->Assign(grain->AttributeID("u_Amount"), 0.03f);
+		grain->Assign(grain->AttributeID("u_Amount"), 0.02f);
 		grain->Assign(grain->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
 		auto vignette = Shader::m_Cache.Return("vignette");
 		Shader::Bind(vignette->ID());
-		vignette->Assign(vignette->AttributeID("u_Amount"), 0.33f);
+		vignette->Assign(vignette->AttributeID("u_Amount"), 0.5f);
 		Shader::Unbind();
 		
 		// Push effects to queue.
@@ -184,8 +241,11 @@ namespace LouiEriksson {
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		Shader::Unbind();
 		
-		// Unbind texture and VAO.
-		glBindTexture(GL_TEXTURE_2D, 0);
+		// Unbind texture.
+		Texture::Unbind();
+		Cubemap::Unbind();
+		
+		// Unbind VAO.
 		glBindVertexArray(0);
 	}
 	
@@ -237,28 +297,14 @@ namespace LouiEriksson {
 		
 		combine->Assign(combine->AttributeID("u_Strength"), intensity);
 		
-		glActiveTexture(GL_TEXTURE1);
-		glEnable(GL_TEXTURE_2D);
-		combine->Assign(combine->AttributeID("u_Texture1"), 1);
-		glBindTexture(GL_TEXTURE_2D, rt1.ID());
-		
-		glActiveTexture(GL_TEXTURE0);
-		glEnable(GL_TEXTURE_2D);
-		combine->Assign(combine->AttributeID("u_Texture0"), 0);
-		glBindTexture(GL_TEXTURE_2D, m_RT.ID());
-		
+		combine->Assign(combine->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		combine->Assign(combine->AttributeID("u_Texture1"), rt1.ID(), 1, GL_TEXTURE_2D);
+
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
 		
 		Shader::Unbind();
-		
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glDisable(GL_TEXTURE_2D);
-		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	
 	void Camera::PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const {

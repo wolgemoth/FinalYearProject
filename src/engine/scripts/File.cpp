@@ -123,32 +123,34 @@ namespace LouiEriksson {
 							loaded_resolution.x,
 							loaded_resolution.y
 						),
-							cubemap_resolution
+						cubemap_resolution
 					);
 					
 					if (data != nullptr) {
+
+						GLenum format = GL_NONE;
+						
+						switch (channels) {
+							case 1: { format = GL_R;    break; }
+							case 2: { format = GL_RG;   break; }
+							case 3: { format = GL_RGB;  break; }
+							case 4: { format = GL_RGBA; break; }
+							default: {
+								throw std::runtime_error("Not implemented.");
+							}
+						}
 						
 						glTexImage2D(
 							GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 							0,
-							GL_RGBA,
+							format,
 							loaded_resolution.x,
 							loaded_resolution.y,
 							0,
-							GL_RGBA,
+							format,
 							GL_UNSIGNED_BYTE,
 							data
 						);
-						
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-						
-						if (_generateMipmaps) {
-							glGenerateMipmap(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
-						}
 						
 						stbi_image_free(data);
 					}
@@ -160,6 +162,18 @@ namespace LouiEriksson {
 					std::cout << e.what() << "\n";
 				}
 			}
+			
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			
+			if (_generateMipmaps) {
+				glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			}
+			
+			glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 			
 			result.m_Width  = cubemap_resolution;
 			result.m_Height = cubemap_resolution;
