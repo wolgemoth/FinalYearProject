@@ -33,3 +33,5 @@
 
 #WHITELIST /src/engine
 !/src/engine/**
+
+/cmake-build-debug/**
