@@ -26,7 +26,7 @@ namespace LouiEriksson {
 		if (code != 0) {
 	
 			std::stringstream err;
-			err << "ERROR (Mesh.cpp [Load(const char*, Mesh&)]): Failed to load model \"" <<
+			err << "ERROR (Mesh.cpp [TryLoad(const char*, Mesh&)]): Failed to load model \"" <<
 				_path << "\". Error code: " << code;
 			
 			throw std::runtime_error(err.str());

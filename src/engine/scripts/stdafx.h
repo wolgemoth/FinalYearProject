@@ -14,6 +14,7 @@
 #include <glm/gtx/projection.hpp>
 
 /* EXTERNAL */
+#include "stb_image.h"
 #include "cereal/archives/xml.hpp"
 
 /* INTERNAL */
@@ -35,5 +36,6 @@
 #include <exception>
 #include <algorithm>
 #include <filesystem>
+#include <functional>
 
 #endif //FINALYEARPROJECT_STDAFX_H

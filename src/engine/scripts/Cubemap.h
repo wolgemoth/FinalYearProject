@@ -11,18 +11,28 @@ namespace LouiEriksson {
 	
 	class Cubemap : public Texture {
 	
+		friend class Camera;
+		friend class File;
+		
 	private:
 		
-		Cubemap(const int& _width, const int& _height);
+		Cubemap();
+		
+		Cubemap(const int& _width, const int& _height, const GLuint& _textureID);
 		
 	public:
 		
-		static Cubemap Create(const std::vector<Texture>& _textures);
-		
 		~Cubemap();
 		
-		Cubemap(            const Cubemap& _other) = delete;
-		Cubemap& operator =(const Cubemap& _other) = delete;
+		Cubemap(             const Cubemap& _other) = delete;
+		Cubemap& operator = (const Cubemap& _other) = delete;
+		
+		Cubemap             (Cubemap&& _other) noexcept;
+		Cubemap& operator = (Cubemap&& _other) noexcept;
+		
+		static void Bind(const Cubemap& _cubemap);
+		
+		static void Unbind();
 		
 		void Discard() const;
 	};

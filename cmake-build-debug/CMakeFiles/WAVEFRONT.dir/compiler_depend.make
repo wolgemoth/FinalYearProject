@@ -3,7 +3,7 @@
 
 CMakeFiles/WAVEFRONT.dir/external/wavefront/src/wavefront/Model.c.o: /home/ubuntu/Projects/FinalYearProject/external/wavefront/src/wavefront/Model.c \
   /usr/include/stdc-predef.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/src/wavefront/stb_image.h \
+  /home/ubuntu/Projects/FinalYearProject/external/stb/include/stb_image.h \
   /usr/include/stdio.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/features.h \
@@ -170,11 +170,11 @@ CMakeFiles/WAVEFRONT.dir/external/wavefront/src/wavefront/Model.c.o: /home/ubunt
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
+/home/ubuntu/Projects/FinalYearProject/external/stb/include/stb_image.h:
+
 /usr/include/features.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/home/ubuntu/Projects/FinalYearProject/external/wavefront/src/wavefront/stb_image.h:
 
 /home/ubuntu/Projects/FinalYearProject/external/wavefront/src/wavefront/Model.c:
 
@@ -266,9 +266,9 @@ CMakeFiles/WAVEFRONT.dir/external/wavefront/src/wavefront/Model.c.o: /home/ubunt
 
 /usr/include/math.h:
 
-/usr/include/alloca.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h:
+
+/usr/include/alloca.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 

@@ -120,6 +120,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/external/glm
         ${SDL2_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/wavefront/include/
+        ${PROJECT_SOURCE_DIR}/external/stb/include/
 )
 
 # Add the external .c file as a library target
@@ -139,12 +140,14 @@ target_link_libraries(FinalYearProject
         WAVEFRONT
 )
 
-set( LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels)
-set( MODELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/models)
-set(SHADERS_PATH ${PROJECT_SOURCE_DIR}/src/engine/shaders)
+set(  LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels)
+set(  MODELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/models)
+set( SHADERS_PATH ${PROJECT_SOURCE_DIR}/src/engine/shaders)
+set(TEXTURES_PATH ${PROJECT_SOURCE_DIR}/src/engine/textures)
 
-file(COPY  ${LEVELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY  ${MODELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY ${SHADERS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY   ${LEVELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY   ${MODELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY  ${SHADERS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY ${TEXTURES_PATH} DESTINATION ${PROJECT_BINARY_DIR})
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

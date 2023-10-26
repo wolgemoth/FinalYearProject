@@ -5,9 +5,7 @@
 namespace LouiEriksson {
 	
 	Plane::Plane(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-		
-		m_Mesh     = std::shared_ptr<Mesh>    (nullptr);
-		m_Material = std::shared_ptr<Material>(nullptr);
+	
 	}
 	
 	Plane::~Plane() = default;

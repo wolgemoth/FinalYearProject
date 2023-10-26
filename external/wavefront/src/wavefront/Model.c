@@ -1,6 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
+#include "../../../stb/include/stb_image.h"
 #include "../../include/wavefront/wavefront.h"
 
 #define STENT_DISABLE

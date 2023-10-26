@@ -107,7 +107,7 @@ namespace LouiEriksson {
 	
 		glm::vec3 result(0.0f);
 	
-		const float coefficient = 0.5f;
+		const float coefficient = 0.2f;
 	
 		// Velocity vector and its magnitude.
 		auto dir = Velocity();

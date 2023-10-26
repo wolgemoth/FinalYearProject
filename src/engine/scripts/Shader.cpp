@@ -206,9 +206,9 @@ namespace LouiEriksson {
 		return glGetUniformLocation(this->ID(), _name);
 	}
 	
-	void Shader::Assign(const GLint& _id, const GLint& _value) { glUniform1i(_id, _value); }
-	void Shader::Assign(const GLint& _id, const GLuint& _value) { glUniform1ui(_id, _value); }
-	void Shader::Assign(const GLint& _id, const GLfloat& _value) { glUniform1f(_id, _value); }
+	void Shader::Assign(const GLint& _id, const GLint&   _value) { glUniform1i (_id, _value); }
+	void Shader::Assign(const GLint& _id, const GLuint&  _value) { glUniform1ui(_id, _value); }
+	void Shader::Assign(const GLint& _id, const GLfloat& _value) { glUniform1f (_id, _value); }
 	
 	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y) {
 		glUniform2f(_id, _x, _y);
@@ -229,6 +229,14 @@ namespace LouiEriksson {
 	void Shader::Assign(const GLint& _id, const glm::mat2& _mat) { glUniformMatrix2fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 	void Shader::Assign(const GLint& _id, const glm::mat3& _mat) { glUniformMatrix3fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 	void Shader::Assign(const GLint& _id, const glm::mat4& _mat) { glUniformMatrix4fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
+	
+	void Shader::Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target) {
+		
+		glActiveTexture(GL_TEXTURE0 + _imageUnit);
+		glEnable(_target);
+		glUniform1i(_id, _imageUnit);
+		glBindTexture(_target, _textureID);
+	}
 	
 	GLint Shader::ID() const {
 		return this->m_ProgramID;

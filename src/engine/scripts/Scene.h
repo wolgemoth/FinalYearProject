@@ -47,7 +47,7 @@ namespace LouiEriksson {
 		/// <summary> Save the Scene in xml format at a given path. </summary>
 		void Save(const std::filesystem::path& _path);
 	
-		/// <summary> Load the Scene from xml format at a given path. </summary>
+		/// <summary> TryLoad the Scene from xml format at a given path. </summary>
 		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path);
 	
 		/// <summary> Attach an instance of a type to the Scene. </summary>

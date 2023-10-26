@@ -14,7 +14,7 @@ namespace LouiEriksson {
 		
 		std::vector<std::any> renderers;
 		if (m_Entities.Get(typeid(Renderer), renderers)) {
-			for (auto& r: renderers) {
+			for (const auto& r: renderers) {
 				casted_renderers.push_back(std::any_cast<std::shared_ptr<Renderer>>(r));
 			}
 		}
@@ -23,7 +23,7 @@ namespace LouiEriksson {
 		if (m_Entities.Get(typeid(Camera), cameras)) {
 			
 			/* RENDER */
-			for (auto& c: cameras) {
+			for (const auto& c: cameras) {
 				
 				const auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
 				camera->PreRender();
@@ -38,7 +38,7 @@ namespace LouiEriksson {
 	
 		std::vector<std::any> scripts;
 		if (m_Entities.Get(typeid(Script), scripts)) {
-			for (auto s : scripts) {
+			for (const auto& s : scripts) {
 				std::any_cast<std::shared_ptr<Script>>(s)->Begin();
 			}
 		}
@@ -48,7 +48,7 @@ namespace LouiEriksson {
 	
 		std::vector<std::any> scripts;
 		if (m_Entities.Get(typeid(Script), scripts)) {
-			for (auto s : scripts) {
+			for (const auto& s : scripts) {
 				std::any_cast<std::shared_ptr<Script>>(s)->Tick();
 			}
 		}
@@ -64,7 +64,7 @@ namespace LouiEriksson {
 		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
 	
 			/* FRAME BEGIN */
-			for (auto r : rigidbodies) {
+			for (const auto& r : rigidbodies) {
 	
 				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
 	
@@ -81,8 +81,10 @@ namespace LouiEriksson {
 				rigidbody->AddForce(force);
 			}
 	
+			std::vector<std::pair<std::shared_ptr<Rigidbody>, Collision>> collisions;
+			
 			/* COLLISION */
-			for (auto r : rigidbodies) {
+			for (const auto& r : rigidbodies) {
 	
 				auto rigidbody    = std::any_cast<std::shared_ptr<Rigidbody>>(r);
 				auto thisCollider = rigidbody->GetCollider().lock();
@@ -96,24 +98,31 @@ namespace LouiEriksson {
 	
 						Collision hit;
 						if (thisCollider->Evaluate(otherCollider, &hit)) {
-	
-							rigidbody->GetTransform().lock()->m_Position += hit.ContactPoint();
-	
-							// Accumulate forces created by this collision.
-							auto force =
-								hit.Impulse() +
-								rigidbody->FrictionForce(hit);
-							
-							// Apply the forces to the rigidbody.
-							// These forces happen 'instantly' so we cancel the delta.
-							rigidbody->AddForce(force / Time::FixedDeltaTime());
+							collisions.emplace_back( rigidbody, hit );
 						}
 					}
 				}
 			}
+			
+			for (const auto& pair : collisions) {
+				
+				auto rigidbody = pair.first;
+				auto       hit = pair.second;
+				
+				rigidbody->GetTransform().lock()->m_Position += hit.ContactPoint();
+				
+				// Accumulate forces created by this collision.
+				auto force =
+						hit.Impulse() +
+						rigidbody->FrictionForce(hit);
+				
+				// Apply the forces to the rigidbody.
+				// These forces happen 'instantly' so we cancel the delta.
+				rigidbody->AddForce(force / Time::FixedDeltaTime());
+			}
 	
 			/* FRAME END */
-			for (auto r : rigidbodies) {
+			for (const auto& r : rigidbodies) {
 	
 				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
 	
@@ -140,11 +149,11 @@ namespace LouiEriksson {
 			xml.setNextName("Entities"); // Start "Entities"
 			xml.startNode();
 	
-			for (auto& category : map) {
+			for (const auto& category : map) {
 	
-				auto& entries = category.second;
+				const auto& entries = category.second;
 	
-				for (auto& entry : entries) {
+				for (const auto& entry : entries) {
 	
 					if (category.first == typeid(GameObject)) { // Only serialise things attached to GameObject.
 	
@@ -155,13 +164,13 @@ namespace LouiEriksson {
 						xml.setNextName(entity->Name().c_str());
 						xml.startNode();
 	
-						for (auto& subCategory : subCategories) {
+						for (const auto& subCategory : subCategories) {
 	
-							auto& components = subCategory.second;
+							const auto& components = subCategory.second;
 	
 							if (subCategory.first == typeid(Transform)) {		// Serialise Transform.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto transform = std::any_cast<std::shared_ptr<Transform>>(component);
 	
@@ -177,7 +186,7 @@ namespace LouiEriksson {
 							}
 							else if (subCategory.first == typeid(Rigidbody)) {	// Serialise Rigidbody.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(component);
 	
@@ -195,7 +204,7 @@ namespace LouiEriksson {
 							}
 							else if (subCategory.first == typeid(Camera)) {		// Serialise Camera.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto camera = std::any_cast<std::shared_ptr<Camera>>(component);
 	
@@ -207,7 +216,7 @@ namespace LouiEriksson {
 							}
 							else if (subCategory.first == typeid(Collider)) {	// Serialise Collider.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto collider = std::any_cast<std::shared_ptr<Collider>>(component);
 	
@@ -220,7 +229,7 @@ namespace LouiEriksson {
 							}
 							else if (subCategory.first == typeid(Light)) {		// Serialise Light.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto light = std::any_cast<std::shared_ptr<Light>>(component);
 	
@@ -232,7 +241,7 @@ namespace LouiEriksson {
 							}
 							else if (subCategory.first == typeid(Renderer)) {	// Serialise Renderer.
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 	
 									auto renderer = std::any_cast<std::shared_ptr<Renderer>>(component);
 	
@@ -247,7 +256,7 @@ namespace LouiEriksson {
 								xml.setNextName("Script");
 								xml.startNode();
 	
-								for (auto& component : components) {
+								for (const auto& component : components) {
 									xml(cereal::make_nvp("Type", std::string(component.type().name())));
 								}
 	
@@ -284,7 +293,7 @@ namespace LouiEriksson {
 	
 		for (size_t i = 0; i < gameObjectCount; i++) {
 	
-			auto gameObjectName = xml.getNodeName();
+			const auto *gameObjectName = xml.getNodeName();
 			std::cout << "\tName: \"" << gameObjectName << "\"\n";
 	
 			// Create GameObject to populate.
@@ -401,7 +410,7 @@ namespace LouiEriksson {
 	
 		xml.finishNode();
 	
-		std::cout << "Finished Loading." << std::endl;
+		std::cout << "Finished Loading." << "\n";
 	
 		return result;
 	}

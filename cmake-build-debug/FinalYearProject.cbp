@@ -29,6 +29,7 @@
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/glm"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/SDL2/include"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/wavefront/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/stb/include"/>
 					<Add directory="/usr/include/c++/11"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
 					<Add directory="/usr/include/c++/11/backward"/>
@@ -56,6 +57,7 @@
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/glm"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/SDL2/include"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/wavefront/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/stb/include"/>
 					<Add directory="/usr/include/c++/11"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
 					<Add directory="/usr/include/c++/11/backward"/>
@@ -83,6 +85,7 @@
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/glm"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/SDL2/include"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/wavefront/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/stb/include"/>
 					<Add directory="/usr/include/c++/11"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
 					<Add directory="/usr/include/c++/11/backward"/>
@@ -110,6 +113,7 @@
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/glm"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/SDL2/include"/>
 					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/wavefront/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/external/stb/include"/>
 					<Add directory="/usr/include/c++/11"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
 					<Add directory="/usr/include/c++/11/backward"/>

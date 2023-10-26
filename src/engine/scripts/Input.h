@@ -27,8 +27,8 @@ namespace LouiEriksson {
 		 Input(const Input& _other) = delete;
 		~Input()                    = delete;
 		
-		Input& operator =(const Input&  _other) = delete;
-		Input& operator =(      Input&& _other) = delete;
+		Input& operator = (const Input&  _other) = delete;
+		Input& operator = (      Input&& _other) = delete;
 		
 	};
 }

@@ -1,10 +1,14 @@
 #version 330 core
 
+const float EPSILON = 0.005;
+const float      PI = 3.1415;
+
 in vec2 v_TexCoord;
 in vec3 v_Position;
 in vec3 v_Normal;
 
-uniform sampler2D u_Texture;
+uniform sampler2D   u_Texture;
+uniform samplerCube u_Sky;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -17,18 +21,18 @@ uniform vec4 u_AmbientLighting; // Color of ambient lighting. Accepts HDR values
 uniform  vec3 u_PointLightPosition;   // Position of light.
 uniform float u_PointLightRange;      // Range of light.
 uniform float u_PointLightBrightness; // Brightness of light.
-uniform  vec4 u_PointLightColor;      // Color of light.
+uniform  vec3 u_PointLightColor;      // Color of light.
 
 uniform  vec3 u_DirectionalLightNormal;     // Direction of light.
 uniform float u_DirectionalLightBrightness; // Brightness of light.
-uniform  vec4 u_DirectionalLightColor;      // Color of light.
+uniform  vec3 u_DirectionalLightColor;      // Color of light.
 
 /* FOG */
-uniform  vec4 u_FogColor;    // Color of fog effect. Accepts HDR values.
+uniform  vec3 u_FogColor;    // Color of fog effect. Accepts HDR values.
 uniform float u_FogDensity;  // Density of fog effect.
 
 // Couldn't find a square distance function so made my own. Does GLSL not have one?
-float sqrLength(vec3 _A, vec3 _B) {
+float length2(vec3 _A, vec3 _B) {
 
     vec3 delta = _B - _A;
 
@@ -36,8 +40,8 @@ float sqrLength(vec3 _A, vec3 _B) {
 }
 
 // Light falloff with inverse square law.
-float attenuation(vec3 _lightPosition, vec3 _fragPosition, float _range) {
-    return _range / sqrLength(_lightPosition, _fragPosition);
+float Attenuation(vec3 _lightPosition, vec3 _fragPosition, float _range) {
+    return _range / length2(_lightPosition, _fragPosition);
 }
 
 vec3 Irradiance(vec3 _fresnel, float _metallic) {
@@ -61,7 +65,7 @@ float Distrib(float _cosLh, float _roughness) {
     float alphaSq = alpha * alpha;
 
     float denom = (_cosLh * _cosLh) * (alphaSq - 1.0) + 1.0;
-    return alphaSq / (3.1415 * denom * denom);
+    return alphaSq / (PI * denom * denom);
 }
 
 vec3 Fresnel(vec3 _metallic, float _theta) {
@@ -82,7 +86,7 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     vec3 diffuse = Irradiance(fresnel, _metallic);
 
     vec3 specular = (fresnel * Distrib(cosLh, _roughness) * Geom(cosLi, cosLo, _roughness)) /
-        max(0.00001, 4.0 * cosLi * cosLo);
+        max(0.005, 4.0 * cosLi * cosLo);
 
     return (diffuse + specular) * cosLi;
 }
@@ -98,7 +102,7 @@ void main() {
 
     /* POINT LIGHT */
 
-    float attenuation = attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
+    float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
 
     vec3 lighting = BRDF(
         albedo.rgb,
@@ -110,5 +114,9 @@ void main() {
         u_Roughness
     ) * u_PointLightBrightness * attenuation;
 
-    gl_FragColor = albedo * (u_PointLightColor * vec4(lighting, 1.0));
+    vec3 directLighting = albedo.rgb * (u_PointLightColor * lighting);
+
+    vec3 skyColor = texture(u_Sky, reflect(viewDir, normal)).rgb;
+
+    gl_FragColor = vec4(directLighting + (skyColor * 0.6), 1.0);
 }

@@ -5,9 +5,7 @@
 namespace LouiEriksson {
 	
 	Ball::Ball(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-		
-		m_Mesh     = std::shared_ptr<Mesh>    (nullptr);
-		m_Material = std::shared_ptr<Material>(nullptr);
+	
 	}
 	
 	Ball::~Ball() = default;
@@ -17,15 +15,15 @@ namespace LouiEriksson {
 		auto scene = Parent()->GetScene();
 	
 		// Load mesh.
-		if (m_Mesh == nullptr) {
-			m_Mesh = Mesh::Load("models/sphere/sphere.obj");
+		if (s_Mesh == nullptr) {
+			s_Mesh = Mesh::Load("models/sphere/sphere.obj");
 		}
 		
-		if (m_Material == nullptr) {
+		if (s_Material == nullptr) {
 			
 			// Create material from shader.
-			m_Material = Material::Create(Shader::m_Cache.Return("pbr"));
-			m_Material->Texture_ID(m_Mesh->Texture_ID());
+			s_Material = Material::Create(Shader::m_Cache.Return("pbr"));
+			s_Material->Texture_ID(s_Mesh->Texture_ID());
 		}
 	
 		// Get or add component.
@@ -43,8 +41,8 @@ namespace LouiEriksson {
 			renderer = Parent()->AddComponent<Renderer>();
 		}
 	
-		renderer->SetMesh(m_Mesh);
-		renderer->SetMaterial(m_Material);
+		renderer->SetMesh(s_Mesh);
+		renderer->SetMaterial(s_Material);
 		renderer->SetTransform(transform);
 	
 		// Get or add collider.

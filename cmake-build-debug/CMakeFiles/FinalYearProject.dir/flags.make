@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/Projects/FinalYearProject/external/cereal/include -I/home/ubuntu/Projects/FinalYearProject/external/glew/include -I/home/ubuntu/Projects/FinalYearProject/external/glm -I/home/ubuntu/Projects/FinalYearProject/external/SDL2/include -I/home/ubuntu/Projects/FinalYearProject/external/wavefront/include
+CXX_INCLUDES = -I/home/ubuntu/Projects/FinalYearProject/external/cereal/include -I/home/ubuntu/Projects/FinalYearProject/external/glew/include -I/home/ubuntu/Projects/FinalYearProject/external/glm -I/home/ubuntu/Projects/FinalYearProject/external/SDL2/include -I/home/ubuntu/Projects/FinalYearProject/external/wavefront/include -I/home/ubuntu/Projects/FinalYearProject/external/stb/include
 
 CXX_FLAGS = -g -fdiagnostics-color=always
 

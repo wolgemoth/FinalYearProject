@@ -6,9 +6,9 @@
 
 namespace LouiEriksson {
 	
-	Texture::Texture(const int& _width, const int& _height) {
+	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID) {
 		
-		m_TextureID = -1;
+		m_TextureID = _textureID;
 		
 		m_Width  = _width;
 		m_Height = _height;
@@ -29,14 +29,21 @@ namespace LouiEriksson {
 		Texture::Unbind();
 	}
 	
-	Texture::~Texture() {
-		Discard();
+	Texture::Texture(Texture&& _other) noexcept {
+	
+		m_Width  = _other.m_Width;
+		m_Height = _other.m_Height;
+		
+		m_TextureID = _other.m_TextureID;
+		
+		_other.m_Width  = -1;
+		_other.m_Height = -1;
+		
+		_other.m_TextureID = -1;
 	}
 	
-	Texture Texture::Create(std::string& _path) {
-		
-		
-		return Texture(-1, -1);
+	Texture::~Texture() {
+		Discard();
 	}
 	
 	const int& Texture::Width() const { return m_Width; }
@@ -44,11 +51,11 @@ namespace LouiEriksson {
 	const int& Texture::Height() const { return m_Height; }
 	
 	void Texture::Bind(const Texture& _texture) {
-		glBindTexture(GL_FRAMEBUFFER, _texture.m_TextureID);
+		glBindTexture(GL_TEXTURE_2D, _texture.m_TextureID);
 	}
 	
 	void Texture::Unbind() {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	
 	void Texture::Discard() const {
@@ -57,6 +64,24 @@ namespace LouiEriksson {
 	
 	const GLuint& Texture::ID() const {
 		return m_TextureID;
+	}
+	
+	Texture& Texture::operator = (Texture&& _other) noexcept {
+		
+		if (this != &_other) {
+			
+			this->m_Width  = _other.m_Width;
+			this->m_Height = _other.m_Height;
+			
+			this->m_TextureID = _other.m_TextureID;
+			
+			_other.m_Width  = -1;
+			_other.m_Height = -1;
+			
+			_other.m_TextureID = -1;
+		}
+		
+		return *this;
 	}
 	
 }

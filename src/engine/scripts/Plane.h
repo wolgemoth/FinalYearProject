@@ -17,10 +17,10 @@ namespace LouiEriksson {
 	protected:
 	
 		/// <summary> Mesh of the Plane. </summary>
-		std::shared_ptr<Mesh> m_Mesh;
+		static inline std::shared_ptr<Mesh> m_Mesh = nullptr;
 		
 		/// <summary> Material of the Plane. </summary>
-		std::shared_ptr<Material> m_Material;
+		static inline std::shared_ptr<Material> m_Material = nullptr;
 	
 		/// <summary> Called at the beginning of every frame. </summary>
 		void Begin() override;

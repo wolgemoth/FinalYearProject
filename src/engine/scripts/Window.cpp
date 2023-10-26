@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 	
-	Window::Window(const int& _width, const int& _height, const char* _name) {
+	Window::Window(const int& _width, const int& _height, const char* _name, bool _fullscreen) {
 	
 		m_Window = std::shared_ptr<SDL_Window>(
 			SDL_CreateWindow(_name,
@@ -13,7 +13,11 @@ namespace LouiEriksson {
 			),
 			[](SDL_Window* _ptr) { SDL_DestroyWindow(_ptr); } // Custom deleter calls SDL_DestroyWindow();
 		);
-	
+		
+		if (_fullscreen) {
+			SDL_SetWindowFullscreen(m_Window.get(), SDL_WINDOW_FULLSCREEN);
+		}
+		
 		m_ID = SDL_GetWindowID(m_Window.get());
 	
 		if (SDL_GL_CreateContext(m_Window.get()) == NULL) { // NOLINT(*-use-nullptr)

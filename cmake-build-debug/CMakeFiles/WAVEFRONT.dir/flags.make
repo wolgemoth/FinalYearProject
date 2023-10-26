@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/ubuntu/Projects/FinalYearProject/external/cereal/include -I/home/ubuntu/Projects/FinalYearProject/external/glew/include -I/home/ubuntu/Projects/FinalYearProject/external/glm -I/home/ubuntu/Projects/FinalYearProject/external/SDL2/include -I/home/ubuntu/Projects/FinalYearProject/external/wavefront/include
+C_INCLUDES = -I/home/ubuntu/Projects/FinalYearProject/external/cereal/include -I/home/ubuntu/Projects/FinalYearProject/external/glew/include -I/home/ubuntu/Projects/FinalYearProject/external/glm -I/home/ubuntu/Projects/FinalYearProject/external/SDL2/include -I/home/ubuntu/Projects/FinalYearProject/external/wavefront/include -I/home/ubuntu/Projects/FinalYearProject/external/stb/include
 
 C_FLAGS = -g -fdiagnostics-color=always
 

@@ -69,40 +69,42 @@ namespace LouiEriksson {
 		GLint AttributeID(const char* _name) const;
 		
 		/// <summary> Assign an integer to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLint& _value) ;
+		static void Assign(const GLint& _id, const GLint& _value);
 		
 		/// <summary> Assign an unsigned integer to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLuint& _value) ;
+		static void Assign(const GLint& _id, const GLuint& _value);
 		
 		/// <summary> Assign a float to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLfloat& _value) ;
+		static void Assign(const GLint& _id, const GLfloat& _value);
 		
 		/// <summary> Assign a 2-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y) ;
+		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y);
 		
 		/// <summary> Assign a 3-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z) ;
+		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z);
 		
 		/// <summary> Assign a 4-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z, const GLfloat& _w) ;
+		static void Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z, const GLfloat& _w);
 		
 		/// <summary> Assign a 2-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::vec2& _value) ;
+		static void Assign(const GLint& _id, const glm::vec2& _value);
 		
 		/// <summary> Assign a 3-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::vec3& _value) ;
+		static void Assign(const GLint& _id, const glm::vec3& _value);
 		
 		/// <summary> Assign a 4-dimensional vector to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::vec4& _value) ;
+		static void Assign(const GLint& _id, const glm::vec4& _value);
 		
 		/// <summary> Assign a 2-dimensional matrix to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::mat2& _mat) ;
+		static void Assign(const GLint& _id, const glm::mat2& _mat);
 		
 		/// <summary> Assign a 3-dimensional matrix to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::mat3& _mat) ;
+		static void Assign(const GLint& _id, const glm::mat3& _mat);
 		
 		/// <summary> Assign a 4-dimensional matrix to the Shader. </summary>
-		static void Assign(const GLint& _id, const glm::mat4& _mat) ;
+		static void Assign(const GLint& _id, const glm::mat4& _mat);
+		
+		static void Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target);
 		
 		/// <summary> Get the ID of the Shader. </summary>
 		[[nodiscard]] GLint ID() const;

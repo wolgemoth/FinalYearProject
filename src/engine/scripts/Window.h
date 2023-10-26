@@ -29,7 +29,7 @@ namespace LouiEriksson {
 		void   Link(Camera& _camera);
 		void Unlink(Camera& _camera);
 	
-		 Window(const int& _width, const int& _height, const char* _name);
+		 Window(const int& _width, const int& _height, const char* _name, bool _fullscreen = false);
 		~Window() = default;
 	
 	public:

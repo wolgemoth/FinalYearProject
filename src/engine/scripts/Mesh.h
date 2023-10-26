@@ -35,7 +35,7 @@ namespace LouiEriksson {
 		
 		~Mesh();
 		
-		/// <summary> Load a mesh from a path. </summary>
+		/// <summary> TryLoad a mesh from a path. </summary>
 		static std::shared_ptr<Mesh> Load(const std::string& _path);
 		
 		[[nodiscard]] GLuint PositionVBO_ID() const;

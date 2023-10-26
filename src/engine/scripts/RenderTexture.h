@@ -27,11 +27,11 @@ namespace LouiEriksson {
 		
 		void Resize(const int& _width, const int& _height);
 		
-		void Discard() const;
-		
 		static void Bind(const RenderTexture& _rt);
 		
 		static void Unbind();
+		
+		void Discard() const;
 	};
 	
 }

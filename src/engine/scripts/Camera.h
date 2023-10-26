@@ -19,6 +19,8 @@ namespace LouiEriksson {
 	
 	private:
 	
+		Cubemap m_Sky;
+		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window>    m_Window;
 	

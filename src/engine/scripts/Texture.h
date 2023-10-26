@@ -5,9 +5,16 @@
 #ifndef FINALYEARPROJECT_TEXTURE_H
 #define FINALYEARPROJECT_TEXTURE_H
 
+#include "stdafx.h"
+
+class Cubemap;
+
 namespace LouiEriksson {
 	
 	class Texture {
+	
+		friend class File;
+		friend class Cubemap;
 		
 	protected:
 		
@@ -16,18 +23,19 @@ namespace LouiEriksson {
 		
 		GLuint m_TextureID;
 	
-		explicit Texture(const int& _width, const int& _height);
-		
-	public:
-	
-		static Texture Create(std::string& _path);
+		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID = -1);
 		
 		explicit Texture(const GLuint& _textureID);
-		
+	
+	public:
+	
 		~Texture();
 		
-		Texture             (const Texture& _other) = delete;
-		Texture& operator = (const Texture& _other) = delete;
+		Texture             (const Texture&  _other) = delete;
+		Texture& operator = (const Texture&  _other) = delete;
+		
+		Texture             (Texture&& _other) noexcept;
+		Texture& operator = (Texture&& _other) noexcept;
 		
 		[[nodiscard]] const int& Width() const;
 		

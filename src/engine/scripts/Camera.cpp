@@ -19,6 +19,17 @@ namespace LouiEriksson {
 		VBO  = -1;
 		
 		m_IsDirty = true;
+		
+		m_Sky = std::move(File::Load({
+				"textures/cubemaps/another_planet/px.png",
+				"textures/cubemaps/another_planet/nx.png",
+				"textures/cubemaps/another_planet/py.png",
+				"textures/cubemaps/another_planet/ny.png",
+				"textures/cubemaps/another_planet/pz.png",
+				"textures/cubemaps/another_planet/nz.png"
+			},
+		                             false
+		));
 	}
 	
 	Camera::~Camera() {
@@ -75,41 +86,29 @@ namespace LouiEriksson {
 			program->Assign(program->AttributeID("u_Metallic"), 0.1f);
 			program->Assign(program->AttributeID("u_Roughness"), 0.334f);
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec4(0.5f, 0.5f, 0.8f, 1.0f));
+			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec3(0.5f, 0.5f, 0.8f));
 
 			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
 			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
 			program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
-			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec4(1, 1, 1, 1));
+			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
 
-//			// Assign parameters.
-//			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
-//			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-//			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec4(0.5f, 0.5f, 0.8f, 1.0f));
-//
-//			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(-5.0f, 5.0f, 0.0f));
-//			program->Assign(program->AttributeID("u_PointLightRange"), 30.0f);
-//			program->Assign(program->AttributeID("u_PointLightBrightness"), 2.2f);
-//			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec4(1, 1, 1, 1));
-//
-//			 const auto dirRot = glm::quat(
-//				glm::radians(
-//					glm::vec3(
-//						-25.0f, 90.0f, 0.0f
-//					)
-//				)
-//			);
-//
-//			program->Assign(program->AttributeID("u_DirectionalLightNormal"), dirRot * glm::vec3(0, 0, 1));
-//			program->Assign(program->AttributeID("u_DirectionalLightBrightness"), 0.5f);
-//			program->Assign(program->AttributeID("u_DirectionalLightColor"), glm::vec4(1, 1, 0.7, 1));
-//
-//			program->Assign(program->AttributeID("u_FogColor"), ClearColor());
-//			program->Assign(program->AttributeID("u_FogDensity"), 0.0002f);
-//
+			program->Assign(
+				program->AttributeID("u_Texture"),
+				material->Texture_ID(),
+				0,
+				GL_TEXTURE_2D
+			);
+
+			program->Assign(
+					program->AttributeID("u_Sky"),
+					m_Sky.ID(),
+					1,
+					GL_TEXTURE_CUBE_MAP
+			);
+			
 			// Bind texture and VAO.
 			glBindVertexArray(mesh->VAO_ID());
-			glBindTexture(GL_TEXTURE_2D, material->Texture_ID());
 			
 			/* DRAW */
 			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -117,8 +116,10 @@ namespace LouiEriksson {
 			// Unbind program.
 			Shader::Unbind();
 			
-			// Unbind texture and VAO.
-			glBindTexture(GL_TEXTURE_2D, 0);
+			// Unbind textures.
+			Texture::Unbind();
+			Cubemap::Unbind();
+			
 			glBindVertexArray(0);
 		}
 		
@@ -143,7 +144,7 @@ namespace LouiEriksson {
 		
 		// Texture coordinates.
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*) (2 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 		
 		/* POST PROCESSING */
 		
@@ -169,8 +170,8 @@ namespace LouiEriksson {
 		Shader::Unbind();
 		
 		// Push effects to queue.
-		effects.push(aces); // TONEMAPPING
-		effects.push(grain); // GRAIN
+		effects.push(aces);     // TONEMAPPING
+		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
 		Bloom();
