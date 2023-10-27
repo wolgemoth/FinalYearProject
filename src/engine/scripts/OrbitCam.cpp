@@ -62,7 +62,7 @@ namespace LouiEriksson {
 			m_Camera = Parent()->AddComponent<Camera>();
 		}
 		
-		GetCamera()->FOV(60.0f);
+		GetCamera()->FOV(70.0f);
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f)); //glm::vec4(0.34f, 0.764f, 1.0f, 0.0f)
@@ -73,7 +73,7 @@ namespace LouiEriksson {
 		float rot_speed = 0.75f;
 		float bob_speed = 0.33f;
 		
-		float rot_distance = -15;
+		float rot_distance = -12;
 		float bob_distance = 2.5;
 		float bob_amount = 4;
 		
