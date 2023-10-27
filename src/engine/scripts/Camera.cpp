@@ -117,14 +117,14 @@ namespace LouiEriksson {
 			Shader::Bind(shadowShader->ID());
 			
 			float near_plane = 1.0f,
-			       far_plane = 7.5f;
+			       far_plane = 100.0f;
 			
 			const glm::mat4 lightProjection =
 				glm::ortho(
-				   -10.0f,
-				    10.0f,
-				   -10.0f,
-				    10.0f,
+				   -20.0f,
+				    20.0f,
+				   -20.0f,
+				    20.0f,
 					near_plane,
 					far_plane
 				);

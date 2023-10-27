@@ -8,8 +8,11 @@ const float      PI = 3.1415;
 in vec2 v_TexCoord;
 in vec3 v_Position;
 in vec3 v_Normal;
+in vec4 v_FragPosLightSpace;
 
 uniform sampler2D u_Albedo;
+
+uniform sampler2D u_ShadowMap;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -85,6 +88,22 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     return (diffuse + specular) * cosLi;
 }
 
+float ShadowCalculation(vec4 fragPosLightSpace) {
+
+    // perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(u_ShadowMap, projCoords.xy).r;
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // check whether current frag pos is in shadow
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+
+    return shadow;
+}
+
 void main() {
 
     vec4 albedo = texture2D(u_Albedo, v_TexCoord);
@@ -129,5 +148,7 @@ void main() {
         indirectLighting = ((diffuse * (1.0 - u_Metallic)) * albedo.rgb) + (fresnel * specular);
     }
 
-    gl_FragColor = vec4((directLighting + indirectLighting), 1.0);
+    float shadows = ShadowCalculation(v_FragPosLightSpace);
+
+    gl_FragColor = vec4((directLighting + indirectLighting), 1.0) - shadows;
 }
