@@ -123,60 +123,65 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 	        /* Lit Surface Shader */ {
-                 { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
-                 { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
-             },
+                { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
+                { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
+            },
 			 
 	        /* Lit Surface Shader (PBR) */ {
-                 { "shaders/pbr/pbr.vert",                     GL_VERTEX_SHADER },
-                 { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
-             },
-				
-			/* Lit Surface Shader (PBR) */ {
+				{ "shaders/pbr/pbr.vert",                     GL_VERTEX_SHADER },
+                { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
+            },
+			 
+			 /* Shadow Depth Shader */ {
+				{ "shaders/shadowDepth/shadowDepth.vert",     GL_VERTEX_SHADER },
+                { "shaders/shadowDepth/shadowDepth.frag",   GL_FRAGMENT_SHADER }
+            },
+			 
+			 /* Skybox Shader */ {
 				{ "shaders/skybox/skybox.vert",                GL_VERTEX_SHADER },
 				{ "shaders/skybox/skybox.frag",              GL_FRAGMENT_SHADER }
-			},
+			 },
 			 
 	        /* Passthrough */ {
-                 { "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
-                 { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
+                { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* ACES Tonemapping */ {
-                 { "shaders/aces/aces.vert",                   GL_VERTEX_SHADER },
-                 { "shaders/aces/aces.frag",                 GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/aces/aces.vert",                   GL_VERTEX_SHADER },
+                { "shaders/aces/aces.frag",                 GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* Vignette */ {
-                 { "shaders/vignette/vignette.vert",           GL_VERTEX_SHADER },
-                 { "shaders/vignette/vignette.frag",         GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/vignette/vignette.vert",           GL_VERTEX_SHADER },
+                { "shaders/vignette/vignette.frag",         GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* Grain */ {
-                 { "shaders/grain/grain.vert",                 GL_VERTEX_SHADER },
-                 { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
-             },
-	        
-	        /* Bloom - Threshold */ {
-                 { "shaders/bloom/threshold/threshold.vert",   GL_VERTEX_SHADER },
-                 { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/grain/grain.vert",                 GL_VERTEX_SHADER },
+                { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
+            },
+			 
+			 /* Bloom - Threshold */ {
+				{ "shaders/bloom/threshold/threshold.vert",   GL_VERTEX_SHADER },
+                { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* Bloom - Downscale */ {
-                 { "shaders/bloom/downscale/downscale.vert",   GL_VERTEX_SHADER },
-                 { "shaders/bloom/downscale/downscale.frag", GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/bloom/downscale/downscale.vert",   GL_VERTEX_SHADER },
+                { "shaders/bloom/downscale/downscale.frag", GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* Bloom - Upscale */ {
-                 { "shaders/bloom/upscale/upscale.vert",       GL_VERTEX_SHADER },
-                 { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
-             },
-	        
+				{ "shaders/bloom/upscale/upscale.vert",       GL_VERTEX_SHADER },
+                { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
+            },
+			 
 	        /* Bloom - Combine */ {
-                 { "shaders/bloom/combine/combine.vert",       GL_VERTEX_SHADER },
-                 { "shaders/bloom/combine/combine.frag",     GL_FRAGMENT_SHADER }
-             },
-        });
+				{ "shaders/bloom/combine/combine.vert",       GL_VERTEX_SHADER },
+                { "shaders/bloom/combine/combine.frag",     GL_FRAGMENT_SHADER }
+            },
+		});
 	}
 	
 	void Shader::Bind(const GLint& _id) {
