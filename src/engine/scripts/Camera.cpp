@@ -23,16 +23,19 @@ namespace LouiEriksson {
 		m_Cube = Mesh::Load("models/cube/cube.obj");
 		
 		m_Sky = std::move(
-			File::Load({
-				"textures/cubemaps/san_francisco_3/posx.jpg",
-				"textures/cubemaps/san_francisco_3/negx.jpg",
-				"textures/cubemaps/san_francisco_3/posy.jpg",
-				"textures/cubemaps/san_francisco_3/negy.jpg",
-				"textures/cubemaps/san_francisco_3/posz.jpg",
-				"textures/cubemaps/san_francisco_3/negz.jpg"
-			},
-			false
-		));
+			File::Load(
+				{
+					"textures/cubemaps/san_francisco_3/posx.jpg",
+					"textures/cubemaps/san_francisco_3/negx.jpg",
+					"textures/cubemaps/san_francisco_3/posy.jpg",
+					"textures/cubemaps/san_francisco_3/negy.jpg",
+					"textures/cubemaps/san_francisco_3/posz.jpg",
+					"textures/cubemaps/san_francisco_3/negz.jpg"
+				},
+				GL_RGB,
+				true
+			)
+		);
 	}
 	
 	Camera::~Camera() {
@@ -77,6 +80,8 @@ namespace LouiEriksson {
 		
 		/* DRAW ALL RENDERERS */
 		
+		const float skyExposure = 1.6f;
+		
 		for (const auto& renderer : _renderers) {
 			
 			// Get references to various components needed for rendering.
@@ -94,29 +99,31 @@ namespace LouiEriksson {
 			program->Assign(material->m_ModelMatrixID,      transform->TRS()); /* MODEL      */
 
 			// Assign parameters (PBR).
-			program->Assign(program->AttributeID("u_Metallic"), 0.1f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.334f);
-			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			program->Assign(program->AttributeID("u_AmbientLighting"), glm::vec3(0.5f, 0.5f, 0.8f));
-
-			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
-			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
-			program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
-			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
-
+			
 			program->Assign(
-				program->AttributeID("u_Texture"),
+				program->AttributeID("u_Albedo"),
 				material->Texture_ID(),
 				0,
 				GL_TEXTURE_2D
 			);
-
+			
+			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.0f);
+			
 			program->Assign(
-				program->AttributeID("u_Sky"),
+				program->AttributeID("u_Ambient"),
 				m_Sky.ID(),
 				1,
 				GL_TEXTURE_CUBE_MAP
 			);
+			
+			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
+			
+			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
+			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
+			program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
+			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
 			
 			// Bind VAO.
 			glBindVertexArray(mesh->VAO_ID());
@@ -161,7 +168,7 @@ namespace LouiEriksson {
 				GL_TEXTURE_CUBE_MAP
 			);
 			
-			skybox->Assign(skybox->AttributeID("u_Exposure"), 1.6f);
+			skybox->Assign(skybox->AttributeID("u_Exposure"), skyExposure);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
@@ -281,7 +288,7 @@ namespace LouiEriksson {
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
 		
-		float intensity = 0.3f;
+		const float intensity = 0.1f;
 		
 		RenderTexture rt1(dimensions[0], dimensions[1]);
 		RenderTexture rt2(dimensions[0], dimensions[1]);
@@ -300,7 +307,7 @@ namespace LouiEriksson {
 		combine->Assign(combine->AttributeID("u_Strength"), intensity);
 		
 		combine->Assign(combine->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		combine->Assign(combine->AttributeID("u_Texture1"), rt1.ID(), 1, GL_TEXTURE_2D);
+		combine->Assign(combine->AttributeID("u_Texture1"),  rt1.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);

@@ -32,20 +32,30 @@ namespace LouiEriksson {
 		return { _path };
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, Texture& _output, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;
 		
 		try {
 			
-			int channels = -1;
+			int desired_channels = 0;
+			
+			switch (_format) {
+				case GL_R:    { desired_channels = 1; break; }
+				case GL_RG:   { desired_channels = 2; break; }
+				case GL_RGB:  { desired_channels = 3; break; }
+				case GL_RGBA: { desired_channels = 4; break; }
+				default: {
+					std::cout << "Unknown texture format \"" << _format << "\"\n";
+				}
+			}
 			
 			auto* data = stbi_load(
 				_path.c_str(),
 				&_output.m_Width,
 				&_output.m_Height,
-				&channels,
-				0
+				NULL,
+				desired_channels
 			);
 			
 			if (data != nullptr) {
@@ -59,16 +69,18 @@ namespace LouiEriksson {
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
-						GL_RGBA,
+						_format,
 						_output.m_Width,
 						_output.m_Height,
 						0,
-						GL_RGBA,
+						_format,
 						GL_UNSIGNED_BYTE,
 						data
 					);
 					
 					if (_generateMipmaps) {
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
 						glGenerateMipmap(GL_TEXTURE_2D);
 					}
 					
@@ -90,7 +102,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, bool _generateMipmaps) {
+	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		Cubemap result;
 		
@@ -106,7 +118,17 @@ namespace LouiEriksson {
 				
 				try {
 				
-					int channels = -1;
+					int desired_channels = 0;
+					
+					switch (_format) {
+						case GL_R:    { desired_channels = 1; break; }
+						case GL_RG:   { desired_channels = 2; break; }
+						case GL_RGB:  { desired_channels = 3; break; }
+						case GL_RGBA: { desired_channels = 4; break; }
+						default: {
+							std::cout << "Unknown texture format \"" << _format << "\"\n";
+						}
+					}
 					
 					glm::ivec2 loaded_resolution = { -1, -1 };
 					
@@ -114,12 +136,12 @@ namespace LouiEriksson {
 						_paths[i].c_str(),
 						&loaded_resolution.x,
 						&loaded_resolution.y,
-						&channels,
-						0
+						NULL,
+						desired_channels
 					);
 					
 					cubemap_resolution = glm::max(
-							glm::max(
+						glm::max(
 							loaded_resolution.x,
 							loaded_resolution.y
 						),
@@ -127,27 +149,15 @@ namespace LouiEriksson {
 					);
 					
 					if (data != nullptr) {
-
-						GLenum format = GL_NONE;
-						
-						switch (channels) {
-							case 1: { format = GL_R;    break; }
-							case 2: { format = GL_RG;   break; }
-							case 3: { format = GL_RGB;  break; }
-							case 4: { format = GL_RGBA; break; }
-							default: {
-								throw std::runtime_error("Not implemented.");
-							}
-						}
 						
 						glTexImage2D(
 							GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 							0,
-							format,
+							_format,
 							loaded_resolution.x,
 							loaded_resolution.y,
 							0,
-							format,
+							_format,
 							GL_UNSIGNED_BYTE,
 							data
 						);
@@ -163,14 +173,18 @@ namespace LouiEriksson {
 				}
 			}
 			
-			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 			
 			if (_generateMipmaps) {
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			
 				glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			}
 			
 			glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);

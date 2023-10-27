@@ -25,9 +25,9 @@ namespace LouiEriksson {
 		
 		static std::filesystem::path AsPath(const std::string& _path);
 		
-		static bool TryLoad(const std::filesystem::path& _path, Texture& _output, bool _generateMipmaps);
+		static bool TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format, bool _generateMipmaps);
 		
-		static Cubemap Load(const std::array<std::filesystem::path, 6>& _paths, bool _generateMipmaps);
+		static Cubemap Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format, bool _generateMipmaps);
 	};
 }
 

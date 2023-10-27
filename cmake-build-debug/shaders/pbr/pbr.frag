@@ -1,5 +1,7 @@
 #version 330 core
 
+#extension GL_ARB_texture_query_levels : enable
+
 const float EPSILON = 0.005;
 const float      PI = 3.1415;
 
@@ -7,8 +9,7 @@ in vec2 v_TexCoord;
 in vec3 v_Position;
 in vec3 v_Normal;
 
-uniform sampler2D   u_Texture;
-uniform samplerCube u_Sky;
+uniform sampler2D u_Albedo;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -16,20 +17,13 @@ uniform float u_Metallic;         // How metallic the surface is.
 uniform float u_Roughness;        // How rough the surface is.
 
 /* LIGHTING */
-uniform vec4 u_AmbientLighting; // Color of ambient lighting. Accepts HDR values.
+uniform samplerCube u_Ambient;
+uniform float u_AmbientExposure = 1.6;
 
 uniform  vec3 u_PointLightPosition;   // Position of light.
 uniform float u_PointLightRange;      // Range of light.
 uniform float u_PointLightBrightness; // Brightness of light.
 uniform  vec3 u_PointLightColor;      // Color of light.
-
-uniform  vec3 u_DirectionalLightNormal;     // Direction of light.
-uniform float u_DirectionalLightBrightness; // Brightness of light.
-uniform  vec3 u_DirectionalLightColor;      // Color of light.
-
-/* FOG */
-uniform  vec3 u_FogColor;    // Color of fog effect. Accepts HDR values.
-uniform float u_FogDensity;  // Density of fog effect.
 
 // Couldn't find a square distance function so made my own. Does GLSL not have one?
 float length2(vec3 _A, vec3 _B) {
@@ -86,21 +80,21 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     vec3 diffuse = Irradiance(fresnel, _metallic);
 
     vec3 specular = (fresnel * Distrib(cosLh, _roughness) * Geom(cosLi, cosLo, _roughness)) /
-        max(0.005, 4.0 * cosLi * cosLo);
+        max(EPSILON, 4.0 * cosLi * cosLo);
 
     return (diffuse + specular) * cosLi;
 }
 
 void main() {
 
-    vec4 albedo = texture2D(u_Texture, v_TexCoord);
+    vec4 albedo = texture2D(u_Albedo, v_TexCoord);
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_PointLightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
     vec3   normal = normalize(v_Normal);
 
-    /* POINT LIGHT */
+    /* DIRECT */
 
     float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
 
@@ -114,9 +108,26 @@ void main() {
         u_Roughness
     ) * u_PointLightBrightness * attenuation;
 
-    vec3 directLighting = albedo.rgb * (u_PointLightColor * lighting);
+    vec3 directLighting = albedo.rgb * lighting * u_PointLightColor;
 
-    vec3 skyColor = texture(u_Sky, reflect(-viewDir, normal)).rgb;
+    /* INDIRECT */
 
-    gl_FragColor = vec4(directLighting + (skyColor * 1.0), 1.0);
+    vec3 indirectLighting;
+
+    {
+        vec3 ambientNormal = reflect(-viewDir, normal);
+
+        int indirectMipLevels = textureQueryLevels(u_Ambient);
+
+        vec3 diffuse  = textureLod(u_Ambient, ambientNormal, indirectMipLevels).rgb * u_AmbientExposure;
+        vec3 specular = textureLod(u_Ambient, ambientNormal, int(float(indirectMipLevels) * u_Roughness)).rgb * u_AmbientExposure;
+
+        vec3 F0 = mix(vec3(0.04), vec3(1.0), u_Metallic);
+
+        vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientNormal)));
+
+        indirectLighting = ((diffuse * (1.0 - u_Metallic)) * albedo.rgb) + (fresnel * specular);
+    }
+
+    gl_FragColor = vec4((directLighting + indirectLighting), 1.0);
 }
