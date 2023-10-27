@@ -24,7 +24,6 @@ vec4 BoxBlur(vec2 _coordinate, float _diffusion) {
 	return s / 4.0;
 }
 
-
 void main() {
 	gl_FragColor = BoxBlur(v_TexCoord, u_Diffusion);
 }
