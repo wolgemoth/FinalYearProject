@@ -80,6 +80,10 @@ namespace LouiEriksson {
 		
 		const float skyExposure = 1.6f;
 		
+		glm::mat4 lightSpaceMatrix(1);
+		
+		GLuint shadowDepthMap;
+		
 		/* DRAW SHADOWS */
 		{
 			const GLuint SHADOW_WIDTH  = 1024,
@@ -90,18 +94,19 @@ namespace LouiEriksson {
 			glGenFramebuffers(1, &depthMapFBO);
 			
 			// Generate texture for shadow map (will bind it to the FBO).
-			GLuint depthMap;
-			glGenTextures(1, &depthMap);
-			glBindTexture(GL_TEXTURE_2D, depthMap);
+			glGenTextures(1, &shadowDepthMap);
+			glBindTexture(GL_TEXTURE_2D, shadowDepthMap);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			
+			glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+			
 			// Bind shadow texture to FBO.
 			glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowDepthMap, 0);
 			
 			// Explicitly tell opengl that we're not rendering any color data in this FBO.
 			glDrawBuffer(GL_NONE);
@@ -130,7 +135,9 @@ namespace LouiEriksson {
                 glm::vec3( 0.0f, 1.0f,  0.0f)
 			);
 			
-			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), lightProjection * lightView);
+			lightSpaceMatrix = lightProjection * lightView;
+			
+			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), lightSpaceMatrix);
 			
 			// We need to render the whole fucking scene.
 			for (const auto& renderer : _renderers) {
@@ -156,10 +163,12 @@ namespace LouiEriksson {
 			// Unbind the texture.
 			Texture::Unbind();
 			
-			glDeleteTextures(1, &depthMap);
-			
 			// Unbind the FBO
 			RenderTexture::Unbind();
+			
+			auto dimensions = m_Window->Dimensions();
+			glViewport(0, 0, dimensions[0], dimensions[1]);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			RenderTexture::Bind(m_RT);
 		}
@@ -180,13 +189,21 @@ namespace LouiEriksson {
 			program->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
 			program->Assign(material->m_ViewMatrixID,             View()); /* VIEW       */
 			program->Assign(material->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
-
-			// Assign parameters (PBR).
 			
+			program->Assign(program->AttributeID("u_LightSpaceMatrix"), lightSpaceMatrix);
+			
+			// Assign parameters (PBR).
 			program->Assign(
 				program->AttributeID("u_Albedo"),
 				material->Texture_ID(),
 				0,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
+				program->AttributeID("u_ShadowMap"),
+				shadowDepthMap,
+				1,
 				GL_TEXTURE_2D
 			);
 			
@@ -197,7 +214,7 @@ namespace LouiEriksson {
 			program->Assign(
 				program->AttributeID("u_Ambient"),
 				m_Sky.ID(),
-				1,
+				2,
 				GL_TEXTURE_CUBE_MAP
 			);
 			
@@ -224,6 +241,8 @@ namespace LouiEriksson {
 			// Unbind VAO.
 			glBindVertexArray(0);
 		}
+		
+		glDeleteTextures(1, &shadowDepthMap);
 		
 		/* DRAW SKY */
 		{
