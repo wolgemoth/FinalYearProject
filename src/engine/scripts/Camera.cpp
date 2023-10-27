@@ -221,7 +221,7 @@ namespace LouiEriksson {
 		auto aces = Shader::m_Cache.Return("aces");
 		Shader::Bind(aces->ID());
 		aces->Assign(aces->AttributeID("u_Gain"), 0.0f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.0f);
+		aces->Assign(aces->AttributeID("u_Exposure"), 1.6f);
 		Shader::Unbind();
 		
 		auto grain = Shader::m_Cache.Return("grain");
