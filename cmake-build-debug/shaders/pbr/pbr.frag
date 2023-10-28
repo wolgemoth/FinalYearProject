@@ -23,6 +23,9 @@ uniform float u_Roughness;        // How rough the surface is.
 uniform samplerCube u_Ambient;
 uniform float u_AmbientExposure = 1.6;
 
+uniform float u_ShadowBias = 0.005;
+uniform float u_ShadowNormalBias = 0.1;
+
 uniform  vec3 u_PointLightPosition;   // Position of light.
 uniform float u_PointLightRange;      // Range of light.
 uniform float u_PointLightBrightness; // Brightness of light.
@@ -88,18 +91,29 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     return (diffuse + specular) * cosLi;
 }
 
-float ShadowCalculation(vec4 fragPosLightSpace) {
+float ShadowCalculation(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
     // perform perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+
     // transform to [0,1] range
-    projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
     float closestDepth = texture(u_ShadowMap, projCoords.xy).r;
-    // get depth of current fragment from light's perspective
+
+    // Get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
+
+    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
     // check whether current frag pos is in shadow
-    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+    float shadow = currentDepth - totalBias > closestDepth ? 1.0 : 0.0;
+
+    //(currentDepth <= 1.0) &&
+
+    // Fade the shadows over the max depth.
+    shadow *= max(1.0 - pow(currentDepth, 6), 0.0);
 
     return shadow;
 }
@@ -115,40 +129,52 @@ void main() {
 
     /* DIRECT */
 
-    float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
+    vec3 directLighting;
+    {
+        float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
 
-    vec3 lighting = BRDF(
-        albedo.rgb,
-        normal,
-        lightDir,
-        viewDir,
-        halfVec,
-        u_Metallic,
-        u_Roughness
-    ) * u_PointLightBrightness * attenuation;
+        float visibility = 1.0 - ShadowCalculation(v_FragPosLightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
 
-    vec3 directLighting = albedo.rgb * lighting * u_PointLightColor;
+        vec3 lighting = BRDF(
+            albedo.rgb,
+            normal,
+            lightDir,
+            viewDir,
+            halfVec,
+            u_Metallic,
+            u_Roughness
+        ) * u_PointLightBrightness * attenuation;
+
+        directLighting += (visibility * lighting) * u_PointLightColor;
+    }
+
+    directLighting *= albedo.rgb;
 
     /* INDIRECT */
 
     vec3 indirectLighting;
 
     {
-        vec3 ambientNormal = reflect(-viewDir, normal);
+        // Figure out the direction of the ambient light
+        vec3 ambientDir = reflect(-viewDir, normal);
 
+        // Get the number of mip levels for the ambient lighting.
         int indirectMipLevels = textureQueryLevels(u_Ambient);
 
-        vec3 diffuse  = textureLod(u_Ambient, ambientNormal, indirectMipLevels).rgb * u_AmbientExposure;
-        vec3 specular = textureLod(u_Ambient, ambientNormal, int(float(indirectMipLevels) * u_Roughness)).rgb * u_AmbientExposure;
+        // Sample for diffuse at max mip level.
+        vec3 diffuse =
+            textureLod(u_Ambient, ambientDir, indirectMipLevels).rgb * u_AmbientExposure;
+
+        // Sample for specular at mip level determined by roughness.
+        vec3 specular =
+            textureLod(u_Ambient, ambientDir, int(float(indirectMipLevels) * u_Roughness)).rgb * u_AmbientExposure;
 
         vec3 F0 = mix(vec3(0.04), vec3(1.0), u_Metallic);
 
-        vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientNormal)));
+        vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
 
         indirectLighting = ((diffuse * (1.0 - u_Metallic)) * albedo.rgb) + (fresnel * specular);
     }
 
-    float shadows = ShadowCalculation(v_FragPosLightSpace);
-
-    gl_FragColor = vec4((directLighting + indirectLighting), 1.0) - shadows;
+    gl_FragColor = vec4((directLighting + indirectLighting), 1.0);
 }

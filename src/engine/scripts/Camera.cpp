@@ -75,14 +75,17 @@ namespace LouiEriksson {
 		const auto  cullMode = GL_BACK;
 		const auto depthMode = GL_LESS;
 		
-		glCullFace ( cullMode);
-		glDepthFunc(depthMode);
-		
 		const float skyExposure = 1.6f;
 		
 		glm::mat4 lightSpaceMatrix(1);
 		
 		GLuint shadowDepthMap;
+		
+		const float shadowDistance   = 10.0f;
+		const float shadowBias       = 0.005f;
+		const float shadowNormalBias = 0.05f;
+		
+		const bool doubleSidedShadows = true;
 		
 		/* DRAW SHADOWS */
 		{
@@ -99,9 +102,12 @@ namespace LouiEriksson {
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 			
+			float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
 			glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 			
 			// Bind shadow texture to FBO.
@@ -112,21 +118,22 @@ namespace LouiEriksson {
 			glDrawBuffer(GL_NONE);
 			glReadBuffer(GL_NONE);
 			
+			// Set culling to front.
+			glCullFace (doubleSidedShadows ? GL_NONE : GL_FRONT);
+			glDepthFunc(depthMode);
+			
 			auto shadowShader = Shader::m_Cache.Return("shadowDepth");
 			
 			Shader::Bind(shadowShader->ID());
 			
-			float near_plane = 1.0f,
-			       far_plane = 100.0f;
-			
 			const glm::mat4 lightProjection =
 				glm::ortho(
-				   -20.0f,
-				    20.0f,
-				   -20.0f,
-				    20.0f,
-					near_plane,
-					far_plane
+				   -10.0f,
+				    10.0f,
+				   -10.0f,
+				    10.0f,
+					1.0f,          // Near plane.
+					shadowDistance // Far plane.
 				);
 			
 			const glm::mat4 lightView = glm::lookAt(
@@ -139,7 +146,7 @@ namespace LouiEriksson {
 			
 			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), lightSpaceMatrix);
 			
-			// We need to render the whole fucking scene.
+			// We need to render the scene from the light's perspective.
 			for (const auto& renderer : _renderers) {
 				
 				const auto transform = renderer->GetTransform();
@@ -166,12 +173,17 @@ namespace LouiEriksson {
 			// Unbind the FBO
 			RenderTexture::Unbind();
 			
+			glDeleteFramebuffers(1, &depthMapFBO);
+			
 			auto dimensions = m_Window->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			RenderTexture::Bind(m_RT);
 		}
+		
+		glCullFace ( cullMode);
+		glDepthFunc(depthMode);
 		
 		/* DRAW OBJECTS */
 		for (const auto& renderer : _renderers) {
@@ -219,6 +231,9 @@ namespace LouiEriksson {
 			);
 			
 			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
+			
+			program->Assign(program->AttributeID("u_ShadowBias"), shadowBias);
+			program->Assign(program->AttributeID("u_ShadowNormalBias"), shadowNormalBias);
 			
 			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
 			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
