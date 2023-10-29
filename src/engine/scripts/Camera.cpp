@@ -81,16 +81,16 @@ namespace LouiEriksson {
 		
 		GLuint shadowDepthMap;
 		
-		const float shadowDistance   = 10.0f;
+		const int shadowResolution = 2048;
+		
+		const float shadowDistance   = glm::min(100.0f, m_FarClip);
 		const float shadowBias       = 0.005f;
 		const float shadowNormalBias = 0.05f;
 		
-		const bool doubleSidedShadows = true;
+		const bool twoSidedShadows = false;
 		
 		/* DRAW SHADOWS */
 		{
-			const GLuint SHADOW_WIDTH  = 1024,
-			             SHADOW_HEIGHT = 1024;
 			
 			// Create FBO for depth.
 			GLuint depthMapFBO;
@@ -99,7 +99,7 @@ namespace LouiEriksson {
 			// Generate texture for shadow map (will bind it to the FBO).
 			glGenTextures(1, &shadowDepthMap);
 			glBindTexture(GL_TEXTURE_2D, shadowDepthMap);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowResolution, shadowResolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -108,7 +108,7 @@ namespace LouiEriksson {
 			float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
-			glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+			glViewport(0, 0, shadowResolution, shadowResolution);
 			
 			// Bind shadow texture to FBO.
 			glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -119,7 +119,7 @@ namespace LouiEriksson {
 			glReadBuffer(GL_NONE);
 			
 			// Set culling to front.
-			glCullFace (doubleSidedShadows ? GL_NONE : GL_FRONT);
+			glCullFace (twoSidedShadows ? GL_NONE : GL_FRONT);
 			glDepthFunc(depthMode);
 			
 			auto shadowShader = Shader::m_Cache.Return("shadowDepth");
@@ -128,18 +128,32 @@ namespace LouiEriksson {
 			
 			const glm::mat4 lightProjection =
 				glm::ortho(
-				   -10.0f,
-				    10.0f,
-				   -10.0f,
-				    10.0f,
-					1.0f,          // Near plane.
+				   -shadowDistance / 2.0f,
+				    shadowDistance / 2.0f,
+				   -shadowDistance / 2.0f,
+				    shadowDistance / 2.0f,
+					0.0f,          // Near plane.
 					shadowDistance // Far plane.
 				);
 			
+			const auto lightRot = glm::quat(glm::radians(glm::vec3(-45.0f, 135.0f, 0.0f)));
+			const auto lightDir = VEC_FORWARD * lightRot;
+			
+			// Compute the size of a texel in world space.
+			// We can round the light's position to these coordinates
+			// to reduce an artifact known as "shimmering".
+			const float texelSize = shadowDistance / (shadowResolution / 2);
+			
+			// Artificially add
+			const glm::vec3 truncatedCamPos = glm::floor(
+					GetTransform()->m_Position / texelSize) * texelSize;
+			
+			const glm::vec3 lightPos = truncatedCamPos + (lightDir * (shadowDistance / 2.0f));
+			
 			const glm::mat4 lightView = glm::lookAt(
-				glm::vec3(-2.0f, 4.0f, -1.0f),
-                glm::vec3( 0.0f, 0.0f,  0.0f),
-                glm::vec3( 0.0f, 1.0f,  0.0f)
+				lightPos,
+				lightPos - lightDir,
+				VEC_UP
 			);
 			
 			lightSpaceMatrix = lightProjection * lightView;
@@ -219,9 +233,11 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
+			program->Assign(program->AttributeID("u_Time"), Time::Elapsed());
+			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.0f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.5f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
@@ -337,8 +353,8 @@ namespace LouiEriksson {
 		
 		auto aces = Shader::m_Cache.Return("aces");
 		Shader::Bind(aces->ID());
-		aces->Assign(aces->AttributeID("u_Gain"), 0.0f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.6f);
+		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
+		aces->Assign(aces->AttributeID("u_Exposure"), 1.3f);
 		Shader::Unbind();
 		
 		auto grain = Shader::m_Cache.Return("grain");

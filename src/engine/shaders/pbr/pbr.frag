@@ -14,6 +14,13 @@ uniform sampler2D u_Albedo;
 
 uniform sampler2D u_ShadowMap;
 
+uniform float u_Time;
+
+int u_PCFSamples = 32;
+
+float lightSize = 1.0;
+float NEAR = 0.001;
+
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
 uniform float u_Metallic;         // How metallic the surface is.
@@ -91,6 +98,126 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     return (diffuse + specular) * cosLi;
 }
 
+// Gold Noise ©2015 dcerisano@standard3d.com
+// - based on the Golden Ratio
+// - uniform normalized distribution
+// - fastest static noise generator function (also runs at low precision)
+// - use with indicated fractional seeding method.
+
+float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
+
+float gold_noise(in vec2 xy, in float seed){
+    return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
+}
+
+float calcSearchWidth(float _viewerDepth) {
+    return lightSize * (_viewerDepth - NEAR) / u_CameraPosition.z;
+}
+
+vec2 PoissonDisk(in vec2 _xy, float _offset) {
+
+    return vec2(
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0
+    ) / 1.414;
+}
+
+float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias) {
+
+    float sumBlockerDistances = 0.0;
+    int numBlockerDistances = 0;
+
+    // perform perspective divide
+    vec2 projCoords = (fragPosLightSpace.xyz / fragPosLightSpace.w).xy;
+
+    // transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
+
+    int sw = int(calcSearchWidth(_viewerDepth));
+    for (int i = 0; i < u_PCFSamples; ++i) {
+
+        vec2 offset = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
+
+        float depth = texture(u_ShadowMap, projCoords + offset * texelSize * sw).r;
+        if (depth < _viewerDepth - bias)
+        {
+            ++numBlockerDistances;
+            sumBlockerDistances += depth;
+        }
+    }
+
+    if (numBlockerDistances > 0) {
+        return sumBlockerDistances / numBlockerDistances;
+    }
+    else {
+        return -1;
+    }
+}
+
+float calcPCFKernelSize(vec4 fragPosLightSpace, float viewerDepth, float bias) {
+
+    float texelSize = 1.0 / textureSize(u_ShadowMap, 0).r;
+
+    float blockerDistance = calcBlockerDistance(fragPosLightSpace, viewerDepth, bias);
+
+    if (blockerDistance == -1) {
+        return 1;
+    }
+
+    float penumbraWidth = (viewerDepth - blockerDistance) / blockerDistance;
+
+    return penumbraWidth * lightSize * NEAR / viewerDepth;
+}
+
+float ShadowCalculationPCF(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+
+    float result = 0.0;
+
+    // perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+
+    // transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float blockerDepth = texture(u_ShadowMap, projCoords.xy).r;
+
+    // Get depth of current fragment from light's perspective
+    float viewerDepth = projCoords.z;
+
+    float NdL = dot(_normal, _lightDir);
+
+    float totalBias = max(_normalBias * (1.0 - NdL), _bias);
+
+	// penumbra estimation
+	float penumbraWidth = (viewerDepth / blockerDepth) / blockerDepth;
+
+	// percentage-close filtering
+	float radius = penumbraWidth * lightSize * (NEAR / viewerDepth);
+
+    //float radius = calcPCFKernelSize(fragPosLightSpace, viewerDepth, totalBias);
+
+    for (int i = 0; i < u_PCFSamples; i++) {
+
+        vec2 randomDir = normalize(PoissonDisk(projCoords.xy + vec2(i + 1), 0.1));
+
+        vec2 sampleDir = randomDir * radius;
+
+        float pcfDepth = texture(u_ShadowMap, projCoords.xy + sampleDir).r;
+
+        result += (viewerDepth <= 1.0) && (viewerDepth - totalBias > pcfDepth) ?
+            1.0 :
+            0.0;
+    }
+
+    float l = clamp(smoothstep(0.0, 0.2f, NdL), 0.0, 1.0);
+    float t = smoothstep(gold_noise(projCoords.xy * 1000.0, fract(u_Time) + 0.3) * 0.5f, 1.0, l);
+
+    return clamp(result / (u_PCFSamples * t), 0.0, 1.0);
+}
+
 float ShadowCalculation(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
     // perform perspective divide
@@ -108,14 +235,8 @@ float ShadowCalculation(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     // check whether current frag pos is in shadow
-    float shadow = currentDepth - totalBias > closestDepth ? 1.0 : 0.0;
-
-    //(currentDepth <= 1.0) &&
-
-    // Fade the shadows over the max depth.
-    shadow *= max(1.0 - pow(currentDepth, 6), 0.0);
-
-    return shadow;
+    return (currentDepth <= 1.0) && (currentDepth - totalBias > closestDepth) ?
+        1.0 : 0.0;
 }
 
 void main() {
@@ -133,7 +254,7 @@ void main() {
     {
         float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
 
-        float visibility = 1.0 - ShadowCalculation(v_FragPosLightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
+        float visibility = 1.0 - ShadowCalculationPCF(v_FragPosLightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
 
         vec3 lighting = BRDF(
             albedo.rgb,

@@ -10,14 +10,27 @@ uniform sampler2D u_Texture;
 uniform float u_Amount;
 uniform float u_Time;
 
-// srand3, terrible pseudorandom number generator.
-float Rand(vec2 _uv) {
-    return fract(sin(dot(_uv, vec2(12.9898, 78.233))) * 43758.5453);
+// Gold Noise ©2015 dcerisano@standard3d.com
+// - based on the Golden Ratio
+// - uniform normalized distribution
+// - fastest static noise generator function (also runs at low precision)
+// - use with indicated fractional seeding method.
+
+float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
+
+float gold_noise(in vec2 xy, in float seed){
+       return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
 }
 
 void main() {
 
-	float grain = Rand((v_TexCoord + u_Time) * 0.1) * u_Amount;
+	//float grain = gold_noise(v_TexCoord * 1000.0f, fract(u_Time));
 
-	gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord)) - grain;
+	vec3 grain = vec3(
+		gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.01),
+		gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.02),
+		gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.03)
+	);
+
+	gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord).rgb - (grain * u_Amount), 1.0);
 }
