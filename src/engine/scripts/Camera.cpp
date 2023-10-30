@@ -91,7 +91,6 @@ namespace LouiEriksson {
 		
 		/* DRAW SHADOWS */
 		{
-			
 			// Create FBO for depth.
 			GLuint depthMapFBO;
 			glGenFramebuffers(1, &depthMapFBO);

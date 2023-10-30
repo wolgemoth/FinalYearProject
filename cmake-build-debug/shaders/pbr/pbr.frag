@@ -16,10 +16,10 @@ uniform sampler2D u_ShadowMap;
 
 uniform float u_Time;
 
-int u_PCFSamples = 32;
+int u_PCFSamples = 100;
 
-float lightSize = 1.0;
-float NEAR = 0.001;
+float lightSize = 0.1;
+float NEAR = 0.1;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -110,10 +110,6 @@ float gold_noise(in vec2 xy, in float seed){
     return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
 }
 
-float calcSearchWidth(float _viewerDepth) {
-    return lightSize * (_viewerDepth - NEAR) / u_CameraPosition.z;
-}
-
 vec2 PoissonDisk(in vec2 _xy, float _offset) {
 
     return vec2(
@@ -122,10 +118,14 @@ vec2 PoissonDisk(in vec2 _xy, float _offset) {
     ) / 1.414;
 }
 
+float calcSearchWidth(float _viewerDepth) {
+    return lightSize * (_viewerDepth - NEAR) / v_Position.z;
+}
+
 float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias) {
 
     float sumBlockerDistances = 0.0;
-    int numBlockerDistances = 0;
+      int numBlockerDistances = 0;
 
     // perform perspective divide
     vec2 projCoords = (fragPosLightSpace.xyz / fragPosLightSpace.w).xy;
@@ -133,18 +133,20 @@ float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias
     // transform to [0,1] range
     projCoords = (projCoords * 0.5) + 0.5;
 
-    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
+    float texelSize = 1.0 / textureSize(u_ShadowMap, 0).r;
 
     int sw = int(calcSearchWidth(_viewerDepth));
     for (int i = 0; i < u_PCFSamples; ++i) {
 
-        vec2 offset = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
+        vec2 randomDir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
 
-        float depth = texture(u_ShadowMap, projCoords + offset * texelSize * sw).r;
-        if (depth < _viewerDepth - bias)
-        {
+        vec2 sampleDir = randomDir * (float(i) / float(u_PCFSamples));
+
+        float pcfDepth = texture(u_ShadowMap, projCoords.xy + sampleDir).r;
+
+        if (pcfDepth < _viewerDepth - bias) {
             ++numBlockerDistances;
-            sumBlockerDistances += depth;
+            sumBlockerDistances += pcfDepth;
         }
     }
 
@@ -157,8 +159,6 @@ float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias
 }
 
 float calcPCFKernelSize(vec4 fragPosLightSpace, float viewerDepth, float bias) {
-
-    float texelSize = 1.0 / textureSize(u_ShadowMap, 0).r;
 
     float blockerDistance = calcBlockerDistance(fragPosLightSpace, viewerDepth, bias);
 
@@ -191,17 +191,19 @@ float ShadowCalculationPCF(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir,
 
     float totalBias = max(_normalBias * (1.0 - NdL), _bias);
 
-	// penumbra estimation
-	float penumbraWidth = (viewerDepth / blockerDepth) / blockerDepth;
+	//// penumbra estimation
+	//float penumbraWidth = (viewerDepth / blockerDepth) / blockerDepth;
+    //
+	//// percentage-close filtering
+	//float radius = penumbraWidth * lightSize * (NEAR / viewerDepth);
 
-	// percentage-close filtering
-	float radius = penumbraWidth * lightSize * (NEAR / viewerDepth);
+    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
 
-    //float radius = calcPCFKernelSize(fragPosLightSpace, viewerDepth, totalBias);
+    float radius = calcPCFKernelSize(fragPosLightSpace, viewerDepth, totalBias);
 
     for (int i = 0; i < u_PCFSamples; i++) {
 
-        vec2 randomDir = normalize(PoissonDisk(projCoords.xy + vec2(i + 1), 0.1));
+        vec2 randomDir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
 
         vec2 sampleDir = randomDir * radius;
 
