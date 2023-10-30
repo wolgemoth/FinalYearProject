@@ -16,9 +16,9 @@ uniform sampler2D u_ShadowMap;
 
 uniform float u_Time;
 
-int u_PCFSamples = 100;
+int u_PCFSamples = 32;
 
-float lightSize = 0.1;
+float lightSize = 10;
 float NEAR = 0.1;
 
 /* PARAMETERS */
@@ -63,6 +63,7 @@ float Geom(float _cosLi, float _cosLo, float _roughness) {
 
     float r = _roughness + 1.0;
     float k = (r * r) / 8.0; // Epic suggests using this roughness remapping for analytic lights.
+
     return GeomG1(_cosLi, k) * GeomG1(_cosLo, k);
 }
 
@@ -122,7 +123,7 @@ float calcSearchWidth(float _viewerDepth) {
     return lightSize * (_viewerDepth - NEAR) / v_Position.z;
 }
 
-float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias) {
+float calcOccluderDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias) {
 
     float sumBlockerDistances = 0.0;
       int numBlockerDistances = 0;
@@ -140,7 +141,7 @@ float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias
 
         vec2 randomDir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
 
-        vec2 sampleDir = randomDir * (float(i) / float(u_PCFSamples));
+        vec2 sampleDir = randomDir * (i + 1) * texelSize;
 
         float pcfDepth = texture(u_ShadowMap, projCoords.xy + sampleDir).r;
 
@@ -151,7 +152,7 @@ float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias
     }
 
     if (numBlockerDistances > 0) {
-        return sumBlockerDistances / numBlockerDistances;
+        return sumBlockerDistances / float(numBlockerDistances);
     }
     else {
         return -1;
@@ -160,18 +161,53 @@ float calcBlockerDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias
 
 float calcPCFKernelSize(vec4 fragPosLightSpace, float viewerDepth, float bias) {
 
-    float blockerDistance = calcBlockerDistance(fragPosLightSpace, viewerDepth, bias);
+    float occluderDepth = calcOccluderDistance(fragPosLightSpace, viewerDepth, bias);
 
-    if (blockerDistance == -1) {
+    if (occluderDepth == -1) {
         return 1;
     }
 
-    float penumbraWidth = (viewerDepth - blockerDistance) / blockerDistance;
+    float penumbraWidth = abs(viewerDepth - occluderDepth) / occluderDepth;
 
-    return penumbraWidth * lightSize * NEAR / viewerDepth;
+    return penumbraWidth * lightSize * (NEAR / viewerDepth);
 }
 
 float ShadowCalculationPCF(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+
+    float result = 0.0;
+
+    // Perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+
+    // Transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get depth of current fragment from light's perspective
+    float fragDepth = projCoords.z;
+
+    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
+
+    int kSize = 3; // Size of kernel. Must be odd number above 1.
+
+    for (int x = -(kSize - 1) / 2; x <= (kSize - 1) / 2; x++) {
+    for (int y = -(kSize - 1) / 2; y <= (kSize - 1) / 2; y++) {
+
+        vec2 dir = vec2(x, y);
+
+        dir *= texelSize;
+
+        float shadowDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
+
+        result += (fragDepth <= 1.0) && (fragDepth - totalBias > shadowDepth) ?
+            1.0 : 0.0;
+    }}
+
+    return result / (kSize * kSize);
+}
+
+float ShadowCalculationPCSS(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
     float result = 0.0;
 
@@ -182,36 +218,29 @@ float ShadowCalculationPCF(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir,
     projCoords = (projCoords * 0.5) + 0.5;
 
     // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float blockerDepth = texture(u_ShadowMap, projCoords.xy).r;
+    float occluderDepth = texture(u_ShadowMap, projCoords.xy).r;
 
     // Get depth of current fragment from light's perspective
-    float viewerDepth = projCoords.z;
+    float fragDepth = projCoords.z;
 
     float NdL = dot(_normal, _lightDir);
 
     float totalBias = max(_normalBias * (1.0 - NdL), _bias);
 
-	//// penumbra estimation
-	//float penumbraWidth = (viewerDepth / blockerDepth) / blockerDepth;
-    //
-	//// percentage-close filtering
-	//float radius = penumbraWidth * lightSize * (NEAR / viewerDepth);
-
     vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
 
-    float radius = calcPCFKernelSize(fragPosLightSpace, viewerDepth, totalBias);
+    float radius = calcPCFKernelSize(fragPosLightSpace, fragDepth, totalBias);
 
     for (int i = 0; i < u_PCFSamples; i++) {
 
-        vec2 randomDir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
+        vec2 dir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
 
-        vec2 sampleDir = randomDir * radius;
+        dir *= radius * (i + 1) * texelSize;
 
-        float pcfDepth = texture(u_ShadowMap, projCoords.xy + sampleDir).r;
+        float shadowDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
 
-        result += (viewerDepth <= 1.0) && (viewerDepth - totalBias > pcfDepth) ?
-            1.0 :
-            0.0;
+        result += (fragDepth <= 1.0) && (fragDepth - totalBias > shadowDepth) ?
+            1.0 : 0.0;
     }
 
     float l = clamp(smoothstep(0.0, 0.2f, NdL), 0.0, 1.0);
@@ -256,7 +285,7 @@ void main() {
     {
         float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
 
-        float visibility = 1.0 - ShadowCalculationPCF(v_FragPosLightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
+        float visibility = 1.0 - ShadowCalculationPCSS(v_FragPosLightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
 
         vec3 lighting = BRDF(
             albedo.rgb,

@@ -6,7 +6,7 @@ namespace LouiEriksson {
 
 	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent), m_RT(1, 1) {
 		
-		m_Window    = std::shared_ptr<Window>(nullptr);
+		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 	
 		m_FOV      = 90.0f;
@@ -16,7 +16,7 @@ namespace LouiEriksson {
 		m_Projection = glm::mat4(1.0f);
 		
 		VAO = -1;
-		VBO  = -1;
+		VBO = -1;
 		
 		m_IsDirty = true;
 		
@@ -81,10 +81,10 @@ namespace LouiEriksson {
 		
 		GLuint shadowDepthMap;
 		
-		const int shadowResolution = 2048;
+		const int shadowResolution = 4096;
 		
 		const float shadowDistance   = glm::min(100.0f, m_FarClip);
-		const float shadowBias       = 0.005f;
+		const float shadowBias       = 0.002f;//0.005f;
 		const float shadowNormalBias = 0.05f;
 		
 		const bool twoSidedShadows = false;
