@@ -3,7 +3,7 @@
 #extension GL_ARB_texture_query_levels : enable
 
 const float EPSILON = 0.005;
-const float      PI = 3.1415;
+const float      PI = 3.141593;
 
 in vec2 v_TexCoord;
 in vec3 v_Position;
@@ -16,10 +16,10 @@ uniform sampler2D u_ShadowMap;
 
 uniform float u_Time;
 
-int u_PCFSamples = 32;
+int u_ShadowSamples = 32;
 
-float lightSize = 10;
-float NEAR = 0.1;
+float u_LightSize = 1000;
+float u_NearPlane = 0.1;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -83,9 +83,9 @@ vec3 Fresnel(vec3 _metallic, float _theta) {
 vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfVec, float _metallic, float _roughness) {
 
     // Calculate angles between surface normal and various light vectors.
-    float cosLi = max(0.0, dot(_normal, _lightDir));
-    float cosLh = max(0.0, dot(_normal, _halfVec));
-    float cosLo = max(0.0, dot(_normal, _viewDir));
+    float NdL = max(0.0, dot(_normal, _lightDir));
+    float NdH = max(0.0, dot(_normal, _halfVec));
+    float NdV = max(0.0, dot(_normal, _viewDir));
 
     vec3 F0 = mix(vec3(0.04), _albedo, _metallic);
 
@@ -93,10 +93,10 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
 
     vec3 diffuse = Irradiance(fresnel, _metallic);
 
-    vec3 specular = (fresnel * Distrib(cosLh, _roughness) * Geom(cosLi, cosLo, _roughness)) /
-        max(EPSILON, 4.0 * cosLi * cosLo);
+    vec3 specular = (fresnel * Distrib(NdH, _roughness) * Geom(NdL, NdV, _roughness)) /
+        max(EPSILON, 4.0 * NdL * NdV);
 
-    return (diffuse + specular) * cosLi;
+    return (diffuse + specular) * NdL;
 }
 
 // Gold Noise ©2015 dcerisano@standard3d.com
@@ -120,99 +120,64 @@ vec2 PoissonDisk(in vec2 _xy, float _offset) {
 }
 
 float calcSearchWidth(float _viewerDepth) {
-    return lightSize * (_viewerDepth - NEAR) / v_Position.z;
+    return u_LightSize * (_viewerDepth - u_NearPlane) / _viewerDepth;
 }
 
 float calcOccluderDistance(vec4 fragPosLightSpace, float _viewerDepth, float bias) {
 
-    float sumBlockerDistances = 0.0;
-      int numBlockerDistances = 0;
+    float result = 0.0;
 
     // perform perspective divide
-    vec2 projCoords = (fragPosLightSpace.xyz / fragPosLightSpace.w).xy;
+    vec3 projCoords = (fragPosLightSpace.xyz / fragPosLightSpace.w);
 
     // transform to [0,1] range
     projCoords = (projCoords * 0.5) + 0.5;
 
     float texelSize = 1.0 / textureSize(u_ShadowMap, 0).r;
 
-    int sw = int(calcSearchWidth(_viewerDepth));
-    for (int i = 0; i < u_PCFSamples; ++i) {
+    int numBlockerDistances = 0;
 
-        vec2 randomDir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
+    int sw = u_ShadowSamples;
 
-        vec2 sampleDir = randomDir * (i + 1) * texelSize;
+    for (int i = 0; i < sw; i++) {
 
-        float pcfDepth = texture(u_ShadowMap, projCoords.xy + sampleDir).r;
+        vec2 dir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
 
-        if (pcfDepth < _viewerDepth - bias) {
+        dir *= (i + 1) * texelSize;
+
+        float occluderDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
+
+        if (occluderDepth < _viewerDepth - bias) {
             ++numBlockerDistances;
-            sumBlockerDistances += pcfDepth;
+            result += occluderDepth;
         }
     }
 
     if (numBlockerDistances > 0) {
-        return sumBlockerDistances / float(numBlockerDistances);
+        return result / float(numBlockerDistances);
     }
     else {
         return -1;
     }
 }
 
-float calcPCFKernelSize(vec4 fragPosLightSpace, float viewerDepth, float bias) {
+float PCSSWidth(vec4 _fragPosLightSpace, float _viewerDepth, float _bias) {
 
-    float occluderDepth = calcOccluderDistance(fragPosLightSpace, viewerDepth, bias);
+    float occluderDepth = calcOccluderDistance(_fragPosLightSpace, _viewerDepth, _bias);
 
     if (occluderDepth == -1) {
         return 1;
     }
 
-    float penumbraWidth = abs(viewerDepth - occluderDepth) / occluderDepth;
+    float penumbraWidth = abs(_viewerDepth - occluderDepth) / occluderDepth;
 
-    return penumbraWidth * lightSize * (NEAR / viewerDepth);
+    return penumbraWidth * u_LightSize * (u_NearPlane / _viewerDepth);
 }
 
-float ShadowCalculationPCF(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
-
-    float result = 0.0;
-
-    // Perform perspective divide
-    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-
-    // Transform to [0,1] range
-    projCoords = (projCoords * 0.5) + 0.5;
-
-    // Get depth of current fragment from light's perspective
-    float fragDepth = projCoords.z;
-
-    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
-
-    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
-
-    int kSize = 3; // Size of kernel. Must be odd number above 1.
-
-    for (int x = -(kSize - 1) / 2; x <= (kSize - 1) / 2; x++) {
-    for (int y = -(kSize - 1) / 2; y <= (kSize - 1) / 2; y++) {
-
-        vec2 dir = vec2(x, y);
-
-        dir *= texelSize;
-
-        float shadowDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
-
-        result += (fragDepth <= 1.0) && (fragDepth - totalBias > shadowDepth) ?
-            1.0 : 0.0;
-    }}
-
-    return result / (kSize * kSize);
-}
-
-float ShadowCalculationPCSS(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
-
-    float result = 0.0;
+float ShadowCalculationHard(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
     // perform perspective divide
-    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
 
     // transform to [0,1] range
     projCoords = (projCoords * 0.5) + 0.5;
@@ -221,7 +186,94 @@ float ShadowCalculationPCSS(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir
     float occluderDepth = texture(u_ShadowMap, projCoords.xy).r;
 
     // Get depth of current fragment from light's perspective
-    float fragDepth = projCoords.z;
+    float viewerDepth = projCoords.z;
+
+    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+    // check whether current frag pos is in shadow
+    return (viewerDepth <= 1.0) && (viewerDepth - totalBias > occluderDepth) ?
+        1.0 : 0.0;
+}
+
+float ShadowCalculationPCF(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias, float _size) {
+
+    float result = 0.0;
+
+    // Perform perspective divide
+    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+
+    // Transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get depth of current fragment from light's perspective
+    float visibleDepth = projCoords.z;
+
+    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
+
+    int kSize = int(ceil(_size));
+
+    for (int x = kSize; x <= kSize; x++) {
+    for (int y = kSize; y <= kSize; y++) {
+
+        vec2 dir = vec2(x, y);
+
+        dir *= texelSize * _size;
+
+        float occluderDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
+
+        result += (visibleDepth <= 1.0) && (visibleDepth - totalBias > occluderDepth) ?
+            1.0 : 0.0;
+    }}
+
+    return result / (kSize * kSize);
+}
+
+float ShadowCalculationDisk(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias, float _size) {
+
+    float result = 0.0;
+
+    // Perform perspective divide
+    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+
+    // Transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get depth of current fragment from light's perspective
+    float visibleDepth = projCoords.z;
+
+    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+    vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
+
+    for (int i = 0; i < u_ShadowSamples; i++) {
+
+        vec2 dir = normalize(PoissonDisk(projCoords.xy + vec2(i + 1), 0.1));
+
+        dir *= texelSize * _size * ((i + 1) / float(u_ShadowSamples));
+
+        float occluderDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
+
+        result += (visibleDepth <= 1.0) && (visibleDepth - totalBias > occluderDepth) ?
+            1.0 : 0.0;
+    }
+
+    return result / u_ShadowSamples;
+}
+
+float ShadowCalculationPCSS(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+
+    float result = 0.0;
+
+    // perform perspective divide
+    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+
+    // transform to [0,1] range
+    projCoords = (projCoords * 0.5) + 0.5;
+
+    // Get depth of current fragment from light's perspective
+    float viewerDepth = projCoords.z;
 
     float NdL = dot(_normal, _lightDir);
 
@@ -229,45 +281,11 @@ float ShadowCalculationPCSS(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir
 
     vec2 texelSize = 1.0 / textureSize(u_ShadowMap, 0);
 
-    float radius = calcPCFKernelSize(fragPosLightSpace, fragDepth, totalBias);
+    float radius = PCSSWidth(_fragPosLightSpace, viewerDepth, totalBias);
 
-    for (int i = 0; i < u_PCFSamples; i++) {
+    result = ShadowCalculationDisk(_fragPosLightSpace, _normal, _lightDir, _bias, _normalBias, radius);
 
-        vec2 dir = PoissonDisk(projCoords.xy + vec2(i + 1), 0.1);
-
-        dir *= radius * (i + 1) * texelSize;
-
-        float shadowDepth = texture(u_ShadowMap, projCoords.xy + dir).r;
-
-        result += (fragDepth <= 1.0) && (fragDepth - totalBias > shadowDepth) ?
-            1.0 : 0.0;
-    }
-
-    float l = clamp(smoothstep(0.0, 0.2f, NdL), 0.0, 1.0);
-    float t = smoothstep(gold_noise(projCoords.xy * 1000.0, fract(u_Time) + 0.3) * 0.5f, 1.0, l);
-
-    return clamp(result / (u_PCFSamples * t), 0.0, 1.0);
-}
-
-float ShadowCalculation(vec4 fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
-
-    // perform perspective divide
-    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-
-    // transform to [0,1] range
-    projCoords = (projCoords * 0.5) + 0.5;
-
-    // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth = texture(u_ShadowMap, projCoords.xy).r;
-
-    // Get depth of current fragment from light's perspective
-    float currentDepth = projCoords.z;
-
-    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
-
-    // check whether current frag pos is in shadow
-    return (currentDepth <= 1.0) && (currentDepth - totalBias > closestDepth) ?
-        1.0 : 0.0;
+    return result;
 }
 
 void main() {
