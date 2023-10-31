@@ -9,7 +9,7 @@ in vec3 a_Normal;
 out vec3 v_Position;
 out vec2 v_TexCoord;
 out vec3 v_Normal;
-out vec4 v_FragPosLightSpace;
+out vec4 v_Position_LightSpace;
 
 /* PARAMETERS */
 layout (location = 3) uniform mat4 u_Projection;
@@ -26,5 +26,5 @@ void main() {
     v_TexCoord = a_TexCoord;
     v_Normal = transpose(inverse(mat3((u_Model)))) * a_Normal;
 
-    v_FragPosLightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);
+    v_Position_LightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);
 }

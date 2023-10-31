@@ -81,10 +81,10 @@ namespace LouiEriksson {
 		
 		GLuint shadowDepthMap;
 		
-		const int shadowResolution = 4096;
+		const int shadowResolution = 2048;
 		
 		const float shadowDistance   = glm::min(100.0f, m_FarClip);
-		const float shadowBias       = 0.002f;//0.005f;
+		const float shadowBias       = 0.002f;
 		const float shadowNormalBias = 0.05f;
 		
 		const bool twoSidedShadows = false;

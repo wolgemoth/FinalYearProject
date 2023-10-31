@@ -15,7 +15,7 @@ namespace LouiEriksson {
 		
 		m_PlayerSpeed = 6.0f;
 		m_CameraSpeed = 3.0f;
-		m_GameSpeed = 0.0f;//15.0f;
+		m_GameSpeed = 15.0f;
 		
 		m_PlayerMoveFreedom = 0.0f;
 		
@@ -116,7 +116,7 @@ namespace LouiEriksson {
 		if (transform == nullptr) {
 			transform = m_Player.lock()->AddComponent<Transform>();
 		}
-		transform->m_Position = glm::vec3(0, -1, 0);
+		//transform->m_Position = glm::vec3(0, -1, 0);
 		transform->m_Rotation = glm::radians(glm::vec3(0.0f, 90.0f, 0.0f));
 		
 		auto renderer = scene->Attach(m_Player.lock()->AddComponent<Renderer>());
@@ -200,9 +200,9 @@ namespace LouiEriksson {
 		auto targetRot = glm::quat(mat);
 		
 		cam->m_Position = glm::mix(cam->m_Position, targetPos, Time::DeltaTime() * m_CameraSpeed);
-		//cam->m_Rotation = glm::slerp(cam->m_Rotation, targetRot, Time::DeltaTime() * m_CameraSpeed);
+		cam->m_Rotation = glm::slerp(cam->m_Rotation, targetRot, Time::DeltaTime() * m_CameraSpeed);
 		
-		cam->m_Rotation = glm::quat(glm::radians(glm::vec3(-90.0f, 0.0f, 0.0f)));
+		//cam->m_Rotation = glm::quat(glm::radians(glm::vec3(-90.0f, 0.0f, 0.0f)));
 		
 		/* MOVE PLAYER */
 		const auto& input = Input::KeyboardState();
