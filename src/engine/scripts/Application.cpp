@@ -26,7 +26,7 @@ namespace LouiEriksson {
 			
 			Shader::PreloadShaders();
 			
-			auto scene = Scene::Load("levels/3dgp.scene");
+			auto scene = Scene::Load("levels/pfg.scene");
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.

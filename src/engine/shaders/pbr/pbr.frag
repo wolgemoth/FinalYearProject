@@ -119,7 +119,7 @@ vec2 PoissonDisk(in vec2 _xy, float _offset) {
     ) / 1.414;
 }
 
-float calcOccluderDistance(vec3 _fragPos, float _texelSize, float _bias) {
+float PCSS_GetOccluderDepth(vec3 _fragPos, float _texelSize, float _bias) {
 
     float result = 0.0;
 
@@ -147,15 +147,15 @@ float calcOccluderDistance(vec3 _fragPos, float _texelSize, float _bias) {
     }
 }
 
-float PCSSWidth(vec3 _fragPos, float _texelSize, float _bias) {
+float PCSS_Radius(vec3 _fragPos, float _texelSize, float _bias) {
 
-    float occluderDepth = calcOccluderDistance(_fragPos, _texelSize, _bias);
+    float occluderDepth = PCSS_GetOccluderDepth(_fragPos, _texelSize, _bias);
 
     if (occluderDepth == -1) {
         return 1;
     }
 
-    float penumbraWidth = abs(_fragPos.z - occluderDepth) / occluderDepth;
+    float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
 
     return penumbraWidth * u_LightSize * (u_NearPlane / _fragPos.z);
 }
@@ -208,7 +208,7 @@ float ShadowCalculationPCSS(vec3 _fragPos, float _texelSize, float _bias) {
 
     float result = 0.0;
 
-    float radius = PCSSWidth(_fragPos, _texelSize, _bias) / _texelSize;
+    float radius = PCSS_Radius(_fragPos, _texelSize, _bias) / _texelSize;
 
     result = ShadowCalculationDisk(_fragPos, _texelSize, _bias, radius);
 
@@ -217,20 +217,19 @@ float ShadowCalculationPCSS(vec3 _fragPos, float _texelSize, float _bias) {
 
 float TransferShadow(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
-    // perform perspective divide
-    vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+    float texelSize = 1.0 /
+        max(textureSize(u_ShadowMap, 0).r, 1);
 
-    // transform to [0,1] range
-    projCoords = (projCoords * 0.5) + 0.5;
+    vec3 projCoords =
+        ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
 
-    float totalBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
-
-    float texelSize = 1.0 / max(textureSize(u_ShadowMap, 0).r, 1);
+    float adjustedBias =
+        max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     //return ShadowCalculationHard(projCoords, vec2(0), totalBias);
     //return ShadowCalculationPCF(projCoords, texelSize, totalBias, 1.0f);
     //return ShadowCalculationDisk(projCoords, texelSize, totalBias, 1.0f);
-    return ShadowCalculationPCSS(projCoords, texelSize, totalBias);
+    return ShadowCalculationPCSS(projCoords, texelSize, adjustedBias);
 }
 
 void main() {

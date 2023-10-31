@@ -18,10 +18,24 @@ namespace LouiEriksson {
 			friend Light;
 			friend Camera;
 			
+		public:
+			
+			/// <summary> Type of the Light. </summary>
+			enum Type {
+				/// <summary> Light is a Point Light. </summary>
+				Point,
+				/// <summary> Light is a Directional Light. </summary>
+				Directional,
+				/// <summary> Light is a Spot Light. </summary>
+				Spot,
+			};
+		
 		private:
 			
 			struct Shadow {
 				
+				constexpr const static float SHADOW_DISTANCE = 100.0f;
+
 				struct Resolution {
 					
 					/// <summary> 128x128. </summary>
@@ -46,6 +60,8 @@ namespace LouiEriksson {
 					static const int ExtremelyHigh = 8192;
 				};
 				
+				GLuint m_ShadowMap;
+				
 				int m_Resolution;
 				
 				float m_Bias;
@@ -53,29 +69,11 @@ namespace LouiEriksson {
 				
 				bool m_TwoSided;
 				
-				glm::mat4 m_View;
+				glm::mat4 m_Projection;
 				
-				Shadow() {
-					m_Resolution = Light::Parameters::Shadow::Resolution::Medium;
-					m_Bias       = 0.005f;
-					m_NormalBias = 0.05f;
-					m_TwoSided   = false;
-					m_View       = glm::mat4(1.0);
-				}
+				Shadow();
 				
-				void Draw();
-			};
-			
-		public:
-			
-			/// <summary> Type of the Light. </summary>
-			enum Type {
-				/// <summary> Light is a Point Light. </summary>
-				Point,
-				/// <summary> Light is a Directional Light. </summary>
-				Directional,
-				/// <summary> Light is a Spot Light. </summary>
-				Spot,
+				void UpdateShadowMap();
 			};
 		};
 		
@@ -87,10 +85,14 @@ namespace LouiEriksson {
 		
 		Light::Parameters::Type Type();
 		
+		void Draw(const Camera& _camera, const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
+		
 	private:
 		
+		std::weak_ptr<Transform> m_Transform;
+		
 		Light::Parameters::Type   m_Type;
-		Light::Parameters::Shadow m_ShadowSettings;
+		Light::Parameters::Shadow m_Shadow;
 		
 		float m_Range;
 	};

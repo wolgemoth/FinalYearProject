@@ -89,6 +89,8 @@ namespace LouiEriksson {
 		
 		const bool twoSidedShadows = false;
 		
+		glDepthFunc(depthMode);
+		
 		/* DRAW SHADOWS */
 		{
 			// Create FBO for depth.
@@ -119,7 +121,6 @@ namespace LouiEriksson {
 			
 			// Set culling to front.
 			glCullFace (twoSidedShadows ? GL_NONE : GL_FRONT);
-			glDepthFunc(depthMode);
 			
 			auto shadowShader = Shader::m_Cache.Return("shadowDepth");
 			
@@ -195,8 +196,7 @@ namespace LouiEriksson {
 			RenderTexture::Bind(m_RT);
 		}
 		
-		glCullFace ( cullMode);
-		glDepthFunc(depthMode);
+		glCullFace(cullMode);
 		
 		/* DRAW OBJECTS */
 		for (const auto& renderer : _renderers) {
@@ -236,7 +236,7 @@ namespace LouiEriksson {
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.5f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.3f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
