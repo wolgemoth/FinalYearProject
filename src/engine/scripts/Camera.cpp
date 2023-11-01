@@ -68,73 +68,22 @@ namespace LouiEriksson {
 		RenderTexture::Bind(m_RT);
 	}
 	
-	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
+	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
 		
-		glEnable(GL_DEPTH_TEST);
-		
-		const auto  cullMode = GL_BACK;
-		const auto depthMode = GL_LESS;
-		
-		const float skyExposure = 1.6f;
-		
-		glm::mat4 lightSpaceMatrix(1);
-		
-		GLuint shadowDepthMap;
-		
-		const int shadowResolution = 2048;
-		
-		const float shadowDistance   = glm::min(100.0f, m_FarClip);
-		const float shadowBias       = 0.002f;
-		const float shadowNormalBias = 0.05f;
-		
-		const bool twoSidedShadows = false;
-		
-		glDepthFunc(depthMode);
-		
-		/* DRAW SHADOWS */
-		{
-			// Create FBO for depth.
-			GLuint depthMapFBO;
-			glGenFramebuffers(1, &depthMapFBO);
+		for (const auto& light : _lights) {
+	
+			// Initialise / reinitialise the buffers used for the shadow map.
+			light->m_Shadow.UpdateShadowMap();
 			
-			// Generate texture for shadow map (will bind it to the FBO).
-			glGenTextures(1, &shadowDepthMap);
-			glBindTexture(GL_TEXTURE_2D, shadowDepthMap);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowResolution, shadowResolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			// Set the viewport resolution to that of the shadow map.
+			glViewport(0, 0, light->m_Shadow.m_Resolution, light->m_Shadow.m_Resolution);
 			
-			float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-			glViewport(0, 0, shadowResolution, shadowResolution);
-			
-			// Bind shadow texture to FBO.
-			glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowDepthMap, 0);
-			
-			// Explicitly tell opengl that we're not rendering any color data in this FBO.
-			glDrawBuffer(GL_NONE);
-			glReadBuffer(GL_NONE);
-			
-			// Set culling to front.
-			glCullFace (twoSidedShadows ? GL_NONE : GL_FRONT);
+			/* DRAW SHADOWS */
+			glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 			
 			auto shadowShader = Shader::m_Cache.Return("shadowDepth");
 			
 			Shader::Bind(shadowShader->ID());
-			
-			const glm::mat4 lightProjection =
-				glm::ortho(
-				   -shadowDistance / 2.0f,
-				    shadowDistance / 2.0f,
-				   -shadowDistance / 2.0f,
-				    shadowDistance / 2.0f,
-					0.0f,          // Near plane.
-					shadowDistance // Far plane.
-				);
 			
 			const auto lightRot = glm::quat(glm::radians(glm::vec3(-45.0f, 135.0f, 0.0f)));
 			const auto lightDir = VEC_FORWARD * lightRot;
@@ -142,13 +91,13 @@ namespace LouiEriksson {
 			// Compute the size of a texel in world space.
 			// We can round the light's position to these coordinates
 			// to reduce an artifact known as "shimmering".
-			const float texelSize = shadowDistance / (shadowResolution / 2);
+			const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 2);
 			
-			// Artificially add
 			const glm::vec3 truncatedCamPos = glm::floor(
 					GetTransform()->m_Position / texelSize) * texelSize;
 			
-			const glm::vec3 lightPos = truncatedCamPos + (lightDir * (shadowDistance / 2.0f));
+			// Compute the position of the light.
+			const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
 			
 			const glm::mat4 lightView = glm::lookAt(
 				lightPos,
@@ -156,9 +105,9 @@ namespace LouiEriksson {
 				VEC_UP
 			);
 			
-			lightSpaceMatrix = lightProjection * lightView;
+			light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
 			
-			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), lightSpaceMatrix);
+			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
 			
 			// We need to render the scene from the light's perspective.
 			for (const auto& renderer : _renderers) {
@@ -178,25 +127,38 @@ namespace LouiEriksson {
 				glBindVertexArray(0);
 			}
 			
-			// Unbind the program.
-			Shader::Unbind();
+			       Shader::Unbind(); // Unbind the program.
+			      Texture::Unbind(); // Unbind the texture.
+			RenderTexture::Unbind(); // Unbind the FBO
+		}
+	}
+	
+	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
+		
+		const float skyExposure = 1.6f;
+		
+		glEnable(GL_DEPTH_TEST);
+		
+		const auto  cullMode = GL_BACK;
+		const auto depthMode = GL_LESS;
+		
+		glDepthFunc(depthMode);
+		
+		/* SHADOW PASS */
+		{
+			ShadowPass(_renderers, _lights);
 			
-			// Unbind the texture.
-			Texture::Unbind();
-			
-			// Unbind the FBO
-			RenderTexture::Unbind();
-			
-			glDeleteFramebuffers(1, &depthMapFBO);
-			
+			// Reset resolution after shadow pass.
 			auto dimensions = m_Window->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			RenderTexture::Bind(m_RT);
+			// Reset culling mode after shadow pass.
+			glCullFace(cullMode);
 		}
 		
-		glCullFace(cullMode);
+		// Bind the main FBO.
+		RenderTexture::Bind(m_RT);
 		
 		/* DRAW OBJECTS */
 		for (const auto& renderer : _renderers) {
@@ -210,25 +172,19 @@ namespace LouiEriksson {
 			// Bind program.
 			Shader::Bind(program->ID());
 			
+			// Bind VAO.
+			glBindVertexArray(mesh->VAO_ID());
+			
 			// Assign matrices.
 			program->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
 			program->Assign(material->m_ViewMatrixID,             View()); /* VIEW       */
 			program->Assign(material->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
-			
-			program->Assign(program->AttributeID("u_LightSpaceMatrix"), lightSpaceMatrix);
 			
 			// Assign parameters (PBR).
 			program->Assign(
 				program->AttributeID("u_Albedo"),
 				material->Texture_ID(),
 				0,
-				GL_TEXTURE_2D
-			);
-			
-			program->Assign(
-				program->AttributeID("u_ShadowMap"),
-				shadowDepthMap,
-				1,
 				GL_TEXTURE_2D
 			);
 			
@@ -246,20 +202,57 @@ namespace LouiEriksson {
 			);
 			
 			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
-			
-			program->Assign(program->AttributeID("u_ShadowBias"), shadowBias);
-			program->Assign(program->AttributeID("u_ShadowNormalBias"), shadowNormalBias);
-			
-			program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
-			program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
-			program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
-			program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
-			
-			// Bind VAO.
-			glBindVertexArray(mesh->VAO_ID());
-			
-			/* DRAW */
-			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+
+			if (_lights.empty()) {
+				
+				// Draw the scene with no lighting.
+				program->Assign(
+					program->AttributeID("u_ShadowMap"),
+					0,
+					1,
+					GL_TEXTURE_2D
+				);
+				
+				program->Assign(program->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
+				
+				program->Assign(program->AttributeID("u_ShadowBias"      ), 0);
+				program->Assign(program->AttributeID("u_ShadowNormalBias"), 0);
+				
+				program->Assign(program->AttributeID("u_PointLightPosition"  ), glm::vec3(0.0));
+				program->Assign(program->AttributeID("u_PointLightRange"     ), 0);
+				program->Assign(program->AttributeID("u_PointLightBrightness"), 0);
+				program->Assign(program->AttributeID("u_PointLightColor"     ), glm::vec3(0.0));
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+			}
+			else {
+				
+				// Draw the scene once for each light (forward rendering technique).
+				for (const auto& light : _lights) {
+					
+					program->Assign(
+						program->AttributeID("u_ShadowMap"),
+						light->m_Shadow.m_ShadowMap_Texture,
+						1,
+						GL_TEXTURE_2D
+					);
+					
+					program->Assign(program->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+					
+					program->Assign(program->AttributeID("u_ShadowBias"), light->m_Shadow.m_Bias);
+					program->Assign(program->AttributeID("u_ShadowNormalBias"), light->m_Shadow.m_NormalBias);
+					
+					program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
+					program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
+					program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
+					program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
+					
+					/* DRAW */
+					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+					
+				}
+			}
 			
 			// Unbind program.
 			Shader::Unbind();
@@ -271,8 +264,6 @@ namespace LouiEriksson {
 			// Unbind VAO.
 			glBindVertexArray(0);
 		}
-		
-		glDeleteTextures(1, &shadowDepthMap);
 		
 		/* DRAW SKY */
 		{
@@ -400,7 +391,7 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		float diffusion = 6.0f;
+		const float diffusion = 6.0f;
 		
 		auto threshold = Shader::m_Cache.Return("threshold");
 		Shader::Bind(threshold->ID());

@@ -84,4 +84,8 @@ namespace LouiEriksson {
 		return *this;
 	}
 	
+	void Texture::Reinitialise(int _width, int _height) {
+		throw std::runtime_error("Not implemented!");
+	}
+	
 }

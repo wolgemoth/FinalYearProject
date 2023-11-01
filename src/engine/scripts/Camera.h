@@ -8,6 +8,7 @@
 #include "RenderTexture.h"
 #include "Renderer.h"
 #include "Window.h"
+#include "Light.h"
 
 namespace LouiEriksson {
 	
@@ -40,6 +41,8 @@ namespace LouiEriksson {
 		
 		glm::mat4 m_Projection;
 		
+		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
+		
 		void PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const;
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
@@ -60,7 +63,7 @@ namespace LouiEriksson {
 		void PreRender();
 		
 		/// <summary> Renders each Renderer using the Camera. </summary>
-		void Render(const std::vector<std::shared_ptr<Renderer>>& _renderers);
+		void Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
 		
 		/// <summary> Called after rendering. </summary>
 		void PostRender();

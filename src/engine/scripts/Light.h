@@ -5,18 +5,22 @@
 
 #include "Component.h"
 #include "Transform.h"
-#include "Camera.h"
+
+#include "RenderTexture.h"
+
+class Camera;
 
 namespace LouiEriksson {
 	
 	class Light : public Component {
 	
+		friend Camera;
+		
 	public:
 		
 		struct Parameters {
 			
 			friend Light;
-			friend Camera;
 			
 		public:
 			
@@ -34,9 +38,9 @@ namespace LouiEriksson {
 			
 			struct Shadow {
 				
-				constexpr const static float SHADOW_DISTANCE = 100.0f;
-
 				struct Resolution {
+					
+					static const int Disabled = 0;
 					
 					/// <summary> 128x128. </summary>
 					static const int ExtremelyLow = 128;
@@ -60,7 +64,8 @@ namespace LouiEriksson {
 					static const int ExtremelyHigh = 8192;
 				};
 				
-				GLuint m_ShadowMap;
+				GLuint m_ShadowMap_Texture;
+				GLuint m_ShadowMap_FBO;
 				
 				int m_Resolution;
 				
@@ -70,22 +75,23 @@ namespace LouiEriksson {
 				bool m_TwoSided;
 				
 				glm::mat4 m_Projection;
+				glm::mat4 m_ViewProjection;
 				
-				Shadow();
+				 Shadow();
+				~Shadow();
 				
 				void UpdateShadowMap();
+				
 			};
 		};
 		
 		explicit Light(const std::shared_ptr<GameObject>& _parent);
 		
-		~Light() override = default;
+		~Light() override;
 		
 		void Type(Light::Parameters::Type _type);
 		
 		Light::Parameters::Type Type();
-		
-		void Draw(const Camera& _camera, const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
 		
 	private:
 		

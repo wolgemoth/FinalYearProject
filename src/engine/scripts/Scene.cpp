@@ -10,6 +10,7 @@ namespace LouiEriksson {
 	
 	void Scene::Draw() {
 		
+		/* GET ALL RENDERERS */
 		std::vector<std::shared_ptr<Renderer>> casted_renderers;
 		
 		std::vector<std::any> renderers;
@@ -19,6 +20,17 @@ namespace LouiEriksson {
 			}
 		}
 		
+		/* GET ALL LIGHTS */
+		std::vector<std::shared_ptr<Light>> casted_lights;
+		
+		std::vector<std::any> lights;
+		if (m_Entities.Get(typeid(Light), lights)) {
+			for (const auto& r: lights) {
+				casted_lights.push_back(std::any_cast<std::shared_ptr<Light>>(r));
+			}
+		}
+		
+		/* GET ALL CAMERAS */
 		std::vector<std::any> cameras;
 		if (m_Entities.Get(typeid(Camera), cameras)) {
 			
@@ -28,7 +40,7 @@ namespace LouiEriksson {
 				const auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
 				camera->PreRender();
 				camera->Clear();
-				camera->Render(casted_renderers);
+				camera->Render(casted_renderers, casted_lights);
 				camera->PostRender();
 			}
 		}

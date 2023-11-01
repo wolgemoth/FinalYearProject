@@ -41,6 +41,8 @@ namespace LouiEriksson {
 		
 		[[nodiscard]] const int& Height() const;
 		
+		void Reinitialise(int _width, int _height);
+		
 		static void Bind(const Texture& _texture);
 		
 		static void Unbind();
