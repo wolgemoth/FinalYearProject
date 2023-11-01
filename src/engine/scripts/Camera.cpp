@@ -72,66 +72,70 @@ namespace LouiEriksson {
 		
 		for (const auto& light : _lights) {
 	
-			glBindFramebuffer(GL_TEXTURE_2D, light->m_Shadow.m_ShadowMap_FBO);
-			
 			// Initialise / reinitialise the buffers used for the shadow map.
 			light->m_Shadow.UpdateShadowMap();
 			
-			// Set the viewport resolution to that of the shadow map.
-			glViewport(0, 0, light->m_Shadow.m_Resolution, light->m_Shadow.m_Resolution);
-			
-			/* DRAW SHADOWS */
-			glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
-			
-			auto shadowShader = Shader::m_Cache.Return("shadowDepth");
-			
-			Shader::Bind(shadowShader->ID());
-			
-			const auto lightRot = glm::quat(glm::radians(glm::vec3(-45.0f, 135.0f, 0.0f)));
-			const auto lightDir = VEC_FORWARD * lightRot;
-			
-			// Compute the size of a texel in world space.
-			// We can round the light's position to these coordinates
-			// to reduce an artifact known as "shimmering".
-			const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 2);
-			
-			const glm::vec3 truncatedCamPos = glm::floor(
-					GetTransform()->m_Position / texelSize) * texelSize;
-			
-			// Compute the position of the light.
-			const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
-			
-			const glm::mat4 lightView = glm::lookAt(
-				lightPos,
-				lightPos - lightDir,
-				VEC_UP
-			);
-			
-			light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
-			
-			shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
-			
-			// We need to render the scene from the light's perspective.
-			for (const auto& renderer : _renderers) {
+			if (light->m_Shadow.m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 				
-				const auto transform = renderer->GetTransform();
-				const auto mesh      = renderer->GetMesh();
+				// Set the viewport resolution to that of the shadow map.
+				glViewport(0, 0, light->m_Shadow.m_Resolution, light->m_Shadow.m_Resolution);
 				
-				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				glBindFramebuffer(GL_FRAMEBUFFER, light->m_Shadow.m_ShadowMap_FBO);
+				glClear(GL_DEPTH_BUFFER_BIT);
 				
-				shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
+				/* DRAW SHADOWS */
+				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 				
-				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				auto shadowShader = Shader::m_Cache.Return("shadowDepth");
 				
-				// Unbind VAO.
-				glBindVertexArray(0);
+				Shader::Bind(shadowShader->ID());
+				
+				const auto lightRot = glm::quat(glm::radians(glm::vec3(-45.0f, 135.0f, 0.0f)));
+				const auto lightDir = VEC_FORWARD * lightRot;
+				
+				// Compute the size of a texel in world space.
+				// We can round the light's position to these coordinates
+				// to reduce an artifact known as "shimmering".
+				const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 2);
+				
+				const glm::vec3 truncatedCamPos = glm::floor(
+						GetTransform()->m_Position / texelSize) * texelSize;
+				
+				// Compute the position of the light.
+				const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
+				
+				const glm::mat4 lightView = glm::lookAt(
+					lightPos,
+					lightPos - lightDir,
+					VEC_UP
+				);
+				
+				light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
+				
+				shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				
+				// We need to render the scene from the light's perspective.
+				for (const auto& renderer : _renderers) {
+					
+					const auto transform = renderer->GetTransform();
+					const auto mesh      = renderer->GetMesh();
+					
+					// Bind VAO.
+					glBindVertexArray(mesh->VAO_ID());
+					
+					shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
+					
+					/* DRAW */
+					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+					
+					// Unbind VAO.
+					glBindVertexArray(0);
+				}
+				
+				       Shader::Unbind(); // Unbind the program.
+				      Texture::Unbind(); // Unbind the texture.
+				RenderTexture::Unbind(); // Unbind the FBO
 			}
-			
-			       Shader::Unbind(); // Unbind the program.
-			      Texture::Unbind(); // Unbind the texture.
-			RenderTexture::Unbind(); // Unbind the FBO
 		}
 	}
 	

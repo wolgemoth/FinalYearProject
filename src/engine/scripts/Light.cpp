@@ -7,7 +7,7 @@ namespace LouiEriksson {
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
 		m_Intensity = 1.0;
-		m_Range     = 100.0f;
+		m_Range     = 50.0f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
@@ -52,9 +52,9 @@ namespace LouiEriksson {
 	}
 	
 	Light::Parameters::Shadow::Shadow() {
-		m_Resolution = Light::Parameters::Shadow::Resolution::Medium;
-		m_Bias       = 0.005f;
-		m_NormalBias = 0.05f;
+		m_Resolution = Light::Parameters::Shadow::Resolution::High;
+		m_Bias       = 0.002f;
+		m_NormalBias = 0.005f;
 		m_TwoSided   = false;
 		
 		m_Projection     = glm::mat4(1.0);

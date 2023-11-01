@@ -21,6 +21,7 @@ namespace LouiEriksson {
 		struct Parameters {
 			
 			friend Light;
+			friend Camera;
 			
 		public:
 			
