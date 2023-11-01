@@ -72,6 +72,8 @@ namespace LouiEriksson {
 		
 		for (const auto& light : _lights) {
 	
+			glBindFramebuffer(GL_TEXTURE_2D, light->m_Shadow.m_ShadowMap_FBO);
+			
 			// Initialise / reinitialise the buffers used for the shadow map.
 			light->m_Shadow.UpdateShadowMap();
 			
@@ -238,15 +240,26 @@ namespace LouiEriksson {
 						GL_TEXTURE_2D
 					);
 					
-					program->Assign(program->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+					program->Assign(program->AttributeID("u_LightSpaceMatrix"),
+							light->m_Shadow.m_ViewProjection);
 					
-					program->Assign(program->AttributeID("u_ShadowBias"), light->m_Shadow.m_Bias);
-					program->Assign(program->AttributeID("u_ShadowNormalBias"), light->m_Shadow.m_NormalBias);
+					program->Assign(program->AttributeID("u_ShadowBias"),
+							light->m_Shadow.m_Bias);
 					
-					program->Assign(program->AttributeID("u_PointLightPosition"), light->m_Transform.lock()->m_Position);
-					program->Assign(program->AttributeID("u_PointLightRange"), light->m_Range);
-					program->Assign(program->AttributeID("u_PointLightBrightness"), light->m_Intensity);
-					program->Assign(program->AttributeID("u_PointLightColor"), light->m_Color);
+					program->Assign(program->AttributeID("u_ShadowNormalBias"),
+							light->m_Shadow.m_NormalBias);
+					
+					program->Assign(program->AttributeID("u_PointLightPosition"),
+							light->m_Transform.lock()->m_Position);
+					
+					program->Assign(program->AttributeID("u_PointLightRange"),
+							light->m_Range);
+					
+					program->Assign(program->AttributeID("u_PointLightBrightness"),
+							light->m_Intensity);
+					
+					program->Assign(program->AttributeID("u_PointLightColor"),
+							light->m_Color);
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
