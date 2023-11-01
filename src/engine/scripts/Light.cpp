@@ -8,6 +8,7 @@ namespace LouiEriksson {
 		
 		m_Intensity = 1.0;
 		m_Range     = 50.0f;
+		m_Angle     = 90.0f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
@@ -24,6 +25,17 @@ namespace LouiEriksson {
 		// Configure the light projection matrix.
 		switch (_type) {
 			
+			case Light::Parameters::Type::Point: {
+				
+				m_Shadow.m_Projection = glm::perspective(
+					glm::radians(90.0f),
+					1.0f,
+					m_Shadow.m_NearPlane,
+					m_Range
+				);
+				
+				break;
+			}
 			case Light::Parameters::Type::Directional: {
 				
 				m_Shadow.m_Projection = glm::ortho(
@@ -31,15 +43,26 @@ namespace LouiEriksson {
 				    m_Range / 2.0f,
 				   -m_Range / 2.0f,
 				    m_Range / 2.0f,
-					1.0f,   // Near plane.
-					m_Range // Far plane.
+					m_Shadow.m_NearPlane,
+					m_Range
+				);
+				
+				break;
+			}
+			case Light::Parameters::Type::Spot: {
+				
+				m_Shadow.m_Projection = glm::perspective(
+					glm::radians(m_Angle),
+					1.0f,
+					m_Shadow.m_NearPlane,
+					m_Range
 				);
 				
 				break;
 			}
 			default: {
 				
-				m_Shadow.m_Projection = glm::mat4(0.0);
+				m_Shadow.m_Projection = glm::mat4(1.0);
 				
 				throw std::runtime_error("Not Implemented!");
 			}
@@ -52,9 +75,14 @@ namespace LouiEriksson {
 	}
 	
 	Light::Parameters::Shadow::Shadow() {
+		
 		m_Resolution = Light::Parameters::Shadow::Resolution::High;
+		
 		m_Bias       = 0.002f;
 		m_NormalBias = 0.005f;
+		
+		m_NearPlane = 0.2f;
+		
 		m_TwoSided   = false;
 		
 		m_Projection     = glm::mat4(1.0);
@@ -112,15 +140,15 @@ namespace LouiEriksson {
 				// Generate texture for shadow map (will bind it to the FBO).
 				glBindTexture(GL_TEXTURE_2D, m_ShadowMap_Texture);
 				
-					// Set the texture's parameters.
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-					
-					float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-					glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+				// Set the texture's parameters.
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+				
+				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 					
 				Texture::Unbind();
 				
@@ -130,11 +158,11 @@ namespace LouiEriksson {
 				// Bind shadow texture to FBO.
 				glBindFramebuffer(GL_FRAMEBUFFER, m_ShadowMap_FBO);
 				
-					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_ShadowMap_Texture, 0);
-					
-					// Explicitly tell opengl that we're not rendering any color data in this FBO.
-					glDrawBuffer(GL_NONE);
-					glReadBuffer(GL_NONE);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_ShadowMap_Texture, 0);
+				
+				// Explicitly tell opengl that we're not rendering any color data in this FBO.
+				glDrawBuffer(GL_NONE);
+				glReadBuffer(GL_NONE);
 				
 				RenderTexture::Unbind();
 			}
@@ -157,7 +185,5 @@ namespace LouiEriksson {
 				m_ShadowMap_Texture = 0;
 			}
 		}
-		
 	}
-	
 }

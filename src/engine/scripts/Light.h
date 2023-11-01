@@ -3,6 +3,8 @@
 #ifndef FINALYEARPROJECT_LIGHT_H
 #define FINALYEARPROJECT_LIGHT_H
 
+#include "stdafx.h"
+
 #include "Component.h"
 #include "Transform.h"
 
@@ -73,6 +75,8 @@ namespace LouiEriksson {
 				float m_Bias;
 				float m_NormalBias;
 				
+				float m_NearPlane;
+				
 				bool m_TwoSided;
 				
 				glm::mat4 m_Projection;
@@ -103,6 +107,7 @@ namespace LouiEriksson {
 		
 		float m_Intensity;
 		float m_Range;
+		float m_Angle;
 		
 		glm::vec3 m_Color;
 	};

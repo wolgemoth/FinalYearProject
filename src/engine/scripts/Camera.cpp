@@ -90,25 +90,38 @@ namespace LouiEriksson {
 				
 				Shader::Bind(shadowShader->ID());
 				
-				const auto lightRot = glm::quat(glm::radians(glm::vec3(-45.0f, 135.0f, 0.0f)));
-				const auto lightDir = VEC_FORWARD * lightRot;
-				
 				// Compute the size of a texel in world space.
 				// We can round the light's position to these coordinates
 				// to reduce an artifact known as "shimmering".
-				const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 2);
+				const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 4);
 				
-				const glm::vec3 truncatedCamPos = glm::floor(
+				const auto lightDir = VEC_FORWARD * light->m_Transform.lock()->m_Rotation;
+				
+				glm::mat4 lightView;
+				if (light->Type() == Light::Parameters::Type::Directional) {
+				
+					// Compute the position of the light.
+					const glm::vec3 truncatedCamPos = glm::floor(
 						GetTransform()->m_Position / texelSize) * texelSize;
 				
-				// Compute the position of the light.
-				const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
+					const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
 				
-				const glm::mat4 lightView = glm::lookAt(
-					lightPos,
-					lightPos - lightDir,
-					VEC_UP
-				);
+					 lightView = glm::lookAt(
+						lightPos,
+						lightPos + -lightDir,
+						VEC_UP
+					 );
+				}
+				else {
+					
+					const glm::vec3 lightPos = light->m_Transform.lock()->m_Position;
+				
+					lightView = glm::lookAt(
+						lightPos,
+						lightPos + -lightDir,
+						VEC_UP
+					);
+				}
 				
 				light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
 				
