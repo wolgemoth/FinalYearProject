@@ -36,14 +36,6 @@ namespace LouiEriksson {
 			auto light = scene->Attach(light_gameObject->AddComponent<Light>());
 			light->Type(Light::Parameters::Type::Directional);
 			
-			std::vector<std::any> lights;
-			if (scene->m_Entities.Get(typeid(Light), lights)) {
-				std::cout << "All is good in the world.\n";
-			}
-			else {
-				std::cout << "Wat.\n";
-			}
-			
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(0.02f);
 	
