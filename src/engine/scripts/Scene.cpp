@@ -25,8 +25,8 @@ namespace LouiEriksson {
 		
 		std::vector<std::any> lights;
 		if (m_Entities.Get(typeid(Light), lights)) {
-			for (const auto& r: lights) {
-				casted_lights.push_back(std::any_cast<std::shared_ptr<Light>>(r));
+			for (const auto& l: lights) {
+				casted_lights.push_back(std::any_cast<std::shared_ptr<Light>>(l));
 			}
 		}
 		

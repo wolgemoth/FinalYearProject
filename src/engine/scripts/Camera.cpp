@@ -243,14 +243,13 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowBias"), light->m_Shadow.m_Bias);
 					program->Assign(program->AttributeID("u_ShadowNormalBias"), light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_PointLightPosition"), glm::vec3(0.0f, 5.0f, 0.0f));
-					program->Assign(program->AttributeID("u_PointLightRange"), 100.0f);
-					program->Assign(program->AttributeID("u_PointLightBrightness"), 1.2f);
-					program->Assign(program->AttributeID("u_PointLightColor"), glm::vec3(1, 1, 1));
+					program->Assign(program->AttributeID("u_PointLightPosition"), light->m_Transform.lock()->m_Position);
+					program->Assign(program->AttributeID("u_PointLightRange"), light->m_Range);
+					program->Assign(program->AttributeID("u_PointLightBrightness"), light->m_Intensity);
+					program->Assign(program->AttributeID("u_PointLightColor"), light->m_Color);
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-					
 				}
 			}
 			

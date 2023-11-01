@@ -17,7 +17,7 @@ namespace LouiEriksson {
 	protected:
 	
 		/// <summary> Camera of the OrbitCam. </summary>
-		std::weak_ptr<Camera>    m_Camera;
+		std::weak_ptr<Camera> m_Camera;
 	
 		/// <summary>
 		/// Transform of the OrbitCam.

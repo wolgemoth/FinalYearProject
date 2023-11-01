@@ -29,6 +29,21 @@ namespace LouiEriksson {
 			auto scene = Scene::Load("levels/pfg.scene");
 			scene->Begin();
 	
+			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");
+			scene->Attach(light_gameObject);
+			
+			auto light_transform = light_gameObject->AddComponent<Transform>();
+			auto light = scene->Attach(light_gameObject->AddComponent<Light>());
+			light->Type(Light::Parameters::Type::Directional);
+			
+			std::vector<std::any> lights;
+			if (scene->m_Entities.Get(typeid(Light), lights)) {
+				std::cout << "All is good in the world.\n";
+			}
+			else {
+				std::cout << "Wat.\n";
+			}
+			
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(0.02f);
 	

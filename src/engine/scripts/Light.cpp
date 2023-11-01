@@ -6,7 +6,9 @@ namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
-		m_Range = 100.0f;
+		m_Intensity = 1.0;
+		m_Range     = 100.0f;
+		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
 		

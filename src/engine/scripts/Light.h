@@ -100,7 +100,10 @@ namespace LouiEriksson {
 		Light::Parameters::Type   m_Type;
 		Light::Parameters::Shadow m_Shadow;
 		
+		float m_Intensity;
 		float m_Range;
+		
+		glm::vec3 m_Color;
 	};
 }
 
