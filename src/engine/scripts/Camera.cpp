@@ -132,29 +132,30 @@ namespace LouiEriksson {
 						lightPos + -lightDir,
 						VEC_UP
 					);
+					
+					light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
+					
+					shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+					
+					// We need to render the scene from the light's perspective.
+					for (const auto& renderer : _renderers) {
+						
+						const auto transform = renderer->GetTransform();
+						const auto mesh      = renderer->GetMesh();
+						
+						// Bind VAO.
+						glBindVertexArray(mesh->VAO_ID());
+						
+						shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
+						
+						/* DRAW */
+						glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+						
+						// Unbind VAO.
+						glBindVertexArray(0);
+					}
 				}
 				
-				light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
-				
-				shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
-				
-				// We need to render the scene from the light's perspective.
-				for (const auto& renderer : _renderers) {
-					
-					const auto transform = renderer->GetTransform();
-					const auto mesh      = renderer->GetMesh();
-					
-					// Bind VAO.
-					glBindVertexArray(mesh->VAO_ID());
-					
-					shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
-					
-					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-					
-					// Unbind VAO.
-					glBindVertexArray(0);
-				}
 				
 				       Shader::Unbind(); // Unbind the program.
 				      Texture::Unbind(); // Unbind the texture.

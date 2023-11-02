@@ -122,6 +122,7 @@ namespace LouiEriksson {
 		
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
+			
 	        /* Lit Surface Shader */ {
                 { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
                 { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
@@ -132,15 +133,21 @@ namespace LouiEriksson {
                 { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
             },
 			 
-			 /* Shadow Depth Shader */ {
+			/* Shadow Depth Shader */ {
 				{ "shaders/shadowDepth/shadowDepth.vert",     GL_VERTEX_SHADER },
                 { "shaders/shadowDepth/shadowDepth.frag",   GL_FRAGMENT_SHADER }
             },
+				
+			/* Shadow Depth Shader (Cubemap) */ {
+				{ "shaders/shadowDepthCube/shadowDepthCube.vert",     GL_VERTEX_SHADER },
+				{ "shaders/shadowDepthCube/shadowDepthCube.geom",   GL_GEOMETRY_SHADER },
+                { "shaders/shadowDepthCube/shadowDepthCube.frag",   GL_FRAGMENT_SHADER }
+            },
 			 
-			 /* Skybox Shader */ {
+			/* Skybox Shader */ {
 				{ "shaders/skybox/skybox.vert",                GL_VERTEX_SHADER },
 				{ "shaders/skybox/skybox.frag",              GL_FRAGMENT_SHADER }
-			 },
+			},
 			 
 	        /* Passthrough */ {
 				{ "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
@@ -162,7 +169,7 @@ namespace LouiEriksson {
                 { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
             },
 			 
-			 /* Bloom - Threshold */ {
+			/* Bloom - Threshold */ {
 				{ "shaders/bloom/threshold/threshold.vert",   GL_VERTEX_SHADER },
                 { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
             },
