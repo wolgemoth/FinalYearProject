@@ -22,7 +22,7 @@ namespace LouiEriksson {
 		
 		m_Cube = Mesh::Load("models/cube/cube.obj");
 		
-		m_Sky = std::move(
+		m_Skybox = std::move(
 			File::Load(
 				{
 					"textures/cubemaps/san_francisco_3/posx.jpg",
@@ -36,6 +36,7 @@ namespace LouiEriksson {
 				true
 			)
 		);
+		
 	}
 	
 	Camera::~Camera() {
@@ -73,7 +74,7 @@ namespace LouiEriksson {
 		for (const auto& light : _lights) {
 	
 			// Initialise / reinitialise the buffers used for the shadow map.
-			light->m_Shadow.UpdateShadowMap();
+			light->m_Shadow.UpdateShadowMap(light->m_Type);
 			
 			if (light->m_Shadow.m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 				
@@ -207,15 +208,22 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
+			program->Assign(
+				program->AttributeID("u_Normals"),
+				material->Texture_ID(),
+				0,
+				GL_TEXTURE_2D
+			);
+			
 			program->Assign(program->AttributeID("u_Time"), Time::Elapsed());
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.3f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.4f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
-				m_Sky.ID(),
+				m_Skybox.ID(),
 				2,
 				GL_TEXTURE_CUBE_MAP
 			);
@@ -234,13 +242,17 @@ namespace LouiEriksson {
 				
 				program->Assign(program->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
 				
-				program->Assign(program->AttributeID("u_ShadowBias"      ), 0);
-				program->Assign(program->AttributeID("u_ShadowNormalBias"), 0);
+				program->Assign(program->AttributeID("u_ShadowBias"      ), 0.0f);
+				program->Assign(program->AttributeID("u_ShadowNormalBias"), 0.0f);
 				
-				program->Assign(program->AttributeID("u_PointLightPosition"  ), glm::vec3(0.0));
-				program->Assign(program->AttributeID("u_PointLightRange"     ), 0);
-				program->Assign(program->AttributeID("u_PointLightBrightness"), 0);
-				program->Assign(program->AttributeID("u_PointLightColor"     ), glm::vec3(0.0));
+				program->Assign(program->AttributeID("u_LightSize"),    0.0f);
+				program->Assign(program->AttributeID("u_LightAngle"), 180.0f);
+				program->Assign(program->AttributeID("u_NearPlane"),    0.0f);
+				
+				program->Assign(program->AttributeID("u_LightPosition" ), glm::vec3(0));
+				program->Assign(program->AttributeID("u_LightRange"    ), 0.0f);
+				program->Assign(program->AttributeID("u_LightIntensity"), 0.0f);
+				program->Assign(program->AttributeID("u_LightColor"    ), glm::vec3(0));
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -266,16 +278,22 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_PointLightPosition"),
+					program->Assign(program->AttributeID("u_ShadowSamples"), 64);
+					
+					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
+					//program->Assign(program->AttributeID("u_LightAngle"), light->m_Angle);
+					program->Assign(program->AttributeID("u_NearPlane" ), light->m_Shadow.m_NearPlane);
+					
+					program->Assign(program->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);
 					
-					program->Assign(program->AttributeID("u_PointLightRange"),
+					program->Assign(program->AttributeID("u_LightRange"),
 							light->m_Range);
 					
-					program->Assign(program->AttributeID("u_PointLightBrightness"),
+					program->Assign(program->AttributeID("u_LightIntensity"),
 							light->m_Intensity);
 					
-					program->Assign(program->AttributeID("u_PointLightColor"),
+					program->Assign(program->AttributeID("u_LightColor"),
 							light->m_Color);
 					
 					/* DRAW */
@@ -315,7 +333,7 @@ namespace LouiEriksson {
 			
 			skybox->Assign(
 				skybox->AttributeID("u_Texture"),
-				m_Sky.ID(),
+				m_Skybox.ID(),
 				0,
 				GL_TEXTURE_CUBE_MAP
 			);

@@ -85,7 +85,7 @@ namespace LouiEriksson {
 				 Shadow();
 				~Shadow();
 				
-				void UpdateShadowMap();
+				void UpdateShadowMap(const Light::Parameters::Type& _type);
 				
 			};
 		};
@@ -108,6 +108,7 @@ namespace LouiEriksson {
 		float m_Intensity;
 		float m_Range;
 		float m_Angle;
+		float m_Size;
 		
 		glm::vec3 m_Color;
 	};

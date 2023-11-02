@@ -39,7 +39,9 @@ namespace LouiEriksson {
 				
 				const auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
 				camera->PreRender();
+				
 				camera->Clear();
+				
 				camera->Render(casted_renderers, casted_lights);
 				camera->PostRender();
 			}

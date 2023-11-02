@@ -21,10 +21,12 @@ namespace LouiEriksson {
 	private:
 	
 		std::shared_ptr<Mesh> m_Cube;
-		Cubemap m_Sky;
+		
+		/// <summary> Skybox of the Camera. </summary>
+		Cubemap m_Skybox;
 		
 		/// <summary> Window of the Camera. </summary>
-		std::shared_ptr<Window>    m_Window;
+		std::shared_ptr<Window> m_Window;
 	
 		/// <summary> Transform of the Camera. </summary>
 		std::shared_ptr<Transform> m_Transform;

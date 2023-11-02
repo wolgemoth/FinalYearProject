@@ -6,9 +6,10 @@ namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
-		m_Intensity = 1.0;
+		m_Intensity = 1.0f;
 		m_Range     = 50.0f;
 		m_Angle     = 90.0f;
+		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
@@ -99,7 +100,7 @@ namespace LouiEriksson {
 		if (m_ShadowMap_Texture != 0) { glDeleteTextures     (1, &m_ShadowMap_Texture); }
 	}
 	
-	void Light::Parameters::Shadow::UpdateShadowMap() {
+	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
 		
 		// Check if shadows are enabled.
 		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
@@ -111,7 +112,13 @@ namespace LouiEriksson {
 				
 				// Check the texture's resolution.
 				int curr_resolution;
-				glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
+				
+				if (_type == Light::Parameters::Type::Point) {
+					glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP, 0, GL_TEXTURE_WIDTH, &curr_resolution);
+				}
+				else {
+					glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
+				}
 				
 				Texture::Unbind();
 				
@@ -142,8 +149,8 @@ namespace LouiEriksson {
 				
 				// Set the texture's parameters.
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 				

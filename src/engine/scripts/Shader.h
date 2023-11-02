@@ -19,6 +19,8 @@ namespace LouiEriksson {
 	
 	private:
 		
+		Hashmap<std::string, GLint> m_ParameterIDs;
+		
 		GLint m_ProgramID;
 		
 		std::string m_Name;
@@ -66,7 +68,7 @@ namespace LouiEriksson {
 		
 		void BindAttribute(const GLint& _pos, const char* _name) const;
 		
-		GLint AttributeID(const char* _name) const;
+		GLint AttributeID(const char* _name);
 		
 		/// <summary> Assign an integer to the Shader. </summary>
 		static void Assign(const GLint& _id, const GLint& _value);

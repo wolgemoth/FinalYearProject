@@ -11,15 +11,17 @@ in vec3 v_Normal;
 in vec4 v_Position_LightSpace;
 
 uniform sampler2D u_Albedo;
+uniform sampler2D u_Normals;
 
 uniform sampler2D u_ShadowMap;
 
 uniform float u_Time;
 
-int u_ShadowSamples = 64;
+uniform int u_ShadowSamples = 64;
 
-float u_LightSize = 0.2;
-float u_NearPlane = 0.1;
+uniform float u_LightSize  = 0.2;
+uniform float u_LightAngle = 0.0;
+uniform float u_NearPlane  = 0.1;
 
 /* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
@@ -33,10 +35,26 @@ uniform float u_AmbientExposure = 1.6;
 uniform float u_ShadowBias = 0.005;
 uniform float u_ShadowNormalBias = 0.1;
 
-uniform  vec3 u_PointLightPosition;   // Position of light.
-uniform float u_PointLightRange;      // Range of light.
-uniform float u_PointLightBrightness; // Brightness of light.
-uniform  vec3 u_PointLightColor;      // Color of light.
+uniform  vec3 u_LightPosition;  // Position of light.
+uniform float u_LightRange;     // Range of light.
+uniform float u_LightIntensity; // Brightness of light.
+uniform  vec3 u_LightColor;     // Color of light.
+
+/* THIRD-PARTY */
+
+// Gold Noise ©2015 dcerisano@standard3d.com
+// - based on the Golden Ratio
+// - uniform normalized distribution
+// - fastest static noise generator function (also runs at low precision)
+// - use with indicated fractional seeding method.
+
+float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
+
+float gold_noise(in vec2 xy, in float seed){
+    return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
+}
+
+/* NOT THIRD-PARTY */
 
 // Couldn't find a square distance function so made my own. Does GLSL not have one?
 float length2(vec3 _A, vec3 _B) {
@@ -62,7 +80,7 @@ float GeomG1(float _theta, float _k) {
 float Geom(float _cosLi, float _cosLo, float _roughness) {
 
     float r = _roughness + 1.0;
-    float k = (r * r) / 8.0; // Epic suggests using this roughness remapping for analytic lights.
+    float k = (r * r) / 8.0;
 
     return GeomG1(_cosLi, k) * GeomG1(_cosLo, k);
 }
@@ -93,22 +111,12 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
 
     vec3 diffuse = Irradiance(fresnel, _metallic);
 
-    vec3 specular = (fresnel * Distrib(NdH, _roughness) * Geom(NdL, NdV, _roughness)) /
+    vec3 specular =
+        (fresnel * Distrib(NdH, _roughness) *
+        Geom(NdL, NdV, _roughness)) /
         max(EPSILON, 4.0 * NdL * NdV);
 
     return (diffuse + specular) * NdL;
-}
-
-// Gold Noise ©2015 dcerisano@standard3d.com
-// - based on the Golden Ratio
-// - uniform normalized distribution
-// - fastest static noise generator function (also runs at low precision)
-// - use with indicated fractional seeding method.
-
-float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
-
-float gold_noise(in vec2 xy, in float seed){
-    return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
 }
 
 vec2 PoissonDisk(in vec2 _xy, float _offset) {
@@ -123,7 +131,7 @@ float PCSS_GetOccluderDepth(vec3 _fragPos, float _texelSize, float _bias) {
 
     float result = 0.0;
 
-    int numBlockerDistances = 0;
+    int hits = 0;
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
@@ -134,17 +142,17 @@ float PCSS_GetOccluderDepth(vec3 _fragPos, float _texelSize, float _bias) {
         float occluderDepth = texture(u_ShadowMap, _fragPos.xy + dir).r;
 
         if (occluderDepth < _fragPos.z - _bias) {
-            ++numBlockerDistances;
             result += occluderDepth;
+
+            hits++;
         }
     }
 
-    if (numBlockerDistances > 0) {
-        return result / float(numBlockerDistances);
+    if (hits == 0) {
+        result = -1;
     }
-    else {
-        return -1;
-    }
+
+    return result / float(max(hits, 1));
 }
 
 float PCSS_Radius(vec3 _fragPos, float _texelSize, float _bias) {
@@ -180,7 +188,7 @@ float ShadowCalculationPCF(vec3 _fragPos, float _texelSize, float _bias, float _
 
         vec2 dir = vec2(x, y);
 
-        dir *= _texelSize * _size;
+        dir *= _texelSize;
 
         result += ShadowCalculationHard(_fragPos, dir, _bias);
     }}
@@ -226,9 +234,9 @@ float TransferShadow(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, floa
     float adjustedBias =
         max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
-    //return ShadowCalculationHard(projCoords, vec2(0), totalBias);
-    //return ShadowCalculationPCF(projCoords, texelSize, totalBias, 1.0f);
-    //return ShadowCalculationDisk(projCoords, texelSize, totalBias, 1.0f);
+    //return ShadowCalculationHard(projCoords, vec2(0), adjustedBias);
+    //return ShadowCalculationPCF(projCoords, texelSize, adjustedBias, 1.0f);
+    //return ShadowCalculationDisk(projCoords, texelSize, adjustedBias, 1.0f);
     return ShadowCalculationPCSS(projCoords, texelSize, adjustedBias);
 }
 
@@ -237,15 +245,20 @@ void main() {
     vec4 albedo = texture2D(u_Albedo, v_TexCoord);
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
-    vec3 lightDir = normalize(u_PointLightPosition - v_Position);
+    vec3 lightDir = normalize(u_LightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
     vec3   normal = normalize(v_Normal);
+
+    normal = normalize(
+        normal +
+        ((texture(u_Normals, v_TexCoord).rgb * 2.0) - 1.0) * 0.08
+    );
 
     /* DIRECT */
 
     vec3 directLighting;
     {
-        float attenuation = Attenuation(u_PointLightPosition, v_Position, u_PointLightRange);
+        float attenuation = Attenuation(u_LightPosition, v_Position, u_LightRange);
 
         float visibility = 1.0 - TransferShadow(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
 
@@ -257,9 +270,9 @@ void main() {
             halfVec,
             u_Metallic,
             u_Roughness
-        ) * u_PointLightBrightness * attenuation;
+        ) * u_LightIntensity * attenuation;
 
-        directLighting += (visibility * lighting) * u_PointLightColor;
+        directLighting += (visibility * lighting) * u_LightColor;
     }
 
     directLighting *= albedo.rgb;

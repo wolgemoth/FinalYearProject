@@ -74,7 +74,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns the number of items stored within the hashmap.
 		/// </summary>
-		size_t size() {
+		[[nodiscard]] size_t size() const {
 			return m_Size;
 		}
 		
@@ -186,7 +186,7 @@ namespace LouiEriksson {
 				}
 			}
 			
-			m_Size -= result;
+			m_Size -= static_cast<size_t>(result);
 			
 			return result;
 		}
@@ -274,7 +274,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns the keys of all entries stored within the hashmap.
 		/// </summary>
-		std::vector<Tk> Keys() {
+		std::vector<Tk> Keys() const {
 			
 			std::vector<Tk> result;
 			
@@ -290,7 +290,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns the values of all entries stored within the hashmap.
 		/// </summary>
-		std::vector<Tv> Values() {
+		std::vector<Tv> Values() const {
 			
 			std::vector<Tv> result;
 			
@@ -306,7 +306,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns all entries stored within the hashmap.
 		/// </summary>
-		std::vector<std::pair<Tk, Tv>> GetAll() {
+		std::vector<std::pair<Tk, Tv>> GetAll() const {
 			
 			std::vector<std::pair<Tk, Tv>> result;
 			

@@ -214,8 +214,29 @@ namespace LouiEriksson {
 		}
 	}
 	
-	GLint Shader::AttributeID(const char* _name) const {
-		return glGetUniformLocation(this->ID(), _name);
+	GLint Shader::AttributeID(const char* _name) {
+		
+		GLint result = -1;
+		
+		if (!m_ParameterIDs.Get(_name, result)) {
+			result = glGetUniformLocation(this->ID(), _name);
+			
+			if (result != -1) {
+				m_ParameterIDs.Assign(_name, result);
+			}
+		}
+		
+		if (result == -1) {
+			
+			std::stringstream ss;
+				ss << "No parameter with name \"" << _name
+				<< "\" exists in program with ID \"" << ID() <<
+				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.";
+			
+			throw std::runtime_error(ss.str());
+		}
+		
+		return result;
 	}
 	
 	void Shader::Assign(const GLint& _id, const GLint&   _value) { glUniform1i (_id, _value); }
