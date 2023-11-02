@@ -246,10 +246,12 @@ namespace LouiEriksson {
 				program->Assign(program->AttributeID("u_ShadowNormalBias"), 0.0f);
 				
 				program->Assign(program->AttributeID("u_LightSize"),    0.0f);
-				program->Assign(program->AttributeID("u_LightAngle"), 180.0f);
+				program->Assign(program->AttributeID("u_LightAngle"),   0.0f);
 				program->Assign(program->AttributeID("u_NearPlane"),    0.0f);
 				
 				program->Assign(program->AttributeID("u_LightPosition" ), glm::vec3(0));
+				program->Assign(program->AttributeID("u_LightDirection"), glm::vec3(0));
+				
 				program->Assign(program->AttributeID("u_LightRange"    ), 0.0f);
 				program->Assign(program->AttributeID("u_LightIntensity"), 0.0f);
 				program->Assign(program->AttributeID("u_LightColor"    ), glm::vec3(0));
@@ -281,11 +283,21 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowSamples"), 64);
 					
 					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
-					//program->Assign(program->AttributeID("u_LightAngle"), light->m_Angle);
+					
+					program->Assign(program->AttributeID("u_LightAngle"),
+						glm::cos(glm::radians(
+							light->Type() == Light::Parameters::Type::Spot ?
+							light->m_Angle * 0.5f : 180.0f
+						))
+					);
+					
 					program->Assign(program->AttributeID("u_NearPlane" ), light->m_Shadow.m_NearPlane);
 					
 					program->Assign(program->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);
+					
+					program->Assign(program->AttributeID("u_LightDirection"),
+							light->m_Transform.lock()->FORWARD);
 					
 					program->Assign(program->AttributeID("u_LightRange"),
 							light->m_Range);

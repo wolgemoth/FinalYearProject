@@ -9,7 +9,7 @@ namespace LouiEriksson {
 		m_Intensity = 1.0f;
 		m_Range     = 50.0f;
 		m_Angle     = 90.0f;
-		m_Size      = 0.2f;
+		m_Size      = 2.0f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
@@ -105,8 +105,8 @@ namespace LouiEriksson {
 		// Check if shadows are enabled.
 		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 		
-				GLenum target = _type == Light::Parameters::Type::Directional ?
-						GL_TEXTURE_2D : GL_TEXTURE_CUBE_MAP;
+				GLenum target = _type == Light::Parameters::Type::Point ?
+						GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
 				
 			// Check to see if the shadow map is already initialised.
 			if (m_ShadowMap_Texture != 0) {

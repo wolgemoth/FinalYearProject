@@ -35,7 +35,8 @@ uniform float u_AmbientExposure = 1.6;
 uniform float u_ShadowBias = 0.005;
 uniform float u_ShadowNormalBias = 0.1;
 
-uniform  vec3 u_LightPosition;  // Position of light.
+uniform  vec3 u_LightPosition;  // Position of light in world-space.
+uniform vec3  u_LightDirection; // Direction of the light in world-space.
 uniform float u_LightRange;     // Range of light.
 uniform float u_LightIntensity; // Brightness of light.
 uniform  vec3 u_LightColor;     // Color of light.
@@ -261,7 +262,8 @@ void main() {
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
-    vec3   normal = normalize(
+
+    vec3 normal = normalize(
         v_Normal +
         ((texture(u_Normals, v_TexCoord).rgb * 2.0) - 1.0) * 0.08
     );
@@ -272,7 +274,9 @@ void main() {
     {
         float attenuation = Attenuation(u_LightPosition, v_Position, u_LightRange);
 
-        float visibility = 1.0 - TransferShadow(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
+        float visibility =
+            (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
+            (1.0 - TransferShadow(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
 
         vec3 lighting = BRDF(
             albedo.rgb,

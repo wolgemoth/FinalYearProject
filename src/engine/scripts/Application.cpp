@@ -41,7 +41,7 @@ namespace LouiEriksson {
 				light_transform->m_Rotation = glm::quat(glm::radians(glm::vec3(-45, 135, 0)));
 				
 				auto light = scene->Attach(light_gameObject->AddComponent<Light>());
-				light->Type(Light::Parameters::Type::Directional);
+				light->Type(Light::Parameters::Type::Spot);
 			}
 			
 			// Set the delta time of the physics simulation.
