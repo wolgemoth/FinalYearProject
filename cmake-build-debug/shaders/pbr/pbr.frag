@@ -56,6 +56,28 @@ float gold_noise(in vec2 xy, in float seed){
 
 /* NOT THIRD-PARTY */
 
+float Random1(in vec2 _xy, float _offset) {
+
+    return gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5 * 2.0;
+}
+
+vec2 Random2(in vec2 _xy, float _offset) {
+
+    return vec2(
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0
+    );
+}
+
+vec3 Random3(in vec2 _xy, float _offset) {
+
+    return vec3(
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0,
+        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.3) - 0.5) * 2.0
+    );
+}
+
 // Couldn't find a square distance function so made my own. Does GLSL not have one?
 float length2(vec3 _A, vec3 _B) {
 
@@ -119,14 +141,6 @@ vec3 BRDF(vec3 _albedo, vec3 _normal, vec3 _lightDir, vec3 _viewDir, vec3 _halfV
     return (diffuse + specular) * NdL;
 }
 
-vec2 PoissonDisk(in vec2 _xy, float _offset) {
-
-    return vec2(
-        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
-        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0
-    ) / 1.414;
-}
-
 float PCSS_GetOccluderDepth(vec3 _fragPos, float _texelSize, float _bias) {
 
     float result = 0.0;
@@ -135,7 +149,7 @@ float PCSS_GetOccluderDepth(vec3 _fragPos, float _texelSize, float _bias) {
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec2 dir = PoissonDisk(_fragPos.xy + vec2(i + 1), 0.1);
+        vec2 dir = Random2(_fragPos.xy + vec2(i + 1), 0.1);
 
         dir *= (i + 1) * _texelSize;
 
@@ -202,7 +216,7 @@ float ShadowCalculationDisk(vec3 _fragPos, float _texelSize, float _bias, float 
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec2 dir = normalize(PoissonDisk(_fragPos.xy + vec2(i + 1), 0.1));
+        vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), 0.1));
 
         dir *= _texelSize * _size * ((i + 1) / float(u_ShadowSamples));
 
@@ -247,10 +261,8 @@ void main() {
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
-    vec3   normal = normalize(v_Normal);
-
-    normal = normalize(
-        normal +
+    vec3   normal = normalize(
+        v_Normal +
         ((texture(u_Normals, v_TexCoord).rgb * 2.0) - 1.0) * 0.08
     );
 

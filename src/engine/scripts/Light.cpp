@@ -105,20 +105,17 @@ namespace LouiEriksson {
 		// Check if shadows are enabled.
 		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 		
+				GLenum target = _type == Light::Parameters::Type::Directional ?
+						GL_TEXTURE_2D : GL_TEXTURE_CUBE_MAP;
+				
 			// Check to see if the shadow map is already initialised.
 			if (m_ShadowMap_Texture != 0) {
 				
-				glBindTexture(GL_TEXTURE_2D, m_ShadowMap_Texture);
+				glBindTexture(target, m_ShadowMap_Texture);
 				
 				// Check the texture's resolution.
 				int curr_resolution;
-				
-				if (_type == Light::Parameters::Type::Point) {
-					glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP, 0, GL_TEXTURE_WIDTH, &curr_resolution);
-				}
-				else {
-					glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
-				}
+				glGetTexLevelParameteriv(target, 0, GL_TEXTURE_WIDTH, &curr_resolution);
 				
 				Texture::Unbind();
 				
@@ -145,17 +142,17 @@ namespace LouiEriksson {
 				glGenTextures(1, &m_ShadowMap_Texture);
 			
 				// Generate texture for shadow map (will bind it to the FBO).
-				glBindTexture(GL_TEXTURE_2D, m_ShadowMap_Texture);
+				glBindTexture(target, m_ShadowMap_Texture);
 				
 				// Set the texture's parameters.
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+				glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+				glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+				glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 				
 				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+				glTexParameterfv(target, GL_TEXTURE_BORDER_COLOR, borderColor);
 					
 				Texture::Unbind();
 				
@@ -165,7 +162,7 @@ namespace LouiEriksson {
 				// Bind shadow texture to FBO.
 				glBindFramebuffer(GL_FRAMEBUFFER, m_ShadowMap_FBO);
 				
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_ShadowMap_Texture, 0);
+				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_ShadowMap_Texture, 0);
 				
 				// Explicitly tell opengl that we're not rendering any color data in this FBO.
 				glDrawBuffer(GL_NONE);
