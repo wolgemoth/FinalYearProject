@@ -238,7 +238,7 @@ float ShadowCalculationPCSS(vec3 _fragPos, float _texelSize, float _bias) {
     return result;
 }
 
-float TransferShadow(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+float TransferShadowDirectional(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
     float texelSize = 1.0 /
         max(textureSize(u_ShadowMap, 0).r, 1);
@@ -252,6 +252,20 @@ float TransferShadow(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, floa
     //return ShadowCalculationHard(projCoords, vec2(0), adjustedBias);
     //return ShadowCalculationPCF(projCoords, texelSize, adjustedBias, 1.0f);
     //return ShadowCalculationDisk(projCoords, texelSize, adjustedBias, 1.0f);
+    return ShadowCalculationPCSS(projCoords, texelSize, adjustedBias);
+}
+
+float TransferShadowOmnidirectional(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+
+    float texelSize = 1.0 /
+        max(textureSize(u_ShadowMap, 0).r, 1);
+
+    vec3 projCoords =
+        ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
+
+    float adjustedBias =
+        max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
     return ShadowCalculationPCSS(projCoords, texelSize, adjustedBias);
 }
 
@@ -276,7 +290,7 @@ void main() {
 
         float visibility =
             (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
-            (1.0 - TransferShadow(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+            (1.0 - TransferShadowDirectional(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
 
         vec3 lighting = BRDF(
             albedo.rgb,

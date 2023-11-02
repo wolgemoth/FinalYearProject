@@ -8,8 +8,8 @@ namespace LouiEriksson {
 		
 		m_Intensity = 1.0f;
 		m_Range     = 50.0f;
-		m_Angle     = 90.0f;
-		m_Size      = 2.0f;
+		m_Angle     = 179.0f;
+		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		Type(Light::Parameters::Type::Directional);
@@ -144,16 +144,31 @@ namespace LouiEriksson {
 				// Generate texture for shadow map (will bind it to the FBO).
 				glBindTexture(target, m_ShadowMap_Texture);
 				
+				if (_type == Light::Parameters::Type::Point) {
+					
+					// Generate all six faces of a cubemap (for omnidirectional shadows).
+					for (unsigned int i = 0; i < 6; ++i) {
+                        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+					}
+				}
+				else {
+					
+					// Generate a single face (for directional shadows).
+					glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+				}
+				
 				// Set the texture's parameters.
-				glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 				glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 				glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 				glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 				glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 				
-				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-				glTexParameterfv(target, GL_TEXTURE_BORDER_COLOR, borderColor);
+				if (_type != Light::Parameters::Type::Point) {
 					
+					float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+					glTexParameterfv(target, GL_TEXTURE_BORDER_COLOR, borderColor);
+				}
+				
 				Texture::Unbind();
 				
 				// Create FBO for depth.

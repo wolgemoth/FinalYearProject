@@ -98,25 +98,35 @@ namespace LouiEriksson {
 				
 				const auto lightDir = VEC_FORWARD * light->m_Transform.lock()->m_Rotation;
 				
-				glm::mat4 lightView;
+				glm::vec3 lightPos;
 				if (light->Type() == Light::Parameters::Type::Directional) {
-				
+					
 					// Compute the position of the light.
 					const glm::vec3 truncatedCamPos = glm::floor(
 						GetTransform()->m_Position / texelSize) * texelSize;
+					
+					lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
+				}
+				else {
+					lightPos = light->m_Transform.lock()->m_Position;
+				}
 				
-					const glm::vec3 lightPos = truncatedCamPos + (lightDir * (light->m_Range / 2.0f));
 				
-					 lightView = glm::lookAt(
-						lightPos,
-						lightPos + -lightDir,
-						VEC_UP
-					 );
+				if (light->Type() == Light::Parameters::Type::Point) {
+					
+					const std::array<glm::mat4, 6> shadowTransforms {
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
+					};
 				}
 				else {
 					
-					const glm::vec3 lightPos = light->m_Transform.lock()->m_Position;
-				
+					glm::mat4 lightView;
+					
 					lightView = glm::lookAt(
 						lightPos,
 						lightPos + -lightDir,
