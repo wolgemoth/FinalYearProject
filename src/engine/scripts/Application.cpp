@@ -37,7 +37,7 @@ namespace LouiEriksson {
 				// Add a light to the scene for testing purposes.
 				auto light_transform = light_gameObject->AddComponent<Transform>();
 				
-				light_transform->m_Position = glm::vec3(-0.5, 7, 0);
+				light_transform->m_Position = glm::vec3(-3, 6, 0);
 				light_transform->m_Rotation = glm::quat(glm::radians(glm::vec3(-45, 135, 0)));
 				
 				auto light = scene->Attach(light_gameObject->AddComponent<Light>());

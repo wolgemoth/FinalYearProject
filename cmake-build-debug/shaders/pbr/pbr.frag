@@ -153,7 +153,7 @@ float PCSS_GetOccluderDepth3D(vec3 _dir, float _texelSize, float _bias) {
 
         vec3 offset = Random3(_dir + vec3(i + 1), 0.1);
 
-        offset *= (i + 1) * _texelSize;
+        offset *= (float(i + 1) / float(u_ShadowSamples));
 
         float occluderDepth = texture(u_ShadowMap3D, _dir + offset).r;
 
@@ -228,7 +228,7 @@ float ShadowCalculationDisk3D(vec3 _dir, float _texelSize, float _bias, float _r
 
         vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
 
-        offset *= _radius * ((i + 1) * _texelSize);
+        offset *= _radius * (float(i + 1) * _texelSize);
 
         result += ShadowCalculationHard3D(_dir, offset, _bias);
     }
@@ -346,7 +346,7 @@ float ShadowCalculationDisk2D(vec3 _fragPos, float _texelSize, float _bias, floa
 
         vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), 0.1));
 
-        dir *= _texelSize * _radius * ((i + 1) / float(u_ShadowSamples));
+        dir *= _texelSize * _radius * (float(i + 1) / float(u_ShadowSamples));
 
         result += ShadowCalculationHard2D(_fragPos, dir, _bias);
     }
