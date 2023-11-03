@@ -87,7 +87,9 @@ namespace LouiEriksson {
 				/* DRAW SHADOWS */
 				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 				
-				auto shadowShader = Shader::m_Cache.Return("shadowDepth");
+				auto shadowShader = light->Type() == Light::Parameters::Type::Point ?
+					Shader::m_Cache.Return("shadowDepthCube") :
+					Shader::m_Cache.Return("shadowDepth");
 				
 				Shader::Bind(shadowShader->ID());
 				
@@ -111,17 +113,31 @@ namespace LouiEriksson {
 					lightPos = light->m_Transform.lock()->m_Position;
 				}
 				
-				
 				if (light->Type() == Light::Parameters::Type::Point) {
 					
 					const std::array<glm::mat4, 6> shadowTransforms {
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
-						light->m_Shadow.m_ViewProjection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
+						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
 					};
+					
+					glUniformMatrix4fv(
+						shadowShader->AttributeID("u_MatricesLocation"),
+						shadowTransforms.size(),
+						GL_FALSE,
+						glm::value_ptr(shadowTransforms[0])
+					);
+					
+					light->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
+					
+					shadowShader->Assign(shadowShader->AttributeID("u_LightPosition"),
+							light->m_Transform.lock()->m_Position);
+					
+					shadowShader->Assign(shadowShader->AttributeID("u_FarPlane"),
+							light->m_Range);
 				}
 				else {
 					
@@ -134,28 +150,27 @@ namespace LouiEriksson {
 					);
 					
 					light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
-					
-					shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
-					
-					// We need to render the scene from the light's perspective.
-					for (const auto& renderer : _renderers) {
-						
-						const auto transform = renderer->GetTransform();
-						const auto mesh      = renderer->GetMesh();
-						
-						// Bind VAO.
-						glBindVertexArray(mesh->VAO_ID());
-						
-						shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
-						
-						/* DRAW */
-						glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-						
-						// Unbind VAO.
-						glBindVertexArray(0);
-					}
 				}
 				
+				shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				
+				// We need to render the scene from the light's perspective.
+				for (const auto& renderer : _renderers) {
+					
+					const auto transform = renderer->GetTransform();
+					const auto mesh      = renderer->GetMesh();
+					
+					// Bind VAO.
+					glBindVertexArray(mesh->VAO_ID());
+					
+					shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
+					
+					/* DRAW */
+					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+					
+					// Unbind VAO.
+					glBindVertexArray(0);
+				}
 				
 				       Shader::Unbind(); // Unbind the program.
 				      Texture::Unbind(); // Unbind the texture.
@@ -251,6 +266,13 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
+				program->Assign(
+					program->AttributeID("u_ShadowMapOmni"),
+					0,
+					1,
+					GL_TEXTURE_CUBE_MAP
+				);
+				
 				program->Assign(program->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
 				
 				program->Assign(program->AttributeID("u_ShadowBias"      ), 0.0f);
@@ -275,12 +297,24 @@ namespace LouiEriksson {
 				// Draw the scene once for each light (forward rendering technique).
 				for (const auto& light : _lights) {
 					
-					program->Assign(
-						program->AttributeID("u_ShadowMap"),
-						light->m_Shadow.m_ShadowMap_Texture,
-						1,
-						GL_TEXTURE_2D
-					);
+					if (light->Type() == Light::Parameters::Type::Point) {
+						
+						program->Assign(
+							program->AttributeID("u_ShadowMapOmni"),
+							light->m_Shadow.m_ShadowMap_Texture,
+							1,
+							GL_TEXTURE_CUBE_MAP
+						);
+					}
+					else {
+						
+						program->Assign(
+							program->AttributeID("u_ShadowMap"),
+							light->m_Shadow.m_ShadowMap_Texture,
+							1,
+							GL_TEXTURE_2D
+						);
+					}
 					
 					program->Assign(program->AttributeID("u_LightSpaceMatrix"),
 							light->m_Shadow.m_ViewProjection);

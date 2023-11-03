@@ -238,9 +238,9 @@ namespace LouiEriksson {
 			std::stringstream ss;
 				ss << "No parameter with name \"" << _name
 				<< "\" exists in program with ID \"" << ID() <<
-				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.";
+				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.\n";
 			
-			throw std::runtime_error(ss.str());
+			std::cout << ss.str();
 		}
 		
 		return result;

@@ -8,11 +8,11 @@ namespace LouiEriksson {
 		
 		m_Intensity = 1.0f;
 		m_Range     = 50.0f;
-		m_Angle     = 179.0f;
+		m_Angle     = 90.0f;
 		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
-		Type(Light::Parameters::Type::Directional);
+		Type(Light::Parameters::Type::Point);
 		
 		m_Transform = Parent()->GetComponent<Transform>();
 	}
@@ -77,6 +77,9 @@ namespace LouiEriksson {
 	
 	Light::Parameters::Shadow::Shadow() {
 		
+		m_ShadowMap_Texture = 0;
+		m_ShadowMap_FBO     = 0;
+		
 		m_Resolution = Light::Parameters::Shadow::Resolution::High;
 		
 		m_Bias       = 0.002f;
@@ -105,9 +108,9 @@ namespace LouiEriksson {
 		// Check if shadows are enabled.
 		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 		
-				GLenum target = _type == Light::Parameters::Type::Point ?
-						GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
-				
+			GLenum target = _type == Light::Parameters::Type::Point ?
+					GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
+			
 			// Check to see if the shadow map is already initialised.
 			if (m_ShadowMap_Texture != 0) {
 				
@@ -124,8 +127,8 @@ namespace LouiEriksson {
 					
 					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 					
-					if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Something just went horribly wrong."); }
-					if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Something just went horribly wrong."); }
+					if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Shadow map FBO is 0!");     }
+					if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Shadow map texture is 0!"); }
 					
 					glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
 					glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
@@ -194,8 +197,8 @@ namespace LouiEriksson {
 				RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 				      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
 				
-				if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Something just went horribly wrong."); }
-				if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Something just went horribly wrong."); }
+				if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Shadow map FBO is 0!");      }
+				if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Shadow map texture is 0!");  }
 				
 				glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
 				glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
