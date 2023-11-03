@@ -500,7 +500,7 @@ namespace LouiEriksson {
 		
 		auto threshold = Shader::m_Cache.Return("threshold");
 		Shader::Bind(threshold->ID());
-		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.2f);
+		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.1f);
 		Shader::Unbind();
 		
 		// Determine number of passes to perform using the amount of times the screen can be divided by 2.
@@ -516,7 +516,7 @@ namespace LouiEriksson {
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
 		
-		const float intensity = 0.1f;
+		const float intensity = 0.2f;
 		
 		RenderTexture rt1(dimensions[0], dimensions[1]);
 		RenderTexture rt2(dimensions[0], dimensions[1]);
