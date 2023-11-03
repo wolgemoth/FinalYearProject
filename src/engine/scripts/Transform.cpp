@@ -17,6 +17,12 @@ namespace LouiEriksson {
 	}
 	
 	glm::mat4 Transform::TRS() const {
-		return glm::scale(glm::translate(glm::mat4(1.0f), m_Position) * glm::mat4_cast(glm::inverse(m_Rotation)), m_Scale);
+		return
+			glm::scale(
+				glm::translate(glm::mat4(1.0f), m_Position) *
+				glm::mat4_cast(glm::inverse(m_Rotation)
+			),
+			m_Scale
+		);
 	}
 }

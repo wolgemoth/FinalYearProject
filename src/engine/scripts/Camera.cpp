@@ -301,7 +301,7 @@ namespace LouiEriksson {
 					if (light->Type() == Light::Parameters::Type::Point) {
 						
 						program->Assign(
-							program->AttributeID("u_ShadowMapOmni"),
+							program->AttributeID("u_ShadowMap3D"),
 							light->m_Shadow.m_ShadowMap_Texture,
 							1,
 							GL_TEXTURE_CUBE_MAP
@@ -310,7 +310,7 @@ namespace LouiEriksson {
 					else {
 						
 						program->Assign(
-							program->AttributeID("u_ShadowMap"),
+							program->AttributeID("u_ShadowMap2D"),
 							light->m_Shadow.m_ShadowMap_Texture,
 							1,
 							GL_TEXTURE_2D
