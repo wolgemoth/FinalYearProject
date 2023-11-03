@@ -279,13 +279,24 @@ float TransferShadowDirectional(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lig
 
 float TransferShadowOmnidirectional(vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
-    float texelSize = 1.0 /
-        max(textureSize(u_ShadowMap, 0).r, 1);
+    // get vector between fragment position and light position
+    vec3 fragToLight = v_Position - u_LightPosition;
+    // use the light to fragment vector to sample from the depth map
+    float closestDepth = texture(u_ShadowMapOmni, fragToLight).r;
+    // it is currently in linear range between [0,1]. Re-transform back to original value
+    closestDepth *= u_LightRange;
+    // now get current linear depth as the length between the fragment and light position
+    float currentDepth = length(fragToLight);
+    // now test for shadows
+    float bias = 0.05;
+    float shadow = currentDepth -  bias > closestDepth ? 1.0 : 0.0;
 
-    float adjustedBias =
-        max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+    return shadow;
 
-    return ShadowCalculationHardOmnidirectional(-_lightDir, adjustedBias);
+//    float adjustedBias =
+//        max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+//
+//    return ShadowCalculationHardOmnidirectional(-_lightDir, adjustedBias);
 }
 
 void main() {

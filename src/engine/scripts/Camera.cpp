@@ -125,7 +125,7 @@ namespace LouiEriksson {
 					};
 					
 					glUniformMatrix4fv(
-						shadowShader->AttributeID("u_MatricesLocation"),
+						shadowShader->AttributeID("u_Matrices"),
 						shadowTransforms.size(),
 						GL_FALSE,
 						glm::value_ptr(shadowTransforms[0])
@@ -174,6 +174,7 @@ namespace LouiEriksson {
 				
 				       Shader::Unbind(); // Unbind the program.
 				      Texture::Unbind(); // Unbind the texture.
+					  Cubemap::Unbind(); // Unbind the cubemap.
 				RenderTexture::Unbind(); // Unbind the FBO
 			}
 		}

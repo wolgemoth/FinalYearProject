@@ -12,9 +12,9 @@ namespace LouiEriksson {
 		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
-		Type(Light::Parameters::Type::Point);
-		
 		m_Transform = Parent()->GetComponent<Transform>();
+		
+		Type(Light::Parameters::Type::Point);
 	}
 	
 	Light::~Light() {
@@ -127,8 +127,8 @@ namespace LouiEriksson {
 					
 					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 					
-					if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Shadow map FBO is 0!");     }
-					if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Shadow map texture is 0!"); }
+					if (m_ShadowMap_FBO     == 0) { throw std::runtime_error("Shadow map FBO is 0!");     }
+					if (m_ShadowMap_Texture == 0) { throw std::runtime_error("Shadow map texture is 0!"); }
 					
 					glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
 					glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
@@ -150,7 +150,7 @@ namespace LouiEriksson {
 				if (_type == Light::Parameters::Type::Point) {
 					
 					// Generate all six faces of a cubemap (for omnidirectional shadows).
-					for (unsigned int i = 0; i < 6; ++i) {
+					for (auto i = 0; i < 6; i++) {
                         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 					}
 				}
@@ -165,6 +165,7 @@ namespace LouiEriksson {
 				glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 				glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 				glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+				glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER);
 				
 				if (_type != Light::Parameters::Type::Point) {
 					
@@ -197,8 +198,8 @@ namespace LouiEriksson {
 				RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 				      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
 				
-				if (m_ShadowMap_FBO     != 0) { throw std::runtime_error("Shadow map FBO is 0!");      }
-				if (m_ShadowMap_Texture != 0) { throw std::runtime_error("Shadow map texture is 0!");  }
+				if (m_ShadowMap_FBO     == 0) { throw std::runtime_error("Shadow map FBO is 0!");      }
+				if (m_ShadowMap_Texture == 0) { throw std::runtime_error("Shadow map texture is 0!");  }
 				
 				glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
 				glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
