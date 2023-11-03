@@ -18,7 +18,11 @@ uniform samplerCube u_ShadowMap3D;
 
 uniform float u_Time;
 
-uniform int u_ShadowSamples = 64;
+// By default is set to 1 to deliberately look horrible.
+// Please assign a value between 10 and 100 when implementing.
+uniform int u_ShadowSamples = 1;
+
+const float PCSS_SCENE_SCALE = 0.015625;
 
 uniform float u_LightSize  = 0.2;
 uniform float u_LightAngle = 0.0;
@@ -151,9 +155,9 @@ float PCSS_GetOccluderDepth3D(vec3 _dir, float _texelSize, float _bias) {
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec3 offset = Random3(_dir + vec3(i + 1), 0.1);
+        vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
 
-        offset *= float(i + 1) * _texelSize;
+        offset *= (float(i + 1) / u_ShadowSamples) * _texelSize;
 
         float occluderDepth = texture(u_ShadowMap3D, _dir + offset).r;
 
@@ -230,7 +234,7 @@ float ShadowCalculationDisk3D(vec3 _dir, float _texelSize, float _bias, float _r
 
         vec3 offset = Random3(_dir + vec3(i + 1), 0.1);
 
-        offset *= _radius * (float(i + 1) * _texelSize);
+        offset *= _radius *(float(i + 1) / u_ShadowSamples) * _texelSize;
 
         result += ShadowCalculationHard3D(_dir, offset, _bias);
     }
@@ -262,7 +266,7 @@ float TransferShadow3D(vec3 _normal, vec3 _lightDir, float _bias, float _normalB
     //return ShadowCalculationHard3D(fragToLight, vec3(0), adjustedBias);
     //return ShadowCalculationPCF3D(fragToLight, texelSize, adjustedBias, 1.0f);
     //return ShadowCalculationDisk3D(fragToLight, texelSize, adjustedBias, 1.0f);
-    return ShadowCalculationPCSS3D(fragToLight, 1.0 / 4096.0, adjustedBias);
+    return ShadowCalculationPCSS3D(fragToLight, PCSS_SCENE_SCALE, adjustedBias);
 }
 
 float PCSS_GetOccluderDepth2D(vec3 _fragPos, float _texelSize, float _bias) {
@@ -381,7 +385,7 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     //return ShadowCalculationHard2D(projCoords, vec2(0), adjustedBias);
     //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
     //return ShadowCalculationDisk2D(projCoords, texelSize, adjustedBias, 1.0f);
-    return ShadowCalculationPCSS2D(projCoords, 1.0 / 2048.0, adjustedBias);
+    return ShadowCalculationPCSS2D(projCoords, PCSS_SCENE_SCALE * (1.0 / 32.0), adjustedBias);
 }
 
 void main() {
