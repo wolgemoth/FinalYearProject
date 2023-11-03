@@ -261,14 +261,14 @@ namespace LouiEriksson {
 				
 				// Draw the scene with no lighting.
 				program->Assign(
-					program->AttributeID("u_ShadowMap"),
+					program->AttributeID("u_ShadowMap2D"),
 					0,
 					1,
 					GL_TEXTURE_2D
 				);
 				
 				program->Assign(
-					program->AttributeID("u_ShadowMapOmni"),
+					program->AttributeID("u_ShadowMap3D"),
 					0,
 					1,
 					GL_TEXTURE_CUBE_MAP
