@@ -11,7 +11,7 @@ namespace LouiEriksson {
 	
 		m_FOV      = 90.0f;
 		m_NearClip = 0.1f;
-		m_FarClip  = 1000.0f;
+		m_FarClip  = 10.0f;
 	
 		m_Projection = glm::mat4(1.0f);
 		
@@ -468,6 +468,7 @@ namespace LouiEriksson {
 		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
+		AmbientOcclusion();
 		Bloom();
 		
 		// Draw post processing.
@@ -486,6 +487,26 @@ namespace LouiEriksson {
 		glBindVertexArray(0);
 	}
 	
+	void Camera::AmbientOcclusion() const {
+		
+		auto ao = Shader::m_Cache.Return("ao");
+		Shader::Bind(ao->ID());
+		
+		RenderTexture::Bind(m_RT);
+		
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_RT.DepthID());
+		
+		//RenderTexture::Bind(_dest);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		//RenderTexture::Unbind();
+		
+		
+		RenderTexture::Unbind();
+		
+		Shader::Unbind();
+	}
+	
 	void Camera::Bloom() const {
 		
 		const auto dimensions = GetWindow()->Dimensions();
@@ -496,11 +517,11 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		const float diffusion = 6.0f;
+		const float diffusion = 7.0f;
 		
 		auto threshold = Shader::m_Cache.Return("threshold");
 		Shader::Bind(threshold->ID());
-		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.1f);
+		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.0f);
 		Shader::Unbind();
 		
 		// Determine number of passes to perform using the amount of times the screen can be divided by 2.

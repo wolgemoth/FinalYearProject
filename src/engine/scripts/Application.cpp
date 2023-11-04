@@ -26,7 +26,7 @@ namespace LouiEriksson {
 			
 			Shader::PreloadShaders();
 			
-			auto scene = Scene::Load("levels/3dgp.scene");
+			auto scene = Scene::Load("levels/pfg.scene");
 			scene->Begin();
 	
 			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");

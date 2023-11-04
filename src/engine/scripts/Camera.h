@@ -31,6 +31,8 @@ namespace LouiEriksson {
 		/// <summary> Transform of the Camera. </summary>
 		std::shared_ptr<Transform> m_Transform;
 		
+		
+		
 		float m_FOV;
 		float m_NearClip;
 		float m_FarClip;
@@ -50,6 +52,8 @@ namespace LouiEriksson {
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
+		
+		void AmbientOcclusion() const;
 		
 		void Bloom() const;
 		

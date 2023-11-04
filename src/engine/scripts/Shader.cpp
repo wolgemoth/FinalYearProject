@@ -123,6 +123,11 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
+	        /* Ambient Occlusion (AO) */ {
+                { "shaders/ao/ao.vert",                       GL_VERTEX_SHADER },
+                { "shaders/ao/ao.frag",                     GL_FRAGMENT_SHADER }
+            },
+			
 	        /* Lit Surface Shader */ {
                 { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
                 { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }

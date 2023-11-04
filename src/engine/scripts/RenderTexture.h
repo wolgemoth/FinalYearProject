@@ -12,7 +12,8 @@ namespace LouiEriksson {
 	private:
 		
 		GLuint m_FBO_ID,
-			   m_RBO_ID;
+			   m_RBO_ID,
+			   m_Depth_ID;
 		
 		void Create(const int& _width, const int& _height);
 	
@@ -32,6 +33,8 @@ namespace LouiEriksson {
 		static void Unbind();
 		
 		void Discard() const;
+		
+		GLuint DepthID() const;
 	};
 	
 }

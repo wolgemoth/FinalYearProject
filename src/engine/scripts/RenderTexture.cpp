@@ -8,6 +8,7 @@ namespace LouiEriksson {
 		
 		m_FBO_ID = -1;
 		m_RBO_ID = -1;
+		m_Depth_ID = -1;
 		
 		Create(_width, _height);
 	}
@@ -25,30 +26,41 @@ namespace LouiEriksson {
 			
 			RenderTexture::Bind(*this);
 			
-			// Generate the texture.
+			// COLOR
 			glGenTextures(1, &m_TextureID);
 			glBindTexture(GL_TEXTURE_2D, m_TextureID);
 			
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _width, _height, 0, GL_RGBA, GL_FLOAT, NULL); // NOLINT(*-use-nullptr)
 			
-			// Bilinear color filtering.
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			
-			// Clamp to edges of texture.
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureID, 0);
 			
-			// Generate the "Render Buffer Object".
-			glGenRenderbuffers(1, &m_RBO_ID);
-			glBindRenderbuffer(GL_RENDERBUFFER, m_RBO_ID);
-			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
-			glBindRenderbuffer(GL_RENDERBUFFER, 0);
-			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
+			// DEPTH
+			glGenTextures(1, &m_Depth_ID);
+			glBindTexture(GL_TEXTURE_2D, m_Depth_ID);
 			
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _width, _height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
+//
+//			// Generate the "Render Buffer Object".
+//			glGenRenderbuffers(1, &m_RBO_ID);
+//			glBindRenderbuffer(GL_RENDERBUFFER, m_RBO_ID);
+//			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
+//			glBindRenderbuffer(GL_RENDERBUFFER, 0);
+//			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
+//
 			RenderTexture::Unbind();
 			
 			m_Width  = _width;
@@ -79,5 +91,9 @@ namespace LouiEriksson {
 		glDeleteRenderbuffers(1, &m_RBO_ID);
 		
 		Texture::Discard();
+	}
+	
+	GLuint RenderTexture::DepthID() const {
+		return m_Depth_ID;
 	}
 }

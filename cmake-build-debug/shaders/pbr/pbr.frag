@@ -385,7 +385,7 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     //return ShadowCalculationHard2D(projCoords, vec2(0), adjustedBias);
     //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
     //return ShadowCalculationDisk2D(projCoords, texelSize, adjustedBias, 1.0f);
-    return ShadowCalculationPCSS2D(projCoords, PCSS_SCENE_SCALE * (1.0 / 32.0), adjustedBias);
+    return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
 }
 
 void main() {
