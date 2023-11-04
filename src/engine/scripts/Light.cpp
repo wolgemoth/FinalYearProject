@@ -6,7 +6,7 @@ namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
-		m_Intensity = 10.0f;
+		m_Intensity = 5.0f;
 		m_Range     = 100.0f;
 		m_Angle     = 90.0f;
 		m_Size      = 0.4f;
