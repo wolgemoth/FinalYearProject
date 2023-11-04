@@ -255,13 +255,13 @@ float ShadowCalculationPCSS3D(vec3 _dir, float _texelSize, float _bias) {
 
 float TransferShadow3D(vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
 
-    // get vector between fragment position and light position
-    vec3 fragToLight = v_Position - u_LightPosition;
-
-    float adjustedBias = max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
-
     float texelSize = 1.0 /
         max(textureSize(u_ShadowMap3D, 0).x, 1);
+
+    vec3 fragToLight = v_Position - u_LightPosition;
+
+    float adjustedBias =
+        texelSize * u_LightRange * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias) * 2;
 
     //return ShadowCalculationHard3D(fragToLight, vec3(0), adjustedBias);
     //return ShadowCalculationPCF3D(fragToLight, texelSize, adjustedBias, 1.0f);
@@ -364,9 +364,11 @@ float ShadowCalculationPCSS2D(vec3 _fragPos, float _texelSize, float _bias) {
 
     float result = 0.0;
 
+    float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
+
     float radius = PCSS_Radius2D(_fragPos, _texelSize, _bias) / _texelSize;
 
-    result = ShadowCalculationDisk2D(_fragPos, _texelSize, _bias, radius);
+    result = ShadowCalculationDisk2D(_fragPos, _texelSize, _bias, radius * perspective_multiplier);
 
     return result;
 }
@@ -379,8 +381,10 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     vec3 projCoords =
         ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
 
+    float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
+
     float adjustedBias =
-        max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+        texelSize * u_LightRange / perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     //return ShadowCalculationHard2D(projCoords, vec2(0), adjustedBias);
     //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
@@ -409,8 +413,8 @@ void main() {
 
         float visibility =
             (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
-            (1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
-            //(1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+            //(1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+            (1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
 
         vec3 lighting = BRDF(
             albedo.rgb,

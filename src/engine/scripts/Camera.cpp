@@ -326,15 +326,17 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 32);
+					program->Assign(program->AttributeID("u_ShadowSamples"), 100);
 					
 					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
 					
 					program->Assign(program->AttributeID("u_LightAngle"),
 						glm::cos(glm::radians(
 							light->Type() == Light::Parameters::Type::Spot ?
-							light->m_Angle * 0.5f : 180.0f
-						))
+								light->m_Angle * 0.5f :
+								180.0f
+							)
+						)
 					);
 					
 					program->Assign(program->AttributeID("u_NearPlane" ), light->m_Shadow.m_NearPlane);
