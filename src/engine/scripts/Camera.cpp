@@ -516,7 +516,7 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		const float diffusion = 7.0f;
+		const float diffusion = 6.0f;
 		
 		auto threshold = Shader::m_Cache.Return("threshold");
 		Shader::Bind(threshold->ID());

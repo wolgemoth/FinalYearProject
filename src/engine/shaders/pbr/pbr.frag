@@ -62,12 +62,17 @@ float gold_noise(in vec2 xy, in float seed){
 
 /* NOT THIRD-PARTY */
 
-float Random1(in vec2 _xy, float _offset) {
+float Random1U(in vec2 _xy, float _offset) {
+
+    return gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1);
+}
+
+float Random1S(in vec2 _xy, float _offset) {
 
     return gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5 * 2.0;
 }
 
-vec2 Random2(in vec2 _xy, float _offset) {
+vec2 Random2S(in vec2 _xy, float _offset) {
 
     return vec2(
         (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
@@ -75,7 +80,7 @@ vec2 Random2(in vec2 _xy, float _offset) {
     );
 }
 
-vec3 Random3(in vec3 _xyz, float _offset) {
+vec3 Random3S(in vec3 _xyz, float _offset) {
 
     return vec3(
         (gold_noise(_xyz.xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
@@ -155,7 +160,7 @@ float PCSS_GetOccluderDepth3D(vec3 _dir, float _texelSize, float _bias) {
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
+        vec3 offset = normalize(Random3S(_dir + vec3(i + 1), 0.1));
 
         offset *= (float(i + 1) / u_ShadowSamples) * _texelSize;
 
@@ -232,7 +237,7 @@ float ShadowCalculationDisk3D(vec3 _dir, float _texelSize, float _bias, float _r
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec3 offset = Random3(_dir + vec3(i + 1), 0.1);
+        vec3 offset = Random3S(_dir + vec3(i + 1), 0.1);
 
         offset *= _radius *(float(i + 1) / u_ShadowSamples) * _texelSize;
 
@@ -277,7 +282,7 @@ float PCSS_GetOccluderDepth2D(vec3 _fragPos, float _texelSize, float _bias) {
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec2 dir = Random2(_fragPos.xy + vec2(i + 1), 0.1);
+        vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), 0.1);
 
         dir *= float(i + 1) * _texelSize;
 
@@ -350,7 +355,7 @@ float ShadowCalculationDisk2D(vec3 _fragPos, float _texelSize, float _bias, floa
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), 0.1));
+        vec2 dir = normalize(Random2S(_fragPos.xy + vec2(i + 1), 0.1));
 
         dir *= _texelSize * _radius * (float(i + 1) / float(u_ShadowSamples));
 

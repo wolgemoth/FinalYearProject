@@ -87,8 +87,9 @@ namespace LouiEriksson {
 	
 	void RenderTexture::Discard() const {
 		
-		glDeleteFramebuffers (1, &m_FBO_ID);
-		glDeleteRenderbuffers(1, &m_RBO_ID);
+		if (m_FBO_ID   != -1) { glDeleteFramebuffers (1, &m_FBO_ID); }
+		if (m_RBO_ID   != -1) { glDeleteRenderbuffers(1, &m_RBO_ID); }
+		if (m_Depth_ID != -1) { glDeleteTextures(1, &m_Depth_ID);    }
 		
 		Texture::Discard();
 	}

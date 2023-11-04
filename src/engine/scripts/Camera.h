@@ -31,8 +31,6 @@ namespace LouiEriksson {
 		/// <summary> Transform of the Camera. </summary>
 		std::shared_ptr<Transform> m_Transform;
 		
-		
-		
 		float m_FOV;
 		float m_NearClip;
 		float m_FarClip;
