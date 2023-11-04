@@ -468,7 +468,7 @@ namespace LouiEriksson {
 		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
-		//AmbientOcclusion();
+		AmbientOcclusion();
 		Bloom();
 		
 		// Draw post processing.
