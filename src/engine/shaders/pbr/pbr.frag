@@ -64,23 +64,23 @@ float gold_noise(in vec2 xy, in float seed){
 
 float Random1(in vec2 _xy, float _offset) {
 
-    return gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5 * 2.0;
+    return (gold_noise(_xy * 1000.0, fract(u_Time) + _offset) - 0.5) * 2.0;
 }
 
 vec2 Random2(in vec2 _xy, float _offset) {
 
     return vec2(
-        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
-        (gold_noise(_xy * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0
+        Random1(_xy, _offset + 0.1),
+        Random1(_xy, _offset + 0.2)
     );
 }
 
 vec3 Random3(in vec3 _xyz, float _offset) {
 
     return vec3(
-        (gold_noise(_xyz.xy * 1000.0, fract(u_Time) + _offset + 0.1) - 0.5) * 2.0,
-        (gold_noise(_xyz.yz * 1000.0, fract(u_Time) + _offset + 0.2) - 0.5) * 2.0,
-        (gold_noise(_xyz.xz * 1000.0, fract(u_Time) + _offset + 0.3) - 0.5) * 2.0
+        Random1(_xyz.xy, _offset + 0.1),
+        Random1(_xyz.yz, _offset + 0.2),
+        Random1(_xyz.xz, _offset + 0.3)
     );
 }
 
@@ -155,9 +155,9 @@ float PCSS_GetOccluderDepth3D(vec3 _dir, float _texelSize, float _bias) {
 
     for (int i = 0; i < u_ShadowSamples; i++) {
 
-        vec3 offset = Random3(_dir + vec3(i + 1), 0.1);
+        vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
 
-        offset *= float(i + 1) * _texelSize;
+        offset *= Random1(_dir.xy + vec2(i + 1), 0.4);
 
         float occluderDepth = texture(u_ShadowMap3D, _dir + offset).r;
 
@@ -234,7 +234,7 @@ float ShadowCalculationDisk3D(vec3 _dir, float _texelSize, float _bias, float _r
 
         vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
 
-        offset *= _texelSize * _radius * (float(i + 1) / u_ShadowSamples);
+        offset *= _texelSize * _radius * Random1(_dir.xy + vec2(i + 1), 0.4);
 
         result += ShadowCalculationHard3D(_dir, offset, _bias);
     }
@@ -409,8 +409,8 @@ void main() {
 
         float visibility =
             (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
-            //(1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
-            (1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+            (1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+            //(1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
 
         vec3 lighting = BRDF(
             albedo.rgb,

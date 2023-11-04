@@ -14,7 +14,7 @@ namespace LouiEriksson {
 		
 		m_Transform = Parent()->GetComponent<Transform>();
 		
-		Type(Light::Parameters::Type::Point);
+		Type(Light::Parameters::Type::Spot);
 	}
 	
 	Light::~Light() {
@@ -83,7 +83,7 @@ namespace LouiEriksson {
 		m_Resolution = Light::Parameters::Shadow::Resolution::Medium;
 		
 		m_Bias       = 0.002f;
-		m_NormalBias = 0.005f;
+		m_NormalBias = 0.0005f;
 		
 		m_NearPlane = 0.2f;
 		

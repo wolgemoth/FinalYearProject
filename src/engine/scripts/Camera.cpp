@@ -326,7 +326,7 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 64);
+					program->Assign(program->AttributeID("u_ShadowSamples"), 32);
 					
 					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
 					
@@ -454,7 +454,7 @@ namespace LouiEriksson {
 		
 		auto grain = Shader::m_Cache.Return("grain");
 		Shader::Bind(grain->ID());
-		grain->Assign(grain->AttributeID("u_Amount"), 0.02f);
+		grain->Assign(grain->AttributeID("u_Amount"), 0.01f);
 		grain->Assign(grain->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
@@ -493,11 +493,12 @@ namespace LouiEriksson {
 		Shader::Bind(ao->ID());
 		ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip);
 		ao->Assign(ao->AttributeID("u_FarClip"), m_FarClip);
+		ao->Assign(ao->AttributeID("u_Time"), Time::Elapsed());
 		
 		RenderTexture::Bind(m_RT);
 		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, m_RT.DepthID());
+		ao->Assign(ao->AttributeID("u_Color"), m_RT.ID(),      0, GL_TEXTURE_2D);
+		ao->Assign(ao->AttributeID("u_Depth"), m_RT.DepthID(), 1, GL_TEXTURE_2D);
 		
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		
