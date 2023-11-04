@@ -55,7 +55,7 @@ void main() {
     int samples = 32;
 
     float radiusXY = 0.05;
-    float radiusZ = 2;
+    float radiusZ = 3;
 
     float bias = -0.5;
     float strength = 0.8;

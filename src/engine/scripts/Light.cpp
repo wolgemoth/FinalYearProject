@@ -9,7 +9,7 @@ namespace LouiEriksson {
 		m_Intensity = 5.0f;
 		m_Range     = 100.0f;
 		m_Angle     = 120.0f;
-		m_Size      = 0.4f;
+		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		m_Transform = Parent()->GetComponent<Transform>();
