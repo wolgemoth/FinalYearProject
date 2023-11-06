@@ -22,13 +22,14 @@ namespace LouiEriksson {
 			m_Height;
 		
 		GLuint m_TextureID;
-	
+		
 		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID = -1);
 		
 		explicit Texture(const GLuint& _textureID);
 	
 	public:
 	
+		 Texture();
 		~Texture();
 		
 		Texture             (const Texture&  _other) = delete;

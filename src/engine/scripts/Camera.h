@@ -23,7 +23,7 @@ namespace LouiEriksson {
 		std::shared_ptr<Mesh> m_Cube;
 		
 		/// <summary> Skybox of the Camera. </summary>
-		Cubemap m_Skybox;
+		Texture m_Skybox;
 		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;

@@ -4,12 +4,12 @@
 
 namespace LouiEriksson {
 	
-	Window::Window(const int& _width, const int& _height, const char* _name, bool _fullscreen) {
+	Window::Window(const int& _width, const int& _height, const char* _name, bool _fullscreen, bool _hdr10) {
 	
 		m_Window = std::shared_ptr<SDL_Window>(
 			SDL_CreateWindow(_name,
 				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-				_width, _height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL
+				_width, _height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_OPENGL
 			),
 			[](SDL_Window* _ptr) { SDL_DestroyWindow(_ptr); } // Custom deleter calls SDL_DestroyWindow();
 		);
@@ -20,6 +20,28 @@ namespace LouiEriksson {
 		
 		m_ID = SDL_GetWindowID(m_Window.get());
 	
+		// Grab the display mode to further configure parameters.
+	    SDL_DisplayMode displayMode;
+	    SDL_GetCurrentDisplayMode(m_ID, &displayMode);
+		
+		// Set the display mode to 10bpp if the HDR10 flag is raised.
+		displayMode.format = _hdr10 ?
+				SDL_PIXELFORMAT_ARGB2101010 :
+				SDL_PIXELFORMAT_ARGB32;
+		
+	    if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
+			
+			std::stringstream err;
+			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
+				SDL_GetError();
+		}
+		else {
+			std::cout <<
+				"Output Format: \"" << SDL_GetPixelFormatName(displayMode.format) << "\" (" <<
+				SDL_BITSPERPIXEL(displayMode.format) << "bpp)\n";
+		}
+		
+		
 		if (SDL_GL_CreateContext(m_Window.get()) == NULL) { // NOLINT(*-use-nullptr)
 	
 			std::stringstream err;

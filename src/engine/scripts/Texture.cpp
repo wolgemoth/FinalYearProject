@@ -6,6 +6,14 @@
 
 namespace LouiEriksson {
 	
+	Texture::Texture() {
+		
+		m_TextureID = -1;
+		
+		m_Width  = -1;
+		m_Height = -1;
+	}
+	
 	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID) {
 		
 		m_TextureID = _textureID;
