@@ -7,6 +7,11 @@ in vec2 v_TexCoord;
 uniform sampler2D u_Color;
 uniform sampler2D u_Depth;
 
+uniform int u_Samples = 32;
+
+uniform float u_Strength = 1.0;
+uniform float u_Bias = -0.5;
+
 uniform float u_NearClip;
 uniform float u_FarClip;
 
@@ -52,15 +57,10 @@ void main() {
 
     float occlusion = 0.0;
 
-    int samples = 32;
-
     float radiusXY = 0.05;
     float radiusZ = 3;
 
-    float bias = -0.5;
-    float strength = 0.8;
-
-    for (int i = 0; i < samples; i++) {
+    for (int i = 0; i < u_Samples; i++) {
 
         vec2 offset = normalize(Random2(v_TexCoord + vec2(i + 1), 0.1));
 
@@ -73,10 +73,10 @@ void main() {
         //occlusion += rangeCheck;
         //occlusion += (sampleDepth >= depth + bias ? 0.0 : 1.0);
 
-        occlusion += (sampleDepth >= depth + bias ? 0.0 : 1.0) * rangeCheck;
+        occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
     }
 
-    occlusion = 1.0 - ((occlusion / float(samples)) * strength);
+    occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
 
     vec4 color = texture(u_Color, v_TexCoord);
 

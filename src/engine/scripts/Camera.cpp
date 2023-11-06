@@ -25,12 +25,34 @@ namespace LouiEriksson {
 		m_Skybox = std::move(
 			File::Load(
 				{
-					"textures/cubemaps/san_francisco_3/posx.jpg",
-					"textures/cubemaps/san_francisco_3/negx.jpg",
-					"textures/cubemaps/san_francisco_3/posy.jpg",
-					"textures/cubemaps/san_francisco_3/negy.jpg",
-					"textures/cubemaps/san_francisco_3/posz.jpg",
-					"textures/cubemaps/san_francisco_3/negz.jpg"
+					
+					"textures/cubemaps/yokohama_3/posx.jpg",
+					"textures/cubemaps/yokohama_3/negx.jpg",
+					"textures/cubemaps/yokohama_3/posy.jpg",
+					"textures/cubemaps/yokohama_3/negy.jpg",
+					"textures/cubemaps/yokohama_3/posz.jpg",
+					"textures/cubemaps/yokohama_3/negz.jpg"
+					
+//					"textures/cubemaps/coit_tower_2/posx.jpg",
+//					"textures/cubemaps/coit_tower_2/negx.jpg",
+//					"textures/cubemaps/coit_tower_2/posy.jpg",
+//					"textures/cubemaps/coit_tower_2/negy.jpg",
+//					"textures/cubemaps/coit_tower_2/posz.jpg",
+//					"textures/cubemaps/coit_tower_2/negz.jpg"
+
+//					"textures/cubemaps/another_planet/px.png",
+//					"textures/cubemaps/another_planet/nx.png",
+//					"textures/cubemaps/another_planet/py.png",
+//					"textures/cubemaps/another_planet/ny.png",
+//					"textures/cubemaps/another_planet/pz.png",
+//					"textures/cubemaps/another_planet/nz.png"
+
+//					"textures/cubemaps/san_francisco_3/posx.jpg",
+//					"textures/cubemaps/san_francisco_3/negx.jpg",
+//					"textures/cubemaps/san_francisco_3/posy.jpg",
+//					"textures/cubemaps/san_francisco_3/negy.jpg",
+//					"textures/cubemaps/san_francisco_3/posz.jpg",
+//					"textures/cubemaps/san_francisco_3/negz.jpg"
 				},
 				GL_RGB,
 				true
@@ -326,7 +348,7 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 100);
+					program->Assign(program->AttributeID("u_ShadowSamples"), 32);
 					
 					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
 					
@@ -493,6 +515,12 @@ namespace LouiEriksson {
 		
 		auto ao = Shader::m_Cache.Return("ao");
 		Shader::Bind(ao->ID());
+		
+		ao->Assign(ao->AttributeID("u_Samples"), 16);
+		
+		ao->Assign(ao->AttributeID("u_Strength"), 0.8f);
+		ao->Assign(ao->AttributeID("u_Bias"), -0.5f);
+		
 		ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip);
 		ao->Assign(ao->AttributeID("u_FarClip"), m_FarClip);
 		ao->Assign(ao->AttributeID("u_Time"), Time::Elapsed());

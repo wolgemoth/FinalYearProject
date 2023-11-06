@@ -211,6 +211,8 @@ namespace LouiEriksson {
 		
 		const float dt = Time::DeltaTime();
 		
+		m_GameSpeed += dt;
+		
 		auto l = player->ToWorld(glm::vec3(1, 0, 0));
 		
 		auto t = player->m_Position + (player->RIGHT * direction * dt * m_PlayerSpeed);

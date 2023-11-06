@@ -6,8 +6,8 @@ namespace LouiEriksson {
 	
 	RenderTexture::RenderTexture(const int& _width, const int& _height) : Texture(_width, _height) {
 		
-		m_FBO_ID = -1;
-		m_RBO_ID = -1;
+		m_FBO_ID   = -1;
+		m_RBO_ID   = -1;
 		m_Depth_ID = -1;
 		
 		Create(_width, _height);

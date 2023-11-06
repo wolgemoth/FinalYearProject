@@ -6,7 +6,7 @@ namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
-		m_Intensity = 5.0f;
+		m_Intensity = 1.0f;
 		m_Range     = 100.0f;
 		m_Angle     = 120.0f;
 		m_Size      = 0.2f;
@@ -80,7 +80,7 @@ namespace LouiEriksson {
 		m_ShadowMap_Texture = 0;
 		m_ShadowMap_FBO     = 0;
 		
-		m_Resolution = Light::Parameters::Shadow::Resolution::Medium;
+		m_Resolution = Light::Parameters::Shadow::Resolution::Low;
 		
 		m_Bias       = 0.05;
 		m_NormalBias = 0.2;

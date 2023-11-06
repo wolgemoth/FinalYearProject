@@ -123,6 +123,11 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
+	        /* FXAA */ {
+                { "shaders/fxaa/fxaa.vert",                   GL_VERTEX_SHADER },
+                { "shaders/fxaa/fxaa.frag",                 GL_FRAGMENT_SHADER }
+            },
+			
 	        /* Ambient Occlusion (AO) */ {
                 { "shaders/ao/ao.vert",                       GL_VERTEX_SHADER },
                 { "shaders/ao/ao.frag",                     GL_FRAGMENT_SHADER }
