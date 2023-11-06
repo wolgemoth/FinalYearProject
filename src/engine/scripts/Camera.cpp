@@ -25,12 +25,12 @@ namespace LouiEriksson {
 		m_Skybox = std::move(
 			File::Load(
 				{
-//					"textures/cubemaps/yokohama_3/posx.jpg",
-//					"textures/cubemaps/yokohama_3/negx.jpg",
-//					"textures/cubemaps/yokohama_3/posy.jpg",
-//					"textures/cubemaps/yokohama_3/negy.jpg",
-//					"textures/cubemaps/yokohama_3/posz.jpg",
-//					"textures/cubemaps/yokohama_3/negz.jpg"
+					"textures/cubemaps/yokohama_3/posx.jpg",
+					"textures/cubemaps/yokohama_3/negx.jpg",
+					"textures/cubemaps/yokohama_3/posy.jpg",
+					"textures/cubemaps/yokohama_3/negy.jpg",
+					"textures/cubemaps/yokohama_3/posz.jpg",
+					"textures/cubemaps/yokohama_3/negz.jpg"
 					
 //					"textures/cubemaps/coit_tower_2/posx.jpg",
 //					"textures/cubemaps/coit_tower_2/negx.jpg",
@@ -46,12 +46,12 @@ namespace LouiEriksson {
 //					"textures/cubemaps/another_planet/pz.png",
 //					"textures/cubemaps/another_planet/nz.png"
 
-					"textures/cubemaps/san_francisco_3/posx.jpg",
-					"textures/cubemaps/san_francisco_3/negx.jpg",
-					"textures/cubemaps/san_francisco_3/posy.jpg",
-					"textures/cubemaps/san_francisco_3/negy.jpg",
-					"textures/cubemaps/san_francisco_3/posz.jpg",
-					"textures/cubemaps/san_francisco_3/negz.jpg"
+//					"textures/cubemaps/san_francisco_3/posx.jpg",
+//					"textures/cubemaps/san_francisco_3/negx.jpg",
+//					"textures/cubemaps/san_francisco_3/posy.jpg",
+//					"textures/cubemaps/san_francisco_3/negy.jpg",
+//					"textures/cubemaps/san_francisco_3/posz.jpg",
+//					"textures/cubemaps/san_francisco_3/negz.jpg"
 				},
 				GL_RGB,
 				true
@@ -420,6 +420,7 @@ namespace LouiEriksson {
 			);
 			
 			skybox->Assign(skybox->AttributeID("u_Exposure"), skyExposure);
+			skybox->Assign(skybox->AttributeID("u_Blur"), 0.15f);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
