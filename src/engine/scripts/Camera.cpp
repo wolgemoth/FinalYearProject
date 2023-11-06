@@ -278,6 +278,9 @@ namespace LouiEriksson {
 			
 			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
 
+			program->Assign(program->AttributeID("u_Tiling"), glm::vec2(3.0f));
+			program->Assign(program->AttributeID("u_Offset"), glm::vec2(0.0f));
+			
 			if (_lights.empty()) {
 				
 				// Draw the scene with no lighting.
@@ -349,7 +352,7 @@ namespace LouiEriksson {
 					
 					program->Assign(program->AttributeID("u_ShadowSamples"), 32);
 					
-					program->Assign(program->AttributeID("u_LightSize" ), light->m_Size);
+					program->Assign(program->AttributeID("u_LightSize"), light->m_Size);
 					
 					program->Assign(program->AttributeID("u_LightAngle"),
 						glm::cos(glm::radians(
@@ -360,7 +363,7 @@ namespace LouiEriksson {
 						)
 					);
 					
-					program->Assign(program->AttributeID("u_NearPlane" ), light->m_Shadow.m_NearPlane);
+					program->Assign(program->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
 					
 					program->Assign(program->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);

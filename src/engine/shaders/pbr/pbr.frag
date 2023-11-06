@@ -18,33 +18,37 @@ uniform samplerCube u_ShadowMap3D;
 
 uniform float u_Time;
 
-// By default is set to 1 to deliberately look horrible.
-// Please assign a value between 10 and 100 when implementing.
-uniform int u_ShadowSamples = 1;
+uniform int u_ShadowSamples = 4; // Number of shadow samples. Please choose a sane value.
 
-const float PCSS_SCENE_SCALE = 0.015625;
-
-uniform float u_LightSize  = 0.2;
-uniform float u_LightAngle = 0.0;
-uniform float u_NearPlane  = 0.1;
-
-/* PARAMETERS */
 uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
-uniform float u_Metallic;         // How metallic the surface is.
-uniform float u_Roughness;        // How rough the surface is.
+/* PBR */
+uniform float u_Metallic  = 0.0; // How metallic the surface is.
+uniform float u_Roughness = 0.0; // How rough the surface is.
 
-/* LIGHTING */
-uniform samplerCube u_Ambient;
-uniform float u_AmbientExposure = 1.6;
+/* TEXTURE PARAMETERS */
+uniform vec2 u_Tiling = vec2(1.0); // Texture tiling scale (U, V).
+uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
 
-uniform float u_ShadowBias = 0.005;
-uniform float u_ShadowNormalBias = 0.1;
+/* AMBIENT LIGHTING */
+uniform samplerCube u_Ambient;               // Ambient lighting texture.
+uniform float       u_AmbientExposure = 1.6; // Brightness of ambient texture.
 
+/* DIRECT LIGHTING */
 uniform  vec3 u_LightPosition;  // Position of light in world-space.
-uniform vec3  u_LightDirection; // Direction of the light in world-space.
+uniform  vec3 u_LightDirection; // Direction of the light in world-space.
 uniform float u_LightRange;     // Range of light.
 uniform float u_LightIntensity; // Brightness of light.
 uniform  vec3 u_LightColor;     // Color of light.
+uniform float u_LightSize       =  0.2; // Size of the light (PCSS only).
+uniform float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
+
+/* SHADOWS */
+
+const float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
+
+uniform float u_ShadowBias       = 0.005; // Shadow bias.
+uniform float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
+uniform float u_NearPlane        = 0.1;   // Light's shadow near plane.
 
 /* THIRD-PARTY */
 
@@ -63,7 +67,6 @@ float gold_noise(in vec2 xy, in float seed){
 /* NOT THIRD-PARTY */
 
 float Random1(in vec2 _xy, float _offset) {
-
     return (gold_noise(_xy * 1000.0, fract(u_Time) + _offset) - 0.5) * 2.0;
 }
 
@@ -392,9 +395,13 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
 }
 
+vec2 ScaleTexCoord(sampler2D _texture, in vec2 _coord, int _lod) {
+    return (_coord + fract(u_Offset)) * u_Tiling;
+}
+
 void main() {
 
-    vec4 albedo = texture2D(u_Albedo, v_TexCoord);
+    vec4 albedo = texture2D(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord, 0));
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
@@ -402,7 +409,7 @@ void main() {
 
     vec3 normal = normalize(
         v_Normal +
-        ((texture(u_Normals, v_TexCoord).rgb * 2.0) - 1.0) * 0.08
+        ((texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord, 0)).rgb * 2.0) - 1.0) * 0.08
     );
 
     /* DIRECT */
