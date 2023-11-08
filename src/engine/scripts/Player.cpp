@@ -15,7 +15,7 @@ namespace LouiEriksson {
 		
 		m_PlayerSpeed = 6.0f;
 		m_CameraSpeed = 3.0f;
-		m_GameSpeed = 15.0f;
+		m_GameSpeed = 0.0;//15.0f;
 		
 		m_PlayerMoveFreedom = 0.0f;
 		
@@ -211,7 +211,7 @@ namespace LouiEriksson {
 		
 		const float dt = Time::DeltaTime();
 		
-		m_GameSpeed += dt;
+		//m_GameSpeed += dt;
 		
 		auto l = player->ToWorld(glm::vec3(1, 0, 0));
 		

@@ -60,11 +60,13 @@ void main() {
     float radiusXY = 0.05;
     float radiusZ = 3;
 
+    vec2 dimensions = textureSize(u_Depth, 0);
+    vec2 aspect = vec2(dimensions.x / dimensions.y, 1.0);
+
     for (int i = 0; i < u_Samples; i++) {
 
         vec2 offset = normalize(Random2(v_TexCoord + vec2(i + 1), 0.1));
-
-        offset *= radiusXY * Random1(v_TexCoord + vec2(i + 1), 0.3);
+        offset *= aspect * radiusXY * Random1(v_TexCoord + vec2(i + 1), 0.3);
 
         float sampleDepth = Linear01Depth(texture(u_Depth, v_TexCoord + offset.xy).r) * u_FarClip;
 

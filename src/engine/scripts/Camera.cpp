@@ -25,12 +25,12 @@ namespace LouiEriksson {
 		m_Skybox = std::move(
 			File::Load(
 				{
-					"textures/cubemaps/yokohama_3/posx.jpg",
-					"textures/cubemaps/yokohama_3/negx.jpg",
-					"textures/cubemaps/yokohama_3/posy.jpg",
-					"textures/cubemaps/yokohama_3/negy.jpg",
-					"textures/cubemaps/yokohama_3/posz.jpg",
-					"textures/cubemaps/yokohama_3/negz.jpg"
+//					"textures/cubemaps/yokohama_3/posx.jpg",
+//					"textures/cubemaps/yokohama_3/negx.jpg",
+//					"textures/cubemaps/yokohama_3/posy.jpg",
+//					"textures/cubemaps/yokohama_3/negy.jpg",
+//					"textures/cubemaps/yokohama_3/posz.jpg",
+//					"textures/cubemaps/yokohama_3/negz.jpg"
 					
 //					"textures/cubemaps/coit_tower_2/posx.jpg",
 //					"textures/cubemaps/coit_tower_2/negx.jpg",
@@ -46,12 +46,12 @@ namespace LouiEriksson {
 //					"textures/cubemaps/another_planet/pz.png",
 //					"textures/cubemaps/another_planet/nz.png"
 
-//					"textures/cubemaps/san_francisco_3/posx.jpg",
-//					"textures/cubemaps/san_francisco_3/negx.jpg",
-//					"textures/cubemaps/san_francisco_3/posy.jpg",
-//					"textures/cubemaps/san_francisco_3/negy.jpg",
-//					"textures/cubemaps/san_francisco_3/posz.jpg",
-//					"textures/cubemaps/san_francisco_3/negz.jpg"
+					"textures/cubemaps/san_francisco_3/posx.jpg",
+					"textures/cubemaps/san_francisco_3/negx.jpg",
+					"textures/cubemaps/san_francisco_3/posy.jpg",
+					"textures/cubemaps/san_francisco_3/negy.jpg",
+					"textures/cubemaps/san_francisco_3/posz.jpg",
+					"textures/cubemaps/san_francisco_3/negz.jpg"
 				},
 				GL_RGB,
 				true
@@ -278,7 +278,7 @@ namespace LouiEriksson {
 			
 			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
 
-			program->Assign(program->AttributeID("u_Tiling"), glm::vec2(3.0f));
+			program->Assign(program->AttributeID("u_Tiling"), glm::vec2(1.0f));
 			program->Assign(program->AttributeID("u_Offset"), glm::vec2(0.0f));
 			
 			if (_lights.empty()) {
@@ -495,7 +495,8 @@ namespace LouiEriksson {
 		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
-		AmbientOcclusion();
+		FXAA();
+		//AmbientOcclusion();
 		Bloom();
 		
 		// Draw post processing.
@@ -512,6 +513,27 @@ namespace LouiEriksson {
 		
 		// Unbind VAO.
 		glBindVertexArray(0);
+	}
+	
+	void Camera::FXAA() const {
+		
+		auto fxaa = Shader::m_Cache.Return("fxaa");
+		Shader::Bind(fxaa->ID());
+		
+		RenderTexture::Bind(m_RT);
+		
+		float blending = glm::step(glm::fract(Time::Elapsed() * 0.5f), 0.5f);
+		
+		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"), 0.0312f);
+		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"), 0.063f);
+		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"), blending);
+		
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		
+		RenderTexture::Unbind();
+		
+		Shader::Unbind();
 	}
 	
 	void Camera::AmbientOcclusion() const {
