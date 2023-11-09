@@ -41,7 +41,7 @@ uniform float u_SubpixelBlending = 1.0;
 //   0.00 - completely off
 uniform float u_EdgeBlending = 1.0;
 
-// Higher numbers typically lead to a less softening when combined with subpixel blending.
+// Higher numbers typically lead to reduced softening when combined with subpixel blending.
 uniform float u_LocalContrastModifier = 1.0;
 
 // Uncomment ENHANCED_FXAA to enable various FXAA enhancements designed
@@ -49,14 +49,7 @@ uniform float u_LocalContrastModifier = 1.0;
 // in exchange for higher quality antialiasing.
 #define ENHANCED_FXAA
 
-// If ENHANCED_FXAA is enabled, increase the size of the luma kernel.
-// A wider kernel results in thicker edges, which can help resolve
-// artifacts when sampling along the edge.
-#ifdef ENHANCED_FXAA
-    const int KERNEL_SIZE = 5;
-#else
-    const int KERNEL_SIZE = 3;
-#endif
+const int KERNEL_SIZE = 3;
 
 struct Luminance {
 
@@ -196,7 +189,7 @@ float DetermineEdgeBlendFactor(in Luminance _luma, in vec2 _texelSize) {
         return 0;
     }
 
-    return clamp(
+    return 1.0 - clamp(
         ((min(distances.x, distances.y) / max(_texelSize.x, _texelSize.y)) * float(EDGE_SEARCHES)),
         0.0,
         1.0

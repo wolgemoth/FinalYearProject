@@ -479,6 +479,16 @@ namespace LouiEriksson {
 		aces->Assign(aces->AttributeID("u_Exposure"), 1.3f);
 		Shader::Unbind();
 		
+		auto fxaa = Shader::m_Cache.Return("fxaa");
+		Shader::Bind(fxaa->ID());
+		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"), 0.0312f);
+		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"), 0.063f);
+		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"), 0.75f);
+		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"), 1.0f);
+		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
+		Shader::Unbind();
+		
 		auto grain = Shader::m_Cache.Return("grain");
 		Shader::Bind(grain->ID());
 		grain->Assign(grain->AttributeID("u_Amount"), 0.01f);
@@ -492,11 +502,11 @@ namespace LouiEriksson {
 		
 		// Push effects to queue.
 		effects.push(aces);     // TONEMAPPING
+		effects.push(fxaa);     // ANTI-ALIASING
 		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
-		FXAA();
-		//AmbientOcclusion();
+		AmbientOcclusion();
 		Bloom();
 		
 		// Draw post processing.
@@ -513,29 +523,6 @@ namespace LouiEriksson {
 		
 		// Unbind VAO.
 		glBindVertexArray(0);
-	}
-	
-	void Camera::FXAA() const {
-		
-		auto fxaa = Shader::m_Cache.Return("fxaa");
-		Shader::Bind(fxaa->ID());
-		
-		RenderTexture::Bind(m_RT);
-		
-		float blending = glm::step(glm::fract(Time::Elapsed() * 0.5f), 0.5f);
-		
-		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"), 0.0312f);
-		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"), 0.063f);
-		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"), blending);
-		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"), blending);
-		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
-		
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		
-		RenderTexture::Unbind();
-		
-		Shader::Unbind();
 	}
 	
 	void Camera::AmbientOcclusion() const {
