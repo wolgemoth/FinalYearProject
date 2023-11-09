@@ -350,7 +350,7 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 32);
+					program->Assign(program->AttributeID("u_ShadowSamples"), 16);
 					
 					program->Assign(program->AttributeID("u_LightSize"), light->m_Size);
 					
@@ -482,16 +482,16 @@ namespace LouiEriksson {
 		auto fxaa = Shader::m_Cache.Return("fxaa");
 		Shader::Bind(fxaa->ID());
 		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"), 0.0312f);
-		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"), 0.063f);
-		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"), 0.75f);
-		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"), 1.0f);
+		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"),  0.0312f);
+		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"),   0.063f);
+		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"),     0.75f);
+		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"),          1.0f);
 		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
 		Shader::Unbind();
 		
 		auto grain = Shader::m_Cache.Return("grain");
 		Shader::Bind(grain->ID());
-		grain->Assign(grain->AttributeID("u_Amount"), 0.01f);
+		grain->Assign(grain->AttributeID("u_Amount"), 0.02f);
 		grain->Assign(grain->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
@@ -503,9 +503,10 @@ namespace LouiEriksson {
 		// Push effects to queue.
 		effects.push(aces);     // TONEMAPPING
 		effects.push(fxaa);     // ANTI-ALIASING
-		effects.push(grain);    // GRAIN
+		//effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
+		//Blur();
 		AmbientOcclusion();
 		Bloom();
 		
@@ -525,29 +526,61 @@ namespace LouiEriksson {
 		glBindVertexArray(0);
 	}
 	
+	void Camera::Blur(const RenderTexture& _rt) const {
+		
+		auto blur = Shader::m_Cache.Return("blur");
+		Shader::Bind(blur->ID());
+		blur->Assign(blur->AttributeID("u_Texture"), _rt.ID());
+		
+		for (int i = 0; i < 2; ++i) {
+			Copy(_rt, _rt, *blur);
+		}
+		
+		Shader::Unbind();
+	}
+	
 	void Camera::AmbientOcclusion() const {
+		
+		const auto dimensions = GetWindow()->Dimensions();
 		
 		auto ao = Shader::m_Cache.Return("ao");
 		Shader::Bind(ao->ID());
 		
 		ao->Assign(ao->AttributeID("u_Samples"), 16);
 		
-		ao->Assign(ao->AttributeID("u_Strength"), 0.8f);
+		ao->Assign(ao->AttributeID("u_Strength"), 0.5f);
 		ao->Assign(ao->AttributeID("u_Bias"), -0.5f);
 		
 		ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip);
 		ao->Assign(ao->AttributeID("u_FarClip"), m_FarClip);
 		ao->Assign(ao->AttributeID("u_Time"), Time::Elapsed());
 		
-		RenderTexture::Bind(m_RT);
+		RenderTexture ao_rt(dimensions.x, dimensions.y);
 		
-		ao->Assign(ao->AttributeID("u_Color"), m_RT.ID(),      0, GL_TEXTURE_2D);
-		ao->Assign(ao->AttributeID("u_Depth"), m_RT.DepthID(), 1, GL_TEXTURE_2D);
+		ao->Assign(ao->AttributeID("u_Depth"), m_RT.DepthID(), 0, GL_TEXTURE_2D);
+		
+		RenderTexture::Bind(ao_rt);
 		
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		
 		RenderTexture::Unbind();
+		Shader::Unbind();
 		
+		Blur(ao_rt);
+
+		auto multiply = Shader::m_Cache.Return("multiply");
+
+		Shader::Bind(multiply->ID());
+
+		multiply->Assign(multiply->AttributeID("u_Strength"), 1.0f);
+
+		multiply->Assign(multiply->AttributeID("u_Texture0"),  m_RT.ID(), 0, GL_TEXTURE_2D);
+		multiply->Assign(multiply->AttributeID("u_Texture1"), ao_rt.ID(), 1, GL_TEXTURE_2D);
+
+		RenderTexture::Bind(m_RT);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		RenderTexture::Unbind();
+
 		Shader::Unbind();
 	}
 	
@@ -557,7 +590,7 @@ namespace LouiEriksson {
 		
 		// Get each shader used for rendering the effect.
 		auto upscale = Shader::m_Cache.Return("upscale");
-		auto combine = Shader::m_Cache.Return("combine");
+		auto add     = Shader::m_Cache.Return("add");
 		
 		/* SET BLOOM PARAMETERS */
 		
@@ -583,8 +616,8 @@ namespace LouiEriksson {
 		
 		const float intensity = 0.2f;
 		
-		RenderTexture rt1(dimensions[0], dimensions[1]);
-		RenderTexture rt2(dimensions[0], dimensions[1]);
+		RenderTexture rt1(dimensions.x, dimensions.y);
+		RenderTexture rt2(dimensions.x, dimensions.y);
 		
 		Copy(m_RT, rt1, *threshold);
 		
@@ -595,12 +628,12 @@ namespace LouiEriksson {
 		}
 		
 		Shader::Unbind();
-		Shader::Bind(combine->ID());
+		Shader::Bind(add->ID());
 		
-		combine->Assign(combine->AttributeID("u_Strength"), intensity);
+		add->Assign(add->AttributeID("u_Strength"), intensity);
 		
-		combine->Assign(combine->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		combine->Assign(combine->AttributeID("u_Texture1"),  rt1.ID(), 1, GL_TEXTURE_2D);
+		add->Assign(add->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		add->Assign(add->AttributeID("u_Texture1"),  rt1.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);

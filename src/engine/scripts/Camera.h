@@ -51,6 +51,8 @@ namespace LouiEriksson {
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
 		
+		void Blur(const RenderTexture& _rt) const;
+		
 		void AmbientOcclusion() const;
 		
 		void Bloom() const;

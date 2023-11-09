@@ -123,6 +123,11 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
+	        /* Blur */ {
+                { "shaders/blur/blur.vert",                   GL_VERTEX_SHADER },
+                { "shaders/blur/blur.frag",                 GL_FRAGMENT_SHADER }
+            },
+			
 	        /* FXAA */ {
                 { "shaders/fxaa/fxaa.vert",                   GL_VERTEX_SHADER },
                 { "shaders/fxaa/fxaa.frag",                 GL_FRAGMENT_SHADER }
@@ -194,9 +199,19 @@ namespace LouiEriksson {
                 { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
             },
 			 
-	        /* Bloom - Combine */ {
-				{ "shaders/bloom/combine/combine.vert",       GL_VERTEX_SHADER },
-                { "shaders/bloom/combine/combine.frag",     GL_FRAGMENT_SHADER }
+	        /* Additive */ {
+				{ "shaders/add/add.vert",                     GL_VERTEX_SHADER },
+                { "shaders/add/add.frag",                   GL_FRAGMENT_SHADER }
+            },
+			
+	        /* Subtractive */ {
+				{ "shaders/subtract/subtract.vert",           GL_VERTEX_SHADER },
+                { "shaders/subtract/subtract.frag",         GL_FRAGMENT_SHADER }
+            },
+			
+	        /* Multiply */ {
+				{ "shaders/multiply/multiply.vert",           GL_VERTEX_SHADER },
+                { "shaders/multiply/multiply.frag",         GL_FRAGMENT_SHADER }
             },
 		});
 	}

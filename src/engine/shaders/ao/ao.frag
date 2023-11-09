@@ -4,7 +4,6 @@
 
 in vec2 v_TexCoord;
 
-uniform sampler2D u_Color;
 uniform sampler2D u_Depth;
 
 uniform int u_Samples = 32;
@@ -78,11 +77,7 @@ void main() {
         occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
     }
 
-    occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
+    occlusion = ((occlusion / float(u_Samples)) * u_Strength);
 
-    vec4 color = texture(u_Color, v_TexCoord);
-
-    // color *
-
-	gl_FragColor = color * vec4(occlusion, occlusion, occlusion, 1.0);
+	gl_FragColor = vec4(vec3(occlusion), 1.0);
 }
