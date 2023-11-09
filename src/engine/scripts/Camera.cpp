@@ -528,6 +528,8 @@ namespace LouiEriksson {
 		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"), 0.0312f);
 		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"), 0.063f);
 		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"), blending);
+		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"), blending);
+		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
 		
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		
