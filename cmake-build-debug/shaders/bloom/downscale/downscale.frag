@@ -4,13 +4,9 @@ uniform sampler2D u_Texture;
 
 in vec2 v_TexCoord;
 
-/* PARAMETERS */
-uniform vec2 u_Resolution;
-uniform float u_Diffusion;
-
 void main() {
 
-	vec2 texelSize = vec2(1.0) / u_Resolution;
+	vec2 texelSize = vec2(1.0) / textureSize(u_Texture, 0);
     float x = texelSize.x;
     float y = texelSize.y;
 
