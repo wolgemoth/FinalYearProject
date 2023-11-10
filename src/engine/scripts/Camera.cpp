@@ -652,8 +652,8 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		//const float threshold = 0.0f;
-		const float intensity = 1.0f;
-		const float diffusion = 6.0f / glm::max(m_RT.Width(), m_RT.Height());
+		const float intensity = 0.3f;
+		const float diffusion = 7.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
 		const int scalingPasses = 5;
 		
@@ -671,11 +671,12 @@ namespace LouiEriksson {
 		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2);
 		
-		RenderTexture mip0(dimensions.x /  4, dimensions.y /  4);
-		RenderTexture mip1(dimensions.x /  8, dimensions.y /  8);
-		RenderTexture mip2(dimensions.x / 16, dimensions.y / 16);
-		RenderTexture mip3(dimensions.x / 32, dimensions.y / 32);
-		RenderTexture mip4(dimensions.x / 64, dimensions.y / 64);
+		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4);
+		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8);
+		RenderTexture mip2(dimensions.x /  16, dimensions.y /  16);
+		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32);
+		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64);
+		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128);
 		
 		Blit(m_RT, tmp, *threshold);
 		
@@ -684,18 +685,19 @@ namespace LouiEriksson {
 		Blit(mip1, mip2, *downscale);
 		Blit(mip2, mip3, *downscale);
 		Blit(mip3, mip4, *downscale);
+		Blit(mip4, mip5, *downscale);
 		
 	    // Enable additive blending
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
 		
+		Blit(mip5, mip4, *upscale);
 		Blit(mip4, mip3, *upscale);
 		Blit(mip3, mip2, *upscale);
 		Blit(mip2, mip1, *upscale);
 		Blit(mip1, mip0, *upscale);
-		
-		Blit(mip0, tmp, *upscale);
+		Blit(mip0, tmp,  *upscale);
 		
 	    // Disable additive blending
 	    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Restore if this was default
@@ -704,7 +706,7 @@ namespace LouiEriksson {
 		Shader::Bind(add->ID());
 		add->Assign(add->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
 		add->Assign(add->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		add->Assign(add->AttributeID("u_Texture1"), tmp.ID(), 1, GL_TEXTURE_2D);
+		add->Assign(add->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
