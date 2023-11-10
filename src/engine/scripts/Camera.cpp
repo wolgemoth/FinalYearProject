@@ -32,12 +32,12 @@ namespace LouiEriksson {
 //					"textures/cubemaps/yokohama_3/posz.jpg",
 //					"textures/cubemaps/yokohama_3/negz.jpg"
 					
-//					"textures/cubemaps/coit_tower_2/posx.jpg",
-//					"textures/cubemaps/coit_tower_2/negx.jpg",
-//					"textures/cubemaps/coit_tower_2/posy.jpg",
-//					"textures/cubemaps/coit_tower_2/negy.jpg",
-//					"textures/cubemaps/coit_tower_2/posz.jpg",
-//					"textures/cubemaps/coit_tower_2/negz.jpg"
+					"textures/cubemaps/coit_tower_2/posx.jpg",
+					"textures/cubemaps/coit_tower_2/negx.jpg",
+					"textures/cubemaps/coit_tower_2/posy.jpg",
+					"textures/cubemaps/coit_tower_2/negy.jpg",
+					"textures/cubemaps/coit_tower_2/posz.jpg",
+					"textures/cubemaps/coit_tower_2/negz.jpg"
 
 //					"textures/cubemaps/another_planet/px.png",
 //					"textures/cubemaps/another_planet/nx.png",
@@ -46,12 +46,12 @@ namespace LouiEriksson {
 //					"textures/cubemaps/another_planet/pz.png",
 //					"textures/cubemaps/another_planet/nz.png"
 
-					"textures/cubemaps/san_francisco_3/posx.jpg",
-					"textures/cubemaps/san_francisco_3/negx.jpg",
-					"textures/cubemaps/san_francisco_3/posy.jpg",
-					"textures/cubemaps/san_francisco_3/negy.jpg",
-					"textures/cubemaps/san_francisco_3/posz.jpg",
-					"textures/cubemaps/san_francisco_3/negz.jpg"
+//					"textures/cubemaps/san_francisco_3/posx.jpg",
+//					"textures/cubemaps/san_francisco_3/negx.jpg",
+//					"textures/cubemaps/san_francisco_3/posy.jpg",
+//					"textures/cubemaps/san_francisco_3/negy.jpg",
+//					"textures/cubemaps/san_francisco_3/posz.jpg",
+//					"textures/cubemaps/san_francisco_3/negz.jpg"
 				},
 				GL_RGB,
 				true
@@ -506,7 +506,6 @@ namespace LouiEriksson {
 		//effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
-		//Blur();
 		AmbientOcclusion();
 		Bloom();
 		
@@ -526,15 +525,71 @@ namespace LouiEriksson {
 		glBindVertexArray(0);
 	}
 	
-	void Camera::Blur(const RenderTexture& _rt) const {
+	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {
 		
-		auto blur = Shader::m_Cache.Return("blur");
-		Shader::Bind(blur->ID());
-		blur->Assign(blur->AttributeID("u_Texture"), _rt.ID());
+		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
 		
-		for (int i = 0; i < 2; ++i) {
-			Copy(_rt, _rt, *blur);
-		}
+		auto horizontal = Shader::m_Cache.Return("blur_horizontal");
+		auto   vertical = Shader::m_Cache.Return("blur_vertical");
+		
+		horizontal->Assign(horizontal->AttributeID("u_Texture"), _rt.ID());
+		  vertical->Assign(  vertical->AttributeID("u_Texture"), _rt.ID());
+		
+		int w = dimensions.x,
+            h = dimensions.y;
+
+        float dpiFactor = _consistentDPI ?
+            glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) :
+            1.0f;
+
+        float rootIntensity, scalar, aspectCorrection;
+
+        if (_highQuality) {
+               rootIntensity = 0.0f;
+                      scalar = 0.0f;
+            aspectCorrection = 0.0f;
+        }
+        else {
+               rootIntensity = glm::sqrt(_intensity);
+                      scalar = glm::sqrt(rootIntensity);
+            aspectCorrection = glm::sqrt(dimensions.x / (float)dimensions.y);
+        }
+
+        for (int i = 0; i < _passes; i++) {
+            
+            int width, height;
+            
+            float size;
+            
+            if (_highQuality) {
+                width  = w;
+                height = h;
+                
+                size = (float)glm::pow(1.618f, i + 1) * _intensity;
+            }
+            else {
+                width  = (int)glm::ceil(float(w) / glm::pow(2.0f, (float)i / 2.0f * scalar));
+                height = (int)glm::ceil(float(h) / glm::pow(2.0f, (float)i / 2.0f * scalar) * aspectCorrection);
+                
+                size = (float)i * rootIntensity;
+            }
+            
+			horizontal->Assign(horizontal->AttributeID("u_Step"), dpiFactor * size);
+			  vertical->Assign(  vertical->AttributeID("u_Step"), dpiFactor * size);
+
+			Shader::Bind(horizontal->ID());
+		
+			RenderTexture tmp(width, height);
+	        Blit(_rt, tmp, *horizontal);
+			
+	        Blit(tmp, tmp, *vertical);
+			
+			Copy(tmp, _rt);
+		
+            if (width == 1 && height == 1) {
+                break;
+            }
+        }
 		
 		Shader::Unbind();
 	}
@@ -566,7 +621,7 @@ namespace LouiEriksson {
 		RenderTexture::Unbind();
 		Shader::Unbind();
 		
-		Blur(ao_rt);
+		Blur(ao_rt, 1.0f, 2, true, true);
 
 		auto multiply = Shader::m_Cache.Return("multiply");
 
@@ -589,51 +644,62 @@ namespace LouiEriksson {
 		const auto dimensions = GetWindow()->Dimensions();
 		
 		// Get each shader used for rendering the effect.
-		auto upscale = Shader::m_Cache.Return("upscale");
-		auto add     = Shader::m_Cache.Return("add");
+		auto threshold = Shader::m_Cache.Return("threshold");
+		auto downscale = Shader::m_Cache.Return("downscale");
+		auto   upscale = Shader::m_Cache.Return("upscale");
+		auto       add = Shader::m_Cache.Return("add");
 		
 		/* SET BLOOM PARAMETERS */
 		
-		const float diffusion = 6.0f;
+		//const float threshold = 0.0f;
+		const float intensity = 1.0f;
+		const float diffusion = 2.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
-		auto threshold = Shader::m_Cache.Return("threshold");
+		const int scalingPasses = 5;
+		
 		Shader::Bind(threshold->ID());
 		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.0f);
 		Shader::Unbind();
 		
-		// Determine number of passes to perform using the amount of times the screen can be divided by 2.
-		// Clamp the number of passes to a maximum value.
-		const int scalingPasses =
-			std::min(
-				32,
-				(int)(std::ceil(std::log2((float)std::min(dimensions[0], dimensions[1]))) * diffusion)
-			);
-		
-		auto downscale = Shader::m_Cache.Return("downscale");
 		Shader::Bind(downscale->ID());
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		downscale->Assign(downscale->AttributeID("u_Diffusion"), diffusion);
 		
-		const float intensity = 0.2f;
+		RenderTexture tmp(dimensions.x, dimensions.y);
 		
-		RenderTexture rt1(dimensions.x, dimensions.y);
-		RenderTexture rt2(dimensions.x, dimensions.y);
-		
-		Copy(m_RT, rt1, *threshold);
+		Blit(m_RT, tmp, *threshold);
 		
 		for (size_t i = 0; i < scalingPasses; i++) {
 			
-			Copy(rt1, rt2, *downscale);
-			Copy(rt2, rt1, *upscale);
+			RenderTexture scaled(tmp.Width() / 2, tmp.Height() / 2);
+			
+			Blit(tmp, scaled, *downscale);
+			
+			tmp.Resize(scaled.Width(), scaled.Height());
+			
+			Copy(scaled, tmp);
 		}
 		
 		Shader::Unbind();
-		Shader::Bind(add->ID());
 		
-		add->Assign(add->AttributeID("u_Strength"), intensity);
+		Shader::Bind(upscale->ID());
+		upscale->Assign(upscale->AttributeID("u_Diffusion"), diffusion);
+		
+		for (size_t i = 0; i < scalingPasses; i++) {
+			
+			RenderTexture scaled(tmp.Width() * 2, tmp.Height() * 2);
+			
+			Blit(tmp, scaled, *upscale);
+			
+			tmp.Resize(scaled.Width(), scaled.Height());
+			
+			Copy(scaled, tmp);
+		}
+		
+		Shader::Bind(add->ID());
+		add->Assign(add->AttributeID("u_Strength"),  intensity);
 		
 		add->Assign(add->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		add->Assign(add->AttributeID("u_Texture1"),  rt1.ID(), 1, GL_TEXTURE_2D);
+		add->Assign(add->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
@@ -649,16 +715,21 @@ namespace LouiEriksson {
 			const auto shader = _effects.front();
 			_effects.pop();
 			
-			Copy(m_RT, m_RT, *shader);
+			Blit(m_RT, m_RT, *shader);
 		}
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
-		
-		Copy(_src, _dest, *Shader::m_Cache.Return("passthrough"));
+	
+		Blit(_src, _dest, *Shader::m_Cache.Return("passthrough").get());
 	}
 	
-	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) {
+	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) {
+		
+		glm::ivec4 dimensions;
+		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);
+		
+		glViewport(0, 0, _dest.Width(), _dest.Height());
 		
 		Shader::Bind(_shader.ID());
 		
@@ -670,6 +741,8 @@ namespace LouiEriksson {
 		RenderTexture::Unbind();
 		
 		Shader::Unbind();
+		
+		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
 	}
 	
 	void Camera::SetWindow(std::shared_ptr<Window> _window) {

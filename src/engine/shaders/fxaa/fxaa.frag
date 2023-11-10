@@ -202,35 +202,34 @@ vec3 FXAA(in Luminance _luma, in vec2 _texelSize) {
 
     _luma.contrast = _luma.contrast / max(u_LocalContrastModifier, EPSILON);
 
-    // Filter to selectively blend pixels based on their contrast.
-    // Without filtering, all 'edges' recieve smoothing equally,
-    // which contributes to an overall softening of the image.
-    float filter = abs(_luma.average - _luma.samples[center]);
-    filter = min(filter / _luma.contrast, 1.0);
-
-    float pixelBlend = sqr(smoothstep(0.0, 1.0, 1.0 - filter)) * u_SubpixelBlending;
-    float  edgeBlend = DetermineEdgeBlendFactor(_luma, _texelSize) * u_EdgeBlending;
-
-    float finalBlend = max(pixelBlend, edgeBlend);
-
-    //return vec3(finalBlend);
-
-    vec2 dir = _luma.direction;
-
     // If ENHANCED_FXAA is disabled, flatten the direction to
     // only X or Y. This results in cross-shaped edge blending.
     #ifndef ENHANCED_FXAA
-        dir.x *= step(abs(dir.y), abs(dir.x));
-        dir.y *= step(abs(dir.x), abs(dir.y));
+        _luma.direction.x *= step(abs(_luma.direction.y), abs(_luma.direction.x));
+        _luma.direction.y *= step(abs(_luma.direction.x), abs(_luma.direction.y));
     #endif
 
-    dir = normalize(dir) * finalBlend;
+    // Filter to selectively blend pixels based on their local contrast.
+    // Without filtering, all 'edges' recieve smoothing equally.
+    float localContrastFilter = abs(_luma.average - _luma.samples[center]);
+    localContrastFilter = sqr(smoothstep(0.0, 1.0, 1.0 - min(localContrastFilter / _luma.contrast, 1.0)));
+
+    float finalBlend = max(
+
+        /* SUBPIXEL BLENDING */
+        localContrastFilter * u_SubpixelBlending,
+
+        /* EDGE BLENDING */
+        DetermineEdgeBlendFactor(_luma, _texelSize) * u_EdgeBlending
+    );
+
+    vec2 dir = normalize(_luma.direction) * finalBlend;
 
     // If ENHANCED_FXAA is enabled, blend along both sides of
     // the edge instead of blending the center pixel with a
-    // neighbor. Blending across both sides of the edge helps
-    // correct 'haloing' caused by propagation of bright
-    // samples when using FXAA with HDR.
+    // neighbor. Blending across both sides of the edge yields
+    // a softer result and can help mitigate the propagation of
+    // HDR values throughout the image.
     #ifdef ENHANCED_FXAA
 
         // Since we're sampling both sides of the edge, the direction needs to be halved.

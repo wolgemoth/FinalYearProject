@@ -123,34 +123,39 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
-	        /* Blur */ {
-                { "shaders/blur/blur.vert",                   GL_VERTEX_SHADER },
-                { "shaders/blur/blur.frag",                 GL_FRAGMENT_SHADER }
+	        /* Blur - Horizontal Pass */ {
+                { "shaders/blur/horizontal/blur_horizontal.vert",   GL_VERTEX_SHADER },
+                { "shaders/blur/horizontal/blur_horizontal.frag", GL_FRAGMENT_SHADER }
+            },
+			
+	        /* Blur - Vertical Pass */ {
+                { "shaders/blur/vertical/blur_vertical.vert",       GL_VERTEX_SHADER },
+                { "shaders/blur/vertical/blur_vertical.frag",     GL_FRAGMENT_SHADER }
             },
 			
 	        /* FXAA */ {
-                { "shaders/fxaa/fxaa.vert",                   GL_VERTEX_SHADER },
-                { "shaders/fxaa/fxaa.frag",                 GL_FRAGMENT_SHADER }
+                { "shaders/fxaa/fxaa.vert",                        GL_VERTEX_SHADER },
+                { "shaders/fxaa/fxaa.frag",                      GL_FRAGMENT_SHADER }
             },
 			
 	        /* Ambient Occlusion (AO) */ {
-                { "shaders/ao/ao.vert",                       GL_VERTEX_SHADER },
-                { "shaders/ao/ao.frag",                     GL_FRAGMENT_SHADER }
+                { "shaders/ao/ao.vert",                            GL_VERTEX_SHADER },
+                { "shaders/ao/ao.frag",                          GL_FRAGMENT_SHADER }
             },
 			
 	        /* Lit Surface Shader */ {
-                { "shaders/surface/surface.vert",             GL_VERTEX_SHADER },
-                { "shaders/surface/surface.frag",           GL_FRAGMENT_SHADER }
+                { "shaders/surface/surface.vert",                  GL_VERTEX_SHADER },
+                { "shaders/surface/surface.frag",                GL_FRAGMENT_SHADER }
             },
 			 
 	        /* Lit Surface Shader (PBR) */ {
-				{ "shaders/pbr/pbr.vert",                     GL_VERTEX_SHADER },
-                { "shaders/pbr/pbr.frag",                   GL_FRAGMENT_SHADER }
+				{ "shaders/pbr/pbr.vert",                          GL_VERTEX_SHADER },
+                { "shaders/pbr/pbr.frag",                        GL_FRAGMENT_SHADER }
             },
 			 
 			/* Shadow Depth Shader */ {
-				{ "shaders/shadowDepth/shadowDepth.vert",     GL_VERTEX_SHADER },
-                { "shaders/shadowDepth/shadowDepth.frag",   GL_FRAGMENT_SHADER }
+				{ "shaders/shadowDepth/shadowDepth.vert",          GL_VERTEX_SHADER },
+                { "shaders/shadowDepth/shadowDepth.frag",        GL_FRAGMENT_SHADER }
             },
 				
 			/* Shadow Depth Shader (Cubemap) */ {

@@ -49,9 +49,9 @@ namespace LouiEriksson {
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
-		static void Copy(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
-		
-		void Blur(const RenderTexture& _rt) const;
+		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
+
+		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
 		
 		void AmbientOcclusion() const;
 		
