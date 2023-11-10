@@ -653,53 +653,58 @@ namespace LouiEriksson {
 		
 		//const float threshold = 0.0f;
 		const float intensity = 1.0f;
-		const float diffusion = 2.0f / glm::max(m_RT.Width(), m_RT.Height());
+		const float diffusion = 6.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
 		const int scalingPasses = 5;
 		
 		Shader::Bind(threshold->ID());
-		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.0f);
+		threshold->Assign(threshold->AttributeID("u_Threshold"), 1.2f);
 		Shader::Unbind();
 		
 		Shader::Bind(downscale->ID());
 		downscale->Assign(downscale->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		
-		RenderTexture tmp(dimensions.x, dimensions.y);
-		
-		Blit(m_RT, tmp, *threshold);
-		
-		for (size_t i = 0; i < scalingPasses; i++) {
-			
-			RenderTexture scaled(tmp.Width() / 2, tmp.Height() / 2);
-			
-			Blit(tmp, scaled, *downscale);
-			
-			tmp.Resize(scaled.Width(), scaled.Height());
-			
-			Copy(scaled, tmp);
-		}
-		
 		Shader::Unbind();
 		
 		Shader::Bind(upscale->ID());
 		upscale->Assign(upscale->AttributeID("u_Diffusion"), diffusion);
+		Shader::Unbind();
 		
-		for (size_t i = 0; i < scalingPasses; i++) {
-			
-			RenderTexture scaled(tmp.Width() * 2, tmp.Height() * 2);
-			
-			Blit(tmp, scaled, *upscale);
-			
-			tmp.Resize(scaled.Width(), scaled.Height());
-			
-			Copy(scaled, tmp);
-		}
+		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2);
+		
+		RenderTexture mip0(dimensions.x /  4, dimensions.y /  4);
+		RenderTexture mip1(dimensions.x /  8, dimensions.y /  8);
+		RenderTexture mip2(dimensions.x / 16, dimensions.y / 16);
+		RenderTexture mip3(dimensions.x / 32, dimensions.y / 32);
+		RenderTexture mip4(dimensions.x / 64, dimensions.y / 64);
+		
+		Blit(m_RT, tmp, *threshold);
+		
+		Blit(tmp,  mip0, *downscale);
+		Blit(mip0, mip1, *downscale);
+		Blit(mip1, mip2, *downscale);
+		Blit(mip2, mip3, *downscale);
+		Blit(mip3, mip4, *downscale);
+		
+	    // Enable additive blending
+	    glEnable(GL_BLEND);
+	    glBlendFunc(GL_ONE, GL_ONE);
+	    glBlendEquation(GL_FUNC_ADD);
+		
+		Blit(mip4, mip3, *upscale);
+		Blit(mip3, mip2, *upscale);
+		Blit(mip2, mip1, *upscale);
+		Blit(mip1, mip0, *upscale);
+		
+		Blit(mip0, tmp, *upscale);
+		
+	    // Disable additive blending
+	    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Restore if this was default
+	    glDisable(GL_BLEND);
 		
 		Shader::Bind(add->ID());
-		add->Assign(add->AttributeID("u_Strength"),  intensity);
-		
+		add->Assign(add->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
 		add->Assign(add->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		add->Assign(add->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
+		add->Assign(add->AttributeID("u_Texture1"), tmp.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);

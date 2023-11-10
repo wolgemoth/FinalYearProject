@@ -10,7 +10,7 @@ uniform float u_Diffusion;
 
 void main() {
 
-	vec2 texelSize = 1.0 / u_Resolution;
+	vec2 texelSize = vec2(1.0) / u_Resolution;
     float x = texelSize.x;
     float y = texelSize.y;
 
@@ -21,13 +21,13 @@ void main() {
     // - l - m -
     // g - h - i
     // === ('e' is the current texel) ===
-    vec3 a = texture(u_Texture, v_TexCoord + vec2(-2*x,   2*y)).rgb;
-    vec3 b = texture(u_Texture, v_TexCoord + vec2(   0,   2*y)).rgb;
-    vec3 c = texture(u_Texture, v_TexCoord + vec2( 2*x,   2*y)).rgb;
+    vec3 a = texture(u_Texture, v_TexCoord + vec2(-2*x,  2*y)).rgb;
+    vec3 b = texture(u_Texture, v_TexCoord + vec2(   0,  2*y)).rgb;
+    vec3 c = texture(u_Texture, v_TexCoord + vec2( 2*x,  2*y)).rgb;
 
-    vec3 d = texture(u_Texture, v_TexCoord + vec2(-2*x,     0)).rgb;
-    vec3 e = texture(u_Texture, v_TexCoord + vec2(   0,     0)).rgb;
-    vec3 f = texture(u_Texture, v_TexCoord + vec2( 2*x,     0)).rgb;
+    vec3 d = texture(u_Texture, v_TexCoord + vec2(-2*x,    0)).rgb;
+    vec3 e = texture(u_Texture, v_TexCoord + vec2(   0,    0)).rgb;
+    vec3 f = texture(u_Texture, v_TexCoord + vec2( 2*x,    0)).rgb;
 
     vec3 g = texture(u_Texture, v_TexCoord + vec2(-2*x, -2*y)).rgb;
     vec3 h = texture(u_Texture, v_TexCoord + vec2(   0, -2*y)).rgb;
