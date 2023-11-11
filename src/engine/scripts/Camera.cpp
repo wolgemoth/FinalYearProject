@@ -22,7 +22,12 @@ namespace LouiEriksson {
 		
 		m_Cube = Mesh::Load("models/cube/cube.obj");
 		
-		File::TryLoad("textures/hdri_maps/abandoned_workshop_02_8k.hdr", m_HDRI, GL_FLOAT, true);
+		File::TryLoad(
+			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
+			m_HDRI,
+			GL_RGB32F,
+			true
+		);
 		
 		m_Skybox = std::move(
 			File::Load(
@@ -421,7 +426,7 @@ namespace LouiEriksson {
 				skybox->AttributeID("u_Texture"),
 				m_HDRI.ID(),
 				0,
-				GL_TEXTURE_CUBE_MAP
+				GL_TEXTURE_2D
 			);
 			
 			skybox->Assign(skybox->AttributeID("u_Exposure"), skyExposure);

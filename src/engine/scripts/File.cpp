@@ -38,24 +38,12 @@ namespace LouiEriksson {
 		
 		try {
 			
-			int desired_channels = 0;
-			
-			switch (_format) {
-				case GL_R:    { desired_channels = 1; break; }
-				case GL_RG:   { desired_channels = 2; break; }
-				case GL_RGB:  { desired_channels = 3; break; }
-				case GL_RGBA: { desired_channels = 4; break; }
-				default: {
-					std::cout << "Unknown texture format \"" << _format << "\"\n";
-				}
-			}
-			
 			auto* data = stbi_load(
 				_path.c_str(),
 				&_output.m_Width,
 				&_output.m_Height,
 				NULL,
-				desired_channels
+				Texture::GetChannels(_format)
 			);
 			
 			if (data != nullptr) {
@@ -118,18 +106,6 @@ namespace LouiEriksson {
 				
 				try {
 				
-					int desired_channels = 0;
-					
-					switch (_format) {
-						case GL_R:    { desired_channels = 1; break; }
-						case GL_RG:   { desired_channels = 2; break; }
-						case GL_RGB:  { desired_channels = 3; break; }
-						case GL_RGBA: { desired_channels = 4; break; }
-						default: {
-							std::cout << "Unknown texture format \"" << _format << "\"\n";
-						}
-					}
-					
 					glm::ivec2 loaded_resolution = { -1, -1 };
 					
 					auto* data = stbi_load(
@@ -137,7 +113,7 @@ namespace LouiEriksson {
 						&loaded_resolution.x,
 						&loaded_resolution.y,
 						NULL,
-						desired_channels
+						Texture::GetChannels(_format)
 					);
 					
 					cubemap_resolution = glm::max(

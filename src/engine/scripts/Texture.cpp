@@ -96,4 +96,38 @@ namespace LouiEriksson {
 		throw std::runtime_error("Not implemented!");
 	}
 	
+	int Texture::GetChannels(GLenum _format) {
+		
+			int result = 0;
+			
+			if (_format == GL_RED  || _format == GL_BLUE || _format == GL_GREEN ||
+			    _format == GL_R8   || _format == GL_R16  || _format == GL_R16F  ||
+				_format == GL_R32F || _format == GL_R32F_EXT
+			) {
+			    result = 1;
+			}
+			else if (_format == GL_RG    || _format == GL_RG8   || _format == GL_RG16 ||
+			         _format == GL_RG16F || _format == GL_RG32F || _format == GL_RG32F_EXT
+			) {
+			    result = 2;
+			}
+			else if (_format == GL_RGB    || _format == GL_RGB8   || _format == GL_RGB16      ||
+			         _format == GL_RGB16F || _format == GL_RGB32F || _format == GL_RGB32F_ARB ||
+					 _format == GL_RGB32F_EXT
+			) {
+			    result = 3;
+			}
+			else if (_format == GL_RGBA    || _format == GL_RGBA8   || _format == GL_RGBA16      ||
+			         _format == GL_RGBA16F || _format == GL_RGBA32F || _format == GL_RGBA32F_ARB ||
+					 _format == GL_RGBA32F_EXT
+			) {
+			    result = 4;
+			}
+			else {
+			    std::cout << "Unknown texture format \"" << _format << "\"\n";
+			}
+			
+			return result;
+	}
+	
 }

@@ -4,7 +4,7 @@
 
 const float PI = 3.141593;
 
-#define SAMPLER_CUBE
+//#define SAMPLER_CUBE
 
 in vec3 v_TexCoord;
 
