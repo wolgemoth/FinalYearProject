@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		File::TryLoad(
 			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
 			m_HDRI,
-			GL_RGB,
+			GL_RGB32F,
 			true
 		);
 		
@@ -274,7 +274,7 @@ namespace LouiEriksson {
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.0f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
@@ -660,7 +660,7 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		const float threshold = 1.2f;
-		const float intensity = 0.3f;
+		const float intensity = 0.15f;
 		const float diffusion = 7.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
 		const int scalingPasses = 5;

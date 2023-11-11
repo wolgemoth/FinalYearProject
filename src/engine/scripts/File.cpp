@@ -36,33 +36,40 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
-		/*
-		 * TODO: Currently is set to load image as HDR regardless of input
-		 * format. this needs to be changed so that whether the file is loaded
-		 * as HDR or LDR depends on the input format.
-		 *
-		 * The "internal format" and "format" are unique. i.e for HDR "internal format"
-		 * should be RGB32F, while "format" should just be RGB32. Additionally, "stbi_loadf"
-		 * should be used for HDR instead of "stbi_load".
-		 *
-		 * Whole thing's a annoying clusterfuck. Good luck.
-		 */
-		
 		try {
 			
 			glGenTextures(1, &_output.m_TextureID);
 			
 			if (_output.m_TextureID > 0) {
 				
-				int channels = Texture::GetChannels(_format);
+				int channels;
+				GLenum texture_format;
 				
-				auto* data = stbi_loadf(
-					_path.c_str(),
-					&_output.m_Width,
-					&_output.m_Height,
-					nullptr,
-					channels
-				);
+				Texture::GetFormatData(_format, texture_format, channels);
+				
+				void* data;
+				GLenum data_format;
+				
+				if (strcmp(_path.extension().c_str(), ".hdr") == 0) {
+					data_format = GL_FLOAT;
+					data = stbi_loadf(
+						_path.c_str(),
+						&_output.m_Width,
+						&_output.m_Height,
+						nullptr,
+						channels
+					);
+				}
+				else {
+					data_format = GL_UNSIGNED_BYTE;
+					data = stbi_load(
+						_path.c_str(),
+						&_output.m_Width,
+						&_output.m_Height,
+						nullptr,
+						channels
+					);
+				}
 				
 				if (data != nullptr) {
 				
@@ -71,13 +78,13 @@ namespace LouiEriksson {
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
-						GL_RGB32F,
+						_format,
 						_output.m_Width,
 						_output.m_Height,
 						0,
-						_format,
-						GL_FLOAT,
-						data
+						texture_format,
+						   data_format,
+						   data
 					);
 					
 					stbi_image_free(data);
@@ -126,16 +133,37 @@ namespace LouiEriksson {
 			for (int i = 0; i < _paths.size(); ++i) {
 				
 				try {
-				
+					
+					int channels;
+					GLenum texture_format;
+					
+					Texture::GetFormatData(_format, texture_format, channels);
+					
 					glm::ivec2 loaded_resolution = { -1, -1 };
 					
-					auto* data = stbi_load(
-						_paths[i].c_str(),
-						&loaded_resolution.x,
-						&loaded_resolution.y,
-						NULL,
-						Texture::GetChannels(_format)
-					);
+					void* data;
+					GLenum data_format;
+					
+					if (strcmp(_paths[i].extension().c_str(), ".hdr") == 0) {
+						data_format = GL_FLOAT;
+						data = stbi_loadf(
+							_paths[i].c_str(),
+							&loaded_resolution.x,
+							&loaded_resolution.y,
+							nullptr,
+							channels
+						);
+					}
+					else {
+						data_format = GL_UNSIGNED_BYTE;
+						data = stbi_load(
+							_paths[i].c_str(),
+							&loaded_resolution.x,
+							&loaded_resolution.y,
+							nullptr,
+							channels
+						);
+					}
 					
 					cubemap_resolution = glm::max(
 						glm::max(
@@ -154,8 +182,8 @@ namespace LouiEriksson {
 							loaded_resolution.x,
 							loaded_resolution.y,
 							0,
-							_format,
-							GL_UNSIGNED_BYTE,
+							texture_format,
+							data_format,
 							data
 						);
 						

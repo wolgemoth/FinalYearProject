@@ -96,38 +96,41 @@ namespace LouiEriksson {
 		throw std::runtime_error("Not implemented!");
 	}
 	
-	int Texture::GetChannels(GLenum _format) {
-		
-			int result = 0;
-			
-			if (_format == GL_RED  || _format == GL_BLUE || _format == GL_GREEN ||
-			    _format == GL_R8   || _format == GL_R16  || _format == GL_R16F  ||
-				_format == GL_R32F || _format == GL_R32F_EXT
-			) {
-			    result = 1;
-			}
-			else if (_format == GL_RG    || _format == GL_RG8   || _format == GL_RG16 ||
-			         _format == GL_RG16F || _format == GL_RG32F || _format == GL_RG32F_EXT
-			) {
-			    result = 2;
-			}
-			else if (_format == GL_RGB    || _format == GL_RGB8   || _format == GL_RGB16      ||
-			         _format == GL_RGB16F || _format == GL_RGB32F || _format == GL_RGB32F_ARB ||
-					 _format == GL_RGB32F_EXT
-			) {
-			    result = 3;
-			}
-			else if (_format == GL_RGBA    || _format == GL_RGBA8   || _format == GL_RGBA16      ||
-			         _format == GL_RGBA16F || _format == GL_RGBA32F || _format == GL_RGBA32F_ARB ||
-					 _format == GL_RGBA32F_EXT
-			) {
-			    result = 4;
-			}
-			else {
-			    std::cout << "Unknown texture format \"" << _format << "\"\n";
-			}
-			
-			return result;
-	}
 	
+void Texture::GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels) {
+		
+		if (_internalFormat == GL_R8   || _internalFormat == GL_R16 || _internalFormat == GL_R16F ||
+			_internalFormat == GL_R32F || _internalFormat == GL_R32F_EXT
+		) {
+		    _textureFormat = GL_R;
+			_channels      = 1;
+		}
+		else if (_internalFormat == GL_RG    || _internalFormat == GL_RG8   || _internalFormat == GL_RG16 ||
+		         _internalFormat == GL_RG16F || _internalFormat == GL_RG32F || _internalFormat == GL_RG32F_EXT
+		) {
+		    _textureFormat = GL_RG;
+			_channels      = 2;
+		}
+		else if (_internalFormat == GL_RGB    || _internalFormat == GL_RGB8   || _internalFormat == GL_RGB16      ||
+		         _internalFormat == GL_RGB16F || _internalFormat == GL_RGB32F || _internalFormat == GL_RGB32F_ARB ||
+				 _internalFormat == GL_RGB32F_EXT
+		) {
+		    _textureFormat = GL_RGB;
+			_channels      = 3;
+		}
+		else if (_internalFormat == GL_RGBA    || _internalFormat == GL_RGBA8   || _internalFormat == GL_RGBA16      ||
+		         _internalFormat == GL_RGBA16F || _internalFormat == GL_RGBA32F || _internalFormat == GL_RGBA32F_ARB ||
+				 _internalFormat == GL_RGBA32F_EXT
+		) {
+		    _textureFormat = GL_RGBA;
+			_channels      = 4;
+		}
+		else {
+			
+			_textureFormat = GL_NONE;
+			_channels      = 0;
+			
+		    std::cout << "Unknown format \"" << _internalFormat << "\"\n";
+		}
+	}
 }

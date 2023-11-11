@@ -44,7 +44,7 @@ namespace LouiEriksson {
 		
 		void Reinitialise(int _width, int _height);
 		
-		static int GetChannels(GLenum _format);
+		static void GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels);
 		
 		static void Bind(const Texture& _texture);
 		
