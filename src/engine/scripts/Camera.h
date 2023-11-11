@@ -22,8 +22,11 @@ namespace LouiEriksson {
 	
 		std::shared_ptr<Mesh> m_Cube;
 		
-		/// <summary> Skybox of the Camera. </summary>
+		/// <summary> Cubemap Skybox. </summary>
 		Texture m_Skybox;
+		
+		/// <summary> HDRI Skybox. </summary>
+		Texture m_HDRI;
 		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;

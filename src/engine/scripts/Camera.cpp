@@ -22,22 +22,24 @@ namespace LouiEriksson {
 		
 		m_Cube = Mesh::Load("models/cube/cube.obj");
 		
+		File::TryLoad("textures/hdri_maps/abandoned_workshop_02_8k.hdr", m_HDRI, GL_FLOAT, true);
+		
 		m_Skybox = std::move(
 			File::Load(
 				{
-					"textures/cubemaps/yokohama_3/posx.jpg",
-					"textures/cubemaps/yokohama_3/negx.jpg",
-					"textures/cubemaps/yokohama_3/posy.jpg",
-					"textures/cubemaps/yokohama_3/negy.jpg",
-					"textures/cubemaps/yokohama_3/posz.jpg",
-					"textures/cubemaps/yokohama_3/negz.jpg"
+//					"textures/cubemaps/yokohama_3/posx.jpg",
+//					"textures/cubemaps/yokohama_3/negx.jpg",
+//					"textures/cubemaps/yokohama_3/posy.jpg",
+//					"textures/cubemaps/yokohama_3/negy.jpg",
+//					"textures/cubemaps/yokohama_3/posz.jpg",
+//					"textures/cubemaps/yokohama_3/negz.jpg"
 					
-//					"textures/cubemaps/coit_tower_2/posx.jpg",
-//					"textures/cubemaps/coit_tower_2/negx.jpg",
-//					"textures/cubemaps/coit_tower_2/posy.jpg",
-//					"textures/cubemaps/coit_tower_2/negy.jpg",
-//					"textures/cubemaps/coit_tower_2/posz.jpg",
-//					"textures/cubemaps/coit_tower_2/negz.jpg"
+					"textures/cubemaps/coit_tower_2/posx.jpg",
+					"textures/cubemaps/coit_tower_2/negx.jpg",
+					"textures/cubemaps/coit_tower_2/posy.jpg",
+					"textures/cubemaps/coit_tower_2/negy.jpg",
+					"textures/cubemaps/coit_tower_2/posz.jpg",
+					"textures/cubemaps/coit_tower_2/negz.jpg"
 
 //					"textures/cubemaps/another_planet/px.png",
 //					"textures/cubemaps/another_planet/nx.png",
@@ -417,7 +419,7 @@ namespace LouiEriksson {
 			
 			skybox->Assign(
 				skybox->AttributeID("u_Texture"),
-				m_Skybox.ID(),
+				m_HDRI.ID(),
 				0,
 				GL_TEXTURE_CUBE_MAP
 			);
@@ -651,8 +653,8 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		const float threshold = 0.0f;
-		const float intensity = 0.3f;
+		const float threshold = 0.8f;
+		const float intensity = 1.0f;
 		const float diffusion = 7.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
 		const int scalingPasses = 5;
