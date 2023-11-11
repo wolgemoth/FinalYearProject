@@ -36,51 +36,72 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
+		/*
+		 * TODO: Currently is set to load image as HDR regardless of input
+		 * format. this needs to be changed so that whether the file is loaded
+		 * as HDR or LDR depends on the input format.
+		 *
+		 * The "internal format" and "format" are unique. i.e for HDR "internal format"
+		 * should be RGB32F, while "format" should just be RGB32. Additionally, "stbi_loadf"
+		 * should be used for HDR instead of "stbi_load".
+		 *
+		 * Whole thing's a annoying clusterfuck. Good luck.
+		 */
+		
 		try {
 			
-			auto* data = stbi_load(
-				_path.c_str(),
-				&_output.m_Width,
-				&_output.m_Height,
-				NULL,
-				Texture::GetChannels(_format)
-			);
+			glGenTextures(1, &_output.m_TextureID);
 			
-			if (data != nullptr) {
+			if (_output.m_TextureID > 0) {
 				
-				glGenTextures(1, &_output.m_TextureID);
+				int channels = Texture::GetChannels(_format);
 				
-				if (_output.m_TextureID > 0) {
-					
+				auto* data = stbi_loadf(
+					_path.c_str(),
+					&_output.m_Width,
+					&_output.m_Height,
+					nullptr,
+					channels
+				);
+				
+				if (data != nullptr) {
+				
 					Texture::Bind(_output);
 					
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
-						_format,
+						GL_RGB32F,
 						_output.m_Width,
 						_output.m_Height,
 						0,
 						_format,
-						GL_UNSIGNED_BYTE,
+						GL_FLOAT,
 						data
 					);
+					
+					stbi_image_free(data);
+					
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 					
 					if (_generateMipmaps) {
 						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 						glGenerateMipmap(GL_TEXTURE_2D);
 					}
+					else {
+						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+					}
 					
 					Texture::Unbind();
 					
 					result = true;
 				}
-				
-				stbi_image_free(data);
-			}
-			else {
-				throw std::runtime_error("Failed to load texture at path \"" + _path.string() + "\".");
+				else {
+					throw std::runtime_error("Failed to load texture at path \"" + _path.string() + "\".");
+				}
 			}
 		}
 		catch (const std::exception& e) {

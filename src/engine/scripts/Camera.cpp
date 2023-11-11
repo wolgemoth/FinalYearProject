@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		File::TryLoad(
 			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
 			m_HDRI,
-			GL_RGB32F,
+			GL_RGB,
 			true
 		);
 		
@@ -210,7 +210,7 @@ namespace LouiEriksson {
 	
 	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
 		
-		const float skyExposure = 1.6f;
+		const float skyExposure = 1.0f;
 		
 		glEnable(GL_DEPTH_TEST);
 		
@@ -274,13 +274,13 @@ namespace LouiEriksson {
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.4f);
+			program->Assign(program->AttributeID("u_Roughness"), 0.0f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
-				m_Skybox.ID(),
+				m_HDRI.ID(),
 				2,
-				GL_TEXTURE_CUBE_MAP
+				GL_TEXTURE_2D
 			);
 			
 			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
@@ -430,7 +430,7 @@ namespace LouiEriksson {
 			);
 			
 			skybox->Assign(skybox->AttributeID("u_Exposure"), skyExposure);
-			skybox->Assign(skybox->AttributeID("u_Blur"), 0.15f);
+			skybox->Assign(skybox->AttributeID("u_Blur"), 0.0f);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
@@ -442,6 +442,7 @@ namespace LouiEriksson {
 			Shader::Unbind();
 			
 			// Unbind textures.
+			Texture::Unbind();
 			Cubemap::Unbind();
 			
 			// Unbind VAO.
@@ -658,8 +659,8 @@ namespace LouiEriksson {
 		
 		/* SET BLOOM PARAMETERS */
 		
-		const float threshold = 0.8f;
-		const float intensity = 1.0f;
+		const float threshold = 1.2f;
+		const float intensity = 0.3f;
 		const float diffusion = 7.0f / glm::max(m_RT.Width(), m_RT.Height());
 		
 		const int scalingPasses = 5;

@@ -30,8 +30,17 @@ uniform vec2 u_Tiling = vec2(1.0); // Texture tiling scale (U, V).
 uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
 
 /* AMBIENT LIGHTING */
-uniform samplerCube u_Ambient;               // Ambient lighting texture.
-uniform float       u_AmbientExposure = 1.6; // Brightness of ambient texture.
+
+//#define SAMPLER_CUBE
+
+// Ambient lighting texture.
+#ifdef SAMPLER_CUBE
+    uniform samplerCube u_Ambient;
+#else
+    uniform sampler2D u_Ambient;
+#endif
+
+uniform float u_AmbientExposure = 1.6; // Brightness of ambient texture.
 
 /* DIRECT LIGHTING */
 uniform  vec3 u_LightPosition;  // Position of light in world-space.
@@ -263,8 +272,10 @@ float TransferShadow3D(vec3 _normal, vec3 _lightDir, float _bias, float _normalB
 
     vec3 fragToLight = v_Position - u_LightPosition;
 
+    float perspective_multiplier = 32.0;
+
     float adjustedBias =
-        texelSize * u_LightRange * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias) * 2;
+        texelSize * u_LightRange * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     //return ShadowCalculationHard3D(fragToLight, vec3(0), adjustedBias);
     //return ShadowCalculationPCF3D(fragToLight, texelSize, adjustedBias, 1.0f);
@@ -399,6 +410,35 @@ vec2 ScaleTexCoord(sampler2D _texture, in vec2 _coord, int _lod) {
     return (_coord + fract(u_Offset)) * u_Tiling;
 }
 
+vec3 SampleAmbient(in vec3 _dir, float _blur) {
+
+    vec3 result;
+
+    int mipLevel = int(float(textureQueryLevels(u_Ambient)) * _blur);
+
+    #ifdef SAMPLER_CUBE
+
+        // Sample the cubemap the direction directly.
+        result = texture(u_Ambient, _dir, mipLevel).rgb;
+    #else
+
+        // Sample the texture2d by converting the direction to a uv coordinate.
+        // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
+        result = texture(
+            u_Ambient,
+            vec2(
+                0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
+                0.5 + (asin(_dir.y) / PI)
+            ),
+            mipLevel
+        ).rgb;
+
+    #endif
+
+    return result * u_AmbientExposure;
+}
+
+
 void main() {
 
     vec4 albedo = texture2D(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord, 0));
@@ -446,16 +486,11 @@ void main() {
         // Figure out the direction of the ambient light
         vec3 ambientDir = reflect(-viewDir, normal);
 
-        // Get the number of mip levels for the ambient lighting.
-        int indirectMipLevels = textureQueryLevels(u_Ambient);
-
         // Sample at max mip level for the diffuse.
-        vec3 diffuse =
-            textureLod(u_Ambient, ambientDir, indirectMipLevels).rgb * u_AmbientExposure;
+        vec3 diffuse = SampleAmbient(ambientDir, 1.0);
 
         // Sample at variable mip level (determined by roughness) for specular.
-        vec3 specular =
-            textureLod(u_Ambient, ambientDir, int(float(indirectMipLevels) * u_Roughness)).rgb * u_AmbientExposure;
+        vec3 specular = SampleAmbient(ambientDir, u_Roughness);
 
         vec3 F0 = mix(vec3(0.04), vec3(1.0), u_Metallic);
 
