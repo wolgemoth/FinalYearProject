@@ -38,7 +38,7 @@ vec3 SampleAmbient(in vec3 _dir) {
             u_Texture,
             vec2(
                 0.5 + ((atan(d.z, d.x) / PI) / 2.0),
-                0.5 + (asin(d.y) / PI)
+                0.5 - (asin(d.y) / PI)
             ),
             mipLevel
         ).rgb;

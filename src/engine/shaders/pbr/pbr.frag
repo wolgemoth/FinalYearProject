@@ -428,7 +428,7 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
             u_Ambient,
             vec2(
                 0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
-                0.5 + (asin(_dir.y) / PI)
+                0.5 - (asin(_dir.y) / PI)
             ),
             mipLevel
         ).rgb;
