@@ -82,8 +82,8 @@ namespace LouiEriksson {
 		
 		m_Resolution = Light::Parameters::Shadow::Resolution::Low;
 		
-		m_Bias       = 0.03;
-		m_NormalBias = 0.2;
+		m_Bias       = 0.03f;
+		m_NormalBias = 0.2f;
 		
 		m_NearPlane = 0.2f;
 		
