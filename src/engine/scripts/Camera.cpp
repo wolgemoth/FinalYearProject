@@ -23,13 +23,6 @@ namespace LouiEriksson {
 		m_Cube = Mesh::Load("models/cube/cube.obj");
 		
 		File::TryLoad(
-			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
-			m_HDRI,
-			GL_RGB32F,
-			true
-		);
-		
-		File::TryLoad(
 			"textures/default/white.png",
 			m_White,
 			GL_RGB,
@@ -38,7 +31,21 @@ namespace LouiEriksson {
 		
 		File::TryLoad(
 			"textures/default/black.png",
-			m_LensDirt,
+			m_Black,
+			GL_RGB,
+			false
+		);
+		
+		File::TryLoad(
+			"textures/default/grey.png",
+			m_Grey,
+			GL_RGB,
+			false
+		);
+		
+		File::TryLoad(
+			"textures/pbr/tavern-wood-planks1-ue/tavern-wood-planks1_normal-dx.png",
+			m_Normal,
 			GL_RGB,
 			false
 		);
@@ -47,6 +54,13 @@ namespace LouiEriksson {
 			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
 			m_LensDirt,
 			GL_RGB,
+			true
+		);
+		
+		File::TryLoad(
+			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
+			m_HDRI,
+			GL_RGB32F,
 			true
 		);
 		
@@ -300,7 +314,7 @@ namespace LouiEriksson {
 			
 			program->Assign(
 				program->AttributeID("u_Normals"),
-				material->Texture_ID(),
+				m_Normal.ID(),
 				3,
 				GL_TEXTURE_2D
 			);

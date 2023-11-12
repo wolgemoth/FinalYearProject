@@ -37,6 +37,12 @@ namespace LouiEriksson {
 		/// <summary> Default Black Texture </summary>
 		Texture m_Black;
 		
+		/// <summary> Default Grey Texture </summary>
+		Texture m_Grey;
+		
+		/// <summary> TEST NORMAL TEXTURE </summary>
+		Texture m_Normal;
+		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;
 	

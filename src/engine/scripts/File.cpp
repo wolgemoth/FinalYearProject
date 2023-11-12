@@ -55,6 +55,42 @@ namespace LouiEriksson {
 		return result;
 	}
 	
+	std::vector<std::filesystem::path> File::Directory::GetEntriesRecursive(const std::filesystem::path& _path, const File::Directory::EntryType& _type) {
+	
+		std::vector<std::filesystem::path> result;
+		std::vector<std::filesystem::path> subDirectories;
+		
+		// Get all entries.
+		for (const auto& item : GetEntries(_path, (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY))) {
+			
+			bool append;
+			
+			if (is_directory(item)) {
+			
+				// Append all subdirectories to a vector.
+				subDirectories.push_back(item);
+				
+				append = (((uint)_type & (uint)File::Directory::EntryType::DIRECTORY) != 0);
+			}
+			else {
+				append = (((uint)_type & (uint)File::Directory::EntryType::FILE) != 0);
+			}
+			
+			// Append entries of requested type to result.
+			if (append) { result.push_back(item); }
+		}
+		
+		// Iterate through all subdirectories recursively and append output to result.
+		for (const auto& subDirectory : subDirectories) {
+		
+			auto items = GetEntriesRecursive(subDirectory, _type);
+			
+			result.insert(result.end(), items.begin(), items.end());
+		}
+		
+		return result;
+	}
+	
 	bool File::TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;

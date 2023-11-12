@@ -35,6 +35,8 @@ namespace LouiEriksson {
 		
 		void Compile(const char* _src, const GLint& _type);
 		
+		static void Compile(const std::vector<SubShader>& _shader);
+		
 		static void Compile(const std::vector<std::vector<SubShader>>& _shaders);
 		
 		static std::shared_ptr<Shader> Create(const std::vector<SubShader>& _subShaders);
@@ -53,9 +55,9 @@ namespace LouiEriksson {
 			
 			const char* m_Path;
 			
-			const GLint m_Type;
+			GLint m_Type;
 			
-			SubShader(const char* _path, GLint _type);
+			SubShader(const char* _path, GLenum _type);
 		};
 		
 		static inline Hashmap<std::string, std::shared_ptr<Shader>> m_Cache;

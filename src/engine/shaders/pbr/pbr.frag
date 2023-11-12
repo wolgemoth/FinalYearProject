@@ -452,6 +452,7 @@ void main() {
     float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
     float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
 
+    //normalize(v_Normal);//
     vec3 normal = normalize(
         v_Normal +
         ((texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0) * 0.08

@@ -2,7 +2,7 @@
 
 namespace LouiEriksson {
 	
-	Shader::SubShader::SubShader(const char* _path, GLint _type) : m_Path(_path), m_Type(_type) {}
+	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(_type) {}
 	
 	Shader::Shader(const std::vector<Shader::SubShader>& _subShaders) {
 		
@@ -108,6 +108,13 @@ namespace LouiEriksson {
 		}
 	}
 	
+	void Shader::Compile(const std::vector<SubShader>& _shader) {
+	
+		auto shader = Create(_shader);
+		
+		m_Cache.Add(shader->Name(), shader);
+	}
+	
 	void Shader::Compile(const std::vector<std::vector<SubShader>>& _shaders) {
 		
 		for (const auto& entry: _shaders) {
@@ -120,121 +127,44 @@ namespace LouiEriksson {
 	
 	void Shader::PreloadShaders() {
 		
-		std::vector<std::vector<SubShader>> m_Shaders;
+		Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> files;
 		
-		for (const auto& item : File::Directory::GetEntries("shaders/")) {
-			std::cout << item.c_str() << "\n";
+		for (const auto& item : File::Directory::GetEntriesRecursive("shaders/", File::Directory::EntryType::FILE)) {
+			
+			std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
+			
+			files.Get(item.stem().string(), subshaders);
+			
+			GLenum shaderType;
+			
+			     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
+			else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
+			else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
+			else {
+				shaderType = GL_NONE;
+			}
+			
+			if (shaderType != GL_NONE) {
+				subshaders.push_back({item, shaderType});
+				
+				files.Assign(item.stem().string(), subshaders);
+			}
 		}
 		
-		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
-		Compile({
+		std::vector<std::vector<SubShader>> shaders;
+		
+		for (const auto& kvp : files.GetAll()) {
+		
+			std::vector<SubShader> shader;
 			
-			/* Automatic Exposure  */ {
-                { "shaders/auto_exposure/auto_exposure.vert",   GL_VERTEX_SHADER },
-                { "shaders/auto_exposure/auto_exposure.frag", GL_FRAGMENT_SHADER }
-            },
+			for (const auto& subshader : kvp.second) {
+				shader.emplace_back(SubShader(subshader.first.c_str(), subshader.second));
+			}
 			
-			/* Lens Dirt Effect */ {
-                { "shaders/bloom/lens_dirt/lens_dirt.vert",   GL_VERTEX_SHADER },
-                { "shaders/bloom/lens_dirt/lens_dirt.frag", GL_FRAGMENT_SHADER }
-            },
+			shaders.push_back(shader);
 			
-	        /* Blur - Horizontal Pass */ {
-                { "shaders/blur/horizontal/blur_horizontal.vert",   GL_VERTEX_SHADER },
-                { "shaders/blur/horizontal/blur_horizontal.frag", GL_FRAGMENT_SHADER }
-            },
-			
-	        /* Blur - Vertical Pass */ {
-                { "shaders/blur/vertical/blur_vertical.vert",       GL_VERTEX_SHADER },
-                { "shaders/blur/vertical/blur_vertical.frag",     GL_FRAGMENT_SHADER }
-            },
-			
-	        /* FXAA */ {
-                { "shaders/fxaa/fxaa.vert",                        GL_VERTEX_SHADER },
-                { "shaders/fxaa/fxaa.frag",                      GL_FRAGMENT_SHADER }
-            },
-			
-	        /* Ambient Occlusion (AO) */ {
-                { "shaders/ao/ao.vert",                            GL_VERTEX_SHADER },
-                { "shaders/ao/ao.frag",                          GL_FRAGMENT_SHADER }
-            },
-			
-	        /* Lit Surface Shader */ {
-                { "shaders/surface/surface.vert",                  GL_VERTEX_SHADER },
-                { "shaders/surface/surface.frag",                GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Lit Surface Shader (PBR) */ {
-				{ "shaders/pbr/pbr.vert",                          GL_VERTEX_SHADER },
-                { "shaders/pbr/pbr.frag",                        GL_FRAGMENT_SHADER }
-            },
-			 
-			/* Shadow Depth Shader */ {
-				{ "shaders/shadowDepth/shadowDepth.vert",          GL_VERTEX_SHADER },
-                { "shaders/shadowDepth/shadowDepth.frag",        GL_FRAGMENT_SHADER }
-            },
-				
-			/* Shadow Depth Shader (Cubemap) */ {
-				{ "shaders/shadowDepthCube/shadowDepthCube.vert",     GL_VERTEX_SHADER },
-				{ "shaders/shadowDepthCube/shadowDepthCube.geom",   GL_GEOMETRY_SHADER },
-                { "shaders/shadowDepthCube/shadowDepthCube.frag",   GL_FRAGMENT_SHADER }
-            },
-			 
-			/* Skybox Shader */ {
-				{ "shaders/skybox/skybox.vert",                GL_VERTEX_SHADER },
-				{ "shaders/skybox/skybox.frag",              GL_FRAGMENT_SHADER }
-			},
-			 
-	        /* Passthrough */ {
-				{ "shaders/passthrough/passthrough.vert",     GL_VERTEX_SHADER },
-                { "shaders/passthrough/passthrough.frag",   GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* ACES Tonemapping */ {
-				{ "shaders/aces/aces.vert",                   GL_VERTEX_SHADER },
-                { "shaders/aces/aces.frag",                 GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Vignette */ {
-				{ "shaders/vignette/vignette.vert",           GL_VERTEX_SHADER },
-                { "shaders/vignette/vignette.frag",         GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Grain */ {
-				{ "shaders/grain/grain.vert",                 GL_VERTEX_SHADER },
-                { "shaders/grain/grain.frag",               GL_FRAGMENT_SHADER }
-            },
-			 
-			/* Bloom - Threshold */ {
-				{ "shaders/bloom/threshold/threshold.vert",   GL_VERTEX_SHADER },
-                { "shaders/bloom/threshold/threshold.frag", GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Bloom - Downscale */ {
-				{ "shaders/bloom/downscale/downscale.vert",   GL_VERTEX_SHADER },
-                { "shaders/bloom/downscale/downscale.frag", GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Bloom - Upscale */ {
-				{ "shaders/bloom/upscale/upscale.vert",       GL_VERTEX_SHADER },
-                { "shaders/bloom/upscale/upscale.frag",     GL_FRAGMENT_SHADER }
-            },
-			 
-	        /* Additive */ {
-				{ "shaders/add/add.vert",                     GL_VERTEX_SHADER },
-                { "shaders/add/add.frag",                   GL_FRAGMENT_SHADER }
-            },
-			
-	        /* Subtractive */ {
-				{ "shaders/subtract/subtract.vert",           GL_VERTEX_SHADER },
-                { "shaders/subtract/subtract.frag",         GL_FRAGMENT_SHADER }
-            },
-			
-	        /* Multiply */ {
-				{ "shaders/multiply/multiply.vert",           GL_VERTEX_SHADER },
-                { "shaders/multiply/multiply.frag",         GL_FRAGMENT_SHADER }
-            },
-		});
+			Compile(shader);
+		}
 	}
 	
 	void Shader::Bind(const GLint& _id) {
