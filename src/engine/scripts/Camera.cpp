@@ -15,9 +15,6 @@ namespace LouiEriksson {
 	
 		m_Projection = glm::mat4(1.0f);
 		
-		VAO = -1;
-		VBO = -1;
-		
 		m_IsDirty = true;
 		
 		m_Cube = Mesh::Load("models/cube/cube.obj");
@@ -529,6 +526,9 @@ namespace LouiEriksson {
 		
 		/* UNBIND FRAME BUFFER */
 		RenderTexture::Unbind();
+		
+		unsigned int VAO = 0,
+		             VBO = 0;
 		
 		// Buffers to store mesh data.
 		glGenVertexArrays(1, &VAO);

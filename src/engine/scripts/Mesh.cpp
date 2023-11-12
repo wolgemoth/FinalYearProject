@@ -5,11 +5,17 @@
 namespace LouiEriksson {
 	
 	Mesh::Mesh() {
+		
         m_Mesh = { 0 };
+		
+		m_TangentVBO = 0;
 	}
 	
 	Mesh::~Mesh() {
 		
+		if (m_TangentVBO > 0) { glDeleteBuffers(1, &m_TangentVBO); }
+		
+		/* Within WfModel */
 		if (m_Mesh.positionVboId > 0) {      glDeleteBuffers(1, &m_Mesh.positionVboId); }
 		if (m_Mesh.texCoordVboId > 0) {      glDeleteBuffers(1, &m_Mesh.texCoordVboId); }
 		if (m_Mesh.normalVboId   > 0) {      glDeleteBuffers(1, &m_Mesh.normalVboId  ); }
@@ -32,8 +38,16 @@ namespace LouiEriksson {
 			throw std::runtime_error(err.str());
 		}
 	
+		result->GenerateTangents();
+		
 		return std::shared_ptr<Mesh>(result);
 	}
+	
+	void Mesh::GenerateTangents() {
+	
+	}
+	
+	GLuint Mesh::TangentVBO_ID() const { return m_TangentVBO; }
 	
 	GLuint Mesh::PositionVBO_ID() const { return m_Mesh.positionVboId; }
 	GLuint Mesh::TexCoordVBO_ID() const { return m_Mesh.texCoordVboId; }

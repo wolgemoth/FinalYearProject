@@ -55,8 +55,6 @@ namespace LouiEriksson {
 		
 		bool m_IsDirty;
 		
-		unsigned int VAO, VBO;
-		
 		RenderTexture m_RT;
 		
 		glm::mat4 m_Projection;

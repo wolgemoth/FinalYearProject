@@ -13,7 +13,11 @@ namespace LouiEriksson {
 		
 		WfModel m_Mesh;
 	
+		GLuint m_TangentVBO;
+		
 		Mesh();
+		
+		void GenerateTangents();
 		
 	public:
 		
@@ -83,6 +87,8 @@ namespace LouiEriksson {
 		
 		/// <summary> TryLoad a mesh from a path. </summary>
 		static std::shared_ptr<Mesh> Load(const std::string& _path);
+		
+		[[nodiscard]] GLuint  TangentVBO_ID() const;
 		
 		[[nodiscard]] GLuint PositionVBO_ID() const;
 		[[nodiscard]] GLuint TexCoordVBO_ID() const;
