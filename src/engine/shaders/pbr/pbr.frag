@@ -11,6 +11,8 @@ in vec3 v_Position;
 in vec3 v_Normal;
 in vec4 v_Position_LightSpace;
 
+in mat3 v_TBN;
+
 uniform vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
 
 /* PBR */
@@ -452,10 +454,9 @@ void main() {
     float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
     float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
 
-    //normalize(v_Normal);//
     vec3 normal = normalize(
-        v_Normal +
-        ((texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0) * 0.08
+        v_TBN *
+        (texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0
     );
 
     float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
