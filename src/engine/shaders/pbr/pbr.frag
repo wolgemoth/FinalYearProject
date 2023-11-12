@@ -23,6 +23,7 @@ layout (location = 3) uniform sampler2D u_Normals;
 layout (location = 4) uniform sampler2D u_Height;
 layout (location = 5) uniform sampler2D u_Detail;
 layout (location = 6) uniform sampler2D u_AO;
+layout (location = 7) uniform sampler2D u_Emission;
 
 /* AMBIENT LIGHTING */
 
@@ -51,6 +52,7 @@ uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a s
 
 uniform float u_Metallic_Amount  = 0.0; // How metallic the surface is.
 uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
+uniform float u_Emissive_Amount = 1.0; // How emissive the surface is.
 
 uniform float u_Time;
 
@@ -463,6 +465,8 @@ void main() {
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
     float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     v_TexCoord)).r;
 
+    vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * u_Emissive_Amount;
+
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
@@ -514,5 +518,5 @@ void main() {
         indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * ao;
     }
 
-    gl_FragColor = vec4((directLighting + indirectLighting), 1.0);
+    gl_FragColor = vec4((directLighting + indirectLighting) + emission, 1.0);
 }

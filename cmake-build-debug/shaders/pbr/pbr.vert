@@ -39,11 +39,11 @@ void main() {
     v_Normal = transpose(inverse(mat3((u_Model)))) * a_Normal;
 
     // Compute TBN matrix:
-    v_TBN = mat3(
+    v_TBN = transpose(mat3(
         normalize((u_Model * vec4(a_Tangent,   0)).xyz),
         normalize((u_Model * vec4(a_Bitangent, 0)).xyz),
         normalize((u_Model * vec4(a_Normal,    0)).xyz)
-    );
+    ));
 
     // Position in light space (for shadow calculations):
     v_Position_LightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);

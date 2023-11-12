@@ -337,11 +337,19 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
+			program->Assign(
+				program->AttributeID("u_Emission"),
+				m_White.ID(),
+				7,
+				GL_TEXTURE_2D
+			);
+			
 			program->Assign(program->AttributeID("u_Time"), Time::Elapsed());
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			program->Assign(program->AttributeID("u_Metallic_Amount"), 0.0f);
 			program->Assign(program->AttributeID("u_Roughness_Amount"), 0.1f);
+			program->Assign(program->AttributeID("u_Emissive_Amount"), 50.0f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
