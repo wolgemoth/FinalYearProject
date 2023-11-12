@@ -123,6 +123,11 @@ namespace LouiEriksson {
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
+			/* Blur - Horizontal Pass */ {
+                { "shaders/bloom/lens_dirt/lens_dirt.vert",   GL_VERTEX_SHADER },
+                { "shaders/bloom/lens_dirt/lens_dirt.frag", GL_FRAGMENT_SHADER }
+            },
+			
 	        /* Blur - Horizontal Pass */ {
                 { "shaders/blur/horizontal/blur_horizontal.vert",   GL_VERTEX_SHADER },
                 { "shaders/blur/horizontal/blur_horizontal.frag", GL_FRAGMENT_SHADER }

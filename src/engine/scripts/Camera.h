@@ -28,6 +28,9 @@ namespace LouiEriksson {
 		/// <summary> HDRI Skybox. </summary>
 		Texture m_HDRI;
 		
+		// <summary> Lens Dirt Texture </summary>
+		Texture m_LensDirt;
+		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;
 	

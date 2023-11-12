@@ -29,6 +29,13 @@ namespace LouiEriksson {
 			true
 		);
 		
+		File::TryLoad(
+			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
+			m_LensDirt,
+			GL_RGB,
+			true
+		);
+		
 		m_Skybox = std::move(
 			File::Load(
 				{
@@ -656,6 +663,7 @@ namespace LouiEriksson {
 		auto downscale_shader = Shader::m_Cache.Return("downscale");
 		auto   upscale_shader = Shader::m_Cache.Return("upscale");
 		auto       add_shader = Shader::m_Cache.Return("add");
+		auto lens_dirt_shader = Shader::m_Cache.Return("lens_dirt");
 		
 		/* SET BLOOM PARAMETERS */
 		
@@ -715,11 +723,23 @@ namespace LouiEriksson {
 		add_shader->Assign(add_shader->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
 		add_shader->Assign(add_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		add_shader->Assign(add_shader->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
-
+		
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
 		
+		Shader::Unbind();
+		
+		Shader::Bind(lens_dirt_shader->ID());
+		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), 0.1f);
+		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
+		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),  m_LensDirt.ID(), 2, GL_TEXTURE_2D);
+
+		RenderTexture::Bind(m_RT);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		RenderTexture::Unbind();
+
 		Shader::Unbind();
 	}
 	

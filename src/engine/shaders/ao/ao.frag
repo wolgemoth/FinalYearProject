@@ -77,7 +77,7 @@ void main() {
         occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
     }
 
-    occlusion = ((occlusion / float(u_Samples)) * u_Strength);
+    occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
 
 	gl_FragColor = vec4(vec3(occlusion), 1.0);
 }
