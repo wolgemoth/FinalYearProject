@@ -96,8 +96,7 @@ namespace LouiEriksson {
 		throw std::runtime_error("Not implemented!");
 	}
 	
-	
-void Texture::GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels) {
+	void Texture::GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels) {
 		
 		if (_internalFormat == GL_R8   || _internalFormat == GL_R16 || _internalFormat == GL_R16F ||
 			_internalFormat == GL_R32F || _internalFormat == GL_R32F_EXT

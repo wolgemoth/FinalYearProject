@@ -12,9 +12,9 @@ out vec3 v_Normal;
 out vec4 v_Position_LightSpace;
 
 /* PARAMETERS */
-layout (location = 3) uniform mat4 u_Projection;
-layout (location = 4) uniform mat4 u_Model;
-layout (location = 5) uniform mat4 u_View;
+uniform mat4 u_Projection;
+uniform mat4 u_Model;
+uniform mat4 u_View;
 
 uniform mat4 u_LightSpaceMatrix;
 

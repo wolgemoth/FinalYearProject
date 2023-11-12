@@ -1,6 +1,7 @@
 #version 330 core
 
-#extension GL_ARB_texture_query_levels : enable
+#extension GL_ARB_explicit_uniform_location : enable
+#extension GL_ARB_texture_query_levels      : enable
 
 const float EPSILON = 0.005;
 const float      PI = 3.141593;
@@ -10,24 +11,16 @@ in vec3 v_Position;
 in vec3 v_Normal;
 in vec4 v_Position_LightSpace;
 
-uniform sampler2D u_Albedo;
-uniform sampler2D u_Normals;
+uniform vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
 
-uniform sampler2D   u_ShadowMap2D;
-uniform samplerCube u_ShadowMap3D;
-
-uniform float u_Time;
-
-uniform int u_ShadowSamples = 4; // Number of shadow samples. Please choose a sane value.
-
-uniform  vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
 /* PBR */
-uniform float u_Metallic  = 0.0; // How metallic the surface is.
-uniform float u_Roughness = 0.0; // How rough the surface is.
-
-/* TEXTURE PARAMETERS */
-uniform vec2 u_Tiling = vec2(1.0); // Texture tiling scale (U, V).
-uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
+layout (location = 0) uniform sampler2D u_Albedo;
+layout (location = 1) uniform sampler2D u_Roughness;
+layout (location = 2) uniform sampler2D u_Metallic;
+layout (location = 3) uniform sampler2D u_Normals;
+layout (location = 4) uniform sampler2D u_Height;
+layout (location = 5) uniform sampler2D u_Detail;
+layout (location = 6) uniform sampler2D u_AO;
 
 /* AMBIENT LIGHTING */
 
@@ -35,14 +28,36 @@ uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
 
 // Ambient lighting texture.
 #ifdef SAMPLER_CUBE
-    uniform samplerCube u_Ambient;
+layout (location = 98) uniform samplerCube u_Ambient;
 #else
-    uniform sampler2D u_Ambient;
+layout (location = 98) uniform sampler2D u_Ambient;
 #endif
 
 uniform float u_AmbientExposure = 1.6; // Brightness of ambient texture.
 
+/* SHADOWS */
+layout (location =  99) uniform sampler2D   u_ShadowMap2D;
+layout (location = 100) uniform samplerCube u_ShadowMap3D;
+
+const float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
+
+uniform float u_ShadowBias       = 0.005; // Shadow bias.
+uniform float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
+uniform float u_NearPlane        = 0.1;   // Light's shadow near plane.
+
+uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
+
+uniform float u_Metallic_Amount  = 0.0; // How metallic the surface is.
+uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
+
+uniform float u_Time;
+
+/* TEXTURE PARAMETERS */
+uniform vec2 u_Tiling = vec2(1.0); // Texture tiling scale (U, V).
+uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
+
 /* DIRECT LIGHTING */
+
 uniform  vec3 u_LightPosition;  // Position of light in world-space.
 uniform  vec3 u_LightDirection; // Direction of the light in world-space.
 uniform float u_LightRange;     // Range of light.
@@ -50,14 +65,6 @@ uniform float u_LightIntensity; // Brightness of light.
 uniform  vec3 u_LightColor;     // Color of light.
 uniform float u_LightSize       =  0.2; // Size of the light (PCSS only).
 uniform float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
-
-/* SHADOWS */
-
-const float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
-
-uniform float u_ShadowBias       = 0.005; // Shadow bias.
-uniform float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
-uniform float u_NearPlane        = 0.1;   // Light's shadow near plane.
 
 /* THIRD-PARTY */
 
@@ -406,7 +413,7 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
 }
 
-vec2 ScaleTexCoord(sampler2D _texture, in vec2 _coord, int _lod) {
+vec2 ScaleTexCoord(sampler2D _texture, in vec2 _coord) {
     return (_coord + fract(u_Offset)) * u_Tiling;
 }
 
@@ -441,16 +448,22 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
 
 void main() {
 
-    vec4 albedo = texture2D(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord, 0));
+    vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    v_TexCoord));
+    float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
+    float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
+
+    vec3 normal = normalize(
+        v_Normal +
+        ((texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0) * 0.08
+    );
+
+    float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
+    vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
+    float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     v_TexCoord)).r;
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
     vec3  halfVec = normalize(lightDir + viewDir);
-
-    vec3 normal = normalize(
-        v_Normal +
-        ((texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord, 0)).rgb * 2.0) - 1.0) * 0.08
-    );
 
     /* DIRECT */
 
@@ -464,13 +477,13 @@ void main() {
             (1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
 
         vec3 lighting = BRDF(
-            albedo.rgb,
+            albedo.rgb + detail,
             normal,
             lightDir,
             viewDir,
             halfVec,
-            u_Metallic,
-            u_Roughness
+            metallic,
+            roughness
         ) * u_LightIntensity * attenuation;
 
         directLighting += (visibility * lighting) * u_LightColor;
@@ -490,13 +503,13 @@ void main() {
         vec3 diffuse = SampleAmbient(ambientDir, 1.0);
 
         // Sample at variable mip level (determined by roughness) for specular.
-        vec3 specular = SampleAmbient(ambientDir, u_Roughness);
+        vec3 specular = SampleAmbient(ambientDir, roughness);
 
-        vec3 F0 = mix(vec3(0.04), vec3(1.0), u_Metallic);
+        vec3 F0 = mix(vec3(0.04), vec3(1.0), metallic);
 
         vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
 
-        indirectLighting = ((diffuse * (1.0 - u_Metallic)) * albedo.rgb) + (fresnel * specular);
+        indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * ao;
     }
 
     gl_FragColor = vec4((directLighting + indirectLighting), 1.0);

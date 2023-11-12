@@ -31,6 +31,12 @@ namespace LouiEriksson {
 		// <summary> Lens Dirt Texture </summary>
 		Texture m_LensDirt;
 		
+		/// <summary> Default White Texture </summary>
+		Texture m_White;
+		
+		/// <summary> Default Black Texture </summary>
+		Texture m_Black;
+		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;
 	

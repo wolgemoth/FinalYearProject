@@ -30,6 +30,20 @@ namespace LouiEriksson {
 		);
 		
 		File::TryLoad(
+			"textures/default/white.png",
+			m_White,
+			GL_RGB,
+			false
+		);
+		
+		File::TryLoad(
+			"textures/default/black.png",
+			m_LensDirt,
+			GL_RGB,
+			false
+		);
+		
+		File::TryLoad(
 			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
 			m_LensDirt,
 			GL_RGB,
@@ -271,22 +285,57 @@ namespace LouiEriksson {
 			);
 			
 			program->Assign(
+				program->AttributeID("u_Roughness"),
+				m_White.ID(),
+				1,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
+				program->AttributeID("u_Metallic"),
+				m_White.ID(),
+				2,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
 				program->AttributeID("u_Normals"),
 				material->Texture_ID(),
-				0,
+				3,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
+				program->AttributeID("u_Height"),
+				m_Black.ID(),
+				4,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
+				program->AttributeID("u_Detail"),
+				m_Black.ID(),
+				5,
+				GL_TEXTURE_2D
+			);
+			
+			program->Assign(
+				program->AttributeID("u_AO"),
+				m_White.ID(),
+				6,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(program->AttributeID("u_Time"), Time::Elapsed());
 			
 			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			program->Assign(program->AttributeID("u_Metallic"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness"), 0.1f);
+			program->Assign(program->AttributeID("u_Metallic_Amount"), 0.0f);
+			program->Assign(program->AttributeID("u_Roughness_Amount"), 0.1f);
 			
 			program->Assign(
 				program->AttributeID("u_Ambient"),
 				m_HDRI.ID(),
-				2,
+				98,
 				GL_TEXTURE_2D
 			);
 			
@@ -301,14 +350,14 @@ namespace LouiEriksson {
 				program->Assign(
 					program->AttributeID("u_ShadowMap2D"),
 					0,
-					1,
+					99,
 					GL_TEXTURE_2D
 				);
 				
 				program->Assign(
 					program->AttributeID("u_ShadowMap3D"),
 					0,
-					1,
+					100,
 					GL_TEXTURE_CUBE_MAP
 				);
 				
@@ -341,7 +390,7 @@ namespace LouiEriksson {
 						program->Assign(
 							program->AttributeID("u_ShadowMap3D"),
 							light->m_Shadow.m_ShadowMap_Texture,
-							1,
+							100,
 							GL_TEXTURE_CUBE_MAP
 						);
 					}
@@ -350,7 +399,7 @@ namespace LouiEriksson {
 						program->Assign(
 							program->AttributeID("u_ShadowMap2D"),
 							light->m_Shadow.m_ShadowMap_Texture,
-							1,
+							100,
 							GL_TEXTURE_2D
 						);
 					}
@@ -364,7 +413,7 @@ namespace LouiEriksson {
 					program->Assign(program->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 16);
+					program->Assign(program->AttributeID("u_ShadowSamples"), 64);
 					
 					program->Assign(program->AttributeID("u_LightSize"), light->m_Size);
 					
