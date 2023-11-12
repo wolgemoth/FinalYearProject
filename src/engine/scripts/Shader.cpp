@@ -120,10 +120,21 @@ namespace LouiEriksson {
 	
 	void Shader::PreloadShaders() {
 		
+		std::vector<std::vector<SubShader>> m_Shaders;
+		
+		for (const auto& item : File::Directory::GetEntries("shaders/")) {
+			std::cout << item.c_str() << "\n";
+		}
+		
 		// TODO: Load from a file in a standard serialisation format instead of using an initialiser list.
 		Compile({
 			
-			/* Blur - Horizontal Pass */ {
+			/* Automatic Exposure  */ {
+                { "shaders/auto_exposure/auto_exposure.vert",   GL_VERTEX_SHADER },
+                { "shaders/auto_exposure/auto_exposure.frag", GL_FRAGMENT_SHADER }
+            },
+			
+			/* Lens Dirt Effect */ {
                 { "shaders/bloom/lens_dirt/lens_dirt.vert",   GL_VERTEX_SHADER },
                 { "shaders/bloom/lens_dirt/lens_dirt.frag", GL_FRAGMENT_SHADER }
             },

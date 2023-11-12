@@ -8,9 +8,8 @@
 				<Scale>1 1 1</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Player&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Player&gt;</EntryType>
 			</Script>
 		</Player>
 	</Entities>
 </cereal>
-

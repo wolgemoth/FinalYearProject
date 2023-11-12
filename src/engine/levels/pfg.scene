@@ -8,7 +8,7 @@
 				<Scale>0.476853 0.476853 0.476853</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_0>
 		<Entity_1>
@@ -18,7 +18,7 @@
 				<Scale>0.376009 0.376009 0.376009</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_1>
 		<Entity_2>
@@ -28,7 +28,7 @@
 				<Scale>0.361621 0.361621 0.361621</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_2>
 		<Entity_3>
@@ -38,7 +38,7 @@
 				<Scale>0.55015 0.55015 0.55015</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_3>
 		<Entity_4>
@@ -48,7 +48,7 @@
 				<Scale>0.469366 0.469366 0.469366</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_4>
 		<Entity_5>
@@ -58,7 +58,7 @@
 				<Scale>0.530763 0.530763 0.530763</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_5>
 		<Entity_6>
@@ -68,7 +68,7 @@
 				<Scale>0.474055 0.474055 0.474055</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_6>
 		<Entity_7>
@@ -78,7 +78,7 @@
 				<Scale>0.526714 0.526714 0.526714</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_7>
 		<Entity_8>
@@ -88,7 +88,7 @@
 				<Scale>0.558492 0.558492 0.558492</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_8>
 		<Entity_9>
@@ -98,7 +98,7 @@
 				<Scale>0.594777 0.594777 0.594777</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_9>
 		<Entity_10>
@@ -108,7 +108,7 @@
 				<Scale>0.258972 0.258972 0.258972</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_10>
 		<Entity_11>
@@ -118,7 +118,7 @@
 				<Scale>0.476843 0.476843 0.476843</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_11>
 		<Entity_12>
@@ -128,7 +128,7 @@
 				<Scale>0.383049 0.383049 0.383049</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_12>
 		<Entity_13>
@@ -138,7 +138,7 @@
 				<Scale>0.323467 0.323467 0.323467</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_13>
 		<Entity_14>
@@ -148,7 +148,7 @@
 				<Scale>0.587503 0.587503 0.587503</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_14>
 		<Entity_15>
@@ -158,7 +158,7 @@
 				<Scale>0.582312 0.582312 0.582312</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_15>
 		<Entity_16>
@@ -168,7 +168,7 @@
 				<Scale>0.331489 0.331489 0.331489</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_16>
 		<Entity_17>
@@ -178,7 +178,7 @@
 				<Scale>0.394253 0.394253 0.394253</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_17>
 		<Entity_18>
@@ -188,7 +188,7 @@
 				<Scale>0.381692 0.381692 0.381692</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_18>
 		<Entity_19>
@@ -198,7 +198,7 @@
 				<Scale>0.455768 0.455768 0.455768</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_19>
 		<Entity_20>
@@ -208,7 +208,7 @@
 				<Scale>0.537631 0.537631 0.537631</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_20>
 		<Entity_21>
@@ -218,7 +218,7 @@
 				<Scale>0.339767 0.339767 0.339767</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_21>
 		<Entity_22>
@@ -228,7 +228,7 @@
 				<Scale>0.309795 0.309795 0.309795</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_22>
 		<Entity_23>
@@ -238,7 +238,7 @@
 				<Scale>0.391134 0.391134 0.391134</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_23>
 		<Entity_24>
@@ -248,7 +248,7 @@
 				<Scale>0.412999 0.412999 0.412999</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_24>
 		<Entity_25>
@@ -258,7 +258,7 @@
 				<Scale>0.542405 0.542405 0.542405</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_25>
 		<Entity_26>
@@ -268,7 +268,7 @@
 				<Scale>0.428092 0.428092 0.428092</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_26>
 		<Entity_27>
@@ -278,7 +278,7 @@
 				<Scale>0.501058 0.501058 0.501058</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_27>
 		<Entity_28>
@@ -288,7 +288,7 @@
 				<Scale>0.279951 0.279951 0.279951</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_28>
 		<Entity_29>
@@ -298,7 +298,7 @@
 				<Scale>0.360393 0.360393 0.360393</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_29>
 		<Entity_30>
@@ -308,7 +308,7 @@
 				<Scale>0.421117 0.421117 0.421117</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_30>
 		<Entity_31>
@@ -318,7 +318,7 @@
 				<Scale>0.399124 0.399124 0.399124</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_31>
 		<Entity_32>
@@ -328,7 +328,7 @@
 				<Scale>0.544478 0.544478 0.544478</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_32>
 		<Entity_33>
@@ -338,7 +338,7 @@
 				<Scale>0.380699 0.380699 0.380699</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_33>
 		<Entity_34>
@@ -348,7 +348,7 @@
 				<Scale>0.416834 0.416834 0.416834</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_34>
 		<Entity_35>
@@ -358,7 +358,7 @@
 				<Scale>0.509806 0.509806 0.509806</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_35>
 		<Entity_36>
@@ -368,7 +368,7 @@
 				<Scale>0.322752 0.322752 0.322752</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_36>
 		<Entity_37>
@@ -378,7 +378,7 @@
 				<Scale>0.519077 0.519077 0.519077</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_37>
 		<Entity_38>
@@ -388,7 +388,7 @@
 				<Scale>0.528253 0.528253 0.528253</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_38>
 		<Entity_39>
@@ -398,7 +398,7 @@
 				<Scale>0.313747 0.313747 0.313747</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_39>
 		<Entity_40>
@@ -408,7 +408,7 @@
 				<Scale>0.410714 0.410714 0.410714</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_40>
 		<Entity_41>
@@ -418,7 +418,7 @@
 				<Scale>0.562668 0.562668 0.562668</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_41>
 		<Entity_42>
@@ -428,7 +428,7 @@
 				<Scale>0.598013 0.598013 0.598013</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_42>
 		<Entity_43>
@@ -438,7 +438,7 @@
 				<Scale>0.561472 0.561472 0.561472</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_43>
 		<Entity_44>
@@ -448,7 +448,7 @@
 				<Scale>0.260425 0.260425 0.260425</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_44>
 		<Entity_45>
@@ -458,7 +458,7 @@
 				<Scale>0.475315 0.475315 0.475315</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_45>
 		<Entity_46>
@@ -468,7 +468,7 @@
 				<Scale>0.397661 0.397661 0.397661</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_46>
 		<Entity_47>
@@ -478,7 +478,7 @@
 				<Scale>0.562925 0.562925 0.562925</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_47>
 		<Entity_48>
@@ -488,7 +488,7 @@
 				<Scale>0.50251 0.50251 0.50251</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_48>
 		<Entity_49>
@@ -498,7 +498,7 @@
 				<Scale>0.411077 0.411077 0.411077</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_49>
 		<Entity_50>
@@ -508,7 +508,7 @@
 				<Scale>0.358022 0.358022 0.358022</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_50>
 		<Entity_51>
@@ -518,7 +518,7 @@
 				<Scale>0.386114 0.386114 0.386114</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_51>
 		<Entity_52>
@@ -528,7 +528,7 @@
 				<Scale>0.328626 0.328626 0.328626</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_52>
 		<Entity_53>
@@ -538,7 +538,7 @@
 				<Scale>0.556035 0.556035 0.556035</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_53>
 		<Entity_54>
@@ -548,7 +548,7 @@
 				<Scale>0.282247 0.282247 0.282247</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_54>
 		<Entity_55>
@@ -558,7 +558,7 @@
 				<Scale>0.47241 0.47241 0.47241</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_55>
 		<Entity_56>
@@ -568,7 +568,7 @@
 				<Scale>0.573093 0.573093 0.573093</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_56>
 		<Entity_57>
@@ -578,7 +578,7 @@
 				<Scale>0.393933 0.393933 0.393933</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_57>
 		<Entity_58>
@@ -588,7 +588,7 @@
 				<Scale>0.318233 0.318233 0.318233</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_58>
 		<Entity_59>
@@ -598,7 +598,7 @@
 				<Scale>0.451239 0.451239 0.451239</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_59>
 		<Entity_60>
@@ -608,7 +608,7 @@
 				<Scale>0.407605 0.407605 0.407605</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_60>
 		<Entity_61>
@@ -618,7 +618,7 @@
 				<Scale>0.315873 0.315873 0.315873</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_61>
 		<Entity_62>
@@ -628,7 +628,7 @@
 				<Scale>0.591818 0.591818 0.591818</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_62>
 		<Entity_63>
@@ -638,7 +638,7 @@
 				<Scale>0.512241 0.512241 0.512241</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_63>
 		<Entity_64>
@@ -648,7 +648,7 @@
 				<Scale>0.588325 0.588325 0.588325</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_64>
 		<Entity_65>
@@ -658,7 +658,7 @@
 				<Scale>0.269216 0.269216 0.269216</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_65>
 		<Entity_66>
@@ -668,7 +668,7 @@
 				<Scale>0.277345 0.277345 0.277345</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_66>
 		<Entity_67>
@@ -678,7 +678,7 @@
 				<Scale>0.467475 0.467475 0.467475</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_67>
 		<Entity_68>
@@ -688,7 +688,7 @@
 				<Scale>0.469205 0.469205 0.469205</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_68>
 		<Entity_69>
@@ -698,7 +698,7 @@
 				<Scale>0.466375 0.466375 0.466375</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_69>
 		<Entity_70>
@@ -708,7 +708,7 @@
 				<Scale>0.55736 0.55736 0.55736</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_70>
 		<Entity_71>
@@ -718,7 +718,7 @@
 				<Scale>0.561653 0.561653 0.561653</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_71>
 		<Entity_72>
@@ -728,7 +728,7 @@
 				<Scale>0.320669 0.320669 0.320669</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_72>
 		<Entity_73>
@@ -738,7 +738,7 @@
 				<Scale>0.598344 0.598344 0.598344</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_73>
 		<Entity_74>
@@ -748,7 +748,7 @@
 				<Scale>0.347543 0.347543 0.347543</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_74>
 		<Entity_75>
@@ -758,7 +758,7 @@
 				<Scale>0.563031 0.563031 0.563031</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_75>
 		<Entity_76>
@@ -768,7 +768,7 @@
 				<Scale>0.367785 0.367785 0.367785</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_76>
 		<Entity_77>
@@ -778,7 +778,7 @@
 				<Scale>0.473745 0.473745 0.473745</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_77>
 		<Entity_78>
@@ -788,7 +788,7 @@
 				<Scale>0.439073 0.439073 0.439073</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_78>
 		<Entity_79>
@@ -798,7 +798,7 @@
 				<Scale>0.49295 0.49295 0.49295</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_79>
 		<Entity_80>
@@ -808,7 +808,7 @@
 				<Scale>0.386872 0.386872 0.386872</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_80>
 		<Entity_81>
@@ -818,7 +818,7 @@
 				<Scale>0.278349 0.278349 0.278349</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_81>
 		<Entity_82>
@@ -828,7 +828,7 @@
 				<Scale>0.384341 0.384341 0.384341</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_82>
 		<Entity_83>
@@ -838,7 +838,7 @@
 				<Scale>0.576789 0.576789 0.576789</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_83>
 		<Entity_84>
@@ -848,7 +848,7 @@
 				<Scale>0.374717 0.374717 0.374717</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_84>
 		<Entity_85>
@@ -858,7 +858,7 @@
 				<Scale>0.575539 0.575539 0.575539</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_85>
 		<Entity_86>
@@ -868,7 +868,7 @@
 				<Scale>0.278092 0.278092 0.278092</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_86>
 		<Entity_87>
@@ -878,7 +878,7 @@
 				<Scale>0.27398 0.27398 0.27398</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_87>
 		<Entity_88>
@@ -888,7 +888,7 @@
 				<Scale>0.529395 0.529395 0.529395</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_88>
 		<Entity_89>
@@ -898,7 +898,7 @@
 				<Scale>0.592982 0.592982 0.592982</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_89>
 		<Entity_90>
@@ -908,7 +908,7 @@
 				<Scale>0.510244 0.510244 0.510244</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_90>
 		<Entity_91>
@@ -918,7 +918,7 @@
 				<Scale>0.270263 0.270263 0.270263</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_91>
 		<Entity_92>
@@ -928,7 +928,7 @@
 				<Scale>0.356729 0.356729 0.356729</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_92>
 		<Entity_93>
@@ -938,7 +938,7 @@
 				<Scale>0.515926 0.515926 0.515926</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_93>
 		<Entity_94>
@@ -948,7 +948,7 @@
 				<Scale>0.442032 0.442032 0.442032</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_94>
 		<Entity_95>
@@ -958,7 +958,7 @@
 				<Scale>0.2895 0.2895 0.2895</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_95>
 		<Entity_96>
@@ -968,7 +968,7 @@
 				<Scale>0.391615 0.391615 0.391615</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_96>
 		<Entity_97>
@@ -978,7 +978,7 @@
 				<Scale>0.382269 0.382269 0.382269</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_97>
 		<Entity_98>
@@ -988,7 +988,7 @@
 				<Scale>0.282141 0.282141 0.282141</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_98>
 		<Entity_99>
@@ -998,7 +998,7 @@
 				<Scale>0.45831 0.45831 0.45831</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_99>
 		<Entity_100>
@@ -1008,7 +1008,7 @@
 				<Scale>0.397981 0.397981 0.397981</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_100>
 		<Entity_101>
@@ -1018,7 +1018,7 @@
 				<Scale>0.599861 0.599861 0.599861</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_101>
 		<Entity_102>
@@ -1028,7 +1028,7 @@
 				<Scale>0.464206 0.464206 0.464206</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_102>
 		<Entity_103>
@@ -1038,7 +1038,7 @@
 				<Scale>0.481115 0.481115 0.481115</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_103>
 		<Entity_104>
@@ -1048,7 +1048,7 @@
 				<Scale>0.336798 0.336798 0.336798</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_104>
 		<Entity_105>
@@ -1058,7 +1058,7 @@
 				<Scale>0.531169 0.531169 0.531169</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_105>
 		<Entity_106>
@@ -1068,7 +1068,7 @@
 				<Scale>0.352414 0.352414 0.352414</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_106>
 		<Entity_107>
@@ -1078,7 +1078,7 @@
 				<Scale>0.508417 0.508417 0.508417</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_107>
 		<Entity_108>
@@ -1088,7 +1088,7 @@
 				<Scale>0.415873 0.415873 0.415873</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_108>
 		<Entity_109>
@@ -1098,7 +1098,7 @@
 				<Scale>0.515905 0.515905 0.515905</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_109>
 		<Entity_110>
@@ -1108,7 +1108,7 @@
 				<Scale>0.37665 0.37665 0.37665</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_110>
 		<Entity_111>
@@ -1118,7 +1118,7 @@
 				<Scale>0.406153 0.406153 0.406153</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_111>
 		<Entity_112>
@@ -1128,7 +1128,7 @@
 				<Scale>0.560756 0.560756 0.560756</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_112>
 		<Entity_113>
@@ -1138,7 +1138,7 @@
 				<Scale>0.276629 0.276629 0.276629</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_113>
 		<Entity_114>
@@ -1148,7 +1148,7 @@
 				<Scale>0.32383 0.32383 0.32383</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_114>
 		<Entity_115>
@@ -1158,7 +1158,7 @@
 				<Scale>0.258972 0.258972 0.258972</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_115>
 		<Entity_116>
@@ -1168,7 +1168,7 @@
 				<Scale>0.520626 0.520626 0.520626</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_116>
 		<Entity_117>
@@ -1178,7 +1178,7 @@
 				<Scale>0.477836 0.477836 0.477836</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_117>
 		<Entity_118>
@@ -1188,7 +1188,7 @@
 				<Scale>0.336894 0.336894 0.336894</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_118>
 		<Entity_119>
@@ -1198,7 +1198,7 @@
 				<Scale>0.565189 0.565189 0.565189</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_119>
 		<Entity_120>
@@ -1208,7 +1208,7 @@
 				<Scale>0.598312 0.598312 0.598312</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_120>
 		<Entity_121>
@@ -1218,7 +1218,7 @@
 				<Scale>0.383711 0.383711 0.383711</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_121>
 		<Entity_122>
@@ -1228,7 +1228,7 @@
 				<Scale>0.498173 0.498173 0.498173</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_122>
 		<Entity_123>
@@ -1238,7 +1238,7 @@
 				<Scale>0.406174 0.406174 0.406174</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_123>
 		<Entity_124>
@@ -1248,7 +1248,7 @@
 				<Scale>0.368575 0.368575 0.368575</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_124>
 		<Entity_125>
@@ -1258,7 +1258,7 @@
 				<Scale>0.485014 0.485014 0.485014</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_125>
 		<Entity_126>
@@ -1268,7 +1268,7 @@
 				<Scale>0.298451 0.298451 0.298451</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_126>
 		<Entity_127>
@@ -1278,7 +1278,7 @@
 				<Scale>0.448259 0.448259 0.448259</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Ball&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
 			</Script>
 		</Entity_127>
 		<Floor>
@@ -1288,12 +1288,12 @@
 				<Scale>5 1 5</Scale>
 			</Transform>
 			<Script>
-				<Type>class std::shared_ptr&lt;class Plane&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class Plane&gt;</EntryType>
 			</Script>
 		</Floor>
 		<Orbit_Camera>
 			<Script>
-				<Type>class std::shared_ptr&lt;class OrbitCam&gt;</Type>
+				<EntryType>class std::shared_ptr&lt;class OrbitCam&gt;</EntryType>
 			</Script>
 			<Transform>
 				<Position>0 5 7</Position>
@@ -1303,4 +1303,3 @@
 		</Orbit_Camera>
 	</Entities>
 </cereal>
-

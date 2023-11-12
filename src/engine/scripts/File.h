@@ -9,9 +9,18 @@ namespace LouiEriksson {
 	
 	class File {
 	
-	private:
-
 	public:
+		
+		struct Directory {
+			
+			enum EntryType {
+				FILE      = 1u << 0u,
+				DIRECTORY = 1u << 1u
+			};
+			
+			static std::vector<std::filesystem::path> GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type = (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY));
+		};
+		
 		
 		 File()                   = delete;
 		 File(const File& _other) = delete;

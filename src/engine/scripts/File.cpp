@@ -32,6 +32,29 @@ namespace LouiEriksson {
 		return { _path };
 	}
 	
+	std::vector<std::filesystem::path> File::Directory::GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type) {
+	
+		std::vector<std::filesystem::path> result;
+		
+		const std::filesystem::directory_iterator itr(_path);
+		
+		for (const auto& item : itr) {
+			
+			bool append;
+			
+			if (item.is_directory()) {
+				append = (((uint)_type & (uint)File::Directory::EntryType::DIRECTORY) != 0);
+			}
+			else {
+				append = (((uint)_type & (uint)File::Directory::EntryType::FILE) != 0);
+			}
+			
+			if (append) { result.push_back(item); }
+		}
+		
+		return result;
+	}
+	
 	bool File::TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;
