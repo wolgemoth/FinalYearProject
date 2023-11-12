@@ -50,9 +50,9 @@ uniform float u_NearPlane        = 0.1;   // Light's shadow near plane.
 
 uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
 
-uniform float u_Metallic_Amount  = 0.0; // How metallic the surface is.
+uniform float  u_Metallic_Amount = 0.0; // How metallic the surface is.
 uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
-uniform float u_Emissive_Amount = 1.0; // How emissive the surface is.
+uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
 
 uniform float u_Time;
 
@@ -456,16 +456,22 @@ void main() {
     float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
     float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
 
+//    vec3 normal = normalize(
+//        v_TBN *
+//        (texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0
+//    );
+
+    // Fake normal mapping:
     vec3 normal = normalize(
-        v_TBN *
-        (texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0
+        v_Normal +
+         ((texture(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord)).rgb * 2.0) - 1.0) * 0.08
     );
 
     float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
     float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     v_TexCoord)).r;
 
-    vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * u_Emissive_Amount;
+    vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * log2(u_Emission_Amount + 1.0);
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);
