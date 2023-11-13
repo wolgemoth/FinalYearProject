@@ -3,6 +3,7 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
+#include "Mesh.h"
 #include "Cubemap.h"
 
 namespace LouiEriksson {
@@ -38,6 +39,8 @@ namespace LouiEriksson {
 		static std::filesystem::path AsPath(const std::string& _path);
 		
 		static bool TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format, bool _generateMipmaps);
+		
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Mesh>& _output);
 		
 		static Cubemap Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format, bool _generateMipmaps);
 	};

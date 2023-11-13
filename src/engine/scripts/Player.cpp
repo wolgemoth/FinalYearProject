@@ -53,7 +53,8 @@ namespace LouiEriksson {
 			auto surface = Shader::m_Cache.Return("pbr");
 			
 			// Load mesh.
-			auto mesh = Mesh::Load("models/woodfloor/woodfloor.obj");
+			std::shared_ptr<Mesh> mesh = nullptr;
+			File::TryLoad("models/woodfloor/woodfloor.obj", mesh);
 			
 			// Create material from shader.
 			auto material = Material::Create(surface);
@@ -106,7 +107,8 @@ namespace LouiEriksson {
 		auto surface = Shader::m_Cache.Return("pbr");
 		
 		// Load mesh.
-		auto mesh = Mesh::Load("models/curuthers/curuthers.obj");
+		std::shared_ptr<Mesh> mesh = nullptr;
+		File::TryLoad("models/curuthers/curuthers.obj", mesh);
 		
 		// Create material from shader.
 		auto material = Material::Create(surface);
@@ -141,7 +143,8 @@ namespace LouiEriksson {
 			
 			auto obstacle = scene->Attach(GameObject::Create(scene, name.str()));
 			
-			auto mesh = Mesh::Load("models/sphere/sphere.obj");
+			std::shared_ptr<Mesh> mesh = nullptr;
+			File::TryLoad("models/sphere/sphere.obj", mesh);
 			
 			// Compile shader.
 			auto surface = Shader::m_Cache.Return("pbr");

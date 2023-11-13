@@ -6,54 +6,30 @@ namespace LouiEriksson {
 	
 	Mesh::Mesh() {
 		
-        m_Mesh = { 0 };
-		
-		m_TangentVBO = 0;
+		m_VAO_ID         = 0u;
+		m_PositionVBO_ID = 0u;
+		m_TexCoordVBO_ID = 0u;
+		m_NormalVBO_ID   = 0u;
+		m_TangentVBO_ID  = 0u;
+		m_Texture_ID     = 0u;
 	}
 	
 	Mesh::~Mesh() {
 		
-		if (m_TangentVBO > 0) { glDeleteBuffers(1, &m_TangentVBO); }
-		
-		/* Within WfModel */
-		if (m_Mesh.positionVboId > 0) {      glDeleteBuffers(1, &m_Mesh.positionVboId); }
-		if (m_Mesh.texCoordVboId > 0) {      glDeleteBuffers(1, &m_Mesh.texCoordVboId); }
-		if (m_Mesh.normalVboId   > 0) {      glDeleteBuffers(1, &m_Mesh.normalVboId  ); }
-		if (m_Mesh.vaoId         > 0) { glDeleteVertexArrays(1, &m_Mesh.vaoId        ); }
-		if (m_Mesh.textureId     > 0) {     glDeleteTextures(1, &m_Mesh.textureId    ); }
+		if (        m_VAO_ID != 0u) { glDeleteVertexArrays(1,         &m_VAO_ID); }
+		if (m_PositionVBO_ID != 0u) { glDeleteBuffers     (1, &m_PositionVBO_ID); }
+		if (m_TexCoordVBO_ID != 0u) { glDeleteBuffers     (1, &m_TexCoordVBO_ID); }
+		if (  m_NormalVBO_ID != 0u) { glDeleteBuffers     (1,   &m_NormalVBO_ID); }
+		if ( m_TangentVBO_ID != 0u) { glDeleteBuffers     (1,  &m_TangentVBO_ID); }
+		if (    m_Texture_ID != 0u) { glDeleteTextures    (1,     &m_Texture_ID); }
 	}
 	
-	std::shared_ptr<Mesh> Mesh::Load(const std::string& _path) {
-		
-		Mesh* result = new Mesh();
-		int code = WfModelLoad(_path.c_str(), &(result->m_Mesh));
+	GLuint Mesh::VAO_ID()         const { return         m_VAO_ID; }
+	GLuint Mesh::PositionVBO_ID() const { return m_PositionVBO_ID; }
+	GLuint Mesh::TexCoordVBO_ID() const { return m_TexCoordVBO_ID; }
+	GLuint Mesh::NormalVBO_ID()   const { return   m_NormalVBO_ID; }
+	GLuint Mesh::TangentVBO_ID()  const { return  m_TangentVBO_ID; }
+	GLuint Mesh::Texture_ID()     const { return     m_Texture_ID; }
 	
-		/* ERROR HANDLING */
-		if (code != 0) {
-	
-			std::stringstream err;
-			err << "ERROR (Mesh.cpp [TryLoad(const char*, Mesh&)]): Failed to load model \"" <<
-				_path << "\". Error code: " << code;
-			
-			throw std::runtime_error(err.str());
-		}
-	
-		result->GenerateTangents();
-		
-		return std::shared_ptr<Mesh>(result);
-	}
-	
-	void Mesh::GenerateTangents() {
-	
-	}
-	
-	GLuint Mesh::TangentVBO_ID() const { return m_TangentVBO; }
-	
-	GLuint Mesh::PositionVBO_ID() const { return m_Mesh.positionVboId; }
-	GLuint Mesh::TexCoordVBO_ID() const { return m_Mesh.texCoordVboId; }
-	GLuint Mesh::NormalVBO_ID()   const { return m_Mesh.normalVboId;   }
-	GLuint Mesh::VAO_ID()         const { return m_Mesh.vaoId;         }
-	GLuint Mesh::Texture_ID()     const { return m_Mesh.textureId;     }
-	
-	unsigned long Mesh::VertexCount() const { return m_Mesh.vertexCount; }
+	unsigned long Mesh::VertexCount() const { return m_VertexCount; }
 }

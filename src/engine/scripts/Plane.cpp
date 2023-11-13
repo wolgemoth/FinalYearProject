@@ -16,7 +16,7 @@ namespace LouiEriksson {
 		
 		// Load mesh.
 		if (m_Mesh == nullptr) {
-			m_Mesh = Mesh::Load("models/woodfloor/woodfloor.obj");
+			File::TryLoad("models/woodfloor/woodfloor.obj", m_Mesh);
 		}
 		
 		if (m_Material == nullptr) {

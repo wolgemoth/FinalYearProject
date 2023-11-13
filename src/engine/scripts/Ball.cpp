@@ -16,7 +16,7 @@ namespace LouiEriksson {
 	
 		// Load mesh.
 		if (s_Mesh == nullptr) {
-			s_Mesh = Mesh::Load("models/sphere/sphere.obj");
+			File::TryLoad("models/sphere/sphere.obj", s_Mesh);
 		}
 		
 		if (s_Material == nullptr) {

@@ -8,6 +8,7 @@ namespace LouiEriksson {
 		
 		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
+		m_Cube      = std::shared_ptr<Mesh>     (nullptr);
 	
 		m_FOV      = 90.0f;
 		m_NearClip = 0.1f;
@@ -17,7 +18,7 @@ namespace LouiEriksson {
 		
 		m_IsDirty = true;
 		
-		m_Cube = Mesh::Load("models/cube/cube.obj");
+		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		File::TryLoad(
 			"textures/default/white.png",
@@ -562,7 +563,7 @@ namespace LouiEriksson {
 		auto aces = Shader::m_Cache.Return("aces");
 		Shader::Bind(aces->ID());
 		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.3f);
+		aces->Assign(aces->AttributeID("u_Exposure"), 1.0f);
 		Shader::Unbind();
 		
 		auto fxaa = Shader::m_Cache.Return("fxaa");
