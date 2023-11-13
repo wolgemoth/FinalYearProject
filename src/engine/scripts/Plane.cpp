@@ -22,11 +22,7 @@ namespace LouiEriksson {
 		if (m_Material == nullptr) {
 			
 			// Create material from shader.
-			
-			std::shared_ptr<Shader> pbr;
-			if (Resources::TryGetShader("pbr", pbr)) {
-				m_Material = Material::Create(pbr);
-			}
+			m_Material = Material::Create(Resources::GetShader("pbr"));
 		}
 		
 		// Get or add Transform.

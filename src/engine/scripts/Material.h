@@ -13,18 +13,18 @@ namespace LouiEriksson {
 	private:
 	
 		// Shader the Material points to.
-		std::shared_ptr<Shader> m_Shader;
+		std::weak_ptr<Shader> m_Shader;
 	
-		Texture m_Albedo;
-		Texture m_Roughness;
-		Texture m_Metallic;
-		Texture m_Normals;
-		Texture m_Height;
-		Texture m_Detail;
-		Texture m_AO;
-		Texture m_Emission;
+		std::weak_ptr<Texture> m_Albedo;
+		std::weak_ptr<Texture> m_Roughness;
+		std::weak_ptr<Texture> m_Metallic;
+		std::weak_ptr<Texture> m_Normals;
+		std::weak_ptr<Texture> m_Height;
+		std::weak_ptr<Texture> m_Detail;
+		std::weak_ptr<Texture> m_AO;
+		std::weak_ptr<Texture> m_Emission;
 		
-		explicit Material(const std::shared_ptr<Shader>& _shader);
+		explicit Material(const std::weak_ptr<Shader>& _shader);
 		~Material();
 		
 	public:
@@ -34,19 +34,19 @@ namespace LouiEriksson {
 		GLuint       m_ViewMatrixID;
 		
 		/// <summary> Factory function which creates a new Material from a Shader. </summary>
-		[[nodiscard]] static std::shared_ptr<Material> Create(const std::shared_ptr<Shader>& _shader);
+		[[nodiscard]] static std::shared_ptr<Material> Create(const std::weak_ptr<Shader>& _shader);
 		
 		/// <summary> Get the currently assigned Shader. </summary>
-		std::shared_ptr<Shader> GetShader();
+		std::weak_ptr<Shader> GetShader();
 		
-		[[nodiscard]] const Texture& GetAlbedo()    const;
-		[[nodiscard]] const Texture& GetRoughness() const;
-		[[nodiscard]] const Texture& GetMetallic()  const;
-		[[nodiscard]] const Texture& GetNormals()   const;
-		[[nodiscard]] const Texture& GetHeight()    const;
-		[[nodiscard]] const Texture& GetDetail()    const;
-		[[nodiscard]] const Texture& GetAO()        const;
-		[[nodiscard]] const Texture& GetEmission()  const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetAlbedo()    const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetRoughness() const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetMetallic()  const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetNormals()   const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetHeight()    const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetDetail()    const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetAO()        const;
+		[[nodiscard]] const std::weak_ptr<Texture> GetEmission()  const;
 	};
 }
 

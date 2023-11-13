@@ -15,12 +15,22 @@ namespace LouiEriksson {
 	template<typename Tk, typename Tv>
 	class Hashmap {
 	
+	public:
+		
+		struct KeyValuePair {
+			
+			Tk first;
+			Tv second;
+			
+			KeyValuePair(Tk _key, Tv _value) : first(_key), second(_value) {}
+		};
+		
 	private:
 		
 		/// <summary>
 		/// Buckets of the hashmap.
 		/// </summary>
-		std::vector<std::vector<std::pair<Tk, Tv>>> m_Buckets;
+		std::vector<std::vector<KeyValuePair>> m_Buckets;
 		
 		/// <summary>
 		/// Current number of elements within the hashmap.
@@ -45,7 +55,7 @@ namespace LouiEriksson {
 			
 			const size_t resize_amount = size();
 			
-			std::vector<std::vector<std::pair<Tk, Tv>>> shallowCopy(m_Buckets);
+			std::vector<std::vector<KeyValuePair>> shallowCopy(m_Buckets);
 			
 			m_Size = 0;
 			m_Buckets.clear();
@@ -117,7 +127,7 @@ namespace LouiEriksson {
 			if (result) {
 				m_Size++;
 				
-				bucket.push_back(std::make_pair(_key, _value));
+				bucket.push_back({ _key, _value });
 			}
 			
 			return result;
@@ -153,7 +163,7 @@ namespace LouiEriksson {
 			}
 			
 			if (!exists) {
-				bucket.push_back(std::make_pair(_key, _value));
+				bucket.push_back({ _key, _value });
 			}
 			
 			m_Size++;
@@ -197,7 +207,7 @@ namespace LouiEriksson {
 		/// <param name="_key">Key of the entry to retrieve.</param>
 		/// <param name="_out">Out value result.</param>
 		/// <returns>True if successful, false otherwise.</returns>
-		bool Get(const Tk& _key, Tv& _out) {
+		bool Get(const Tk& _key, Tv& _out) const {
 			
 			bool result = false;
 			
@@ -306,9 +316,9 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns all entries stored within the hashmap.
 		/// </summary>
-		std::vector<std::pair<Tk, Tv>> GetAll() const {
+		std::vector<KeyValuePair> GetAll() const {
 			
-			std::vector<std::pair<Tk, Tv>> result;
+			std::vector<KeyValuePair> result;
 			
 			for (auto& bucket: m_Buckets) {
 				for (auto& kvp: bucket) {

@@ -20,11 +20,8 @@ namespace LouiEriksson {
 		
 		for (const auto& kvp : files.GetAll()) {
 			
-			Texture item;
-			if (File::TryLoad(kvp.second, item, GL_RGB, true)) {
-
-				auto texture = std::make_shared<Texture>(item);
-
+			std::shared_ptr<Texture> texture;
+			if (File::TryLoad(kvp.second, texture, GL_RGB, true)) {
 				m_Textures.Add(kvp.first, texture);
 			}
 		}
@@ -60,16 +57,17 @@ namespace LouiEriksson {
 		
 		for (const auto& kvp : files.GetAll()) {
 		
-			std::vector<Shader::SubShader> shader;
+			std::vector<Shader::SubShader> subShaders;
 			
 			for (const auto& subshader : kvp.second) {
-				shader.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+				subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
 			}
 			
-			shaders.push_back(shader);
+			shaders.push_back(subShaders);
 			
 			// Compile shader and add to cache.
-			auto compiled = Shader::Create(shader);
+			auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
+			
 			m_Shaders.Add(compiled->Name(), compiled);
 		}
 	}
@@ -81,35 +79,35 @@ namespace LouiEriksson {
 		PreloadShaders();
 	}
 	
-	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) {
+	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh> _output) {
 		return m_Meshes.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) {
+	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material> _output) {
 		return m_Materials.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) {
+	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture> _output) {
 		return m_Textures.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) {
+	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader> _output) {
 		return m_Shaders.Get(_name, _output);
 	}
 	
-	std::shared_ptr<Mesh> Resources::GetMesh(const std::string& _name) {
+	std::weak_ptr<Mesh> Resources::GetMesh(const std::string& _name) {
 		return m_Meshes.Return(_name);
 	}
 	
-	std::shared_ptr<Material> Resources::GetMaterial(const std::string& _name) {
+	std::weak_ptr<Material> Resources::GetMaterial(const std::string& _name) {
 		return m_Materials.Return(_name);
 	}
 	
-	std::shared_ptr<Texture> Resources::GetTexture(const std::string& _name) {
+	std::weak_ptr<Texture> Resources::GetTexture(const std::string& _name) {
 		return m_Textures.Return(_name);
 	}
 	
-	std::shared_ptr<Shader> Resources::GetShader(const std::string& _name) {
+	std::weak_ptr<Shader> Resources::GetShader(const std::string& _name) {
 		return m_Shaders.Return(_name);
 	}
 	

@@ -20,55 +20,58 @@ namespace LouiEriksson {
 		
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
-		File::TryLoad(
-			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
-			m_LensDirt,
-			GL_RGB,
-			true
-		);
-		
-		File::TryLoad(
-			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
-			m_HDRI,
-			GL_RGB32F,
-			true
-		);
-		
-		m_Skybox = std::move(
-			File::Load(
-				{
-//					"textures/cubemaps/yokohama_3/posx.jpg",
-//					"textures/cubemaps/yokohama_3/negx.jpg",
-//					"textures/cubemaps/yokohama_3/posy.jpg",
-//					"textures/cubemaps/yokohama_3/negy.jpg",
-//					"textures/cubemaps/yokohama_3/posz.jpg",
-//					"textures/cubemaps/yokohama_3/negz.jpg"
-					
-					"textures/cubemaps/coit_tower_2/posx.jpg",
-					"textures/cubemaps/coit_tower_2/negx.jpg",
-					"textures/cubemaps/coit_tower_2/posy.jpg",
-					"textures/cubemaps/coit_tower_2/negy.jpg",
-					"textures/cubemaps/coit_tower_2/posz.jpg",
-					"textures/cubemaps/coit_tower_2/negz.jpg"
+//		File::TryLoad(
+//			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
+//			m_LensDirt,
+//			GL_RGB,
+//			true
+//		);
 
-//					"textures/cubemaps/another_planet/px.png",
-//					"textures/cubemaps/another_planet/nx.png",
-//					"textures/cubemaps/another_planet/py.png",
-//					"textures/cubemaps/another_planet/ny.png",
-//					"textures/cubemaps/another_planet/pz.png",
-//					"textures/cubemaps/another_planet/nz.png"
-
-//					"textures/cubemaps/san_francisco_3/posx.jpg",
-//					"textures/cubemaps/san_francisco_3/negx.jpg",
-//					"textures/cubemaps/san_francisco_3/posy.jpg",
-//					"textures/cubemaps/san_francisco_3/negy.jpg",
-//					"textures/cubemaps/san_francisco_3/posz.jpg",
-//					"textures/cubemaps/san_francisco_3/negz.jpg"
-				},
-				GL_RGB,
-				true
-			)
-		);
+		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
+		m_HDRI = Resources::GetTexture("abandoned_workshop_02_8k").lock();
+		
+//		File::TryLoad(
+//			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
+//			m_HDRI,
+//			GL_RGB32F,
+//			true
+//		);
+//
+//		m_Skybox = std::move(
+//			File::Load(
+//				{
+////					"textures/cubemaps/yokohama_3/posx.jpg",
+////					"textures/cubemaps/yokohama_3/negx.jpg",
+////					"textures/cubemaps/yokohama_3/posy.jpg",
+////					"textures/cubemaps/yokohama_3/negy.jpg",
+////					"textures/cubemaps/yokohama_3/posz.jpg",
+////					"textures/cubemaps/yokohama_3/negz.jpg"
+//
+//					"textures/cubemaps/coit_tower_2/posx.jpg",
+//					"textures/cubemaps/coit_tower_2/negx.jpg",
+//					"textures/cubemaps/coit_tower_2/posy.jpg",
+//					"textures/cubemaps/coit_tower_2/negy.jpg",
+//					"textures/cubemaps/coit_tower_2/posz.jpg",
+//					"textures/cubemaps/coit_tower_2/negz.jpg"
+//
+////					"textures/cubemaps/another_planet/px.png",
+////					"textures/cubemaps/another_planet/nx.png",
+////					"textures/cubemaps/another_planet/py.png",
+////					"textures/cubemaps/another_planet/ny.png",
+////					"textures/cubemaps/another_planet/pz.png",
+////					"textures/cubemaps/another_planet/nz.png"
+//
+////					"textures/cubemaps/san_francisco_3/posx.jpg",
+////					"textures/cubemaps/san_francisco_3/negx.jpg",
+////					"textures/cubemaps/san_francisco_3/posy.jpg",
+////					"textures/cubemaps/san_francisco_3/negy.jpg",
+////					"textures/cubemaps/san_francisco_3/posz.jpg",
+////					"textures/cubemaps/san_francisco_3/negz.jpg"
+//				},
+//				GL_RGB,
+//				true
+//			)
+//		);
 		
 	}
 	
@@ -124,7 +127,7 @@ namespace LouiEriksson {
 					Resources::GetShader("shadowDepthCube") :
 					Resources::GetShader("shadowDepth");
 				
-				Shader::Bind(shadowShader->ID());
+				Shader::Bind(shadowShader.lock()->ID());
 				
 				// Compute the size of a texel in world space.
 				// We can round the light's position to these coordinates
@@ -158,7 +161,7 @@ namespace LouiEriksson {
 					};
 					
 					glUniformMatrix4fv(
-						shadowShader->AttributeID("u_Matrices"),
+						shadowShader.lock()->AttributeID("u_Matrices"),
 						shadowTransforms.size(),
 						GL_FALSE,
 						glm::value_ptr(shadowTransforms[0])
@@ -166,10 +169,10 @@ namespace LouiEriksson {
 					
 					light->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
 					
-					shadowShader->Assign(shadowShader->AttributeID("u_LightPosition"),
+					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);
 					
-					shadowShader->Assign(shadowShader->AttributeID("u_FarPlane"),
+					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_FarPlane"),
 							light->m_Range);
 				}
 				else {
@@ -185,7 +188,7 @@ namespace LouiEriksson {
 					light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
 				}
 				
-				shadowShader->Assign(shadowShader->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
 				
 				// We need to render the scene from the light's perspective.
 				for (const auto& renderer : _renderers) {
@@ -196,7 +199,7 @@ namespace LouiEriksson {
 					// Bind VAO.
 					glBindVertexArray(mesh->VAO_ID());
 					
-					shadowShader->Assign(shadowShader->AttributeID("u_Model"), transform->TRS());
+					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_Model"), transform->TRS());
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -250,124 +253,124 @@ namespace LouiEriksson {
 			const auto program   = material->GetShader();
 			
 			// Bind program.
-			Shader::Bind(program->ID());
+			Shader::Bind(program.lock()->ID());
 			
 			// Bind VAO.
 			glBindVertexArray(mesh->VAO_ID());
 			
 			// Assign matrices.
-			program->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
-			program->Assign(material->m_ViewMatrixID,             View()); /* VIEW       */
-			program->Assign(material->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
+			program.lock()->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
+			program.lock()->Assign(material->m_ViewMatrixID,             View()); /* VIEW       */
+			program.lock()->Assign(material->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
 			
 			// Assign parameters (PBR).
-			program->Assign(
-				program->AttributeID("u_Albedo"),
-				material->GetAlbedo().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Albedo"),
+				material->GetAlbedo().lock()->ID(),
 				0,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Roughness"),
-				material->GetRoughness().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Roughness"),
+				material->GetRoughness().lock()->ID(),
 				1,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Metallic"),
-				material->GetMetallic().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Metallic"),
+				material->GetMetallic().lock()->ID(),
 				2,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Normals"),
-				material->GetNormals().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Normals"),
+				material->GetNormals().lock()->ID(),
 				3,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Height"),
-				material->GetHeight().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Height"),
+				material->GetHeight().lock()->ID(),
 				4,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Detail"),
-				material->GetDetail().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Detail"),
+				material->GetDetail().lock()->ID(),
 				5,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_AO"),
-				material->GetAO().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_AO"),
+				material->GetAO().lock()->ID(),
 				6,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(
-				program->AttributeID("u_Emission"),
-				material->GetEmission().ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Emission"),
+				material->GetEmission().lock()->ID(),
 				7,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(program->AttributeID("u_Time"), Time::Elapsed());
+			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
 			
-			program->Assign(program->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			program->Assign(program->AttributeID("u_Metallic_Amount"), 0.0f);
-			program->Assign(program->AttributeID("u_Roughness_Amount"), 0.1f);
-			program->Assign(program->AttributeID("u_Emission_Amount"), .0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 0.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 0.1f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), .0f);
 			
-			program->Assign(
-				program->AttributeID("u_Ambient"),
-				m_HDRI.ID(),
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_Ambient"),
+				m_HDRI.lock()->ID(),
 				98,
 				GL_TEXTURE_2D
 			);
 			
-			program->Assign(program->AttributeID("u_AmbientExposure"), skyExposure);
+			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 
-			program->Assign(program->AttributeID("u_Tiling"), glm::vec2(1.0f));
-			program->Assign(program->AttributeID("u_Offset"), glm::vec2(0.0f));
+			program.lock()->Assign(program.lock()->AttributeID("u_Tiling"), glm::vec2(1.0f));
+			program.lock()->Assign(program.lock()->AttributeID("u_Offset"), glm::vec2(0.0f));
 			
 			if (_lights.empty()) {
 				
 				// Draw the scene with no lighting.
-				program->Assign(
-					program->AttributeID("u_ShadowMap2D"),
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_ShadowMap2D"),
 					0,
 					99,
 					GL_TEXTURE_2D
 				);
 				
-				program->Assign(
-					program->AttributeID("u_ShadowMap3D"),
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_ShadowMap3D"),
 					0,
 					100,
 					GL_TEXTURE_CUBE_MAP
 				);
 				
-				program->Assign(program->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
 				
-				program->Assign(program->AttributeID("u_ShadowBias"      ), 0.0f);
-				program->Assign(program->AttributeID("u_ShadowNormalBias"), 0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"      ), 0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"), 0.0f);
 				
-				program->Assign(program->AttributeID("u_LightSize"),    0.0f);
-				program->Assign(program->AttributeID("u_LightAngle"),   0.0f);
-				program->Assign(program->AttributeID("u_NearPlane"),    0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),    0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
 				
-				program->Assign(program->AttributeID("u_LightPosition" ), glm::vec3(0));
-				program->Assign(program->AttributeID("u_LightDirection"), glm::vec3(0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0));
 				
-				program->Assign(program->AttributeID("u_LightRange"    ), 0.0f);
-				program->Assign(program->AttributeID("u_LightIntensity"), 0.0f);
-				program->Assign(program->AttributeID("u_LightColor"    ), glm::vec3(0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -379,8 +382,8 @@ namespace LouiEriksson {
 					
 					if (light->Type() == Light::Parameters::Type::Point) {
 						
-						program->Assign(
-							program->AttributeID("u_ShadowMap3D"),
+						program.lock()->Assign(
+							program.lock()->AttributeID("u_ShadowMap3D"),
 							light->m_Shadow.m_ShadowMap_Texture,
 							100,
 							GL_TEXTURE_CUBE_MAP
@@ -388,28 +391,28 @@ namespace LouiEriksson {
 					}
 					else {
 						
-						program->Assign(
-							program->AttributeID("u_ShadowMap2D"),
+						program.lock()->Assign(
+							program.lock()->AttributeID("u_ShadowMap2D"),
 							light->m_Shadow.m_ShadowMap_Texture,
 							100,
 							GL_TEXTURE_2D
 						);
 					}
 					
-					program->Assign(program->AttributeID("u_LightSpaceMatrix"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
 							light->m_Shadow.m_ViewProjection);
 					
-					program->Assign(program->AttributeID("u_ShadowBias"),
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
 							light->m_Shadow.m_Bias);
 					
-					program->Assign(program->AttributeID("u_ShadowNormalBias"),
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
 					
-					program->Assign(program->AttributeID("u_ShadowSamples"), 64);
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"), 64);
 					
-					program->Assign(program->AttributeID("u_LightSize"), light->m_Size);
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"), light->m_Size);
 					
-					program->Assign(program->AttributeID("u_LightAngle"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
 						glm::cos(glm::radians(
 							light->Type() == Light::Parameters::Type::Spot ?
 								light->m_Angle * 0.5f :
@@ -418,21 +421,21 @@ namespace LouiEriksson {
 						)
 					);
 					
-					program->Assign(program->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
+					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
 					
-					program->Assign(program->AttributeID("u_LightPosition"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);
 					
-					program->Assign(program->AttributeID("u_LightDirection"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
 							light->m_Transform.lock()->FORWARD);
 					
-					program->Assign(program->AttributeID("u_LightRange"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
 							light->m_Range);
 					
-					program->Assign(program->AttributeID("u_LightIntensity"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
 							light->m_Intensity);
 					
-					program->Assign(program->AttributeID("u_LightColor"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
 							light->m_Color);
 					
 					/* DRAW */
@@ -458,7 +461,7 @@ namespace LouiEriksson {
 		
 			auto skybox = Resources::GetShader("skybox");
 			
-			Shader::Bind(skybox->ID());
+			Shader::Bind(skybox.lock()->ID());
 			
 			auto trs = glm::scale(
 				glm::mat4(1.0),
@@ -466,19 +469,19 @@ namespace LouiEriksson {
 			);
 			
 			// Assign matrices.
-			skybox->Assign(skybox->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
-			skybox->Assign(skybox->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
-			skybox->Assign(skybox->AttributeID("u_Model"),                         trs); /* MODEL      */
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Model"),                         trs); /* MODEL      */
 			
-			skybox->Assign(
-				skybox->AttributeID("u_Texture"),
-				m_HDRI.ID(),
+			skybox.lock()->Assign(
+				skybox.lock()->AttributeID("u_Texture"),
+				m_HDRI.lock()->ID(),
 				0,
 				GL_TEXTURE_2D
 			);
 			
-			skybox->Assign(skybox->AttributeID("u_Exposure"), skyExposure);
-			skybox->Assign(skybox->AttributeID("u_Blur"), 0.0f);
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.0f);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
@@ -530,33 +533,33 @@ namespace LouiEriksson {
 		
 		// Load effects:
 		// TODO: Allow modification of effect order and parameters outside of function.
-		std::queue<std::shared_ptr<Shader>> effects;
+		std::queue<std::weak_ptr<Shader>> effects;
 		
 		auto aces = Resources::GetShader("aces");
-		Shader::Bind(aces->ID());
-		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
-		aces->Assign(aces->AttributeID("u_Exposure"), 1.0f);
+		Shader::Bind(aces.lock()->ID());
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), -0.1f);
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 1.0f);
 		Shader::Unbind();
 		
 		auto fxaa = Resources::GetShader("fxaa");
-		Shader::Bind(fxaa->ID());
-		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"),  0.0312f);
-		fxaa->Assign(fxaa->AttributeID("u_RelativeThreshold"),   0.063f);
-		fxaa->Assign(fxaa->AttributeID("u_SubpixelBlending"),     0.75f);
-		fxaa->Assign(fxaa->AttributeID("u_EdgeBlending"),          1.0f);
-		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
+		Shader::Bind(fxaa.lock()->ID());
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_ContrastThreshold"),  0.0312f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_RelativeThreshold"),   0.063f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_SubpixelBlending"),     0.75f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_EdgeBlending"),          1.0f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 0.5f);
 		Shader::Unbind();
 		
 		auto grain = Resources::GetShader("grain");
-		Shader::Bind(grain->ID());
-		grain->Assign(grain->AttributeID("u_Amount"), 0.02f);
-		grain->Assign(grain->AttributeID("u_Time"), Time::Elapsed());
+		Shader::Bind(grain.lock()->ID());
+		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.02f);
+		grain.lock()->Assign(grain.lock()->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
 		auto vignette = Resources::GetShader("vignette");
-		Shader::Bind(vignette->ID());
-		vignette->Assign(vignette->AttributeID("u_Amount"), 0.33f);
+		Shader::Bind(vignette.lock()->ID());
+		vignette.lock()->Assign(vignette.lock()->AttributeID("u_Amount"), 0.33f);
 		Shader::Unbind();
 		
 		// Push effects to queue.
@@ -572,7 +575,7 @@ namespace LouiEriksson {
 		PostProcess(effects);
 		
 		/* RENDER TO SCREEN */
-		Shader::Bind(Resources::GetShader("passthrough")->ID());
+		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		Shader::Unbind();
 		
@@ -591,8 +594,8 @@ namespace LouiEriksson {
 		auto horizontal = Resources::GetShader("blur_horizontal");
 		auto   vertical = Resources::GetShader("blur_vertical");
 		
-		horizontal->Assign(horizontal->AttributeID("u_Texture"), _rt.ID());
-		  vertical->Assign(  vertical->AttributeID("u_Texture"), _rt.ID());
+		horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Texture"), _rt.ID());
+		  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Texture"), _rt.ID());
 		
 		int w = dimensions.x,
             h = dimensions.y;
@@ -633,15 +636,15 @@ namespace LouiEriksson {
                 size = (float)i * rootIntensity;
             }
             
-			horizontal->Assign(horizontal->AttributeID("u_Step"), dpiFactor * size);
-			  vertical->Assign(  vertical->AttributeID("u_Step"), dpiFactor * size);
+			horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Step"), dpiFactor * size);
+			  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Step"), dpiFactor * size);
 
-			Shader::Bind(horizontal->ID());
+			Shader::Bind(horizontal.lock()->ID());
 		
 			RenderTexture tmp(width, height);
-	        Blit(_rt, tmp, *horizontal);
+	        Blit(_rt, tmp, horizontal);
 			
-	        Blit(tmp, tmp, *vertical);
+	        Blit(tmp, tmp, vertical);
 			
 			Copy(tmp, _rt);
 		
@@ -658,20 +661,20 @@ namespace LouiEriksson {
 		const auto dimensions = GetWindow()->Dimensions();
 		
 		auto ao = Resources::GetShader("ao");
-		Shader::Bind(ao->ID());
+		Shader::Bind(ao.lock()->ID());
 		
-		ao->Assign(ao->AttributeID("u_Samples"), 16);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
 		
-		ao->Assign(ao->AttributeID("u_Strength"), 0.5f);
-		ao->Assign(ao->AttributeID("u_Bias"), -0.5f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 0.5f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.5f);
 		
-		ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip);
-		ao->Assign(ao->AttributeID("u_FarClip"), m_FarClip);
-		ao->Assign(ao->AttributeID("u_Time"), Time::Elapsed());
+		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Time"), Time::Elapsed());
 		
 		RenderTexture ao_rt(dimensions.x, dimensions.y);
 		
-		ao->Assign(ao->AttributeID("u_Depth"), m_RT.DepthID(), 0, GL_TEXTURE_2D);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Depth"), m_RT.DepthID(), 0, GL_TEXTURE_2D);
 		
 		RenderTexture::Bind(ao_rt);
 		
@@ -684,12 +687,12 @@ namespace LouiEriksson {
 
 		auto multiply = Resources::GetShader("multiply");
 
-		Shader::Bind(multiply->ID());
+		Shader::Bind(multiply.lock()->ID());
 
-		multiply->Assign(multiply->AttributeID("u_Strength"), 1.0f);
+		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Strength"), 1.0f);
 
-		multiply->Assign(multiply->AttributeID("u_Texture0"),  m_RT.ID(), 0, GL_TEXTURE_2D);
-		multiply->Assign(multiply->AttributeID("u_Texture1"), ao_rt.ID(), 1, GL_TEXTURE_2D);
+		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture0"),  m_RT.ID(), 0, GL_TEXTURE_2D);
+		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture1"), ao_rt.ID(), 1, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
@@ -717,16 +720,16 @@ namespace LouiEriksson {
 		
 		const int scalingPasses = 5;
 		
-		Shader::Bind(threshold_shader->ID());
-		threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), threshold);
+		Shader::Bind(threshold_shader.lock()->ID());
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
 		Shader::Unbind();
 		
-		Shader::Bind(downscale_shader->ID());
-		downscale_shader->Assign(downscale_shader->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
+		Shader::Bind(downscale_shader.lock()->ID());
+		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		Shader::Unbind();
 		
-		Shader::Bind(upscale_shader->ID());
-		upscale_shader->Assign(upscale_shader->AttributeID("u_Diffusion"), diffusion);
+		Shader::Bind(upscale_shader.lock()->ID());
+		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
 		Shader::Unbind();
 		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2);
@@ -738,35 +741,35 @@ namespace LouiEriksson {
 		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64);
 		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128);
 		
-		Blit(m_RT, tmp, *threshold_shader);
+		Blit(m_RT, tmp, threshold_shader);
 		
-		Blit(tmp,  mip0, *downscale_shader);
-		Blit(mip0, mip1, *downscale_shader);
-		Blit(mip1, mip2, *downscale_shader);
-		Blit(mip2, mip3, *downscale_shader);
-		Blit(mip3, mip4, *downscale_shader);
-		Blit(mip4, mip5, *downscale_shader);
+		Blit(tmp,  mip0, downscale_shader);
+		Blit(mip0, mip1, downscale_shader);
+		Blit(mip1, mip2, downscale_shader);
+		Blit(mip2, mip3, downscale_shader);
+		Blit(mip3, mip4, downscale_shader);
+		Blit(mip4, mip5, downscale_shader);
 		
 	    // Enable additive blending
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
 		
-		Blit(mip5, mip4, *upscale_shader);
-		Blit(mip4, mip3, *upscale_shader);
-		Blit(mip3, mip2, *upscale_shader);
-		Blit(mip2, mip1, *upscale_shader);
-		Blit(mip1, mip0, *upscale_shader);
-		Blit(mip0, tmp,  *upscale_shader);
+		Blit(mip5, mip4, upscale_shader);
+		Blit(mip4, mip3, upscale_shader);
+		Blit(mip3, mip2, upscale_shader);
+		Blit(mip2, mip1, upscale_shader);
+		Blit(mip1, mip0, upscale_shader);
+		Blit(mip0, tmp,  upscale_shader);
 		
 	    // Disable additive blending
 	    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Restore if this was default
 	    glDisable(GL_BLEND);
 		
-		Shader::Bind(add_shader->ID());
-		add_shader->Assign(add_shader->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
-		add_shader->Assign(add_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		add_shader->Assign(add_shader->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
+		Shader::Bind(add_shader.lock()->ID());
+		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
+		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 		
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
@@ -774,11 +777,11 @@ namespace LouiEriksson {
 		
 		Shader::Unbind();
 		
-		Shader::Bind(lens_dirt_shader->ID());
-		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), 0.1f);
-		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
-		lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),  m_LensDirt.ID(), 2, GL_TEXTURE_2D);
+		Shader::Bind(lens_dirt_shader.lock()->ID());
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), 0.1f);
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
@@ -787,30 +790,30 @@ namespace LouiEriksson {
 		Shader::Unbind();
 	}
 	
-	void Camera::PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const {
+	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {
 		
 		while (!_effects.empty()) {
 			
 			const auto shader = _effects.front();
 			_effects.pop();
 			
-			Blit(m_RT, m_RT, *shader);
+			Blit(m_RT, m_RT, shader);
 		}
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
 	
-		Blit(_src, _dest, *Resources::GetShader("passthrough").get());
+		Blit(_src, _dest, Resources::GetShader("passthrough").lock());
 	}
 	
-	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) {
+	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, std::weak_ptr<Shader> _shader) {
 		
 		glm::ivec4 dimensions;
 		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);
 		
 		glViewport(0, 0, _dest.Width(), _dest.Height());
 		
-		Shader::Bind(_shader.ID());
+		Shader::Bind(_shader.lock()->ID());
 		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _src.ID());

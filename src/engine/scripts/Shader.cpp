@@ -37,10 +37,6 @@ namespace LouiEriksson {
 		glDeleteProgram(m_ProgramID);
 	}
 	
-	std::shared_ptr<Shader> Shader::Create(const std::vector<Shader::SubShader>& _subShaders) {
-		return { new Shader(_subShaders), [](const Shader* _ptr) { delete _ptr; } };
-	}
-	
 	void Shader::AttachShaders() const {
 		
 		for (const auto& id: m_SubShaders) {

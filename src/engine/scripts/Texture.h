@@ -15,6 +15,7 @@ namespace LouiEriksson {
 	
 		friend class File;
 		friend class Cubemap;
+		friend class Resources;
 		
 	protected:
 		
@@ -23,18 +24,19 @@ namespace LouiEriksson {
 		
 		GLuint m_TextureID;
 		
-		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID = -1);
+		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID = 0);
 		
 		explicit Texture(const GLuint& _textureID);
 	
+		 Texture();
+		 
 	public:
 	
-		 Texture();
 		~Texture();
-		
+
 		Texture             (const Texture&  _other) = delete;
 		Texture& operator = (const Texture&  _other) = delete;
-		
+
 		Texture             (Texture&& _other) noexcept;
 		Texture& operator = (Texture&& _other) noexcept;
 		

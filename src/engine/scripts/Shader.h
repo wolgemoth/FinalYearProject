@@ -34,8 +34,6 @@ namespace LouiEriksson {
 		
 		void Compile(const char* _src, const GLint& _type);
 		
-		static std::shared_ptr<Shader> Create(const std::vector<SubShader>& _subShaders);
-		
 		explicit Shader(const std::vector<Shader::SubShader>& _subShaders);
 		~Shader();
 	

@@ -8,7 +8,7 @@ namespace LouiEriksson {
 	
 	Texture::Texture() {
 		
-		m_TextureID = -1;
+		m_TextureID = 0;
 		
 		m_Width  = -1;
 		m_Height = -1;

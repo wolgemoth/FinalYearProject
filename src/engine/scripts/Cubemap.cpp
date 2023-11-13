@@ -6,7 +6,7 @@
 
 namespace LouiEriksson {
 	
-	Cubemap::Cubemap() : Texture(-1, -1, -1) {}
+	Cubemap::Cubemap() : Texture(-1, -1) {}
 	
 	Cubemap::Cubemap(const int& _width, const int& _height, const GLuint& _textureID) : Texture(_width, _height, _textureID) {}
 	
@@ -20,7 +20,7 @@ namespace LouiEriksson {
 		_other.m_Width  = -1;
 		_other.m_Height = -1;
 		
-		_other.m_TextureID = -1;
+		_other.m_TextureID = 0;
 	}
 	
 	Cubemap::~Cubemap() {

@@ -91,7 +91,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;
 		
@@ -99,9 +99,15 @@ namespace LouiEriksson {
 		
 		try {
 			
-			glGenTextures(1, &_output.m_TextureID);
+			if (_output == nullptr) {
+				_output.reset(new Texture());
+			}
 			
-			if (_output.m_TextureID > 0) {
+			glGenTextures(1, &_output->m_TextureID);
+			
+			std::cout << _output->m_TextureID << "\n";
+			
+			if (_output->m_TextureID > 0) {
 				
 				int channels;
 				
@@ -116,8 +122,8 @@ namespace LouiEriksson {
 					data_format = GL_FLOAT;
 					data = stbi_loadf(
 						_path.c_str(),
-						&_output.m_Width,
-						&_output.m_Height,
+						&_output->m_Width,
+						&_output->m_Height,
 						nullptr,
 						channels
 					);
@@ -126,8 +132,8 @@ namespace LouiEriksson {
 					data_format = GL_UNSIGNED_BYTE;
 					data = stbi_load(
 						_path.c_str(),
-						&_output.m_Width,
-						&_output.m_Height,
+						&_output->m_Width,
+						&_output->m_Height,
 						nullptr,
 						channels
 					);
@@ -135,14 +141,14 @@ namespace LouiEriksson {
 				
 				if (data != nullptr) {
 				
-					Texture::Bind(_output);
+					Texture::Bind(*_output.get());
 					
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
 						_format,
-						_output.m_Width,
-						_output.m_Height,
+						_output->m_Width,
+						_output->m_Height,
 						0,
 						texture_format,
 						   data_format,

@@ -24,13 +24,13 @@ namespace LouiEriksson {
 		std::shared_ptr<Mesh> m_Cube;
 		
 		/// <summary> Cubemap Skybox. </summary>
-		Texture m_Skybox;
+		std::weak_ptr<Texture> m_Skybox;
 		
 		/// <summary> HDRI Skybox. </summary>
-		Texture m_HDRI;
+		std::weak_ptr<Texture> m_HDRI;
 		
 		// <summary> Lens Dirt Texture </summary>
-		Texture m_LensDirt;
+		std::weak_ptr<Texture> m_LensDirt;
 		
 		/// <summary> Window of the Camera. </summary>
 		std::shared_ptr<Window> m_Window;
@@ -50,11 +50,11 @@ namespace LouiEriksson {
 		
 		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
 		
-		void PostProcess(std::queue<std::shared_ptr<Shader>> _effects) const;
+		void PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const;
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
-		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) ;
+		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, std::weak_ptr<Shader> _shader) ;
 
 		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
 		

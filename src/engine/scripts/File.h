@@ -38,7 +38,7 @@ namespace LouiEriksson {
 		
 		static std::filesystem::path AsPath(const std::string& _path);
 		
-		static bool TryLoad(const std::filesystem::path& _path, Texture& _output, GLenum _format, bool _generateMipmaps);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format, bool _generateMipmaps);
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Mesh>& _output);
 		

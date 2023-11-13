@@ -14,10 +14,10 @@ namespace LouiEriksson {
 		static inline std::filesystem::path  m_TexturesDirectory = "textures/";
 		static inline std::filesystem::path   m_ShadersDirectory = "shaders/";
 		
-		static inline Hashmap<std::string, std::shared_ptr<Mesh>>     m_Meshes;
+		static inline Hashmap<std::string, std::shared_ptr<Mesh    >> m_Meshes;
 		static inline Hashmap<std::string, std::shared_ptr<Material>> m_Materials;
-		static inline Hashmap<std::string, std::shared_ptr<Texture>>  m_Textures;
-		static inline Hashmap<std::string, std::shared_ptr<Shader>>   m_Shaders;
+		static inline Hashmap<std::string, std::shared_ptr<Texture >> m_Textures;
+		static inline Hashmap<std::string, std::shared_ptr<Shader  >> m_Shaders;
 		
 		/// <summary>
 		/// Preload meshes and add them to the cache.
@@ -43,21 +43,21 @@ namespace LouiEriksson {
 	
 		static void Preload();
 	
-		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output);
+		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh> _output);
 		
-		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output);
+		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material> _output);
 		
-		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output);
+		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture> _output);
 		
-		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output);
+		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader> _output);
 		
-		static std::shared_ptr<Mesh> GetMesh(const std::string& _name);
+		static std::weak_ptr<Mesh> GetMesh(const std::string& _name);
 		
-		static std::shared_ptr<Material> GetMaterial(const std::string& _name);
+		static std::weak_ptr<Material> GetMaterial(const std::string& _name);
 		
-		static std::shared_ptr<Texture> GetTexture(const std::string& _name);
+		static std::weak_ptr<Texture> GetTexture(const std::string& _name);
 		
-		static std::shared_ptr<Shader> GetShader(const std::string& _name);
+		static std::weak_ptr<Shader> GetShader(const std::string& _name);
 		
 	};
 	
