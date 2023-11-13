@@ -9,6 +9,7 @@
 #include "Renderer.h"
 #include "Window.h"
 #include "Light.h"
+#include "Resources.h"
 
 namespace LouiEriksson {
 	

@@ -5,13 +5,12 @@
 
 #define SHADER_PROGRAM_NONE 0
 
-#include "File.h"
-
 namespace LouiEriksson {
 
 	class Shader {
 		
 		friend class Application;
+		friend class Resources;
 		
 	public:
 		
@@ -35,16 +34,7 @@ namespace LouiEriksson {
 		
 		void Compile(const char* _src, const GLint& _type);
 		
-		static void Compile(const std::vector<SubShader>& _shader);
-		
-		static void Compile(const std::vector<std::vector<SubShader>>& _shaders);
-		
 		static std::shared_ptr<Shader> Create(const std::vector<SubShader>& _subShaders);
-		
-		/// <summary>
-		/// Preload shaders and add them to the cache.
-		/// </summary>
-		static void PreloadShaders();
 		
 		explicit Shader(const std::vector<Shader::SubShader>& _subShaders);
 		~Shader();
@@ -59,8 +49,6 @@ namespace LouiEriksson {
 			
 			SubShader(const char* _path, GLenum _type);
 		};
-		
-		static inline Hashmap<std::string, std::shared_ptr<Shader>> m_Cache;
 		
 		static void Bind(const GLint& _id);
 		

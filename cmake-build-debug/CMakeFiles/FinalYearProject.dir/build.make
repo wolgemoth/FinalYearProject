@@ -580,6 +580,22 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx -S /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.cpp -o CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.s
 
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/FinalYearProject.dir/flags.make
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx.gch
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/FinalYearProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx -MD -MT CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o -MF CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o.d -o CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o -c /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp
+
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx -E /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp > CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.i
+
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -Winvalid-pch -include /home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles/FinalYearProject.dir/cmake_pch.hxx -S /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp -o CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.s
+
 # Object files for target FinalYearProject
 FinalYearProject_OBJECTS = \
 "CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o" \
@@ -612,7 +628,8 @@ FinalYearProject_OBJECTS = \
 "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.cpp.o" \
 "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o" \
 "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.o" \
-"CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.o"
+"CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.o" \
+"CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o"
 
 # External object files for target FinalYearProject
 FinalYearProject_EXTERNAL_OBJECTS =
@@ -649,10 +666,11 @@ FinalYearProject: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.c
 FinalYearProject: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o
 FinalYearProject: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Texture.cpp.o
 FinalYearProject: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Cubemap.cpp.o
+FinalYearProject: CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o
 FinalYearProject: CMakeFiles/FinalYearProject.dir/build.make
 FinalYearProject: libWAVEFRONT.a
 FinalYearProject: CMakeFiles/FinalYearProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable FinalYearProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/Projects/FinalYearProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Linking CXX executable FinalYearProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/FinalYearProject.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

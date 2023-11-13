@@ -358,6 +358,15 @@ namespace LouiEriksson {
 		return result;
 	}
 	
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output) {
+		throw std::runtime_error("Not implemented!");
+	}
+	
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Shader>& _output) {
+	
+	
+	}
+	
 	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		Cubemap result;

@@ -22,8 +22,11 @@ namespace LouiEriksson {
 		if (m_Material == nullptr) {
 			
 			// Create material from shader.
-			m_Material = Material::Create(Shader::m_Cache.Return("pbr"));
-			m_Material->Texture_ID(m_Mesh->Texture_ID());
+			
+			std::shared_ptr<Shader> pbr;
+			if (Resources::TryGetShader("pbr", pbr)) {
+				m_Material = Material::Create(pbr);
+			}
 		}
 		
 		// Get or add Transform.

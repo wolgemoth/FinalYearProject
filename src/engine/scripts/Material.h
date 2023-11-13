@@ -4,6 +4,7 @@
 #define FINALYEARPROJECT_MATERIAL_H
 
 #include "Shader.h"
+#include "Texture.h"
 
 namespace LouiEriksson {
 	
@@ -14,12 +15,18 @@ namespace LouiEriksson {
 		// Shader the Material points to.
 		std::shared_ptr<Shader> m_Shader;
 	
-		// Texture ID of the Material.
-		GLuint m_Texture_ID;
-	
+		Texture m_Albedo;
+		Texture m_Roughness;
+		Texture m_Metallic;
+		Texture m_Normals;
+		Texture m_Height;
+		Texture m_Detail;
+		Texture m_AO;
+		Texture m_Emission;
+		
 		explicit Material(const std::shared_ptr<Shader>& _shader);
 		~Material();
-	
+		
 	public:
 		
 		GLuint m_ProjectionMatrixID;
@@ -32,14 +39,14 @@ namespace LouiEriksson {
 		/// <summary> Get the currently assigned Shader. </summary>
 		std::shared_ptr<Shader> GetShader();
 		
-		/// <summary> Set the current Texture. </summary>
-		void Texture_ID(GLuint _textureID);
-		
-		/// <summary> Get the current Texture. </summary>
-		[[nodiscard]] const GLuint& Texture_ID() const;
-		
-		explicit operator GLuint() const { return this->Texture_ID(); }
-	
+		[[nodiscard]] const Texture& GetAlbedo()    const;
+		[[nodiscard]] const Texture& GetRoughness() const;
+		[[nodiscard]] const Texture& GetMetallic()  const;
+		[[nodiscard]] const Texture& GetNormals()   const;
+		[[nodiscard]] const Texture& GetHeight()    const;
+		[[nodiscard]] const Texture& GetDetail()    const;
+		[[nodiscard]] const Texture& GetAO()        const;
+		[[nodiscard]] const Texture& GetEmission()  const;
 	};
 }
 

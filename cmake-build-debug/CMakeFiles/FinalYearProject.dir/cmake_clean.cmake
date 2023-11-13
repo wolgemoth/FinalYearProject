@@ -41,6 +41,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/RenderTexture.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Renderer.cpp.o"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Renderer.cpp.o.d"
+  "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o"
+  "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Rigidbody.cpp.o"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Rigidbody.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Scene.cpp.o"

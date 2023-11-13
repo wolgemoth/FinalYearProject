@@ -22,8 +22,7 @@ namespace LouiEriksson {
 		if (s_Material == nullptr) {
 			
 			// Create material from shader.
-			s_Material = Material::Create(Shader::m_Cache.Return("pbr"));
-			s_Material->Texture_ID(s_Mesh->Texture_ID());
+			s_Material = Material::Create(Resources::GetShader("pbr"));
 		}
 	
 		// Get or add component.

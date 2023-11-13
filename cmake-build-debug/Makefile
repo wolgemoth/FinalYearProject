@@ -661,6 +661,30 @@ src/engine/scripts/Renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Renderer.cpp.s
 .PHONY : src/engine/scripts/Renderer.cpp.s
 
+src/engine/scripts/Resources.o: src/engine/scripts/Resources.cpp.o
+.PHONY : src/engine/scripts/Resources.o
+
+# target to build an object file
+src/engine/scripts/Resources.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o
+.PHONY : src/engine/scripts/Resources.cpp.o
+
+src/engine/scripts/Resources.i: src/engine/scripts/Resources.cpp.i
+.PHONY : src/engine/scripts/Resources.i
+
+# target to preprocess a source file
+src/engine/scripts/Resources.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.i
+.PHONY : src/engine/scripts/Resources.cpp.i
+
+src/engine/scripts/Resources.s: src/engine/scripts/Resources.cpp.s
+.PHONY : src/engine/scripts/Resources.s
+
+# target to generate assembly for a file
+src/engine/scripts/Resources.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.s
+.PHONY : src/engine/scripts/Resources.cpp.s
+
 src/engine/scripts/Rigidbody.o: src/engine/scripts/Rigidbody.cpp.o
 .PHONY : src/engine/scripts/Rigidbody.o
 
@@ -1001,6 +1025,9 @@ help:
 	@echo "... src/engine/scripts/Renderer.o"
 	@echo "... src/engine/scripts/Renderer.i"
 	@echo "... src/engine/scripts/Renderer.s"
+	@echo "... src/engine/scripts/Resources.o"
+	@echo "... src/engine/scripts/Resources.i"
+	@echo "... src/engine/scripts/Resources.s"
 	@echo "... src/engine/scripts/Rigidbody.o"
 	@echo "... src/engine/scripts/Rigidbody.i"
 	@echo "... src/engine/scripts/Rigidbody.s"

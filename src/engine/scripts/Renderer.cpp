@@ -9,9 +9,6 @@ namespace LouiEriksson {
 		     m_Mesh = std::shared_ptr<Mesh>     (nullptr);
 		 m_Material = std::shared_ptr<Material> (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
-	
-		m_ProjectionMatrixID = 0;
-		     m_ModelMatrixID = 0;
 	}
 	
 	Renderer::~Renderer() = default;

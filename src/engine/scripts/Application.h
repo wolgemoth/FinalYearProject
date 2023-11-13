@@ -6,6 +6,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "Scene.h"
+#include "Resources.h"
 
 namespace LouiEriksson {
 	

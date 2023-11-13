@@ -24,7 +24,7 @@ namespace LouiEriksson {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
-			Shader::PreloadShaders();
+			Resources::Preload();
 			
 			auto scene = Scene::Load("levels/pfg.scene");
 			scene->Begin();

@@ -7,6 +7,8 @@
 
 #include "Serialisation.h"
 
+#include "Resources.h"
+
 namespace LouiEriksson {
 	
 	class Application;

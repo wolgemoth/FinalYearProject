@@ -17,8 +17,6 @@ namespace LouiEriksson {
 		GLuint m_TexCoordVBO_ID;
 		GLuint   m_NormalVBO_ID;
 		GLuint  m_TangentVBO_ID;
-
-		GLuint m_Texture_ID;
 		
 		   int m_VertexCount;
 
@@ -49,7 +47,6 @@ namespace LouiEriksson {
 		[[nodiscard]] GLuint TexCoordVBO_ID() const;
 		[[nodiscard]] GLuint   NormalVBO_ID() const;
 		[[nodiscard]] GLuint  TangentVBO_ID() const;
-		[[nodiscard]] GLuint     Texture_ID() const;
 		
 		[[nodiscard]] unsigned long VertexCount() const;
 	};

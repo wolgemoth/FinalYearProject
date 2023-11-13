@@ -50,7 +50,7 @@ namespace LouiEriksson {
 			m_Planes.push_back(plane);
 			
 			// Compile shader.
-			auto surface = Shader::m_Cache.Return("pbr");
+			auto surface = Resources::GetShader("pbr");
 			
 			// Load mesh.
 			std::shared_ptr<Mesh> mesh = nullptr;
@@ -58,7 +58,6 @@ namespace LouiEriksson {
 			
 			// Create material from shader.
 			auto material = Material::Create(surface);
-			material->Texture_ID(mesh->Texture_ID());
 			
 			auto transform = plane->AddComponent<Transform>();
 			transform->m_Position = glm::vec3((float)i * size, -2.0f, 0.0f);
@@ -104,7 +103,7 @@ namespace LouiEriksson {
 		m_Player = scene->Attach(GameObject::Create(scene, "Curuthers"));
 		
 		// Compile shader.
-		auto surface = Shader::m_Cache.Return("pbr");
+		auto surface = Resources::GetShader("pbr");
 		
 		// Load mesh.
 		std::shared_ptr<Mesh> mesh = nullptr;
@@ -112,7 +111,6 @@ namespace LouiEriksson {
 		
 		// Create material from shader.
 		auto material = Material::Create(surface);
-		material->Texture_ID(mesh->Texture_ID());
 		
 		auto transform = m_Player.lock()->GetComponent<Transform>();
 		if (transform == nullptr) {
@@ -147,11 +145,10 @@ namespace LouiEriksson {
 			File::TryLoad("models/sphere/sphere.obj", mesh);
 			
 			// Compile shader.
-			auto surface = Shader::m_Cache.Return("pbr");
+			auto surface = Resources::GetShader("pbr");
 			
 			// Create material from shader.
 			auto material = Material::Create(surface);
-			material->Texture_ID(mesh->Texture_ID());
 			
 			// Prevents objects spawning too close to the max limit.
 			const float obstacleMargin = 20.0f;

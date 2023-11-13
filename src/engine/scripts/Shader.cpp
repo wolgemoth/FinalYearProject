@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+#include "File.h"
+
 namespace LouiEriksson {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(_type) {}
@@ -8,7 +10,7 @@ namespace LouiEriksson {
 		
 		if (!_subShaders.empty()) {
 			
-			for (auto& shader: _subShaders) {
+			for (const auto& shader: _subShaders) {
 				std::string src = File::ReadAllText(shader.m_Path);
 				Compile(src.data(), shader.m_Type);
 			}
@@ -105,65 +107,6 @@ namespace LouiEriksson {
 			}
 			
 			throw std::runtime_error(err.str());
-		}
-	}
-	
-	void Shader::Compile(const std::vector<SubShader>& _shader) {
-	
-		auto shader = Create(_shader);
-		
-		m_Cache.Add(shader->Name(), shader);
-	}
-	
-	void Shader::Compile(const std::vector<std::vector<SubShader>>& _shaders) {
-		
-		for (const auto& entry: _shaders) {
-			
-			auto shader = Create(entry);
-			
-			m_Cache.Add(shader->Name(), shader);
-		}
-	}
-	
-	void Shader::PreloadShaders() {
-		
-		Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> files;
-		
-		for (const auto& item : File::Directory::GetEntriesRecursive("shaders/", File::Directory::EntryType::FILE)) {
-			
-			std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
-			
-			files.Get(item.stem().string(), subshaders);
-			
-			GLenum shaderType;
-			
-			     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
-			else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
-			else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
-			else {
-				shaderType = GL_NONE;
-			}
-			
-			if (shaderType != GL_NONE) {
-				subshaders.push_back({item, shaderType});
-				
-				files.Assign(item.stem().string(), subshaders);
-			}
-		}
-		
-		std::vector<std::vector<SubShader>> shaders;
-		
-		for (const auto& kvp : files.GetAll()) {
-		
-			std::vector<SubShader> shader;
-			
-			for (const auto& subshader : kvp.second) {
-				shader.emplace_back(SubShader(subshader.first.c_str(), subshader.second));
-			}
-			
-			shaders.push_back(shader);
-			
-			Compile(shader);
 		}
 	}
 	

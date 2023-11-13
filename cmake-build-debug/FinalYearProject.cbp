@@ -288,6 +288,12 @@
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h">
 			<Option target="FinalYearProject"/>
 		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp">
+			<Option target="FinalYearProject"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h">
+			<Option target="FinalYearProject"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Rigidbody.cpp">
 			<Option target="FinalYearProject"/>
 		</Unit>

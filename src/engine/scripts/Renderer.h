@@ -24,9 +24,6 @@ namespace LouiEriksson {
 	
 	public:
 	
-		GLint m_ProjectionMatrixID;
-		GLint      m_ModelMatrixID;
-	
 		explicit Renderer(const std::shared_ptr<GameObject>& _parent);
 		~Renderer() override;
 	

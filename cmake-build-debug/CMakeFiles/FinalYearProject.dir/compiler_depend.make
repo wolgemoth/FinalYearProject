@@ -773,14 +773,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Application.cpp.o: CMakeFiles
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -807,14 +806,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Ball.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/OrbitCam.h \
@@ -832,15 +830,14 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Camera.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Component.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Time.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Collider.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Collider.cpp \
@@ -882,8 +879,11 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/File.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.cpp \
   /usr/include/stdc-predef.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/GameObject.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.cpp \
@@ -911,16 +911,12 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Material.cpp.o: CMakeFiles/Fi
   /usr/include/stdc-predef.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Mesh.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.cpp \
   /usr/include/stdc-predef.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/OrbitCam.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/OrbitCam.cpp \
@@ -941,14 +937,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/OrbitCam.cpp.o: CMakeFiles/Fi
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -974,14 +969,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Plane.cpp.o: CMakeFiles/Final
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1020,14 +1014,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Player.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1050,13 +1043,20 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Renderer.cpp.o: CMakeFiles/Fi
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Component.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h
+
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp \
+  /usr/include/stdc-predef.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Rigidbody.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Rigidbody.cpp \
@@ -1085,14 +1085,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Scene.cpp.o: CMakeFiles/Final
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1123,8 +1122,10 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Shader.cpp.o: CMakeFiles/Fina
   /usr/include/stdc-predef.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/SphereCollider.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/SphereCollider.cpp \
@@ -1168,13 +1169,12 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Component.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Time.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
@@ -1197,14 +1197,13 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h \
-  /home/ubuntu/Projects/FinalYearProject/external/glew/include/GL/glew.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1226,6 +1225,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scene.cpp:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Rigidbody.cpp:
+
+/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.cpp:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Renderer.cpp:
 
@@ -1263,6 +1264,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h:
 
+/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h:
+
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.cpp:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Collision.cpp:
@@ -1270,8 +1273,6 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h:
-
-/home/ubuntu/Projects/FinalYearProject/external/wavefront/include/wavefront/wavefront.h:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h:
 

@@ -21,27 +21,6 @@ namespace LouiEriksson {
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		File::TryLoad(
-			"textures/default/white.png",
-			m_White,
-			GL_RGB,
-			false
-		);
-		
-		File::TryLoad(
-			"textures/default/black.png",
-			m_Black,
-			GL_RGB,
-			false
-		);
-		
-		File::TryLoad(
-			"textures/default/grey.png",
-			m_Grey,
-			GL_RGB,
-			false
-		);
-		
-		File::TryLoad(
 			"textures/pbr/tavern-wood-planks1-ue/tavern-wood-planks1_normal-dx.png",
 			m_Normal,
 			GL_RGB,
@@ -149,8 +128,8 @@ namespace LouiEriksson {
 				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 				
 				auto shadowShader = light->Type() == Light::Parameters::Type::Point ?
-					Shader::m_Cache.Return("shadowDepthCube") :
-					Shader::m_Cache.Return("shadowDepth");
+					Resources::GetShader("shadowDepthCube") :
+					Resources::GetShader("shadowDepth");
 				
 				Shader::Bind(shadowShader->ID());
 				
@@ -291,56 +270,56 @@ namespace LouiEriksson {
 			// Assign parameters (PBR).
 			program->Assign(
 				program->AttributeID("u_Albedo"),
-				material->Texture_ID(),
+				material->GetAlbedo().ID(),
 				0,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Roughness"),
-				m_White.ID(),
+				material->GetRoughness().ID(),
 				1,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Metallic"),
-				m_White.ID(),
+				material->GetMetallic().ID(),
 				2,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Normals"),
-				m_Normal.ID(),
+				material->GetNormals().ID(),
 				3,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Height"),
-				m_Black.ID(),
+				material->GetHeight().ID(),
 				4,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Detail"),
-				m_Black.ID(),
+				material->GetDetail().ID(),
 				5,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_AO"),
-				m_White.ID(),
+				material->GetAO().ID(),
 				6,
 				GL_TEXTURE_2D
 			);
 			
 			program->Assign(
 				program->AttributeID("u_Emission"),
-				m_Black.ID(),
+				material->GetEmission().ID(),
 				7,
 				GL_TEXTURE_2D
 			);
@@ -484,7 +463,7 @@ namespace LouiEriksson {
 			glCullFace (GL_FRONT );
 			glDepthFunc(GL_LEQUAL);
 		
-			auto skybox = Shader::m_Cache.Return("skybox");
+			auto skybox = Resources::GetShader("skybox");
 			
 			Shader::Bind(skybox->ID());
 			
@@ -560,13 +539,13 @@ namespace LouiEriksson {
 		// TODO: Allow modification of effect order and parameters outside of function.
 		std::queue<std::shared_ptr<Shader>> effects;
 		
-		auto aces = Shader::m_Cache.Return("aces");
+		auto aces = Resources::GetShader("aces");
 		Shader::Bind(aces->ID());
 		aces->Assign(aces->AttributeID("u_Gain"), -0.1f);
 		aces->Assign(aces->AttributeID("u_Exposure"), 1.0f);
 		Shader::Unbind();
 		
-		auto fxaa = Shader::m_Cache.Return("fxaa");
+		auto fxaa = Resources::GetShader("fxaa");
 		Shader::Bind(fxaa->ID());
 		fxaa->Assign(fxaa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		fxaa->Assign(fxaa->AttributeID("u_ContrastThreshold"),  0.0312f);
@@ -576,13 +555,13 @@ namespace LouiEriksson {
 		fxaa->Assign(fxaa->AttributeID("u_LocalContrastModifier"), 0.5f);
 		Shader::Unbind();
 		
-		auto grain = Shader::m_Cache.Return("grain");
+		auto grain = Resources::GetShader("grain");
 		Shader::Bind(grain->ID());
 		grain->Assign(grain->AttributeID("u_Amount"), 0.02f);
 		grain->Assign(grain->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
-		auto vignette = Shader::m_Cache.Return("vignette");
+		auto vignette = Resources::GetShader("vignette");
 		Shader::Bind(vignette->ID());
 		vignette->Assign(vignette->AttributeID("u_Amount"), 0.33f);
 		Shader::Unbind();
@@ -600,7 +579,7 @@ namespace LouiEriksson {
 		PostProcess(effects);
 		
 		/* RENDER TO SCREEN */
-		Shader::Bind(Shader::m_Cache.Return("passthrough")->ID());
+		Shader::Bind(Resources::GetShader("passthrough")->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		Shader::Unbind();
 		
@@ -616,8 +595,8 @@ namespace LouiEriksson {
 		
 		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
 		
-		auto horizontal = Shader::m_Cache.Return("blur_horizontal");
-		auto   vertical = Shader::m_Cache.Return("blur_vertical");
+		auto horizontal = Resources::GetShader("blur_horizontal");
+		auto   vertical = Resources::GetShader("blur_vertical");
 		
 		horizontal->Assign(horizontal->AttributeID("u_Texture"), _rt.ID());
 		  vertical->Assign(  vertical->AttributeID("u_Texture"), _rt.ID());
@@ -685,7 +664,7 @@ namespace LouiEriksson {
 		
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		auto ao = Shader::m_Cache.Return("ao");
+		auto ao = Resources::GetShader("ao");
 		Shader::Bind(ao->ID());
 		
 		ao->Assign(ao->AttributeID("u_Samples"), 16);
@@ -710,7 +689,7 @@ namespace LouiEriksson {
 		
 		Blur(ao_rt, 1.0f, 2, true, true);
 
-		auto multiply = Shader::m_Cache.Return("multiply");
+		auto multiply = Resources::GetShader("multiply");
 
 		Shader::Bind(multiply->ID());
 
@@ -731,11 +710,11 @@ namespace LouiEriksson {
 		const auto dimensions = GetWindow()->Dimensions();
 		
 		// Get each shader used for rendering the effect.
-		auto threshold_shader = Shader::m_Cache.Return("threshold");
-		auto downscale_shader = Shader::m_Cache.Return("downscale");
-		auto   upscale_shader = Shader::m_Cache.Return("upscale");
-		auto       add_shader = Shader::m_Cache.Return("add");
-		auto lens_dirt_shader = Shader::m_Cache.Return("lens_dirt");
+		auto threshold_shader = Resources::GetShader("threshold");
+		auto downscale_shader = Resources::GetShader("downscale");
+		auto   upscale_shader = Resources::GetShader("upscale");
+		auto       add_shader = Resources::GetShader("add");
+		auto lens_dirt_shader = Resources::GetShader("lens_dirt");
 		
 		/* SET BLOOM PARAMETERS */
 		
@@ -828,7 +807,7 @@ namespace LouiEriksson {
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
 	
-		Blit(_src, _dest, *Shader::m_Cache.Return("passthrough").get());
+		Blit(_src, _dest, *Resources::GetShader("passthrough").get());
 	}
 	
 	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const Shader& _shader) {
