@@ -20,23 +20,9 @@ namespace LouiEriksson {
 		
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
-//		File::TryLoad(
-//			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
-//			m_LensDirt,
-//			GL_RGB,
-//			true
-//		);
-
 		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
 		m_HDRI = Resources::GetTexture("abandoned_workshop_02_8k").lock();
 		
-//		File::TryLoad(
-//			"textures/hdri_maps/abandoned_workshop_02_8k.hdr",
-//			m_HDRI,
-//			GL_RGB32F,
-//			true
-//		);
-//
 //		m_Skybox = std::move(
 //			File::Load(
 //				{

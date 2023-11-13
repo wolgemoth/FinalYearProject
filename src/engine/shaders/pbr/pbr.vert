@@ -3,8 +3,8 @@
 #extension GL_ARB_explicit_uniform_location: enable
 
 in vec3 a_Position;
-in vec2 a_TexCoord;
 in vec3 a_Normal;
+in vec2 a_TexCoord;
 
 in vec3 a_Tangent;
 in vec3 a_Bitangent;

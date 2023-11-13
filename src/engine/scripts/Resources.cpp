@@ -93,9 +93,9 @@ namespace LouiEriksson {
 	}
 	
 	void Resources::Preload() {
+		PreloadShaders();
 		PreloadMeshes();
 		PreloadTextures();
-		PreloadShaders();
 		PreloadMaterials();
 	}
 	
