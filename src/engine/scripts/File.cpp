@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "File.h"
+#include "Resources.h"
 
 namespace LouiEriksson {
 	
@@ -99,13 +100,9 @@ namespace LouiEriksson {
 		
 		try {
 			
-			if (_output == nullptr) {
-				_output.reset(new Texture());
-			}
+			_output.reset(new Texture());
 			
 			glGenTextures(1, &_output->m_TextureID);
-			
-			std::cout << _output->m_TextureID << "\n";
 			
 			if (_output->m_TextureID > 0) {
 				
@@ -192,9 +189,7 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
-		if (_output == nullptr) {
-			_output.reset(new Mesh());
-		}
+		_output.reset(new Mesh());
 		
 		/*
 		 * Implementation derived from Mesh.cpp and Mesh.h
@@ -370,7 +365,73 @@ namespace LouiEriksson {
 	}
 	
 	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output) {
-		throw std::runtime_error("Not implemented!");
+		
+		bool result = false;
+		
+		std::cout << "Loading Material \"" << _path.c_str() << "\"... ";
+		
+		try {
+			
+			_output.reset(new Material());
+			
+			std::fstream fstream;
+			fstream.open(_path, std::ios::in);
+		
+			if (fstream.is_open()) {
+		
+				std::string line;
+		
+				while (std::getline(fstream, line)) {
+					
+					std::vector<std::string> substrings;
+					
+					{
+						// Split string:
+						std::istringstream split(line);
+						
+						std::string substring;
+						while (std::getline(split, substring, ' ')) {
+							substrings.push_back(substring);
+						}
+					}
+					
+					if (!substrings.empty()) {
+						
+						if (substrings.at(0) == "map_Kd" && substrings.size() >= 2) {
+							
+							const std::filesystem::path path(substrings.at(1));
+							
+							std::cout << path.stem().string() << "\n";
+							
+							std::shared_ptr<Texture> texture;
+							if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								_output->m_Albedo = texture;
+							}
+						}
+						else if (substrings.at(0) == "SOMETHING PLS") {
+							// TODO: Implement the rest of the mtl lib spec.
+						}
+					}
+				}
+				
+				fstream.close();
+				
+				result = true;
+				
+				std::cout << "Done.\n";
+			}
+			else {
+				throw std::runtime_error("Couldn't open filestream.");
+			}
+		}
+		catch (const std::exception& e) {
+			
+			std::cout << "Failed.\n";
+			
+			std::cout << e.what() << "\n";
+		}
+		
+		return result;
 	}
 	
 	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {

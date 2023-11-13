@@ -43,13 +43,13 @@ namespace LouiEriksson {
 	
 		static void Preload();
 	
-		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh> _output);
+		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output);
 		
-		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material> _output);
+		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output);
 		
-		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture> _output);
+		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output);
 		
-		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader> _output);
+		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output);
 		
 		static std::weak_ptr<Mesh> GetMesh(const std::string& _name);
 		

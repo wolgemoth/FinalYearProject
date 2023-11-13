@@ -6,10 +6,14 @@
 #include "Shader.h"
 #include "Texture.h"
 
+class File;
+
 namespace LouiEriksson {
 	
 	class Material {
 	
+		friend class File;
+		
 	private:
 	
 		// Shader the Material points to.
@@ -24,29 +28,27 @@ namespace LouiEriksson {
 		std::weak_ptr<Texture> m_AO;
 		std::weak_ptr<Texture> m_Emission;
 		
-		explicit Material(const std::weak_ptr<Shader>& _shader);
-		~Material();
-		
+		 Material();
+		 
 	public:
+		
+		~Material();
 		
 		GLuint m_ProjectionMatrixID;
 		GLuint      m_ModelMatrixID;
 		GLuint       m_ViewMatrixID;
 		
-		/// <summary> Factory function which creates a new Material from a Shader. </summary>
-		[[nodiscard]] static std::shared_ptr<Material> Create(const std::weak_ptr<Shader>& _shader);
-		
 		/// <summary> Get the currently assigned Shader. </summary>
 		std::weak_ptr<Shader> GetShader();
 		
-		[[nodiscard]] const std::weak_ptr<Texture> GetAlbedo()    const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetRoughness() const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetMetallic()  const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetNormals()   const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetHeight()    const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetDetail()    const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetAO()        const;
-		[[nodiscard]] const std::weak_ptr<Texture> GetEmission()  const;
+		[[nodiscard]] std::weak_ptr<Texture> GetAlbedo()    const;
+		[[nodiscard]] std::weak_ptr<Texture> GetRoughness() const;
+		[[nodiscard]] std::weak_ptr<Texture> GetMetallic()  const;
+		[[nodiscard]] std::weak_ptr<Texture> GetNormals()   const;
+		[[nodiscard]] std::weak_ptr<Texture> GetHeight()    const;
+		[[nodiscard]] std::weak_ptr<Texture> GetDetail()    const;
+		[[nodiscard]] std::weak_ptr<Texture> GetAO()        const;
+		[[nodiscard]] std::weak_ptr<Texture> GetEmission()  const;
 	};
 }
 

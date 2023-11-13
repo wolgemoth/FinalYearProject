@@ -19,10 +19,10 @@ namespace LouiEriksson {
 			File::TryLoad("models/sphere/sphere.obj", s_Mesh);
 		}
 		
-		if (s_Material == nullptr) {
+		if (s_Material.expired()) {
 			
 			// Create material from shader.
-			s_Material = Material::Create(Resources::GetShader("pbr"));
+			s_Material = Resources::GetMaterial("sphere");
 		}
 	
 		// Get or add component.

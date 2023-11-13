@@ -57,7 +57,7 @@ namespace LouiEriksson {
 			File::TryLoad("models/woodfloor/woodfloor.obj", mesh);
 			
 			// Create material from shader.
-			auto material = Material::Create(surface);
+			auto material = Resources::GetMaterial("woodfloor");
 			
 			auto transform = plane->AddComponent<Transform>();
 			transform->m_Position = glm::vec3((float)i * size, -2.0f, 0.0f);
@@ -110,7 +110,7 @@ namespace LouiEriksson {
 		File::TryLoad("models/curuthers/curuthers.obj", mesh);
 		
 		// Create material from shader.
-		auto material = Material::Create(surface);
+		auto material = Resources::GetMaterial("curuthers");
 		
 		auto transform = m_Player.lock()->GetComponent<Transform>();
 		if (transform == nullptr) {
@@ -148,7 +148,7 @@ namespace LouiEriksson {
 			auto surface = Resources::GetShader("pbr");
 			
 			// Create material from shader.
-			auto material = Material::Create(surface);
+			auto material = Resources::GetMaterial("sphere");
 			
 			// Prevents objects spawning too close to the max limit.
 			const float obstacleMargin = 20.0f;

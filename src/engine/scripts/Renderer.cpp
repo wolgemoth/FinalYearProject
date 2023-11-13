@@ -20,10 +20,10 @@ namespace LouiEriksson {
 		return m_Mesh;
 	}
 	
-	void Renderer::SetMaterial(const std::shared_ptr<Material>& _material) {
+	void Renderer::SetMaterial(const std::weak_ptr<Material>& _material) {
 		m_Material = _material;
 	}
-	std::shared_ptr<Material> Renderer::GetMaterial() {
+	std::weak_ptr<Material> Renderer::GetMaterial() {
 		return m_Material;
 	}
 	

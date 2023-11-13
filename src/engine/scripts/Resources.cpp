@@ -7,7 +7,23 @@ namespace LouiEriksson {
 	}
 	
 	void Resources::PreloadMaterials() {
-		std::cout << "Please implement PreloadMaterials() function!\n";
+		
+		Hashmap<std::string, std::filesystem::path> files;
+		
+		for (const auto& item : File::Directory::GetEntriesRecursive(m_MaterialsDirectory, File::Directory::EntryType::FILE)) {
+			
+			if (strcmp(item.extension().c_str(), ".mtl") == 0) {
+				files.Add(item.stem().string(), item);
+			}
+		}
+		
+		for (const auto& kvp : files.GetAll()) {
+			
+			std::shared_ptr<Material> material;
+			if (File::TryLoad(kvp.second, material)) {
+				m_Materials.Add(kvp.first, material);
+			}
+		}
 	}
 	
 	void Resources::PreloadTextures() {
@@ -18,10 +34,14 @@ namespace LouiEriksson {
 			files.Add(item.stem().string(), item);
 		}
 		
+		for (const auto& item : File::Directory::GetEntriesRecursive(m_MaterialsDirectory, File::Directory::EntryType::FILE)) {
+			files.Add(item.stem().string(), item);
+		}
+		
 		for (const auto& kvp : files.GetAll()) {
 			
 			std::shared_ptr<Texture> texture;
-			if (File::TryLoad(kvp.second, texture, GL_RGB, true)) {
+			if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
 				m_Textures.Add(kvp.first, texture);
 			}
 		}
@@ -74,24 +94,24 @@ namespace LouiEriksson {
 	
 	void Resources::Preload() {
 		PreloadMeshes();
-		PreloadMaterials();
 		PreloadTextures();
 		PreloadShaders();
+		PreloadMaterials();
 	}
 	
-	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh> _output) {
+	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) {
 		return m_Meshes.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material> _output) {
+	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) {
 		return m_Materials.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture> _output) {
+	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) {
 		return m_Textures.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader> _output) {
+	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) {
 		return m_Shaders.Get(_name, _output);
 	}
 	

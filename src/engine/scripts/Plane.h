@@ -20,7 +20,7 @@ namespace LouiEriksson {
 		static inline std::shared_ptr<Mesh> m_Mesh = nullptr;
 		
 		/// <summary> Material of the Plane. </summary>
-		static inline std::shared_ptr<Material> m_Material = nullptr;
+		static inline std::weak_ptr<Material> m_Material;
 	
 		/// <summary> Called at the beginning of every frame. </summary>
 		void Begin() override;

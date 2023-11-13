@@ -464,8 +464,10 @@ void main() {
     // Fake normal mapping:
     vec3 normal = normalize(
         v_Normal +
-         ((texture(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord)).rgb * 2.0) - 1.0) * 0.03
+        ((texture(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord)).rgb * 2.0) - 1.0) * 0.03
     );
+
+    //vec3 normal = normalize(v_Normal);
 
     float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;

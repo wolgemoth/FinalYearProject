@@ -19,10 +19,10 @@ namespace LouiEriksson {
 			File::TryLoad("models/woodfloor/woodfloor.obj", m_Mesh);
 		}
 		
-		if (m_Material == nullptr) {
+		if (m_Material.expired()) {
 			
 			// Create material from shader.
-			m_Material = Material::Create(Resources::GetShader("pbr"));
+			m_Material = Resources::GetMaterial("woodfloor");
 		}
 		
 		// Get or add Transform.

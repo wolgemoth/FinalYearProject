@@ -14,10 +14,10 @@ namespace LouiEriksson {
 	private:
 	
 		/// <summary> Mesh of the Renderer. </summary>
-		std::shared_ptr<Mesh>      m_Mesh;
+		std::shared_ptr<Mesh> m_Mesh;
 	
 		/// <summary> Material of the Renderer. </summary>
-		std::shared_ptr<Material>  m_Material;
+		std::weak_ptr<Material> m_Material;
 	
 		/// <summary> Transform of the Renderer. </summary>
 		std::shared_ptr<Transform> m_Transform;
@@ -34,10 +34,10 @@ namespace LouiEriksson {
 		std::shared_ptr<Mesh> GetMesh();
 	
 		/// <summary> Set the Material of the Renderer. </summary>
-		void SetMaterial(const std::shared_ptr<Material>& _material);
+		void SetMaterial(const std::weak_ptr<Material>& _material);
 	
 		/// <summary> Get the Material of the Renderer. </summary>
-		std::shared_ptr<Material> GetMaterial();
+		std::weak_ptr<Material> GetMaterial();
 	
 		/// <summary> Set the Transform of the Renderer. </summary>
 		void SetTransform(const std::shared_ptr<Transform>& _transform);

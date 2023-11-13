@@ -250,7 +250,7 @@ namespace LouiEriksson {
 			const auto transform = renderer->GetTransform();
 			const auto material  = renderer->GetMaterial();
 			const auto mesh      = renderer->GetMesh();
-			const auto program   = material->GetShader();
+			const auto program   = material.lock()->GetShader();
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
@@ -259,63 +259,63 @@ namespace LouiEriksson {
 			glBindVertexArray(mesh->VAO_ID());
 			
 			// Assign matrices.
-			program.lock()->Assign(material->m_ProjectionMatrixID, Projection()); /* PROJECTION */
-			program.lock()->Assign(material->m_ViewMatrixID,             View()); /* VIEW       */
-			program.lock()->Assign(material->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
+			program.lock()->Assign(material.lock()->m_ProjectionMatrixID, Projection()); /* PROJECTION */
+			program.lock()->Assign(material.lock()->m_ViewMatrixID,             View()); /* VIEW       */
+			program.lock()->Assign(material.lock()->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
 			
 			// Assign parameters (PBR).
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Albedo"),
-				material->GetAlbedo().lock()->ID(),
+				material.lock()->GetAlbedo().lock()->ID(),
 				0,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Roughness"),
-				material->GetRoughness().lock()->ID(),
+				material.lock()->GetRoughness().lock()->ID(),
 				1,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Metallic"),
-				material->GetMetallic().lock()->ID(),
+				material.lock()->GetMetallic().lock()->ID(),
 				2,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Normals"),
-				material->GetNormals().lock()->ID(),
+				material.lock()->GetNormals().lock()->ID(),
 				3,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Height"),
-				material->GetHeight().lock()->ID(),
+				material.lock()->GetHeight().lock()->ID(),
 				4,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Detail"),
-				material->GetDetail().lock()->ID(),
+				material.lock()->GetDetail().lock()->ID(),
 				5,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_AO"),
-				material->GetAO().lock()->ID(),
+				material.lock()->GetAO().lock()->ID(),
 				6,
 				GL_TEXTURE_2D
 			);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Emission"),
-				material->GetEmission().lock()->ID(),
+				material.lock()->GetEmission().lock()->ID(),
 				7,
 				GL_TEXTURE_2D
 			);

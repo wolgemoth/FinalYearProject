@@ -883,7 +883,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/File.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/GameObject.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.cpp \
@@ -911,7 +912,11 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Material.cpp.o: CMakeFiles/Fi
   /usr/include/stdc-predef.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Mesh.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.cpp \
