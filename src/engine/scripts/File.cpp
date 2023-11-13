@@ -95,6 +95,8 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
+		std::cout << "Loading Texture Asset \"" << _path.c_str() << "\"... ";
+		
 		try {
 			
 			glGenTextures(1, &_output.m_TextureID);
@@ -102,6 +104,7 @@ namespace LouiEriksson {
 			if (_output.m_TextureID > 0) {
 				
 				int channels;
+				
 				GLenum texture_format;
 				
 				Texture::GetFormatData(_format, texture_format, channels);
@@ -164,9 +167,11 @@ namespace LouiEriksson {
 					Texture::Unbind();
 					
 					result = true;
+					
+					std::cout << "Done.\n";
 				}
 				else {
-					throw std::runtime_error("Failed to load texture at path \"" + _path.string() + "\".");
+					throw std::runtime_error("Failed.");
 				}
 			}
 		}
@@ -360,11 +365,6 @@ namespace LouiEriksson {
 	
 	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output) {
 		throw std::runtime_error("Not implemented!");
-	}
-	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Shader>& _output) {
-	
-	
 	}
 	
 	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {

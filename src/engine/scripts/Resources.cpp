@@ -11,7 +11,23 @@ namespace LouiEriksson {
 	}
 	
 	void Resources::PreloadTextures() {
-		std::cout << "Please implement PreloadTextures() function!\n";
+		
+		Hashmap<std::string, std::filesystem::path> files;
+		
+		for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesDirectory, File::Directory::EntryType::FILE)) {
+			files.Add(item.stem().string(), item);
+		}
+		
+		for (const auto& kvp : files.GetAll()) {
+			
+			Texture item;
+			if (File::TryLoad(kvp.second, item, GL_RGB, true)) {
+
+				auto texture = std::make_shared<Texture>(item);
+
+				m_Textures.Add(kvp.first, texture);
+			}
+		}
 	}
 	
 	void Resources::PreloadShaders() {

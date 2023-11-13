@@ -21,13 +21,6 @@ namespace LouiEriksson {
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		File::TryLoad(
-			"textures/pbr/tavern-wood-planks1-ue/tavern-wood-planks1_normal-dx.png",
-			m_Normal,
-			GL_RGB,
-			false
-		);
-		
-		File::TryLoad(
 			"textures/lens_dirt/Bokeh__Lens_Dirt_65.jpg",
 			m_LensDirt,
 			GL_RGB,

@@ -10,12 +10,16 @@ namespace LouiEriksson {
 		
 		if (!_subShaders.empty()) {
 			
+			m_Name = std::filesystem::path(_subShaders[0].m_Path).stem().string();
+			
 			for (const auto& shader: _subShaders) {
-				std::string src = File::ReadAllText(shader.m_Path);
+				
+				std::cout << "Loading Shader Asset \"" << shader.m_Path << "\"... ";
+					std::string src = File::ReadAllText(shader.m_Path);
+				std::cout << "Done.\n";
+				
 				Compile(src.data(), shader.m_Type);
 			}
-			
-			m_Name = std::filesystem::path(_subShaders[0].m_Path).stem().string();
 			
 			m_ProgramID = glCreateProgram();
 			
@@ -85,6 +89,8 @@ namespace LouiEriksson {
 		
 		GLint success = 0;
 		
+		std::cout << "Compiling Shader Program \"" << m_Name << "\"... ";
+		
 		m_SubShaders.push_back(glCreateShader(_type));
 		glShaderSource(m_SubShaders.back(), 1, &_src, nullptr);
 		glCompileShader(m_SubShaders.back());
@@ -106,7 +112,12 @@ namespace LouiEriksson {
 				err << error;
 			}
 			
+			std::cout << "Failed.\n";
+		
 			throw std::runtime_error(err.str());
+		}
+		else {
+			std::cout << "Done.\n";
 		}
 	}
 	
