@@ -49,8 +49,7 @@ vec3 SampleAmbient(in vec3 _dir) {
 
         float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 
-        //uv.x *= check;
-        //result = texture(u_Texture, uv, b).rgb;
+        //result = texture(u_Texture, vec2(uv.x * check, uv.y), b).rgb;
 
         // Seemingly no way to do this without a branch.
         // Compiler seems to need an explicit branch to 'get it'.
@@ -58,12 +57,9 @@ vec3 SampleAmbient(in vec3 _dir) {
         // See for yourself by commenting out the following code
         // and uncommenting the previous code.
 
-        if (check == 0.0) {
-            result = texture(u_Texture, vec2(0.0, uv.y), b).rgb;
-        }
-        else {
-            result = texture(u_Texture, uv, b).rgb;
-        }
+        result = check > 0 ?
+            texture(u_Texture, uv, b).rgb :
+            texture(u_Texture, vec2(0.0, uv.y), b).rgb;
 
     #endif
 
