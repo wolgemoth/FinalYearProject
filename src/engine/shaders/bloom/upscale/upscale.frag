@@ -4,14 +4,16 @@ in vec2 v_TexCoord;
 
 uniform sampler2D u_Texture;
 
-uniform float u_Diffusion;
+uniform vec2 u_Diffusion;
 
 void main() {
 
+    vec2 size = textureSize(u_Texture, 0);
+
 	// The filter kernel is applied with a radius, specified in texture
     // coordinates, so that the radius will vary across mip resolutions.
-    float x = u_Diffusion;
-    float y = u_Diffusion;
+    float x = u_Diffusion.x / size.x;
+    float y = u_Diffusion.y / size.y;
 
     // Take 9 samples around current texel:
     // a - b - c

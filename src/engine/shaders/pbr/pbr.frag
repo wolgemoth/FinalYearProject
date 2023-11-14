@@ -37,7 +37,7 @@ layout (location = 98) uniform samplerCube u_Ambient;
 layout (location = 98) uniform sampler2D u_Ambient;
 #endif
 
-uniform float u_AmbientExposure = 1.6; // Brightness of ambient texture.
+uniform float u_AmbientExposure = 1.0; // Brightness of ambient texture.
 
 /* SHADOWS */
 layout (location =  99) uniform sampler2D   u_ShadowMap2D;
@@ -54,6 +54,7 @@ uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a s
 uniform float  u_Metallic_Amount = 0.0; // How metallic the surface is.
 uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
 uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
+uniform float    u_Normal_Amount = 1.0; // Contribution of normal map.
 
 uniform float u_Time;
 
@@ -287,7 +288,7 @@ float TransferShadow3D(vec3 _normal, vec3 _lightDir, float _bias, float _normalB
     float perspective_multiplier = 32.0;
 
     float adjustedBias =
-        texelSize * u_LightRange * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+        texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     //return ShadowCalculationHard3D(fragToLight, vec3(0), adjustedBias);
     //return ShadowCalculationPCF3D(fragToLight, texelSize, adjustedBias, 1.0f);
@@ -410,7 +411,7 @@ float TransferShadow2D(vec4 _fragPosLightSpace, vec3 _normal, vec3 _lightDir, fl
     float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
 
     float adjustedBias =
-        texelSize * u_LightRange / perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+        texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
     //return ShadowCalculationHard2D(projCoords, vec2(0), adjustedBias);
     //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
@@ -426,12 +427,16 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
 
     vec3 result;
 
-    int mipLevel = int(float(textureQueryLevels(u_Ambient)) * _blur);
+    float s = textureSize(u_Ambient, 0).x;
+
+    float levels = log2(s);//min(float(textureQueryLevels(u_Ambient)), 1.0);
+
+    int b = int(pow(_blur, levels) * levels);
 
     #ifdef SAMPLER_CUBE
 
         // Sample the cubemap the direction directly.
-        result = texture(u_Ambient, _dir, mipLevel).rgb;
+        result = texture(u_Ambient, _dir, b).rgb;
     #else
 
         // Sample the texture2d by converting the direction to a uv coordinate.
@@ -442,7 +447,7 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
                 0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
                 0.5 - (asin(_dir.y) / PI)
             ),
-            mipLevel
+            b
         ).rgb;
 
     #endif
@@ -459,7 +464,7 @@ void main() {
     vec3 n = texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb;
     n = normalize((n * 2.0) - 1.0);
 
-    vec3 normal = normalize(v_TBN * n);
+    vec3 normal = mix(normalize(v_Normal), normalize(v_TBN * n), u_Normal_Amount);
 
     float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
@@ -506,7 +511,7 @@ void main() {
         vec3 ambientDir = reflect(-viewDir, normal);
 
         // Sample at max mip level for the diffuse.
-        vec3 diffuse = SampleAmbient(ambientDir, 1.0);
+        vec3 diffuse = SampleAmbient(normal, 0.95);
 
         // Sample at variable mip level (determined by roughness) for specular.
         vec3 specular = SampleAmbient(ambientDir, roughness);
@@ -515,8 +520,10 @@ void main() {
 
         vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
 
+        //diffuse;//
         indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * ao;
     }
 
+    //vec4(indirectLighting, 1);//
     gl_FragColor = vec4((directLighting + indirectLighting) + emission, 1.0);
 }

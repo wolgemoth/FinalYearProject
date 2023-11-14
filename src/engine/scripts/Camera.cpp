@@ -21,7 +21,11 @@ namespace LouiEriksson {
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
-		m_HDRI = Resources::GetTexture("abandoned_workshop_02_8k").lock();
+		
+		//blue_photo_studio_4k
+		//abandoned_workshop_02_8k
+		//little_paris_eiffel_tower_4k
+		m_HDRI = Resources::GetTexture("little_paris_eiffel_tower_4k").lock();
 		
 //		m_Skybox = std::move(
 //			File::Load(
@@ -309,9 +313,9 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 0.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 0.1f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), .0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Ambient"),
@@ -322,7 +326,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_Tiling"), glm::vec2(1.0f));
+			program.lock()->Assign(program.lock()->AttributeID("u_Tiling"), glm::vec2(5.0f));
 			program.lock()->Assign(program.lock()->AttributeID("u_Offset"), glm::vec2(0.0f));
 			
 			if (_lights.empty()) {
@@ -467,7 +471,7 @@ namespace LouiEriksson {
 			);
 			
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.0f);
+			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
 			
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
@@ -523,8 +527,8 @@ namespace LouiEriksson {
 		
 		auto aces = Resources::GetShader("aces");
 		Shader::Bind(aces.lock()->ID());
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), -0.1f);
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 1.0f);
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), 0.0f);
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 2.0f);
 		Shader::Unbind();
 		
 		auto fxaa = Resources::GetShader("fxaa");
@@ -701,13 +705,17 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		const float threshold = 1.2f;
-		const float intensity = 0.15f;
-		const float diffusion = 7.0f / glm::max(m_RT.Width(), m_RT.Height());
+		const float intensity = 0.1f;
+		const float lens_dirt_intensity = 0.5f;
+		const float clamp = 20.0f;
+		
+		const glm::vec2 diffusion = glm::vec2(6.0f, 1.0f);
 		
 		const int scalingPasses = 5;
 		
 		Shader::Bind(threshold_shader.lock()->ID());
 		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
 		Shader::Unbind();
 		
 		Shader::Bind(downscale_shader.lock()->ID());
@@ -764,7 +772,7 @@ namespace LouiEriksson {
 		Shader::Unbind();
 		
 		Shader::Bind(lens_dirt_shader.lock()->ID());
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), 0.1f);
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), lens_dirt_intensity * intensity);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);

@@ -110,15 +110,16 @@ namespace LouiEriksson {
 		    _textureFormat = GL_RG;
 			_channels      = 2;
 		}
-		else if (_internalFormat == GL_RGB    || _internalFormat == GL_RGB8   || _internalFormat == GL_RGB16      ||
-		         _internalFormat == GL_RGB16F || _internalFormat == GL_RGB32F || _internalFormat == GL_RGB32F_ARB ||
-				 _internalFormat == GL_RGB32F_EXT
+		else if (_internalFormat == GL_RGB      || _internalFormat == GL_SRGB       || _internalFormat == GL_SRGB8  ||
+				 _internalFormat == GL_SRGB_EXT ||  _internalFormat == GL_RGB8   || _internalFormat == GL_RGB16      || _internalFormat == GL_RGB16F ||
+				 _internalFormat == GL_RGB32F   || _internalFormat == GL_RGB32F_ARB || _internalFormat == GL_RGB32F_EXT
 		) {
 		    _textureFormat = GL_RGB;
 			_channels      = 3;
 		}
-		else if (_internalFormat == GL_RGBA    || _internalFormat == GL_RGBA8   || _internalFormat == GL_RGBA16      ||
-		         _internalFormat == GL_RGBA16F || _internalFormat == GL_RGBA32F || _internalFormat == GL_RGBA32F_ARB ||
+		else if (_internalFormat == GL_SRGB_ALPHA || _internalFormat == GL_SRGB8_ALPHA8 || _internalFormat == GL_SRGB8_ALPHA8_EXT ||
+				 _internalFormat == GL_RGBA       || _internalFormat == GL_RGBA8        || _internalFormat == GL_RGBA16           ||
+		         _internalFormat == GL_RGBA16F    || _internalFormat == GL_RGBA32F      || _internalFormat == GL_RGBA32F_ARB      ||
 				 _internalFormat == GL_RGBA32F_EXT
 		) {
 		    _textureFormat = GL_RGBA;

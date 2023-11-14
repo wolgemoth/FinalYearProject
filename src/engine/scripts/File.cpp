@@ -155,8 +155,8 @@ namespace LouiEriksson {
 					stbi_image_free(data);
 					
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 					
 					if (_generateMipmaps) {
 						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -388,17 +388,6 @@ namespace LouiEriksson {
 					        bitangents.push_back(bitangent);
 						}
 						
-						if (_path.stem().string() == "woodfloor") {
-							
-							for (int i = 0; i < vertices.size(); i++) {
-								
-								std::cout << "\n" <<
-								   tangents[i].x << " " <<    tangents[i].y << " " <<    tangents[i].z << "\n" <<
-								 bitangents[i].x << " " <<  bitangents[i].y << " " <<  bitangents[i].z << "\n" <<
-								    normals[i].x << " " <<     normals[i].y << " " <<     normals[i].z << "\n" ;
-							}
-						}
-						
 						// TODO: Perform tangent averaging / smoothing.
 						
 					    glGenBuffers(1, &_output->m_TangentVBO_ID);
@@ -470,19 +459,100 @@ namespace LouiEriksson {
 					
 					if (!substrings.empty()) {
 						
-						if (substrings.at(0) == "map_Kd" && substrings.size() >= 2) {
+						std::string key = substrings.at(0);
+						
+						if (key == "map_Kd") {
 							
-							const std::filesystem::path path(substrings.at(1));
+							if (substrings.size() >= 2) {
 							
-							std::cout << path.stem().string() << "\n";
-							
-							std::shared_ptr<Texture> texture;
-							if (Resources::TryGetTexture(path.stem().string(), texture)) {
-								_output->m_Albedo = texture;
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Albedo = texture;
+								}
 							}
 						}
-						else if (substrings.at(0) == "SOMETHING PLS") {
-							// TODO: Implement the rest of the mtl lib spec.
+						else if (key == "map_Ks") {
+							std::cout << "Specular map loading not implemented. ";
+						}
+						else if (key == "map_Tr" || key == "map_d") {
+							std::cout << "Transparency map loading not implemented. ";
+						}
+						else if (key == "bump" || key == "map_bump" || key == "bm") {
+							std::cout << "Bump map loading not implemented. ";
+						}
+						else if (key == "disp") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Height = texture;
+								}
+							}
+						}
+						else if (key == "map_Pr") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Roughness = texture;
+								}
+							}
+						}
+						else if (key == "map_Pm") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Metallic = texture;
+								}
+							}
+						}
+						else if (key == "map_Ke") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Emission = texture;
+								}
+							}
+						}
+						else if (key == "norm") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_Normals = texture;
+								}
+							}
+						}
+						else if (key == "map_Ao") {
+							
+							if (substrings.size() >= 2) {
+							
+								const std::filesystem::path path(substrings.at(1));
+								
+								std::shared_ptr<Texture> texture;
+								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+									_output->m_AO = texture;
+								}
+							}
 						}
 					}
 				}
