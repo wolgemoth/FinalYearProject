@@ -9,9 +9,10 @@ const float      PI = 3.141593;
 in vec2 v_TexCoord;
 in vec3 v_Position;
 in vec3 v_Normal;
-in vec4 v_Position_LightSpace;
 
 in mat3 v_TBN;
+
+in vec4 v_Position_LightSpace;
 
 uniform vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
 
@@ -449,25 +450,16 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
     return result * u_AmbientExposure;
 }
 
-
 void main() {
 
     vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    v_TexCoord));
     float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
     float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
 
-//    vec3 normal = normalize(
-//        v_TBN *
-//        (texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb * 2.0) - 1.0
-//    );
+    vec3 n = texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb;
+    n = normalize((n * 2.0) - 1.0);
 
-    // Fake normal mapping:
-    vec3 normal = normalize(
-        v_Normal +
-        ((texture(u_Albedo, ScaleTexCoord(u_Albedo, v_TexCoord)).rgb * 2.0) - 1.0) * 0.03
-    );
-
-    //vec3 normal = normalize(v_Normal);
+    vec3 normal = normalize(v_TBN * n);
 
     float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;

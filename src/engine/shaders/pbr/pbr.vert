@@ -5,17 +5,15 @@
 in vec3 a_Position;
 in vec3 a_Normal;
 in vec2 a_TexCoord;
-
 in vec3 a_Tangent;
 in vec3 a_Bitangent;
 
 out vec3 v_Position;
 out vec2 v_TexCoord;
 out vec3 v_Normal;
+out mat3 v_TBN;
 
 out vec4 v_Position_LightSpace;
-
-out mat3 v_TBN;
 
 /* PARAMETERS */
 uniform mat4 u_Projection;
@@ -36,14 +34,14 @@ void main() {
     v_TexCoord = a_TexCoord;
 
     // Normal:
-    v_Normal = transpose(inverse(mat3((u_Model)))) * a_Normal;
+    v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
 
     // Compute TBN matrix:
-    v_TBN = transpose(mat3(
-        normalize((u_Model * vec4(a_Tangent,   0)).xyz),
-        normalize((u_Model * vec4(a_Bitangent, 0)).xyz),
-        normalize((u_Model * vec4(a_Normal,    0)).xyz)
-    ));
+    v_TBN = mat3(
+        normalize(vec3(u_Model * vec4(a_Tangent,   0))),
+        normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
+        normalize(vec3(u_Model * vec4(a_Normal,    0)))
+    );
 
     // Position in light space (for shadow calculations):
     v_Position_LightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);

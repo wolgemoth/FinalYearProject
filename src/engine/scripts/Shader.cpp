@@ -160,13 +160,13 @@ namespace LouiEriksson {
 		}
 		
 		if (result == -1) {
-			
-			std::stringstream ss;
-				ss << "No parameter with name \"" << _name
-				<< "\" exists in program with ID \"" << ID() <<
-				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.\n";
-			
-			std::cout << ss.str();
+//
+//			std::stringstream ss;
+//				ss << "No parameter with name \"" << _name
+//				<< "\" exists in program with ID \"" << ID() <<
+//				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.\n";
+//
+//			std::cout << ss.str();
 		}
 		
 		return result;

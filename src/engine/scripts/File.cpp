@@ -155,8 +155,8 @@ namespace LouiEriksson {
 					stbi_image_free(data);
 					
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 					
 					if (_generateMipmaps) {
 						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -204,13 +204,13 @@ namespace LouiEriksson {
 			if (inputFile.is_open()) {
 				
 				// OBJ files can store texture coordinates, positions and normals
-				std::vector<glm::vec2> rawUVData;
-				std::vector<glm::vec3> rawPositionData;
-				std::vector<glm::vec3> rawNormalData;
+				std::vector<glm::vec3> rawVertices;
+				std::vector<glm::vec2> rawUVs;
+				std::vector<glm::vec3> rawNormals;
 				
-				std::vector<glm::vec2> orderedUVData;
-				std::vector<glm::vec3> orderedPositionData;
-				std::vector<glm::vec3> orderedNormalData;
+				std::vector<glm::vec3> vertices;
+				std::vector<glm::vec3> normals;
+				std::vector<glm::vec2> UVs;
 				
 				std::string currentLine;
 				
@@ -223,19 +223,19 @@ namespace LouiEriksson {
 						std::string junk;
 						float x, y;
 						currentLineStream >> junk >> x >> y;
-						rawUVData.push_back(glm::vec2(x, y));
+						rawUVs.push_back(glm::vec2(x, y));
 					}
 					else if (!currentLine.substr(0, 2).compare(0, 2, "vn")) {
 						std::string junk;
 						float x, y, z;
 						currentLineStream >> junk >> x >> y >> z;
-						rawNormalData.push_back(glm::vec3(x, y, z));
+						rawNormals.push_back(glm::vec3(x, y, z));
 					}
 					else if (!currentLine.substr(0, 2).compare(0, 1, "v")) {
 						std::string junk;
 						float x, y, z;
 						currentLineStream >> junk >> x >> y >> z;
-						rawPositionData.push_back(glm::vec3(x, y, z));
+						rawVertices.push_back(glm::vec3(x, y, z));
 					}
 					else if (!currentLine.substr(0, 2).compare(0, 1, "f")) {
 						std::string junk;
@@ -269,13 +269,13 @@ namespace LouiEriksson {
 								}
 								
 								if (posID > 0) {
-									orderedPositionData.push_back(rawPositionData[posID - 1]);
+									vertices.push_back(rawVertices[posID - 1]);
 								}
 								if (uvID > 0) {
-									orderedUVData.push_back(rawUVData[uvID - 1]);
+									UVs.push_back(rawUVs[uvID - 1]);
 								}
 								if (normID > 0) {
-									orderedNormalData.push_back(rawNormalData[normID - 1]);
+									normals.push_back(rawNormals[normID - 1]);
 								}
 							}
 						}
@@ -290,7 +290,7 @@ namespace LouiEriksson {
 				
 				inputFile.close();
 				
-				_output->m_VertexCount = orderedPositionData.size();
+				_output->m_VertexCount = vertices.size();
 				
 				if (_output->m_VertexCount > 0) {
 					
@@ -305,14 +305,14 @@ namespace LouiEriksson {
 					// With this buffer active, we can now send our data to OpenGL
 					// We need to tell it how much data to send
 					// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, &orderedPositionData[0], GL_STATIC_DRAW);
+					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, vertices.data(), GL_STATIC_DRAW);
 					
 					// This tells OpenGL how we link the vertex data to the shader
 					// (We will look at this properly in the lectures)
-					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 					glEnableVertexAttribArray(0);
 					
-					if (orderedNormalData.size() > 0) {
+					if (normals.size() > 0) {
 						
 						// Create a generic 'buffer'
 						glGenBuffers(1, &_output->m_NormalVBO_ID);
@@ -321,15 +321,15 @@ namespace LouiEriksson {
 						// With this buffer active, we can now send our data to OpenGL
 						// We need to tell it how much data to send
 						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, &orderedNormalData[0], GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, normals.data(), GL_STATIC_DRAW);
 						
 						// This tells OpenGL how we link the vertex data to the shader
 						// (We will look at this properly in the lectures)
-						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 						glEnableVertexAttribArray(1);
 					}
 					
-					if (orderedUVData.size() > 0) {
+					if (UVs.size() > 0) {
 						
 						// Create a generic 'buffer'
 						glGenBuffers(1, &_output->m_TexCoordVBO_ID);
@@ -338,12 +338,82 @@ namespace LouiEriksson {
 						// With this buffer active, we can now send our data to OpenGL
 						// We need to tell it how much data to send
 						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 2, &orderedUVData[0], GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 2, &UVs[0], GL_STATIC_DRAW);
 						
 						// This tells OpenGL how we link the vertex data to the shader
 						// (We will look at this properly in the lectures)
-						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 						glEnableVertexAttribArray(2);
+					}
+					
+					// If the mesh has both texture coordinates and normals, compute the tangents and bitangents.
+					if (!normals.empty() && !UVs.empty()) {
+					
+						// https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
+						
+						std::vector<glm::vec3>   tangents;
+						std::vector<glm::vec3> bitangents;
+						
+						for (int i = 0; i < vertices.size(); i += 3) {
+						
+							// Shortcuts for vertices
+					        const auto& pos0 = vertices[  i  ];
+					        const auto& pos1 = vertices[i + 1];
+					        const auto& pos2 = vertices[i + 2];
+					
+					        // Shortcuts for UVs
+					        const auto& uv0 = UVs[  i  ];
+					        const auto& uv1 = UVs[i + 1];
+					        const auto& uv2 = UVs[i + 2];
+							
+							const auto delta_pos1 = pos1 - pos0;
+						    const auto delta_pos2 = pos2 - pos0;
+							
+						    const auto delta_texcoord1 = uv1 - uv0;
+						    const auto delta_texcoord2 = uv2 - uv0;
+						
+							float f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
+						    const auto   tangent = f * (delta_pos1 * delta_texcoord2.y - delta_pos2 * delta_texcoord1.y);
+						    const auto bitangent = f * (delta_pos2 * delta_texcoord1.x - delta_pos1 * delta_texcoord2.x);
+							
+							// Set the same tangent for all three vertices of the triangle.
+					        // They will be merged later, in vboindexer.cpp
+					        tangents.push_back(tangent);
+					        tangents.push_back(tangent);
+					        tangents.push_back(tangent);
+					
+					        // Same thing for bitangents
+					        bitangents.push_back(bitangent);
+					        bitangents.push_back(bitangent);
+					        bitangents.push_back(bitangent);
+						}
+						
+						if (_path.stem().string() == "woodfloor") {
+							
+							for (int i = 0; i < vertices.size(); i++) {
+								
+								std::cout << "\n" <<
+								   tangents[i].x << " " <<    tangents[i].y << " " <<    tangents[i].z << "\n" <<
+								 bitangents[i].x << " " <<  bitangents[i].y << " " <<  bitangents[i].z << "\n" <<
+								    normals[i].x << " " <<     normals[i].y << " " <<     normals[i].z << "\n" ;
+							}
+						}
+						
+						// TODO: Perform tangent averaging / smoothing.
+						
+					    glGenBuffers(1, &_output->m_TangentVBO_ID);
+					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_TangentVBO_ID);
+					    glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(tangents[0]), tangents.data(), GL_STATIC_DRAW);
+					
+						glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(3);
+						
+					    glGenBuffers(1, &_output->m_BitangentVBO_ID);
+					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_BitangentVBO_ID);
+					    glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(bitangents[0]), bitangents.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(4);
 					}
 					
 					glBindVertexArray(0);
