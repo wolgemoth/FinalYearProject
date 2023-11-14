@@ -429,7 +429,7 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
 
     float s = textureSize(u_Ambient, 0).x;
 
-    float levels = log2(s);//min(float(textureQueryLevels(u_Ambient)), 1.0);
+    float levels = log2(s);
 
     int b = int(pow(_blur, levels) * levels);
 
@@ -441,14 +441,23 @@ vec3 SampleAmbient(in vec3 _dir, float _blur) {
 
         // Sample the texture2d by converting the direction to a uv coordinate.
         // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
-        result = texture(
-            u_Ambient,
-            vec2(
-                0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
-                0.5 - (asin(_dir.y) / PI)
-            ),
-            b
-        ).rgb;
+
+        vec2 uv = vec2(
+            0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
+            0.5 - (asin(_dir.y) / PI)
+        );
+
+        //uv.x *= step(uv.x, threshold) * step(1.0 - threshold, uv.x);
+
+        // TODO: Tidy / make branchless.
+        float threshold = 2.0 / textureSize(u_Ambient, b).x;
+
+        if (uv.x < threshold || uv.x > 1.0 - threshold) {
+            result = texture(u_Ambient, vec2(0.0, uv.y), b).rgb;
+        }
+        else {
+            result = texture(u_Ambient, uv, b).rgb;
+        }
 
     #endif
 

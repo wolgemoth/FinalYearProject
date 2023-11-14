@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		//blue_photo_studio_4k
 		//abandoned_workshop_02_8k
 		//little_paris_eiffel_tower_4k
-		m_HDRI = Resources::GetTexture("little_paris_eiffel_tower_4k").lock();
+		m_HDRI = Resources::GetTexture("blue_photo_studio_4k").lock();
 		
 //		m_Skybox = std::move(
 //			File::Load(
@@ -655,7 +655,7 @@ namespace LouiEriksson {
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 0.5f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.5f);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
