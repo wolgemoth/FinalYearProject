@@ -44,12 +44,21 @@ vec3 SampleAmbient(in vec3 _dir) {
             0.5 - (asin(d.y) / PI)
         );
 
-        //uv.x *= step(uv.x, threshold) * step(1.0 - threshold, uv.x);
+        // Fix seam at wrap-around point.
+        float threshold = 4.0 / textureSize(u_Texture, b).x;
 
-        // TODO: Tidy / make branchless.
-        float threshold = 2.0 / textureSize(u_Texture, b).x;
+        float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 
-        if (uv.x < threshold || uv.x > 1.0 - threshold) {
+        //uv.x *= check;
+        //result = texture(u_Texture, uv, b).rgb;
+
+        // Seemingly no way to do this without a branch.
+        // Compiler seems to need an explicit branch to 'get it'.
+        //
+        // See for yourself by commenting out the following code
+        // and uncommenting the previous code.
+
+        if (check == 0.0) {
             result = texture(u_Texture, vec2(0.0, uv.y), b).rgb;
         }
         else {
