@@ -484,7 +484,7 @@ void main() {
     vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
     float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     v_TexCoord)).r;
 
-    vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * log2(u_Emission_Amount + 1.0);
+    vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * u_Emission_Amount;
 
     vec3  viewDir = normalize(u_CameraPosition - v_Position);
     vec3 lightDir = normalize(u_LightPosition - v_Position);

@@ -34,10 +34,6 @@ namespace LouiEriksson {
 			files.Add(item.stem().string(), item);
 		}
 		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_MaterialsDirectory, File::Directory::EntryType::FILE)) {
-			files.Add(item.stem().string(), item);
-		}
-		
 		for (const auto& kvp : files.GetAll()) {
 			
 			std::shared_ptr<Texture> texture;

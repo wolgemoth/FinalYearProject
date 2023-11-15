@@ -11,9 +11,16 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-map_Kd tavern-wood-planks1_albedo.png
-map_Ao tavern-wood-planks1_ao.png
-disp tavern-wood-planks1_height.png
-map_Pm tavern-wood-planks1_metallic.png
-norm tavern-wood-planks1_normal-dx.png
-map_Pr tavern-wood-planks1_roughness.png
+map_Kd floor_tiles_06_diff_1k.jpg
+map_Ao floor_tiles_06_ao_1k.jpg
+disp floor_tiles_06_disp_1k.jpg
+map_Pm black
+norm floor_tiles_06_nor_gl_1k.jpg
+map_Pr floor_tiles_06_rough_1k.jpg
+
+#map_Kd corrugated_iron_diff_1k.jpg
+#map_Ao corrugated_iron_ao_1k.jpg
+#disp corrugated_iron_disp_1k.jpg
+#map_Pm corrugated_iron_metal_1k.jpg
+#norm corrugated_iron_nor_gl_1k.jpg
+#map_Pr corrugated_iron_rough_1k.jpg
