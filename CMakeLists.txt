@@ -106,6 +106,8 @@ add_executable(FinalYearProject
         src/engine/scripts/Cubemap.h
         src/engine/scripts/Resources.cpp
         src/engine/scripts/Resources.h
+        src/engine/scripts/Utils.cpp
+        src/engine/scripts/Utils.h
 )
 
 set(SDL2_PATH ${PROJECT_SOURCE_DIR}/external/SDL2)
@@ -142,14 +144,16 @@ target_link_libraries(FinalYearProject
         WAVEFRONT
 )
 
-set(  LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels)
-set(  MODELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/models)
-set( SHADERS_PATH ${PROJECT_SOURCE_DIR}/src/engine/shaders)
-set(TEXTURES_PATH ${PROJECT_SOURCE_DIR}/src/engine/textures)
+set(   LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels   )
+set(   MODELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/models   )
+set(MATERIALS_PATH ${PROJECT_SOURCE_DIR}/src/engine/materials)
+set(  SHADERS_PATH ${PROJECT_SOURCE_DIR}/src/engine/shaders  )
+set( TEXTURES_PATH ${PROJECT_SOURCE_DIR}/src/engine/textures )
 
-file(COPY   ${LEVELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY   ${MODELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY  ${SHADERS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY ${TEXTURES_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY    ${LEVELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY    ${MODELS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY ${MATERIALS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY   ${SHADERS_PATH} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY  ${TEXTURES_PATH} DESTINATION ${PROJECT_BINARY_DIR})
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

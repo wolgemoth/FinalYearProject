@@ -1,6 +1,9 @@
+#include "stdafx.h"
+
 #include "Shader.h"
 
 #include "File.h"
+#include "Utils.h"
 
 namespace LouiEriksson {
 	
@@ -81,14 +84,53 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void Shader::Compile(const char* _src, const GLint& _type) {
+	void Shader::Compile(const std::string& _src, const GLint& _type) {
 		
 		GLint success = 0;
 		
 		std::cout << "Compiling Shader Program \"" << m_Name << "\"... ";
 		
+//		auto lines = Utils::Split(_src, '\n');
+//		auto itr = lines.begin();
+//
+//		std::stringstream ss;
+//
+//		// First line. Should always be "#version".
+//		ss << *(itr++) << '\n';
+//
+//		// Add custom preprocessor definitions.
+//		ss << "#define TEST\n";
+//
+//		while (itr != lines.end()) {
+//			ss << *(itr++) << '\n';
+//		}
+//
+//		std::string str = ss.str();
+//		const char* code = str.c_str();
+//
+
+		std::regex pattern(R"(^#define(( )+(\w+))+(\n|\n\r|$))");
+		std::sregex_iterator itr(_src.begin(), _src.end(), pattern);
+		auto end = std::sregex_iterator();
+		
+		for (auto i = itr; i != end; i++) {
+			std::cout << itr->str() << "\n";
+		}
+		
+//		for (const auto& statement : defines) {
+//
+//			for (const auto& substring : statement) {
+//
+//				std::cout << substring.c_str() << " ";
+//			}
+//
+//			std::cout << "\n";
+//		}
+
+		const auto* const src = _src.c_str();
+
 		m_SubShaders.push_back(glCreateShader(_type));
-		glShaderSource(m_SubShaders.back(), 1, &_src, nullptr);
+		glShaderSource(m_SubShaders.back(), 1, &src, nullptr);
 		glCompileShader(m_SubShaders.back());
 		glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);
 		
@@ -207,4 +249,5 @@ namespace LouiEriksson {
 	GLint Shader::ID() const {
 		return this->m_ProgramID;
 	}
+	
 }

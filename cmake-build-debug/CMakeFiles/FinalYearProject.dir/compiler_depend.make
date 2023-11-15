@@ -725,28 +725,46 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx.gch: CMakeFiles/FinalYearProject.d
   /usr/include/c++/11/bits/stl_stack.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Hashmap.h \
   /usr/include/c++/11/any \
+  /usr/include/c++/11/regex \
+  /usr/include/c++/11/algorithm \
+  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/11/bitset \
+  /usr/include/c++/11/locale \
+  /usr/include/c++/11/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/11/bits/codecvt.h \
+  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/11/bits/locale_conv.h \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/bits/stl_tree.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
+  /usr/include/c++/11/bits/regex_constants.h \
+  /usr/include/c++/11/bits/regex_error.h \
+  /usr/include/c++/11/bits/regex_automaton.h \
+  /usr/include/c++/11/bits/regex_automaton.tcc \
+  /usr/include/c++/11/bits/regex_scanner.h \
+  /usr/include/c++/11/bits/regex_scanner.tcc \
+  /usr/include/c++/11/bits/regex_compiler.h \
+  /usr/include/c++/11/bits/regex_compiler.tcc \
+  /usr/include/c++/11/bits/regex.h \
+  /usr/include/c++/11/bits/regex.tcc \
+  /usr/include/c++/11/bits/regex_executor.h \
+  /usr/include/c++/11/bits/regex_executor.tcc \
   /usr/include/c++/11/queue \
   /usr/include/c++/11/bits/stl_queue.h \
   /usr/include/c++/11/chrono \
   /usr/include/c++/11/ratio \
   /usr/include/c++/11/bits/parse_numbers.h \
   /usr/include/c++/11/fstream \
-  /usr/include/c++/11/bits/codecvt.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
   /usr/include/c++/11/bits/fstream.tcc \
-  /usr/include/c++/11/algorithm \
-  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
   /usr/include/c++/11/filesystem \
   /usr/include/c++/11/bits/fs_fwd.h \
   /usr/include/c++/11/bits/fs_path.h \
-  /usr/include/c++/11/locale \
-  /usr/include/c++/11/bits/locale_facets_nonio.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
-  /usr/include/libintl.h \
-  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
-  /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/iomanip \
   /usr/include/c++/11/bits/quoted_string.h \
   /usr/include/c++/11/codecvt \
@@ -780,6 +798,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Application.cpp.o: CMakeFiles
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -813,6 +832,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Ball.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/OrbitCam.h \
@@ -837,7 +857,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Camera.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Light.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Collider.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Collider.cpp \
@@ -884,6 +905,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/File.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/GameObject.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
@@ -916,7 +938,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Material.cpp.o: CMakeFiles/Fi
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Mesh.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.cpp \
@@ -949,6 +972,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/OrbitCam.cpp.o: CMakeFiles/Fi
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -981,6 +1005,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Plane.cpp.o: CMakeFiles/Final
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1026,6 +1051,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Player.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1061,7 +1087,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Resources.cpp.o: CMakeFiles/F
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Shader.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Rigidbody.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Rigidbody.cpp \
@@ -1097,6 +1124,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Scene.cpp.o: CMakeFiles/Final
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1130,7 +1158,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Shader.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Mesh.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Material.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Texture.h \
-  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/SphereCollider.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/SphereCollider.cpp \
@@ -1162,6 +1191,11 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.cpp.o: CMakeFiles/F
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Component.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/GameObject.h
 
+CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.cpp \
+  /usr/include/stdc-predef.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h
+
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.cpp \
   /usr/include/stdc-predef.h \
@@ -1180,6 +1214,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o: CMakeFiles/Fina
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Time.h
 
 CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalYearProject.dir/cmake_pch.hxx \
@@ -1209,6 +1244,7 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/File.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Cubemap.h \
+  /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.h \
   /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Ball.h \
@@ -1218,6 +1254,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/main.cpp:
+
+/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.cpp:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Transform.cpp:
 
@@ -1269,6 +1307,8 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Scripts.h:
 
+/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h:
+
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Resources.h:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Script.cpp:
@@ -1305,19 +1345,11 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 
 /usr/include/c++/11/iomanip:
 
-/usr/include/libintl.h:
-
-/usr/include/c++/11/bits/locale_facets_nonio.h:
-
-/usr/include/c++/11/locale:
-
 /usr/include/c++/11/bits/fs_path.h:
 
 /usr/include/c++/11/bits/fs_fwd.h:
 
 /usr/include/c++/11/bits/fstream.tcc:
-
-/usr/include/c++/11/bits/codecvt.h:
 
 /usr/include/c++/11/fstream:
 
@@ -1326,6 +1358,36 @@ CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o: CMakeFiles/FinalY
 /usr/include/c++/11/chrono:
 
 /usr/include/c++/11/bits/stl_queue.h:
+
+/usr/include/c++/11/bits/regex.tcc:
+
+/usr/include/c++/11/bits/regex_compiler.tcc:
+
+/usr/include/c++/11/bits/regex_scanner.tcc:
+
+/usr/include/c++/11/bits/regex_scanner.h:
+
+/usr/include/c++/11/bits/regex_automaton.tcc:
+
+/usr/include/c++/11/bits/regex_automaton.h:
+
+/usr/include/c++/11/bits/regex_constants.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/c++/11/bits/stl_tree.h:
+
+/usr/include/c++/11/bits/codecvt.h:
+
+/usr/include/libintl.h:
+
+/usr/include/c++/11/bits/locale_facets_nonio.h:
+
+/usr/include/c++/11/locale:
+
+/usr/include/c++/11/bitset:
+
+/usr/include/c++/11/regex:
 
 /home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Hashmap.h:
 
@@ -1461,11 +1523,15 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx.cxx:
 
 /usr/include/c++/11/array:
 
+/usr/include/c++/11/bits/regex_executor.tcc:
+
 /usr/include/SDL2/SDL_version.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/c++/11/bits/regex_compiler.h:
 
 /usr/include/SDL2/SDL_shape.h:
 
@@ -1685,6 +1751,8 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx.cxx:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
+/usr/include/c++/11/bits/regex.h:
+
 /usr/include/c++/11/bits/uniform_int_dist.h:
 
 /usr/include/c++/11/ext/numeric_traits.h:
@@ -1766,6 +1834,8 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx.cxx:
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/ext/matrix_common.hpp:
 
 /usr/include/c++/11/pstl/execution_defs.h:
+
+/usr/include/c++/11/map:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/prfchwintrin.h:
 
@@ -2267,6 +2337,8 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx:
 
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/detail/type_mat4x2.hpp:
 
+/usr/include/c++/11/bits/regex_error.h:
+
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/ext/matrix_float4x2.hpp:
 
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/ext/matrix_float4x2_precision.hpp:
@@ -2380,6 +2452,8 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx:
 /usr/include/c++/11/bits/stl_function.h:
 
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/ext/scalar_constants.hpp:
+
+/usr/include/c++/11/bits/regex_executor.h:
 
 /home/ubuntu/Projects/FinalYearProject/external/glm/glm/ext/matrix_int4x4_sized.hpp:
 
@@ -2740,6 +2814,8 @@ CMakeFiles/FinalYearProject.dir/cmake_pch.hxx:
 /usr/include/c++/11/cerrno:
 
 /usr/include/c++/11/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/11/bits/stl_multimap.h:
 
 /usr/include/c++/11/bits/basic_string.tcc:
 

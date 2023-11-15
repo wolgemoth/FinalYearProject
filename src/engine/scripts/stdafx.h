@@ -22,6 +22,7 @@
 
 /* STL */
 #include <any>
+#include <regex>
 #include <queue>
 #include <string>
 #include <chrono>

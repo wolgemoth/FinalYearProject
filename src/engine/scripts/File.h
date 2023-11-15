@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Cubemap.h"
+#include "Utils.h"
 
 namespace LouiEriksson {
 	

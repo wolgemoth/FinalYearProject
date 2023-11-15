@@ -351,6 +351,12 @@
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Transform.h">
 			<Option target="FinalYearProject"/>
 		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.cpp">
+			<Option target="FinalYearProject"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Utils.h">
+			<Option target="FinalYearProject"/>
+		</Unit>
 		<Unit filename="/home/ubuntu/Projects/FinalYearProject/src/engine/scripts/Window.cpp">
 			<Option target="FinalYearProject"/>
 		</Unit>

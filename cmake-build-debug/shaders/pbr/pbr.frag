@@ -525,6 +525,7 @@ void main() {
         vec3 ambientDir = reflect(-viewDir, normal);
 
         // Sample at max mip level for the diffuse.
+        // TODO: Actual diffuse irradiance.
         vec3 diffuse = SampleAmbient(normal, 0.95);
 
         // Sample at variable mip level (determined by roughness) for specular.

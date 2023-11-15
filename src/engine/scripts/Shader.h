@@ -32,7 +32,7 @@ namespace LouiEriksson {
 		
 		void LinkShaders() const;
 		
-		void Compile(const char* _src, const GLint& _type);
+		void Compile(const std::string& _src, const GLint& _type);
 		
 		explicit Shader(const std::vector<Shader::SubShader>& _subShaders);
 		~Shader();

@@ -445,27 +445,17 @@ namespace LouiEriksson {
 		
 				while (std::getline(fstream, line)) {
 					
-					std::vector<std::string> substrings;
+					auto subStrings = Utils::Split(line, ' ');
 					
-					{
-						// Split string:
-						std::istringstream split(line);
+					if (!subStrings.empty()) {
 						
-						std::string substring;
-						while (std::getline(split, substring, ' ')) {
-							substrings.push_back(substring);
-						}
-					}
-					
-					if (!substrings.empty()) {
-						
-						std::string key = substrings.at(0);
+						const auto& key = subStrings.at(0);
 						
 						if (key == "map_Kd") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -484,9 +474,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "disp") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -496,9 +486,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "map_Pr") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -508,9 +498,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "map_Pm") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -520,9 +510,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "map_Ke") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -532,9 +522,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "norm") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
@@ -544,9 +534,9 @@ namespace LouiEriksson {
 						}
 						else if (key == "map_Ao") {
 							
-							if (substrings.size() >= 2) {
+							if (subStrings.size() >= 2) {
 							
-								const std::filesystem::path path(substrings.at(1));
+								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {

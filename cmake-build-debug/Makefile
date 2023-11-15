@@ -901,6 +901,30 @@ src/engine/scripts/Transform.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.cpp.s
 .PHONY : src/engine/scripts/Transform.cpp.s
 
+src/engine/scripts/Utils.o: src/engine/scripts/Utils.cpp.o
+.PHONY : src/engine/scripts/Utils.o
+
+# target to build an object file
+src/engine/scripts/Utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.o
+.PHONY : src/engine/scripts/Utils.cpp.o
+
+src/engine/scripts/Utils.i: src/engine/scripts/Utils.cpp.i
+.PHONY : src/engine/scripts/Utils.i
+
+# target to preprocess a source file
+src/engine/scripts/Utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.i
+.PHONY : src/engine/scripts/Utils.cpp.i
+
+src/engine/scripts/Utils.s: src/engine/scripts/Utils.cpp.s
+.PHONY : src/engine/scripts/Utils.s
+
+# target to generate assembly for a file
+src/engine/scripts/Utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FinalYearProject.dir/build.make CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.s
+.PHONY : src/engine/scripts/Utils.cpp.s
+
 src/engine/scripts/Window.o: src/engine/scripts/Window.cpp.o
 .PHONY : src/engine/scripts/Window.o
 
@@ -1055,6 +1079,9 @@ help:
 	@echo "... src/engine/scripts/Transform.o"
 	@echo "... src/engine/scripts/Transform.i"
 	@echo "... src/engine/scripts/Transform.s"
+	@echo "... src/engine/scripts/Utils.o"
+	@echo "... src/engine/scripts/Utils.i"
+	@echo "... src/engine/scripts/Utils.s"
 	@echo "... src/engine/scripts/Window.o"
 	@echo "... src/engine/scripts/Window.i"
 	@echo "... src/engine/scripts/Window.s"

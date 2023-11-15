@@ -44,47 +44,88 @@ namespace LouiEriksson {
 	}
 	
 	void Resources::PreloadShaders() {
-	
-		Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> files;
 		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_ShadersDirectory, File::Directory::EntryType::FILE)) {
+		/* INCLUDE SHADER DEPENDENCIES */
+		{
+			std::vector<std::filesystem::path> dependencies;
 			
-			std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
-			
-			files.Get(item.stem().string(), subshaders);
-			
-			GLenum shaderType;
-			
-			     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
-			else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
-			else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
-			else {
-				shaderType = GL_NONE;
+			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderIncludeDirectory, File::Directory::EntryType::FILE)) {
+				
+				if (strcmp(item.extension().c_str(), ".glsl") == 0) {
+					dependencies.push_back(item);
+				}
 			}
 			
-			if (shaderType != GL_NONE) {
-				subshaders.push_back({item, shaderType});
+			for (const auto& dependency : dependencies) {
+			
+				std::cout << "Loading Shader Dependency \"" << dependency.c_str() << "\"... ";
 				
-				files.Assign(item.stem().string(), subshaders);
+				try {
+					const auto name = "/" + dependency.string();
+					const auto contents = File::ReadAllText(dependency);
+					
+					glNamedStringARB(
+						GL_SHADER_INCLUDE_ARB,
+						    name.length(),
+						    name.c_str(),
+						contents.length(),
+						contents.c_str()
+					);
+					
+					std::cout << "Done.\n";
+				}
+				catch (const std::exception& e) {
+					
+					std::cout << "Failed.\n";
+					
+					std::cout << e.what() << "\n";
+				}
 			}
 		}
 		
-		std::vector<std::vector<Shader::SubShader>> shaders;
-		
-		for (const auto& kvp : files.GetAll()) {
-		
-			std::vector<Shader::SubShader> subShaders;
+		/* PRELOAD + COMPILE SHADERS */
+		{
+			Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> files;
 			
-			for (const auto& subshader : kvp.second) {
-				subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderProgramsDirectory, File::Directory::EntryType::FILE)) {
+				
+				std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
+				
+				files.Get(item.stem().string(), subshaders);
+				
+				GLenum shaderType;
+				
+				     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
+				else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
+				else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
+				else {
+					shaderType = GL_NONE;
+				}
+				
+				if (shaderType != GL_NONE) {
+					subshaders.push_back({item, shaderType});
+					
+					files.Assign(item.stem().string(), subshaders);
+				}
 			}
 			
-			shaders.push_back(subShaders);
+			std::vector<std::vector<Shader::SubShader>> shaders;
 			
-			// Compile shader and add to cache.
-			auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
+			for (const auto& kvp : files.GetAll()) {
 			
-			m_Shaders.Add(compiled->Name(), compiled);
+				std::vector<Shader::SubShader> subShaders;
+				
+				for (const auto& subshader : kvp.second) {
+					subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+				}
+				
+				shaders.push_back(subShaders);
+				
+				// Compile shader and add to cache.
+				auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
+				
+				m_Shaders.Add(compiled->Name(), compiled);
+			}
 		}
 	}
 	

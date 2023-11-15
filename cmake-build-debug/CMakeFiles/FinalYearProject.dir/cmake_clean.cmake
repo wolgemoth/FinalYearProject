@@ -61,6 +61,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Time.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.cpp.o"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Transform.cpp.o.d"
+  "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.o"
+  "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Utils.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/Window.cpp.o.d"
   "CMakeFiles/FinalYearProject.dir/src/engine/scripts/main.cpp.o"
