@@ -326,7 +326,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_Tiling"), glm::vec2(3.0f));
+			program.lock()->Assign(program.lock()->AttributeID("u_Tiling"), glm::vec2(1.0f));
 			program.lock()->Assign(program.lock()->AttributeID("u_Offset"), glm::vec2(0.0f));
 			
 			if (_lights.empty()) {
@@ -709,7 +709,7 @@ namespace LouiEriksson {
 		const float lens_dirt_intensity = 0.5f;
 		const float clamp = 20.0f;
 		
-		const glm::vec2 diffusion = glm::vec2(6.0f, 1.0f);
+		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
 		
 		const int scalingPasses = 5;
 		

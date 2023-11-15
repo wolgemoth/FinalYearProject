@@ -6,8 +6,8 @@
 namespace LouiEriksson {
 	
 	/// <summary>
-	/// Generic hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.
-	/// <para><remarks>This implementation requires that your "key" type is compatible with std::hash.</remarks></para>
+	/// Custom hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.
+	/// <para><remarks>This implementation requires that your "key" type is compatible with std::hash and that the stored data types are copyable.</remarks></para>
 	/// <para>Reference: ("Implementing Your Own HashMap (Explanation + Code)", Random Coder, 14 Sept 2020 [https://www.youtube.com/watch?v=_Q-eNqTOxlE]).</para>
 	/// </summary>
 	/// <typeparam name="Tk">Key type of the hashmap.</typeparam>
@@ -22,7 +22,13 @@ namespace LouiEriksson {
 			Tk first;
 			Tv second;
 			
-			KeyValuePair(Tk _key, Tv _value) : first(_key), second(_value) {}
+			KeyValuePair(Tk _key, Tv _value) :
+				 first(_key),
+				second(_value) {}
+			
+            KeyValuePair(const KeyValuePair& other) :
+				 first(other.first),
+				second(other.second) {}
 		};
 		
 	private:
@@ -86,6 +92,13 @@ namespace LouiEriksson {
 		/// </summary>
 		[[nodiscard]] size_t size() const {
 			return m_Size;
+		}
+		
+		/// <summary>
+		/// Returns true if the Hashmap contains no entries.
+		/// </summary>
+		bool empty() const {
+			return m_Size == 0;
 		}
 		
 		/// <summary>

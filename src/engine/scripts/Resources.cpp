@@ -64,6 +64,7 @@ namespace LouiEriksson {
 					const auto name = "/" + dependency.string();
 					const auto contents = File::ReadAllText(dependency);
 					
+					// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 					glNamedStringARB(
 						GL_SHADER_INCLUDE_ARB,
 						    name.length(),
@@ -85,46 +86,65 @@ namespace LouiEriksson {
 		
 		/* PRELOAD + COMPILE SHADERS */
 		{
-			Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> files;
+			// Container for shaders where the subshaders are all in separate files.
+			Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> separated;
+			
+			// Container for shaders where the subshaders are all in the same file.
+			std::vector<std::filesystem::path> combined;
 			
 			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderProgramsDirectory, File::Directory::EntryType::FILE)) {
-				
-				std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
-				
-				files.Get(item.stem().string(), subshaders);
 				
 				GLenum shaderType;
 				
 				     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
 				else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
 				else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
+				else if (strcmp(item.extension().c_str(), ".glsl") == 0) { shaderType =          GL_SHADER; }
 				else {
 					shaderType = GL_NONE;
 				}
 				
-				if (shaderType != GL_NONE) {
-					subshaders.push_back({item, shaderType});
+				if (shaderType == GL_SHADER) {
+					combined.push_back(item);
+				}
+				else if (shaderType != GL_NONE) {
 					
-					files.Assign(item.stem().string(), subshaders);
+					std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
+					separated.Get(item.stem().string(), subshaders);
+				
+					subshaders.emplace_back(item, shaderType);
+					
+					separated.Assign(item.stem().string(), subshaders);
 				}
 			}
 			
-			std::vector<std::vector<Shader::SubShader>> shaders;
-			
-			for (const auto& kvp : files.GetAll()) {
-			
-				std::vector<Shader::SubShader> subShaders;
+			// Iterate over all of the shaders defined by subshaders in
+			// different files, compiling them and adding to the cache.
+			{
+				for (const auto& kvp : separated.GetAll()) {
 				
-				for (const auto& subshader : kvp.second) {
-					subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+					std::vector<Shader::SubShader> subShaders;
+					subShaders.reserve(kvp.second.size());
+					
+					for (const auto& subshader : kvp.second) {
+						subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+					}
+					
+					// Compile shader and add to cache.
+					auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
+					m_Shaders.Add(compiled->Name(), compiled);
 				}
+			}
+			
+			// Iterate over all the shaders defined by subshaders in the same
+			// file, compiling the programs and adding them to the cache.
+			{
+				for (const auto& item : combined) {
 				
-				shaders.push_back(subShaders);
-				
-				// Compile shader and add to cache.
-				auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
-				
-				m_Shaders.Add(compiled->Name(), compiled);
+					// Compile shader and add to cache.
+					auto compiled = std::shared_ptr<Shader>(new Shader(item), [](Shader* _ptr) { delete _ptr; });
+					m_Shaders.Add(compiled->Name(), compiled);
+				}
 			}
 		}
 	}

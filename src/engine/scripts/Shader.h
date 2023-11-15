@@ -12,11 +12,16 @@ namespace LouiEriksson {
 		friend class Application;
 		friend class Resources;
 		
-	public:
-		
-		struct SubShader;
-	
 	private:
+		
+		struct SubShader {
+			
+			const char* m_Path;
+			
+			GLint m_Type;
+			
+			SubShader(const char* _path, GLenum _type);
+		};
 		
 		Hashmap<std::string, GLint> m_ParameterIDs;
 		
@@ -32,21 +37,19 @@ namespace LouiEriksson {
 		
 		void LinkShaders() const;
 		
-		void Compile(const std::string& _src, const GLint& _type);
+		void Compile(const std::string& _src, const GLenum& _type);
+		
+		static Hashmap<GLenum, std::string> ExtractSubshaders(const std::string& _src);
 		
 		explicit Shader(const std::vector<Shader::SubShader>& _subShaders);
+		
+		explicit Shader(const std::filesystem::path& _path);
+		
 		~Shader();
 	
 	public:
 		
-		struct SubShader {
-			
-			const char* m_Path;
-			
-			GLint m_Type;
-			
-			SubShader(const char* _path, GLenum _type);
-		};
+		
 		
 		static void Bind(const GLint& _id);
 		

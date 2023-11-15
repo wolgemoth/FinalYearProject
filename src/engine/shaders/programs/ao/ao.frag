@@ -1,5 +1,7 @@
 #version 330 core
 
+#pragma vertex
+
 #extension GL_ARB_explicit_uniform_location : enable
 #extension GL_ARB_shading_language_include  : require
 

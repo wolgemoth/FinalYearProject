@@ -23,6 +23,8 @@ namespace LouiEriksson {
 		std::vector<std::weak_ptr<GameObject>> m_Planes;
 		std::vector<std::weak_ptr<GameObject>> m_Obstacles;
 		
+		
+		
 		int m_NumObstacles;
 		
 		float m_MinPlaneX;

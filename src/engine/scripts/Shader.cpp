@@ -9,6 +9,42 @@ namespace LouiEriksson {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(_type) {}
 	
+	Shader::Shader(const std::filesystem::path& _path) {
+		
+		Hashmap<GLenum, std::string> subShaders;
+		std::cout << "Loading Shader Asset \"" << _path << "\"... ";
+		
+		try {
+			subShaders = ExtractSubshaders(File::ReadAllText(_path));
+			
+			std::cout << "Done.\n";
+		}
+		catch (const std::exception& e){
+			std::cout << "Failed.\n";
+			
+			std::cout << e.what() << "\n";
+		}
+		
+		if (!subShaders.empty()) {
+			
+			m_Name = _path.stem().string();
+			
+			for (const auto& kvp : subShaders.GetAll()) {
+				Compile(kvp.second, kvp.first);
+			}
+			
+			m_ProgramID = glCreateProgram();
+			
+			AttachShaders();
+			  LinkShaders();
+			DetachShaders();
+		}
+		else {
+			throw std::runtime_error(
+				"ERROR (Shader.cpp [Shader(const std::vector<SubShader>&)]): Attempted to create a shader object with no subshaders.");
+		}
+	}
+	
 	Shader::Shader(const std::vector<Shader::SubShader>& _subShaders) {
 		
 		if (!_subShaders.empty()) {
@@ -84,49 +120,23 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void Shader::Compile(const std::string& _src, const GLint& _type) {
+	void Shader::Compile(const std::string& _src, const GLenum& _type) {
 		
 		GLint success = 0;
 		
-		std::cout << "Compiling Shader Program \"" << m_Name << "\"... ";
-		
-//		auto lines = Utils::Split(_src, '\n');
-//		auto itr = lines.begin();
-//
-//		std::stringstream ss;
-//
-//		// First line. Should always be "#version".
-//		ss << *(itr++) << '\n';
-//
-//		// Add custom preprocessor definitions.
-//		ss << "#define TEST\n";
-//
-//		while (itr != lines.end()) {
-//			ss << *(itr++) << '\n';
-//		}
-//
-//		std::string str = ss.str();
-//		const char* code = str.c_str();
-//
-
-		std::regex pattern(R"(^#define(( )+(\w+))+(\n|\n\r|$))");
-		std::sregex_iterator itr(_src.begin(), _src.end(), pattern);
-		auto end = std::sregex_iterator();
-		
-		for (auto i = itr; i != end; i++) {
-			std::cout << itr->str() << "\n";
+		{
+			std::string type_string;
+			
+			     if (_type ==   GL_VERTEX_SHADER) { type_string =   "GL_VERTEX_SHADER"; }
+			else if (_type == GL_GEOMETRY_SHADER) { type_string = "GL_GEOMETRY_SHADER"; }
+			else if (_type == GL_FRAGMENT_SHADER) { type_string = "GL_FRAGMENT_SHADER"; }
+			else {
+				type_string = "UNKNOWN TYPE";
+			}
+			
+			std::cout << "Compiling Shader Program \"" << m_Name << "\" (" << type_string << ")... ";
 		}
 		
-//		for (const auto& statement : defines) {
-//
-//			for (const auto& substring : statement) {
-//
-//				std::cout << substring.c_str() << " ";
-//			}
-//
-//			std::cout << "\n";
-//		}
-
 		const auto* const src = _src.c_str();
 
 		m_SubShaders.push_back(glCreateShader(_type));
@@ -146,7 +156,7 @@ namespace LouiEriksson {
 			std::stringstream err;
 			err << "ERROR (Shader.cpp [Compile(const char*, GLint)]): Failed to compile shader:\n\t";
 			
-			for (const auto& error: errorLog) {
+			for (const auto& error : errorLog) {
 				err << error;
 			}
 			
@@ -157,6 +167,70 @@ namespace LouiEriksson {
 		else {
 			std::cout << "Done.\n";
 		}
+	}
+	
+	Hashmap<GLenum, std::string> Shader::ExtractSubshaders(const std::string& _src) {
+		
+		Hashmap<GLenum, std::string> result;
+		
+		// Get the individual lines of the shader.
+		auto lines = Utils::Split(_src, '\n');
+		
+		std::stringstream ss;
+		
+		// Parse over each line of the shader. Check for preprocessor definitions of
+		// shader types, and use that to change the context of which shader type
+		// is being read. Write the data to a stream, and copy that data on
+		// context change.
+		GLenum curr = GL_NONE;
+		for (const auto& line : lines) {
+			
+			GLenum type = curr;
+			
+			     if (line == "#pragma vertex"  ) { type =   GL_VERTEX_SHADER; }
+			else if (line == "#pragma geometry") { type = GL_GEOMETRY_SHADER; }
+			else if (line == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
+			
+			if (type == curr) {
+				ss << line << "\n";
+			}
+			else {
+				
+				if (curr != GL_NONE) {
+					
+					// Get existing string (uses default if none).
+					std::string source;
+					result.Get(curr, source);
+					
+					// Concatenate exiting with stream contents.
+					source += ss.str();
+					
+					// Assign back to the hashmap,
+					result.Assign(curr, source);
+					
+					// Clear the stream.
+					ss.str(std::string());
+				}
+				
+				// Set current to type.
+				curr = type;
+			}
+		}
+		
+		if (curr != GL_NONE) {
+			
+			// Get existing string (uses default if none).
+			std::string source;
+			result.Get(curr, source);
+			
+			// Concatenate exiting with stream contents.
+			source += ss.str();
+			
+			// Assign back to the hashmap,
+			result.Assign(curr, source);
+		}
+		
+		return result;
 	}
 	
 	void Shader::Bind(const GLint& _id) {
@@ -249,5 +323,4 @@ namespace LouiEriksson {
 	GLint Shader::ID() const {
 		return this->m_ProgramID;
 	}
-	
 }
