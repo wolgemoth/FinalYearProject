@@ -33,7 +33,7 @@ namespace LouiEriksson {
 		std::string result;
 		_xml(result);
 	
-		if (_log > 0) {
+		if (_log >= 0) {
 	
 			for (size_t i = 0; i < _log; i++) {
 				std::cout << "\t";

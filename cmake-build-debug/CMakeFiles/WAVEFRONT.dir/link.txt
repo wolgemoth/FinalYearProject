@@ -1,2 +1,0 @@
-/usr/bin/ar qc libWAVEFRONT.a CMakeFiles/WAVEFRONT.dir/external/wavefront/src/wavefront/Model.c.o
-/usr/bin/ranlib libWAVEFRONT.a
