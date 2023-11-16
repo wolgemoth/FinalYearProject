@@ -100,12 +100,16 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Window.cpp
         src/engine/scripts/Window.h
+
         src/engine/scripts/Texture.cpp
         src/engine/scripts/Texture.h
+
         src/engine/scripts/Cubemap.cpp
         src/engine/scripts/Cubemap.h
+
         src/engine/scripts/Resources.cpp
         src/engine/scripts/Resources.h
+
         src/engine/scripts/Utils.cpp
         src/engine/scripts/Utils.h
 )
