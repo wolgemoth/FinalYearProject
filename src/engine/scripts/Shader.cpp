@@ -12,7 +12,7 @@ namespace LouiEriksson {
 	Shader::Shader(const std::filesystem::path& _path) {
 		
 		Hashmap<GLenum, std::string> subShaders;
-		std::cout << "Loading Shader Asset \"" << _path << "\"... ";
+		std::cout << "Loading Shader Asset \"" << _path.c_str() << "\"... ";
 		
 		try {
 			subShaders = ExtractSubshaders(File::ReadAllText(_path));
@@ -183,7 +183,9 @@ namespace LouiEriksson {
 		// is being read. Write the data to a stream, and copy that data on
 		// context change.
 		GLenum curr = GL_NONE;
-		for (const auto& line : lines) {
+		for (auto& line : lines) {
+			
+			line = Utils::Trim(line); // Trim leading and trailing whitespace from text.
 			
 			GLenum type = curr;
 			
