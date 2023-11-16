@@ -522,18 +522,20 @@
         return result * u_AmbientExposure;
     }
 
-    vec2 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords) {
+    vec2 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords, float _scale) {
 
-        float height_scale = 0.02;
+        const float minLayers = 8.0;
+        const float maxLayers = 32.0;
+        float numLayers = mix(maxLayers, minLayers, max(dot(vec3(0.0, 0.0, 1.0), _viewDir), 0.0));
 
-        // number of depth layers
-        const float numLayers = 10;
         // calculate the size of each layer
         float layerDepth = 1.0 / numLayers;
+
         // depth of current layer
         float currentLayerDepth = 0.0;
+
         // the amount to shift the texture coordinates per layer (from vector P)
-        vec2 P = _viewDir.xy / _viewDir.z * height_scale;
+        vec2 P = _viewDir.xy / _viewDir.z * _scale;
         vec2 deltaTexCoords = P / numLayers;
 
         vec2  currentTexCoords     = _texCoords;
@@ -571,7 +573,7 @@
 
         vec3 EXPENSIVE = normalize((transpose(v_TBN) * viewDir));//normalize((transpose(v_TBN) * u_CameraPosition) - (transpose(v_TBN) * v_Position));
 
-        vec2 parallaxUV = ParallaxMapping(EXPENSIVE, v_TexCoord);
+        vec2 parallaxUV = ParallaxMapping(EXPENSIVE, v_TexCoord, 0.01);
 
         vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    parallaxUV));
         float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, parallaxUV)).r * u_Roughness_Amount;
