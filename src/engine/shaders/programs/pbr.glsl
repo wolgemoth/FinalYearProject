@@ -522,26 +522,70 @@
         return result * u_AmbientExposure;
     }
 
+    vec2 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords) {
+
+        float height_scale = 0.02;
+
+        // number of depth layers
+        const float numLayers = 10;
+        // calculate the size of each layer
+        float layerDepth = 1.0 / numLayers;
+        // depth of current layer
+        float currentLayerDepth = 0.0;
+        // the amount to shift the texture coordinates per layer (from vector P)
+        vec2 P = _viewDir.xy / _viewDir.z * height_scale;
+        vec2 deltaTexCoords = P / numLayers;
+
+        vec2  currentTexCoords     = _texCoords;
+        float currentDepthMapValue = texture(u_Height, ScaleTexCoord(u_Height, _texCoords)).r;
+
+        while(currentLayerDepth < currentDepthMapValue)
+        {
+            // shift texture coordinates along direction of P
+            currentTexCoords -= deltaTexCoords;
+            // get depthmap value at current texture coordinates
+            currentDepthMapValue = texture(u_Height, ScaleTexCoord(u_Height, currentTexCoords)).r;
+            // get depth of next layer
+            currentLayerDepth += layerDepth;
+        }
+
+        // get texture coordinates before collision (reverse operations)
+        vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+
+        // get depth after and before collision for linear interpolation
+        float afterDepth  = currentDepthMapValue - currentLayerDepth;
+        float beforeDepth = texture(u_Height, ScaleTexCoord(u_Height, prevTexCoords)).r - currentLayerDepth + layerDepth;
+
+        // interpolation of texture coordinates
+        float weight = afterDepth / (afterDepth - beforeDepth);
+        vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+
+        return finalTexCoords;
+    }
+
     void main() {
 
-        vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    v_TexCoord));
-        float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, v_TexCoord)).r * u_Roughness_Amount;
-        float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  v_TexCoord)).r *  u_Metallic_Amount;
+        vec3  viewDir = normalize(u_CameraPosition - v_Position);
+        vec3 lightDir = normalize( u_LightPosition - v_Position);
+        vec3  halfVec = normalize(lightDir + viewDir);
 
-        vec3 n = texture(u_Normals, ScaleTexCoord(u_Normals, v_TexCoord)).rgb;
+        vec3 EXPENSIVE = normalize((transpose(v_TBN) * viewDir));//normalize((transpose(v_TBN) * u_CameraPosition) - (transpose(v_TBN) * v_Position));
+
+        vec2 parallaxUV = ParallaxMapping(EXPENSIVE, v_TexCoord);
+
+        vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    parallaxUV));
+        float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, parallaxUV)).r * u_Roughness_Amount;
+        float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  parallaxUV)).r *  u_Metallic_Amount;
+
+        vec3 n = texture(u_Normals, ScaleTexCoord(u_Normals, parallaxUV)).rgb;
         n = normalize((n * 2.0) - 1.0);
 
         vec3 normal = mix(normalize(v_Normal), normalize(v_TBN * n), u_Normal_Amount);
 
-        float height = texture(u_Height,  ScaleTexCoord(u_Height, v_TexCoord)).r;
-        vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, v_TexCoord), 0).rgb;
-        float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     v_TexCoord)).r;
+        vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, parallaxUV), 0).rgb;
+        float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     parallaxUV)).r;
 
-        vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, v_TexCoord)).rgb * u_Emission_Amount;
-
-        vec3  viewDir = normalize(u_CameraPosition - v_Position);
-        vec3 lightDir = normalize(u_LightPosition - v_Position);
-        vec3  halfVec = normalize(lightDir + viewDir);
+        vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, parallaxUV)).rgb * u_Emission_Amount;
 
         /* DIRECT */
 
