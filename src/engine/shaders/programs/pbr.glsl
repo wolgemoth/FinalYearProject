@@ -108,6 +108,7 @@
     uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
     uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
     uniform float    u_Normal_Amount = 1.0; // Contribution of normal map.
+    uniform float    u_Height_Amount = 0.03; // Strength of displacement.
 
     uniform float u_Time;
 
@@ -331,12 +332,12 @@
         return result;
     }
 
-    float TransferShadow3D(vec3 _normal, vec3 _lightDir, float _bias, float _normalBias) {
+    float TransferShadow3D(vec3 _normal, vec3 _lightDir, vec3 _fragPos, float _bias, float _normalBias) {
 
         float texelSize = 1.0 /
             max(textureSize(u_ShadowMap3D, 0).x, 1);
 
-        vec3 fragToLight = v_Position - u_LightPosition;
+        vec3 fragToLight = _fragPos - u_LightPosition;
 
         float perspective_multiplier = 32.0;
 
@@ -508,7 +509,8 @@
             //result = texture(u_Texture, vec2(uv.x * check, uv.y), b).rgb;
 
             // Seemingly no way to do this without a branch.
-            // Compiler seems to need an explicit branch to 'get it'.
+            // Compiler seems to need an explicit branch on
+            // texture access to 'get it'.
             //
             // See for yourself by commenting out the following code
             // and uncommenting the previous code.
@@ -522,7 +524,7 @@
         return result * u_AmbientExposure;
     }
 
-    vec2 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords, float _scale) {
+    vec3 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords, float _scale) {
 
         const float minLayers = 8.0;
         const float maxLayers = 32.0;
@@ -541,8 +543,7 @@
         vec2  currentTexCoords     = _texCoords;
         float currentDepthMapValue = texture(u_Height, ScaleTexCoord(u_Height, _texCoords)).r;
 
-        while(currentLayerDepth < currentDepthMapValue)
-        {
+        while(currentLayerDepth < currentDepthMapValue) {
             // shift texture coordinates along direction of P
             currentTexCoords -= deltaTexCoords;
             // get depthmap value at current texture coordinates
@@ -562,18 +563,22 @@
         float weight = afterDepth / (afterDepth - beforeDepth);
         vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
 
-        return finalTexCoords;
+        return vec3(finalTexCoords, weight);
     }
 
     void main() {
 
-        vec3  viewDir = normalize(u_CameraPosition - v_Position);
-        vec3 lightDir = normalize( u_LightPosition - v_Position);
+        vec3  viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
+
+        vec3 parallax = ParallaxMapping(viewDir_Tangent, v_TexCoord, u_Height_Amount);
+
+        vec2 parallaxUV = parallax.xy;
+
+        vec3 fragPos = v_Position - (v_Normal * ((texture(u_Height, ScaleTexCoord(u_Height, parallaxUV)).r)));
+
+        vec3  viewDir = normalize(u_CameraPosition - fragPos);
+        vec3 lightDir = normalize( u_LightPosition - fragPos);
         vec3  halfVec = normalize(lightDir + viewDir);
-
-        vec3 EXPENSIVE = normalize((transpose(v_TBN) * viewDir));//normalize((transpose(v_TBN) * u_CameraPosition) - (transpose(v_TBN) * v_Position));
-
-        vec2 parallaxUV = ParallaxMapping(EXPENSIVE, v_TexCoord, 0.01);
 
         vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    parallaxUV));
         float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, parallaxUV)).r * u_Roughness_Amount;
@@ -593,12 +598,12 @@
 
         vec3 directLighting;
         {
-            float attenuation = Attenuation(u_LightPosition, v_Position, u_LightRange);
+            float attenuation = Attenuation(u_LightPosition, fragPos, u_LightRange);
 
             float visibility =
                 (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
                 //(1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
-                (1.0 - TransferShadow3D(normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
+                (1.0 - TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias));
 
             vec3 lighting = BRDF(
                 albedo.rgb + detail,
