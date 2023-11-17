@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(FinalYearProject)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
 add_executable(FinalYearProject
 

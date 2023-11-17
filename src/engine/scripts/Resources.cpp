@@ -58,11 +58,13 @@ namespace LouiEriksson {
 			
 			for (const auto& dependency : dependencies) {
 			
-				std::cout << "Loading Shader Dependency \"" << dependency.c_str() << "\"... ";
+				std::cout << "Loading Shader Dependency \"" << dependency.c_str() << "\"... " << std::flush;
 				
 				try {
 					const auto name = "/" + dependency.string();
 					const auto contents = File::ReadAllText(dependency);
+					
+					std::cout << name.c_str() << "\n";
 					
 					// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 					glNamedStringARB(

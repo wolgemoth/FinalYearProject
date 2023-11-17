@@ -56,8 +56,12 @@
     #extension GL_ARB_explicit_uniform_location : enable
     #extension GL_ARB_texture_query_levels      : enable
 
-    const float EPSILON = 0.005;
-    const float      PI = 3.141593;
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/rand.glsl"
+    #include "/shaders/include/constants.glsl"
+    #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
     in vec3 v_Position;
@@ -67,7 +71,7 @@
 
     in vec4 v_Position_LightSpace;
 
-    uniform vec3 u_CameraPosition;   // Camera position. Mainly used for lighting calculations.
+    uniform vec3 u_CameraPosition; // Camera position. Mainly used for lighting calculations.
 
     /* PBR */
     layout (location = 0) uniform sampler2D u_Albedo;
@@ -85,9 +89,9 @@
 
     // Ambient lighting texture.
     #ifdef SAMPLER_CUBE
-    layout (location = 98) uniform samplerCube u_Ambient;
+        layout (location = 98) uniform samplerCube u_Ambient;
     #else
-    layout (location = 98) uniform sampler2D u_Ambient;
+        layout (location = 98) uniform sampler2D u_Ambient;
     #endif
 
     uniform float u_AmbientExposure = 1.0; // Brightness of ambient texture.
@@ -108,13 +112,13 @@
     uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
     uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
     uniform float    u_Normal_Amount = 1.0; // Contribution of normal map.
-    uniform float    u_Height_Amount = 0.03; // Strength of displacement.
+    uniform float    u_Height_Amount = 0.1; // Strength of displacement.
 
     uniform float u_Time;
 
     /* TEXTURE PARAMETERS */
-    uniform vec2 u_Tiling = vec2(1.0); // Texture tiling scale (U, V).
-    uniform vec2 u_Offset = vec2(0.0); // Texture offset       (U, V)
+    // Texture tiling scale and offset (U, V, U, V).
+    uniform vec4 u_ScaleTranslate = vec4(1.0, 1.0, 0.0, 0.0);
 
     /* DIRECT LIGHTING */
 
@@ -125,51 +129,6 @@
     uniform  vec3 u_LightColor;     // Color of light.
     uniform float u_LightSize       =  0.2; // Size of the light (PCSS only).
     uniform float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
-
-    /* THIRD-PARTY */
-
-    // Gold Noise ©2015 dcerisano@standard3d.com
-    // - based on the Golden Ratio
-    // - uniform normalized distribution
-    // - fastest static noise generator function (also runs at low precision)
-    // - use with indicated fractional seeding method.
-
-    float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
-
-    float gold_noise(in vec2 xy, in float seed){
-        return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
-    }
-
-    /* NOT THIRD-PARTY */
-
-    float Random1(in vec2 _xy, float _offset) {
-        return (gold_noise(_xy * 1000.0, fract(u_Time) + _offset) - 0.5) * 2.0;
-    }
-
-    vec2 Random2(in vec2 _xy, float _offset) {
-
-        return vec2(
-            Random1(_xy, _offset + 0.1),
-            Random1(_xy, _offset + 0.2)
-        );
-    }
-
-    vec3 Random3(in vec3 _xyz, float _offset) {
-
-        return vec3(
-            Random1(_xyz.xy, _offset + 0.1),
-            Random1(_xyz.yz, _offset + 0.2),
-            Random1(_xyz.xz, _offset + 0.3)
-        );
-    }
-
-    // Couldn't find a square distance function so made my own. Does GLSL not have one?
-    float length2(vec3 _A, vec3 _B) {
-
-        vec3 delta = _B - _A;
-
-        return dot(delta, delta);
-    }
 
     // Light falloff with inverse square law.
     float Attenuation(vec3 _lightPosition, vec3 _fragPosition, float _range) {
@@ -221,7 +180,7 @@
         vec3 specular =
             (fresnel * Distrib(NdH, _roughness) *
             Geom(NdL, NdV, _roughness)) /
-            max(EPSILON, 4.0 * NdL * NdV);
+            max(KEPSILON, 4.0 * NdL * NdV);
 
         return (diffuse + specular) * NdL;
     }
@@ -234,9 +193,9 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
+            vec3 offset = normalize(Random3(_dir + vec3(i + 1), fract(u_Time), 0.1));
 
-            offset *= Random1(_dir.xy + vec2(i + 1), 0.4);
+            offset *= Random1(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
 
             float occluderDepth = texture(u_ShadowMap3D, _dir + offset).r;
 
@@ -311,9 +270,9 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            vec3 offset = normalize(Random3(_dir + vec3(i + 1), 0.1));
+            vec3 offset = normalize(Random3(_dir + vec3(i + 1), fract(u_Time), 0.1));
 
-            offset *= _texelSize * _radius * Random1(_dir.xy + vec2(i + 1), 0.4);
+            offset *= _texelSize * _radius * Random1(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
 
             result += ShadowCalculationHard3D(_dir, offset, _bias);
         }
@@ -358,7 +317,7 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            vec2 dir = Random2(_fragPos.xy + vec2(i + 1), 0.1);
+            vec2 dir = Random2(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1);
 
             dir *= float(i + 1) * _texelSize;
 
@@ -431,7 +390,7 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), 0.1));
+            vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1));
 
             dir *= _texelSize * _radius * (float(i + 1) / float(u_ShadowSamples));
 
@@ -471,10 +430,6 @@
         //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
         //return ShadowCalculationDisk2D(projCoords, texelSize, adjustedBias, 1.0f);
         return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
-    }
-
-    vec2 ScaleTexCoord(sampler2D _texture, in vec2 _coord) {
-        return (_coord + fract(u_Offset)) * u_Tiling;
     }
 
     vec3 SampleAmbient(in vec3 _dir, float _blur) {
@@ -524,75 +479,31 @@
         return result * u_AmbientExposure;
     }
 
-    vec3 ParallaxMapping(in vec3 _viewDir, in vec2 _texCoords, float _scale) {
-
-        const float minLayers = 8.0;
-        const float maxLayers = 32.0;
-        float numLayers = mix(maxLayers, minLayers, max(dot(vec3(0.0, 0.0, 1.0), _viewDir), 0.0));
-
-        // calculate the size of each layer
-        float layerDepth = 1.0 / numLayers;
-
-        // depth of current layer
-        float currentLayerDepth = 0.0;
-
-        // the amount to shift the texture coordinates per layer (from vector P)
-        vec2 P = _viewDir.xy / _viewDir.z * _scale;
-        vec2 deltaTexCoords = P / numLayers;
-
-        vec2  currentTexCoords     = _texCoords;
-        float currentDepthMapValue = texture(u_Height, ScaleTexCoord(u_Height, _texCoords)).r;
-
-        while(currentLayerDepth < currentDepthMapValue) {
-            // shift texture coordinates along direction of P
-            currentTexCoords -= deltaTexCoords;
-            // get depthmap value at current texture coordinates
-            currentDepthMapValue = texture(u_Height, ScaleTexCoord(u_Height, currentTexCoords)).r;
-            // get depth of next layer
-            currentLayerDepth += layerDepth;
-        }
-
-        // get texture coordinates before collision (reverse operations)
-        vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
-
-        // get depth after and before collision for linear interpolation
-        float afterDepth  = currentDepthMapValue - currentLayerDepth;
-        float beforeDepth = texture(u_Height, ScaleTexCoord(u_Height, prevTexCoords)).r - currentLayerDepth + layerDepth;
-
-        // interpolation of texture coordinates
-        float weight = afterDepth / (afterDepth - beforeDepth);
-        vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
-
-        return vec3(finalTexCoords, weight);
-    }
-
     void main() {
 
-        vec3  viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
+        vec3 viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
 
-        vec3 parallax = ParallaxMapping(viewDir_Tangent, v_TexCoord, u_Height_Amount);
+        vec2 parallaxUV = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ScaleTranslate, u_Height_Amount);
 
-        vec2 parallaxUV = parallax.xy;
-
-        vec3 fragPos = v_Position - (v_Normal * ((texture(u_Height, ScaleTexCoord(u_Height, parallaxUV)).r)));
+        vec3 fragPos = v_Position - (v_Normal * ((texture(u_Height, TransformCoord(u_Height, parallaxUV, u_ScaleTranslate)).r)));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
         vec3  halfVec = normalize(lightDir + viewDir);
 
-        vec4     albedo = texture(u_Albedo,    ScaleTexCoord(u_Albedo,    parallaxUV));
-        float roughness = texture(u_Roughness, ScaleTexCoord(u_Roughness, parallaxUV)).r * u_Roughness_Amount;
-        float  metallic = texture(u_Metallic,  ScaleTexCoord(u_Metallic,  parallaxUV)).r *  u_Metallic_Amount;
+        vec4     albedo = texture(u_Albedo,    TransformCoord(u_Albedo,    parallaxUV, u_ScaleTranslate));
+        float roughness = texture(u_Roughness, TransformCoord(u_Roughness, parallaxUV, u_ScaleTranslate)).r * u_Roughness_Amount;
+        float  metallic = texture(u_Metallic,  TransformCoord(u_Metallic,  parallaxUV, u_ScaleTranslate)).r *  u_Metallic_Amount;
 
-        vec3 n = texture(u_Normals, ScaleTexCoord(u_Normals, parallaxUV)).rgb;
+        vec3 n = texture(u_Normals, TransformCoord(u_Normals, parallaxUV, u_ScaleTranslate)).rgb;
         n = normalize((n * 2.0) - 1.0);
 
         vec3 normal = mix(normalize(v_Normal), normalize(v_TBN * n), u_Normal_Amount);
 
-        vec3  detail = texture(u_Detail,  ScaleTexCoord(u_Detail, parallaxUV), 0).rgb;
-        float     ao = texture(u_AO,      ScaleTexCoord(u_AO,     parallaxUV)).r;
+        vec3  detail = texture(u_Detail,  TransformCoord(u_Detail, parallaxUV, u_ScaleTranslate), 0).rgb;
+        float     ao = texture(u_AO,      TransformCoord(u_AO,     parallaxUV, u_ScaleTranslate)).r;
 
-        vec3 emission = texture(u_Emission, ScaleTexCoord(u_Emission, parallaxUV)).rgb * u_Emission_Amount;
+        vec3 emission = texture(u_Emission, TransformCoord(u_Emission, parallaxUV, u_ScaleTranslate)).rgb * u_Emission_Amount;
 
         /* DIRECT */
 
