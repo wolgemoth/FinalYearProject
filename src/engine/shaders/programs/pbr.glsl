@@ -483,27 +483,27 @@
 
         vec3 viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
 
-        vec2 parallaxUV = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ScaleTranslate, u_Height_Amount);
+        vec2 uv = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ScaleTranslate, u_Height_Amount);
 
-        vec3 fragPos = v_Position - (v_Normal * ((texture(u_Height, TransformCoord(u_Height, parallaxUV, u_ScaleTranslate)).r)));
+        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Height, uv, u_ScaleTranslate));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
         vec3  halfVec = normalize(lightDir + viewDir);
 
-        vec4     albedo = texture(u_Albedo,    TransformCoord(u_Albedo,    parallaxUV, u_ScaleTranslate));
-        float roughness = texture(u_Roughness, TransformCoord(u_Roughness, parallaxUV, u_ScaleTranslate)).r * u_Roughness_Amount;
-        float  metallic = texture(u_Metallic,  TransformCoord(u_Metallic,  parallaxUV, u_ScaleTranslate)).r *  u_Metallic_Amount;
+        vec4     albedo = Sample4(u_Albedo, uv, u_ScaleTranslate);
+        float roughness = Sample1(u_Roughness, uv, u_ScaleTranslate) * u_Roughness_Amount;
+        float  metallic = Sample1(u_Metallic, uv, u_ScaleTranslate) *  u_Metallic_Amount;
 
-        vec3 n = texture(u_Normals, TransformCoord(u_Normals, parallaxUV, u_ScaleTranslate)).rgb;
+        vec3 n = Sample3(u_Normals, uv, u_ScaleTranslate);
         n = normalize((n * 2.0) - 1.0);
 
         vec3 normal = mix(normalize(v_Normal), normalize(v_TBN * n), u_Normal_Amount);
 
-        vec3  detail = texture(u_Detail,  TransformCoord(u_Detail, parallaxUV, u_ScaleTranslate), 0).rgb;
-        float     ao = texture(u_AO,      TransformCoord(u_AO,     parallaxUV, u_ScaleTranslate)).r;
+        vec3  detail = Sample3(u_Detail, uv, u_ScaleTranslate, 0);
+        float     ao = Sample1(u_AO, uv, u_ScaleTranslate);
 
-        vec3 emission = texture(u_Emission, TransformCoord(u_Emission, parallaxUV, u_ScaleTranslate)).rgb * u_Emission_Amount;
+        vec3 emission = Sample3(u_Emission, uv, u_ScaleTranslate) * u_Emission_Amount;
 
         /* DIRECT */
 
