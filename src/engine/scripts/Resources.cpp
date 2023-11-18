@@ -28,17 +28,37 @@ namespace LouiEriksson {
 	
 	void Resources::PreloadTextures() {
 		
-		Hashmap<std::string, std::filesystem::path> files;
-		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesDirectory, File::Directory::EntryType::FILE)) {
-			files.Add(item.stem().string(), item);
+		/* PRELOAD SRGB */
+		{
+			Hashmap<std::string, std::filesystem::path> files;
+			
+			for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesSRGBDirectory, File::Directory::EntryType::FILE)) {
+				files.Add(item.stem().string(), item);
+			}
+			
+			for (const auto& kvp : files.GetAll()) {
+				
+				std::shared_ptr<Texture> texture;
+				if (File::TryLoad(kvp.second, texture, GL_SRGB, true)) {
+					m_Textures.Add(kvp.first, texture);
+				}
+			}
 		}
 		
-		for (const auto& kvp : files.GetAll()) {
+		/* PRELOAD LINEAR */
+		{
+			Hashmap<std::string, std::filesystem::path> files;
 			
-			std::shared_ptr<Texture> texture;
-			if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
-				m_Textures.Add(kvp.first, texture);
+			for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesLinearDirectory, File::Directory::EntryType::FILE)) {
+				files.Add(item.stem().string(), item);
+			}
+			
+			for (const auto& kvp : files.GetAll()) {
+				
+				std::shared_ptr<Texture> texture;
+				if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
+					m_Textures.Add(kvp.first, texture);
+				}
 			}
 		}
 	}

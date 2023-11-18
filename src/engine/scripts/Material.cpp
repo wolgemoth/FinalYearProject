@@ -18,7 +18,7 @@ namespace LouiEriksson {
 		m_Roughness = Resources::GetTexture("black");
 		m_Metallic  = Resources::GetTexture("black");
 		m_Normals   = Resources::GetTexture("normal");
-		m_Height    = Resources::GetTexture("grey");
+		m_Height    = Resources::GetTexture("black");
 		m_Detail    = Resources::GetTexture("black");
 		m_AO        = Resources::GetTexture("white");
 		m_Emission  = Resources::GetTexture("black");

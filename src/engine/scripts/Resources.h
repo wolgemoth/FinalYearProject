@@ -11,7 +11,8 @@ namespace LouiEriksson {
 		
 		static inline std::filesystem::path         m_MeshesDirectory = "models/";
 		static inline std::filesystem::path      m_MaterialsDirectory = "materials/";
-		static inline std::filesystem::path       m_TexturesDirectory = "textures/";
+		static inline std::filesystem::path   m_TexturesSRGBDirectory = "textures/srgb";
+		static inline std::filesystem::path m_TexturesLinearDirectory = "textures/linear";
 		static inline std::filesystem::path  m_ShaderIncludeDirectory = "shaders/include";
 		static inline std::filesystem::path m_ShaderProgramsDirectory = "shaders/programs";
 		
