@@ -527,7 +527,7 @@ namespace LouiEriksson {
 		auto aces = Resources::GetShader("aces");
 		Shader::Bind(aces.lock()->ID());
 		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), 0.0f);
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 2.0f);
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 1.0f);
 		Shader::Unbind();
 		
 		auto fxaa = Resources::GetShader("fxaa");
@@ -564,9 +564,13 @@ namespace LouiEriksson {
 		PostProcess(effects);
 		
 		/* RENDER TO SCREEN */
+		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
+		
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		Shader::Unbind();
+		
+		glDisable(GL_FRAMEBUFFER_SRGB); // DISABLE GAMMA CORRECTION
 		
 		// Unbind texture.
 		Texture::Unbind();
