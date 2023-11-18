@@ -1,8 +1,6 @@
 #ifndef _RAND
 #define _RAND
 
-    #extension GL_ARB_shading_language_include : require
-
     #include "/shaders/include/constants.glsl"
 
     /* THIRD-PARTY */

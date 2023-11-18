@@ -1,8 +1,6 @@
 #ifndef _LIGHTING_UTILS
 #define _LIGHTING_UTILS
 
-    #extension GL_ARB_shading_language_include : require
-
     #include "/shaders/include/common_utils.glsl"
 
     // Light falloff with inverse square law.

@@ -202,7 +202,7 @@
         }
 
         if (hits == 0) {
-            result = -1;
+            result = -1.0;
         }
 
         return result / float(max(hits, 1));
@@ -212,8 +212,8 @@
 
         float occluderDepth = PCSS_GetOccluderDepth3D(_dir, _texelSize, _bias);
 
-        if (occluderDepth == -1) {
-            return 1;
+        if (occluderDepth == -1.0) {
+            return 1.0;
         }
 
         float len = length(_dir);
@@ -314,7 +314,7 @@
 
             vec2 dir = Random2(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1);
 
-            dir *= float(i + 1) * _texelSize;
+            dir *= float(i + 1.0) * _texelSize;
 
             float occluderDepth = Sample1(u_ShadowMap2D, _fragPos.xy + dir);
 
@@ -329,15 +329,15 @@
             result = -1;
         }
 
-        return result / float(max(hits, 1));
+        return result / float(max(hits, 1.0));
     }
 
     float PCSS_Radius2D(vec3 _fragPos, float _texelSize, float _bias) {
 
         float occluderDepth = PCSS_GetOccluderDepth2D(_fragPos, _texelSize, _bias);
 
-        if (occluderDepth == -1) {
-            return 1;
+        if (occluderDepth == -1.0) {
+            return 1.0;
         }
 
         float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
@@ -359,9 +359,9 @@
 
         float result = 0.0;
 
-        float hits = 0;
+        float hits = 0.0;
 
-        float PCF_SAMPLES = 4;
+        float PCF_SAMPLES = 4.0;
 
         float axis = pow(PCF_SAMPLES, 1.0 / 2.0);
         for (float x = -_radius; x < _radius; x += _radius / axis) {
@@ -376,7 +376,7 @@
             hits += 1.0;
         }}
 
-        return result / max(hits, 1);
+        return result / max(hits, 1.0);
     }
 
     float ShadowCalculationDisk2D(vec3 _fragPos, float _texelSize, float _bias, float _radius) {

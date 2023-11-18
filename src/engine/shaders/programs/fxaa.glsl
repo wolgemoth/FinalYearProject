@@ -171,7 +171,7 @@
         vec2 edgeStep = (edgeDir * _texelSize * 0.5);
 
         vec2 puv = v_TexCoord;
-        float pLuminanceDelta = 0;
+        float pLuminanceDelta = 0.0;
         bool pAtEnd = false;
 
         for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; i++) {
@@ -181,7 +181,7 @@
         }
 
         vec2 nuv = v_TexCoord;
-        float nLuminanceDelta = 0;
+        float nLuminanceDelta = 0.0;
         bool nAtEnd = false;
 
         for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; i++) {
@@ -204,7 +204,7 @@
         }
 
         if (deltaSign == (_luma.samples[center] - edgeLuminance >= 0)) {
-            return 0;
+            return 0.0;
         }
 
         return 1.0 - clamp(
