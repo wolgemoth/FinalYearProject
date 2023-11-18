@@ -326,7 +326,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_ScaleTranslate"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
+			program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
 			
 			if (_lights.empty()) {
 				

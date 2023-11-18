@@ -16,36 +16,100 @@
         return (_uv + fract(_st.zw)) * _st.xy;
     }
 
+    vec4 Sample4(sampler2D _texture, in vec2 _uv) {
+        return texture(_texture, _uv);
+    }
+
+    vec4 Sample4(sampler2D _texture, in vec2 _uv, in int _lod) {
+        return texture(_texture, _uv, _lod);
+    }
+
     vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st));
+        return texture(_texture, TransformCoord(_texture, _uv, _st));
     }
 
     vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st), _lod);
+        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod);
+    }
+
+    vec4 Sample4(samplerCube _texture, in vec3 _dir) {
+        return texture(_texture, _dir);
+    }
+
+    vec4 Sample4(samplerCube _texture, in vec3 _dir, in int _lod) {
+        return texture(_texture, _dir, _lod);
+    }
+
+    vec3 Sample3(sampler2D _texture, in vec2 _uv) {
+        return texture(_texture, _uv).rgb;
+    }
+
+    vec3 Sample3(sampler2D _texture, in vec2 _uv, in int _lod) {
+        return texture(_texture, _uv, _lod).rgb;
     }
 
     vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st)).rgb;
+        return texture(_texture, TransformCoord(_texture, _uv, _st)).rgb;
     }
 
     vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st), _lod).rgb;
+        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).rgb;
+    }
+
+    vec3 Sample3(samplerCube _texture, in vec3 _dir) {
+        return texture(_texture, _dir).rgb;
+    }
+
+    vec3 Sample3(samplerCube _texture, in vec3 _dir, in int _lod) {
+        return texture(_texture, _dir, _lod).rgb;
+    }
+
+    vec2 Sample2(sampler2D _texture, in vec2 _uv) {
+        return texture(_texture, _uv).rg;
+    }
+
+    vec2 Sample2(sampler2D _texture, in vec2 _uv, in int _lod) {
+        return texture(_texture, _uv, _lod).rg;
     }
 
     vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st)).rg;
+        return texture(_texture, TransformCoord(_texture, _uv, _st)).rg;
     }
 
     vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st), _lod).rg;
+        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).rg;
+    }
+
+    vec2 Sample2(samplerCube _texture, in vec3 _dir) {
+        return texture(_texture, _dir).rg;
+    }
+
+    vec2 Sample2(samplerCube _texture, in vec3 _dir, in int _lod) {
+        return texture(_texture, _dir, _lod).rg;
+    }
+
+    float Sample1(sampler2D _texture, in vec2 _uv) {
+        return texture(_texture, _uv).r;
+    }
+
+    float Sample1(sampler2D _texture, in vec2 _uv, in int _lod) {
+        return texture(_texture, _uv, _lod).r;
     }
 
     float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st)).r;
+        return texture(_texture, TransformCoord(_texture, _uv, _st)).r;
     }
 
     float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture2D(_texture, TransformCoord(_texture, _uv, _st), _lod).r;
+        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).r;
+    }
+
+    float Sample1(samplerCube _texture, in vec3 _dir) {
+        return texture(_texture, _dir).r;
+    }
+
+    float Sample1(samplerCube _texture, in vec3 _dir, in int _lod) {
+        return texture(_texture, _dir, _lod).r;
     }
 
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {

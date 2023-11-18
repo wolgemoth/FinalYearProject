@@ -112,13 +112,13 @@
     uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
     uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
     uniform float    u_Normal_Amount = 1.0; // Contribution of normal map.
-    uniform float    u_Height_Amount = 0.1; // Strength of displacement.
+    uniform float    u_Height_Amount = 0.03; // Strength of displacement.
 
     uniform float u_Time;
 
     /* TEXTURE PARAMETERS */
-    // Texture tiling scale and offset (U, V, U, V).
-    uniform vec4 u_ScaleTranslate = vec4(1.0, 1.0, 0.0, 0.0);
+    // Texture tiling scale and translate (ST) (U, V, U, V).
+    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     /* DIRECT LIGHTING */
 
@@ -129,11 +129,6 @@
     uniform  vec3 u_LightColor;     // Color of light.
     uniform float u_LightSize       =  0.2; // Size of the light (PCSS only).
     uniform float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
-
-    // Light falloff with inverse square law.
-    float Attenuation(vec3 _lightPosition, vec3 _fragPosition, float _range) {
-        return _range / length2(_lightPosition, _fragPosition);
-    }
 
     vec3 Irradiance(vec3 _fresnel, float _metallic) {
         return mix(vec3(1.0) - _fresnel, vec3(0.0), _metallic);
@@ -197,7 +192,7 @@
 
             offset *= Random1(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
 
-            float occluderDepth = texture(u_ShadowMap3D, _dir + offset).r;
+            float occluderDepth = Sample1(u_ShadowMap3D, _dir + offset);
 
             if (occluderDepth < length(_dir) - _bias) {
                 result += occluderDepth;
@@ -231,7 +226,7 @@
     float ShadowCalculationHard3D(vec3 _dir, vec3 _offset, float _bias) {
 
         // Get depth from light to closest surface.
-        float shadowDepth = texture(u_ShadowMap3D, _dir + _offset).r * u_LightRange;
+        float shadowDepth = Sample1(u_ShadowMap3D, _dir + _offset) * u_LightRange;
 
         // Compare the depth of the light against the distance from the light to the current fragment.
         return length(_dir) - _bias > shadowDepth ? 1.0 : 0.0;
@@ -321,7 +316,7 @@
 
             dir *= float(i + 1) * _texelSize;
 
-            float occluderDepth = texture(u_ShadowMap2D, _fragPos.xy + dir).r;
+            float occluderDepth = Sample1(u_ShadowMap2D, _fragPos.xy + dir);
 
             if (occluderDepth < _fragPos.z - _bias) {
                 result += occluderDepth;
@@ -353,7 +348,7 @@
     float ShadowCalculationHard2D(vec3 _fragPos, vec2 _offset, float _bias) {
 
         // Get depth from light to closest surface.
-        float shadowDepth = texture(u_ShadowMap2D, _fragPos.xy + _offset).r;
+        float shadowDepth = Sample1(u_ShadowMap2D, _fragPos.xy + _offset);
 
         // Compare the depth of the light against the distance from the light to the current fragment (converted to light space).
         return (_fragPos.z <= 1.0) && (_fragPos.z - _bias > shadowDepth) ?
@@ -445,7 +440,7 @@
         #ifdef SAMPLER_CUBE
 
             // Sample the cubemap the direction directly.
-            result = texture(u_Ambient, _dir, b).rgb;
+            result = Sample3(u_Ambient, _dir, b);
         #else
 
             // Sample the texture2d by converting the direction to a uv coordinate.
@@ -461,7 +456,7 @@
 
             float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 
-            //result = texture(u_Texture, vec2(uv.x * check, uv.y), b).rgb;
+            //result = Sample3(u_Texture, vec2(uv.x * check, uv.y), b);
 
             // Seemingly no way to do this without a branch.
             // Compiler seems to need an explicit branch on
@@ -471,8 +466,8 @@
             // and uncommenting the previous code.
 
             result = check > 0 ?
-                texture(u_Ambient, uv, b).rgb :
-                texture(u_Ambient, vec2(0.0, uv.y), b).rgb;
+                Sample3(u_Ambient, uv, b) :
+                Sample3(u_Ambient, vec2(0.0, uv.y), b);
 
         #endif
 
@@ -483,27 +478,25 @@
 
         vec3 viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
 
-        vec2 uv = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ScaleTranslate, u_Height_Amount);
+        vec2 uv = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ST, u_Height_Amount);
 
-        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Height, uv, u_ScaleTranslate));
+        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Height, uv, u_ST));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
         vec3  halfVec = normalize(lightDir + viewDir);
 
-        vec4     albedo = Sample4(u_Albedo, uv, u_ScaleTranslate);
-        float roughness = Sample1(u_Roughness, uv, u_ScaleTranslate) * u_Roughness_Amount;
-        float  metallic = Sample1(u_Metallic, uv, u_ScaleTranslate) *  u_Metallic_Amount;
+        vec4     albedo = Sample4(u_Albedo, uv, u_ST);
+        float roughness = Sample1(u_Roughness, uv, u_ST) * u_Roughness_Amount;
+        float  metallic = Sample1(u_Metallic, uv, u_ST) *  u_Metallic_Amount;
 
-        vec3 n = Sample3(u_Normals, uv, u_ScaleTranslate);
-        n = normalize((n * 2.0) - 1.0);
+        vec3 normal = normalize((Sample3(u_Normals, uv, u_ST) * 2.0) - 1.0);
+        normal = mix(normalize(v_Normal), normalize(v_TBN * normal), u_Normal_Amount);
 
-        vec3 normal = mix(normalize(v_Normal), normalize(v_TBN * n), u_Normal_Amount);
+        vec3  detail = Sample3(u_Detail, uv, u_ST, 0);
+        float     ao = Sample1(u_AO, uv, u_ST);
 
-        vec3  detail = Sample3(u_Detail, uv, u_ScaleTranslate, 0);
-        float     ao = Sample1(u_AO, uv, u_ScaleTranslate);
-
-        vec3 emission = Sample3(u_Emission, uv, u_ScaleTranslate) * u_Emission_Amount;
+        vec3 emission = Sample3(u_Emission, uv, u_ST) * u_Emission_Amount;
 
         /* DIRECT */
 
