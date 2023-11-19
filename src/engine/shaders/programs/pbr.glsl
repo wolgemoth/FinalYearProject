@@ -329,7 +329,7 @@
             result = -1;
         }
 
-        return result / float(max(hits, 1.0));
+        return result / float(max(hits, 1));
     }
 
     float PCSS_Radius2D(vec3 _fragPos, float _texelSize, float _bias) {
