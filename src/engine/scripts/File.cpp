@@ -480,7 +480,7 @@ namespace LouiEriksson {
 								
 								std::shared_ptr<Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Height = texture;
+									_output->m_Displacement = texture;
 								}
 							}
 						}

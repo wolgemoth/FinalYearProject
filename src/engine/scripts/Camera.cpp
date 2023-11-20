@@ -113,11 +113,11 @@ namespace LouiEriksson {
 				/* DRAW SHADOWS */
 				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 				
-				auto shadowShader = light->Type() == Light::Parameters::Type::Point ?
+				auto program = light->Type() == Light::Parameters::Type::Point ?
 					Resources::GetShader("shadowDepthCube") :
 					Resources::GetShader("shadowDepth");
 				
-				Shader::Bind(shadowShader.lock()->ID());
+				Shader::Bind(program.lock()->ID());
 				
 				// Compute the size of a texel in world space.
 				// We can round the light's position to these coordinates
@@ -151,7 +151,7 @@ namespace LouiEriksson {
 					};
 					
 					glUniformMatrix4fv(
-						shadowShader.lock()->AttributeID("u_Matrices"),
+						program.lock()->AttributeID("u_Matrices"),
 						shadowTransforms.size(),
 						GL_FALSE,
 						glm::value_ptr(shadowTransforms[0])
@@ -159,10 +159,10 @@ namespace LouiEriksson {
 					
 					light->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
 					
-					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_LightPosition"),
+					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
 							light->m_Transform.lock()->m_Position);
 					
-					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_FarPlane"),
+					program.lock()->Assign(program.lock()->AttributeID("u_FarPlane"),
 							light->m_Range);
 				}
 				else {
@@ -178,18 +178,31 @@ namespace LouiEriksson {
 					light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
 				}
 				
-				shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
 				
 				// We need to render the scene from the light's perspective.
 				for (const auto& renderer : _renderers) {
 					
 					const auto transform = renderer->GetTransform();
+					const auto material  = renderer->GetMaterial();
 					const auto mesh      = renderer->GetMesh();
 					
 					// Bind VAO.
 					glBindVertexArray(mesh->VAO_ID());
 					
-					shadowShader.lock()->Assign(shadowShader.lock()->AttributeID("u_Model"), transform->TRS());
+					program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS());
+					
+					program.lock()->Assign(
+						program.lock()->AttributeID("u_Displacement"),
+							material.lock()->GetDisplacement().lock()->ID(),
+						0,
+						GL_TEXTURE_2D
+					);
+					
+					program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
+					
+					program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
+			
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -283,8 +296,8 @@ namespace LouiEriksson {
 			);
 			
 			program.lock()->Assign(
-				program.lock()->AttributeID("u_Height"),
-				material.lock()->GetHeight().lock()->ID(),
+				program.lock()->AttributeID("u_Displacement"),
+					material.lock()->GetDisplacement().lock()->ID(),
 				4,
 				GL_TEXTURE_2D
 			);
@@ -313,9 +326,12 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+			
 			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.01f);
+			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Ambient"),

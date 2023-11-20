@@ -78,7 +78,7 @@
     layout (location = 1) uniform sampler2D u_Roughness;
     layout (location = 2) uniform sampler2D u_Metallic;
     layout (location = 3) uniform sampler2D u_Normals;
-    layout (location = 4) uniform sampler2D u_Height;
+    layout (location = 4) uniform sampler2D u_Displacement;
     layout (location = 5) uniform sampler2D u_Detail;
     layout (location = 6) uniform sampler2D u_AO;
     layout (location = 7) uniform sampler2D u_Emission;
@@ -108,11 +108,12 @@
 
     uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
 
-    uniform float  u_Metallic_Amount = 0.0; // How metallic the surface is.
-    uniform float u_Roughness_Amount = 0.0; // How rough the surface is.
-    uniform float  u_Emission_Amount = 1.0; // How emissive the surface is.
-    uniform float    u_Normal_Amount = 1.0; // Contribution of normal map.
-    uniform float    u_Height_Amount = 0.03; // Strength of displacement.
+    uniform float     u_Metallic_Amount = 0.0; // How metallic the surface is.
+    uniform float    u_Roughness_Amount = 0.0; // How rough the surface is.
+    uniform float     u_Emission_Amount = 1.0; // How emissive the surface is.
+    uniform float       u_Normal_Amount = 1.0; // Contribution of normal map.
+    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
+    uniform float           u_AO_Amount = 1.0; // Strength of AO.
 
     uniform float u_Time;
 
@@ -476,11 +477,19 @@
 
     void main() {
 
-        vec3 viewDir_Tangent = normalize((transpose(v_TBN) * normalize(u_CameraPosition - v_Position)));
+        vec3 viewDir_Tangent = normalize(
+            (transpose(v_TBN) * normalize(u_CameraPosition - v_Position))
+        );
 
-        vec2 uv = ParallaxMapping(u_Height, viewDir_Tangent, v_TexCoord, u_ST, u_Height_Amount);
+        vec2 uv = ParallaxMapping(
+            u_Displacement,
+            viewDir_Tangent,
+            v_TexCoord,
+            u_ST,
+            u_Displacement_Amount
+        );
 
-        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Height, uv, u_ST));
+        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Displacement, uv, u_ST));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
@@ -496,6 +505,8 @@
         vec3  detail = Sample3(u_Detail, uv, u_ST, 0);
         float     ao = Sample1(u_AO, uv, u_ST);
 
+        ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
+
         vec3 emission = Sample3(u_Emission, uv, u_ST) * u_Emission_Amount;
 
         /* DIRECT */
@@ -504,10 +515,14 @@
         {
             float attenuation = Attenuation(u_LightPosition, fragPos, u_LightRange);
 
-            float visibility =
-                (dot(u_LightDirection, lightDir) > u_LightAngle ? 1 : 0) *
-                //(1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias));
-                (1.0 - TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias));
+            float visibility = 1.0 - (
+                (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
+                TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias)
+            );
+
+            //gl_FragColor = Sample4(u_ShadowMap3D, (v_Position - u_LightPosition));
+            //return;
 
             vec3 lighting = BRDF(
                 albedo.rgb + detail,
@@ -527,7 +542,6 @@
         /* INDIRECT */
 
         vec3 indirectLighting;
-
         {
             // Figure out the direction of the ambient light
             vec3 ambientDir = reflect(-viewDir, normal);
@@ -544,9 +558,9 @@
             vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
 
             //diffuse;//
-            indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * ao;
+            indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular));
         }
 
         //vec4(indirectLighting, 1);//
-        gl_FragColor = vec4((directLighting + indirectLighting) + emission, 1.0);
+        gl_FragColor = vec4(((directLighting + indirectLighting) * ao) + emission, 1.0);
     }

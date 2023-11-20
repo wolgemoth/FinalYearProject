@@ -14,14 +14,14 @@ namespace LouiEriksson {
 		     m_ModelMatrixID = m_Shader.lock()->AttributeID("u_Model");
 		      m_ViewMatrixID = m_Shader.lock()->AttributeID("u_View");
 		
-		m_Albedo    = Resources::GetTexture("white");
-		m_Roughness = Resources::GetTexture("black");
-		m_Metallic  = Resources::GetTexture("black");
-		m_Normals   = Resources::GetTexture("normal");
-		m_Height    = Resources::GetTexture("black");
-		m_Detail    = Resources::GetTexture("black");
-		m_AO        = Resources::GetTexture("white");
-		m_Emission  = Resources::GetTexture("black");
+		m_Albedo       = Resources::GetTexture("white");
+		m_Roughness    = Resources::GetTexture("black");
+		m_Metallic     = Resources::GetTexture("black");
+		m_Normals      = Resources::GetTexture("normal");
+		m_Displacement = Resources::GetTexture("black");
+		m_Detail       = Resources::GetTexture("black");
+		m_AO           = Resources::GetTexture("white");
+		m_Emission     = Resources::GetTexture("black");
 	}
 	
 	Material::~Material() = default;
@@ -46,8 +46,8 @@ namespace LouiEriksson {
 		return m_Normals;
 	}
 	
-	std::weak_ptr<Texture> Material::GetHeight() const {
-		return m_Height;
+	std::weak_ptr<Texture> Material::GetDisplacement() const {
+		return m_Displacement;
 	}
 	
 	std::weak_ptr<Texture> Material::GetDetail() const {
