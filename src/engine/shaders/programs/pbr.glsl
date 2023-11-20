@@ -515,10 +515,14 @@
         {
             float attenuation = Attenuation(u_LightPosition, fragPos, u_LightRange);
 
-            float visibility = 1.0 - (
-                (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-                //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias);
-                TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias)
+            float visibility = clamp(
+                (
+                    (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                    //1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias)
+                    1.0 - TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias)
+                ),
+                0.0,
+                1.0
             );
 
             //gl_FragColor = Sample4(u_ShadowMap3D, (v_Position - u_LightPosition));

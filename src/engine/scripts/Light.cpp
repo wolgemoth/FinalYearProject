@@ -80,7 +80,7 @@ namespace LouiEriksson {
 		m_ShadowMap_Texture = 0;
 		m_ShadowMap_FBO     = 0;
 		
-		m_Resolution = Light::Parameters::Shadow::Resolution::Low;
+		m_Resolution = Light::Parameters::Shadow::Resolution::VeryHigh;
 		
 		m_Bias       = 0.05f;
 		m_NormalBias = 0.3f;

@@ -104,10 +104,8 @@
     uniform float u_FarPlane;
 
     uniform sampler2D u_Displacement;
-
     uniform float u_Displacement_Amount = 0.0;
 
-    // Texture tiling scale and translate (ST) (U, V, U, V).
     uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     void main() {

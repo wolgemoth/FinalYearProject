@@ -113,9 +113,15 @@ namespace LouiEriksson {
 				/* DRAW SHADOWS */
 				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
 				
-				auto program = light->Type() == Light::Parameters::Type::Point ?
-					Resources::GetShader("shadowDepthCube") :
-					Resources::GetShader("shadowDepth");
+				std::weak_ptr<Shader> program;
+				switch(light->Type()) {
+					case Light::Parameters::Point:       { program = Resources::GetShader("shadowDepthCube"); break; }
+					case Light::Parameters::Directional: { program = Resources::GetShader("shadowDepth");     break; }
+					case Light::Parameters::Spot:        { program = Resources::GetShader("shadowDepthSpot"); break; }
+					default: {
+						throw std::runtime_error("Not implemented!");
+					}
+				}
 				
 				Shader::Bind(program.lock()->ID());
 				
@@ -157,13 +163,12 @@ namespace LouiEriksson {
 						glm::value_ptr(shadowTransforms[0])
 					);
 					
+					program.lock()->Assign(
+							program.lock()->AttributeID("u_LightPosition"), lightPos);
+					
+					program.lock()->Assign(program.lock()->AttributeID("u_FarPlane"), light->m_Range);
+					
 					light->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
-							light->m_Transform.lock()->m_Position);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_FarPlane"),
-							light->m_Range);
 				}
 				else {
 					
@@ -192,17 +197,18 @@ namespace LouiEriksson {
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS());
 					
-					program.lock()->Assign(
-						program.lock()->AttributeID("u_Displacement"),
-							material.lock()->GetDisplacement().lock()->ID(),
-						0,
-						GL_TEXTURE_2D
-					);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
-			
+					if (light->Type() == Light::Parameters::Type::Point) {
+						program.lock()->Assign(
+							program.lock()->AttributeID("u_Displacement"),
+								material.lock()->GetDisplacement().lock()->ID(),
+							0,
+							GL_TEXTURE_2D
+						);
+						
+						program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
+						
+						program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
+					}
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -330,7 +336,7 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.01f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
 			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
 			
 			program.lock()->Assign(
