@@ -475,6 +475,32 @@
         return result * u_AmbientExposure;
     }
 
+
+    float ParallaxShadows(in sampler2D _displacement, in vec3 _lightDir, in vec2 _uv, in vec4 _st, in float _scale) {
+
+        float minLayers = 0;
+        float maxLayers = 32;
+        float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0, 0.0, 1.0), _lightDir)));
+
+        vec2 currentTexCoords = _uv;
+        float currentDepthMapValue = Sample1(_displacement, currentTexCoords, _st);
+        float currentLayerDepth = currentDepthMapValue;
+
+        float layerDepth = 1.0 / numLayers;
+        vec2 P = _lightDir.xy / _lightDir.z * _scale;
+        vec2 deltaTexCoords = P / numLayers;
+
+        while (currentLayerDepth <= currentDepthMapValue && currentLayerDepth > 0.0) {
+
+            currentTexCoords += deltaTexCoords;
+            currentDepthMapValue = Sample1(_displacement, currentTexCoords, _st);
+            currentLayerDepth -= layerDepth;
+        }
+
+        float r = currentLayerDepth > currentDepthMapValue ? 1.0 : 0.0;
+        return r;
+    }
+
     void main() {
 
         vec3 viewDir_Tangent = normalize(
@@ -519,7 +545,8 @@
                 (
                     (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
                     //1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias)
-                    1.0 - TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias)
+                    //1.0 - TransferShadow3D(normal, lightDir, fragPos, u_ShadowBias, u_ShadowNormalBias) *
+                    1.0 - ParallaxShadows(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
                 ),
                 0.0,
                 1.0
