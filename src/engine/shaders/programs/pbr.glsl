@@ -543,11 +543,18 @@
             float visibility = clamp(
                 (
                     (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-                    //1.0 - TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias)
+//                    1.0 - max(
+//                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
+//                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * u_LightDirection), uv, u_ST, u_Displacement_Amount)
+//                    )
                     1.0 - max(
-                        TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
+                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
                         ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
                     )
+//                    1.0 - max(
+//                        TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
+//                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
+//                    )
                 ),
                 0.0,
                 1.0

@@ -14,7 +14,7 @@ namespace LouiEriksson {
 		
 		m_Transform = Parent()->GetComponent<Transform>();
 		
-		Type(Light::Parameters::Type::Point);
+		Type(Light::Parameters::Type::Spot);
 	}
 	
 	Light::~Light() {
