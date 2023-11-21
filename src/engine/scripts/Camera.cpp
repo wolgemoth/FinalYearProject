@@ -336,7 +336,7 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.01f);
 			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
 			
 			program.lock()->Assign(
