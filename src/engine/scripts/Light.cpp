@@ -9,12 +9,12 @@ namespace LouiEriksson {
 		m_Intensity = 3.0f;
 		m_Range     = 200.0f;
 		m_Angle     = 120.0f;
-		m_Size      = 0.1f;
+		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
 		m_Transform = Parent()->GetComponent<Transform>();
 		
-		Type(Light::Parameters::Type::Spot);
+		Type(Light::Parameters::Type::Point);
 	}
 	
 	Light::~Light() {
@@ -80,14 +80,14 @@ namespace LouiEriksson {
 		m_ShadowMap_Texture = 0;
 		m_ShadowMap_FBO     = 0;
 		
-		m_Resolution = Light::Parameters::Shadow::Resolution::VeryHigh;
+		m_Resolution = Light::Parameters::Shadow::Resolution::Low;
 		
 		m_Bias       = 0.05f;
-		m_NormalBias = 0.3f;
+		m_NormalBias = 0.2f;
 		
 		m_NearPlane = 0.2f;
 		
-		m_TwoSided = false;
+		m_TwoSided = true;
 		
 		m_Projection     = glm::mat4(1.0);
 		m_ViewProjection = glm::mat4(1.0);

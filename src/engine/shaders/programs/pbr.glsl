@@ -478,7 +478,7 @@
     float ParallaxShadowsHard(in sampler2D _displacement, in vec3 _lightDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
         float minLayers = 0;
-        float maxLayers = 32;
+        float maxLayers = 16;
         float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0, 0.0, 1.0), _lightDir)));
 
         vec2 currentTexCoords = _uv;
@@ -547,14 +547,14 @@
 //                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
 //                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * u_LightDirection), uv, u_ST, u_Displacement_Amount)
 //                    )
-                    1.0 - max(
-                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
-                    )
 //                    1.0 - max(
-//                        TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
+//                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
 //                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
 //                    )
+                    1.0 - max(
+                        TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
+                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
+                    )
                 ),
                 0.0,
                 1.0

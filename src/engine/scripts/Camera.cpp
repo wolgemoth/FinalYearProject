@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		//blue_photo_studio_4k
 		//abandoned_workshop_02_8k
 		//little_paris_eiffel_tower_4k
-		m_HDRI = Resources::GetTexture("blue_photo_studio_4k").lock();
+		m_HDRI = Resources::GetTexture("little_paris_eiffel_tower_4k").lock();
 		
 //		m_Skybox = std::move(
 //			File::Load(
@@ -229,6 +229,7 @@ namespace LouiEriksson {
 		
 		const float skyExposure = 1.0f;
 		
+		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 		
 		const auto  cullMode = GL_BACK;
@@ -245,9 +246,10 @@ namespace LouiEriksson {
 			glViewport(0, 0, dimensions[0], dimensions[1]);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			// Reset culling mode after shadow pass.
-			glCullFace(cullMode);
 		}
+		
+		// Set / reset culling mode (after shadow pass).
+		glCullFace(cullMode);
 		
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
@@ -336,7 +338,7 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.009f);
 			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
 			
 			program.lock()->Assign(

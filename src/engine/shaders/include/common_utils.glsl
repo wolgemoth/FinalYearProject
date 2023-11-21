@@ -114,7 +114,7 @@
 
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
-        const float minLayers = 8.0;
+        const float minLayers = 10.0;
         const float maxLayers = 32.0;
         float numLayers = mix(maxLayers, minLayers, max(dot(vec3(0.0, 0.0, 1.0), _viewDir), 0.0));
 
