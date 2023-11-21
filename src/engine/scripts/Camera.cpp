@@ -434,8 +434,17 @@ namespace LouiEriksson {
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
 					
-					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
-						light->m_Transform.lock()->m_Position);
+					if (light->Type() == Light::Parameters::Type::Directional) {
+						
+						program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
+							this->GetTransform()->m_Position - (light->m_Transform.lock()->FORWARD * 100000.0f));
+					}
+					else {
+						
+						program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
+							light->m_Transform.lock()->m_Position);
+					}
+					
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
 							light->m_Transform.lock()->FORWARD);
