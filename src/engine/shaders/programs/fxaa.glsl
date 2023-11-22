@@ -18,10 +18,10 @@
 
     #version 330 core
 
-    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_shading_language_include : require
 
-    const float INFINITY = 65535.0; // A 'sufficiently' large number.
-    const float  EPSILON = 0.005;   // A 'sufficiently' small number.
+    #include "/shaders/include/constants.glsl"
+    #include "/shaders/include/common_utils.glsl"
 
     in vec2 v_TexCoord;
 
@@ -82,29 +82,12 @@
         float contrast;
     };
 
-    int sqr(in int _value) {
-        return _value * _value;
-    }
-
-    float sqr(in float _value) {
-        return _value * _value;
-    }
-
-    float Luma(vec3 _color) {
-
-        // https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
-
-        //return dot(_color, vec3(0.2126, 0.7152, 0.0722));
-        return dot(_color, vec3(0.299, 0.587, 0.114));
-        //return sqrt(dot(dot(_color, _color), (0.299, 0.587, 0.114)));
-    }
-
     // https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/
     Luminance SampleLuma(in vec2 _coord, in vec2 _texelSize) {
 
         Luminance result;
-        result.maximal   = -INFINITY;
-        result.minimal   =  INFINITY;
+        result.maximal   = F32NMAX;
+        result.minimal   = F32PMAX;
         result.average   = 0;
         result.direction = vec2(0);
 
@@ -123,7 +106,7 @@
 
             vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0), vec2(1));
 
-            float luma          = Luma(texture(u_Texture, uv).rgb);
+            float luma          = Luma(texture(u_Texture, uv).rgb, 0);
             float luma_adjusted = luma / max(abs(i) + abs(j), 1);
 
             result.maximal = max(result.maximal, luma);
@@ -176,7 +159,7 @@
 
         for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; i++) {
             puv += edgeStep;
-            pLuminanceDelta = Luma(texture(u_Texture, puv * _texelSize).rgb) - edgeLuminance;
+            pLuminanceDelta = Luma(texture(u_Texture, puv * _texelSize).rgb, 0) - edgeLuminance;
             pAtEnd = abs(pLuminanceDelta) >= gradientThreshold;
         }
 
@@ -186,7 +169,7 @@
 
         for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; i++) {
             nuv -= edgeStep;
-            nLuminanceDelta = Luma(texture(u_Texture, nuv * _texelSize).rgb) - edgeLuminance;
+            nLuminanceDelta = Luma(texture(u_Texture, nuv * _texelSize).rgb, 0) - edgeLuminance;
             nAtEnd = abs(nLuminanceDelta) >= gradientThreshold;
         }
 
@@ -218,7 +201,7 @@
 
         int center = (((KERNEL_SIZE * KERNEL_SIZE) + 1) / 2) - 1;
 
-        _luma.contrast = _luma.contrast / max(u_LocalContrastModifier, EPSILON);
+        _luma.contrast = _luma.contrast / max(u_LocalContrastModifier, KEPSILON);
 
         // If ENHANCED_FXAA is disabled, flatten the direction to
         // only X or Y. This results in cross-shaped edge blending.

@@ -13,7 +13,10 @@ namespace LouiEriksson {
 		m_FOV      = 90.0f;
 		m_NearClip = 0.1f;
 		m_FarClip  = 100.0f;
-	
+		
+		m_TargetExposure = 1.0f;
+		m_TargetExposure = m_CurrentExposure = m_TargetExposure;
+		
 		m_Projection = glm::mat4(1.0f);
 		
 		m_IsDirty = true;
@@ -544,6 +547,10 @@ namespace LouiEriksson {
 		
 		/* POST PROCESSING */
 		
+		AmbientOcclusion();
+		AutoExposure();
+		Bloom();
+		
 		// Load effects:
 		// TODO: Allow modification of effect order and parameters outside of function.
 		std::queue<std::weak_ptr<Shader>> effects;
@@ -551,7 +558,7 @@ namespace LouiEriksson {
 		auto aces = Resources::GetShader("aces");
 		Shader::Bind(aces.lock()->ID());
 		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), 0.0f);
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), 1.0f);
+		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), m_CurrentExposure);
 		Shader::Unbind();
 		
 		auto fxaa = Resources::GetShader("fxaa");
@@ -580,9 +587,6 @@ namespace LouiEriksson {
 		effects.push(fxaa);     // ANTI-ALIASING
 		//effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
-		
-		AmbientOcclusion();
-		Bloom();
 		
 		// Draw post processing.
 		PostProcess(effects);
@@ -673,6 +677,65 @@ namespace LouiEriksson {
 		Shader::Unbind();
 	}
 	
+	void Camera::AutoExposure() {
+	
+		const auto dimensions = GetWindow()->Dimensions();
+		
+		float min_exposure = 0.1f;
+		float max_exposure = 6.0f;
+		float compensation = 100.0f;
+		float speed_down = 1.0f;
+		float speed_up   = 2.0f;
+		
+		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
+		
+		glm::ivec2 samples(16, 16);
+		
+		RenderTexture luma_out(samples.x, samples.y);
+		
+		auto mask = Resources::GetTexture("exposure_weights");
+		
+		Shader::Bind(auto_exposure_shader.lock()->ID());
+		auto_exposure_shader.lock()->Assign(auto_exposure_shader.lock()->AttributeID("u_Weights"),  mask.lock()->ID(), 1, GL_TEXTURE_2D);
+		Shader::Unbind();
+		
+		Blit(m_RT, luma_out, auto_exposure_shader);
+		
+		int channels;
+		GLenum format;
+		Texture::GetFormatData(GL_RGBA32F, format, channels);
+		std::vector<float> pixels(samples.x * samples.y * channels);
+		
+		RenderTexture::Bind(luma_out);
+		glReadPixels(0, 0, samples.x, samples.y, format, GL_FLOAT, pixels.data());
+		RenderTexture::Unbind();
+		
+		std::cout << m_CurrentExposure << "\n";
+		float weighted_luma = 0.0f;
+		for (auto y = 0; y < samples.y; y++) {
+		for (auto x = 0; x < samples.x; x++) {
+			weighted_luma += pixels.at((y * samples.x) + x);
+		}}
+		
+		weighted_luma = (weighted_luma / pixels.size()) * compensation;
+		
+		float target = glm::clamp(m_TargetExposure - weighted_luma, min_exposure, max_exposure);
+		
+		float speed = Time::DeltaTime() * (
+			(target - m_CurrentExposure) >= 0 ?
+			speed_up :
+			speed_down
+		);
+		
+		m_CurrentExposure = glm::mix(
+			m_CurrentExposure,
+			target,
+			glm::clamp(speed, 0.0f, 1.0f)
+		);
+		
+		std::cout << target << "\n";
+	}
+	
 	void Camera::AmbientOcclusion() const {
 		
 		const auto dimensions = GetWindow()->Dimensions();
@@ -734,7 +797,7 @@ namespace LouiEriksson {
 		const float threshold = 1.2f;
 		const float intensity = 0.1f;
 		const float lens_dirt_intensity = 0.5f;
-		const float clamp = 20.0f;
+		const float clamp = 50.0f;
 		
 		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
 		

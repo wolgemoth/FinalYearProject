@@ -13,4 +13,14 @@
     const float PHI = 1.61803398874989484820458;
     const float E   = 2.71828182845904523536;
 
+    const vec3 VEC3_NULL = vec3(0.0, 0.0, 0.0);
+    const vec3 VEC3_ZERO = vec3(0.0, 0.0, 0.0);
+    const vec3 VEC3_ONE  = vec3(1.0, 1.0, 1.0);
+    const vec3 VEC3_ERR  = vec3(1.0, 0.0, 1.0);
+
+    const vec4 VEC4_NULL = vec4(0.0, 0.0, 0.0, 0.0);
+    const vec4 VEC4_ZERO = vec4(0.0, 0.0, 0.0, 1.0);
+    const vec4 VEC4_ONE  = vec4(1.0, 1.0, 1.0, 1.0);
+    const vec4 VEC4_ERR  = vec4(1.0, 0.0, 1.0, 1.0);
+
 #endif

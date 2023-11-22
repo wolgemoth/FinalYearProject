@@ -42,6 +42,9 @@ namespace LouiEriksson {
 		float m_NearClip;
 		float m_FarClip;
 		
+		float m_CurrentExposure;
+		float m_TargetExposure;
+		
 		bool m_IsDirty;
 		
 		RenderTexture m_RT;
@@ -57,6 +60,8 @@ namespace LouiEriksson {
 		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, std::weak_ptr<Shader> _shader) ;
 
 		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
+
+		void AutoExposure();
 		
 		void AmbientOcclusion() const;
 		

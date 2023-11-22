@@ -1,6 +1,10 @@
 #ifndef _COMMON_UTILS
 #define _COMMON_UTILS
 
+    int sqr(in int _value) {
+        return _value * _value;
+    }
+
     float sqr(in float _value) {
         return _value * _value;
     }
@@ -110,6 +114,28 @@
 
     float Sample1(samplerCube _texture, in vec3 _dir, in int _lod) {
         return texture(_texture, _dir, _lod).r;
+    }
+
+    float Luma(vec3 _color, const int _technique) {
+
+        // https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
+
+        float result;
+
+        if (_technique == 0) {
+            result = dot(_color, vec3(0.299, 0.587, 0.114));
+        }
+        else if (_technique == 1) {
+            result = dot(_color, vec3(0.2126, 0.7152, 0.0722));
+        }
+        else if (_technique == 2) {
+            result = sqrt(dot(dot(_color, _color), (0.299, 0.587, 0.114)));
+        }
+        else {
+            result = -1.0;
+        }
+
+        return result;
     }
 
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {
