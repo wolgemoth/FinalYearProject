@@ -683,7 +683,7 @@ namespace LouiEriksson {
 		
 		float min_exposure = 0.1f;
 		float max_exposure = 6.0f;
-		float compensation = 100.0f;
+		float compensation = 20.0f;
 		float speed_down = 1.0f;
 		float speed_up   = 2.0f;
 		
@@ -710,7 +710,6 @@ namespace LouiEriksson {
 		glReadPixels(0, 0, samples.x, samples.y, format, GL_FLOAT, pixels.data());
 		RenderTexture::Unbind();
 		
-		std::cout << m_CurrentExposure << "\n";
 		float weighted_luma = 0.0f;
 		for (auto y = 0; y < samples.y; y++) {
 		for (auto x = 0; x < samples.x; x++) {
@@ -719,7 +718,9 @@ namespace LouiEriksson {
 		
 		weighted_luma = (weighted_luma / pixels.size()) * compensation;
 		
-		float target = glm::clamp(m_TargetExposure - weighted_luma, min_exposure, max_exposure);
+		float target = glm::clamp(m_TargetExposure / (weighted_luma * compensation), min_exposure, max_exposure);
+		
+		std::cout << m_CurrentExposure << " " << weighted_luma << "\n";
 		
 		float speed = Time::DeltaTime() * (
 			(target - m_CurrentExposure) >= 0 ?
@@ -732,8 +733,6 @@ namespace LouiEriksson {
 			target,
 			glm::clamp(speed, 0.0f, 1.0f)
 		);
-		
-		std::cout << target << "\n";
 	}
 	
 	void Camera::AmbientOcclusion() const {
@@ -795,7 +794,7 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		const float threshold = 1.2f;
-		const float intensity = 0.1f;
+		const float intensity = 0.3f;
 		const float lens_dirt_intensity = 0.5f;
 		const float clamp = 50.0f;
 		
