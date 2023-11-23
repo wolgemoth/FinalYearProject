@@ -585,7 +585,7 @@ namespace LouiEriksson {
 		// Push effects to queue.
 		effects.push(aces);     // TONEMAPPING
 		effects.push(fxaa);     // ANTI-ALIASING
-		//effects.push(grain);    // GRAIN
+		effects.push(grain);    // GRAIN
 		effects.push(vignette); // VIGNETTE
 		
 		// Draw post processing.
@@ -737,8 +737,6 @@ namespace LouiEriksson {
 		float diff = glm::clamp((m_TargetExposure + compensation) - curr, -1.0f, 1.0f);
 		float speed = (diff - m_CurrentExposure) >= 0 ? speed_up : speed_down;
 		
-		std::cout << m_CurrentExposure << " " << diff << " " << curr << "\n";
-		
 		m_CurrentExposure = glm::mix(
 			m_CurrentExposure,
 			glm::clamp(
@@ -809,8 +807,8 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		const float threshold = 1.2f;
-		const float intensity = 0.15f;
-		const float lens_dirt_intensity = 0.5f;
+		const float intensity = 0.1f;
+		const float lens_dirt_intensity = 0.6f;
 		const float clamp = 25.0f;
 		
 		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
