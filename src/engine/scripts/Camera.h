@@ -49,7 +49,12 @@ namespace LouiEriksson {
 		
 		RenderTexture m_RT;
 		
+		RenderTexture m_Position_Buffer;
+		RenderTexture   m_Normal_Buffer;
+		
 		glm::mat4 m_Projection;
+		
+		void GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers);
 		
 		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
 		

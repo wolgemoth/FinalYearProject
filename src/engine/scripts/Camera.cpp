@@ -4,7 +4,7 @@
 
 namespace LouiEriksson {
 
-	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent), m_RT(1, 1) {
+	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent), m_RT(1, 1), m_Position_Buffer(1, 1), m_Normal_Buffer(1, 1) {
 		
 		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
@@ -89,13 +89,54 @@ namespace LouiEriksson {
 	
 	void Camera::PreRender() {
 		
-		// Resize the frame buffer.
+		// Resize the frame buffers.
 		// TODO: Set up enum flags for dirtying instead of m_IsDirty so that this doesn't happen every frame.
 		auto dimensions = GetWindow()->Dimensions();
-		m_RT.Resize(dimensions[0], dimensions[1]);
 		
-		/* BIND FRAME BUFFER */
-		RenderTexture::Bind(m_RT);
+		             m_RT.Resize(dimensions[0], dimensions[1]);
+		m_Position_Buffer.Resize(dimensions[0], dimensions[1]);
+		  m_Normal_Buffer.Resize(dimensions[0], dimensions[1]);
+	}
+	
+	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
+		
+		std::vector<std::pair<std::string, RenderTexture&>> passes;
+		passes.emplace_back("pass_positions", m_Position_Buffer);
+		passes.emplace_back("pass_normals",     m_Normal_Buffer);
+		
+		// Do various passes:
+		for (const auto& item : passes) {
+			
+			auto program = Resources::GetShader(item.first);
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(item.second);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
 	}
 	
 	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
@@ -239,6 +280,12 @@ namespace LouiEriksson {
 		const auto depthMode = GL_LESS;
 		
 		glDepthFunc(depthMode);
+		glCullFace(cullMode);
+		
+		/* GEOMETRY PASS */
+		{
+			GeometryPass(_renderers);
+		}
 		
 		/* SHADOW PASS */
 		{
@@ -249,10 +296,9 @@ namespace LouiEriksson {
 			glViewport(0, 0, dimensions[0], dimensions[1]);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
+			// Set / reset culling mode (after shadow pass).
+			glCullFace(cullMode);
 		}
-		
-		// Set / reset culling mode (after shadow pass).
-		glCullFace(cullMode);
 		
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
@@ -546,7 +592,6 @@ namespace LouiEriksson {
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 		
 		/* POST PROCESSING */
-		
 		AmbientOcclusion();
 		AutoExposure();
 		Bloom();
@@ -590,6 +635,8 @@ namespace LouiEriksson {
 		
 		// Draw post processing.
 		PostProcess(effects);
+		
+		Copy(m_Normal_Buffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
@@ -898,7 +945,6 @@ namespace LouiEriksson {
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
-	
 		Blit(_src, _dest, Resources::GetShader("passthrough").lock());
 	}
 	
