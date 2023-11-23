@@ -256,27 +256,27 @@ namespace LouiEriksson {
 		
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
-		
+
 		/* DRAW OBJECTS */
 		for (const auto& renderer : _renderers) {
-			
+
 			// Get references to various components needed for rendering.
 			const auto transform = renderer->GetTransform();
 			const auto material  = renderer->GetMaterial();
 			const auto mesh      = renderer->GetMesh();
 			const auto program   = material.lock()->GetShader();
-			
+
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
-			
+
 			// Bind VAO.
 			glBindVertexArray(mesh->VAO_ID());
-			
+
 			// Assign matrices.
 			program.lock()->Assign(material.lock()->m_ProjectionMatrixID, Projection()); /* PROJECTION */
 			program.lock()->Assign(material.lock()->m_ViewMatrixID,             View()); /* VIEW       */
 			program.lock()->Assign(material.lock()->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
-			
+
 			// Assign parameters (PBR).
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Albedo"),
@@ -284,79 +284,79 @@ namespace LouiEriksson {
 				0,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Roughness"),
 				material.lock()->GetRoughness().lock()->ID(),
 				1,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Metallic"),
 				material.lock()->GetMetallic().lock()->ID(),
 				2,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Normals"),
 				material.lock()->GetNormals().lock()->ID(),
 				3,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Displacement"),
 					material.lock()->GetDisplacement().lock()->ID(),
 				4,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Detail"),
 				material.lock()->GetDetail().lock()->ID(),
 				5,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_AO"),
 				material.lock()->GetAO().lock()->ID(),
 				6,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Emission"),
 				material.lock()->GetEmission().lock()->ID(),
 				7,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
-			
+
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-			
+
 			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.009f);
 			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
-			
+
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Ambient"),
 				m_HDRI.lock()->ID(),
 				98,
 				GL_TEXTURE_2D
 			);
-			
+
 			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 
 			program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
-			
+
 			if (_lights.empty()) {
-				
+
 				// Draw the scene with no lighting.
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_ShadowMap2D"),
@@ -364,40 +364,40 @@ namespace LouiEriksson {
 					99,
 					GL_TEXTURE_2D
 				);
-				
+
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_ShadowMap3D"),
 					0,
 					100,
 					GL_TEXTURE_CUBE_MAP
 				);
-				
+
 				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
-				
+
 				program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"      ), 0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"), 0.0f);
-				
+
 				program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),    0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
-				
+
 				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0));
 				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0));
-				
+
 				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
-				
+
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 			}
 			else {
-				
+
 				// Draw the scene once for each light (forward rendering technique).
 				for (const auto& light : _lights) {
-					
+
 					if (light->Type() == Light::Parameters::Type::Point) {
-						
+
 						program.lock()->Assign(
 							program.lock()->AttributeID("u_ShadowMap3D"),
 							light->m_Shadow.m_ShadowMap_Texture,
@@ -406,7 +406,7 @@ namespace LouiEriksson {
 						);
 					}
 					else {
-						
+
 						program.lock()->Assign(
 							program.lock()->AttributeID("u_ShadowMap2D"),
 							light->m_Shadow.m_ShadowMap_Texture,
@@ -414,20 +414,20 @@ namespace LouiEriksson {
 							GL_TEXTURE_2D
 						);
 					}
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
 							light->m_Shadow.m_ViewProjection);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
 							light->m_Shadow.m_Bias);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
 							light->m_Shadow.m_NormalBias);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"), 64);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"), light->m_Size);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
 						glm::cos(glm::radians(
 							light->Type() == Light::Parameters::Type::Spot ?
@@ -436,40 +436,40 @@ namespace LouiEriksson {
 							)
 						)
 					);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
 						light->m_Transform.lock()->m_Position);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
 							light->m_Transform.lock()->FORWARD);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
 							light->m_Range);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
 							light->m_Intensity);
-					
+
 					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
 							light->m_Color);
-					
+
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				}
 			}
-			
+
 			// Unbind program.
 			Shader::Unbind();
-			
+
 			// Unbind textures.
 			Texture::Unbind();
 			Cubemap::Unbind();
-			
+
 			// Unbind VAO.
 			glBindVertexArray(0);
 		}
-		
+
 		/* DRAW SKY */
 		{
 			glCullFace (GL_FRONT );
@@ -681,17 +681,17 @@ namespace LouiEriksson {
 	
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		float min_exposure = 0.1f;
-		float max_exposure = 6.0f;
-		float compensation = 20.0f;
+		float min_exposure = 0.2f;
+		float max_exposure = 4.0f;
+		float compensation = -0.2f;
 		float speed_down = 1.0f;
 		float speed_up   = 2.0f;
 		
 		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
 		
-		glm::ivec2 samples(16, 16);
+		glm::ivec2 luma_res(32, 32);
 		
-		RenderTexture luma_out(samples.x, samples.y);
+		RenderTexture luma_out(luma_res.x, luma_res.y);
 		
 		auto mask = Resources::GetTexture("exposure_weights");
 		
@@ -704,34 +704,49 @@ namespace LouiEriksson {
 		int channels;
 		GLenum format;
 		Texture::GetFormatData(GL_RGBA32F, format, channels);
-		std::vector<float> pixels(samples.x * samples.y * channels);
+		std::vector<float> pixels(luma_res.x * luma_res.y * channels);
 		
 		RenderTexture::Bind(luma_out);
-		glReadPixels(0, 0, samples.x, samples.y, format, GL_FLOAT, pixels.data());
+		glReadPixels(0, 0, luma_res.x, luma_res.y, format, GL_FLOAT, pixels.data());
 		RenderTexture::Unbind();
 		
-		float weighted_luma = 0.0f;
-		for (auto y = 0; y < samples.y; y++) {
-		for (auto x = 0; x < samples.x; x++) {
-			weighted_luma += pixels.at((y * samples.x) + x);
+		int num = 0;
+		float avg = 0.0f;
+		for (auto y = 0; y < luma_res.y; y++) {
+		for (auto x = 0; x < luma_res.x; x++) {
+			
+			float l = pixels.at((y * luma_res.x) + x);
+			
+			if (l > 0) {
+				avg += l;
+				
+				num++;
+			}
 		}}
 		
-		weighted_luma = (weighted_luma / pixels.size()) * compensation;
+		// Prevent null propagation by checking if the number is NaN.
+		// NaN values do not equal themselves.
+		if (avg != avg) {
+			avg = 0.0f;
+		}
 		
-		float target = glm::clamp(m_TargetExposure / (weighted_luma * compensation), min_exposure, max_exposure);
+		avg = avg / (float)glm::max(num, 1);
 		
-		std::cout << m_CurrentExposure << " " << weighted_luma << "\n";
+		float curr = avg;
 		
-		float speed = Time::DeltaTime() * (
-			(target - m_CurrentExposure) >= 0 ?
-			speed_up :
-			speed_down
-		);
+		float diff = glm::clamp((m_TargetExposure + compensation) - curr, -1.0f, 1.0f);
+		float speed = (diff - m_CurrentExposure) >= 0 ? speed_up : speed_down;
+		
+		std::cout << m_CurrentExposure << " " << diff << " " << curr << "\n";
 		
 		m_CurrentExposure = glm::mix(
 			m_CurrentExposure,
-			target,
-			glm::clamp(speed, 0.0f, 1.0f)
+			glm::clamp(
+				m_TargetExposure + diff,
+				min_exposure,
+				max_exposure
+			),
+			Time::DeltaTime() * speed
 		);
 	}
 	
@@ -794,9 +809,9 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		
 		const float threshold = 1.2f;
-		const float intensity = 0.3f;
+		const float intensity = 0.15f;
 		const float lens_dirt_intensity = 0.5f;
-		const float clamp = 50.0f;
+		const float clamp = 25.0f;
 		
 		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
 		

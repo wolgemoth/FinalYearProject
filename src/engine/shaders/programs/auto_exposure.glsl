@@ -30,5 +30,12 @@
     /* PARAMETERS */
 
     void main() {
-        gl_FragColor = vec4(Luma(Sample3(u_Color, v_TexCoord), 0)) * Sample1(u_Weights, v_TexCoord);
+
+        vec3 c = Sample3(u_Color, v_TexCoord);
+        float w = (Sample1(u_Weights, v_TexCoord) - 0.5) * 2.0;
+
+        // Less accurate than a luminosity calculation, but easier to do.
+        float brightness = (c.r + c.g + c.b) / 3.0;
+
+        gl_FragColor = vec4(pow(2.0, brightness)) * w;
     }
