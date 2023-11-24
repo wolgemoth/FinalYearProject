@@ -546,7 +546,7 @@
 //                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
 //                    )
                     1.0 - max(
-                        TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
+                        TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
                         0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
                     )
                 ),
