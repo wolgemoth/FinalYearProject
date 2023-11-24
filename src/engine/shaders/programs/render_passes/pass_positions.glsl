@@ -45,10 +45,13 @@
 
     #version 330 core
 
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     in vec2 v_TexCoord;
     in vec3 v_Position;
     in vec3 v_Normal;
-
     in mat3 v_TBN;
 
     void main() {

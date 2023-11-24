@@ -47,20 +47,19 @@
     #extension GL_ARB_shading_language_include : require
 
     #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
     in vec3 v_Position;
     in vec3 v_Normal;
-
     in mat3 v_TBN;
 
     uniform sampler2D u_Displacement;
-
-    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
+    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
 
     uniform vec3 u_CameraPosition;
 
-    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
+    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     void main() {
 

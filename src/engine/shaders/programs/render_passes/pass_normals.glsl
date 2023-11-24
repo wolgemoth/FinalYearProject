@@ -61,9 +61,7 @@
 
     void main() {
 
-        vec2 screen_uv = (gl_FragCoord.xy / u_ScreenDimensions);
-
-        vec2 uv = Sample2(u_TexCoord_gBuffer, screen_uv);
+        vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
         vec3 normal = normalize((Sample3(u_Normals, uv) * 2.0) - 1.0);
         normal = normalize(v_TBN * normal);

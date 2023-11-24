@@ -115,6 +115,8 @@ namespace LouiEriksson {
 		
 		const float skyExposure = 1.0f;
 		
+		const float displacement = 0.01f;
+		
 		GLint cullMode, depthMode;
 		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
 		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
@@ -150,8 +152,42 @@ namespace LouiEriksson {
 				);
 				
 				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
-				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.05f);
+				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
 				program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
+		
+		// Positions:
+		{
+			auto program = Resources::GetShader("pass_positions");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_Position_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -320,7 +356,7 @@ namespace LouiEriksson {
 			       Shader::Unbind(); // Unbind program.
 		}
 		
-		// Surface properties Roughness, Metallic, AO:
+		// Surface properties Roughness, Metallic, AO, Parallax Shadows:
 		{
 			auto program = Resources::GetShader("pass_material");
 			
@@ -365,14 +401,31 @@ namespace LouiEriksson {
 				);
 				
 				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_Normal_gBuffer.ID(),
+					program.lock()->AttributeID("u_Displacement"),
+						material.lock()->GetDisplacement().lock()->ID(),
 					3,
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer.ID(),
+					4,
+					GL_TEXTURE_2D
+				);
 				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Position_gBuffer"),
+					m_Position_gBuffer.ID(),
+					5,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
+
 				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
@@ -436,38 +489,6 @@ namespace LouiEriksson {
 			       Shader::Unbind(); // Unbind program.
 		}
 		
-		// Positions:
-		{
-			auto program = Resources::GetShader("pass_positions");
-			
-			// Bind program.
-			Shader::Bind(program.lock()->ID());
-			
-			RenderTexture::Bind(m_Position_gBuffer);
-
-			for (const auto& renderer : _renderers) {
-				
-				const auto transform = renderer->GetTransform();
-				const auto mesh      = renderer->GetMesh();
-				
-				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
-				
-				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
-				
-				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-				
-				// Unbind VAO.
-				glBindVertexArray(0);
-			}
-			
-			RenderTexture::Unbind(); // Unbind the FBO.
-			       Shader::Unbind(); // Unbind program.
-		}
 	}
 	
 	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
@@ -571,19 +592,6 @@ namespace LouiEriksson {
 					glBindVertexArray(mesh->VAO_ID());
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS());
-					
-					if (light->Type() == Light::Parameters::Type::Point) {
-						program.lock()->Assign(
-							program.lock()->AttributeID("u_Displacement"),
-								material.lock()->GetDisplacement().lock()->ID(),
-							0,
-							GL_TEXTURE_2D
-						);
-						
-						program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.03f);
-						
-						program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
-					}
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -920,7 +928,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		//Copy(m_TexCoord_gBuffer, m_RT);
+		//Copy(m_Material_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION

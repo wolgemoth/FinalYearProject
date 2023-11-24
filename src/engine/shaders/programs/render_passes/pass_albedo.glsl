@@ -46,9 +46,7 @@
 
     void main() {
 
-        vec2 screen_uv = (gl_FragCoord.xy / u_ScreenDimensions);
-
-        vec2 uv = Sample2(u_TexCoord_gBuffer, screen_uv);
+        vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
         gl_FragColor = Sample4(u_Albedo, uv);
     }
