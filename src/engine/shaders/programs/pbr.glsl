@@ -103,10 +103,6 @@
 
     uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
 
-    uniform float    u_Roughness_Amount = 0.0; // How rough the surface is.
-    uniform float     u_Emission_Amount = 1.0; // How emissive the surface is.
-    uniform float           u_AO_Amount = 1.0; // Strength of AO.
-
     uniform float u_Time;
 
     /* DIRECT LIGHTING */
