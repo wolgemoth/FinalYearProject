@@ -4,8 +4,14 @@
 
 namespace LouiEriksson {
 
-	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent), m_RT(1, 1), m_Position_Buffer(1, 1), m_Normal_Buffer(1, 1) {
-		
+	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	              m_RT(1, 1),
+	  m_Albedo_gBuffer(1, 1),
+	m_Emission_gBuffer(1, 1),
+	m_Material_gBuffer(1, 1),
+	m_Position_gBuffer(1, 1),
+	  m_Normal_gBuffer(1, 1)
+	{
 		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Cube      = std::shared_ptr<Mesh>     (nullptr);
@@ -93,26 +99,216 @@ namespace LouiEriksson {
 		// TODO: Set up enum flags for dirtying instead of m_IsDirty so that this doesn't happen every frame.
 		auto dimensions = GetWindow()->Dimensions();
 		
-		             m_RT.Resize(dimensions[0], dimensions[1]);
-		m_Position_Buffer.Resize(dimensions[0], dimensions[1]);
-		  m_Normal_Buffer.Resize(dimensions[0], dimensions[1]);
+		              m_RT.Resize(dimensions[0], dimensions[1]);
+		  m_Albedo_gBuffer.Resize(dimensions[0], dimensions[1]);
+		m_Emission_gBuffer.Resize(dimensions[0], dimensions[1]);
+		m_Material_gBuffer.Resize(dimensions[0], dimensions[1]);
+		m_Position_gBuffer.Resize(dimensions[0], dimensions[1]);
+		  m_Normal_gBuffer.Resize(dimensions[0], dimensions[1]);
 	}
 	
 	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
 		
-		std::vector<std::pair<std::string, RenderTexture&>> passes;
-		passes.emplace_back("pass_positions", m_Position_Buffer);
-		passes.emplace_back("pass_normals",     m_Normal_Buffer);
+		glm::vec4 st(3.0f, 3.0f, 0.0f, 0.0f);
 		
-		// Do various passes:
-		for (const auto& item : passes) {
-			
-			auto program = Resources::GetShader(item.first);
+		// Albedo:
+		{
+			auto program = Resources::GetShader("pass_albedo");
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
 			
-			RenderTexture::Bind(item.second);
+			RenderTexture::Bind(m_Albedo_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Albedo"),
+						material.lock()->GetAlbedo().lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
+		
+		// Emission:
+		{
+			auto program = Resources::GetShader("pass_emission");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_Emission_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Emission"),
+						material.lock()->GetEmission().lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
+		
+		// Surface properties Roughness, Metallic, AO:
+		{
+			auto program = Resources::GetShader("pass_material");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_Material_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Roughness"),
+						material.lock()->GetRoughness().lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Metallic"),
+						material.lock()->GetMetallic().lock()->ID(),
+					1,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_AO"),
+						material.lock()->GetAO().lock()->ID(),
+					2,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
+		
+		// Normals:
+		{
+			auto program = Resources::GetShader("pass_normals");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_Normal_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Normals"),
+						material.lock()->GetNormals().lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_Normal_Amount"), 0.03f);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
+		
+		// Positions:
+		{
+			auto program = Resources::GetShader("pass_positions");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_Position_gBuffer);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -304,7 +500,7 @@ namespace LouiEriksson {
 		RenderTexture::Bind(m_RT);
 
 		/* DRAW OBJECTS */
-		for (const auto& renderer : _renderers) {
+		for (const auto& renderer : _renderers)  {
 
 			// Get references to various components needed for rendering.
 			const auto transform = renderer->GetTransform();
@@ -360,31 +556,39 @@ namespace LouiEriksson {
 			);
 
 			program.lock()->Assign(
-				program.lock()->AttributeID("u_Detail"),
-				material.lock()->GetDetail().lock()->ID(),
-				5,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
 				program.lock()->AttributeID("u_AO"),
 				material.lock()->GetAO().lock()->ID(),
-				6,
+				5,
 				GL_TEXTURE_2D
 			);
 
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Emission"),
 				material.lock()->GetEmission().lock()->ID(),
+				6,
+				GL_TEXTURE_2D
+			);
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_gPosition"),
+				m_Position_gBuffer.ID(),
 				7,
 				GL_TEXTURE_2D
 			);
-
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_gNormal"),
+				m_Normal_gBuffer.ID(),
+				8,
+				GL_TEXTURE_2D
+			);
+			
 			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
 
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_Metallic_Amount"), 1.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+			
 			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.009f);
@@ -636,7 +840,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		Copy(m_Normal_Buffer, m_RT);
+		//Copy(m_Material_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION

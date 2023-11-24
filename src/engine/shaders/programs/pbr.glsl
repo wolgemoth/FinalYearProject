@@ -79,9 +79,12 @@
     layout (location = 2) uniform sampler2D u_Metallic;
     layout (location = 3) uniform sampler2D u_Normals;
     layout (location = 4) uniform sampler2D u_Displacement;
-    layout (location = 5) uniform sampler2D u_Detail;
-    layout (location = 6) uniform sampler2D u_AO;
-    layout (location = 7) uniform sampler2D u_Emission;
+    layout (location = 5) uniform sampler2D u_AO;
+    layout (location = 6) uniform sampler2D u_Emission;
+
+    /* G-BUFFER */
+    layout (location = 7) uniform sampler2D u_gPosition;
+    layout (location = 8) uniform sampler2D u_gNormal;
 
     /* AMBIENT LIGHTING */
 
@@ -100,6 +103,8 @@
     layout (location =  99) uniform sampler2D   u_ShadowMap2D;
     layout (location = 100) uniform samplerCube u_ShadowMap3D;
 
+    uniform vec2 u_ScreenDimensions;
+
     const float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
 
     uniform float u_ShadowBias       = 0.005; // Shadow bias.
@@ -108,10 +113,8 @@
 
     uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
 
-    uniform float     u_Metallic_Amount = 0.0; // How metallic the surface is.
     uniform float    u_Roughness_Amount = 0.0; // How rough the surface is.
     uniform float     u_Emission_Amount = 1.0; // How emissive the surface is.
-    uniform float       u_Normal_Amount = 1.0; // Contribution of normal map.
     uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
     uniform float           u_AO_Amount = 1.0; // Strength of AO.
 
@@ -502,8 +505,10 @@
 
     void main() {
 
+        vec3 pos = v_Position;//Sample3(u_gPosition, v_TexCoord);
+
         vec3 viewDir_Tangent = normalize(
-            (transpose(v_TBN) * normalize(u_CameraPosition - v_Position))
+            (transpose(v_TBN) * normalize(u_CameraPosition - pos))
         );
 
         vec2 uv = ParallaxMapping(
@@ -514,7 +519,7 @@
             u_Displacement_Amount
         );
 
-        vec3 fragPos = v_Position - (v_Normal * Sample1(u_Displacement, uv, u_ST));
+        vec3 fragPos = pos - (v_Normal * Sample1(u_Displacement, uv, u_ST));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
@@ -522,12 +527,11 @@
 
         vec4     albedo = Sample4(u_Albedo, uv, u_ST);
         float roughness = Sample1(u_Roughness, uv, u_ST) * u_Roughness_Amount;
-        float  metallic = Sample1(u_Metallic, uv, u_ST) *  u_Metallic_Amount;
+        float  metallic = Sample1(u_Metallic, uv, u_ST);
 
         vec3 normal = normalize((Sample3(u_Normals, uv, u_ST) * 2.0) - 1.0);
-        normal = mix(normalize(v_Normal), normalize(v_TBN * normal), u_Normal_Amount);
+        normal = normalize(v_TBN * normal);
 
-        vec3  detail = Sample3(u_Detail, uv, u_ST, 0);
         float     ao = Sample1(u_AO, uv, u_ST);
 
         ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
@@ -564,7 +568,7 @@
             //return;
 
             vec3 lighting = BRDF(
-                albedo.rgb + detail,
+                albedo.rgb,
                 normal,
                 lightDir,
                 viewDir,

@@ -19,7 +19,6 @@ namespace LouiEriksson {
 		m_Metallic     = Resources::GetTexture("black");
 		m_Normals      = Resources::GetTexture("normal");
 		m_Displacement = Resources::GetTexture("black");
-		m_Detail       = Resources::GetTexture("black");
 		m_AO           = Resources::GetTexture("white");
 		m_Emission     = Resources::GetTexture("black");
 	}
@@ -48,10 +47,6 @@ namespace LouiEriksson {
 	
 	std::weak_ptr<Texture> Material::GetDisplacement() const {
 		return m_Displacement;
-	}
-	
-	std::weak_ptr<Texture> Material::GetDetail() const {
-		return m_Detail;
 	}
 	
 	std::weak_ptr<Texture> Material::GetAO() const {

@@ -2,8 +2,6 @@
 
     #version 330 core
 
-    #extension GL_ARB_explicit_uniform_location : enable
-
     in vec3 a_Position;
     in vec3 a_Normal;
     in vec2 a_TexCoord;

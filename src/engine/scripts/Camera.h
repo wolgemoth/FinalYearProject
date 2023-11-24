@@ -49,8 +49,11 @@ namespace LouiEriksson {
 		
 		RenderTexture m_RT;
 		
-		RenderTexture m_Position_Buffer;
-		RenderTexture   m_Normal_Buffer;
+		RenderTexture   m_Albedo_gBuffer; // Albedo channel
+		RenderTexture m_Emission_gBuffer; // Emission channel
+		RenderTexture m_Material_gBuffer; // Material properties (Roughness, Metallic)
+		RenderTexture m_Position_gBuffer; // World-space surface positions
+		RenderTexture   m_Normal_gBuffer; // Surface normals (Height / Displacement in alpha)
 		
 		glm::mat4 m_Projection;
 		

@@ -8,10 +8,8 @@
     in vec3 a_Tangent;
     in vec3 a_Bitangent;
 
-    out vec3 v_Position;
     out vec2 v_TexCoord;
     out vec3 v_Normal;
-    out mat3 v_TBN;
 
     /* PARAMETERS */
     uniform mat4 u_Projection;
@@ -23,21 +21,11 @@
         // Perform perspective projection on model vertex:
         gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
 
-        // Position in model space:
-        v_Position = vec3(u_Model * vec4(a_Position, 1.0));
-
         // Texture coordinates:
         v_TexCoord = a_TexCoord;
 
         // Normal:
-        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
-
-        // Compute TBN matrix:
-        v_TBN = mat3(
-            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(a_Normal,    0)))
-        );
+        v_Normal = a_Normal;
     }
 
 #pragma fragment
@@ -49,18 +37,12 @@
     #include "/shaders/include/common_utils.glsl"
 
     in vec2 v_TexCoord;
-    in vec3 v_Position;
     in vec3 v_Normal;
 
-    in mat3 v_TBN;
+    uniform sampler2D u_Albedo;
 
-    uniform sampler2D u_Normals;
-    uniform sampler2D u_Displacement;
+    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     void main() {
-
-        vec3 normal = normalize((Sample3(u_Normals, v_TexCoord) * 2.0) - 1.0);
-        normal = normalize(v_TBN * normal);
-
-        gl_FragColor = vec4(normal, Sample1(u_Displacement, v_TexCoord));
+        gl_FragColor = Sample4(u_Albedo, v_TexCoord, u_ST);
     }

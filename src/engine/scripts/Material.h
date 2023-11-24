@@ -24,7 +24,6 @@ namespace LouiEriksson {
 		std::weak_ptr<Texture> m_Metallic;
 		std::weak_ptr<Texture> m_Normals;
 		std::weak_ptr<Texture> m_Displacement;
-		std::weak_ptr<Texture> m_Detail;
 		std::weak_ptr<Texture> m_AO;
 		std::weak_ptr<Texture> m_Emission;
 		
@@ -41,14 +40,13 @@ namespace LouiEriksson {
 		/// <summary> Get the currently assigned Shader. </summary>
 		std::weak_ptr<Shader> GetShader();
 		
-		[[nodiscard]] std::weak_ptr<Texture> GetAlbedo()    const;
-		[[nodiscard]] std::weak_ptr<Texture> GetRoughness() const;
-		[[nodiscard]] std::weak_ptr<Texture> GetMetallic()  const;
-		[[nodiscard]] std::weak_ptr<Texture> GetNormals()   const;
-		[[nodiscard]] std::weak_ptr<Texture> GetDisplacement()    const;
-		[[nodiscard]] std::weak_ptr<Texture> GetDetail()    const;
-		[[nodiscard]] std::weak_ptr<Texture> GetAO()        const;
-		[[nodiscard]] std::weak_ptr<Texture> GetEmission()  const;
+		[[nodiscard]] std::weak_ptr<Texture> GetAlbedo()       const;
+		[[nodiscard]] std::weak_ptr<Texture> GetRoughness()    const;
+		[[nodiscard]] std::weak_ptr<Texture> GetMetallic()     const;
+		[[nodiscard]] std::weak_ptr<Texture> GetNormals()      const;
+		[[nodiscard]] std::weak_ptr<Texture> GetDisplacement() const;
+		[[nodiscard]] std::weak_ptr<Texture> GetAO()           const;
+		[[nodiscard]] std::weak_ptr<Texture> GetEmission()     const;
 	};
 }
 
