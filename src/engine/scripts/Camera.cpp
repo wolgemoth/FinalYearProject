@@ -498,217 +498,212 @@ namespace LouiEriksson {
 		
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
-
-		/* DRAW OBJECTS */
-		for (const auto& renderer : _renderers)  {
-
-			// Get references to various components needed for rendering.
-			const auto transform = renderer->GetTransform();
-			const auto material  = renderer->GetMaterial();
-			const auto mesh      = renderer->GetMesh();
-			const auto program   = material.lock()->GetShader();
-
-			// Bind program.
-			Shader::Bind(program.lock()->ID());
-
-			// Bind VAO.
-			glBindVertexArray(mesh->VAO_ID());
-
-			// Assign matrices.
-			program.lock()->Assign(material.lock()->m_ProjectionMatrixID, Projection()); /* PROJECTION */
-			program.lock()->Assign(material.lock()->m_ViewMatrixID,             View()); /* VIEW       */
-			program.lock()->Assign(material.lock()->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
-
-			// Assign parameters (PBR).
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Albedo"),
-				material.lock()->GetAlbedo().lock()->ID(),
-				0,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Roughness"),
-				material.lock()->GetRoughness().lock()->ID(),
-				1,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Metallic"),
-				material.lock()->GetMetallic().lock()->ID(),
-				2,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Normals"),
-				material.lock()->GetNormals().lock()->ID(),
-				3,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Displacement"),
-					material.lock()->GetDisplacement().lock()->ID(),
-				4,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_AO"),
-				material.lock()->GetAO().lock()->ID(),
-				5,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Emission"),
-				material.lock()->GetEmission().lock()->ID(),
-				6,
-				GL_TEXTURE_2D
-			);
+		
+		{
+			unsigned int VAO = 0,
+			             VBO = 0;
 			
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_gPosition"),
-				m_Position_gBuffer.ID(),
-				7,
-				GL_TEXTURE_2D
-			);
+			// Buffers to store mesh data.
+			glGenVertexArrays(1, &VAO);
+			glGenBuffers(1, &VBO);
+			glBindVertexArray(VAO);
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, Mesh::Quad::s_VertexCount, &Mesh::Quad::s_VertexData, GL_STATIC_DRAW);
 			
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_gNormal"),
-				m_Normal_gBuffer.ID(),
-				8,
-				GL_TEXTURE_2D
-			);
+			// Positions, triangles (encoded within winding order).
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
 			
-			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
-
-			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-
-			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+			// Texture coordinates.
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 			
-			program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.009f);
-			program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
-
-			program.lock()->Assign(
-				program.lock()->AttributeID("u_Ambient"),
-				m_HDRI.lock()->ID(),
-				98,
-				GL_TEXTURE_2D
-			);
-
-			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
-
-			program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
-
-			if (_lights.empty()) {
-
-				// Draw the scene with no lighting.
+			/* DRAW OBJECTS */
+			for (const auto& renderer : _renderers)  {
+	
+				// Get references to various components needed for rendering.
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				const auto program   = material.lock()->GetShader();
+	
+				// Bind program.
+				Shader::Bind(program.lock()->ID());
+	
+				// Assign matrices.
+				program.lock()->Assign(material.lock()->m_ProjectionMatrixID, Projection()); /* PROJECTION */
+				program.lock()->Assign(material.lock()->m_ViewMatrixID,             View()); /* VIEW       */
+				program.lock()->Assign(material.lock()->m_ModelMatrixID,  transform->TRS()); /* MODEL      */
+				
 				program.lock()->Assign(
-					program.lock()->AttributeID("u_ShadowMap2D"),
+					program.lock()->AttributeID("u_Albedo_gBuffer"),
+					m_Albedo_gBuffer.ID(),
 					0,
-					99,
 					GL_TEXTURE_2D
 				);
-
+				
 				program.lock()->Assign(
-					program.lock()->AttributeID("u_ShadowMap3D"),
-					0,
-					100,
-					GL_TEXTURE_CUBE_MAP
+					program.lock()->AttributeID("u_Emission_gBuffer"),
+					m_Emission_gBuffer.ID(),
+					1,
+					GL_TEXTURE_2D
 				);
-
-				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
-
-				program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"      ), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"), 0.0f);
-
-				program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),    0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
-
-				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0));
-				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0));
-
-				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
-
-				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-			}
-			else {
-
-				// Draw the scene once for each light (forward rendering technique).
-				for (const auto& light : _lights) {
-
-					if (light->Type() == Light::Parameters::Type::Point) {
-
-						program.lock()->Assign(
-							program.lock()->AttributeID("u_ShadowMap3D"),
-							light->m_Shadow.m_ShadowMap_Texture,
-							100,
-							GL_TEXTURE_CUBE_MAP
-						);
-					}
-					else {
-
-						program.lock()->Assign(
-							program.lock()->AttributeID("u_ShadowMap2D"),
-							light->m_Shadow.m_ShadowMap_Texture,
-							100,
-							GL_TEXTURE_2D
-						);
-					}
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
-							light->m_Shadow.m_ViewProjection);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
-							light->m_Shadow.m_Bias);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
-							light->m_Shadow.m_NormalBias);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"), 64);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"), light->m_Size);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
-						glm::cos(glm::radians(
-							light->Type() == Light::Parameters::Type::Spot ?
-								light->m_Angle * 0.5f :
-								180.0f
-							)
-						)
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Material_gBuffer"),
+					m_Material_gBuffer.ID(),
+					2,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Position_gBuffer"),
+					m_Position_gBuffer.ID(),
+					3,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Normal_gBuffer"),
+					m_Normal_gBuffer.ID(),
+					4,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Depth_gBuffer"),
+					m_Normal_gBuffer.DepthID(),
+					5,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
+	
+				program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+	
+				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_Emission_Amount"), 1.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.009f);
+				program.lock()->Assign(program.lock()->AttributeID("u_AO_Amount"), 1.0f);
+	
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Ambient"),
+					m_HDRI.lock()->ID(),
+					98,
+					GL_TEXTURE_2D
+				);
+	
+				program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
+	
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
+	
+				if (_lights.empty()) {
+	
+					// Draw the scene with no lighting.
+					program.lock()->Assign(
+						program.lock()->AttributeID("u_ShadowMap2D"),
+						0,
+						99,
+						GL_TEXTURE_2D
 					);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
-						light->m_Transform.lock()->m_Position);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
-							light->m_Transform.lock()->FORWARD);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
-							light->m_Range);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
-							light->m_Intensity);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
-							light->m_Color);
-
+	
+					program.lock()->Assign(
+						program.lock()->AttributeID("u_ShadowMap3D"),
+						0,
+						100,
+						GL_TEXTURE_CUBE_MAP
+					);
+	
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
+	
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"      ), 0.0f);
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"), 0.0f);
+	
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),    0.0f);
+					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
+					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
+	
+					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0));
+					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0));
+	
+					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
+					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
+					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
+	
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				}
+				else {
+	
+					// Draw the scene once for each light (forward rendering technique).
+					for (const auto& light : _lights) {
+	
+						if (light->Type() == Light::Parameters::Type::Point) {
+	
+							program.lock()->Assign(
+								program.lock()->AttributeID("u_ShadowMap3D"),
+								light->m_Shadow.m_ShadowMap_Texture,
+								100,
+								GL_TEXTURE_CUBE_MAP
+							);
+						}
+						else {
+	
+							program.lock()->Assign(
+								program.lock()->AttributeID("u_ShadowMap2D"),
+								light->m_Shadow.m_ShadowMap_Texture,
+								100,
+								GL_TEXTURE_2D
+							);
+						}
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
+								light->m_Shadow.m_ViewProjection);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
+								light->m_Shadow.m_Bias);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
+								light->m_Shadow.m_NormalBias);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"), 64);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightSize"), light->m_Size);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
+							glm::cos(glm::radians(
+								light->Type() == Light::Parameters::Type::Spot ?
+									light->m_Angle * 0.5f :
+									180.0f
+								)
+							)
+						);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
+							light->m_Transform.lock()->m_Position);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
+								light->m_Transform.lock()->FORWARD);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
+								light->m_Range);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
+								light->m_Intensity);
+	
+						program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
+								light->m_Color);
+	
+						/* DRAW */
+						glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+					}
+				}
 			}
-
+		
 			// Unbind program.
 			Shader::Unbind();
 
@@ -724,47 +719,47 @@ namespace LouiEriksson {
 		{
 			glCullFace (GL_FRONT );
 			glDepthFunc(GL_LEQUAL);
-		
+
 			auto skybox = Resources::GetShader("skybox");
-			
+
 			Shader::Bind(skybox.lock()->ID());
-			
+
 			auto trs = glm::scale(
 				glm::mat4(1.0),
 				glm::vec3(2.0)
 			);
-			
+
 			// Assign matrices.
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Model"),                         trs); /* MODEL      */
-			
+
 			skybox.lock()->Assign(
 				skybox.lock()->AttributeID("u_Texture"),
 				m_HDRI.lock()->ID(),
 				0,
 				GL_TEXTURE_2D
 			);
-			
+
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
 			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
-			
+
 			// Bind VAO.
 			glBindVertexArray(m_Cube->VAO_ID());
-			
+
 			/* DRAW */
-			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(m_Cube->VertexCount()));
-			
+			glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+
 			// Unbind program.
 			Shader::Unbind();
-			
+
 			// Unbind textures.
 			Texture::Unbind();
 			Cubemap::Unbind();
-			
+
 			// Unbind VAO.
 			glBindVertexArray(0);
-			
+
 			glCullFace ( cullMode);
 			glDepthFunc(depthMode);
 		}

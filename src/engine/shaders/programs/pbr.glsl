@@ -5,10 +5,7 @@
     #extension GL_ARB_explicit_uniform_location : enable
 
     in vec3 a_Position;
-    in vec3 a_Normal;
     in vec2 a_TexCoord;
-    in vec3 a_Tangent;
-    in vec3 a_Bitangent;
 
     out vec3 v_Position;
     out vec2 v_TexCoord;
@@ -26,24 +23,22 @@
 
     void main() {
 
-        // Perform perspective projection on model vertex:
-        gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
+        v_TexCoord = a_TexCoord;
 
-        // Position in model space:
-        v_Position = vec3(u_Model * vec4(a_Position, 1.0));
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
 
         // Texture coordinates:
         v_TexCoord = a_TexCoord;
-
-        // Normal:
-        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
-
-        // Compute TBN matrix:
-        v_TBN = mat3(
-            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(a_Normal,    0)))
-        );
+//
+//        // Normal:
+//        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
+//
+//        // Compute TBN matrix:
+//        v_TBN = mat3(
+//            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
+//            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
+//            normalize(vec3(u_Model * vec4(a_Normal,    0)))
+//        );
 
         // Position in light space (for shadow calculations):
         v_Position_LightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);
@@ -73,18 +68,13 @@
 
     uniform vec3 u_CameraPosition; // Camera position. Mainly used for lighting calculations.
 
-    /* PBR */
-    layout (location = 0) uniform sampler2D u_Albedo;
-    layout (location = 1) uniform sampler2D u_Roughness;
-    layout (location = 2) uniform sampler2D u_Metallic;
-    layout (location = 3) uniform sampler2D u_Normals;
-    layout (location = 4) uniform sampler2D u_Displacement;
-    layout (location = 5) uniform sampler2D u_AO;
-    layout (location = 6) uniform sampler2D u_Emission;
-
     /* G-BUFFER */
-    layout (location = 7) uniform sampler2D u_gPosition;
-    layout (location = 8) uniform sampler2D u_gNormal;
+    layout (location = 0) uniform sampler2D   u_Albedo_gBuffer;
+    layout (location = 1) uniform sampler2D u_Emission_gBuffer;
+    layout (location = 2) uniform sampler2D u_Material_gBuffer;
+    layout (location = 3) uniform sampler2D u_Position_gBuffer;
+    layout (location = 4) uniform sampler2D   u_Normal_gBuffer;
+    layout (location = 5) uniform sampler2D    u_Depth_gBuffer;
 
     /* AMBIENT LIGHTING */
 
@@ -505,38 +495,37 @@
 
     void main() {
 
-        vec3 pos = v_Position;//Sample3(u_gPosition, v_TexCoord);
+        vec3 albedo   = Sample3(  u_Albedo_gBuffer, v_TexCoord);
+        vec3 emission = Sample3(u_Emission_gBuffer, v_TexCoord);
+        vec4 material = Sample4(u_Material_gBuffer, v_TexCoord);
+        vec3 position = Sample3(u_Position_gBuffer, v_TexCoord);
+        vec4 normDisp = Sample4(  u_Normal_gBuffer, v_TexCoord);
 
-        vec3 viewDir_Tangent = normalize(
-            (transpose(v_TBN) * normalize(u_CameraPosition - pos))
-        );
+        float roughness = material.x;
+        float metallic  = material.y;
+        float ao        = material.z;
+        float disp      = normDisp.w;
 
-        vec2 uv = ParallaxMapping(
-            u_Displacement,
-            viewDir_Tangent,
-            v_TexCoord,
-            u_ST,
-            u_Displacement_Amount
-        );
+        vec3 normal = normDisp.xyz;
 
-        vec3 fragPos = pos - (v_Normal * Sample1(u_Displacement, uv, u_ST));
+        //vec3 viewDir_Tangent = normalize(
+        //    (transpose(v_TBN) * normalize(u_CameraPosition - position))
+        //);
+
+        vec2 uv = v_TexCoord;
+//        ParallaxMapping(
+//            disp,
+//            viewDir_Tangent,
+//            v_TexCoord,
+//            u_ST,
+//            u_Displacement_Amount
+//        );
+
+        vec3 fragPos = position;// - (v_Normal * Sample1(disp, uv, u_ST));
 
         vec3  viewDir = normalize(u_CameraPosition - fragPos);
         vec3 lightDir = normalize( u_LightPosition - fragPos);
         vec3  halfVec = normalize(lightDir + viewDir);
-
-        vec4     albedo = Sample4(u_Albedo, uv, u_ST);
-        float roughness = Sample1(u_Roughness, uv, u_ST) * u_Roughness_Amount;
-        float  metallic = Sample1(u_Metallic, uv, u_ST);
-
-        vec3 normal = normalize((Sample3(u_Normals, uv, u_ST) * 2.0) - 1.0);
-        normal = normalize(v_TBN * normal);
-
-        float     ao = Sample1(u_AO, uv, u_ST);
-
-        ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
-
-        vec3 emission = Sample3(u_Emission, uv, u_ST) * u_Emission_Amount;
 
         /* DIRECT */
 
@@ -549,23 +538,20 @@
                     (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
 //                    1.0 - max(
 //                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-//                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * u_LightDirection), uv, u_ST, u_Displacement_Amount)
+//                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * u_LightDirection), uv, u_ST, u_Displacement_Amount)
 //                    )
 //                    1.0 - max(
 //                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-//                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
+//                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
 //                    )
                     1.0 - max(
                         TransferShadow3D(normal, lightDir, v_Position, u_ShadowBias, u_ShadowNormalBias),
-                        ParallaxShadowsHard(u_Displacement, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
+                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
                     )
                 ),
                 0.0,
                 1.0
             );
-
-            //gl_FragColor = Sample4(u_ShadowMap3D, (v_Position - u_LightPosition));
-            //return;
 
             vec3 lighting = BRDF(
                 albedo.rgb,
@@ -600,10 +586,9 @@
 
             vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
 
-            //diffuse;//
             indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular));
         }
 
-        //vec4(indirectLighting, 1);//
         gl_FragColor = vec4(((directLighting + indirectLighting) * ao) + emission, 1.0);
+        gl_FragDepth = Sample1(u_Depth_gBuffer, v_TexCoord);
     }
