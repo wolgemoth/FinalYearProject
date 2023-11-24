@@ -7,11 +7,7 @@
     in vec3 a_Position;
     in vec2 a_TexCoord;
 
-    out vec3 v_Position;
     out vec2 v_TexCoord;
-    out vec3 v_Normal;
-    out mat3 v_TBN;
-
     out vec4 v_Position_LightSpace;
 
     /* PARAMETERS */
@@ -27,21 +23,8 @@
 
         gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
 
-        // Texture coordinates:
-        v_TexCoord = a_TexCoord;
-//
-//        // Normal:
-//        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
-//
-//        // Compute TBN matrix:
-//        v_TBN = mat3(
-//            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-//            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-//            normalize(vec3(u_Model * vec4(a_Normal,    0)))
-//        );
-
         // Position in light space (for shadow calculations):
-        v_Position_LightSpace = u_LightSpaceMatrix * vec4(v_Position, 1.0);
+        v_Position_LightSpace = u_LightSpaceMatrix * vec4(a_Position, 1.0);
     }
 
 #pragma fragment
@@ -59,14 +42,7 @@
     #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
-    in vec3 v_Position;
-    in vec3 v_Normal;
-
-    in mat3 v_TBN;
-
     in vec4 v_Position_LightSpace;
-
-    uniform vec3 u_CameraPosition; // Camera position. Mainly used for lighting calculations.
 
     /* G-BUFFER */
     layout (location = 0) uniform sampler2D   u_Albedo_gBuffer;
@@ -87,13 +63,15 @@
         layout (location = 98) uniform sampler2D u_Ambient;
     #endif
 
-    uniform float u_AmbientExposure = 1.0; // Brightness of ambient texture.
-
     /* SHADOWS */
     layout (location =  99) uniform sampler2D   u_ShadowMap2D;
     layout (location = 100) uniform samplerCube u_ShadowMap3D;
 
     uniform vec2 u_ScreenDimensions;
+
+    uniform float u_AmbientExposure = 1.0; // Brightness of ambient texture.
+
+    uniform vec3 u_CameraPosition;
 
     const float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
 
