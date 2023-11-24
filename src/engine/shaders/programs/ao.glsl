@@ -23,88 +23,67 @@
     #extension GL_ARB_explicit_uniform_location : enable
     #extension GL_ARB_shading_language_include  : require
 
+    #include "/shaders/include/rand.glsl"
+    #include "/shaders/include/common_utils.glsl"
     #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
 
-    uniform sampler2D u_Depth;
+    uniform sampler2D u_Depth_gBuffer;
+    uniform sampler2D u_Position_gBuffer;
+    uniform sampler2D u_Normal_gBuffer;
 
     uniform int u_Samples = 32;
 
     uniform float u_Strength = 1.0;
-    uniform float u_Bias = -0.5;
+    uniform float u_Bias = 0.025;
 
     uniform float u_NearClip;
     uniform float u_FarClip;
 
     uniform float u_Time;
 
-    float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
-
-    float gold_noise(in vec2 xy, in float seed){
-        return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
-    }
-
-    float Random1(in vec2 _xy, float _offset) {
-
-        return (gold_noise(_xy * 1000.0, fract(u_Time) + _offset) - 0.5) * 2.0;
-    }
-
-    vec2 Random2(in vec2 _xy, float _offset) {
-
-        return vec2(
-            Random1(_xy, _offset + 0.1),
-            Random1(_xy, _offset + 0.2)
-        );
-    }
-
-    vec3 Random3(in vec3 _xyz, float _offset) {
-
-        return vec3(
-            Random1(_xyz.xy, _offset + 0.1),
-            Random1(_xyz.yz, _offset + 0.2),
-            Random1(_xyz.xz, _offset + 0.3)
-        );
-    }
-
-    // https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
-    float Linear01Depth(float _depth) {
-        return (2.0 * u_NearClip) / (u_FarClip + u_NearClip - _depth * (u_FarClip - u_NearClip));
-    }
+    uniform mat4 u_Projection;
 
     void main() {
 
-        // Get the depth value of the current fragment
-        float depth = Linear01Depth(texture(u_Depth, v_TexCoord).r) * u_FarClip;
+        vec3 position = Sample3(u_Position_gBuffer, v_TexCoord);
+        vec3 normal   = Sample3(  u_Normal_gBuffer, v_TexCoord);
+        float depth   = Sample1(u_Depth_gBuffer, v_TexCoord);
 
         float occlusion = 0.0;
 
-        float radiusXY = 0.05;
-        float radiusZ = 3;
-
-        vec2 dimensions = textureSize(u_Depth, 0);
-        vec2 aspect = vec2(dimensions.x / dimensions.y, 1.0);
+        float radius = 0.1;
 
         for (int i = 0; i < u_Samples; i++) {
 
-            vec2 offset = normalize(Random2(v_TexCoord + vec2(i + 1), 0.1));
-            offset *= aspect * radiusXY * Random1(v_TexCoord + vec2(i + 1), 0.3);
+            vec3 randomVec = normalize(
+                vec3(Random2(v_TexCoord * vec2(i + 1), u_Time, 0.2), 1.0)
+            );
 
-            float sampleDepth = Linear01Depth(texture(u_Depth, v_TexCoord + offset.xy).r) * u_FarClip;
+            vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));
+            vec3 bitangent = cross(normal, tangent);
+            mat3 TBN       = mat3(tangent, bitangent, normal);
 
-            float rangeCheck = smoothstep(0.0, 1.0, radiusZ / abs(depth - sampleDepth));
+            vec3 samplePos = TBN * randomVec;
+            samplePos = position + (samplePos * radius);
 
-            //occlusion += rangeCheck;
-            //occlusion += (sampleDepth >= depth + bias ? 0.0 : 1.0);
+            vec4 pos = vec4(samplePos, 1.0); // make it a 4-vector
+            pos = u_Projection * pos; // project on the near clipping plane
+            pos.xy /= pos.w; // perform perspective divide
+            pos.xy = pos.xy * 0.5 + vec2(0.5); // transform to (0,1) range
 
-            occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
+            float sampleDepth = texture(u_Position_gBuffer, pos.xy).b;
+
+            gl_FragColor = vec4(abs(pos.xy), 0, 0);
+            return;
+
+            float rangeCheck = smoothstep(0.0, 1.0, radius / abs(position.z - depth));
+
+            occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0);
         }
 
-        #ifdef TEST
-            occlusion = 0.1;
-        #else
-            occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
-        #endif
+        occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
 
         gl_FragColor = vec4(vec3(occlusion), 1.0);
     }

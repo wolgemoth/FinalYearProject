@@ -138,6 +138,11 @@
         return result;
     }
 
+    // https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
+    float Linear01Depth(float _depth, float _near, float _far) {
+        return (2.0 * _near) / (_far + _near - _depth * (_far - _near));
+    }
+
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
         const float minLayers = 10.0;

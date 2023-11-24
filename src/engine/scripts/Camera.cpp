@@ -422,6 +422,7 @@ namespace LouiEriksson {
 				);
 				
 				program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
+				program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
 				
 				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
@@ -1080,15 +1081,36 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.5f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), 0.025f);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Time"), Time::Elapsed());
 		
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Projection"), m_Projection * glm::inverse(View()));
+		
 		RenderTexture ao_rt(dimensions.x, dimensions.y);
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Depth"), m_RT.DepthID(), 0, GL_TEXTURE_2D);
+		ao.lock()->Assign(
+			ao.lock()->AttributeID("u_Position_gBuffer"),
+			m_Position_gBuffer.DepthID(),
+			0,
+			GL_TEXTURE_2D
+		);
+		
+		ao.lock()->Assign(
+			ao.lock()->AttributeID("u_Position_gBuffer"),
+			m_Position_gBuffer.ID(),
+			1,
+			GL_TEXTURE_2D
+		);
+		
+		ao.lock()->Assign(
+			ao.lock()->AttributeID("u_Normal_gBuffer"),
+			m_Normal_gBuffer.ID(),
+			2,
+			GL_TEXTURE_2D
+		);
 		
 		RenderTexture::Bind(ao_rt);
 		
@@ -1112,6 +1134,8 @@ namespace LouiEriksson {
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
 
+		Copy(ao_rt, m_RT);
+		
 		Shader::Unbind();
 	}
 	
