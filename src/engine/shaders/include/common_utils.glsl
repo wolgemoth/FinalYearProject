@@ -16,7 +16,7 @@
         return dot(delta, delta);
     }
 
-    vec2 TransformCoord(sampler2D _texture, in vec2 _uv, in vec4 _st) {
+    vec2 TransformCoord(in vec2 _uv, in vec4 _st) {
         return (_uv + fract(_st.zw)) * _st.xy;
     }
 
@@ -29,11 +29,11 @@
     }
 
     vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st));
+        return texture(_texture, TransformCoord(_uv, _st));
     }
 
     vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod);
+        return texture(_texture, TransformCoord(_uv, _st), _lod);
     }
 
     vec4 Sample4(samplerCube _texture, in vec3 _dir) {
@@ -53,11 +53,11 @@
     }
 
     vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st)).rgb;
+        return texture(_texture, TransformCoord(_uv, _st)).rgb;
     }
 
     vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).rgb;
+        return texture(_texture, TransformCoord(_uv, _st), _lod).rgb;
     }
 
     vec3 Sample3(samplerCube _texture, in vec3 _dir) {
@@ -77,11 +77,11 @@
     }
 
     vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st)).rg;
+        return texture(_texture, TransformCoord(_uv, _st)).rg;
     }
 
     vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).rg;
+        return texture(_texture, TransformCoord(_uv, _st), _lod).rg;
     }
 
     vec2 Sample2(samplerCube _texture, in vec3 _dir) {
@@ -101,11 +101,11 @@
     }
 
     float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st)).r;
+        return texture(_texture, TransformCoord(_uv, _st)).r;
     }
 
     float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
-        return texture(_texture, TransformCoord(_texture, _uv, _st), _lod).r;
+        return texture(_texture, TransformCoord(_uv, _st), _lod).r;
     }
 
     float Sample1(samplerCube _texture, in vec3 _dir) {
@@ -155,13 +155,13 @@
         vec2 deltaTexCoords = P / numLayers;
 
         vec2  currentTexCoords     = _uv;
-        float currentDepthMapValue = texture(_displacement, TransformCoord(_displacement, _uv, _st)).r;
+        float currentDepthMapValue = texture(_displacement, TransformCoord(_uv, _st)).r;
 
         while(currentLayerDepth < currentDepthMapValue) {
             // shift texture coordinates along direction of P
             currentTexCoords -= deltaTexCoords;
             // get depthmap value at current texture coordinates
-            currentDepthMapValue = texture(_displacement, TransformCoord(_displacement, currentTexCoords, _st)).r;
+            currentDepthMapValue = texture(_displacement, TransformCoord(currentTexCoords, _st)).r;
             // get depth of next layer
             currentLayerDepth += layerDepth;
         }
@@ -171,7 +171,7 @@
 
         // get depth after and before collision for linear interpolation
         float afterDepth  = currentDepthMapValue - currentLayerDepth;
-        float beforeDepth = texture(_displacement, TransformCoord(_displacement, prevTexCoords, _st)).r - currentLayerDepth + layerDepth;
+        float beforeDepth = texture(_displacement, TransformCoord(prevTexCoords, _st)).r - currentLayerDepth + layerDepth;
 
         // interpolation of texture coordinates
         float weight = afterDepth / (afterDepth - beforeDepth);

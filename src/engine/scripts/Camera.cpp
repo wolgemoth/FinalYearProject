@@ -10,7 +10,8 @@ namespace LouiEriksson {
 	m_Emission_gBuffer(1, 1),
 	m_Material_gBuffer(1, 1),
 	m_Position_gBuffer(1, 1),
-	  m_Normal_gBuffer(1, 1)
+	  m_Normal_gBuffer(1, 1),
+	m_TexCoord_gBuffer(1, 1)
 	{
 		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
@@ -105,6 +106,7 @@ namespace LouiEriksson {
 		m_Material_gBuffer.Resize(dimensions[0], dimensions[1]);
 		m_Position_gBuffer.Resize(dimensions[0], dimensions[1]);
 		  m_Normal_gBuffer.Resize(dimensions[0], dimensions[1]);
+		m_TexCoord_gBuffer.Resize(dimensions[0], dimensions[1]);
 	}
 	
 	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
@@ -116,6 +118,51 @@ namespace LouiEriksson {
 		GLint cullMode, depthMode;
 		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
 		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
+		
+		// Texture Coordinates:
+		{
+			auto program = Resources::GetShader("pass_texcoords");
+			
+			// Bind program.
+			Shader::Bind(program.lock()->ID());
+			
+			RenderTexture::Bind(m_TexCoord_gBuffer);
+
+			for (const auto& renderer : _renderers) {
+				
+				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
+				const auto mesh      = renderer->GetMesh();
+				
+				// Bind VAO.
+				glBindVertexArray(mesh->VAO_ID());
+				
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_Displacement"),
+						material.lock()->GetDisplacement().lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), 0.05f);
+				program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+				
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
+				// Unbind VAO.
+				glBindVertexArray(0);
+			}
+			
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
+		}
 		
 		// Albedo:
 		{
@@ -147,7 +194,14 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer.ID(),
+					1,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -190,7 +244,14 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer.ID(),
+					1,
+					GL_TEXTURE_2D
+				);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -225,6 +286,13 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 	
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_Normal_gBuffer.ID(),
+					1,
+					GL_TEXTURE_2D
+				);
+				
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
 	
@@ -296,9 +364,16 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_Normal_gBuffer.ID(),
+					3,
+					GL_TEXTURE_2D
+				);
+				
 				program.lock()->Assign(program.lock()->AttributeID("u_Roughness_Amount"), 1.0f);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -341,9 +416,14 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_Normal_Amount"), 0.03f);
+				program.lock()->Assign(
+					program.lock()->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer.ID(),
+					1,
+					GL_TEXTURE_2D
+				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -653,8 +733,6 @@ namespace LouiEriksson {
 	
 				program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
 	
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), glm::vec4(3.0f, 3.0f, 0.0f, 0.0f));
-	
 				if (_lights.empty()) {
 	
 					// Draw the scene with no lighting.
@@ -842,7 +920,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		//Copy(m_Material_gBuffer, m_RT);
+		//Copy(m_TexCoord_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION

@@ -41,9 +41,15 @@
     in vec3 v_Normal;
 
     uniform sampler2D u_Emission;
+    uniform sampler2D u_TexCoord_gBuffer;
 
-    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
+    uniform vec2 u_ScreenDimensions;
 
     void main() {
-        gl_FragColor = Sample4(u_Emission, v_TexCoord, u_ST);
+
+        vec2 screen_uv = gl_FragCoord.xy / u_ScreenDimensions;
+
+        vec2 uv = Sample2(u_TexCoord_gBuffer, v_TexCoord);
+
+        gl_FragColor = Sample4(u_Emission, uv);
     }

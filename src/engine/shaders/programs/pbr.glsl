@@ -105,14 +105,9 @@
 
     uniform float    u_Roughness_Amount = 0.0; // How rough the surface is.
     uniform float     u_Emission_Amount = 1.0; // How emissive the surface is.
-    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
     uniform float           u_AO_Amount = 1.0; // Strength of AO.
 
     uniform float u_Time;
-
-    /* TEXTURE PARAMETERS */
-    // Texture tiling scale and translate (ST) (U, V, U, V).
-    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     /* DIRECT LIGHTING */
 
@@ -505,49 +500,26 @@
         float roughness = material.x;
         float metallic  = material.y;
         float ao        = material.z;
-        float disp      = normDisp.w;
 
         vec3 normal = normDisp.xyz;
 
-        //vec3 viewDir_Tangent = normalize(
-        //    (transpose(v_TBN) * normalize(u_CameraPosition - position))
-        //);
-
-        vec2 uv = v_TexCoord;
-//        ParallaxMapping(
-//            disp,
-//            viewDir_Tangent,
-//            v_TexCoord,
-//            u_ST,
-//            u_Displacement_Amount
-//        );
-
-        vec3 fragPos = position;// - (v_Normal * Sample1(disp, uv, u_ST));
-
-        vec3  viewDir = normalize(u_CameraPosition - fragPos);
-        vec3 lightDir = normalize( u_LightPosition - fragPos);
+        vec3  viewDir = normalize(u_CameraPosition - position);
+        vec3 lightDir = normalize( u_LightPosition - position);
         vec3  halfVec = normalize(lightDir + viewDir);
 
         /* DIRECT */
 
         vec3 directLighting;
         {
-            float attenuation = Attenuation(u_LightPosition, fragPos, u_LightRange);
+            float attenuation = Attenuation(u_LightPosition, position, u_LightRange);
 
             float visibility = clamp(
                 (
                     (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-//                    1.0 - max(
-//                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-//                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * u_LightDirection), uv, u_ST, u_Displacement_Amount)
-//                    )
-//                    1.0 - max(
-//                        TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-//                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
-//                    )
-                    1.0 - max(
-                        TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
-                        0.0f//ParallaxShadowsHard(disp, (transpose(v_TBN) * lightDir), uv, u_ST, u_Displacement_Amount)
+                    1.0 - (
+                        //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias)
+                        //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias)
+                        TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias)
                     )
                 ),
                 0.0,

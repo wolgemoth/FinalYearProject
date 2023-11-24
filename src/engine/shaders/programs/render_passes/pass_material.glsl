@@ -42,17 +42,22 @@
     uniform sampler2D u_Roughness;
     uniform sampler2D u_Metallic;
     uniform sampler2D u_AO;
+    uniform sampler2D u_TexCoord_gBuffer;
+
+    uniform vec2 u_ScreenDimensions;
 
     uniform float u_Roughness_Amount = 1.0; // How rough the surface is.
     uniform float        u_AO_Amount = 1.0; // Strength of AO.
 
-    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
-
     void main() {
 
-        float roughness = Sample1(u_Roughness, v_TexCoord, u_ST) * u_Roughness_Amount;
-        float  metallic = Sample1(u_Metallic,  v_TexCoord, u_ST);
-        float        ao = Sample1(u_AO,        v_TexCoord, u_ST);
+        vec2 screen_uv = gl_FragCoord.xy / u_ScreenDimensions;
+
+        vec2 uv = Sample2(u_TexCoord_gBuffer, v_TexCoord);
+
+        float roughness = Sample1(u_Roughness, uv) * u_Roughness_Amount;
+        float  metallic = Sample1(u_Metallic,  uv);
+        float        ao = Sample1(u_AO,        uv);
 
         ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
 

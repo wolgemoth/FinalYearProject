@@ -8,7 +8,7 @@
     in vec3 a_Tangent;
     in vec3 a_Bitangent;
 
-    out vec4 v_Position;
+    out vec3 v_Position;
     out vec2 v_TexCoord;
     out vec3 v_Normal;
     out mat3 v_TBN;
@@ -24,7 +24,7 @@
         gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
 
         // Position in model space:
-        v_Position = u_Projection * u_View * vec4(a_Position, 1.0);
+        v_Position = vec3(u_Model * vec4(a_Position, 1.0));
 
         // Texture coordinates:
         v_TexCoord = a_TexCoord;
@@ -49,24 +49,32 @@
     #include "/shaders/include/common_utils.glsl"
 
     in vec2 v_TexCoord;
-    in vec4 v_Position;
+    in vec3 v_Position;
     in vec3 v_Normal;
 
     in mat3 v_TBN;
 
-    uniform sampler2D u_Normals;
-    uniform sampler2D u_TexCoord_gBuffer;
+    uniform sampler2D u_Displacement;
 
-    uniform vec2 u_ScreenDimensions;
+    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
+
+    uniform vec3 u_CameraPosition;
+
+    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
 
     void main() {
 
-        vec2 screen_uv = (gl_FragCoord.xy / u_ScreenDimensions);
+        vec3 viewDir_Tangent = normalize(
+            (transpose(v_TBN) * normalize(u_CameraPosition - v_Position))
+        );
 
-        vec2 uv = Sample2(u_TexCoord_gBuffer, screen_uv);
+        vec2 uv = ParallaxMapping(
+            u_Displacement,
+            viewDir_Tangent,
+            v_TexCoord,
+            u_ST,
+            u_Displacement_Amount
+        );
 
-        vec3 normal = normalize((Sample3(u_Normals, uv) * 2.0) - 1.0);
-        normal = normalize(v_TBN * normal);
-
-        gl_FragColor = vec4(normal, 1.0f);
+        gl_FragColor = vec4(TransformCoord(uv, u_ST), 0.0, 0.0);
     }
