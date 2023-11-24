@@ -53,14 +53,14 @@ namespace LouiEriksson {
 			
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
-//
-//			// Generate the "Render Buffer Object".
+
+			// Generate the "Render Buffer Object".
 //			glGenRenderbuffers(1, &m_RBO_ID);
 //			glBindRenderbuffer(GL_RENDERBUFFER, m_RBO_ID);
 //			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
 //			glBindRenderbuffer(GL_RENDERBUFFER, 0);
 //			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
-//
+
 			RenderTexture::Unbind();
 			
 			m_Width  = _width;

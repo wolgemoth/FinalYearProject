@@ -111,6 +111,12 @@ namespace LouiEriksson {
 		
 		glm::vec4 st(3.0f, 3.0f, 0.0f, 0.0f);
 		
+		const float skyExposure = 1.0f;
+		
+		GLint cullMode, depthMode;
+		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
+		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
+		
 		// Albedo:
 		{
 			auto program = Resources::GetShader("pass_albedo");
@@ -191,6 +197,55 @@ namespace LouiEriksson {
 				
 				// Unbind VAO.
 				glBindVertexArray(0);
+			}
+			
+			/* DRAW SKY */
+			{
+				glCullFace (GL_FRONT );
+				glDepthFunc(GL_LEQUAL);
+	
+				auto skybox = Resources::GetShader("skybox");
+	
+				Shader::Bind(skybox.lock()->ID());
+	
+				auto trs = glm::scale(
+					glm::mat4(1.0),
+					glm::vec3(2.0)
+				);
+	
+				// Assign matrices.
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Model"),                         trs); /* MODEL      */
+	
+				skybox.lock()->Assign(
+					skybox.lock()->AttributeID("u_Texture"),
+					m_HDRI.lock()->ID(),
+					0,
+					GL_TEXTURE_2D
+				);
+	
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
+	
+				// Bind VAO.
+				glBindVertexArray(m_Cube->VAO_ID());
+	
+				/* DRAW */
+				glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+	
+				// Unbind program.
+				Shader::Unbind();
+	
+				// Unbind textures.
+				Texture::Unbind();
+				Cubemap::Unbind();
+	
+				// Unbind VAO.
+				glBindVertexArray(0);
+	
+				glCullFace ( cullMode);
+				glDepthFunc(depthMode);
 			}
 			
 			RenderTexture::Unbind(); // Unbind the FBO.
@@ -499,6 +554,7 @@ namespace LouiEriksson {
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
 		
+		/* SHADING */
 		{
 			unsigned int VAO = 0,
 			             VBO = 0;
@@ -713,55 +769,6 @@ namespace LouiEriksson {
 
 			// Unbind VAO.
 			glBindVertexArray(0);
-		}
-
-		/* DRAW SKY */
-		{
-			glCullFace (GL_FRONT );
-			glDepthFunc(GL_LEQUAL);
-
-			auto skybox = Resources::GetShader("skybox");
-
-			Shader::Bind(skybox.lock()->ID());
-
-			auto trs = glm::scale(
-				glm::mat4(1.0),
-				glm::vec3(2.0)
-			);
-
-			// Assign matrices.
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Model"),                         trs); /* MODEL      */
-
-			skybox.lock()->Assign(
-				skybox.lock()->AttributeID("u_Texture"),
-				m_HDRI.lock()->ID(),
-				0,
-				GL_TEXTURE_2D
-			);
-
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
-			skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
-
-			// Bind VAO.
-			glBindVertexArray(m_Cube->VAO_ID());
-
-			/* DRAW */
-			glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-
-			// Unbind program.
-			Shader::Unbind();
-
-			// Unbind textures.
-			Texture::Unbind();
-			Cubemap::Unbind();
-
-			// Unbind VAO.
-			glBindVertexArray(0);
-
-			glCullFace ( cullMode);
-			glDepthFunc(depthMode);
 		}
 		
 		glDisable(GL_DEPTH_TEST);

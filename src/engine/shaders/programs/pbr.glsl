@@ -500,6 +500,7 @@
         vec4 material = Sample4(u_Material_gBuffer, v_TexCoord);
         vec3 position = Sample3(u_Position_gBuffer, v_TexCoord);
         vec4 normDisp = Sample4(  u_Normal_gBuffer, v_TexCoord);
+        float   depth = Sample1(   u_Depth_gBuffer, v_TexCoord);
 
         float roughness = material.x;
         float metallic  = material.y;
@@ -590,5 +591,4 @@
         }
 
         gl_FragColor = vec4(((directLighting + indirectLighting) * ao) + emission, 1.0);
-        gl_FragDepth = Sample1(u_Depth_gBuffer, v_TexCoord);
     }
