@@ -35,8 +35,9 @@
 
     uniform int u_Samples = 32;
 
-    uniform float u_Strength = 1.0;
-    uniform float u_Bias;
+    uniform float u_Strength =  1.0;
+    uniform float u_Bias     = -0.2;
+    uniform float u_Radius   =  0.2;
 
     uniform float u_NearClip;
     uniform float u_FarClip;
@@ -54,8 +55,6 @@
 
         float occlusion = 0.0;
 
-        float radius = 0.25;
-
         for (int i = 0; i < u_Samples; i++) {
 
             vec3 randomVec = normalize(
@@ -66,7 +65,7 @@
             vec3 bitangent = cross(normal, tangent);
             mat3 TBN       = mat3(tangent, bitangent, normal);
 
-            randomVec = (TBN * ((randomVec * 2.0) - 1.0)) * radius;
+            randomVec = (TBN * ((randomVec * 2.0) - 1.0)) * u_Radius;
 
             vec3 samplePosition = position + randomVec;
 
@@ -77,10 +76,7 @@
 
             float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
 
-            float rangeCheck = smoothstep(0.0, 1.0, radius / abs(sampleDepth - depth));
-
-//            gl_FragColor = vec4(rangeCheck);
-//            return;
+            float rangeCheck = smoothstep(0.0, 1.0, u_Radius / abs(sampleDepth - depth));
 
             occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
         }

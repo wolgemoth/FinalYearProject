@@ -1078,10 +1078,11 @@ namespace LouiEriksson {
 		auto ao = Resources::GetShader("ao");
 		Shader::Bind(ao.lock()->ID());
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 32);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.2f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Radius"), 0.2f);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
@@ -1135,8 +1136,6 @@ namespace LouiEriksson {
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
 
-		Copy(ao_rt, m_RT);
-		
 		Shader::Unbind();
 	}
 	
