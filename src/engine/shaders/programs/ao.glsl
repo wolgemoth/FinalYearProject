@@ -53,7 +53,7 @@
 
         float occlusion = 0.0;
 
-        float radius = 0.1;
+        float radius = 0.5;
 
         for (int i = 0; i < u_Samples; i++) {
 
@@ -65,17 +65,16 @@
             vec3 bitangent = cross(normal, tangent);
             mat3 TBN       = mat3(tangent, bitangent, normal);
 
-            vec3 samplePos = TBN * randomVec;
-            samplePos = position + (samplePos * radius);
+            vec3 samplePosition = position + ((TBN * randomVec)) * radius;
 
-            vec4 pos = vec4(samplePos, 1.0); // make it a 4-vector
-            pos = u_Projection * pos; // project on the near clipping plane
-            pos.xy /= pos.w; // perform perspective divide
-            pos.xy = pos.xy * 0.5 + vec2(0.5); // transform to (0,1) range
+            vec4 offsetUV      = vec4(samplePosition, 1.0);
+                 offsetUV      = u_Projection * offsetUV;
+                 offsetUV.xyz /= offsetUV.w;
+                 offsetUV.xy   = offsetUV.xy * 0.5 + 0.5;
 
-            float sampleDepth = texture(u_Position_gBuffer, pos.xy).b;
+            float sampleDepth = texture(u_Position_gBuffer, offsetUV.xy).z;
 
-            gl_FragColor = vec4(abs(pos.xy), 0, 0);
+            gl_FragColor = vec4(sampleDepth);
             return;
 
             float rangeCheck = smoothstep(0.0, 1.0, radius / abs(position.z - depth));

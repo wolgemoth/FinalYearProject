@@ -1087,7 +1087,7 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Time"), Time::Elapsed());
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Projection"), m_Projection * glm::inverse(View()));
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Projection"), m_Projection * View());
 		
 		RenderTexture ao_rt(dimensions.x, dimensions.y);
 		
