@@ -50,35 +50,42 @@
 
         vec3  position = Sample3(u_Position_gBuffer, v_TexCoord);
         vec3  normal   = Sample3(  u_Normal_gBuffer, v_TexCoord);
-        float depth    = Sample1(   u_Depth_gBuffer, v_TexCoord);
+        float depth    = Linear01Depth(Sample1(u_Depth_gBuffer, v_TexCoord), u_NearClip, u_FarClip) * u_FarClip;
 
         float occlusion = 0.0;
 
-        float radius = 0.5;
+        float radius = 0.25;
 
         for (int i = 0; i < u_Samples; i++) {
 
-            vec3 randomVec = normalize(Random3(position + vec3(i + 1), u_Time, 0.0));
+            vec3 randomVec = normalize(
+                vec3((Random2(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2.0, 1.0)
+            );
 
             vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));
             vec3 bitangent = cross(normal, tangent);
             mat3 TBN       = mat3(tangent, bitangent, normal);
 
-            vec3 samplePosition = position + ((TBN * randomVec) * radius);
+            randomVec = (TBN * ((randomVec * 2.0) - 1.0)) * radius;
+
+            vec3 samplePosition = position + randomVec;
 
             vec4 offsetUV      = vec4(samplePosition, 1.0);
                  offsetUV      = u_VP * offsetUV;
                  offsetUV.xyz /= offsetUV.w;
                  offsetUV.xy   = offsetUV.xy * 0.5 + 0.5;
 
-            float sampleDepth = texture(u_Depth_gBuffer, offsetUV.xy).x;
+            float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
 
-            float rangeCheck = smoothstep(0.0, 1.0, radius / abs(depth - sampleDepth));
+            float rangeCheck = smoothstep(0.0, 1.0, radius / abs(sampleDepth - depth));
 
-            occlusion += (sampleDepth >= depth + u_Bias ? 1.0 : 0.0) * rangeCheck;
+//            gl_FragColor = vec4(rangeCheck);
+//            return;
+
+            occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
         }
 
-        occlusion = ((occlusion / float(u_Samples)) * u_Strength);
+        occlusion = 1.0 - ((occlusion / float(u_Samples)) * u_Strength);
 
         gl_FragColor = vec4(vec3(occlusion), 1.0);
     }
