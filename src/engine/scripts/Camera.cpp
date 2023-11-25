@@ -1081,13 +1081,14 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), 0.025f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), 0.0f);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Time"), Time::Elapsed());
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Projection"), m_Projection * View());
+		ao.lock()->Assign(ao.lock()->AttributeID("u_VP"), m_Projection * View());
+		ao.lock()->Assign(ao.lock()->AttributeID("u_View"), View());
 		
 		RenderTexture ao_rt(dimensions.x, dimensions.y);
 		
