@@ -781,23 +781,25 @@ namespace LouiEriksson {
 						program.lock()->Assign(
 							program.lock()->AttributeID("u_ShadowMap2D"),
 							light->m_Shadow.m_ShadowMap_Texture,
-							100,
+							99,
 							GL_TEXTURE_2D
 						);
 					}
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
-							light->m_Shadow.m_ViewProjection);
+						light->m_Shadow.m_ViewProjection);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
-							light->m_Shadow.m_Bias);
+						light->m_Shadow.m_Bias);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
-							light->m_Shadow.m_NormalBias);
+						light->m_Shadow.m_NormalBias);
 
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"), 64);
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
+						64);
 
-					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"), light->m_Size);
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
+						light->m_Size);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
 						glm::cos(glm::radians(
@@ -808,22 +810,23 @@ namespace LouiEriksson {
 						)
 					);
 
-					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"), light->m_Shadow.m_NearPlane);
+					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),
+						light->m_Shadow.m_NearPlane);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
 						light->m_Transform.lock()->m_Position);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
-							light->m_Transform.lock()->FORWARD);
+						light->m_Transform.lock()->FORWARD);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
-							light->m_Range);
+						light->m_Range);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
-							light->m_Intensity);
+						light->m_Intensity);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
-							light->m_Color);
+						light->m_Color);
 
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
@@ -912,7 +915,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		//Copy(m_Material_gBuffer, m_RT);
+		//Copy(m_Normal_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
@@ -1004,15 +1007,15 @@ namespace LouiEriksson {
 	
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		float min_exposure = 0.2f;
-		float max_exposure = 4.0f;
-		float compensation = -0.2f;
-		float speed_down = 1.0f;
-		float speed_up   = 2.0f;
+		const float min_exposure = 0.2f;
+		const float max_exposure = 4.0f;
+		const float compensation = -0.2f;
+		const float speed_down = 1.0f;
+		const float speed_up   = 2.0f;
 		
 		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
 		
-		glm::ivec2 luma_res(32, 32);
+		const glm::ivec2 luma_res(32, 32);
 		
 		RenderTexture luma_out(luma_res.x, luma_res.y);
 		
@@ -1055,10 +1058,10 @@ namespace LouiEriksson {
 		
 		avg = avg / (float)glm::max(num, 1);
 		
-		float curr = avg;
+		const float curr = avg;
 		
-		float diff = glm::clamp((m_TargetExposure + compensation) - curr, -1.0f, 1.0f);
-		float speed = (diff - m_CurrentExposure) >= 0 ? speed_up : speed_down;
+		const float diff = glm::clamp((m_TargetExposure + compensation) - curr, -1.0f, 1.0f);
+		const float speed = (diff - m_CurrentExposure) >= 0 ? speed_up : speed_down;
 		
 		m_CurrentExposure = glm::mix(
 			m_CurrentExposure,

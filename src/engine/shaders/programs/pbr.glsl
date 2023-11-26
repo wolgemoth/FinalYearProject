@@ -8,23 +8,17 @@
     in vec2 a_TexCoord;
 
     out vec2 v_TexCoord;
-    out vec4 v_Position_LightSpace;
 
     /* PARAMETERS */
     uniform mat4 u_Projection;
     uniform mat4 u_Model;
     uniform mat4 u_View;
 
-    uniform mat4 u_LightSpaceMatrix;
-
     void main() {
 
         v_TexCoord = a_TexCoord;
 
         gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
-
-        // Position in light space (for shadow calculations):
-        v_Position_LightSpace = u_LightSpaceMatrix * vec4(a_Position, 1.0);
     }
 
 #pragma fragment
@@ -42,7 +36,6 @@
     #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
-    in vec4 v_Position_LightSpace;
 
     /* G-BUFFER */
     layout (location = 0) uniform sampler2D   u_Albedo_gBuffer;
@@ -66,6 +59,8 @@
     /* SHADOWS */
     layout (location =  99) uniform sampler2D   u_ShadowMap2D;
     layout (location = 100) uniform samplerCube u_ShadowMap3D;
+
+    uniform mat4 u_LightSpaceMatrix;
 
     uniform vec2 u_ScreenDimensions;
 
@@ -463,15 +458,34 @@
         {
             float attenuation = Attenuation(u_LightPosition, position, u_LightRange);
 
+            vec4 position_lightSpace = u_LightSpaceMatrix * vec4(position, 1.0);
+
             float visibility = clamp(
                 (
-                    (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-                    1.0 - max(
-                        //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-                        //TransferShadow2D(v_Position_LightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-                        TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
-                        ps
-                    )
+                    #define LIGHT_TYPE 2
+
+                    /* DIRECTIONAL */
+                    #if LIGHT_TYPE == 0
+                        (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    /* SPOT */
+                    #elif LIGHT_TYPE == 1
+                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    /* POINT */
+                    #elif LIGHT_TYPE == 2
+                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    #endif
                 ),
                 0.0,
                 1.0
