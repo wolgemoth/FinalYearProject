@@ -2,34 +2,34 @@
 
     #version 330 core
 
-    layout (location = 0) in vec2 a_Position;
-    layout (location = 1) in vec2 a_TexCoord;
+    layout (location = 0) in mediump vec2 a_Position;
+    layout (location = 1) in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
-      v_TexCoord = a_TexCoord;
+        v_TexCoord = a_TexCoord;
 
-      gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
     }
 
 #pragma fragment
 
     #version 330 core
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Texture;
 
     /* PARAMETERS */
-    uniform float u_Gain     = 0.0;
-    uniform float u_Exposure = 1.0;
+    uniform mediump float u_Gain     = 0.0;
+    uniform mediump float u_Exposure = 1.0;
 
-    vec3 ACES(vec3 _hdr) {
+    vec3 ACES(in vec3 _hdr) {
 
-        mat3x3 aInput;
-        mat3x3 aOutput;
+        mediump mat3 aInput;
+        mediump mat3 aOutput;
 
         // ACES INPUT MAT
         aInput[0] = vec3(0.59719, 0.35458, 0.04823);
@@ -39,8 +39,8 @@
         _hdr = _hdr * aInput;
 
         // RTT ODT FIT
-        vec3 a = _hdr * (_hdr + 0.0245786) - 0.000090537;
-        vec3 b = _hdr * (0.983729 * _hdr + 0.4329510) + 0.238081;
+        mediump vec3 a = _hdr * (_hdr + 0.0245786) - 0.000090537;
+        mediump vec3 b = _hdr * (0.983729 * _hdr + 0.4329510) + 0.238081;
         _hdr = a / b;
 
         // ACES OUTPUT MAT
@@ -53,7 +53,7 @@
 
     void main() {
 
-        vec3 tonemapped = ACES(max(vec3(texture2D(u_Texture, v_TexCoord) * u_Exposure) + u_Gain, vec3(0.0)));
+        mediump vec3 tonemapped = ACES(max(vec3(texture2D(u_Texture, v_TexCoord) * u_Exposure) + u_Gain, vec3(0.0)));
 
         gl_FragColor = vec4(tonemapped, 1.0);
     }

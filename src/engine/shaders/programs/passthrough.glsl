@@ -3,10 +3,10 @@
     #version 330 core
 
     /* PARAMETERS */
-    layout (location = 0) in vec2 a_Position;
-    layout (location = 1) in vec2 a_TexCoord;
+    layout (location = 0) in mediump vec2 a_Position;
+    layout (location = 1) in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
@@ -21,7 +21,7 @@
 
     uniform sampler2D u_Texture;
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     void main() {
         gl_FragColor = texture2D(u_Texture, v_TexCoord);

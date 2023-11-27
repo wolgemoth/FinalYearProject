@@ -2,16 +2,16 @@
 
     #version 330 core
 
-    layout (location = 0) in vec2 a_Position;
-    layout (location = 1) in vec2 a_TexCoord;
+    layout (location = 0) in mediump vec2 a_Position;
+    layout (location = 1) in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
-      v_TexCoord = a_TexCoord;
+        v_TexCoord = a_TexCoord;
 
-      gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
     }
 
 #pragma fragment
@@ -27,7 +27,7 @@
     #include "/shaders/include/common_utils.glsl"
     #include "/shaders/include/lighting_utils.glsl"
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Depth_gBuffer;
     uniform sampler2D u_Position_gBuffer;
@@ -35,48 +35,48 @@
 
     uniform int u_Samples = 32;
 
-    uniform float u_Strength =  1.0;
-    uniform float u_Bias     = -0.2;
-    uniform float u_Radius   =  0.2;
+    uniform mediump float u_Strength =  1.0;
+    uniform mediump float u_Bias     = -0.2;
+    uniform mediump float u_Radius   =  0.2;
 
-    uniform float u_NearClip;
-    uniform float u_FarClip;
+    uniform mediump float u_NearClip;
+    uniform mediump float u_FarClip;
 
-    uniform float u_Time;
+    uniform mediump float u_Time;
 
-    uniform mat4 u_VP;
-    uniform mat4 u_View;
+    uniform mediump mat4 u_VP;
+    uniform mediump mat4 u_View;
 
     void main() {
 
-        vec3  position = Sample3(u_Position_gBuffer, v_TexCoord);
-        vec3  normal   = Sample3(  u_Normal_gBuffer, v_TexCoord);
-        float depth    = Linear01Depth(Sample1(u_Depth_gBuffer, v_TexCoord), u_NearClip, u_FarClip) * u_FarClip;
+        mediump vec3  position = Sample3(u_Position_gBuffer, v_TexCoord);
+        mediump vec3  normal   = Sample3(  u_Normal_gBuffer, v_TexCoord);
+        mediump float depth    = Linear01Depth(Sample1(u_Depth_gBuffer, v_TexCoord), u_NearClip, u_FarClip) * u_FarClip;
 
-        float occlusion = 0.0;
+        mediump float occlusion = 0.0;
 
         for (int i = 0; i < u_Samples; i++) {
 
-            vec3 randomVec = normalize(
+            mediump vec3 randomVec = normalize(
                 vec3((Random2(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2.0, 1.0)
             );
 
-            vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));
-            vec3 bitangent = cross(normal, tangent);
-            mat3 TBN       = mat3(tangent, bitangent, normal);
+            mediump vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));
+            mediump vec3 bitangent = cross(normal, tangent);
+            mediump mat3 TBN       = mat3(tangent, bitangent, normal);
 
             randomVec = (TBN * ((randomVec * 2.0) - 1.0)) * u_Radius;
 
-            vec3 samplePosition = position + randomVec;
+            mediump vec3 samplePosition = position + randomVec;
 
-            vec4 offsetUV      = vec4(samplePosition, 1.0);
+            mediump vec4 offsetUV      = vec4(samplePosition, 1.0);
                  offsetUV      = u_VP * offsetUV;
                  offsetUV.xyz /= offsetUV.w;
                  offsetUV.xy   = offsetUV.xy * 0.5 + 0.5;
 
-            float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
+            mediump float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
 
-            float rangeCheck = smoothstep(0.0, 1.0, u_Radius / abs(sampleDepth - depth));
+            mediump float rangeCheck = smoothstep(0.0, 1.0, u_Radius / abs(sampleDepth - depth));
 
             occlusion += (sampleDepth >= depth + u_Bias ? 0.0 : 1.0) * rangeCheck;
         }

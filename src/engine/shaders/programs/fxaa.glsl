@@ -2,16 +2,16 @@
 
     #version 330 core
 
-    layout (location = 0) in vec2 a_Position;
-    layout (location = 1) in vec2 a_TexCoord;
+    layout (location = 0) in mediump vec2 a_Position;
+    layout (location = 1) in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
-      v_TexCoord = a_TexCoord;
+        v_TexCoord = a_TexCoord;
 
-      gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
     }
 
 #pragma fragment
@@ -23,7 +23,7 @@
     #include "/shaders/include/constants.glsl"
     #include "/shaders/include/common_utils.glsl"
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Texture;
 
@@ -31,7 +31,7 @@
     //   0.0833 - upper limit (default, the start of visible unfiltered edges)
     //   0.0625 - high quality (faster)
     //   0.0312 - visible limit (slower)
-    uniform float u_ContrastThreshold = 0.0312;
+    uniform mediump float u_ContrastThreshold = 0.0312;
 
     // The minimum amount of local contrast required to apply algorithm.
     //   0.333 - too little (faster)
@@ -39,7 +39,7 @@
     //   0.166 - default
     //   0.125 - high quality
     //   0.063 - overkill (slower)
-    uniform float u_RelativeThreshold = 0.063;
+    uniform mediump float u_RelativeThreshold = 0.063;
 
     // Choose the amount of sub-pixel aliasing removal.
     // This can effect sharpness.
@@ -48,7 +48,7 @@
     //   0.50 - lower limit (sharper, less sub-pixel aliasing removal)
     //   0.25 - almost off
     //   0.00 - completely off
-    uniform float u_SubpixelBlending = 1.0;
+    uniform mediump float u_SubpixelBlending = 1.0;
 
     // Choose the amount of edge aliasing removal.
     // This can effect sharpness.
@@ -57,10 +57,10 @@
     //   0.50 - lower limit (sharper, less edge-aliasing removal)
     //   0.25 - almost off
     //   0.00 - completely off
-    uniform float u_EdgeBlending = 1.0;
+    uniform mediump float u_EdgeBlending = 1.0;
 
     // Higher numbers typically lead to reduced softening when combined with subpixel blending.
-    uniform float u_LocalContrastModifier = 1.0;
+    uniform mediump float u_LocalContrastModifier = 1.0;
 
     // Uncomment ENHANCED_FXAA to enable various FXAA enhancements designed
     // by myself (Loui Eriksson). These will moderately impact performance
@@ -71,19 +71,19 @@
 
     struct Luminance {
 
-        float samples[KERNEL_SIZE * KERNEL_SIZE];
+        mediump float samples[KERNEL_SIZE * KERNEL_SIZE];
 
-        float maximal;
-        float minimal;
-        float average;
+        mediump float maximal;
+        mediump float minimal;
+        mediump float average;
 
-        vec2 direction;
+        mediump vec2 direction;
 
-        float contrast;
+        mediump float contrast;
     };
 
     // https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/
-    Luminance SampleLuma(in vec2 _coord, in vec2 _texelSize) {
+    Luminance SampleLuma(in mediump vec2 _coord, in mediump vec2 _texelSize) {
 
         Luminance result;
         result.maximal   = F32NMAX;
@@ -102,12 +102,12 @@
         for (int i = -w; i <= w; i++) {
         for (int j = -w; j <= w; j++) {
 
-            vec2 offset = vec2(i, j);
+            mediump vec2 offset = vec2(i, j);
 
-            vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0), vec2(1));
+            mediump vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0), vec2(1));
 
-            float luma          = Luma(texture(u_Texture, uv).rgb, 0);
-            float luma_adjusted = luma / max(abs(i) + abs(j), 1);
+            mediump float luma          = Luma(texture(u_Texture, uv).rgb, 0);
+            mediump float luma_adjusted = luma / max(abs(i) + abs(j), 1);
 
             result.maximal = max(result.maximal, luma);
             result.minimal = min(result.minimal, luma);
@@ -132,7 +132,7 @@
         return (_index.y * _blockWidth) + _index.x;
     }
 
-    float DetermineEdgeBlendFactor(in Luminance _luma, in vec2 _texelSize) {
+    float DetermineEdgeBlendFactor(in Luminance _luma, in mediump vec2 _texelSize) {
 
         int EDGE_SEARCHES = 10;
 
@@ -140,21 +140,21 @@
 
         int w = ((KERNEL_SIZE + 1) / 2) - 1;
 
-        vec2 edgeDir = _luma.direction.yx;
+        mediump vec2 edgeDir = _luma.direction.yx;
 
-        float gradient = max(abs(_luma.direction.x), abs(_luma.direction.y));
+        mediump float gradient = max(abs(_luma.direction.x), abs(_luma.direction.y));
 
-        float edgeLuminance = (
+        mediump float edgeLuminance = (
             _luma.samples[center] +
             _luma.samples[To1D(ivec2(normalize(-edgeDir)) + ivec2(w), KERNEL_SIZE)]
         ) * 0.5;
 
-        float gradientThreshold = gradient * 0.25;
+        mediump float gradientThreshold = gradient * 0.25;
 
-        vec2 edgeStep = (edgeDir * _texelSize * 0.5);
+        mediump vec2 edgeStep = (edgeDir * _texelSize * 0.5);
 
-        vec2 puv = v_TexCoord;
-        float pLuminanceDelta = 0.0;
+        mediump vec2 puv = v_TexCoord;
+        mediump float pLuminanceDelta = 0.0;
         bool pAtEnd = false;
 
         for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; i++) {
@@ -163,8 +163,8 @@
             pAtEnd = abs(pLuminanceDelta) >= gradientThreshold;
         }
 
-        vec2 nuv = v_TexCoord;
-        float nLuminanceDelta = 0.0;
+        mediump vec2 nuv = v_TexCoord;
+        mediump float nLuminanceDelta = 0.0;
         bool nAtEnd = false;
 
         for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; i++) {
@@ -173,7 +173,7 @@
             nAtEnd = abs(nLuminanceDelta) >= gradientThreshold;
         }
 
-        vec2 distances = vec2(
+        mediump vec2 distances = vec2(
             abs(length(puv - v_TexCoord)),
             abs(length(nuv - v_TexCoord))
         );
@@ -197,7 +197,7 @@
         );
     }
 
-    vec3 FXAA(in Luminance _luma, in vec2 _texelSize) {
+    mediump vec3 FXAA(in Luminance _luma, in mediump vec2 _texelSize) {
 
         int center = (((KERNEL_SIZE * KERNEL_SIZE) + 1) / 2) - 1;
 
@@ -212,10 +212,10 @@
 
         // Filter to selectively blend pixels based on their local contrast.
         // Without filtering, all 'edges' recieve smoothing equally.
-        float localContrastFilter = abs(_luma.average - _luma.samples[center]);
+        mediump float localContrastFilter = abs(_luma.average - _luma.samples[center]);
         localContrastFilter = sqr(smoothstep(0.0, 1.0, 1.0 - min(localContrastFilter / _luma.contrast, 1.0)));
 
-        float finalBlend = max(
+        mediump float finalBlend = max(
 
             /* SUBPIXEL BLENDING */
             localContrastFilter * u_SubpixelBlending,
@@ -224,7 +224,7 @@
             DetermineEdgeBlendFactor(_luma, _texelSize) * u_EdgeBlending
         );
 
-        vec2 dir = normalize(_luma.direction) * finalBlend;
+        mediump vec2 dir = normalize(_luma.direction) * finalBlend;
 
         // If ENHANCED_FXAA is enabled, blend along both sides of
         // the edge instead of blending the center pixel with a
@@ -236,12 +236,12 @@
             // Since we're sampling both sides of the edge, the direction needs to be halved.
             dir /= 2.0;
 
-            vec3 s1 = texture(u_Texture, v_TexCoord - (dir * _texelSize)).rgb;
+            mediump vec3 s1 = texture(u_Texture, v_TexCoord - (dir * _texelSize)).rgb;
         #else
-            vec3 s1 = texture(u_Texture, v_TexCoord).rgb;
+            mediump vec3 s1 = texture(u_Texture, v_TexCoord).rgb;
         #endif
 
-        vec3 s2 = texture(u_Texture, v_TexCoord + (dir * _texelSize)).rgb;
+        mediump vec3 s2 = texture(u_Texture, v_TexCoord + (dir * _texelSize)).rgb;
 
         // Return the average of the two samples.
         return (s1 + s2) * 0.5;
@@ -249,13 +249,13 @@
 
     void main() {
 
-        vec2 texelSize = vec2(1.0) / textureSize(u_Texture, 0);
+        mediump vec2 texelSize = vec2(1.0) / textureSize(u_Texture, 0);
 
         Luminance luma = SampleLuma(v_TexCoord, texelSize);
 
-        float threshold = max(u_ContrastThreshold, u_RelativeThreshold * luma.maximal);
+        mediump float threshold = max(u_ContrastThreshold, u_RelativeThreshold * luma.maximal);
 
-        vec3 color;
+        mediump vec3 color;
 
         if (luma.contrast > threshold) {
             color = vec3(FXAA(luma, texelSize));

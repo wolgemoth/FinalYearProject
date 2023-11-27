@@ -2,16 +2,16 @@
 
     #version 330 core
 
-    in vec2 a_Position;
-    in vec2 a_TexCoord;
+    in mediump vec2 a_Position;
+    in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
-      v_TexCoord = a_TexCoord;
+        v_TexCoord = a_TexCoord;
 
-      gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
     }
 
 #pragma fragment
@@ -20,13 +20,13 @@
 
     #extension GL_ARB_explicit_uniform_location : enable
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Texture;
 
     /* PARAMETERS */
-    uniform float u_Amount;
-    uniform float u_Time;
+    uniform mediump float u_Amount;
+    uniform mediump float u_Time;
 
     // Gold Noise ©2015 dcerisano@standard3d.com
     // - based on the Golden Ratio
@@ -34,9 +34,9 @@
     // - fastest static noise generator function (also runs at low precision)
     // - use with indicated fractional seeding method.
 
-    float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
+    mediump float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
 
-    float gold_noise(in vec2 xy, in float seed){
+    mediump float gold_noise(in mediump vec2 xy, in mediump float seed){
            return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
     }
 
@@ -44,10 +44,10 @@
 
         //float grain = gold_noise(v_TexCoord * 1000.0f, fract(u_Time));
 
-        vec3 grain = vec3(
-            gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.01),
-            gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.02),
-            gold_noise(v_TexCoord * 1000.0f, fract(u_Time) + 0.03)
+        mediump vec3 grain = vec3(
+            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.01),
+            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.02),
+            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.03)
         );
 
         gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord).rgb - (grain * u_Amount), 1.0);

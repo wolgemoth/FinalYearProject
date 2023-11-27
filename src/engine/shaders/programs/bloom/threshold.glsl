@@ -2,10 +2,10 @@
 
     #version 330 core
 
-    layout (location = 0) in vec2 a_Position;
-    layout (location = 1) in vec2 a_TexCoord;
+    layout (location = 0) in mediump vec2 a_Position;
+    layout (location = 1) in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
@@ -20,11 +20,11 @@
 
     uniform sampler2D u_Texture;
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     /* PARAMETERS */
-    uniform float u_Threshold;
-    uniform float u_Clamp;
+    uniform mediump float u_Threshold;
+    uniform mediump float u_Clamp;
 
     void main() {
         gl_FragColor = min(max(texture2D(u_Texture, v_TexCoord) - u_Threshold, 0.0), vec4(u_Clamp));

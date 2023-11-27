@@ -2,10 +2,10 @@
 
     #version 330 core
 
-    in vec3 a_Position;
+    in mediump vec3 a_Position;
 
-    uniform mat4 u_LightSpaceMatrix;
-    uniform mat4 u_Model;
+    uniform mediump mat4 u_LightSpaceMatrix;
+    uniform mediump mat4 u_Model;
 
     void main() {
         gl_Position = u_LightSpaceMatrix * u_Model * vec4(a_Position, 1.0);
@@ -15,6 +15,4 @@
 
     #version 330 core
 
-    void main() {
-
-    }
+    void main() {}

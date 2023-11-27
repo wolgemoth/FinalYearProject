@@ -2,22 +2,22 @@
 
     #version 330 core
 
-    in vec3 a_Position;
-    in vec3 a_Normal;
-    in vec2 a_TexCoord;
-    in vec3 a_Tangent;
-    in vec3 a_Bitangent;
+    in mediump vec3 a_Position;
+    in mediump vec3 a_Normal;
+    in mediump vec2 a_TexCoord;
+    in mediump vec3 a_Tangent;
+    in mediump vec3 a_Bitangent;
 
-    out vec2 v_TexCoord;
-    out vec3 v_FragPos_Tangent;
-    out vec3 v_CamPos_Tangent;
+    out mediump vec2 v_TexCoord;
+    out mediump vec3 v_FragPos_Tangent;
+    out mediump vec3 v_CamPos_Tangent;
 
     /* PARAMETERS */
-    uniform mat4 u_Projection;
-    uniform mat4 u_Model;
-    uniform mat4 u_View;
+    uniform mediump mat4 u_Projection;
+    uniform mediump mat4 u_Model;
+    uniform mediump mat4 u_View;
 
-    uniform vec3 u_CameraPosition;
+    uniform mediump vec3 u_CameraPosition;
 
     void main() {
 
@@ -28,10 +28,10 @@
         v_TexCoord = a_TexCoord;
 
         // Compute (Inverse) TBN matrix:
-        mat3 tbn = transpose(mat3(
-            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(transpose(inverse(mat3(u_Model))) * a_Normal, 0)))
+        mediump mat3 tbn = transpose(mat3(
+            normalize(vec3(u_Model * vec4(a_Tangent,   0.0))),
+            normalize(vec3(u_Model * vec4(a_Bitangent, 0.0))),
+            normalize(vec3(u_Model * vec4(transpose(inverse(mat3(u_Model))) * a_Normal, 0.0)))
         ));
 
          v_CamPos_Tangent = tbn * u_CameraPosition;
@@ -47,20 +47,20 @@
     #include "/shaders/include/common_utils.glsl"
     #include "/shaders/include/lighting_utils.glsl"
 
-    in vec2 v_TexCoord;
-    in vec3 v_FragPos_Tangent;
-    in vec3 v_CamPos_Tangent;
+    in mediump vec2 v_TexCoord;
+    in mediump vec3 v_FragPos_Tangent;
+    in mediump vec3 v_CamPos_Tangent;
 
     uniform sampler2D u_Displacement;
-    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
+    uniform mediump float u_Displacement_Amount = 0.0; // Strength of displacement.
 
-    uniform vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
+    uniform mediump vec4 u_ST = vec4(1.0, 1.0, 0.0, 0.0);
 
     void main() {
 
-        vec3 viewDir_Tangent = normalize(v_CamPos_Tangent - v_FragPos_Tangent);
+        mediump vec3 viewDir_Tangent = normalize(v_CamPos_Tangent - v_FragPos_Tangent);
 
-        vec2 uv = ParallaxMapping(
+        mediump vec2 uv = ParallaxMapping(
             u_Displacement,
             viewDir_Tangent,
             v_TexCoord,

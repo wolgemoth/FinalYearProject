@@ -2,9 +2,9 @@
 
     #version 330 core
 
-    in vec3 a_Position;
+    in mediump vec3 a_Position;
 
-    uniform mat4 u_Model;
+    uniform mediump mat4 u_Model;
 
     void main() {
         gl_Position = u_Model * vec4(a_Position, 1.0);
@@ -17,9 +17,9 @@
     layout (triangles) in;
     layout (triangle_strip, max_vertices=18) out;
 
-    uniform mat4 u_Matrices[6];
+    uniform mediump mat4 u_Matrices[6];
 
-    out vec4 FragPos; // FragPos from geometry shader. (Output per EmitVertex())
+    out mediump vec4 FragPos; // FragPos from geometry shader. (Output per EmitVertex())
 
     void main() {
 
@@ -46,10 +46,10 @@
 
     #version 330 core
 
-    in vec4 FragPos;
+    in mediump vec4 FragPos;
 
-    uniform vec3 u_LightPosition;
-    uniform float u_FarPlane;
+    uniform mediump vec3 u_LightPosition;
+    uniform mediump float u_FarPlane;
 
     void main() {
         gl_FragDepth = length(FragPos.xyz - u_LightPosition) / u_FarPlane;

@@ -4,14 +4,14 @@
 
     #extension GL_ARB_explicit_uniform_location : enable
 
-    layout (location = 0) in vec3 a_Position;
+    layout (location = 0) in mediump vec3 a_Position;
 
-    out vec3 v_TexCoord;
+    out mediump vec3 v_TexCoord;
 
     /* PARAMETERS */
-    layout (location = 3) uniform mat4 u_Projection;
-    layout (location = 4) uniform mat4 u_Model;
-    layout (location = 5) uniform mat4 u_View;
+    layout (location = 3) uniform mediump mat4 u_Projection;
+    layout (location = 4) uniform mediump mat4 u_Model;
+    layout (location = 5) uniform mediump mat4 u_View;
 
     void main() {
 
@@ -27,9 +27,9 @@
     #extension GL_ARB_texture_query_levels      : enable
     #extension GL_ARB_explicit_uniform_location : enable
 
-    const float PI = 3.141593;
+    const mediump float PI = 3.141593;
 
-    in vec3 v_TexCoord;
+    in mediump vec3 v_TexCoord;
 
     //#define SAMPLER_CUBE
 
@@ -39,16 +39,16 @@
         layout (location = 0) uniform sampler2D u_Texture;
     #endif
 
-    uniform float u_Exposure = 1.0;
-    uniform float u_Blur     = 0.0;
+    uniform mediump float u_Exposure = 1.0;
+    uniform mediump float u_Blur     = 0.0;
 
-    vec3 SampleAmbient(in vec3 _dir) {
+    mediump vec3 SampleAmbient(in vec3 _dir) {
 
-        vec3 result;
+        mediump vec3 result;
 
-        float s = textureSize(u_Texture, 0).x;
+        mediump float s = textureSize(u_Texture, 0).x;
 
-        float levels = log2(s);
+        mediump float levels = log2(s);
 
         int b = int(pow(u_Blur, levels) * levels);
 
@@ -58,20 +58,20 @@
             result = texture(u_Texture, _dir, b).rgb;
         #else
 
-            vec3 d = normalize(_dir);
+            mediump vec3 d = normalize(_dir);
 
             // Sample the texture2d by converting the direction to a uv coordinate.
             // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
 
-            vec2 uv = vec2(
+            mediump vec2 uv = vec2(
                 0.5 + ((atan(d.z, d.x) / PI) / 2.0),
                 0.5 - (asin(d.y) / PI)
             );
 
             // Fix seam at wrap-around point.
-            float threshold = 4.0 / textureSize(u_Texture, b).x;
+            mediump float threshold = 4.0 / textureSize(u_Texture, b).x;
 
-            float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
+            mediump float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 
             //result = texture(u_Texture, vec2(uv.x * check, uv.y), b).rgb;
 

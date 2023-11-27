@@ -2,10 +2,10 @@
 
     #version 330 core
 
-    in vec2 a_Position;
-    in vec2 a_TexCoord;
+    in mediump vec2 a_Position;
+    in mediump vec2 a_TexCoord;
 
-    out vec2 v_TexCoord;
+    out mediump vec2 v_TexCoord;
 
     void main() {
 
@@ -22,7 +22,7 @@
 
     #include "/shaders/include/common_utils.glsl"
 
-    in vec2 v_TexCoord;
+    in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Color;
     uniform sampler2D u_Weights;
@@ -31,11 +31,11 @@
 
     void main() {
 
-        vec3 c = Sample3(u_Color, v_TexCoord);
-        float w = (Sample1(u_Weights, v_TexCoord) - 0.5) * 2.0;
+        mediump vec3 c = Sample3(u_Color, v_TexCoord);
+        mediump float w = (Sample1(u_Weights, v_TexCoord) - 0.5) * 2.0;
 
         // Less accurate than a luminosity calculation, but easier to do.
-        float brightness = (c.r + c.g + c.b) / 3.0;
+        mediump float brightness = (c.r + c.g + c.b) / 3.0;
 
         gl_FragColor = vec4(pow(2.0, brightness)) * w;
     }

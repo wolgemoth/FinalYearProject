@@ -2,22 +2,22 @@
 
     #version 330 core
 
-    in vec3 a_Position;
-    in vec3 a_Normal;
-    in vec2 a_TexCoord;
-    in vec3 a_Tangent;
-    in vec3 a_Bitangent;
+    in mediump vec3 a_Position;
+    in mediump vec3 a_Normal;
+    in mediump vec2 a_TexCoord;
+    in mediump vec3 a_Tangent;
+    in mediump vec3 a_Bitangent;
 
-    out vec2 v_TexCoord;
-    out vec3 v_FragPos_Tangent;
-    out vec3 v_LightPos_Tangent;
+    out mediump vec2 v_TexCoord;
+    out mediump vec3 v_FragPos_Tangent;
+    out mediump vec3 v_LightPos_Tangent;
 
     /* PARAMETERS */
-    uniform mat4 u_Projection;
-    uniform mat4 u_Model;
-    uniform mat4 u_View;
+    uniform mediump mat4 u_Projection;
+    uniform mediump mat4 u_Model;
+    uniform mediump mat4 u_View;
 
-    uniform vec3 u_LightPosition;
+    uniform mediump vec3 u_LightPosition;
 
     void main() {
 
@@ -27,11 +27,11 @@
         // Texture coordinates:
         v_TexCoord = a_TexCoord;
 
-        // Compute (inverse) TBN matrix:
-        mat3 tbn = transpose(mat3(
-            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(transpose(inverse(mat3(u_Model))) * a_Normal, 0)))
+        // Compute (Inverse) TBN matrix:
+        mediump mat3 tbn = transpose(mat3(
+            normalize(vec3(u_Model * vec4(a_Tangent,   0.0))),
+            normalize(vec3(u_Model * vec4(a_Bitangent, 0.0))),
+            normalize(vec3(u_Model * vec4(transpose(inverse(mat3(u_Model))) * a_Normal, 0.0)))
         ));
 
         v_LightPos_Tangent = tbn * u_LightPosition;
@@ -47,9 +47,9 @@
     #include "/shaders/include/common_utils.glsl"
     #include "/shaders/include/lighting_utils.glsl"
 
-    in vec2 v_TexCoord;
-    in vec3 v_FragPos_Tangent;
-    in vec3 v_LightPos_Tangent;
+    in mediump vec2 v_TexCoord;
+    in mediump vec3 v_FragPos_Tangent;
+    in mediump vec3 v_LightPos_Tangent;
 
     uniform sampler2D u_Roughness;
     uniform sampler2D u_Metallic;
@@ -59,25 +59,25 @@
     /* G-BUFFER */
     uniform sampler2D u_TexCoord_gBuffer;
 
-    uniform vec2 u_ScreenDimensions;
+    uniform mediump vec2 u_ScreenDimensions;
 
-    uniform float    u_Roughness_Amount = 1.0; // How rough the surface is.
-    uniform float           u_AO_Amount = 1.0; // Strength of AO.
-    uniform float u_Displacement_Amount = 0.0; // Strength of displacement.
+    uniform mediump float    u_Roughness_Amount = 1.0; // How rough the surface is.
+    uniform mediump float           u_AO_Amount = 1.0; // Strength of AO.
+    uniform mediump float u_Displacement_Amount = 0.0; // Strength of displacement.
 
     void main() {
 
-        vec2 uv = Sample2(u_TexCoord_gBuffer, gl_FragCoord.xy / u_ScreenDimensions);
+        mediump vec2 uv = Sample2(u_TexCoord_gBuffer, gl_FragCoord.xy / u_ScreenDimensions);
 
-        float roughness = Sample1(u_Roughness, uv) * u_Roughness_Amount;
-        float  metallic = Sample1(u_Metallic,  uv);
-        float        ao = Sample1(u_AO,        uv);
+        mediump float roughness = Sample1(u_Roughness, uv) * u_Roughness_Amount;
+        mediump float  metallic = Sample1(u_Metallic,  uv);
+        mediump float        ao = Sample1(u_AO,        uv);
 
         ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
 
-        vec3 lightDir = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
+        mediump vec3 lightDir = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
 
-        float parallaxShadow = ParallaxShadowsHard(
+        mediump float parallaxShadow = ParallaxShadowsHard(
             u_Displacement,
             lightDir,
             uv,

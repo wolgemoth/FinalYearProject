@@ -7,9 +7,9 @@ namespace LouiEriksson {
 	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
 		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
 		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
+		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
 		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG16F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER)
 	{
@@ -700,7 +700,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Depth_gBuffer"),
-				m_Normal_gBuffer.DepthID(),
+				m_Position_gBuffer.DepthID(),
 				5,
 				GL_TEXTURE_2D
 			);
@@ -909,7 +909,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		Copy(m_Albedo_gBuffer, m_RT);
+		//Copy(m_Albedo_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
