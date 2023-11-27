@@ -989,7 +989,7 @@ namespace LouiEriksson {
 
 			Shader::Bind(horizontal.lock()->ID());
 		
-			RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), _rt.WrapMode());
+			RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode());
 	        Blit(_rt, tmp, horizontal);
 	        Blit(tmp, tmp, vertical);
 			
@@ -1017,7 +1017,7 @@ namespace LouiEriksson {
 		
 		const glm::ivec2 luma_res(32, 32);
 		
-		RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(GL_RGB16F, false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode());
+		RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode());
 		
 		auto mask = Resources::GetTexture("exposure_weights");
 		
