@@ -10,8 +10,8 @@
 
     float ParallaxShadowsHard(in sampler2D _displacement, in vec3 _lightDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
-        float minLayers = 0;
-        float maxLayers = 16;
+        float minLayers = 0.0;
+        float maxLayers = 16.0;
         float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0, 0.0, 1.0), _lightDir)));
 
         vec2 currentTexCoords = _uv;
