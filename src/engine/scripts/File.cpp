@@ -100,7 +100,7 @@ namespace LouiEriksson {
 		
 		try {
 			
-			_output.reset(new Texture());
+			_output.reset(new Texture(-1, -1, 0, Texture::Parameters::Format(_format, _generateMipmaps), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)));
 			
 			glGenTextures(1, &_output->m_TextureID);
 			
@@ -567,106 +567,118 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	Cubemap File::Load(const std::array<std::filesystem::path, 6>& _paths, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
-		Cubemap result;
+		bool result = false;
 		
-		glGenTextures(1, &result.m_TextureID);
+		_output.reset(
+			new Cubemap(
+				-1, -1, 0,
+				Texture::Parameters::Format(_format, _generateMipmaps),
+				Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
+				Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
+			)
+		);
 		
-		if (result.m_TextureID > 0) {
+		try {
 			
-			Cubemap::Bind(result);
+			glGenTextures(1, &_output->m_TextureID);
 			
-			int cubemap_resolution = -1;
-			
-			for (int i = 0; i < _paths.size(); ++i) {
+			if (_output->m_TextureID > 0) {
 				
-				try {
+				Cubemap::Bind(*_output.get());
+				
+				int cubemap_resolution = -1;
+				
+				for (int i = 0; i < _paths.size(); ++i) {
 					
-					int channels;
-					GLenum texture_format;
-					
-					Texture::GetFormatData(_format, texture_format, channels);
-					
-					glm::ivec2 loaded_resolution = { -1, -1 };
-					
-					void* data;
-					GLenum data_format;
-					
-					if (strcmp(_paths[i].extension().c_str(), ".hdr") == 0) {
-						data_format = GL_FLOAT;
-						data = stbi_loadf(
-							_paths[i].c_str(),
-							&loaded_resolution.x,
-							&loaded_resolution.y,
-							nullptr,
-							channels
-						);
-					}
-					else {
-						data_format = GL_UNSIGNED_BYTE;
-						data = stbi_load(
-							_paths[i].c_str(),
-							&loaded_resolution.x,
-							&loaded_resolution.y,
-							nullptr,
-							channels
-						);
-					}
-					
-					cubemap_resolution = glm::max(
-						glm::max(
-							loaded_resolution.x,
-							loaded_resolution.y
-						),
-						cubemap_resolution
-					);
-					
-					if (data != nullptr) {
+					try {
 						
-						glTexImage2D(
-							GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-							0,
-							_format,
-							loaded_resolution.x,
-							loaded_resolution.y,
-							0,
-							texture_format,
-							data_format,
-							data
+						glm::ivec2 loaded_resolution = { -1, -1 };
+						
+						void* data;
+						GLenum data_format;
+						
+						if (strcmp(_paths[i].extension().c_str(), ".hdr") == 0) {
+							data_format = GL_FLOAT;
+							data = stbi_loadf(
+								_paths[i].c_str(),
+								&loaded_resolution.x,
+								&loaded_resolution.y,
+								nullptr,
+								_output->Format().Channels()
+							);
+						}
+						else {
+							data_format = GL_UNSIGNED_BYTE;
+							data = stbi_load(
+								_paths[i].c_str(),
+								&loaded_resolution.x,
+								&loaded_resolution.y,
+								nullptr,
+								_output->Format().Channels()
+							);
+						}
+						
+						cubemap_resolution = glm::max(
+							glm::max(
+								loaded_resolution.x,
+								loaded_resolution.y
+							),
+							cubemap_resolution
 						);
 						
-						stbi_image_free(data);
+						if (data != nullptr) {
+							
+							glTexImage2D(
+								GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+								0,
+								_output->Format().PixelFormat(),
+								loaded_resolution.x,
+								loaded_resolution.y,
+								0,
+								_output->Format().TextureFormat(),
+								data_format,
+								data
+							);
+							
+							stbi_image_free(data);
+						}
+						else {
+							throw std::runtime_error("Failed to load texture at path \"" + _paths[i].string() + "\".");
+						}
 					}
-					else {
-						throw std::runtime_error("Failed to load texture at path \"" + _paths[i].string() + "\".");
+					catch (const std::exception& e) {
+						std::cout << e.what() << "\n";
 					}
 				}
-				catch (const std::exception& e) {
-					std::cout << e.what() << "\n";
+				
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, _output->WrapMode().WrapS());
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, _output->WrapMode().WrapT());
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, _output->WrapMode().WrapR());
+				
+				if (_generateMipmaps) {
+					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				
+					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 				}
+				else {
+					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, _output->FilterMode().Min());
+				}
+				
+				glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+				
+				_output->m_Width  = cubemap_resolution;
+				_output->m_Height = cubemap_resolution;
+				
+				Cubemap::Unbind();
 			}
 			
-			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-			
-			if (_generateMipmaps) {
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			
-				glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-			}
-			else {
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			}
-			
-			glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-			
-			result.m_Width  = cubemap_resolution;
-			result.m_Height = cubemap_resolution;
-			
-			Cubemap::Unbind();
+			result = true;
+		}
+		catch (const std::exception& _e) {
+			std::cout << _e.what() << "\n";
 		}
 		
 		return result;

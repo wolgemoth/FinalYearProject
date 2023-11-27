@@ -5,13 +5,13 @@
 namespace LouiEriksson {
 
 	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
-	              m_RT(1, 1),
-	  m_Albedo_gBuffer(1, 1),
-	m_Emission_gBuffer(1, 1),
-	m_Material_gBuffer(1, 1),
-	m_Position_gBuffer(1, 1),
-	  m_Normal_gBuffer(1, 1),
-	m_TexCoord_gBuffer(1, 1)
+		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)),
+		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG16F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE))
 	{
 		m_Window    = std::shared_ptr<Window>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
@@ -100,18 +100,18 @@ namespace LouiEriksson {
 		// TODO: Set up enum flags for dirtying instead of m_IsDirty so that this doesn't happen every frame.
 		auto dimensions = GetWindow()->Dimensions();
 		
-		              m_RT.Resize(dimensions[0], dimensions[1]);
-		  m_Albedo_gBuffer.Resize(dimensions[0], dimensions[1]);
-		m_Emission_gBuffer.Resize(dimensions[0], dimensions[1]);
-		m_Material_gBuffer.Resize(dimensions[0], dimensions[1]);
-		m_Position_gBuffer.Resize(dimensions[0], dimensions[1]);
-		  m_Normal_gBuffer.Resize(dimensions[0], dimensions[1]);
-		m_TexCoord_gBuffer.Resize(dimensions[0], dimensions[1]);
+		              m_RT.Reinitialise(dimensions[0], dimensions[1]);
+		  m_Albedo_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+		m_Emission_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+		m_Material_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+		m_Position_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+		  m_Normal_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+		m_TexCoord_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
 	}
 	
 	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
 		
-		glm::vec4 st(3.0f, 3.0f, 0.0f, 0.0f);
+		glm::vec4 const st(3.0f, 3.0f, 0.0f, 0.0f);
 		
 		const float skyExposure = 1.0f;
 		
@@ -258,6 +258,7 @@ namespace LouiEriksson {
 			Shader::Bind(program.lock()->ID());
 			
 			RenderTexture::Bind(m_Emission_gBuffer);
+			glClear(GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -492,7 +493,7 @@ namespace LouiEriksson {
 		
 	}
 	
-	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
+	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const {
 		
 		for (const auto& light : _lights) {
 	
@@ -796,7 +797,7 @@ namespace LouiEriksson {
 						light->m_Shadow.m_NormalBias);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
-						64);
+						16);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
 						light->m_Size);
@@ -915,7 +916,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		//Copy(m_Normal_gBuffer, m_RT);
+		//Copy(m_Position_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
@@ -944,10 +945,10 @@ namespace LouiEriksson {
 		horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Texture"), _rt.ID());
 		  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Texture"), _rt.ID());
 		
-		int w = dimensions.x,
-            h = dimensions.y;
+		const int w = (int)dimensions.x,
+                  h = (int)dimensions.y;
 
-        float dpiFactor = _consistentDPI ?
+        float const dpiFactor = _consistentDPI ?
             glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) :
             1.0f;
 
@@ -988,9 +989,8 @@ namespace LouiEriksson {
 
 			Shader::Bind(horizontal.lock()->ID());
 		
-			RenderTexture tmp(width, height);
+			RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), _rt.WrapMode());
 	        Blit(_rt, tmp, horizontal);
-			
 	        Blit(tmp, tmp, vertical);
 			
 			Copy(tmp, _rt);
@@ -1017,7 +1017,7 @@ namespace LouiEriksson {
 		
 		const glm::ivec2 luma_res(32, 32);
 		
-		RenderTexture luma_out(luma_res.x, luma_res.y);
+		RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(GL_RGB16F, false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode());
 		
 		auto mask = Resources::GetTexture("exposure_weights");
 		
@@ -1027,13 +1027,10 @@ namespace LouiEriksson {
 		
 		Blit(m_RT, luma_out, auto_exposure_shader);
 		
-		int channels;
-		GLenum format;
-		Texture::GetFormatData(GL_RGBA32F, format, channels);
-		std::vector<float> pixels(luma_res.x * luma_res.y * channels);
+		std::vector<float> pixels(luma_res.x * luma_res.y * luma_out.Format().Channels());
 		
 		RenderTexture::Bind(luma_out);
-		glReadPixels(0, 0, luma_res.x, luma_res.y, format, GL_FLOAT, pixels.data());
+		glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_FLOAT, pixels.data());
 		RenderTexture::Unbind();
 		
 		int num = 0;
@@ -1094,7 +1091,7 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_VP"), m_Projection * View());
 		ao.lock()->Assign(ao.lock()->AttributeID("u_View"), View());
 		
-		RenderTexture ao_rt(dimensions.x, dimensions.y);
+		RenderTexture ao_rt(dimensions.x, dimensions.y, Texture::Parameters::Format(GL_RGBA, false), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
 		
 		ao.lock()->Assign(
 			ao.lock()->AttributeID("u_Position_gBuffer"),
@@ -1124,7 +1121,7 @@ namespace LouiEriksson {
 		RenderTexture::Unbind();
 		Shader::Unbind();
 		
-		Blur(ao_rt, 1.0f, 2, true, true);
+		Blur(ao_rt, 1.0f, 1, true, true);
 
 		auto multiply = Resources::GetShader("multiply");
 
@@ -1177,14 +1174,14 @@ namespace LouiEriksson {
 		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
 		Shader::Unbind();
 		
-		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2);
+		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
 		
-		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4);
-		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8);
-		RenderTexture mip2(dimensions.x /  16, dimensions.y /  16);
-		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32);
-		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64);
-		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128);
+		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
 		
 		Blit(m_RT, tmp, threshold_shader);
 		
@@ -1250,7 +1247,7 @@ namespace LouiEriksson {
 		Blit(_src, _dest, Resources::GetShader("passthrough").lock());
 	}
 	
-	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, std::weak_ptr<Shader> _shader) {
+	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) {
 		
 		glm::ivec4 dimensions;
 		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);

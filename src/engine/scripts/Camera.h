@@ -60,13 +60,13 @@ namespace LouiEriksson {
 		
 		void GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers);
 		
-		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
+		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const;
 		
 		void PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const;
 		
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
-		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, std::weak_ptr<Shader> _shader) ;
+		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) ;
 
 		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
 

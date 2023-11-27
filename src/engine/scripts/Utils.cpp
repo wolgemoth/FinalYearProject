@@ -28,18 +28,4 @@ namespace LouiEriksson {
 			sm[0] : _string;
 	}
 	
-	/// <summary>
-	/// Trim leading characters from a c++ string.
-	/// </summary>
-	std::string Utils::TrimStart(const std::string& _string) {
-		throw std::runtime_error("Not implemented!");
-	}
-	
-	/// <summary>
-	/// Trim trailing characters from a c++ string.
-	/// </summary>
-	std::string Utils::TrimEnd(const std::string& _string) {
-		throw std::runtime_error("Not implemented!");
-	}
-	
 } // LouiEriksson

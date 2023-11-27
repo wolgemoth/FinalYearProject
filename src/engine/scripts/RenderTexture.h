@@ -15,18 +15,25 @@ namespace LouiEriksson {
 			   m_RBO_ID,
 			   m_Depth_ID;
 		
-		void Create(const int& _width, const int& _height);
+		void Create(
+				const int& _width, const int& _height,
+				const Texture::Parameters::Format& _format,
+				const Texture::Parameters::FilterMode& _filterMode,
+				const Texture::Parameters::WrapMode& _wrapMode
+		);
 	
 	public:
 		
-		RenderTexture(const int& _width, const int& _height);
+		RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
 		
 		~RenderTexture();
 		
 		RenderTexture(             const RenderTexture& _other) = delete;
 		RenderTexture& operator = (const RenderTexture& _other) = delete;
 		
-		void Resize(const int& _width, const int& _height);
+		void Reinitialise(const int& _width, const int& _height);
+		
+		void Reinitialise(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
 		
 		static void Bind(const RenderTexture& _rt);
 		

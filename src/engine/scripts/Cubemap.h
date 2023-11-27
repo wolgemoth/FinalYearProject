@@ -16,9 +16,7 @@ namespace LouiEriksson {
 		
 	private:
 		
-		Cubemap();
-		
-		Cubemap(const int& _width, const int& _height, const GLuint& _textureID);
+		Cubemap(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
 		
 	public:
 		
@@ -26,9 +24,6 @@ namespace LouiEriksson {
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;
-		
-		Cubemap             (Cubemap&& _other) noexcept;
-		Cubemap& operator = (Cubemap&& _other) noexcept;
 		
 		static void Bind(const Cubemap& _cubemap);
 		

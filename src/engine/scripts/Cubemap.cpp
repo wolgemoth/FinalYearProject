@@ -6,22 +6,7 @@
 
 namespace LouiEriksson {
 	
-	Cubemap::Cubemap() : Texture(-1, -1) {}
-	
-	Cubemap::Cubemap(const int& _width, const int& _height, const GLuint& _textureID) : Texture(_width, _height, _textureID) {}
-	
-	Cubemap::Cubemap(Cubemap&& _other) noexcept : Texture(std::move(_other)) {
-		
-		m_Width  = _other.m_Width;
-		m_Height = _other.m_Height;
-		
-		m_TextureID = _other.m_TextureID;
-		
-		_other.m_Width  = -1;
-		_other.m_Height = -1;
-		
-		_other.m_TextureID = 0;
-	}
+	Cubemap::Cubemap(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) : Texture(_width, _height, _textureID, _format, _filterMode, _wrapMode) {}
 	
 	Cubemap::~Cubemap() {
 		Discard();
@@ -37,23 +22,5 @@ namespace LouiEriksson {
 	
 	void Cubemap::Discard() const {
 		Texture::Discard();
-	}
-	
-	Cubemap& Cubemap::operator = (Cubemap&& _other) noexcept {
-		
-		if (this != &_other) {
-			
-			this->m_Width  = _other.m_Width;
-			this->m_Height = _other.m_Height;
-			
-			this->m_TextureID = _other.m_TextureID;
-			
-			_other.m_Width  = -1;
-			_other.m_Height = -1;
-			
-			_other.m_TextureID = -1;
-		}
-		
-		return *this;
 	}
 }

@@ -9,9 +9,6 @@
     in vec3 a_Bitangent;
 
     out vec3 v_Position;
-    out vec2 v_TexCoord;
-    out vec3 v_Normal;
-    out mat3 v_TBN;
 
     /* PARAMETERS */
     uniform mat4 u_Projection;
@@ -25,20 +22,6 @@
 
         // Position in model space:
         v_Position = vec3(u_Model * vec4(a_Position, 1.0));
-
-        // Texture coordinates:
-        v_TexCoord = a_TexCoord;
-
-        // Normal:
-        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
-
-        // Compute TBN matrix:
-        v_TBN = mat3(
-            normalize(vec3(u_Model * vec4(a_Tangent,   0))),
-            normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(a_Normal,    0)))
-        );
-
     }
 
 #pragma fragment

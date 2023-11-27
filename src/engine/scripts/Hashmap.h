@@ -55,7 +55,7 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Resize the hashmap. An expensive operation that increases the hashmap's capacity.
+		/// Reinitialise the hashmap. An expensive operation that increases the hashmap's capacity.
 		/// </summary>
 		void Resize() {
 			

@@ -10,10 +10,6 @@ namespace LouiEriksson {
 		static std::vector<std::string> Split(const std::string& _string, const char& _divider);
 		
 		static std::string Trim(const std::string& _string);
-		
-		static std::string TrimStart(const std::string& _string);
-		
-		static std::string TrimEnd(const std::string& _string);
 	};
 	
 } // LouiEriksson
