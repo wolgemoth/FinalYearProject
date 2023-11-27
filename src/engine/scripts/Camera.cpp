@@ -1091,7 +1091,15 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_VP"), m_Projection * View());
 		ao.lock()->Assign(ao.lock()->AttributeID("u_View"), View());
 		
-		RenderTexture ao_rt(dimensions.x, dimensions.y, Texture::Parameters::Format(GL_RGBA, false), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode());
+		int downscale = 1;
+		
+		RenderTexture ao_rt(
+			dimensions.x / (downscale + 1),
+			dimensions.y / (downscale + 1),
+			Texture::Parameters::Format(GL_RGB, false),
+			Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
+			m_RT.WrapMode()
+		);
 		
 		ao.lock()->Assign(
 			ao.lock()->AttributeID("u_Position_gBuffer"),
@@ -1114,14 +1122,14 @@ namespace LouiEriksson {
 			GL_TEXTURE_2D
 		);
 		
+		glViewport(0, 0, ao_rt.Width(), ao_rt.Height());
+		
 		RenderTexture::Bind(ao_rt);
-		
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		
 		RenderTexture::Unbind();
 		Shader::Unbind();
 		
-		Blur(ao_rt, 1.0f, 1, true, true);
+		Blur(ao_rt, 0.5f, 1, true, false);
 
 		auto multiply = Resources::GetShader("multiply");
 
@@ -1131,7 +1139,9 @@ namespace LouiEriksson {
 
 		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture0"),  m_RT.ID(), 0, GL_TEXTURE_2D);
 		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture1"), ao_rt.ID(), 1, GL_TEXTURE_2D);
-
+		
+		glViewport(0, 0, m_RT.Width(), m_RT.Height());
+		
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
