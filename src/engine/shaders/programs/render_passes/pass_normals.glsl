@@ -51,7 +51,6 @@
     in vec2 v_TexCoord;
     in vec4 v_Position;
     in vec3 v_Normal;
-
     in mat3 v_TBN;
 
     uniform sampler2D u_Normals;

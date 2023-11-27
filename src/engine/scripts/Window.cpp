@@ -27,7 +27,7 @@ namespace LouiEriksson {
 		// Set the display mode to 10bpp if the HDR10 flag is raised.
 		displayMode.format = _hdr10 ?
 				SDL_PIXELFORMAT_ARGB2101010 :
-				SDL_PIXELFORMAT_ARGB32;
+				SDL_PIXELFORMAT_RGB24;
 		
 	    if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
 			

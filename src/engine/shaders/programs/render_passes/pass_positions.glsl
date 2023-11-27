@@ -5,8 +5,6 @@
     in vec3 a_Position;
     in vec3 a_Normal;
     in vec2 a_TexCoord;
-    in vec3 a_Tangent;
-    in vec3 a_Bitangent;
 
     out vec3 v_Position;
 
@@ -35,7 +33,6 @@
     in vec2 v_TexCoord;
     in vec3 v_Position;
     in vec3 v_Normal;
-    in mat3 v_TBN;
 
     void main() {
         gl_FragColor = vec4(v_Position, 1.0);

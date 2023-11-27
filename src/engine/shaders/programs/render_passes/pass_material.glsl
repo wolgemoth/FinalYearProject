@@ -8,36 +8,34 @@
     in vec3 a_Tangent;
     in vec3 a_Bitangent;
 
-    out vec3 v_Position;
     out vec2 v_TexCoord;
-    out vec3 v_Normal;
-    out mat3 v_TBN;
+    out vec3 v_FragPos_Tangent;
+    out vec3 v_LightPos_Tangent;
 
     /* PARAMETERS */
     uniform mat4 u_Projection;
     uniform mat4 u_Model;
     uniform mat4 u_View;
 
+    uniform vec3 u_LightPosition;
+
     void main() {
 
         // Perform perspective projection on model vertex:
         gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
 
-        // Position in model space:
-        v_Position = vec3(u_Model * vec4(a_Position, 1.0));
-
         // Texture coordinates:
         v_TexCoord = a_TexCoord;
 
-        // Normal:
-        v_Normal = transpose(inverse(mat3(u_Model))) * a_Normal;
-
-        // Compute TBN matrix:
-        v_TBN = mat3(
+        // Compute (inverse) TBN matrix:
+        mat3 tbn = transpose(mat3(
             normalize(vec3(u_Model * vec4(a_Tangent,   0))),
             normalize(vec3(u_Model * vec4(a_Bitangent, 0))),
-            normalize(vec3(u_Model * vec4(a_Normal,    0)))
-        );
+            normalize(vec3(u_Model * vec4(transpose(inverse(mat3(u_Model))) * a_Normal, 0)))
+        ));
+
+        v_LightPos_Tangent = tbn * u_LightPosition;
+         v_FragPos_Tangent = tbn * vec3(u_Model * vec4(a_Position, 1.0));
     }
 
 #pragma fragment
@@ -50,9 +48,8 @@
     #include "/shaders/include/lighting_utils.glsl"
 
     in vec2 v_TexCoord;
-    in vec3 v_Position;
-    in vec3 v_Normal;
-    in mat3 v_TBN;
+    in vec3 v_FragPos_Tangent;
+    in vec3 v_LightPos_Tangent;
 
     uniform sampler2D u_Roughness;
     uniform sampler2D u_Metallic;
@@ -61,11 +58,8 @@
 
     /* G-BUFFER */
     uniform sampler2D u_TexCoord_gBuffer;
-    uniform sampler2D u_Position_gBuffer;
 
     uniform vec2 u_ScreenDimensions;
-
-    uniform vec3 u_LightPosition;
 
     uniform float    u_Roughness_Amount = 1.0; // How rough the surface is.
     uniform float           u_AO_Amount = 1.0; // Strength of AO.
@@ -81,13 +75,11 @@
 
         ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
 
-        vec3 position = Sample3(u_Position_gBuffer, uv);
-
-        vec3 lightDir = normalize(u_LightPosition - v_Position);
+        vec3 lightDir = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
 
         float parallaxShadow = ParallaxShadowsHard(
             u_Displacement,
-            (transpose(v_TBN) * lightDir),
+            lightDir,
             uv,
             vec4(1.0, 1.0, 0.0, 0.0),
             u_Displacement_Amount

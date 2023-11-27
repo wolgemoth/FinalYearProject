@@ -415,13 +415,6 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_Position_gBuffer"),
-					m_Position_gBuffer.ID(),
-					5,
-					GL_TEXTURE_2D
-				);
-				
 				program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
 				program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
@@ -916,7 +909,7 @@ namespace LouiEriksson {
 		// Draw post processing.
 		PostProcess(effects);
 		
-		//Copy(m_Position_gBuffer, m_RT);
+		Copy(m_Albedo_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
