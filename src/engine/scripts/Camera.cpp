@@ -5,7 +5,7 @@
 namespace LouiEriksson {
 
 	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
-		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
+		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
 		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
@@ -886,7 +886,7 @@ namespace LouiEriksson {
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_RelativeThreshold"),   0.063f);
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_SubpixelBlending"),     0.75f);
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_EdgeBlending"),          1.0f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 0.5f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 1.0f);
 		Shader::Unbind();
 		
 		auto grain = Resources::GetShader("grain");

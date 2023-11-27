@@ -104,10 +104,10 @@
 
             mediump vec2 offset = vec2(i, j);
 
-            mediump vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0), vec2(1));
+            mediump vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0.0), vec2(1.0));
 
             mediump float luma          = Luma(texture(u_Texture, uv).rgb, 0);
-            mediump float luma_adjusted = luma / max(abs(i) + abs(j), 1);
+            mediump float luma_adjusted = luma / float(max(abs(i) + abs(j), 1));
 
             result.maximal = max(result.maximal, luma);
             result.minimal = min(result.minimal, luma);
@@ -128,7 +128,7 @@
         return result;
     }
 
-    int To1D(ivec2 _index, int _blockWidth) {
+    int To1D(in ivec2 _index, in int _blockWidth) {
         return (_index.y * _blockWidth) + _index.x;
     }
 
@@ -261,30 +261,30 @@
             color = vec3(FXAA(luma, texelSize));
         }
         else {
-            color = texture(u_Texture, v_TexCoord).rgb;//vec3(0);//
+            color = texture(u_Texture, v_TexCoord).rgb;//vec3(0.0);//
         }
 
-        //color -= texture(u_Texture, v_TexCoord).rgb;
+//        color = min(abs(color - texture(u_Texture, v_TexCoord).rgb) * F32PMAX, vec3(1.0)).rrr;
 
-        //color = min(abs(color - texture(u_Texture, v_TexCoord).rgb) * INFINITY, vec3(1.0)).rrr;
-
-    //    if (abs(luma.direction.x) > abs(luma.direction.y)) {
-    //
-    //        if (luma.direction.x > 0) {
-    //            color *= vec3(1, 0, 0);
-    //        }
-    //        else {
-    //            color *= vec3(0, 0, 1);
-    //        }
-    //    }
-    //    else {
-    //        if (luma.direction.y > 0) {
-    //            color *= vec3(0, 1, 0);
-    //        }
-    //        else {
-    //            color *= vec3(1, 0, 1);
-    //        }
-    //    }
+//        color -= texture(u_Texture, v_TexCoord).rgb;
+//
+//        if (abs(luma.direction.x) > abs(luma.direction.y)) {
+//
+//            if (luma.direction.x > 0.0) {
+//                color *= vec3(1.0, 0.0, 0.0);
+//            }
+//            else {
+//                color *= vec3(0.0, 0.0, 1.0);
+//            }
+//        }
+//        else {
+//            if (luma.direction.y > 0.0) {
+//                color *= vec3(0.0, 1.0, 0.0);
+//            }
+//            else {
+//                color *= vec3(1.0, 0.0, 1.0);
+//            }
+//        }
 
         gl_FragColor = vec4(color, 1.0);
     }
