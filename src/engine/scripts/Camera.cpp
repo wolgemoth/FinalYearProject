@@ -891,7 +891,7 @@ namespace LouiEriksson {
 		
 		auto grain = Resources::GetShader("grain");
 		Shader::Bind(grain.lock()->ID());
-		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.01f);
+		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.005f);
 		grain.lock()->Assign(grain.lock()->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		
@@ -1071,7 +1071,7 @@ namespace LouiEriksson {
 		auto ao = Resources::GetShader("ao");
 		Shader::Bind(ao.lock()->ID());
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 16);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 12);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.2f);
