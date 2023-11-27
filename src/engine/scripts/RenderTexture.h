@@ -9,22 +9,19 @@ namespace LouiEriksson {
 	
 	class RenderTexture : public Texture {
 	
-	private:
-		
-		GLuint m_FBO_ID,
-			   m_RBO_ID,
-			   m_Depth_ID;
-		
-		void Create(
-				const int& _width, const int& _height,
-				const Texture::Parameters::Format& _format,
-				const Texture::Parameters::FilterMode& _filterMode,
-				const Texture::Parameters::WrapMode& _wrapMode
-		);
-	
 	public:
 		
-		RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
+		struct Parameters {
+		
+			enum DepthMode {
+				NONE,
+				RENDER_BUFFER,
+				 FRAME_BUFFER
+			};
+			
+		};
+		
+		RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode);
 		
 		~RenderTexture();
 		
@@ -33,7 +30,7 @@ namespace LouiEriksson {
 		
 		void Reinitialise(const int& _width, const int& _height);
 		
-		void Reinitialise(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
+		void Reinitialise(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode);
 		
 		static void Bind(const RenderTexture& _rt);
 		
@@ -42,8 +39,25 @@ namespace LouiEriksson {
 		void Discard() const;
 		
 		GLuint DepthID() const;
-	};
 	
+		
+		
+	private:
+		
+		GLuint m_FBO_ID,
+			   m_RBO_ID,
+			   m_Depth_ID;
+		
+		Parameters::DepthMode m_DepthMode;
+		
+		void Create(
+				const int& _width, const int& _height,
+				const Texture::Parameters::Format& _format,
+				const Texture::Parameters::FilterMode& _filterMode,
+				const Texture::Parameters::WrapMode& _wrapMode,
+				const RenderTexture::Parameters::DepthMode& _depthMode
+		);
+	};
 }
 
 #endif //FINALYEARPROJECT_RENDER_TEXTURE_H

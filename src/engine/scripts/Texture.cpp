@@ -4,13 +4,6 @@
 
 namespace LouiEriksson {
 	
-//	Texture::Texture() : m_Format(GL_NONE, GL_NONE), m_FilterMode(GL_NONE, GL_NONE), m_WrapMode(GL_NONE) {
-//
-//		m_TextureID = 0;
-//
-//		m_Width  = -1;
-//		m_Height = -1;
-//	}
 	
 	Texture::Texture(
 		const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) :
@@ -36,10 +29,10 @@ namespace LouiEriksson {
 			
 			m_TextureID = _other.m_TextureID;
 			
-			_other.m_Width  = -1;
-			_other.m_Height = -1;
+			_other.m_Width  = GL_NONE;
+			_other.m_Height = GL_NONE;
 			
-			_other.m_TextureID = -1;
+			_other.m_TextureID = GL_NONE;
 		}
 	}
 	
@@ -56,11 +49,10 @@ namespace LouiEriksson {
 			this->m_FilterMode = std::move(_other.m_FilterMode);
 			this->m_WrapMode   = std::move(_other.m_WrapMode);
 			
-			_other.m_Width  = -1;
-			_other.m_Height = -1;
+			_other.m_Width  = GL_NONE;
+			_other.m_Height = GL_NONE;
 			
-			_other.m_TextureID = -1;
-			
+			_other.m_TextureID = GL_NONE;
 		}
 		
 		return *this;

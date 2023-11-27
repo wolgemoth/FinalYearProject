@@ -130,8 +130,6 @@ namespace LouiEriksson {
 		Parameters::  WrapMode m_WrapMode;
 		
 		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode);
-		
-		//Texture();
 	};
 	
 }
