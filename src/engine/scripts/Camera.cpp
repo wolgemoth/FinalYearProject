@@ -1125,21 +1125,15 @@ namespace LouiEriksson {
 		
 		Blur(ao_rt, 0.5f, 1, true, false);
 
-		auto multiply = Resources::GetShader("multiply");
-
-		Shader::Bind(multiply.lock()->ID());
-
-		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Strength"), 1.0f);
-
-		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture0"),  m_RT.ID(), 0, GL_TEXTURE_2D);
-		multiply.lock()->Assign(multiply.lock()->AttributeID("u_Texture1"), ao_rt.ID(), 1, GL_TEXTURE_2D);
-		
 		glViewport(0, 0, m_RT.Width(), m_RT.Height());
 		
-		RenderTexture::Bind(m_RT);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		RenderTexture::Unbind();
+	    glEnable(GL_BLEND);
+	    glBlendFunc(GL_DST_COLOR, GL_ZERO);
 
+		Copy(ao_rt, m_RT);
+		
+		glDisable(GL_BLEND);
+		
 		Shader::Unbind();
 	}
 	
@@ -1151,7 +1145,7 @@ namespace LouiEriksson {
 		auto threshold_shader = Resources::GetShader("threshold");
 		auto downscale_shader = Resources::GetShader("downscale");
 		auto   upscale_shader = Resources::GetShader("upscale");
-		auto       add_shader = Resources::GetShader("add");
+		auto   combine_shader = Resources::GetShader("combine");
 		auto lens_dirt_shader = Resources::GetShader("lens_dirt");
 		
 		/* SET BLOOM PARAMETERS */
@@ -1209,13 +1203,12 @@ namespace LouiEriksson {
 		Blit(mip0, tmp,  upscale_shader);
 		
 	    // Disable additive blending
-	    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // Restore if this was default
 	    glDisable(GL_BLEND);
 		
-		Shader::Bind(add_shader.lock()->ID());
-		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
-		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		add_shader.lock()->Assign(add_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
+		Shader::Bind(combine_shader.lock()->ID());
+		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
+		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 		
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
