@@ -16,24 +16,49 @@
 
     /* NOT THIRD-PARTY */
 
-    float Random1(in vec2 _xy, in float _seed, in float _offset) {
+    /* SIGNED */
+
+    float Random1S(in vec2 _xy, in float _seed, in float _offset) {
         return (gold_noise(_xy * 1000.0, _seed + _offset) - 0.5) * 2.0;
     }
 
-    vec2 Random2(in vec2 _xy, in float _seed, in float _offset) {
+    vec2 Random2S(in vec2 _xy, in float _seed, in float _offset) {
 
         return vec2(
-            Random1(_xy, _seed, _offset + 0.1),
-            Random1(_xy, _seed, _offset + 0.2)
+            Random1S(_xy, _seed, _offset + 0.1),
+            Random1S(_xy, _seed, _offset + 0.2)
         );
     }
 
-    vec3 Random3(in vec3 _xyz, in float _seed, in float _offset) {
+    vec3 Random3S(in vec3 _xyz, in float _seed, in float _offset) {
 
         return vec3(
-            Random1(_xyz.xy, _seed, _offset + 0.1),
-            Random1(_xyz.yz, _seed, _offset + 0.2),
-            Random1(_xyz.xz, _seed, _offset + 0.3)
+            Random1S(_xyz.xy, _seed, _offset + 0.1),
+            Random1S(_xyz.yz, _seed, _offset + 0.2),
+            Random1S(_xyz.xz, _seed, _offset + 0.3)
+        );
+    }
+
+    /* UNSIGNED */
+
+    float Random1U(in vec2 _xy, in float _seed, in float _offset) {
+        return gold_noise(_xy * 1000.0, _seed + _offset);
+    }
+
+    vec2 Random2U(in vec2 _xy, in float _seed, in float _offset) {
+
+        return vec2(
+            Random1U(_xy, _seed, _offset + 0.1),
+            Random1U(_xy, _seed, _offset + 0.2)
+        );
+    }
+
+    vec3 Random3U(in vec3 _xyz, in float _seed, in float _offset) {
+
+        return vec3(
+            Random1U(_xyz.xy, _seed, _offset + 0.1),
+            Random1U(_xyz.yz, _seed, _offset + 0.2),
+            Random1U(_xyz.xz, _seed, _offset + 0.3)
         );
     }
 

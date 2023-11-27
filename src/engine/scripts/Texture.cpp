@@ -149,6 +149,8 @@ namespace LouiEriksson {
 		m_TextureFormat = _other.m_TextureFormat;
 		m_Channels      = _other.m_Channels;
 		m_Mips          = _other.m_Mips;
+		
+		return *this;
 	}
 	
 	Texture::Parameters::Format::Format(Texture::Parameters::Format&& _other) noexcept {

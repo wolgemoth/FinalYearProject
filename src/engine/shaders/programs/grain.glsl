@@ -18,7 +18,10 @@
 
     #version 330 core
 
-    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/rand.glsl"
+    #include "/shaders/include/common_utils.glsl"
 
     in mediump vec2 v_TexCoord;
 
@@ -28,27 +31,9 @@
     uniform mediump float u_Amount;
     uniform mediump float u_Time;
 
-    // Gold Noise ©2015 dcerisano@standard3d.com
-    // - based on the Golden Ratio
-    // - uniform normalized distribution
-    // - fastest static noise generator function (also runs at low precision)
-    // - use with indicated fractional seeding method.
-
-    mediump float PHI = 1.61803398874989484820459;  // Φ = Golden Ratio
-
-    mediump float gold_noise(in mediump vec2 xy, in mediump float seed){
-           return fract(tan(distance(xy*PHI, xy)*seed)*xy.x);
-    }
-
     void main() {
 
-        //float grain = gold_noise(v_TexCoord * 1000.0f, fract(u_Time));
+        mediump vec3 grain = Random3S(vec3(v_TexCoord.x, v_TexCoord.y, v_TexCoord.x + v_TexCoord.y), u_Time, 0.5);
 
-        mediump vec3 grain = vec3(
-            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.01),
-            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.02),
-            gold_noise(v_TexCoord * 1000.0, fract(u_Time) + 0.03)
-        );
-
-        gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord).rgb - (grain * u_Amount), 1.0);
+        gl_FragColor = vec4(Sample3(u_Texture, v_TexCoord) + (grain * u_Amount), 1.0);
     }

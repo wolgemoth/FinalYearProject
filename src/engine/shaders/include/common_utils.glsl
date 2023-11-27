@@ -20,103 +20,103 @@
         return (_uv + fract(_st.zw)) * _st.xy;
     }
 
-    vec4 Sample4(sampler2D _texture, in vec2 _uv) {
+    vec4 Sample4(in sampler2D _texture, in vec2 _uv) {
         return texture(_texture, _uv);
     }
 
-    vec4 Sample4(sampler2D _texture, in vec2 _uv, in int _lod) {
+    vec4 Sample4(in sampler2D _texture, in vec2 _uv, in int _lod) {
         return texture(_texture, _uv, _lod);
     }
 
-    vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st) {
+    vec4 Sample4(in sampler2D _texture, in vec2 _uv, in vec4 _st) {
         return texture(_texture, TransformCoord(_uv, _st));
     }
 
-    vec4 Sample4(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
+    vec4 Sample4(in sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
         return texture(_texture, TransformCoord(_uv, _st), _lod);
     }
 
-    vec4 Sample4(samplerCube _texture, in vec3 _dir) {
+    vec4 Sample4(in samplerCube _texture, in vec3 _dir) {
         return texture(_texture, _dir);
     }
 
-    vec4 Sample4(samplerCube _texture, in vec3 _dir, in int _lod) {
+    vec4 Sample4(in samplerCube _texture, in vec3 _dir, in int _lod) {
         return texture(_texture, _dir, _lod);
     }
 
-    vec3 Sample3(sampler2D _texture, in vec2 _uv) {
+    vec3 Sample3(in sampler2D _texture, in vec2 _uv) {
         return texture(_texture, _uv).rgb;
     }
 
-    vec3 Sample3(sampler2D _texture, in vec2 _uv, in int _lod) {
+    vec3 Sample3(in sampler2D _texture, in vec2 _uv, in int _lod) {
         return texture(_texture, _uv, _lod).rgb;
     }
 
-    vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st) {
+    vec3 Sample3(in sampler2D _texture, in vec2 _uv, in vec4 _st) {
         return texture(_texture, TransformCoord(_uv, _st)).rgb;
     }
 
-    vec3 Sample3(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
+    vec3 Sample3(in sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
         return texture(_texture, TransformCoord(_uv, _st), _lod).rgb;
     }
 
-    vec3 Sample3(samplerCube _texture, in vec3 _dir) {
+    vec3 Sample3(in samplerCube _texture, in vec3 _dir) {
         return texture(_texture, _dir).rgb;
     }
 
-    vec3 Sample3(samplerCube _texture, in vec3 _dir, in int _lod) {
+    vec3 Sample3(in samplerCube _texture, in vec3 _dir, in int _lod) {
         return texture(_texture, _dir, _lod).rgb;
     }
 
-    vec2 Sample2(sampler2D _texture, in vec2 _uv) {
+    vec2 Sample2(in sampler2D _texture, in vec2 _uv) {
         return texture(_texture, _uv).rg;
     }
 
-    vec2 Sample2(sampler2D _texture, in vec2 _uv, in int _lod) {
+    vec2 Sample2(in sampler2D _texture, in vec2 _uv, in int _lod) {
         return texture(_texture, _uv, _lod).rg;
     }
 
-    vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st) {
+    vec2 Sample2(in sampler2D _texture, in vec2 _uv, in vec4 _st) {
         return texture(_texture, TransformCoord(_uv, _st)).rg;
     }
 
-    vec2 Sample2(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
+    vec2 Sample2(in sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
         return texture(_texture, TransformCoord(_uv, _st), _lod).rg;
     }
 
-    vec2 Sample2(samplerCube _texture, in vec3 _dir) {
+    vec2 Sample2(in samplerCube _texture, in vec3 _dir) {
         return texture(_texture, _dir).rg;
     }
 
-    vec2 Sample2(samplerCube _texture, in vec3 _dir, in int _lod) {
+    vec2 Sample2(in samplerCube _texture, in vec3 _dir, in int _lod) {
         return texture(_texture, _dir, _lod).rg;
     }
 
-    float Sample1(sampler2D _texture, in vec2 _uv) {
+    float Sample1(in sampler2D _texture, in vec2 _uv) {
         return texture(_texture, _uv).r;
     }
 
-    float Sample1(sampler2D _texture, in vec2 _uv, in int _lod) {
+    float Sample1(in sampler2D _texture, in vec2 _uv, in int _lod) {
         return texture(_texture, _uv, _lod).r;
     }
 
-    float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st) {
+    float Sample1(in sampler2D _texture, in vec2 _uv, in vec4 _st) {
         return texture(_texture, TransformCoord(_uv, _st)).r;
     }
 
-    float Sample1(sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
+    float Sample1(in sampler2D _texture, in vec2 _uv, in vec4 _st, in int _lod) {
         return texture(_texture, TransformCoord(_uv, _st), _lod).r;
     }
 
-    float Sample1(samplerCube _texture, in vec3 _dir) {
+    float Sample1(in samplerCube _texture, in vec3 _dir) {
         return texture(_texture, _dir).r;
     }
 
-    float Sample1(samplerCube _texture, in vec3 _dir, in int _lod) {
+    float Sample1(in samplerCube _texture, in vec3 _dir, in int _lod) {
         return texture(_texture, _dir, _lod).r;
     }
 
-    float Luma(vec3 _color, const int _technique) {
+    float Luma(in vec3 _color, const int _technique) {
 
         // https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
 
@@ -139,7 +139,7 @@
     }
 
     // https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
-    float Linear01Depth(float _depth, float _near, float _far) {
+    float Linear01Depth(in float _depth, const float _near, const float _far) {
         return (2.0 * _near) / (_far + _near - _depth * (_far - _near));
     }
 

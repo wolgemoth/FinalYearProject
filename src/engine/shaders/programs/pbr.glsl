@@ -141,9 +141,9 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            mediump vec3 offset = normalize(Random3(_dir + vec3(i + 1), fract(u_Time), 0.1));
+            mediump vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(u_Time), 0.1));
 
-            offset *= Random1(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
+            offset *= Random1S(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
 
             mediump float occluderDepth = Sample1(u_ShadowMap3D, _dir + offset);
 
@@ -218,9 +218,9 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            mediump vec3 offset = normalize(Random3(_dir + vec3(i + 1), fract(u_Time), 0.1));
+            mediump vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(u_Time), 0.1));
 
-            offset *= _texelSize * _radius * Random1(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
+            offset *= _texelSize * _radius * Random1S(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
 
             result += ShadowCalculationHard3D(_dir, offset, _bias);
         }
@@ -265,7 +265,7 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            mediump vec2 dir = Random2(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1);
+            mediump vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1);
 
             dir *= float(i + 1.0) * _texelSize;
 
@@ -338,7 +338,7 @@
 
         for (int i = 0; i < u_ShadowSamples; i++) {
 
-            mediump vec2 dir = normalize(Random2(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1));
+            mediump vec2 dir = normalize(Random2S(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1));
 
             dir *= _texelSize * _radius * (float(i + 1) / float(u_ShadowSamples));
 

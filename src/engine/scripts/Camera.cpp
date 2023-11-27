@@ -886,12 +886,12 @@ namespace LouiEriksson {
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_RelativeThreshold"),   0.063f);
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_SubpixelBlending"),     0.75f);
 		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_EdgeBlending"),          1.0f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 1.0f);
+		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 0.5f);
 		Shader::Unbind();
 		
 		auto grain = Resources::GetShader("grain");
 		Shader::Bind(grain.lock()->ID());
-		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.02f);
+		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.01f);
 		grain.lock()->Assign(grain.lock()->AttributeID("u_Time"), Time::Elapsed());
 		Shader::Unbind();
 		

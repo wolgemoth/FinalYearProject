@@ -94,7 +94,7 @@
         mediump vec4 color = texture2D(u_Texture, v_TexCoord);
         mediump vec4 result;
 
-        mediump float lighting = 0;
+        mediump float lighting = 0.0;
 
         mediump vec3  viewDirection = normalize(u_CameraPosition - v_Position);
         mediump vec3         normal = normalize(v_Normal);
