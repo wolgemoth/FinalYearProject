@@ -99,8 +99,8 @@ namespace LouiEriksson {
 		      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
 		
 		// Delete the FBO and texture.
-		if (m_ShadowMap_FBO     != 0) { glDeleteFramebuffers (1, &m_ShadowMap_FBO);     }
-		if (m_ShadowMap_Texture != 0) { glDeleteTextures     (1, &m_ShadowMap_Texture); }
+		if (m_ShadowMap_FBO     > 0) { glDeleteFramebuffers (1, &m_ShadowMap_FBO);     }
+		if (m_ShadowMap_Texture > 0) { glDeleteTextures     (1, &m_ShadowMap_Texture); }
 	}
 	
 	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
@@ -115,6 +115,7 @@ namespace LouiEriksson {
 			if (m_ShadowMap_Texture != 0) {
 				
 				glBindTexture(target, m_ShadowMap_Texture);
+				Texture::s_CurrentTexture = m_ShadowMap_Texture;
 				
 				// Check the texture's resolution.
 				int curr_resolution;
@@ -146,18 +147,19 @@ namespace LouiEriksson {
 			
 				// Generate texture for shadow map (will bind it to the FBO).
 				glBindTexture(target, m_ShadowMap_Texture);
+				Texture::s_CurrentTexture = m_ShadowMap_Texture;
 				
 				if (_type == Light::Parameters::Type::Point) {
 					
 					// Generate all six faces of a cubemap (for omnidirectional shadows).
 					for (auto i = 0; i < 6; i++) {
-                        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, NULL);
+                        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 					}
 				}
 				else {
 					
 					// Generate a single face (for directional shadows).
-					glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, NULL);
+					glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 				}
 				
 				// Set the texture's parameters.
@@ -180,6 +182,7 @@ namespace LouiEriksson {
 					
 				// Bind shadow texture to FBO.
 				glBindFramebuffer(GL_FRAMEBUFFER, m_ShadowMap_FBO);
+				RenderTexture::s_CurrentFBO = m_ShadowMap_FBO;
 				
 				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_ShadowMap_Texture, 0);
 				

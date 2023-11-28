@@ -9,6 +9,8 @@ namespace LouiEriksson {
 	
 	class RenderTexture : public Texture {
 	
+		friend class Light;
+		
 	public:
 		
 		struct Parameters {

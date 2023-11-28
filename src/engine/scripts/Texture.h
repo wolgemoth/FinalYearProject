@@ -16,7 +16,8 @@ namespace LouiEriksson {
 		friend class File;
 		friend class Cubemap;
 		friend class Resources;
-
+		friend class Light;
+		
 	public:
 	
 		struct Parameters {

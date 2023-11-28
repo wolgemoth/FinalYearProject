@@ -543,7 +543,6 @@ namespace LouiEriksson {
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-					
 				}
 			}
 		}
@@ -604,7 +603,6 @@ namespace LouiEriksson {
 		
 		/* SHADING */
 		{
-			
 			/* DRAW OBJECTS */
 			const auto program = Resources::GetShader("pbr");
 	
