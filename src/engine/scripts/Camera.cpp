@@ -583,7 +583,6 @@ namespace LouiEriksson {
 			glCullFace(cullMode);
 		}
 		
-		
 		unsigned int VAO = 0,
 		             VBO = 0;
 		
@@ -1127,6 +1126,8 @@ namespace LouiEriksson {
 			_effects.pop();
 			
 			Blit(m_RT, m_RT, shader);
+			
+			RenderTexture::Unbind();
 		}
 	}
 	
@@ -1139,7 +1140,12 @@ namespace LouiEriksson {
 		glm::ivec4 dimensions;
 		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);
 		
-		glViewport(0, 0, _dest.Width(), _dest.Height());
+		const bool dimensionsDirty = _dest.Width()  != dimensions[2] ||
+		                             _dest.Height() != dimensions[3];
+		
+		if (dimensionsDirty) {
+			glViewport(dimensions[0], dimensions[1], _dest.Width(), _dest.Height());
+		}
 		
 		Shader::Bind(_shader.lock()->ID());
 		
@@ -1153,9 +1159,10 @@ namespace LouiEriksson {
 		
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		//RenderTexture::Unbind();
 		
-		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+		if (dimensionsDirty) {
+			glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+		}
 	}
 	
 	void Camera::SetWindow(std::shared_ptr<Window> _window) {
