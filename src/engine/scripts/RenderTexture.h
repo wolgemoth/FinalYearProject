@@ -54,9 +54,9 @@ namespace LouiEriksson {
 		
 		void Create(
 				const int& _width, const int& _height,
-				const Texture::Parameters::Format& _format,
-				const Texture::Parameters::FilterMode& _filterMode,
-				const Texture::Parameters::WrapMode& _wrapMode,
+				const Texture::Parameters::Format&             _format,
+				const Texture::Parameters::FilterMode&     _filterMode,
+				const Texture::Parameters::WrapMode&         _wrapMode,
 				const RenderTexture::Parameters::DepthMode& _depthMode
 		);
 	};

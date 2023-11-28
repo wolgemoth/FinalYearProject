@@ -437,13 +437,6 @@ namespace LouiEriksson {
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 			}
-		
-			// Unbind VAO.
-			glBindVertexArray(0);
-			
-			      Texture::Unbind();
-			RenderTexture::Unbind(); // Unbind the FBO.
-			       Shader::Unbind(); // Unbind program.
 		}
 	}
 	
@@ -590,8 +583,6 @@ namespace LouiEriksson {
 			glCullFace(cullMode);
 		}
 		
-		// Bind the main FBO.
-		RenderTexture::Bind(m_RT);
 		
 		unsigned int VAO = 0,
 		             VBO = 0;
@@ -613,6 +604,9 @@ namespace LouiEriksson {
 		
 		/* SHADING */
 		{
+			// Bind the main FBO.
+			RenderTexture::Bind(m_RT);
+			
 			/* DRAW OBJECTS */
 			const auto program = Resources::GetShader("pbr");
 	
@@ -833,20 +827,14 @@ namespace LouiEriksson {
 		//Copy(m_Albedo_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
-		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
+		RenderTexture::Unbind();
 		
+		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
+	
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		Shader::Unbind();
 		
 		glDisable(GL_FRAMEBUFFER_SRGB); // DISABLE GAMMA CORRECTION
-		
-		// Unbind texture.
-		Texture::Unbind();
-		Cubemap::Unbind();
-		
-		// Unbind VAO.
-		glBindVertexArray(0);
 	}
 	
 	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {
@@ -1156,11 +1144,16 @@ namespace LouiEriksson {
 		Shader::Bind(_shader.lock()->ID());
 		
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _src.ID());
+		
+		if (Texture::s_CurrentTexture != _src.ID()) {
+			Texture::s_CurrentTexture  = _src.ID();
+			
+			glBindTexture(GL_TEXTURE_2D, _src.ID());
+		}
 		
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
-		RenderTexture::Unbind();
+		//RenderTexture::Unbind();
 		
 		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
 	}

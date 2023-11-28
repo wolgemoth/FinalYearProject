@@ -17,6 +17,7 @@ namespace LouiEriksson {
 		friend class Cubemap;
 		friend class Resources;
 		friend class Light;
+		friend class Camera;
 		
 	public:
 	
