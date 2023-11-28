@@ -105,20 +105,20 @@ namespace LouiEriksson {
 	
 	void RenderTexture::Bind(const RenderTexture& _rt) {
 		
-		if (s_CurrentFBO != _rt.m_FBO_ID) {
-			s_CurrentFBO  = _rt.m_FBO_ID;
+		//if (s_CurrentFBO != _rt.m_FBO_ID) {
+		//	s_CurrentFBO  = _rt.m_FBO_ID;
 			
 			glBindFramebuffer(GL_FRAMEBUFFER, _rt.m_FBO_ID);
-		}
+		//}
 	}
 	
 	void RenderTexture::Unbind() {
 		
-		if (s_CurrentFBO != GL_NONE) {
-			s_CurrentFBO =  GL_NONE;
+		//if (s_CurrentFBO != GL_NONE) {
+		//	s_CurrentFBO =  GL_NONE;
 			
 			glBindFramebuffer(GL_FRAMEBUFFER, GL_NONE);
-		}
+		//}
 	}
 	
 	void RenderTexture::Discard() const {

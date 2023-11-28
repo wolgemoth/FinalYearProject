@@ -175,6 +175,7 @@ namespace LouiEriksson {
 			for (const auto& renderer : _renderers) {
 				
 				const auto transform = renderer->GetTransform();
+				const auto material  = renderer->GetMaterial();
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
@@ -185,6 +186,7 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
 			}
 		}
 		
@@ -229,6 +231,7 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
 			}
 		}
 		
@@ -271,7 +274,6 @@ namespace LouiEriksson {
 					0,
 					GL_TEXTURE_2D
 				);
-				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 			}
@@ -391,6 +393,7 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+				
 			}
 		}
 		
@@ -411,6 +414,7 @@ namespace LouiEriksson {
 			);
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+			
 			
 			RenderTexture::Bind(m_Normal_gBuffer);
 
@@ -437,6 +441,13 @@ namespace LouiEriksson {
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				
 			}
+		
+			// Unbind VAO.
+			glBindVertexArray(0);
+			
+			      Texture::Unbind();
+			RenderTexture::Unbind(); // Unbind the FBO.
+			       Shader::Unbind(); // Unbind program.
 		}
 	}
 	
@@ -534,6 +545,7 @@ namespace LouiEriksson {
 				for (const auto& renderer : _renderers) {
 					
 					const auto transform = renderer->GetTransform();
+					const auto material  = renderer->GetMaterial();
 					const auto mesh      = renderer->GetMesh();
 					
 					// Bind VAO.
@@ -543,7 +555,14 @@ namespace LouiEriksson {
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
+					
+					// Unbind VAO.
+					glBindVertexArray(0);
 				}
+				
+				       Shader::Unbind(); // Unbind the program.
+				      Texture::Unbind(); // Unbind the texture.
+				RenderTexture::Unbind(); // Unbind the FBO
 			}
 		}
 	}
@@ -582,10 +601,9 @@ namespace LouiEriksson {
 		// Bind the main FBO.
 		RenderTexture::Bind(m_RT);
 		
-		// Bind quad to screen for shading and post processing.
 		unsigned int VAO = 0,
 		             VBO = 0;
-			
+		
 		// Buffers to store mesh data.
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
@@ -827,15 +845,16 @@ namespace LouiEriksson {
 		
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		Shader::Unbind();
 		
 		glDisable(GL_FRAMEBUFFER_SRGB); // DISABLE GAMMA CORRECTION
-
+		
+		// Unbind texture.
+		Texture::Unbind();
+		Cubemap::Unbind();
+		
 		// Unbind VAO.
 		glBindVertexArray(0);
-		
-		       Shader::Unbind(); // Unbind the program.
-		      Texture::Unbind(); // Unbind the texture.
-		RenderTexture::Unbind(); // Unbind the FBO
 	}
 	
 	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {
@@ -890,6 +909,8 @@ namespace LouiEriksson {
 			horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Step"), dpiFactor * size);
 			  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Step"), dpiFactor * size);
 
+			Shader::Bind(horizontal.lock()->ID());
+		
 			RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 	        Blit(_rt, tmp, horizontal);
 	        Blit(tmp, tmp, vertical);
@@ -900,17 +921,19 @@ namespace LouiEriksson {
                 break;
             }
         }
+		
+		Shader::Unbind();
 	}
 	
 	void Camera::AutoExposure() {
 	
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		const float min_exposure =  0.2f;
-		const float max_exposure =  4.0f;
+		const float min_exposure = 0.2f;
+		const float max_exposure = 4.0f;
 		const float compensation = -0.2f;
-		const float speed_down =    1.0f;
-		const float speed_up   =    2.0f;
+		const float speed_down = 1.0f;
+		const float speed_up   = 2.0f;
 		
 		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
 		
@@ -922,6 +945,7 @@ namespace LouiEriksson {
 		
 		Shader::Bind(auto_exposure_shader.lock()->ID());
 		auto_exposure_shader.lock()->Assign(auto_exposure_shader.lock()->AttributeID("u_Weights"),  mask.lock()->ID(), 1, GL_TEXTURE_2D);
+		Shader::Unbind();
 		
 		Blit(m_RT, luma_out, auto_exposure_shader);
 		
@@ -929,6 +953,7 @@ namespace LouiEriksson {
 		
 		RenderTexture::Bind(luma_out);
 		glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_FLOAT, pixels.data());
+		RenderTexture::Unbind();
 		
 		int num = 0;
 		float avg = 0.0f;
@@ -1024,6 +1049,8 @@ namespace LouiEriksson {
 		
 		RenderTexture::Bind(ao_rt);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		RenderTexture::Unbind();
+		Shader::Unbind();
 		
 		Blur(ao_rt, 0.5f, 1, true, false);
 
@@ -1035,6 +1062,8 @@ namespace LouiEriksson {
 		Copy(ao_rt, m_RT);
 		
 		glDisable(GL_BLEND);
+		
+		Shader::Unbind();
 	}
 	
 	void Camera::Bloom() const {
@@ -1059,6 +1088,19 @@ namespace LouiEriksson {
 		
 		const int scalingPasses = 5;
 		
+		Shader::Bind(threshold_shader.lock()->ID());
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
+		Shader::Unbind();
+		
+		Shader::Bind(downscale_shader.lock()->ID());
+		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
+		Shader::Unbind();
+		
+		Shader::Bind(upscale_shader.lock()->ID());
+		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
+		Shader::Unbind();
+		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
 		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
@@ -1068,14 +1110,7 @@ namespace LouiEriksson {
 		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
-		Shader::Bind(threshold_shader.lock()->ID());
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
-		
 		Blit(m_RT, tmp, threshold_shader);
-		
-		Shader::Bind(downscale_shader.lock()->ID());
-		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		
 		Blit(tmp,  mip0, downscale_shader);
 		Blit(mip0, mip1, downscale_shader);
@@ -1088,9 +1123,6 @@ namespace LouiEriksson {
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
-		
-		Shader::Bind(upscale_shader.lock()->ID());
-		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
 		
 		Blit(mip5, mip4, upscale_shader);
 		Blit(mip4, mip3, upscale_shader);
@@ -1109,6 +1141,9 @@ namespace LouiEriksson {
 		
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		RenderTexture::Unbind();
+		
+		Shader::Unbind();
 		
 		Shader::Bind(lens_dirt_shader.lock()->ID());
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), lens_dirt_intensity * intensity);
@@ -1118,6 +1153,9 @@ namespace LouiEriksson {
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		RenderTexture::Unbind();
+
+		Shader::Unbind();
 	}
 	
 	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {
@@ -1145,11 +1183,13 @@ namespace LouiEriksson {
 		Shader::Bind(_shader.lock()->ID());
 		
 		glActiveTexture(GL_TEXTURE0);
-		Texture::Bind(_src);
+		glBindTexture(GL_TEXTURE_2D, _src.ID());
 		
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
+		
+		Shader::Unbind();
 		
 		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
 	}
