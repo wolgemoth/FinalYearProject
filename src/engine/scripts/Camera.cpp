@@ -908,11 +908,11 @@ namespace LouiEriksson {
 	
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		const float min_exposure = 0.2f;
-		const float max_exposure = 4.0f;
+		const float min_exposure =  0.2f;
+		const float max_exposure =  4.0f;
 		const float compensation = -0.2f;
-		const float speed_down = 1.0f;
-		const float speed_up   = 2.0f;
+		const float speed_down =    1.0f;
+		const float speed_up   =    2.0f;
 		
 		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
 		
