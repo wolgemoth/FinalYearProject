@@ -154,7 +154,7 @@ namespace LouiEriksson {
 				);
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -182,11 +182,10 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-				
 			}
 		}
 		
@@ -220,7 +219,7 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Albedo"),
@@ -231,7 +230,6 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-				
 			}
 		}
 		
@@ -266,7 +264,7 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Emission"),
@@ -274,6 +272,7 @@ namespace LouiEriksson {
 					0,
 					GL_TEXTURE_2D
 				);
+				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 			}
@@ -361,7 +360,7 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Roughness"),
@@ -393,7 +392,6 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-				
 			}
 		}
 		
@@ -415,7 +413,6 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
-			
 			RenderTexture::Bind(m_Normal_gBuffer);
 
 			for (const auto& renderer : _renderers) {
@@ -428,7 +425,7 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Normals"),
@@ -439,7 +436,6 @@ namespace LouiEriksson {
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-				
 			}
 		
 			// Unbind VAO.
@@ -545,7 +541,6 @@ namespace LouiEriksson {
 				for (const auto& renderer : _renderers) {
 					
 					const auto transform = renderer->GetTransform();
-					const auto material  = renderer->GetMaterial();
 					const auto mesh      = renderer->GetMesh();
 					
 					// Bind VAO.
@@ -555,7 +550,6 @@ namespace LouiEriksson {
 					
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
-					
 				}
 				
 				       Shader::Unbind(); // Unbind the program.
@@ -1076,16 +1070,6 @@ namespace LouiEriksson {
 		
 		const int scalingPasses = 5;
 		
-		Shader::Bind(threshold_shader.lock()->ID());
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
-		
-		Shader::Bind(downscale_shader.lock()->ID());
-		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		
-		Shader::Bind(upscale_shader.lock()->ID());
-		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
-		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
 		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
@@ -1095,7 +1079,14 @@ namespace LouiEriksson {
 		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
+		Shader::Bind(threshold_shader.lock()->ID());
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
+		
 		Blit(m_RT, tmp, threshold_shader);
+		
+		Shader::Bind(downscale_shader.lock()->ID());
+		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 		
 		Blit(tmp,  mip0, downscale_shader);
 		Blit(mip0, mip1, downscale_shader);
@@ -1108,6 +1099,9 @@ namespace LouiEriksson {
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
+		
+		Shader::Bind(upscale_shader.lock()->ID());
+		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
 		
 		Blit(mip5, mip4, upscale_shader);
 		Blit(mip4, mip3, upscale_shader);
@@ -1167,8 +1161,6 @@ namespace LouiEriksson {
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
-		
-		Shader::Unbind();
 		
 		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
 	}
