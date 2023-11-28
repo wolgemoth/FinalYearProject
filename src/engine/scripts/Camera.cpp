@@ -1147,13 +1147,11 @@ namespace LouiEriksson {
 		Shader::Bind(_shader.lock()->ID());
 		
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _src.ID());
+		Texture::Bind(_src);
 		
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
 		RenderTexture::Unbind();
-		
-		Shader::Unbind();
 		
 		glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
 	}
