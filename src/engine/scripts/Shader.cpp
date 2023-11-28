@@ -236,11 +236,16 @@ namespace LouiEriksson {
 	}
 	
 	void Shader::Bind(const GLint& _id) {
-		glUseProgram(_id);
+		
+		if (s_CurrentProgram != _id) {
+			s_CurrentProgram = _id;
+			
+			glUseProgram(_id);
+		}
 	}
 	
 	void Shader::Unbind() {
-		Shader::Bind(SHADER_PROGRAM_NONE);
+		Shader::Bind(GL_NONE);
 	}
 	
 	const std::string& Shader::Name() const {

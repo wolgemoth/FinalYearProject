@@ -67,11 +67,21 @@ namespace LouiEriksson {
 	const int& Texture::Height() const { return m_Height; }
 	
 	void Texture::Bind(const Texture& _texture) {
-		glBindTexture(GL_TEXTURE_2D, _texture.m_TextureID);
+		
+		if (s_CurrentTexture != _texture.m_TextureID) {
+			s_CurrentTexture  = _texture.m_TextureID;
+			
+			glBindTexture(GL_TEXTURE_2D, _texture.m_TextureID);
+		}
 	}
 	
 	void Texture::Unbind() {
-		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		if (s_CurrentTexture != GL_NONE) {
+			s_CurrentTexture = GL_NONE;
+			
+			glBindTexture(GL_TEXTURE_2D, GL_NONE);
+		}
 	}
 	
 	void Texture::Discard() const {

@@ -24,12 +24,6 @@ namespace LouiEriksson {
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;
-		
-		static void Bind(const Cubemap& _cubemap);
-		
-		static void Unbind();
-		
-		void Discard() const;
 	};
 	
 }

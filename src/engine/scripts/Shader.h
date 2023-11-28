@@ -3,8 +3,6 @@
 #ifndef FINALYEARPROJECT_SHADER_H
 #define FINALYEARPROJECT_SHADER_H
 
-#define SHADER_PROGRAM_NONE 0
-
 namespace LouiEriksson {
 
 	class Shader {
@@ -13,6 +11,8 @@ namespace LouiEriksson {
 		friend class Resources;
 		
 	private:
+		
+		inline static GLint s_CurrentProgram = GL_NONE;
 		
 		struct SubShader {
 			

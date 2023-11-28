@@ -40,9 +40,9 @@ namespace LouiEriksson {
 		
 		GLuint DepthID() const;
 	
-		
-		
 	private:
+		
+		inline static GLuint s_CurrentFBO = GL_NONE;
 		
 		GLuint m_FBO_ID,
 			   m_RBO_ID,

@@ -117,6 +117,10 @@ namespace LouiEriksson {
 		
 		explicit operator GLuint() const { return this->ID(); }
 	
+	private:
+		
+		inline static GLint s_CurrentTexture = GL_NONE;
+		
 	protected:
 		
 		int m_Width,

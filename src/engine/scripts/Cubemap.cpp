@@ -11,16 +11,4 @@ namespace LouiEriksson {
 	Cubemap::~Cubemap() {
 		Discard();
 	}
-	
-	void Cubemap::Bind(const Cubemap& _cubemap) {
-		glBindTexture(GL_TEXTURE_CUBE_MAP, _cubemap.m_TextureID);
-	}
-	
-	void Cubemap::Unbind() {
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-	}
-	
-	void Cubemap::Discard() const {
-		Texture::Discard();
-	}
 }
