@@ -128,6 +128,13 @@ namespace LouiEriksson {
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
 			
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
+			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+			
 			RenderTexture::Bind(m_TexCoord_gBuffer);
 
 			for (const auto& renderer : _renderers) {
@@ -139,11 +146,6 @@ namespace LouiEriksson {
 				// Bind VAO.
 				glBindVertexArray(mesh->VAO_ID());
 				
-				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
-				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Displacement"),
 						material.lock()->GetDisplacement().lock()->ID(),
@@ -151,9 +153,8 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
-				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
-				program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
+				// Assign matrices.
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -172,6 +173,8 @@ namespace LouiEriksson {
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 			
 			RenderTexture::Bind(m_Position_gBuffer);
 
@@ -185,8 +188,6 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				/* DRAW */
@@ -206,6 +207,17 @@ namespace LouiEriksson {
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_TexCoord_gBuffer"),
+				m_TexCoord_gBuffer.ID(),
+				1,
+				GL_TEXTURE_2D
+			);
 			
 			RenderTexture::Bind(m_Albedo_gBuffer);
 
@@ -219,8 +231,6 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
@@ -229,15 +239,6 @@ namespace LouiEriksson {
 					0,
 					GL_TEXTURE_2D
 				);
-				
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer.ID(),
-					1,
-					GL_TEXTURE_2D
-				);
-				
-				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -256,6 +257,17 @@ namespace LouiEriksson {
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_TexCoord_gBuffer"),
+				m_TexCoord_gBuffer.ID(),
+				1,
+				GL_TEXTURE_2D
+			);
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
 			RenderTexture::Bind(m_Emission_gBuffer);
 			glClear(GL_DEPTH_BUFFER_BIT);
@@ -270,8 +282,6 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
@@ -280,16 +290,6 @@ namespace LouiEriksson {
 					0,
 					GL_TEXTURE_2D
 				);
-				
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer.ID(),
-					1,
-					GL_TEXTURE_2D
-				);
-				
-				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
-				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				
@@ -363,6 +363,23 @@ namespace LouiEriksson {
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_TexCoord_gBuffer"),
+				m_TexCoord_gBuffer.ID(),
+				4,
+				GL_TEXTURE_2D
+			);
+			
+			program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
+			program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
+
+			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
 			RenderTexture::Bind(m_Material_gBuffer);
 
@@ -376,8 +393,6 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
@@ -408,21 +423,6 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer.ID(),
-					4,
-					GL_TEXTURE_2D
-				);
-				
-				program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
-				program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
-				
-				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
-
-				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
-				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				
@@ -440,6 +440,18 @@ namespace LouiEriksson {
 			
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
+			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
+			
+			program.lock()->Assign(
+				program.lock()->AttributeID("u_TexCoord_gBuffer"),
+				m_TexCoord_gBuffer.ID(),
+				1,
+				GL_TEXTURE_2D
+			);
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
+			
 			
 			RenderTexture::Bind(m_Normal_gBuffer);
 
@@ -453,8 +465,6 @@ namespace LouiEriksson {
 				glBindVertexArray(mesh->VAO_ID());
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"),  transform->TRS()); /* MODEL      */
 				
 				program.lock()->Assign(
@@ -463,15 +473,6 @@ namespace LouiEriksson {
 					0,
 					GL_TEXTURE_2D
 				);
-				
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer.ID(),
-					1,
-					GL_TEXTURE_2D
-				);
-				
-				program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -483,7 +484,6 @@ namespace LouiEriksson {
 			RenderTexture::Unbind(); // Unbind the FBO.
 			       Shader::Unbind(); // Unbind program.
 		}
-		
 	}
 	
 	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const {
