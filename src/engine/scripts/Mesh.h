@@ -11,6 +11,8 @@ namespace LouiEriksson {
 		
 	private:
 		
+		inline static GLuint m_CurrentVAO = GL_NONE;
+		
 		GLuint m_VAO_ID;
 		
 		GLuint  m_PositionVBO_ID;
@@ -20,28 +22,43 @@ namespace LouiEriksson {
 		GLuint m_BitangentVBO_ID;
 		
 		int m_VertexCount;
-
+		
 		Mesh();
 		
 	public:
 		
-		struct Quad {
-
-			// Every screen and texture coordinate for every vertex in the mesh.
-			static constexpr glm::vec4 s_VertexData[] {
-				glm::vec4(-1.0f, -1.0f, 0.0f, 0.0f),
-				glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
-				glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
-				glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
-				glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
-				glm::vec4( 1.0f,  1.0f, 1.0f, 1.0f),
-			};
+		struct Primitives {
+			
+			struct Quad {
 	
-			// Number of vertices in the mesh.
-			static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
+			private:
+				
+				// Every screen and texture coordinate for every vertex in the mesh.
+				static constexpr glm::vec4 s_VertexData[] {
+					glm::vec4(-1.0f, -1.0f, 0.0f, 0.0f),
+					glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
+					glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
+					glm::vec4(-1.0f,  1.0f, 0.0f, 1.0f),
+					glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
+					glm::vec4( 1.0f,  1.0f, 1.0f, 1.0f),
+				};
+		
+				// Number of vertices in the mesh.
+				static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
+				
+				inline static std::shared_ptr<Mesh> s_Instance = nullptr;
+				
+			public:
+				
+				static std::weak_ptr<Mesh> Instance();
+				
+			};
 		};
 		
 		~Mesh();
+		
+		static void   Bind(const Mesh& _mesh);
+		static void Unbind();
 		
 		[[nodiscard]] GLuint          VAO_ID() const;
 		[[nodiscard]] GLuint  PositionVBO_ID() const;
@@ -52,6 +69,6 @@ namespace LouiEriksson {
 		
 		[[nodiscard]] unsigned long VertexCount() const;
 	};
-}
+};
 
 #endif //FINALYEARPROJECT_MODEL_H

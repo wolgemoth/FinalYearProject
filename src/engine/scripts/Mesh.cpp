@@ -26,6 +26,20 @@ namespace LouiEriksson {
 		if (m_BitangentVBO_ID != 0u) { glDeleteBuffers     (1, &m_BitangentVBO_ID); }
 	}
 	
+	void Mesh::Bind(const Mesh& _mesh) {
+		
+		if (m_CurrentVAO != GL_NONE) {
+			glBindVertexArray(m_CurrentVAO = _mesh.VAO_ID());
+		}
+	}
+	
+	void Mesh::Unbind() {
+		
+		if (m_CurrentVAO != GL_NONE) {
+			glBindVertexArray(m_CurrentVAO = GL_NONE);
+		}
+	}
+	
 	GLuint Mesh::VAO_ID()           const { return          m_VAO_ID; }
 	GLuint Mesh::PositionVBO_ID()   const { return  m_PositionVBO_ID; }
 	GLuint Mesh::TexCoordVBO_ID()   const { return  m_TexCoordVBO_ID; }
@@ -34,4 +48,31 @@ namespace LouiEriksson {
 	GLuint Mesh::BitangentVBO_ID()  const { return m_BitangentVBO_ID; }
 	
 	unsigned long Mesh::VertexCount() const { return m_VertexCount; }
+	
+	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
+		
+		if (s_Instance == nullptr) {
+			s_Instance = std::make_shared<Mesh>(Mesh());
+			
+			s_Instance->m_VertexCount = Mesh::Primitives::Quad::s_VertexCount;
+			
+			// Buffers to store mesh data.
+			glGenVertexArrays(1, &s_Instance->m_VAO_ID);
+			glGenBuffers(1, &s_Instance->m_PositionVBO_ID);
+			glBindVertexArray(Mesh::m_CurrentVAO = s_Instance->m_VAO_ID);
+			glBindBuffer(GL_ARRAY_BUFFER, s_Instance->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, s_Instance->m_VertexCount, &Mesh::Primitives::Quad::s_VertexData, GL_STATIC_DRAW);
+			
+			// Positions, triangles (encoded within winding order).
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
+			
+			// Texture coordinates.
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+			
+		}
+		
+		return s_Instance;
+	}
 }

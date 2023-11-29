@@ -12,7 +12,7 @@ namespace LouiEriksson {
 		m_Target = glm::vec3(0.0f);
 	
 		m_OrbitSpeed    =  5.0f;
-		m_OrbitDistance = 10.0f;
+		m_OrbitDistance = 15.0f;
 	}
 	
 	OrbitCam::~OrbitCam() = default;
@@ -62,7 +62,7 @@ namespace LouiEriksson {
 			m_Camera = Parent()->AddComponent<Camera>();
 		}
 		
-		GetCamera()->FOV(70.0f);
+		GetCamera()->FOV(60.0f);
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f)); //glm::vec4(0.34f, 0.764f, 1.0f, 0.0f)

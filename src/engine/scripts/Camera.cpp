@@ -19,7 +19,7 @@ namespace LouiEriksson {
 	
 		m_FOV      = 90.0f;
 		m_NearClip = 0.1f;
-		m_FarClip  = 100.0f;
+		m_FarClip  = 60.0f;
 		
 		m_TargetExposure = 1.0f;
 		m_TargetExposure = m_CurrentExposure = m_TargetExposure;
@@ -144,7 +144,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_Displacement"),
@@ -179,7 +179,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				// Assign matrices.
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
@@ -216,7 +216,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				// Assign matrices.
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
@@ -261,7 +261,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				// Assign matrices.
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
@@ -314,10 +314,10 @@ namespace LouiEriksson {
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
 	
 				// Bind VAO.
-				glBindVertexArray(m_Cube->VAO_ID());
+				Mesh::Bind(*m_Cube);
 	
 				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 	
 				glCullFace ( cullMode);
 				glDepthFunc(depthMode);
@@ -357,7 +357,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				// Assign matrices.
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
@@ -422,7 +422,7 @@ namespace LouiEriksson {
 				const auto mesh      = renderer->GetMesh();
 				
 				// Bind VAO.
-				glBindVertexArray(mesh->VAO_ID());
+				Mesh::Bind(*mesh);
 				
 				// Assign matrices.
 				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
@@ -537,7 +537,7 @@ namespace LouiEriksson {
 					const auto mesh      = renderer->GetMesh();
 					
 					// Bind VAO.
-					glBindVertexArray(mesh->VAO_ID());
+					Mesh::Bind(*mesh);
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS());
 					
@@ -583,23 +583,7 @@ namespace LouiEriksson {
 			glCullFace(cullMode);
 		}
 		
-		unsigned int VAO = 0,
-		             VBO = 0;
-		
-		// Buffers to store mesh data.
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glBindVertexArray(VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, Mesh::Quad::s_VertexCount, &Mesh::Quad::s_VertexData, GL_STATIC_DRAW);
-		
-		// Positions, triangles (encoded within winding order).
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
-		
-		// Texture coordinates.
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+		Mesh::Bind(*Mesh::Primitives::Quad::Instance().lock());
 		
 		/* SHADING */
 		{
@@ -703,7 +687,7 @@ namespace LouiEriksson {
 				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
 
 				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0,  Mesh::Quad::s_VertexCount);
+				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 			}
 			else {
 
@@ -772,7 +756,7 @@ namespace LouiEriksson {
 						light->m_Color);
 
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+					glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 				}
 			}
 		}
@@ -831,7 +815,7 @@ namespace LouiEriksson {
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
 	
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		glDisable(GL_FRAMEBUFFER_SRGB); // DISABLE GAMMA CORRECTION
 	}
@@ -1021,7 +1005,7 @@ namespace LouiEriksson {
 		glViewport(0, 0, ao_rt.Width(), ao_rt.Height());
 		
 		RenderTexture::Bind(ao_rt);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		Blur(ao_rt, 0.5f, 1, true, false);
 
@@ -1106,7 +1090,7 @@ namespace LouiEriksson {
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 		
 		RenderTexture::Bind(m_RT);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		Shader::Bind(lens_dirt_shader.lock()->ID());
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), lens_dirt_intensity * intensity);
@@ -1115,7 +1099,7 @@ namespace LouiEriksson {
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 	}
 	
 	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {
@@ -1158,7 +1142,7 @@ namespace LouiEriksson {
 		}
 		
 		RenderTexture::Bind(_dest);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Quad::s_VertexCount);
+		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		if (dimensionsDirty) {
 			glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
