@@ -189,9 +189,9 @@
 
         mediump float result = 0.0;
 
-        mediump float hits = 0;
+        mediump float hits = 0.0;
 
-        mediump float PCF_SAMPLES = 8;
+        mediump float PCF_SAMPLES = 8.0;
 
         mediump float multiplier = 50.0; // Compensation for 3D.
 
@@ -242,7 +242,7 @@
     mediump float TransferShadow3D(in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump vec3 _fragPos, in mediump float _bias, in mediump float _normalBias) {
 
         mediump float texelSize = 1.0 /
-            max(textureSize(u_ShadowMap3D, 0).x, 1);
+            float(max(textureSize(u_ShadowMap3D, 0).x, 1));
 
         mediump vec3 fragToLight = _fragPos - u_LightPosition;
 
@@ -364,7 +364,7 @@
     mediump float TransferShadow2D(in mediump vec4 _fragPosLightSpace, in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump float _bias, in mediump float _normalBias) {
 
         mediump float texelSize = 1.0 /
-            max(textureSize(u_ShadowMap2D, 0).x, 1);
+            float(max(textureSize(u_ShadowMap2D, 0).x, 1));
 
         mediump vec3 projCoords =
             ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
