@@ -71,6 +71,7 @@ namespace LouiEriksson {
 		
 		m_Type = _type;
 	}
+	
 	Light::Parameters::Type Light::Type() {
 		return m_Type;
 	}
@@ -108,14 +109,13 @@ namespace LouiEriksson {
 		// Check if shadows are enabled.
 		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
 		
-			GLenum target = _type == Light::Parameters::Type::Point ?
+			const GLenum target = _type == Light::Parameters::Type::Point ?
 					GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
 			
 			// Check to see if the shadow map is already initialised.
 			if (m_ShadowMap_Texture != 0) {
 				
-				glBindTexture(target, m_ShadowMap_Texture);
-				Texture::s_CurrentTexture = m_ShadowMap_Texture;
+				glBindTexture(target, Texture::s_CurrentTexture = m_ShadowMap_Texture);
 				
 				// Check the texture's resolution.
 				int curr_resolution;
@@ -146,8 +146,7 @@ namespace LouiEriksson {
 				glGenTextures(1, &m_ShadowMap_Texture);
 			
 				// Generate texture for shadow map (will bind it to the FBO).
-				glBindTexture(target, m_ShadowMap_Texture);
-				Texture::s_CurrentTexture = m_ShadowMap_Texture;
+				glBindTexture(target, Texture::s_CurrentTexture = m_ShadowMap_Texture);
 				
 				if (_type == Light::Parameters::Type::Point) {
 					
@@ -181,8 +180,7 @@ namespace LouiEriksson {
 				glGenFramebuffers(1, &m_ShadowMap_FBO);
 					
 				// Bind shadow texture to FBO.
-				glBindFramebuffer(GL_FRAMEBUFFER, m_ShadowMap_FBO);
-				RenderTexture::s_CurrentFBO = m_ShadowMap_FBO;
+				glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = m_ShadowMap_FBO);
 				
 				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_ShadowMap_Texture, 0);
 				

@@ -10,6 +10,7 @@ namespace LouiEriksson {
 	class RenderTexture : public Texture {
 	
 		friend class Light;
+		friend class Camera;
 		
 	public:
 		

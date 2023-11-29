@@ -452,7 +452,7 @@ namespace LouiEriksson {
 				// Set the viewport resolution to that of the shadow map.
 				glViewport(0, 0, light->m_Shadow.m_Resolution, light->m_Shadow.m_Resolution);
 				
-				glBindFramebuffer(GL_FRAMEBUFFER, light->m_Shadow.m_ShadowMap_FBO);
+				glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = light->m_Shadow.m_ShadowMap_FBO);
 				glClear(GL_DEPTH_BUFFER_BIT);
 				
 				/* DRAW SHADOWS */
