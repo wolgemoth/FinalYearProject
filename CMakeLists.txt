@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(FinalYearProject)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto -DNDEBUG")
 
 add_executable(FinalYearProject
 
@@ -115,13 +115,16 @@ add_executable(FinalYearProject
         src/engine/scripts/Utils.h
 )
 
-set(SDL2_PATH ${PROJECT_SOURCE_DIR}/external/SDL2)
+set(SDL2_PATH        ${PROJECT_SOURCE_DIR}/external/SDL2)
 set(SDL2_INCLUDE_DIR ${SDL2_PATH}/include)
-set(SDL2_LIB_DIR ${SDL2_PATH}/lib/x86/)
+set(SDL2_LIB_DIR     ${SDL2_PATH}/lib/x86/)
 
-set(GLEW_PATH ${PROJECT_SOURCE_DIR}/external/glew)
+set(GLEW_PATH        ${PROJECT_SOURCE_DIR}/external/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_PATH}/include)
-set(GLEW_LIB_DIR ${GLEW_PATH}/lib)
+set(GLEW_LIB_DIR     ${GLEW_PATH}/lib)
+
+set(IMGUI_PATH          ${PROJECT_SOURCE_DIR}/external/imgui)
+set(IMGUI_BACKENDS_PATH ${PROJECT_SOURCE_DIR}/external/imgui/backends)
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/external/cereal/include
@@ -130,10 +133,23 @@ include_directories(
         ${SDL2_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/wavefront/include/
         ${PROJECT_SOURCE_DIR}/external/stb/include/
+        ${IMGUI_PATH}
+        ${IMGUI_BACKENDS_PATH}
 )
 
 # Add the external .c file as a library target
 add_library(WAVEFRONT ${PROJECT_SOURCE_DIR}/external/wavefront/src/wavefront/Model.c)
+
+add_library(IMGUI STATIC
+        ${IMGUI_PATH}/imgui.cpp                         # MAIN ...
+        ${IMGUI_PATH}/imgui_draw.cpp
+        ${IMGUI_PATH}/imgui_demo.cpp
+        ${IMGUI_PATH}/imgui_tables.cpp
+        ${IMGUI_PATH}/imgui_widgets.cpp
+
+        ${IMGUI_BACKENDS_PATH}/imgui_impl_sdl2.cpp      # BACKENDS ...
+        ${IMGUI_BACKENDS_PATH}/imgui_impl_opengl3.cpp
+)
 
 link_directories(FinalYearProject
         ${GLEW_LIB_DIR}
@@ -147,6 +163,7 @@ target_link_libraries(FinalYearProject
         SDL2main
         SDL2
         WAVEFRONT
+        IMGUI
 )
 
 set(   LEVELS_PATH ${PROJECT_SOURCE_DIR}/src/engine/levels   )

@@ -41,8 +41,9 @@ namespace LouiEriksson {
 				SDL_BITSPERPIXEL(displayMode.format) << "bpp)\n";
 		}
 		
+		m_Context = SDL_GL_CreateContext(m_Window.get());
 		
-		if (SDL_GL_CreateContext(m_Window.get()) == NULL) { // NOLINT(*-use-nullptr)
+		if (m_Context == nullptr) {
 	
 			std::stringstream err;
 			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
@@ -110,6 +111,10 @@ namespace LouiEriksson {
 	
 	const int& Window::ID() const {
 		return m_ID;
+	}
+	
+	SDL_GLContext Window::Context() const {
+		return m_Context;
 	}
 	
 	void Window::Update() const {

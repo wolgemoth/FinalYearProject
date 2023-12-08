@@ -35,17 +35,17 @@
         // - l - m -
         // g - h - i
         // === ('e' is the current texel) ===
-        mediump vec3 a = texture(u_Texture, v_TexCoord + vec2(-2*x,  2*y)).rgb;
-        mediump vec3 b = texture(u_Texture, v_TexCoord + vec2(   0,  2*y)).rgb;
-        mediump vec3 c = texture(u_Texture, v_TexCoord + vec2( 2*x,  2*y)).rgb;
+        mediump vec3 a = texture(u_Texture, v_TexCoord + vec2(-2.0 * x, 2.0 * y)).rgb;
+        mediump vec3 b = texture(u_Texture, v_TexCoord + vec2( 0.0,     2.0 * y)).rgb;
+        mediump vec3 c = texture(u_Texture, v_TexCoord + vec2( 2.0 * x, 2.0 * y)).rgb;
 
-        mediump vec3 d = texture(u_Texture, v_TexCoord + vec2(-2*x,    0)).rgb;
-        mediump vec3 e = texture(u_Texture, v_TexCoord + vec2(   0,    0)).rgb;
-        mediump vec3 f = texture(u_Texture, v_TexCoord + vec2( 2*x,    0)).rgb;
+        mediump vec3 d = texture(u_Texture, v_TexCoord + vec2(-2.0 * x, 0.0)).rgb;
+        mediump vec3 e = texture(u_Texture, v_TexCoord + vec2( 0.0,     0.0)).rgb;
+        mediump vec3 f = texture(u_Texture, v_TexCoord + vec2( 2.0 * x, 0.0)).rgb;
 
-        mediump vec3 g = texture(u_Texture, v_TexCoord + vec2(-2*x, -2*y)).rgb;
-        mediump vec3 h = texture(u_Texture, v_TexCoord + vec2(   0, -2*y)).rgb;
-        mediump vec3 i = texture(u_Texture, v_TexCoord + vec2( 2*x, -2*y)).rgb;
+        mediump vec3 g = texture(u_Texture, v_TexCoord + vec2(-2.0 *x, -2.0 * y)).rgb;
+        mediump vec3 h = texture(u_Texture, v_TexCoord + vec2( 0.0,    -2.0 * y)).rgb;
+        mediump vec3 i = texture(u_Texture, v_TexCoord + vec2( 2.0 *x, -2.0 * y)).rgb;
 
         mediump vec3 j = texture(u_Texture, v_TexCoord + vec2(-x,  y)).rgb;
         mediump vec3 k = texture(u_Texture, v_TexCoord + vec2( x,  y)).rgb;
@@ -65,10 +65,10 @@
         // contribute 0.5 to the final color output. The code below is written
         // to effectively yield this sum. We get:
         // 0.125*5 + 0.03125*4 + 0.0625*4 = 1
-        mediump vec3 col = e*0.125;
-        col += (a+c+g+i)*0.03125;
-        col += (b+d+f+h)*0.0625;
-        col += (j+k+l+m)*0.125;
+        mediump vec3 col = e * 0.125;
+        col += (a + c + g + i) * 0.03125;
+        col += (b + d + f + h) * 0.0625;
+        col += (j + k + l + m) * 0.125;
 
-        gl_FragColor = vec4(col, 1);
+        gl_FragColor = vec4(col, 1.0);
     }

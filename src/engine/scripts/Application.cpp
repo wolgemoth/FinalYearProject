@@ -15,17 +15,34 @@ namespace LouiEriksson {
 			
 			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
 			
-			/* INIT */
-			Window::Create(1280, 720, "FinalYearProject");
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
 			
-			SDL_GL_SetSwapInterval(-1); // 0 = Disable vsync. 1 = Enable vsync. -1 = Adaptive
+			/* CREATE A MAIN WINDOW */
+			auto main_window = Window::Create(1280, 720, "FinalYearProject");
+			
+			// Init IMGUI.
+			ImGui_ImplSDL2_InitForOpenGL(main_window->operator SDL_Window *(), main_window->Context());
+			ImGui_ImplOpenGL3_Init("#version 330");
+			
+		    ImGui::StyleColorsDark();
+		    //ImGui::StyleColorsLight();
+			
+			// Configure V-sync:
+			//  0 = Disable
+			//  1 = Enable
+			// -1 = Adaptive
+			SDL_GL_SetSwapInterval(-1);
 	
+			// Check if GLEW initialised correctly.
 			if (glewInit() != GLEW_OK) {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
+			// Preload engine resources:
 			Resources::Preload();
 			
+			// Load a scene and run:
 			auto scene = Scene::Load("levels/pfg.scene");
 			scene->Begin();
 	
@@ -58,6 +75,7 @@ namespace LouiEriksson {
 					
 					SDL_Event event = { 0 };
 					
+					// Get input.
 					while (SDL_PollEvent(&event) != 0) {
 						
 						if (event.type == SDL_WINDOWEVENT) {
@@ -73,9 +91,8 @@ namespace LouiEriksson {
 						}
 					}
 					
-					// Get input.
 					SDL_PumpEvents();
-					Input::KeyboardState(SDL_GetKeyboardState(NULL)); // NOLINT(*-use-nullptr)
+					Input::KeyboardState(SDL_GetKeyboardState(nullptr));
 					
 					scene->Tick();
 		
@@ -84,6 +101,17 @@ namespace LouiEriksson {
 		
 						scene->FixedTick();
 					}
+					
+					ImGui_ImplOpenGL3_NewFrame();
+					ImGui_ImplSDL2_NewFrame(main_window->operator SDL_Window *());
+					ImGui::NewFrame();
+					
+					ImGui::Begin("Hello, IMGUI!");
+					ImGui::Text("This is a simple IMGUI window.");
+					ImGui::End();
+					
+					ImGui::Render();
+                    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 					
 					auto windows = Window::m_Windows.Values();
 					for (const auto& window : windows) {
@@ -114,7 +142,6 @@ namespace LouiEriksson {
 		
 					physics_step -= Time::DeltaTime();
 					fps_timer    -= Time::DeltaTime();
-					
 				}
 				catch (const std::exception& e) {
 					std::cout << e.what() << "\n";
@@ -124,6 +151,11 @@ namespace LouiEriksson {
 NestedBreak:
 			
 			/* DISPOSE */
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplSDL2_Shutdown();
+			
+			ImGui::DestroyContext();
+			
 			SDL_Quit();
 		}
 		else {

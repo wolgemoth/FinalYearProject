@@ -1039,7 +1039,7 @@ namespace LouiEriksson {
 		
 		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
 		
-		const int scalingPasses = 5;
+		const int scalingPasses = 6;
 		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
@@ -1066,12 +1066,13 @@ namespace LouiEriksson {
 		Blit(mip3, mip4, downscale_shader);
 		Blit(mip4, mip5, downscale_shader);
 		
+		Shader::Bind(upscale_shader.lock()->ID());
+		
 	    // Enable additive blending
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
 		
-		Shader::Bind(upscale_shader.lock()->ID());
 		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
 		
 		Blit(mip5, mip4, upscale_shader);
@@ -1100,6 +1101,8 @@ namespace LouiEriksson {
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		
+		//Copy(tmp, m_RT);
 	}
 	
 	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {

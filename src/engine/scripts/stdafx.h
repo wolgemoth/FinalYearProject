@@ -3,19 +3,22 @@
 #ifndef FINALYEARPROJECT_STDAFX_H
 #define FINALYEARPROJECT_STDAFX_H
 
-/* SDL & OPENGL */
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
+/* EXTERNAL */
 
-/* GLM */
-#include <glm/glm.hpp>
+#include <SDL2/SDL.h>               // SDL2
+#include <GL/glew.h>                // OPENGL
+
+#include <imgui.h>                  // IMGUI ...
+#include <backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_opengl3.h>
+
+#include <glm/glm.hpp>              // GLM ...
 #include <glm/ext.hpp>
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/projection.hpp>
 
-/* EXTERNAL */
-#include "stb_image.h"
-#include "cereal/archives/xml.hpp"
+#include "stb_image.h"              // STB
+#include "cereal/archives/xml.hpp"  // CEREAL
 
 /* INTERNAL */
 #include "Hashmap.h"

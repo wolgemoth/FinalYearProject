@@ -38,26 +38,26 @@
         // d - e - f
         // g - h - i
         // === ('e' is the current texel) ===
-        mediump vec3 a = texture(u_Texture, v_TexCoord + vec2(-x,  y)).rgb;
-        mediump vec3 b = texture(u_Texture, v_TexCoord + vec2( 0,  y)).rgb;
-        mediump vec3 c = texture(u_Texture, v_TexCoord + vec2( x,  y)).rgb;
+        mediump vec3 a = texture(u_Texture, v_TexCoord + vec2( -x, y)).rgb;
+        mediump vec3 b = texture(u_Texture, v_TexCoord + vec2(0.0, y)).rgb;
+        mediump vec3 c = texture(u_Texture, v_TexCoord + vec2(  x, y)).rgb;
 
-        mediump vec3 d = texture(u_Texture, v_TexCoord + vec2(-x,  0)).rgb;
-        mediump vec3 e = texture(u_Texture, v_TexCoord + vec2( 0,  0)).rgb;
-        mediump vec3 f = texture(u_Texture, v_TexCoord + vec2( x,  0)).rgb;
+        mediump vec3 d = texture(u_Texture, v_TexCoord + vec2( -x, 0.0)).rgb;
+        mediump vec3 e = texture(u_Texture, v_TexCoord + vec2(0.0, 0.0)).rgb;
+        mediump vec3 f = texture(u_Texture, v_TexCoord + vec2(  x, 0.0)).rgb;
 
-        mediump vec3 g = texture(u_Texture, v_TexCoord + vec2(-x, -y)).rgb;
-        mediump vec3 h = texture(u_Texture, v_TexCoord + vec2( 0, -y)).rgb;
-        mediump vec3 i = texture(u_Texture, v_TexCoord + vec2( x, -y)).rgb;
+        mediump vec3 g = texture(u_Texture, v_TexCoord + vec2( -x, -y)).rgb;
+        mediump vec3 h = texture(u_Texture, v_TexCoord + vec2(0.0, -y)).rgb;
+        mediump vec3 i = texture(u_Texture, v_TexCoord + vec2(  x, -y)).rgb;
 
         // Apply weighted distribution, by using a 3x3 tent filter:
         //  1   | 1 2 1 |
         // -- * | 2 4 2 |
         // 16   | 1 2 1 |
-        mediump vec3 col = e*4.0;
-        col += (b+d+f+h)*2.0;
-        col += (a+c+g+i);
+        mediump vec3 col = e * 4.0;
+        col += (b + d + f + h) * 2.0;
+        col += (a + c + g + i);
         col *= 1.0 / 16.0;
 
-        gl_FragColor = vec4(col, 1);
+        gl_FragColor = vec4(col, 1.0);
     }

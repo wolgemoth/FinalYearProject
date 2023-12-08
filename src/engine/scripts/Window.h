@@ -21,6 +21,7 @@ namespace LouiEriksson {
 		inline static Hashmap<int, std::shared_ptr<Window>> m_Windows;
 	
 		int m_ID;
+		SDL_GLContext m_Context;
 	
 		std::shared_ptr<SDL_Window> m_Window;
 	
@@ -44,6 +45,7 @@ namespace LouiEriksson {
 		static void Destroy(const int& _id);
 	
 		[[nodiscard]] const int& ID() const;
+		[[nodiscard]] SDL_GLContext Context() const;
 	
 		void Update() const;
 	
