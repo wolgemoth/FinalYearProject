@@ -27,20 +27,33 @@ namespace LouiEriksson {
 		}
 	}
 	
+	void GUI::ProcessEvent(const SDL_Event& _event) {
+		ImGui_ImplSDL2_ProcessEvent(&_event);
+	}
+	
 	void GUI::OnGUI(const std::weak_ptr<Window> _window) {
 		
-		// Set up IMGUI to render a new frame.
+		/* INIT GUI FRAME */
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
 		ImGui::NewFrame();
 		
-		// Draw a simple window:
-		ImGui::Begin("Diagnostics");
-			ImGui::Text("%s", ("FPS: " + std::to_string(1.0f / Time::DeltaTime())).c_str());
-		ImGui::End();
+		// Diagnostics window:
+		{
+			// Set default values (on first run):
+			ImGui::SetNextWindowSize(ImVec2(256, 256), ImGuiCond_Once);
+			ImGui::SetNextWindowPos(ImVec2(16, 16), ImGuiCond_Once);
+			ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
+			
+			// Draw elements:
+			ImGui::Begin("Diagnostics", nullptr);
+				ImGui::Text("FPS: %.1f", 1.0f / Time::DeltaTime());
+			ImGui::End();
+		}
 		
-		// Render output using OpenGL (3.x):
+		/* FINALIZE GUI FRAME */
 		ImGui::Render();
+		
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 	

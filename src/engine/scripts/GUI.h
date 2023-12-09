@@ -23,11 +23,12 @@ namespace LouiEriksson {
 		
 		static void Style(const GUI::Parameters::Style& _style);
 		
+		static void ProcessEvent(const SDL_Event& _event);
+		
 		static void OnGUI(std::weak_ptr<Window> _window);
 		
 		static void Dispose();
 	};
 }
-
 
 #endif //FINALYEARPROJECT_GUI_H

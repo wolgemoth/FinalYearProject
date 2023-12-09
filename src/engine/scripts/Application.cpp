@@ -23,7 +23,7 @@ namespace LouiEriksson {
 			//  0 = Disable
 			//  1 = Enable
 			// -1 = Adaptive
-			SDL_GL_SetSwapInterval(-1);
+			SDL_GL_SetSwapInterval(0);
 	
 			// Check if GLEW initialised correctly.
 			if (glewInit() != GLEW_OK) {
@@ -72,6 +72,8 @@ namespace LouiEriksson {
 					
 					/* HANDLE INPUT EVENTS */
 					while (SDL_PollEvent(&event) != 0) {
+						
+						GUI::ProcessEvent(event);
 						
 						if (event.type == SDL_WINDOWEVENT) {
 							
@@ -126,7 +128,7 @@ namespace LouiEriksson {
 					std::cout << e.what() << "\n";
 				}
 			}
-	
+			
 NestedBreak:
 			
 			/* DISPOSE */
