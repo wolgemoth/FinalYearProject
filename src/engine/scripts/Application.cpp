@@ -106,8 +106,8 @@ namespace LouiEriksson {
 					ImGui_ImplSDL2_NewFrame(main_window->operator SDL_Window *());
 					ImGui::NewFrame();
 					
-					ImGui::Begin("Hello, IMGUI!");
-					ImGui::Text("This is a simple IMGUI window.");
+					ImGui::Begin("Diagnostics");
+					ImGui::Text("%s", ("FPS: " + std::to_string(1.0f / Time::s_DeltaTime)).c_str());
 					ImGui::End();
 					
 					ImGui::Render();
@@ -127,18 +127,6 @@ namespace LouiEriksson {
 		
 					// Update the elapsed time.
 					Time::s_Elapsed += Time::DeltaTime();
-		
-					/* DEBUGGING */
-					if (fps_timer <= 0.0f) {
-						fps_timer = 1.0f;
-		
-						std::vector<std::any> entities;
-						scene->Entities().Get(typeid(Rigidbody), entities);
-		
-						std::cout << "\n~ Performance Metrics ~\n" <<
-							"Rigidbodies:\t" << entities.size() << "\n"
-							"FPS:\t\t\t" << 1.0f / Time::s_DeltaTime << "\n";
-					}
 		
 					physics_step -= Time::DeltaTime();
 					fps_timer    -= Time::DeltaTime();
