@@ -18,6 +18,7 @@ namespace LouiEriksson {
 		friend class Resources;
 		friend class Light;
 		friend class Camera;
+		friend class RenderTexture;
 		
 	public:
 	

@@ -19,10 +19,17 @@
 
     #version 330 core
 
+    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_texture_query_levels      : enable
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     uniform sampler2D u_Texture;
 
     in mediump vec2 v_TexCoord;
 
     void main() {
-        gl_FragColor = texture2D(u_Texture, v_TexCoord);
+        gl_FragColor = Sample4(u_Texture, v_TexCoord);
     }

@@ -29,7 +29,7 @@ namespace LouiEriksson {
 			
 			// COLOR
 			glGenTextures(1, &m_TextureID);
-			glBindTexture(GL_TEXTURE_2D, m_TextureID);
+			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = m_TextureID);
 			
 			glTexImage2D(GL_TEXTURE_2D, 0, _format.PixelFormat(), _width, _height, 0, _format.TextureFormat(), GL_HALF_FLOAT, nullptr);
 			
@@ -38,7 +38,7 @@ namespace LouiEriksson {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapMode.WrapS());
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapMode.WrapT());
 			
-			glBindTexture(GL_TEXTURE_2D, 0);
+			Texture::Unbind();
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureID, 0);
 			
 			// DEPTH
@@ -59,7 +59,7 @@ namespace LouiEriksson {
 				case RenderTexture::Parameters::FRAME_BUFFER: {
 					
 					glGenTextures(1, &m_Depth_ID);
-					glBindTexture(GL_TEXTURE_2D, m_Depth_ID);
+					glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = m_Depth_ID);
 					
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _width, _height, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 					
@@ -68,7 +68,7 @@ namespace LouiEriksson {
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapMode.WrapS());
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapMode.WrapT());
 					
-					glBindTexture(GL_TEXTURE_2D, 0);
+					Texture::Unbind();
 					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
 					
 					break;
@@ -105,14 +105,14 @@ namespace LouiEriksson {
 	
 	void RenderTexture::Bind(const RenderTexture& _rt) {
 		
-		if (s_CurrentFBO != _rt.m_FBO_ID) {
+		//if (RenderTexture::s_CurrentFBO != _rt.m_FBO_ID) {
 			glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = _rt.m_FBO_ID);
-		}
+		//}
 	}
 	
 	void RenderTexture::Unbind() {
 		
-		if (s_CurrentFBO != GL_NONE) {
+		if (RenderTexture::s_CurrentFBO != GL_NONE) {
 			glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = GL_NONE);
 		}
 	}

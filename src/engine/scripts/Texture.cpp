@@ -68,19 +68,15 @@ namespace LouiEriksson {
 	
 	void Texture::Bind(const Texture& _texture) {
 		
-		if (s_CurrentTexture != _texture.m_TextureID) {
-			s_CurrentTexture  = _texture.m_TextureID;
-			
-			glBindTexture(GL_TEXTURE_2D, _texture.m_TextureID);
+		if (Texture::s_CurrentTexture != _texture.m_TextureID) {
+			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = _texture.m_TextureID);
 		}
 	}
 	
 	void Texture::Unbind() {
 		
-		if (s_CurrentTexture != GL_NONE) {
-			s_CurrentTexture = GL_NONE;
-			
-			glBindTexture(GL_TEXTURE_2D, GL_NONE);
+		if (Texture::s_CurrentTexture != GL_NONE) {
+			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = GL_NONE);
 		}
 	}
 	

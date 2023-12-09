@@ -1007,7 +1007,7 @@ namespace LouiEriksson {
 		RenderTexture::Bind(ao_rt);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
-		Blur(ao_rt, 0.5f, 1, true, false);
+		Blur(ao_rt, 1.0f, 1, true, false);
 
 		glViewport(0, 0, m_RT.Width(), m_RT.Height());
 		
@@ -1058,41 +1058,41 @@ namespace LouiEriksson {
 		
 		Shader::Bind(downscale_shader.lock()->ID());
 		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		
+
 		Blit(tmp,  mip0, downscale_shader);
 		Blit(mip0, mip1, downscale_shader);
 		Blit(mip1, mip2, downscale_shader);
 		Blit(mip2, mip3, downscale_shader);
 		Blit(mip3, mip4, downscale_shader);
 		Blit(mip4, mip5, downscale_shader);
-		
+
 		Shader::Bind(upscale_shader.lock()->ID());
-		
+
 	    // Enable additive blending
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
-		
+
 		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
-		
+
 		Blit(mip5, mip4, upscale_shader);
 		Blit(mip4, mip3, upscale_shader);
 		Blit(mip3, mip2, upscale_shader);
 		Blit(mip2, mip1, upscale_shader);
 		Blit(mip1, mip0, upscale_shader);
 		Blit(mip0, tmp,  upscale_shader);
-		
+
 	    // Disable additive blending
 	    glDisable(GL_BLEND);
-		
+
 		Shader::Bind(combine_shader.lock()->ID());
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
-		
+
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-		
+
 		Shader::Bind(lens_dirt_shader.lock()->ID());
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), lens_dirt_intensity * intensity);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
@@ -1101,8 +1101,6 @@ namespace LouiEriksson {
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-		
-		//Copy(tmp, m_RT);
 	}
 	
 	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {
@@ -1126,22 +1124,20 @@ namespace LouiEriksson {
 		
 		glm::ivec4 dimensions;
 		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);
-		
-		const bool dimensionsDirty = _dest.Width()  != dimensions[2] ||
-		                             _dest.Height() != dimensions[3];
-		
+
+		const bool dimensionsDirty = dimensions[2] != _dest.Width() ||
+		                             dimensions[3] != _dest.Height();
+
 		if (dimensionsDirty) {
 			glViewport(dimensions[0], dimensions[1], _dest.Width(), _dest.Height());
 		}
-		
+
 		Shader::Bind(_shader.lock()->ID());
-		
+
 		glActiveTexture(GL_TEXTURE0);
-		
+
 		if (Texture::s_CurrentTexture != _src.ID()) {
-			Texture::s_CurrentTexture  = _src.ID();
-			
-			glBindTexture(GL_TEXTURE_2D, _src.ID());
+			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = _src.ID());
 		}
 		
 		RenderTexture::Bind(_dest);

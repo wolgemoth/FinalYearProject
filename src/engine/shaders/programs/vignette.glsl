@@ -30,6 +30,6 @@
 	void main() {
 
 	    mediump vec2 uv = (v_TexCoord - 0.5) * 2.0;
-	    
+
 	    gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord)) * (1.0 - distance(uv * u_Amount, vec2(0, 0)));
 	}

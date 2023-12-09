@@ -18,6 +18,13 @@
 
     #version 330 core
 
+    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_texture_query_levels      : enable
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Texture;
@@ -35,22 +42,22 @@
         // - l - m -
         // g - h - i
         // === ('e' is the current texel) ===
-        mediump vec3 a = texture(u_Texture, v_TexCoord + vec2(-2.0 * x, 2.0 * y)).rgb;
-        mediump vec3 b = texture(u_Texture, v_TexCoord + vec2( 0.0,     2.0 * y)).rgb;
-        mediump vec3 c = texture(u_Texture, v_TexCoord + vec2( 2.0 * x, 2.0 * y)).rgb;
+        mediump vec3 a = Sample3(u_Texture, v_TexCoord + vec2(-2.0 * x, 2.0 * y));
+        mediump vec3 b = Sample3(u_Texture, v_TexCoord + vec2( 0.0,     2.0 * y));
+        mediump vec3 c = Sample3(u_Texture, v_TexCoord + vec2( 2.0 * x, 2.0 * y));
 
-        mediump vec3 d = texture(u_Texture, v_TexCoord + vec2(-2.0 * x, 0.0)).rgb;
-        mediump vec3 e = texture(u_Texture, v_TexCoord + vec2( 0.0,     0.0)).rgb;
-        mediump vec3 f = texture(u_Texture, v_TexCoord + vec2( 2.0 * x, 0.0)).rgb;
+        mediump vec3 d = Sample3(u_Texture, v_TexCoord + vec2(-2.0 * x, 0.0));
+        mediump vec3 e = Sample3(u_Texture, v_TexCoord + vec2( 0.0,     0.0));
+        mediump vec3 f = Sample3(u_Texture, v_TexCoord + vec2( 2.0 * x, 0.0));
 
-        mediump vec3 g = texture(u_Texture, v_TexCoord + vec2(-2.0 *x, -2.0 * y)).rgb;
-        mediump vec3 h = texture(u_Texture, v_TexCoord + vec2( 0.0,    -2.0 * y)).rgb;
-        mediump vec3 i = texture(u_Texture, v_TexCoord + vec2( 2.0 *x, -2.0 * y)).rgb;
+        mediump vec3 g = Sample3(u_Texture, v_TexCoord + vec2(-2.0 *x, -2.0 * y));
+        mediump vec3 h = Sample3(u_Texture, v_TexCoord + vec2( 0.0,    -2.0 * y));
+        mediump vec3 i = Sample3(u_Texture, v_TexCoord + vec2( 2.0 *x, -2.0 * y));
 
-        mediump vec3 j = texture(u_Texture, v_TexCoord + vec2(-x,  y)).rgb;
-        mediump vec3 k = texture(u_Texture, v_TexCoord + vec2( x,  y)).rgb;
-        mediump vec3 l = texture(u_Texture, v_TexCoord + vec2(-x, -y)).rgb;
-        mediump vec3 m = texture(u_Texture, v_TexCoord + vec2( x, -y)).rgb;
+        mediump vec3 j = Sample3(u_Texture, v_TexCoord + vec2(-x,  y));
+        mediump vec3 k = Sample3(u_Texture, v_TexCoord + vec2( x,  y));
+        mediump vec3 l = Sample3(u_Texture, v_TexCoord + vec2(-x, -y));
+        mediump vec3 m = Sample3(u_Texture, v_TexCoord + vec2( x, -y));
 
         // Apply weighted distribution:
         // 0.5 + 0.125 + 0.125 + 0.125 + 0.125 = 1

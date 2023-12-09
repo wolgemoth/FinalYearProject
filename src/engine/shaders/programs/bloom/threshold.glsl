@@ -18,6 +18,13 @@
 
     #version 330 core
 
+    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_texture_query_levels      : enable
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     uniform sampler2D u_Texture;
 
     in mediump vec2 v_TexCoord;
@@ -27,5 +34,15 @@
     uniform mediump float u_Clamp;
 
     void main() {
-        gl_FragColor = min(max(texture2D(u_Texture, v_TexCoord) - u_Threshold, 0.0), vec4(u_Clamp));
+
+        gl_FragColor = min(
+            vec4(
+                max(
+                    Sample3(u_Texture, v_TexCoord) - vec3(u_Threshold),
+                    vec3(0.0)
+                ),
+                1.0
+            ),
+            vec4(vec3(u_Clamp), 1.0)
+        );
     }
