@@ -1,7 +1,3 @@
-//
-// Created by loui on 23/10/23.
-//
-
 #ifndef FINALYEARPROJECT_TEXTURE_H
 #define FINALYEARPROJECT_TEXTURE_H
 

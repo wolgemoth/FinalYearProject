@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Application.h"
+#include "GUI.h"
 
 namespace LouiEriksson {
 	
@@ -15,18 +16,8 @@ namespace LouiEriksson {
 			
 			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
 			
-			IMGUI_CHECKVERSION();
-			ImGui::CreateContext();
-			
 			/* CREATE A MAIN WINDOW */
 			auto main_window = Window::Create(1280, 720, "FinalYearProject");
-			
-			// Init IMGUI.
-			ImGui_ImplSDL2_InitForOpenGL(main_window->operator SDL_Window *(), main_window->Context());
-			ImGui_ImplOpenGL3_Init("#version 330");
-			
-		    ImGui::StyleColorsDark();
-		    //ImGui::StyleColorsLight();
 			
 			// Configure V-sync:
 			//  0 = Disable
@@ -39,7 +30,11 @@ namespace LouiEriksson {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
-			// Preload engine resources:
+			/* INIT GUI */
+			GUI::Init(main_window, "#version 330");
+			GUI::Style(GUI::Parameters::Style::Dark);
+			
+			/* PRELOAD RESOURCES */
 			Resources::Preload();
 			
 			// Load a scene and run:
@@ -75,7 +70,7 @@ namespace LouiEriksson {
 					
 					SDL_Event event = { 0 };
 					
-					// Get input.
+					/* HANDLE INPUT EVENTS */
 					while (SDL_PollEvent(&event) != 0) {
 						
 						if (event.type == SDL_WINDOWEVENT) {
@@ -94,29 +89,25 @@ namespace LouiEriksson {
 					SDL_PumpEvents();
 					Input::KeyboardState(SDL_GetKeyboardState(nullptr));
 					
+					/* UPDATE */
 					scene->Tick();
 		
+					/* FIXED UPDATE */
 					if (physics_step <= 0.0f) {
 						physics_step = Time::FixedDeltaTime();
 		
 						scene->FixedTick();
 					}
 					
-					ImGui_ImplOpenGL3_NewFrame();
-					ImGui_ImplSDL2_NewFrame(main_window->operator SDL_Window *());
-					ImGui::NewFrame();
-					
-					ImGui::Begin("Diagnostics");
-					ImGui::Text("%s", ("FPS: " + std::to_string(1.0f / Time::s_DeltaTime)).c_str());
-					ImGui::End();
-					
-					ImGui::Render();
-                    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+					/* GUI UPDATE */
+					GUI::OnGUI(main_window);
 					
 					auto windows = Window::m_Windows.Values();
 					for (const auto& window : windows) {
 						window->Update();
 					}
+					
+					/* UPDATE TIMERS */
 					
 					// Update the delta time.
 					Time::s_DeltaTime =
@@ -139,11 +130,7 @@ namespace LouiEriksson {
 NestedBreak:
 			
 			/* DISPOSE */
-			ImGui_ImplOpenGL3_Shutdown();
-			ImGui_ImplSDL2_Shutdown();
-			
-			ImGui::DestroyContext();
-			
+			GUI::Dispose();
 			SDL_Quit();
 		}
 		else {
