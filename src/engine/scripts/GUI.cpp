@@ -38,6 +38,26 @@ namespace LouiEriksson {
 		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
 		ImGui::NewFrame();
 		
+		s_FPS_Samples.push_back({Time::Elapsed(), Time::DeltaTime()});
+		
+		float avg_dt = 0.0f, count = 0.0;
+		
+		for (int i = 0; i < s_FPS_Samples.size(); ++i) {
+			
+			auto kvp = s_FPS_Samples[i];
+			
+			if (kvp.first < Time::Elapsed() - s_FPS_SamplingWindowSize) {
+				s_FPS_Samples.erase(s_FPS_Samples.begin() + i);
+			}
+			else {
+				avg_dt += kvp.second;
+				
+				count++;
+			}
+		}
+		
+		avg_dt /= count;
+		
 		// Diagnostics window:
 		{
 			// Set default values (on first run):
@@ -47,7 +67,7 @@ namespace LouiEriksson {
 			
 			// Draw elements:
 			ImGui::Begin("Diagnostics", nullptr);
-				ImGui::Text("FPS: %.1f", 1.0f / Time::DeltaTime());
+				ImGui::Text("FPS: %.1f", 1.0f / avg_dt);
 			ImGui::End();
 		}
 		
