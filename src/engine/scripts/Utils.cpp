@@ -28,4 +28,8 @@ namespace LouiEriksson {
 			sm[0] : _string;
 	}
 	
+	float Utils::Remap(const float& _val, const float& _aMin, const float& _aMax, const float& _bMin, const float& _bMax) {
+		return _bMin + (_val - _aMin) * (_bMax - _bMin) / (_aMax - _aMin);
+	}
+	
 } // LouiEriksson

@@ -21,9 +21,11 @@ namespace LouiEriksson {
 			};
 		};
 		
+		inline static float s_Plot_SamplingWindowSize = 20.0f;
 		inline static float s_FPS_SamplingWindowSize = 0.2f;
 		
-		inline static std::vector<std::pair<float, float>> s_FPS_Samples;
+		inline static std::vector<float> s_Timestamps;
+		inline static std::vector<float> s_Samples;
 		
 		static void Init(std::weak_ptr<Window> _window, const char* _glsl_version);
 		
