@@ -106,7 +106,7 @@ namespace LouiEriksson {
 					"",
 					s_Samples.data(),
 					s_Samples.size(),
-					0,
+					1,
 					nullptr,
 					min,
 					max,
@@ -226,7 +226,7 @@ namespace LouiEriksson {
 				
 				// Label the min fps.
 				ImGui::SetCursorPosX(cursor.x);
-			    ImGui::SetCursorPosY(cursor.y + plotSize.y - 10.0f);
+			    ImGui::SetCursorPosY(cursor.y + plotSize.y - 15.0f);
 		        ImGui::Text("%.1f fps", min);
 				
 				// Label the max fps.
