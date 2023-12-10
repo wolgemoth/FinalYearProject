@@ -88,30 +88,44 @@ namespace LouiEriksson {
 			ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 			
 			std::stringstream title;
-			title << "Diagnostics ("
-				  << std::fixed << std::setprecision(2) << avg_fps << " fps, "
-				  << std::fixed << std::setprecision(2) << 1000.0f / avg_fps << " ms)###Diagnostics";
+			title << std::fixed << std::setprecision(2)
+			      << "Diagnostics ("
+				  <<           avg_fps << " fps, "
+				  << 1000.0f / avg_fps << " ms)###Diagnostics";
 			
 			// Draw elements:
 			ImGui::Begin(title.str().c_str(), nullptr);
 			
-				auto cursor   = ImGui::GetCursorPos();
-				auto plotSize = ImGui::GetContentRegionAvail();
+				// Perform set up for rendering the plot:
+				const float plot_vMargin = 15.0f;
+			
+				auto cursor = ImGui::GetCursorPos();
+			
+				ImGui::SetCursorPosY(cursor.y + plot_vMargin);
+			
+				auto plot_cursor = ImGui::GetCursorPos();
+				auto plot_size   = ImGui::GetContentRegionAvail();
 				
-				float max = max_fps,
-				      min = min_fps,
-					range = max - min;
+				plot_size.y -= plot_vMargin;
 				
-				ImGui::PlotLines(
-					"",
-					s_Samples.data(),
-					s_Samples.size(),
-					1,
-					nullptr,
-					min,
-					max,
-					plotSize
-				);
+				const float bottom = plot_cursor.y + plot_size.y;
+				const float right  = plot_cursor.x + plot_size.x;
+				const float hMargin = 5.0f;
+				
+				float range = max_fps - min_fps;
+				
+				// Draw the main plot:
+				{
+					// Make the main plot's lines slightly more transparent.
+					auto plotLinesCol = ImGui::GetStyleColorVec4(ImGuiCol_PlotLines);
+					plotLinesCol.w *= 0.7f;
+					
+					ImGui::PushStyleColor(ImGuiCol_PlotLines, plotLinesCol);
+					
+					ImGui::PlotLines("", s_Samples.data(), s_Samples.size(), 1, nullptr, min_fps, max_fps, plot_size);
+					
+					ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLines
+				}
 				
 				/*
 				 * Some relevant refresh rates:
@@ -171,69 +185,127 @@ namespace LouiEriksson {
 					2000.0f
 				};
 				
-				// Make plots transparent.
+				// Make plot backgrounds transparent and match their 'hovered' color to their normal color.
 			    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 				ImGui::PushStyleColor(ImGuiCol_PlotLinesHovered, ImGui::GetStyleColorVec4(ImGuiCol_PlotLines));
 				
-				for (int i = 0; i < fps_ticks.size(); i++) {
+				// Draw vertical lines for time plots.
+				{
+					const float t_interval = s_Plot_SamplingWindowSize / 4.0f;
 					
-					auto val = fps_ticks[i];
+					float t = Time::Elapsed();
+					
+					while (t > oldest_plot_timestamp) {
+						
+						// Compute the x offset of the line.
+						float x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0f, plot_size.x);
+						
+						// Draw the line:
+						{
+							ImGui::SetCursorPos(plot_cursor);
+							auto cursor_screenpos = ImGui::GetCursorScreenPos();
+							
+							auto startPos = ImVec2(cursor_screenpos.x + x_offset, cursor_screenpos.y);
+							auto   endPos = ImVec2(startPos.x, startPos.y + plot_size.y);
+							
+							ImGui::GetWindowDrawList()->AddLine(startPos, endPos, ImGui::GetColorU32(ImGuiCol_PlotLines));
+						}
+						
+						// Add a label:
+						{
+							// Format the label string in advance and use this to calculate its size.
+							std::stringstream label;
+							label << std::fixed << std::setprecision(1)
+							      << "-" << Time::Elapsed() - t << " s";
+							
+							auto textSize = ImGui::CalcTextSize(label.str().c_str());
+							
+						    ImGui::SetCursorPosX(plot_cursor.x + x_offset - textSize.x - hMargin);
+						    ImGui::SetCursorPosY(bottom);
+					        ImGui::Text("%s", label.str().c_str());
+						}
+						
+						t -= t_interval;
+					}
+				}
+				
+				// Draw horizontal lines for the common FPS values.
+				for (float val : fps_ticks) {
 					
 					if (val < max_fps && val > min_fps) {
-							
-					    ImGui::SetCursorPos(cursor);
-						
-						float tick[] = { val, val };
-				
-						ImGui::PlotLines("", tick, 2, 0, nullptr, min, max, plotSize);
 						
 						// Help to prevent congestion with too many labels,
 						// by omitting the rendering of labels fewer than
 						// 20 pixels distance from the max and min fps values.
 						if (
 							glm::min(
-								glm::abs(val - max),
-								glm::abs(val - min)
-							) / range * plotSize.y > 20.0f
+								glm::abs(val - max_fps),
+								glm::abs(val - min_fps)
+							) / range * plot_size.y > 20.0f
 						) {
 							
-						    ImGui::SetCursorPosX(cursor.x);
-						    ImGui::SetCursorPosY(cursor.y + Utils::Remap(val, min, max, plotSize.y, 0.0f));
+							// Draw the line:
+							{
+						        ImGui::SetCursorPos(plot_cursor);
 							
-					        ImGui::Text("%.1f fps", val);
+								float tick[] = { val, val };
+								ImGui::PlotLines("", tick, 2, 0, nullptr, min_fps, max_fps, plot_size);
+							}
+							
+							// Add a label:
+							{
+							    ImGui::SetCursorPosX(plot_cursor.x);
+							    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(val, min_fps, max_fps, plot_size.y, 0.0f));
+								
+						        ImGui::Text("%.1f fps", val);
+							}
 						}
 					}
 				}
-				
-				ImGui::PopStyleColor();
-				ImGui::PushStyleColor(ImGuiCol_PlotLines, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
-				ImGui::PushStyleColor(ImGuiCol_PlotLinesHovered, ImGui::GetStyleColorVec4(ImGuiCol_PlotLines));
-				
-			    ImGui::SetCursorPos(cursor);
-				
-				float tick[] = { avg_fps, avg_fps };
-		
-			    ImGui::PlotLines("", tick, 2, 0, nullptr, min, max, plotSize);
-				
-				ImGui::PopStyleColor();
-				ImGui::PopStyleColor();
-				ImGui::PopStyleColor();
-				
-				// Label the average fps.
-				ImGui::SetCursorPosX(cursor.x + plotSize.x - 70.0f);
-			    ImGui::SetCursorPosY(cursor.y + Utils::Remap(avg_fps, min, max, plotSize.y, 0.0f));
-		        ImGui::Text("%.1f fps", avg_fps);
+			
+				// Do average fps:
+				{
+					ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLinesHovered
+					
+					// Green styling for average fps line.
+					ImGui::PushStyleColor(ImGuiCol_PlotLines, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+					ImGui::PushStyleColor(ImGuiCol_PlotLinesHovered, ImGui::GetStyleColorVec4(ImGuiCol_PlotLines));
+					
+					// Draw a line for the average fps:
+					{
+						ImGui::SetCursorPos(plot_cursor);
+						
+						float tick[] = { avg_fps, avg_fps };
+					    ImGui::PlotLines("", tick, 2, 0, nullptr, min_fps, max_fps, plot_size);
+					}
+					
+					ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLinesHovered
+					ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLines
+					ImGui::PopStyleColor(); // Reset ImGuiCol_FrameBg
+					
+					// Add a label:
+					{
+						// Format the label string in advance and use this to calculate its size.
+						std::stringstream label;
+						label << std::fixed << std::setprecision(1) << avg_fps << " fps";
+						
+						auto textSize = ImGui::CalcTextSize(label.str().c_str());
+						
+						// Draw the label, using its size to correctly align it on the screen.
+						ImGui::SetCursorPosX(right - textSize.x - hMargin);
+					    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(avg_fps, min_fps, max_fps, plot_size.y, 0.0f));
+				        ImGui::Text("%s", label.str().c_str());
+					}
+				}
 				
 				// Label the min fps.
 				ImGui::SetCursorPosX(cursor.x);
-			    ImGui::SetCursorPosY(cursor.y + plotSize.y - 15.0f);
-		        ImGui::Text("%.1f fps", min);
+			    ImGui::SetCursorPosY(bottom);
+		        ImGui::Text("%.1f fps", min_fps);
 				
 				// Label the max fps.
 			    ImGui::SetCursorPos(cursor);
-		        ImGui::Text("%.1f fps", max);
-				
-				//ImGui::Text("%.1f s", Time::Elapsed() - oldest_plot_timestamp);
+		        ImGui::Text("%.1f fps", max_fps);
 				
 			ImGui::End();
 		}
