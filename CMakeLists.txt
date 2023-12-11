@@ -115,6 +115,8 @@ add_executable(FinalYearProject
         src/engine/scripts/Utils.h
         src/engine/scripts/GUI.cpp
         src/engine/scripts/GUI.h
+        src/engine/scripts/Settings.cpp
+        src/engine/scripts/Settings.h
 )
 
 set(SDL2_PATH        ${PROJECT_SOURCE_DIR}/external/SDL2)

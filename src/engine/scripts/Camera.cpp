@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Camera.h"
+#include "Settings.h"
 
 namespace LouiEriksson {
 
@@ -767,51 +768,86 @@ namespace LouiEriksson {
 	void Camera::PostRender() {
 		
 		/* POST PROCESSING */
-		AmbientOcclusion();
-		AutoExposure();
-		Bloom();
+		if (Settings::PostProcessing::s_Enabled) {
+			
+			if (Settings::PostProcessing::AmbientOcclusion::s_Enabled) {
+				AmbientOcclusion();
+			}
+			
+			if (Settings::PostProcessing::AutoExposure::s_Enabled) {
+				AutoExposure();
+			}
+			
+			if (Settings::PostProcessing::Bloom::s_Enabled) {
+				Bloom();
+			}
+			
+			/* EFFECTS STACK */
+			// TODO: Allow modification of effect order and parameters outside of function.
 		
-		// Load effects:
-		// TODO: Allow modification of effect order and parameters outside of function.
-		std::queue<std::weak_ptr<Shader>> effects;
-		
-		auto aces = Resources::GetShader("aces");
-		Shader::Bind(aces.lock()->ID());
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Gain"), 0.0f);
-		aces.lock()->Assign(aces.lock()->AttributeID("u_Exposure"), m_CurrentExposure);
-		
-		auto fxaa = Resources::GetShader("fxaa");
-		Shader::Bind(fxaa.lock()->ID());
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_ContrastThreshold"),  0.0312f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_RelativeThreshold"),   0.063f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_SubpixelBlending"),     0.75f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_EdgeBlending"),          1.0f);
-		fxaa.lock()->Assign(fxaa.lock()->AttributeID("u_LocalContrastModifier"), 0.5f);
-		
-		auto grain = Resources::GetShader("grain");
-		Shader::Bind(grain.lock()->ID());
-		grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), 0.005f);
-		grain.lock()->Assign(grain.lock()->AttributeID("u_Time"), Time::Elapsed());
-		
-		auto vignette = Resources::GetShader("vignette");
-		Shader::Bind(vignette.lock()->ID());
-		vignette.lock()->Assign(vignette.lock()->AttributeID("u_Amount"), 0.33f);
-		
-		// Push effects to queue.
-		effects.push(aces);     // TONEMAPPING
-		effects.push(fxaa);     // ANTI-ALIASING
-		effects.push(grain);    // GRAIN
-		effects.push(vignette); // VIGNETTE
-		
-		// Draw post processing.
-		PostProcess(effects);
-		
-		//Copy(m_Albedo_gBuffer, m_RT);
+			std::queue<std::weak_ptr<Shader>> effects;
+			
+			if (Settings::PostProcessing::ToneMapping::s_Enabled) {
+				
+				auto tonemapping = Resources::GetShader("aces");
+				Shader::Bind(tonemapping.lock()->ID());
+				tonemapping.lock()->Assign(tonemapping.lock()->AttributeID("u_Gain"), Settings::PostProcessing::ToneMapping::s_Gain);
+				tonemapping.lock()->Assign(tonemapping.lock()->AttributeID("u_Exposure"), m_CurrentExposure);
+			
+				effects.push(tonemapping);
+			}
+			
+			if (Settings::PostProcessing::AntiAliasing::s_Enabled) {
+				
+				auto aa = Resources::GetShader("fxaa");
+				Shader::Bind(aa.lock()->ID());
+				aa.lock()->Assign(aa.lock()->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_ContrastThreshold"), Settings::PostProcessing::AntiAliasing::s_ContrastThreshold);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_RelativeThreshold"), Settings::PostProcessing::AntiAliasing::s_RelativeThreshold);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_SubpixelBlending"), Settings::PostProcessing::AntiAliasing::s_SubpixelThreshold);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_EdgeBlending"), Settings::PostProcessing::AntiAliasing::s_EdgeBlending);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_LocalContrastModifier"), Settings::PostProcessing::AntiAliasing::s_LocalContrastModifier);
+				
+				effects.push(aa);
+			}
+			
+			if (Settings::PostProcessing::Grain::s_Enabled) {
+				
+				auto grain = Resources::GetShader("grain");
+				Shader::Bind(grain.lock()->ID());
+				grain.lock()->Assign(grain.lock()->AttributeID("u_Amount"), Settings::PostProcessing::Grain::s_Intensity);
+				grain.lock()->Assign(grain.lock()->AttributeID("u_Time"), Time::Elapsed());
+				
+				effects.push(grain);
+			}
+			
+			if (Settings::PostProcessing::Vignette::s_Enabled) {
+				
+				auto vignette = Resources::GetShader("vignette");
+				Shader::Bind(vignette.lock()->ID());
+				vignette.lock()->Assign(vignette.lock()->AttributeID("u_Amount"), Settings::PostProcessing::Vignette::s_Intensity);
+				
+				effects.push(vignette);
+			}
+			
+			// Render post-processing effects stack:
+			while (!effects.empty()) {
+				
+				const auto shader = effects.front();
+				effects.pop();
+				
+				Blit(m_RT, m_RT, shader);
+				
+				RenderTexture::Unbind();
+			}
+		}
+		else {
+			Blit(m_RT, m_RT, Resources::GetShader("passthrough"));
+			
+			RenderTexture::Unbind();
+		}
 		
 		/* RENDER TO SCREEN */
-		RenderTexture::Unbind();
-		
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
 	
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
@@ -888,12 +924,6 @@ namespace LouiEriksson {
 	
 		const auto dimensions = GetWindow()->Dimensions();
 		
-		const float min_exposure = 0.2f;
-		const float max_exposure = 4.0f;
-		const float compensation = -0.2f;
-		const float speed_down = 1.0f;
-		const float speed_up   = 2.0f;
-		
 		auto auto_exposure_shader = Resources::GetShader("auto_exposure");
 		
 		const glm::ivec2 luma_res(32, 32);
@@ -926,8 +956,7 @@ namespace LouiEriksson {
 			}
 		}}
 		
-		// Prevent null propagation by checking if the number is NaN.
-		// NaN values do not equal themselves.
+		// Prevent NaN propagation. NaN values do not equal themselves.
 		if (avg != avg) {
 			avg = 0.0f;
 		}
@@ -936,15 +965,15 @@ namespace LouiEriksson {
 		
 		const float curr = avg;
 		
-		const float diff = glm::clamp((m_TargetExposure + compensation) - curr, -1.0f, 1.0f);
-		const float speed = (diff - m_CurrentExposure) >= 0 ? speed_up : speed_down;
+		const float diff = glm::clamp((m_TargetExposure + Settings::PostProcessing::AutoExposure::s_Compensation) - curr, -1.0f, 1.0f);
+		const float speed = (diff - m_CurrentExposure) >= 0 ? Settings::PostProcessing::AutoExposure::s_SpeedUp : Settings::PostProcessing::AutoExposure::s_SpeedDown;
 		
 		m_CurrentExposure = glm::mix(
 			m_CurrentExposure,
 			glm::clamp(
 				m_TargetExposure + diff,
-				min_exposure,
-				max_exposure
+				Settings::PostProcessing::AutoExposure::s_MinEV,
+				Settings::PostProcessing::AutoExposure::s_MaxEV
 			),
 			Time::DeltaTime() * speed
 		);
@@ -957,11 +986,11 @@ namespace LouiEriksson {
 		auto ao = Resources::GetShader("ao");
 		Shader::Bind(ao.lock()->ID());
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), 12);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
 		
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), 1.0f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), Settings::PostProcessing::AmbientOcclusion::s_Intensity);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.2f);
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Radius"), 0.2f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Radius"), Settings::PostProcessing::AmbientOcclusion::s_Radius);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);
 		ao.lock()->Assign(ao.lock()->AttributeID("u_FarClip"), m_FarClip);
@@ -970,7 +999,7 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_VP"), m_Projection * View());
 		ao.lock()->Assign(ao.lock()->AttributeID("u_View"), View());
 		
-		int downscale = 1;
+		int downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
 		
 		RenderTexture ao_rt(
 			dimensions.x / (downscale + 1),
@@ -1031,14 +1060,6 @@ namespace LouiEriksson {
 		auto lens_dirt_shader = Resources::GetShader("lens_dirt");
 		
 		/* SET BLOOM PARAMETERS */
-		
-		const float threshold = 1.2f;
-		const float intensity = 0.1f;
-		const float lens_dirt_intensity = 0.6f;
-		const float clamp = 25.0f;
-		
-		const glm::vec2 diffusion = glm::vec2(3.0f, 1.0f);
-		
 		const int scalingPasses = 6;
 		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
@@ -1051,8 +1072,8 @@ namespace LouiEriksson {
 		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
 		Shader::Bind(threshold_shader.lock()->ID());
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), threshold);
-		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), clamp);
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), Settings::PostProcessing::Bloom::s_Threshold);
+		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), Settings::PostProcessing::Bloom::s_Clamp);
 		
 		Blit(m_RT, tmp, threshold_shader);
 		
@@ -1073,7 +1094,7 @@ namespace LouiEriksson {
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
 
-		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), diffusion);
+		upscale_shader.lock()->Assign(upscale_shader.lock()->AttributeID("u_Diffusion"), Settings::PostProcessing::Bloom::s_Diffusion);
 
 		Blit(mip5, mip4, upscale_shader);
 		Blit(mip4, mip3, upscale_shader);
@@ -1086,7 +1107,7 @@ namespace LouiEriksson {
 	    glDisable(GL_BLEND);
 
 		Shader::Bind(combine_shader.lock()->ID());
-		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Strength"), intensity / glm::max((float)scalingPasses, 1.0f));
+		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Strength"), Settings::PostProcessing::Bloom::s_Intensity / glm::max((float)scalingPasses, 1.0f));
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 
@@ -1094,26 +1115,13 @@ namespace LouiEriksson {
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 
 		Shader::Bind(lens_dirt_shader.lock()->ID());
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), lens_dirt_intensity * intensity);
+		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), Settings::PostProcessing::Bloom::s_LensDirt * Settings::PostProcessing::Bloom::s_Intensity);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
 		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-	}
-	
-	void Camera::PostProcess(std::queue<std::weak_ptr<Shader>> _effects) const {
-		
-		while (!_effects.empty()) {
-			
-			const auto shader = _effects.front();
-			_effects.pop();
-			
-			Blit(m_RT, m_RT, shader);
-			
-			RenderTexture::Unbind();
-		}
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
