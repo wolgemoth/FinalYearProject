@@ -24,9 +24,6 @@ namespace LouiEriksson {
 		inline static float s_Plot_SamplingWindowSize = 20.0f;
 		inline static float s_FPS_SamplingWindowSize = 0.5f;
 		
-		inline static std::vector<float> s_Timestamps;
-		inline static std::vector<float> s_Samples;
-		
 		static void Init(std::weak_ptr<Window> _window, const char* _glsl_version);
 		
 		static void Style(const GUI::Parameters::Style& _style);
@@ -34,6 +31,10 @@ namespace LouiEriksson {
 		static void ProcessEvent(const SDL_Event& _event);
 		
 		static void OnGUI(std::weak_ptr<Window> _window);
+		
+		static void DrawDiagnosticsWindow(std::weak_ptr<Window> _window);
+		
+		static void DrawParametersWindow(std::weak_ptr<Window> _window);
 		
 		static void Dispose();
 	};
