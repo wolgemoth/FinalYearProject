@@ -18,6 +18,11 @@
 
     #version 330 core
 
+    #extension GL_ARB_texture_query_levels     : enable
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     in mediump vec2 v_TexCoord;
 
     uniform sampler2D u_Texture0;
@@ -29,9 +34,9 @@
 
     void main() {
 
-        mediump vec3   dst_col = texture2D(u_Texture0, v_TexCoord).rgb;
-        mediump vec3  dirt_col = texture2D(u_Dirt, v_TexCoord).rgb;
-        mediump vec3 bloom_col = texture2D(u_Bloom, v_TexCoord).rgb;
+        mediump vec3   dst_col = Sample3(u_Texture0, v_TexCoord);
+        mediump vec3  dirt_col = Sample3(u_Dirt, v_TexCoord);
+        mediump vec3 bloom_col = Sample3(u_Bloom, v_TexCoord);
 
         gl_FragColor = vec4(dst_col + (dirt_col * (bloom_col * u_Strength)), 1.0);
     }

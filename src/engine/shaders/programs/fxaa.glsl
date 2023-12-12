@@ -106,7 +106,7 @@
 
             mediump vec2 uv = clamp(_coord + (offset * _texelSize), vec2(0.0), vec2(1.0));
 
-            mediump float luma          = Luma(texture(u_Texture, uv).rgb, 0);
+            mediump float luma          = Luma(Sample3(u_Texture, uv), 0);
             mediump float luma_adjusted = luma / float(max(abs(i) + abs(j), 1));
 
             result.maximal = max(result.maximal, luma);
@@ -159,7 +159,7 @@
 
         for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; i++) {
             puv += edgeStep;
-            pLuminanceDelta = Luma(texture(u_Texture, puv * _texelSize).rgb, 0) - edgeLuminance;
+            pLuminanceDelta = Luma(Sample3(u_Texture, puv * _texelSize), 0) - edgeLuminance;
             pAtEnd = abs(pLuminanceDelta) >= gradientThreshold;
         }
 
@@ -169,7 +169,7 @@
 
         for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; i++) {
             nuv -= edgeStep;
-            nLuminanceDelta = Luma(texture(u_Texture, nuv * _texelSize).rgb, 0) - edgeLuminance;
+            nLuminanceDelta = Luma(Sample3(u_Texture, nuv * _texelSize), 0) - edgeLuminance;
             nAtEnd = abs(nLuminanceDelta) >= gradientThreshold;
         }
 
@@ -236,12 +236,12 @@
             // Since we're sampling both sides of the edge, the direction needs to be halved.
             dir /= 2.0;
 
-            mediump vec3 s1 = texture(u_Texture, v_TexCoord - (dir * _texelSize)).rgb;
+            mediump vec3 s1 = Sample3(u_Texture, v_TexCoord - (dir * _texelSize));
         #else
-            mediump vec3 s1 = texture(u_Texture, v_TexCoord).rgb;
+            mediump vec3 s1 = Sample3(u_Texture, v_TexCoord).rgb;
         #endif
 
-        mediump vec3 s2 = texture(u_Texture, v_TexCoord + (dir * _texelSize)).rgb;
+        mediump vec3 s2 = Sample3(u_Texture, v_TexCoord + (dir * _texelSize));
 
         // Return the average of the two samples.
         return (s1 + s2) * 0.5;
@@ -261,12 +261,12 @@
             color = vec3(FXAA(luma, texelSize));
         }
         else {
-            color = texture(u_Texture, v_TexCoord).rgb;//vec3(0.0);//
+            color = Sample3(u_Texture, v_TexCoord).rgb;//vec3(0.0);//
         }
 
-//        color = min(abs(color - texture(u_Texture, v_TexCoord).rgb) * F32PMAX, vec3(1.0)).rrr;
+//        color = min(abs(color - Sample3(u_Texture, v_TexCoord).rgb) * F32PMAX, vec3(1.0)).rrr;
 
-//        color -= texture(u_Texture, v_TexCoord).rgb;
+//        color -= Sample3(u_Texture, v_TexCoord).rgb;
 //
 //        if (abs(luma.direction.x) > abs(luma.direction.y)) {
 //

@@ -18,6 +18,12 @@
 
     #version 330 core
 
+    #extension GL_ARB_texture_query_levels      : enable
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
+
     uniform sampler2D u_Texture0;
     uniform sampler2D u_Texture1;
 
@@ -27,5 +33,11 @@
     uniform mediump float u_Strength;
 
     void main() {
-        gl_FragColor = texture2D(u_Texture0, v_TexCoord) + (texture2D(u_Texture1, v_TexCoord) * u_Strength);
+
+        gl_FragColor = vec4(
+            Sample3(u_Texture0, v_TexCoord) + (
+                Sample3(u_Texture1, v_TexCoord) * u_Strength
+            ),
+            1.0
+        );
     }

@@ -679,12 +679,12 @@ namespace LouiEriksson {
 				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0));
-				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0.0f));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0.0f));
 
 				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
 				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0.0f));
 
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
@@ -829,24 +829,30 @@ namespace LouiEriksson {
 				effects.push(vignette);
 			}
 			
-			// Render post-processing effects stack:
-			while (!effects.empty()) {
+			if (!effects.empty()) {
 				
-				const auto shader = effects.front();
-				effects.pop();
-				
-				Blit(m_RT, m_RT, shader);
-				
-				RenderTexture::Unbind();
+				// Render post-processing effects stack:
+				while (!effects.empty()) {
+					
+					const auto shader = effects.front();
+					effects.pop();
+					
+					Blit(m_RT, m_RT, shader);
+					
+					RenderTexture::Unbind();
+				}
+			}
+			else {
+				Blit(m_RT, m_RT, Resources::GetShader("passthrough"));
 			}
 		}
 		else {
 			Blit(m_RT, m_RT, Resources::GetShader("passthrough"));
-			
-			RenderTexture::Unbind();
 		}
 		
 		/* RENDER TO SCREEN */
+		RenderTexture::Unbind();
+		
 		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
 	
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
@@ -1121,6 +1127,7 @@ namespace LouiEriksson {
 	    // Disable additive blending
 	    glDisable(GL_BLEND);
 
+		/* COMBINE */
 		Shader::Bind(combine_shader.lock()->ID());
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)scalingPasses, 1.0f));
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
@@ -1128,15 +1135,19 @@ namespace LouiEriksson {
 
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-
-		Shader::Bind(lens_dirt_shader.lock()->ID());
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
-		lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
-
-		RenderTexture::Bind(m_RT);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		RenderTexture::Unbind();
+		
+		/* LENS DIRT */
+		if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0f) {
+			Shader::Bind(lens_dirt_shader.lock()->ID());
+			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
+			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
+			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
+			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
+	
+			RenderTexture::Bind(m_RT);
+			glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		}
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
