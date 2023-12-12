@@ -50,7 +50,7 @@
 
         mediump float levels = log2(s);
 
-        int b = int(pow(u_Blur, levels) * levels);
+        int b = int(pow(u_Blur, 2.0f) * levels);
 
         #ifdef SAMPLER_CUBE
 

@@ -388,7 +388,7 @@
 
         mediump float levels = log2(s);
 
-        int b = int(pow(_blur, levels) * levels);
+        int b = int(pow(_blur, 2.0f) * levels);
 
         #ifdef SAMPLER_CUBE
 
@@ -510,7 +510,7 @@
 
             // Sample at max mip level for the diffuse.
             // TODO: Actual diffuse irradiance.
-            mediump vec3 diffuse = SampleAmbient(normal, 0.95);
+            mediump vec3 diffuse = SampleAmbient(normal, 0.8);
 
             // Sample at variable mip level (determined by roughness) for specular.
             mediump vec3 specular = SampleAmbient(ambientDir, roughness);

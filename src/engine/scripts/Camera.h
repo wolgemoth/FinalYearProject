@@ -21,9 +21,10 @@ namespace LouiEriksson {
 	
 	private:
 		
+		/// <summary> Skybox Cube Mesh </summary>.
 		std::shared_ptr<Mesh> m_Cube;
 		
-		// <summary> Lens Dirt Texture </summary>
+		/// <summary> Lens Dirt Texture </summary>
 		std::weak_ptr<Texture> m_LensDirt;
 		
 		/// <summary> Window of the Camera. </summary>

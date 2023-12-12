@@ -22,13 +22,6 @@ namespace LouiEriksson {
 			
 			friend Camera;
 			
-			struct Perspective {
-				
-				inline static float m_FOV      = 90.0f;
-				inline static float m_NearClip = 0.1f;
-				inline static float m_FarClip  = 60.0f;
-			};
-			
 			struct Skybox {
 				
 				inline static std::vector<const char*> s_AvailableSkyboxes = {
@@ -40,6 +33,7 @@ namespace LouiEriksson {
 				inline static int s_CurrentSkyboxSelection = 0;
 				
 				inline static std::weak_ptr<Texture> s_Skybox;
+				inline static float s_Blur = 0.0f;
 				
 				static void UpdateSkybox(const int& _index);
 			};

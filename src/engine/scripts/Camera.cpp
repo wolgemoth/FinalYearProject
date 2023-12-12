@@ -18,9 +18,9 @@ namespace LouiEriksson {
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Cube      = std::shared_ptr<Mesh>     (nullptr);
 	
-		m_FOV      = Settings::Graphics::Perspective::m_FOV;
-		m_NearClip = Settings::Graphics::Perspective::m_NearClip;
-		m_FarClip  = Settings::Graphics::Perspective::m_FarClip;
+		m_FOV      = 90.0f;
+		m_NearClip =  0.1f;
+		m_FarClip  = 60.0f;
 		
 		m_Exposure = Settings::PostProcessing::ToneMapping::s_Exposure;
 		
@@ -31,43 +31,6 @@ namespace LouiEriksson {
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
-		
-//		m_Skybox = std::move(
-//			File::Load(
-//				{
-////					"textures/cubemaps/yokohama_3/posx.jpg",
-////					"textures/cubemaps/yokohama_3/negx.jpg",
-////					"textures/cubemaps/yokohama_3/posy.jpg",
-////					"textures/cubemaps/yokohama_3/negy.jpg",
-////					"textures/cubemaps/yokohama_3/posz.jpg",
-////					"textures/cubemaps/yokohama_3/negz.jpg"
-//
-//					"textures/cubemaps/coit_tower_2/posx.jpg",
-//					"textures/cubemaps/coit_tower_2/negx.jpg",
-//					"textures/cubemaps/coit_tower_2/posy.jpg",
-//					"textures/cubemaps/coit_tower_2/negy.jpg",
-//					"textures/cubemaps/coit_tower_2/posz.jpg",
-//					"textures/cubemaps/coit_tower_2/negz.jpg"
-//
-////					"textures/cubemaps/another_planet/px.png",
-////					"textures/cubemaps/another_planet/nx.png",
-////					"textures/cubemaps/another_planet/py.png",
-////					"textures/cubemaps/another_planet/ny.png",
-////					"textures/cubemaps/another_planet/pz.png",
-////					"textures/cubemaps/another_planet/nz.png"
-//
-////					"textures/cubemaps/san_francisco_3/posx.jpg",
-////					"textures/cubemaps/san_francisco_3/negx.jpg",
-////					"textures/cubemaps/san_francisco_3/posy.jpg",
-////					"textures/cubemaps/san_francisco_3/negy.jpg",
-////					"textures/cubemaps/san_francisco_3/posz.jpg",
-////					"textures/cubemaps/san_francisco_3/negz.jpg"
-//				},
-//				GL_RGB,
-//				true
-//			)
-//		);
-	
 	}
 	
 	Camera::~Camera() {
@@ -149,7 +112,7 @@ namespace LouiEriksson {
 				);
 				
 				// Assign matrices.
-				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS()); /* MODEL      */
+				program.lock()->Assign(program.lock()->AttributeID("u_Model"), transform->TRS());
 				
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
@@ -306,7 +269,7 @@ namespace LouiEriksson {
 				);
 				
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
-				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), 0.5f);
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
 				Mesh::Bind(*m_Cube);

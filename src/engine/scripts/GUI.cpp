@@ -554,6 +554,8 @@ namespace LouiEriksson {
 				Settings::Graphics::Skybox::UpdateSkybox(selected);
 			}
 			
+			ImGui::SliderFloat("Blur", &Settings::Graphics::Skybox::s_Blur, 0.0f, 1.0f);
+			
 	        ImGui::TreePop(); // END SKYBOX SECTION.
 	    }
 		
