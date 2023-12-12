@@ -21,20 +21,30 @@ namespace LouiEriksson {
 			};
 		};
 		
-		inline static float s_Plot_SamplingWindowSize = 20.0f;
-		inline static float s_FPS_SamplingWindowSize = 0.5f;
+		class GUIWindows {
+			
+			friend GUI;
+			
+		private:
+			
+			// Constant for the margins between the window and screen edge.
+			inline static const ImVec2 s_WindowMargin = ImVec2(16, 16);
+			
+			static void DrawDiagnosticsWindow(const std::weak_ptr<Window>& _window);
+			
+			static void DrawPostProcessingWindow(const std::weak_ptr<Window>& _window);
+			
+			static void DrawRenderSettingsWindow(const std::weak_ptr<Window>& _window);
+			
+		};
 		
-		static void Init(std::weak_ptr<Window> _window, const char* _glsl_version);
+		static void Init(const std::weak_ptr<Window>& _window, const char* _glsl_version);
 		
 		static void Style(const GUI::Parameters::Style& _style);
 		
 		static void ProcessEvent(const SDL_Event& _event);
 		
-		static void OnGUI(std::weak_ptr<Window> _window);
-		
-		static void DrawDiagnosticsWindow(std::weak_ptr<Window> _window);
-		
-		static void DrawPostProcessingWindow(std::weak_ptr<Window> _window);
+		static void OnGUI(const std::weak_ptr<Window>& _window);
 		
 		static void Dispose();
 	};

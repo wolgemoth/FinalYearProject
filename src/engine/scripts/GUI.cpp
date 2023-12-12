@@ -5,7 +5,7 @@
 
 namespace LouiEriksson {
 	
-	void GUI::Init(const std::weak_ptr<Window> _window, const char* _glsl_version) {
+	void GUI::Init(const std::weak_ptr<Window>& _window, const char* _glsl_version) {
 		
 		// Initialise IMGUI:
 		IMGUI_CHECKVERSION();
@@ -32,15 +32,17 @@ namespace LouiEriksson {
 		ImGui_ImplSDL2_ProcessEvent(&_event);
 	}
 	
-	void GUI::OnGUI(const std::weak_ptr<Window> _window) {
+	void GUI::OnGUI(const std::weak_ptr<Window>& _window) {
 		
 		/* INIT GUI FRAME */
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
 		ImGui::NewFrame();
 		
-		DrawDiagnosticsWindow(_window);
-		DrawPostProcessingWindow(_window);
+		// Draw the windows:
+		GUIWindows::DrawDiagnosticsWindow   (_window);
+		GUIWindows::DrawPostProcessingWindow(_window);
+		GUIWindows::DrawRenderSettingsWindow(_window);
 		
 		/* FINALIZE GUI FRAME */
 		ImGui::Render();
@@ -57,11 +59,14 @@ namespace LouiEriksson {
 		ImGui::DestroyContext();
 	}
 	
-	void GUI::DrawDiagnosticsWindow(std::weak_ptr<Window> _window) {
+	void GUI::GUIWindows::DrawDiagnosticsWindow(const std::weak_ptr<Window>& _window) {
 		
 		// Initialise FPS sampling window.
 		static std::vector<float> s_Timestamps;
 		static std::vector<float> s_Samples;
+		
+		static float s_Plot_SamplingWindowSize = 20.0f;
+		static float  s_FPS_SamplingWindowSize =  0.5f;
 		
 		// Append the current frame.
 		s_Timestamps.push_back(Time::Elapsed());
@@ -113,10 +118,9 @@ namespace LouiEriksson {
 			{
 	            auto screenSize   = glm::vec2(_window.lock()->Dimensions());
 				auto windowSize   = ImVec2(300, 200);
-				auto windowMargin = ImVec2(16, 16);
 				
 				ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
-				ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - windowMargin.x, windowMargin.y), ImGuiCond_Once);
+				ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - s_WindowMargin.x, s_WindowMargin.y), ImGuiCond_Once);
 				ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 			}
 			
@@ -347,8 +351,12 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void GUI::DrawPostProcessingWindow(std::weak_ptr<Window> _window) {
+	void GUI::GUIWindows::DrawPostProcessingWindow(const std::weak_ptr<Window>& _window) {
 		
+		/*
+		 * Set minimum size constraints as this window will
+		 * auto-size and we don't want it to be too small.
+		 */
 		ImGui::SetNextWindowSizeConstraints(
 			ImVec2(200.0f, 0.0f),
 			ImVec2(
@@ -357,9 +365,7 @@ namespace LouiEriksson {
 			)
 		);
 		
-		auto windowMargin = ImVec2(16, 16);
-		
-		ImGui::SetNextWindowPos(windowMargin, ImGuiCond_Once);
+		ImGui::SetNextWindowPos(s_WindowMargin, ImGuiCond_Once);
 		ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 		
 		/* POST PROCESSING SETTINGS */
@@ -511,6 +517,31 @@ namespace LouiEriksson {
 		        ImGui::TreePop(); // END GRAIN SECTION.
 		    }
 	    }
+		
+		ImGui::End();
+	}
+	
+	void GUI::GUIWindows::DrawRenderSettingsWindow(const std::weak_ptr<Window>& _window) {
+	
+		/*
+		 * Set minimum size constraints as this window will
+		 * auto-size and we don't want it to be too small.
+		 */
+		ImGui::SetNextWindowSizeConstraints(
+			ImVec2(200.0f, 0.0f),
+			ImVec2(
+				std::numeric_limits<float>::infinity(),
+				std::numeric_limits<float>::infinity()
+			)
+		);
+		
+		ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0f) + 200.0f, s_WindowMargin.y), ImGuiCond_Once);
+		ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
+		
+		/* RENDERING SETTINGS */
+		ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+		
+		ImGui::TextWrapped("this is where I ramble for some time about nothing just so that there is some placeholder text.");
 		
 		ImGui::End();
 	}

@@ -14,8 +14,8 @@ The SDL2 and GLEW development packages are necessary for this project. If they a
 
 ```sudo apt-get install libsdl2-dev libglew-dev```
 
-#### Windows:
+#### GUIWindows:
 
-I have not yet tested building for Windows. SDL2 and GLEW are already included in the project's "external" folder and linked through CMakeLists.txt, but you may need to do additional setup. 
+I have not yet tested building for GUIWindows. SDL2 and GLEW are already included in the project's "external" folder and linked through CMakeLists.txt, but you may need to do additional setup. 
 
-If you are able to successfully build for Windows, please let me know so that I can officially add build support for this platform.
+If you are able to successfully build for GUIWindows, please let me know so that I can officially add build support for this platform.
