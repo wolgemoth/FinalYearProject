@@ -382,11 +382,11 @@ namespace LouiEriksson {
 				
 			    if (target::s_Enabled) {
 					
-					ImGui::SliderInt("Samples", &target::s_Samples, 1, 32);
-					ImGui::SliderInt("Downscale", &target::s_Downscale, 0, 4);
+					ImGui::SliderInt("Samples",   &target::s_Samples,   1, 32);
+					ImGui::SliderInt("Downscale", &target::s_Downscale, 0,  4);
 					
 					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 6.0f);
-					ImGui::SliderFloat("Radius", &target::s_Radius, 0.0f, 2.0f);
+					ImGui::SliderFloat("Radius",    &target::s_Radius,    0.0f, 2.0f);
 			    }
 				
 		        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
@@ -404,13 +404,13 @@ namespace LouiEriksson {
 				
 			    if (target::s_Enabled) {
 					
-					ImGui::DragFloat("Intensity", &target::s_Intensity);
-					ImGui::DragFloat("Threshold", &target::s_Threshold);
-					ImGui::DragFloat("Clamp", &target::s_Clamp);
-					ImGui::DragFloat("Lens Dirt", &target::s_LensDirt);
+					ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0f, 65535.0f);
 					
-					ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f, 1.0f);
-					ImGui::SliderFloat("Diffusion", &target::s_Diffusion, 0.0f, 10.0f);
+					ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f,  1.0f);
+					ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0f, 10.0f);
 			    }
 				
 		        ImGui::TreePop(); // END BLOOM SECTION.
@@ -429,8 +429,8 @@ namespace LouiEriksson {
 				
 			    if (target::s_Enabled) {
 					
-					ImGui::DragFloat("Gain", &target::s_Gain);
-					ImGui::DragFloat("Exposure", &target::s_Exposure);
+					ImGui::DragFloat("Gain",     &target::s_Gain,     0.001f);
+					ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f);
 					
 					/* AUTO-EXPOSURE */
 					ImGui::Checkbox("Auto Exposure", &target_autoExposure::s_Enabled);
@@ -441,10 +441,11 @@ namespace LouiEriksson {
 						
 						ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0f, 9.0f);
 						ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0f, 9.0f);
-						ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation);
-						ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
-						ImGui::SliderFloat("Speed Up", &target_autoExposure::s_SpeedUp, 0.0f, 10.0f);
 						
+						ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001f);
+						
+						ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
+						ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0f, 10.0f);
 				    }
 			    }
 				
@@ -463,12 +464,14 @@ namespace LouiEriksson {
 				 
 			    if (target::s_Enabled) {
 					
-					ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0f, 1.0f);
-					ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.0f, 1.0f);
-					ImGui::SliderFloat("Subpixel Threshold",    &target::s_SubpixelThreshold, 0.0f, 1.0f);
-					ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f, 1.0f);
+					ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312f, 0.0833f);
+					ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063f,  0.333f);
+					ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0f,    1.0f);
+					ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f,    1.0f);
 					
-					ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier);
+					ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001f);
+					
+					target::s_LocalContrastModifier = glm::max(target::s_LocalContrastModifier, 0.0f);
 			    }
 				
 		        ImGui::TreePop(); // END ANTI ALIASING SECTION.

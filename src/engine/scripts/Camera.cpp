@@ -803,7 +803,7 @@ namespace LouiEriksson {
 				aa.lock()->Assign(aa.lock()->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
 				aa.lock()->Assign(aa.lock()->AttributeID("u_ContrastThreshold"), Settings::PostProcessing::AntiAliasing::s_ContrastThreshold);
 				aa.lock()->Assign(aa.lock()->AttributeID("u_RelativeThreshold"), Settings::PostProcessing::AntiAliasing::s_RelativeThreshold);
-				aa.lock()->Assign(aa.lock()->AttributeID("u_SubpixelBlending"), Settings::PostProcessing::AntiAliasing::s_SubpixelThreshold);
+				aa.lock()->Assign(aa.lock()->AttributeID("u_SubpixelBlending"), Settings::PostProcessing::AntiAliasing::s_SubpixelBlending);
 				aa.lock()->Assign(aa.lock()->AttributeID("u_EdgeBlending"), Settings::PostProcessing::AntiAliasing::s_EdgeBlending);
 				aa.lock()->Assign(aa.lock()->AttributeID("u_LocalContrastModifier"), Settings::PostProcessing::AntiAliasing::s_LocalContrastModifier);
 				

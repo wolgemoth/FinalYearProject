@@ -46,18 +46,18 @@ namespace LouiEriksson {
 			};
 			
 			struct ToneMapping {
-			
+				
 				inline static bool s_Enabled = true;
-			
+				
 				inline static float s_Gain     = 0.0f;
 				inline static float s_Exposure = 1.0f;
 				
 				static bool IsActiveAndEnabled();
 				
 				struct AutoExposure {
-				
+					
 					inline static bool s_Enabled = true;
-				
+					
 					inline static float s_MinEV        =  0.2f;
 					inline static float s_MaxEV        =  4.0f;
 					inline static float s_Compensation = -0.2f;
@@ -74,7 +74,7 @@ namespace LouiEriksson {
 			
 				inline static float s_ContrastThreshold     = 0.0312f;
 				inline static float s_RelativeThreshold     = 0.063f;
-				inline static float s_SubpixelThreshold     = 0.75f;
+				inline static float s_SubpixelBlending     = 0.75f;
 				inline static float s_EdgeBlending          = 1.0f;
 				inline static float s_LocalContrastModifier = 0.5f;
 				
