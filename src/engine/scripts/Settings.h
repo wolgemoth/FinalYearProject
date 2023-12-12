@@ -1,6 +1,9 @@
 #ifndef FINALYEARPROJECT_SETTINGS_H
 #define FINALYEARPROJECT_SETTINGS_H
 
+#include "Texture.h"
+
+class Application;
 class Camera;
 class GUI;
 
@@ -8,9 +11,39 @@ namespace LouiEriksson {
 	
 	class Settings {
 	
+		friend Application;
 		friend GUI;
 		
 	public:
+		
+		static void Init();
+		
+		struct Graphics {
+			
+			friend Camera;
+			
+			struct Perspective {
+				
+				inline static float m_FOV      = 90.0f;
+				inline static float m_NearClip = 0.1f;
+				inline static float m_FarClip  = 60.0f;
+			};
+			
+			struct Skybox {
+				
+				inline static std::vector<const char*> s_AvailableSkyboxes = {
+					"little_paris_eiffel_tower_4k",
+					"abandoned_workshop_02_8k",
+					"blue_photo_studio_4k",
+				};
+				
+				inline static int s_CurrentSkyboxSelection = 0;
+				
+				inline static std::weak_ptr<Texture> s_Skybox;
+				
+				static void UpdateSkybox(const int& _index);
+			};
+		};
 		
 		struct PostProcessing {
 			

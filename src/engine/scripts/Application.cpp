@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Application.h"
+#include "Settings.h"
 #include "GUI.h"
 
 namespace LouiEriksson {
@@ -30,12 +31,15 @@ namespace LouiEriksson {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
+			/* PRELOAD RESOURCES */
+			Resources::Preload();
+			
+			/* INIT SETTINGS */
+			Settings::Init();
+			
 			/* INIT GUI */
 			GUI::Init(main_window, "#version 330");
 			GUI::Style(GUI::Parameters::Style::Dark);
-			
-			/* PRELOAD RESOURCES */
-			Resources::Preload();
 			
 			// Load a scene and run:
 			auto scene = Scene::Load("levels/pfg.scene");

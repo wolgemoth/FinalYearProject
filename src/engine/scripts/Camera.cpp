@@ -18,9 +18,9 @@ namespace LouiEriksson {
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Cube      = std::shared_ptr<Mesh>     (nullptr);
 	
-		m_FOV      = 90.0f;
-		m_NearClip = 0.1f;
-		m_FarClip  = 60.0f;
+		m_FOV      = Settings::Graphics::Perspective::m_FOV;
+		m_NearClip = Settings::Graphics::Perspective::m_NearClip;
+		m_FarClip  = Settings::Graphics::Perspective::m_FarClip;
 		
 		m_Exposure = Settings::PostProcessing::ToneMapping::s_Exposure;
 		
@@ -31,11 +31,6 @@ namespace LouiEriksson {
 		File::TryLoad("models/cube/cube.obj", m_Cube);
 		
 		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
-		
-		//blue_photo_studio_4k
-		//abandoned_workshop_02_8k
-		//little_paris_eiffel_tower_4k
-		m_HDRI = Resources::GetTexture("little_paris_eiffel_tower_4k").lock();
 		
 //		m_Skybox = std::move(
 //			File::Load(
@@ -72,7 +67,7 @@ namespace LouiEriksson {
 //				true
 //			)
 //		);
-		
+	
 	}
 	
 	Camera::~Camera() {
@@ -298,7 +293,7 @@ namespace LouiEriksson {
 	
 				skybox.lock()->Assign(
 					skybox.lock()->AttributeID("u_Texture"),
-					m_HDRI.lock()->ID(),
+					Settings::Graphics::Skybox::s_Skybox.lock()->ID(),
 					0,
 					GL_TEXTURE_2D
 				);
@@ -646,7 +641,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Ambient"),
-				m_HDRI.lock()->ID(),
+				Settings::Graphics::Skybox::s_Skybox.lock()->ID(),
 				98,
 				GL_TEXTURE_2D
 			);
@@ -1069,24 +1064,24 @@ namespace LouiEriksson {
 		/* SET BLOOM PARAMETERS */
 		const int scalingPasses = 6;
 		
-		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		
-		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		
 		Shader::Bind(threshold_shader.lock()->ID());
 		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), target::s_Threshold);
 		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), target::s_Clamp);
+		
+		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
 		Blit(m_RT, tmp, threshold_shader);
 		
 		Shader::Bind(downscale_shader.lock()->ID());
 		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 
+		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+		
 		Blit(tmp,  mip0, downscale_shader);
 		Blit(mip0, mip1, downscale_shader);
 		Blit(mip1, mip2, downscale_shader);

@@ -458,7 +458,7 @@ namespace LouiEriksson {
 		        ImGui::TreePop(); // END TONEMAPPING SECTION.
 		    }
 			
-			/* ANTI ALIASING SETTINGS */
+			/* ANTI-ALIASING SETTINGS */
 		    if (ImGui::TreeNode("Anti-Aliasing")) {
 				
 				using target = Settings::PostProcessing::AntiAliasing;
@@ -480,7 +480,7 @@ namespace LouiEriksson {
 					target::s_LocalContrastModifier = glm::max(target::s_LocalContrastModifier, 0.0f);
 			    }
 				
-		        ImGui::TreePop(); // END ANTI ALIASING SECTION.
+		        ImGui::TreePop(); // END ANTI-ALIASING SECTION.
 		    }
 			
 			/* GRAIN SETTINGS */
@@ -514,7 +514,7 @@ namespace LouiEriksson {
 					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
 			    }
 				
-		        ImGui::TreePop(); // END GRAIN SECTION.
+		        ImGui::TreePop(); // END VIGNETTE SECTION.
 		    }
 	    }
 		
@@ -541,7 +541,21 @@ namespace LouiEriksson {
 		/* RENDERING SETTINGS */
 		ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		
-		ImGui::TextWrapped("this is where I ramble for some time about nothing just so that there is some placeholder text.");
+		/* SKYBOX */
+	    if (ImGui::TreeNode("Skybox")) {
+			
+			// Dropdown selection for skybox:
+			static int selected = 0;
+			
+			ImGui::Combo(" ", &selected, Settings::Graphics::Skybox::s_AvailableSkyboxes.data(), Settings::Graphics::Skybox::s_AvailableSkyboxes.size());
+			
+			// If the selected values mismatch, it means the selection has changed...
+			if (selected != Settings::Graphics::Skybox::s_CurrentSkyboxSelection) {
+				Settings::Graphics::Skybox::UpdateSkybox(selected);
+			}
+			
+	        ImGui::TreePop(); // END SKYBOX SECTION.
+	    }
 		
 		ImGui::End();
 	}

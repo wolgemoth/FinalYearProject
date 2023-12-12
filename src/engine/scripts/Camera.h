@@ -20,14 +20,8 @@ namespace LouiEriksson {
 		friend class Window;
 	
 	private:
-	
+		
 		std::shared_ptr<Mesh> m_Cube;
-		
-		/// <summary> Cubemap Skybox. </summary>
-		std::weak_ptr<Texture> m_Skybox;
-		
-		/// <summary> HDRI Skybox. </summary>
-		std::weak_ptr<Texture> m_HDRI;
 		
 		// <summary> Lens Dirt Texture </summary>
 		std::weak_ptr<Texture> m_LensDirt;

@@ -1,6 +1,11 @@
 #include "Settings.h"
+#include "Resources.h"
 
 namespace LouiEriksson {
+	
+	void Settings::Init() {
+		Settings::Graphics::Skybox::UpdateSkybox(Settings::Graphics::Skybox::s_CurrentSkyboxSelection);
+	}
 	
 	bool Settings::PostProcessing::AmbientOcclusion::IsActiveAndEnabled() {
 		return s_Enabled && s_Samples > 0 && s_Intensity > 0.0f && s_Radius > 0.0f;
@@ -28,6 +33,19 @@ namespace LouiEriksson {
 	
 	bool Settings::PostProcessing::Vignette::IsActiveAndEnabled() {
 		return s_Enabled && s_Intensity > 0.0f;
+	}
+	
+	void Settings::Graphics::Skybox::UpdateSkybox(const int& _index) {
+		
+		try {
+			
+			s_Skybox = Resources::GetTexture(s_AvailableSkyboxes.at(_index));
+			
+			s_CurrentSkyboxSelection = _index;
+		}
+		catch (const std::runtime_error& e) {
+			std::cout << e.what() << "\n";
+		}
 	}
 	
 } // LouiEriksson
