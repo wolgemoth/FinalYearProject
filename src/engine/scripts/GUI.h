@@ -34,7 +34,7 @@ namespace LouiEriksson {
 		
 		static void DrawDiagnosticsWindow(std::weak_ptr<Window> _window);
 		
-		static void DrawParametersWindow(std::weak_ptr<Window> _window);
+		static void DrawPostProcessingWindow(std::weak_ptr<Window> _window);
 		
 		static void Dispose();
 	};

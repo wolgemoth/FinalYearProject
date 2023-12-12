@@ -42,13 +42,14 @@ namespace LouiEriksson {
 		float m_NearClip;
 		float m_FarClip;
 		
-		float m_CurrentExposure;
-		float m_TargetExposure;
+		float m_Exposure;
 		
 		bool m_IsDirty;
 		
+		// Main render target:
 		RenderTexture m_RT;
 		
+		// G-BUFFER:
 		RenderTexture   m_Albedo_gBuffer; // Albedo channel
 		RenderTexture m_Emission_gBuffer; // Emission channel
 		RenderTexture m_Material_gBuffer; // Material properties (Roughness, Metallic)

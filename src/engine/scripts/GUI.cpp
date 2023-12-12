@@ -40,7 +40,7 @@ namespace LouiEriksson {
 		ImGui::NewFrame();
 		
 		DrawDiagnosticsWindow(_window);
-		DrawParametersWindow(_window);
+		DrawPostProcessingWindow(_window);
 		
 		/* FINALIZE GUI FRAME */
 		ImGui::Render();
@@ -342,130 +342,171 @@ namespace LouiEriksson {
 			// Label the max fps.
 		    ImGui::SetCursorPos(cursor);
 	        ImGui::Text("%.1f fps", max_fps);
-				
+			
 			ImGui::End();
 		}
 	}
 	
-	void GUI::DrawParametersWindow(std::weak_ptr<Window> _window) {
+	void GUI::DrawPostProcessingWindow(std::weak_ptr<Window> _window) {
 		
-		auto windowSize   = ImVec2(300, 200);
+		ImGui::SetNextWindowSizeConstraints(
+			ImVec2(200.0f, 0.0f),
+			ImVec2(
+				std::numeric_limits<float>::infinity(),
+				std::numeric_limits<float>::infinity()
+			)
+		);
+		
 		auto windowMargin = ImVec2(16, 16);
 		
-		ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
 		ImGui::SetNextWindowPos(windowMargin, ImGuiCond_Once);
 		ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 		
-		ImGui::Begin("Parameters", nullptr);
-		
 		/* POST PROCESSING SETTINGS */
-	    if (ImGui::TreeNode("Post Processing")) {
+		ImGui::Begin("Post Processing", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+		
+		// Toggle for post processing.
+	    ImGui::Checkbox("Enabled", &Settings::PostProcessing::s_Enabled);
+		
+	    if (Settings::PostProcessing::s_Enabled) {
 			
-			// Toggle for post processing.
-		    ImGui::Checkbox("Enabled", &Settings::PostProcessing::s_Enabled);
-			
-		    if (Settings::PostProcessing::s_Enabled) {
+			/* AMBIENT OCCLUSION */
+		    if (ImGui::TreeNode("Ambient Occlusion")) {
 				
-				/* AMBIENT OCCLUSION */
-			    if (ImGui::TreeNode("Ambient Occlusion")) {
+				using target = Settings::PostProcessing::AmbientOcclusion;
+				
+		        ImGui::TextWrapped("Adds self-shadowing effects to areas of the image where light doesn't easily reach.");
+		
+				// Toggle for ambient occlusion.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				
+			    if (target::s_Enabled) {
 					
-			        ImGui::Text("Adds self-shadowing to areas of the scene where image where light can't easily reach.");
-			
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::AmbientOcclusion::s_Enabled);
+					ImGui::SliderInt("Samples", &target::s_Samples, 1, 32);
+					ImGui::SliderInt("Downscale", &target::s_Downscale, 0, 4);
 					
-				    if (Settings::PostProcessing::AmbientOcclusion::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
+					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 6.0f);
+					ImGui::SliderFloat("Radius", &target::s_Radius, 0.0f, 2.0f);
 			    }
 				
-				/* AUTO-EXPOSURE */
-			    if (ImGui::TreeNode("Auto Exposure")) {
-					
-			        ImGui::Text("Automatically adjusts overall brightness to reduce overexposure or underexposure in the image.");
-					
-					// Toggle for auto-exposure.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::AutoExposure::s_Enabled);
-					
-				    if (Settings::PostProcessing::AutoExposure::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END AUTO-EXPOSURE SECTION.
-			    }
-				
-				/* BLOOM SETTINGS */
-			    if (ImGui::TreeNode("Bloom")) {
-					
-			        ImGui::Text("Simulates the diffusion of light around bright parts of an image.");
-			
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::Bloom::s_Enabled);
-					
-				    if (Settings::PostProcessing::Bloom::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END BLOOM SECTION.
-			    }
-				
-				/* TONEMAPPING SETTINGS */
-			    if (ImGui::TreeNode("Tone Mapping")) {
-					
-			        ImGui::Text("Remaps the colors of the image from HDR to LDR.");
-					
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::ToneMapping::s_Enabled);
-					
-				    if (Settings::PostProcessing::ToneMapping::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END TONEMAPPING SECTION.
-			    }
-				
-				/* ANTI ALIASING SETTINGS */
-			    if (ImGui::TreeNode("Anti-Aliasing")) {
-					
-			        ImGui::Text("Reduces jagged aliasing effects in the image.");
-					
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::AntiAliasing::s_Enabled);
-					
-				    if (Settings::PostProcessing::AntiAliasing::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END ANTI ALIASING SECTION.
-			    }
-				
-				/* GRAIN SETTINGS */
-			    if (ImGui::TreeNode("Grain")) {
-					
-			        ImGui::Text("Adds visual noise to an image, which can be applied aesthetically or as a technique to reduce the prominence of color banding.");
-					
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::Grain::s_Enabled);
-					
-				    if (Settings::PostProcessing::Grain::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END GRAIN SECTION.
-			    }
-				
-				/* GRAIN SETTINGS */
-			    if (ImGui::TreeNode("Vignette")) {
-					
-			        ImGui::Text("Darkens areas of the image further from the center.");
-					
-					// Toggle for bloom.
-				    ImGui::Checkbox("Enabled", &Settings::PostProcessing::Vignette::s_Enabled);
-					
-				    if (Settings::PostProcessing::Vignette::s_Enabled) {
-				    }
-					
-			        ImGui::TreePop(); // END GRAIN SECTION.
-			    }
+		        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
 		    }
 			
-	        ImGui::TreePop(); // END POST PROCESSING SECTION.
+			/* BLOOM SETTINGS */
+		    if (ImGui::TreeNode("Bloom")) {
+				
+				using target = Settings::PostProcessing::Bloom;
+				
+		        ImGui::TextWrapped("Simulates the diffusion of light around bright parts of an image.");
+		
+				// Toggle for bloom.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				
+			    if (target::s_Enabled) {
+					
+					ImGui::DragFloat("Intensity", &target::s_Intensity);
+					ImGui::DragFloat("Threshold", &target::s_Threshold);
+					ImGui::DragFloat("Clamp", &target::s_Clamp);
+					ImGui::DragFloat("Lens Dirt", &target::s_LensDirt);
+					
+					ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f, 1.0f);
+					ImGui::SliderFloat("Diffusion", &target::s_Diffusion, 0.0f, 10.0f);
+			    }
+				
+		        ImGui::TreePop(); // END BLOOM SECTION.
+		    }
+			
+			/* TONEMAPPING SETTINGS */
+		    if (ImGui::TreeNode("Tone Mapping")) {
+				
+				using target              = Settings::PostProcessing::ToneMapping;
+				using target_autoExposure = Settings::PostProcessing::ToneMapping::AutoExposure;
+						
+		        ImGui::TextWrapped("Remaps the colors of the image from HDR to LDR.");
+				
+				// Toggle for tonemapping.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				
+			    if (target::s_Enabled) {
+					
+					ImGui::DragFloat("Gain", &target::s_Gain);
+					ImGui::DragFloat("Exposure", &target::s_Exposure);
+					
+					/* AUTO-EXPOSURE */
+					ImGui::Checkbox("Auto Exposure", &target_autoExposure::s_Enabled);
+					
+				    if (target_autoExposure::s_Enabled) {
+						
+				        ImGui::TextWrapped("Automatically adjusts the overall exposure of the image towards a designated exposure target");
+						
+						ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0f, 9.0f);
+						ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0f, 9.0f);
+						ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation);
+						ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
+						ImGui::SliderFloat("Speed Up", &target_autoExposure::s_SpeedUp, 0.0f, 10.0f);
+						
+				    }
+			    }
+				
+		        ImGui::TreePop(); // END TONEMAPPING SECTION.
+		    }
+			
+			/* ANTI ALIASING SETTINGS */
+		    if (ImGui::TreeNode("Anti-Aliasing")) {
+				
+				using target = Settings::PostProcessing::AntiAliasing;
+				
+		        ImGui::TextWrapped("Reduces jagged aliasing artifacts in the image.");
+				
+				// Toggle for anti-aliasing.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				 
+			    if (target::s_Enabled) {
+					
+					ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0f, 1.0f);
+					ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.0f, 1.0f);
+					ImGui::SliderFloat("Subpixel Threshold",    &target::s_SubpixelThreshold, 0.0f, 1.0f);
+					ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f, 1.0f);
+					
+					ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier);
+			    }
+				
+		        ImGui::TreePop(); // END ANTI ALIASING SECTION.
+		    }
+			
+			/* GRAIN SETTINGS */
+		    if (ImGui::TreeNode("Grain")) {
+				
+				using target = Settings::PostProcessing::Grain;
+				
+		        ImGui::TextWrapped("Adds visual noise to an image, which can be applied aesthetically or as a technique to reduce the prominence of color banding.");
+				
+				// Toggle for grain.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				
+			    if (target::s_Enabled) {
+					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
+			    }
+				
+		        ImGui::TreePop(); // END GRAIN SECTION.
+		    }
+			
+			/* GRAIN SETTINGS */
+		    if (ImGui::TreeNode("Vignette")) {
+				
+				using target = Settings::PostProcessing::Vignette;
+				
+		        ImGui::TextWrapped("Darkens areas of the image further from the center.");
+				
+				// Toggle for vignette.
+			    ImGui::Checkbox("Enabled", &target::s_Enabled);
+				
+			    if (target::s_Enabled) {
+					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
+			    }
+				
+		        ImGui::TreePop(); // END GRAIN SECTION.
+		    }
 	    }
 		
 		ImGui::End();
