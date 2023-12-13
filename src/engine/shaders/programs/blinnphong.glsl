@@ -69,6 +69,7 @@
     uniform mediump float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
     uniform mediump float u_NearPlane        = 0.1;   // Light's shadow near plane.
 
+    uniform int u_ShadowTechnique = 0;
     uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
 
     uniform mediump float u_Time;
@@ -110,10 +111,33 @@
         mediump float adjustedBias =
             texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
-        //return ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0), adjustedBias, u_LightRange);
-        //return ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
-        //return ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
-        return ShadowCalculationPCSS3D(u_ShadowMap3D, fragToLight, PCSS_SCENE_SCALE, adjustedBias, u_LightRange, u_LightSize, fract(u_Time), u_ShadowSamples);
+        float result;
+
+        switch(u_ShadowTechnique) {
+
+            case 0: {
+                result = ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0), adjustedBias, u_LightRange);
+                break;
+            }
+            case 1: {
+                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
+                break;
+            }
+            case 2: {
+                result = ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
+                break;
+            }
+            case 3: {
+                result = ShadowCalculationPCSS3D(u_ShadowMap3D, fragToLight, PCSS_SCENE_SCALE, adjustedBias, u_LightRange, u_LightSize, fract(u_Time), u_ShadowSamples);
+                break;
+            }
+            default: {
+                result = 0.0;
+                break;
+            }
+        }
+
+        return result;
     }
 
     mediump float TransferShadow2D(in mediump vec4 _fragPosLightSpace, in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump float _bias, in mediump float _normalBias) {
@@ -129,10 +153,33 @@
         mediump float adjustedBias =
             texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
-        //return ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0), adjustedBias);
-        //return ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
-        //return ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
-        return ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize, fract(u_Time), u_ShadowSamples);
+        float result;
+
+        switch(u_ShadowTechnique) {
+
+            case 0: {
+                result = ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0), adjustedBias);
+                break;
+            }
+            case 1: {
+                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
+                break;
+            }
+            case 2: {
+                result = ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
+                break;
+            }
+            case 3: {
+                result = ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize, fract(u_Time), u_ShadowSamples);
+                break;
+            }
+            default: {
+                result = 0.0;
+                break;
+            }
+        }
+
+        return result;
     }
 
     void main() {
@@ -209,7 +256,7 @@
         mediump vec3 indirectLighting;
         {
             // Sample at a lower resolution for the diffuse. TODO: Actual diffuse irradiance.
-            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 0.8);
+            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 0.71);
 
             // Figure out the direction of the specular light
             mediump vec3 specularDir = reflect(-viewDir, normal);

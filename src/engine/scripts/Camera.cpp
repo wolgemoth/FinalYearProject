@@ -84,7 +84,7 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_Displacement);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount);
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			
 			RenderTexture::Bind(m_TexCoord_gBuffer);
@@ -292,10 +292,10 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
-			program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
-			program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_Displacement);
-			
+			program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), Settings::Graphics::Material::s_RoughnessAmount);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount);
+			program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), Settings::Graphics::Material::s_AOAmount);
+
 			program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
 
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
@@ -673,8 +673,11 @@ namespace LouiEriksson {
 						light->m_Shadow.m_NormalBias);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
-						16);
-
+						Settings::Graphics::Material::s_ShadowSamples);
+					
+					program.lock()->Assign(program.lock()->AttributeID("u_ShadowTechnique"),
+						Settings::Graphics::Material::s_CurrentShadowTechnique);
+					
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
 						light->m_Size);
 

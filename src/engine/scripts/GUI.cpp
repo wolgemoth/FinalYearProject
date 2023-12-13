@@ -595,8 +595,14 @@ namespace LouiEriksson {
 				target::UpdateShader(selected);
 			}
 			
-			ImGui::DragFloat("Displacement", &target::s_Displacement, 0.0001f, 0.0f, 65535.0f);
+			ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
+			ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
+			ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
+			
 			ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
+			
+			ImGui::Combo("Shadow Technique", &target::s_CurrentShadowTechnique, target::s_ShadowTechniques.data(), target::s_ShadowTechniques.size());
+			ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
 			
 	        ImGui::TreePop(); // END MATERIAL SECTION.
 	    }

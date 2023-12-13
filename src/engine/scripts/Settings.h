@@ -73,8 +73,22 @@ namespace LouiEriksson {
 				
 				static void UpdateShader(const int& _index);
 				
+				/* SHADOWS */
+				inline static std::vector<const char*> s_ShadowTechniques = {
+					"hard",
+					"pcf",
+					"poisson-disk",
+					"pcss"
+				};
+				
+				inline static int s_CurrentShadowTechnique = 3;
+				inline static int s_ShadowSamples = 12;
+				
 				/* PARAMETERS */
-				inline static float s_Displacement = 0.01;
+				inline static float s_RoughnessAmount    = 1.0;
+				inline static float s_DisplacementAmount = 0.01;
+				inline static float s_AOAmount           = 2.0;
+				
 				inline static glm::vec4 s_TextureScaleTranslate = glm::vec4(3.0f, 3.0f, 0.0f, 0.0f);
 			};
 		};
