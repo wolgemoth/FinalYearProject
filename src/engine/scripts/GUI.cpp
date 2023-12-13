@@ -597,6 +597,8 @@ namespace LouiEriksson {
 			
 			ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
 			ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
+			ImGui::DragFloat(     "Normals", &target::s_NormalAmount,        0.001f, 0.0f, 65535.0f);
+			ImGui::DragFloat(    "Emission", &target::s_EmissionAmount,      0.001f, 0.0f, 65535.0f);
 			ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
 			
 			ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);

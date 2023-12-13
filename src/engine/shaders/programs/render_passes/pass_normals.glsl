@@ -51,7 +51,7 @@
     uniform sampler2D u_Normals;
     uniform sampler2D u_TexCoord_gBuffer;
 
-    uniform mediump float u_Normal_Amount = 1.0;
+    uniform mediump float u_NormalAmount = 1.0;
 
     uniform mediump vec2 u_ScreenDimensions;
 
@@ -60,7 +60,7 @@
         mediump vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
         mediump vec3 normal = normalize((Sample3(u_Normals, uv) * 2.0) - 1.0);
-        normal = mix(v_TBN[2], normalize(v_TBN * normal), u_Normal_Amount);
+        normal = mix(v_TBN[2], normalize(v_TBN * normal), u_NormalAmount);
 
         gl_FragColor = vec4(normal, 1.0f);
     }

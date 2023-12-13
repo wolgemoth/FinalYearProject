@@ -85,9 +85,11 @@ namespace LouiEriksson {
 				inline static int s_ShadowSamples = 12;
 				
 				/* PARAMETERS */
-				inline static float s_RoughnessAmount    = 1.0;
-				inline static float s_DisplacementAmount = 0.01;
-				inline static float s_AOAmount           = 2.0;
+				inline static float s_RoughnessAmount    = 1.0f;
+				inline static float s_DisplacementAmount = 0.01f;
+				inline static float s_NormalAmount       = 1.0f;
+				inline static float s_EmissionAmount     = 0.0f;
+				inline static float s_AOAmount           = 2.0f;
 				
 				inline static glm::vec4 s_TextureScaleTranslate = glm::vec4(3.0f, 3.0f, 0.0f, 0.0f);
 			};
@@ -155,7 +157,7 @@ namespace LouiEriksson {
 			
 				inline static float s_ContrastThreshold     = 0.0312f;
 				inline static float s_RelativeThreshold     = 0.063f;
-				inline static float s_SubpixelBlending     = 0.75f;
+				inline static float s_SubpixelBlending      = 0.75f;
 				inline static float s_EdgeBlending          = 1.0f;
 				inline static float s_LocalContrastModifier = 0.5f;
 				

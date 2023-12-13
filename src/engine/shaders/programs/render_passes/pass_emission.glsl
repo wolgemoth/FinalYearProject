@@ -36,9 +36,11 @@
 
     uniform mediump vec2 u_ScreenDimensions;
 
+    uniform float u_EmissionAmount;
+
     void main() {
 
         mediump vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
-        gl_FragColor = Sample4(u_Emission, uv);
+        gl_FragColor = vec4(Sample3(u_Emission, uv) * u_EmissionAmount, 1.0);
     }

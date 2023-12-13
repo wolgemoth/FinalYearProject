@@ -20,7 +20,7 @@ namespace LouiEriksson {
 		m_Normals      = Resources::GetTexture("normal");
 		m_Displacement = Resources::GetTexture("black");
 		m_AO           = Resources::GetTexture("white");
-		m_Emission     = Resources::GetTexture("black");
+		m_Emission     = Resources::GetTexture("white");
 	}
 	
 	Material::~Material() = default;

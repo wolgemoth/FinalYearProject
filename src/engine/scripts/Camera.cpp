@@ -203,6 +203,8 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
+			program.lock()->Assign(program.lock()->AttributeID("u_EmissionAmount"), Settings::Graphics::Material::s_EmissionAmount);
+			
 			RenderTexture::Bind(m_Emission_gBuffer);
 			glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -363,6 +365,7 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
+			program.lock()->Assign(program.lock()->AttributeID("u_NormalAmount"), Settings::Graphics::Material::s_NormalAmount);
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
 			RenderTexture::Bind(m_Normal_gBuffer);
