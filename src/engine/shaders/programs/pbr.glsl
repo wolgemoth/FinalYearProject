@@ -510,7 +510,7 @@
 
             // Sample at max mip level for the diffuse.
             // TODO: Actual diffuse irradiance.
-            mediump vec3 diffuse = SampleAmbient(normal, 0.8);
+            mediump vec3 diffuse = SampleAmbient(normal, 0.75);
 
             // Sample at variable mip level (determined by roughness) for specular.
             mediump vec3 specular = SampleAmbient(ambientDir, roughness);

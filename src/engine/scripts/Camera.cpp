@@ -71,8 +71,6 @@ namespace LouiEriksson {
 		
 		glm::vec4 const st(3.0f, 3.0f, 0.0f, 0.0f);
 		
-		const float skyExposure = 1.0f;
-		
 		const float displacement = 0.01f;
 		
 		GLint cullMode, depthMode;
@@ -268,7 +266,7 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 				
-				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), skyExposure);
+				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
@@ -512,8 +510,6 @@ namespace LouiEriksson {
 	
 	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
 		
-		const float skyExposure = 1.0f;
-		
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 		
@@ -549,7 +545,7 @@ namespace LouiEriksson {
 			RenderTexture::Bind(m_RT);
 			
 			/* DRAW OBJECTS */
-			const auto program = Resources::GetShader("pbr");
+			const auto program = Settings::Graphics::Material::s_Shader;
 	
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
@@ -609,21 +605,21 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), skyExposure);
+			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
 
 			if (_lights.empty()) {
 
 				// Draw the scene with no lighting.
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_ShadowMap2D"),
-					0,
+					Resources::GetTexture("white").lock()->ID(),
 					99,
 					GL_TEXTURE_2D
 				);
 
 				program.lock()->Assign(
 					program.lock()->AttributeID("u_ShadowMap3D"),
-					0,
+					Resources::GetTexture("white").lock()->ID(),
 					100,
 					GL_TEXTURE_CUBE_MAP
 				);

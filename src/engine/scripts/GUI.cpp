@@ -555,6 +555,23 @@ namespace LouiEriksson {
 			}
 			
 			ImGui::SliderFloat("Blur", &Settings::Graphics::Skybox::s_Blur, 0.0f, 1.0f);
+			ImGui::DragFloat("Exposure", &Settings::Graphics::Skybox::s_Exposure, 0.001f, 0.0f, 65535.0f);
+			
+	        ImGui::TreePop(); // END SKYBOX SECTION.
+	    }
+		
+		/* MATERIAL */
+	    if (ImGui::TreeNode("Material")) {
+			
+			// Dropdown selection for skybox:
+			static int selected = 0;
+			
+			ImGui::Combo(" ", &selected, Settings::Graphics::Material::s_AvailableShaders.data(), Settings::Graphics::Material::s_AvailableShaders.size());
+			
+			// If the selected values mismatch, it means the selection has changed...
+			if (selected != Settings::Graphics::Material::s_CurrentShaderSelection) {
+				Settings::Graphics::Material::UpdateShader(selected);
+			}
 			
 	        ImGui::TreePop(); // END SKYBOX SECTION.
 	    }

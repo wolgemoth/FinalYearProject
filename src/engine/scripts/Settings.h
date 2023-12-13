@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_SETTINGS_H
 
 #include "Texture.h"
+#include "Shader.h"
 
 class Application;
 class Camera;
@@ -33,9 +34,25 @@ namespace LouiEriksson {
 				inline static int s_CurrentSkyboxSelection = 0;
 				
 				inline static std::weak_ptr<Texture> s_Skybox;
-				inline static float s_Blur = 0.0f;
+				
+				inline static float s_Blur     = 0.0f;
+				inline static float s_Exposure = 1.0f;
 				
 				static void UpdateSkybox(const int& _index);
+			};
+			
+			struct Material {
+				
+				inline static std::vector<const char*> s_AvailableShaders = {
+					"pbr",
+					"blinnphong",
+				};
+				
+				inline static int s_CurrentShaderSelection = 0;
+				
+				inline static std::weak_ptr<Shader> s_Shader;
+				
+				static void UpdateShader(const int& _index);
 			};
 		};
 		
