@@ -63,7 +63,7 @@
 
     uniform mediump vec3 u_CameraPosition;
 
-    const mediump float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
+    const mediump float PCSS_SCENE_SCALE = 0.0003125; // Scale of shadow blur (PCSS only).
 
     uniform mediump float u_ShadowBias       = 0.005; // Shadow bias.
     uniform mediump float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
@@ -83,7 +83,6 @@
     uniform mediump float u_LightSize       =  0.2; // Size of the light (PCSS only).
     uniform mediump float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
 
-    // Lambert diffuse irradiance.
     mediump float Lambert(const vec3 _normal, const vec3 _lightDirection) {
         return max(dot(_normal, _lightDirection), 0.0);
     }
@@ -97,6 +96,43 @@
         specularity *= specularity;
 
         return pow(specAngle, 1.0 / specularity);
+    }
+
+    mediump float TransferShadow3D(in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump vec3 _fragPos, in mediump float _bias, in mediump float _normalBias) {
+
+        mediump float texelSize = 1.0 /
+            float(max(textureSize(u_ShadowMap3D, 0).x, 1));
+
+        mediump vec3 fragToLight = _fragPos - u_LightPosition;
+
+        mediump float perspective_multiplier = 32.0;
+
+        mediump float adjustedBias =
+            texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+        //return ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0), adjustedBias, u_LightRange);
+        //return ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
+        //return ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
+        return ShadowCalculationPCSS3D(u_ShadowMap3D, fragToLight, PCSS_SCENE_SCALE, adjustedBias, u_LightRange, u_LightSize, fract(u_Time), u_ShadowSamples);
+    }
+
+    mediump float TransferShadow2D(in mediump vec4 _fragPosLightSpace, in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump float _bias, in mediump float _normalBias) {
+
+        mediump float texelSize = 1.0 /
+            float(max(textureSize(u_ShadowMap2D, 0).x, 1));
+
+        mediump vec3 projCoords =
+            ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
+
+        mediump float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
+
+        mediump float adjustedBias =
+            texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+
+        //return ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0), adjustedBias);
+        //return ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
+        //return ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
+        return ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize, fract(u_Time), u_ShadowSamples);
     }
 
     void main() {
@@ -127,42 +163,41 @@
 
             mediump vec4 position_lightSpace = u_LightSpaceMatrix * vec4(position, 1.0);
 
-//            mediump float visibility = clamp(
-//                (
-//                    #define LIGHT_TYPE 2
-//
-//                    /* DIRECTIONAL */
-//                    #if LIGHT_TYPE == 0
-//                        (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
-//                        1.0 - max(
-//                            TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
-//                            ps
-//                        )
-//                    /* SPOT */
-//                    #elif LIGHT_TYPE == 1
-//                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-//                        1.0 - max(
-//                            TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-//                            ps
-//                        )
-//                    /* POINT */
-//                    #elif LIGHT_TYPE == 2
-//                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-//                        1.0 - max(
-//                            TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
-//                            ps
-//                        )
-//                    #endif
-//                ),
-//                0.0,
-//                1.0
-//            );
+            mediump float visibility = clamp(
+                (
+                    #define LIGHT_TYPE 2
 
-            mediump float visibility = 1.0;
+                    /* DIRECTIONAL */
+                    #if LIGHT_TYPE == 0
+                        (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    /* SPOT */
+                    #elif LIGHT_TYPE == 1
+                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    /* POINT */
+                    #elif LIGHT_TYPE == 2
+                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                        1.0 - max(
+                            TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
+                            ps
+                        )
+                    #endif
+                ),
+                0.0,
+                1.0
+            );
 
-            mediump float lighting =
-                 Lambert(normal, lightDir) +
-                BlinnPhong(normal, lightDir, viewDir, roughness);
+            mediump float lighting = (
+                Lambert(normal, lightDir) +
+                BlinnPhong(normal, lightDir, viewDir, roughness)
+            ) * u_LightIntensity * attenuation;
 
             directLighting += (visibility * lighting) * u_LightColor;
         }

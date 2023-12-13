@@ -63,7 +63,7 @@
 
     uniform mediump vec3 u_CameraPosition;
 
-    const mediump float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
+    const mediump float PCSS_SCENE_SCALE = 0.0003125; // Scale of shadow blur (PCSS only).
 
     uniform mediump float u_ShadowBias       = 0.005; // Shadow bias.
     uniform mediump float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
@@ -133,112 +133,6 @@
         return (diffuse + specular) * NdL;
     }
 
-    mediump float PCSS_GetOccluderDepth3D(in mediump vec3 _dir, in mediump float _texelSize, in mediump float _bias) {
-
-        mediump float result = 0.0;
-
-        int hits = 0;
-
-        for (int i = 0; i < u_ShadowSamples; i++) {
-
-            mediump vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(u_Time), 0.1));
-
-            offset *= Random1S(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
-
-            mediump float occluderDepth = Sample1(u_ShadowMap3D, _dir + offset);
-
-            if (occluderDepth < length(_dir) - _bias) {
-                result += occluderDepth;
-
-                hits++;
-            }
-        }
-
-        if (hits == 0) {
-            result = -1.0;
-        }
-
-        return result / float(max(hits, 1));
-    }
-
-    mediump float PCSS_Radius3D(in mediump vec3 _dir, in mediump float _texelSize, in mediump float _bias) {
-
-        mediump float occluderDepth = PCSS_GetOccluderDepth3D(_dir, _texelSize, _bias);
-
-        if (occluderDepth == -1.0) {
-            return 1.0;
-        }
-
-        mediump float len = length(_dir);
-
-        mediump float penumbraWidth = (len - occluderDepth) / occluderDepth;
-
-        return penumbraWidth * u_LightSize;
-    }
-
-    mediump float ShadowCalculationHard3D(in mediump vec3 _dir, in mediump vec3 _offset, in mediump float _bias) {
-
-        // Get depth from light to closest surface.
-        mediump float shadowDepth = Sample1(u_ShadowMap3D, _dir + _offset) * u_LightRange;
-
-        // Compare the depth of the light against the distance from the light to the current fragment.
-        return length(_dir) - _bias > shadowDepth ? 1.0 : 0.0;
-    }
-
-    mediump float ShadowCalculationPCF3D(in mediump vec3 _dir, in mediump float _texelSize, in mediump float _bias, in mediump float _radius) {
-
-        mediump float result = 0.0;
-
-        mediump float hits = 0.0;
-
-        mediump float PCF_SAMPLES = 8.0;
-
-        mediump float multiplier = 50.0; // Compensation for 3D.
-
-        mediump float axis = pow(PCF_SAMPLES, 1.0 / 3.0);
-        for (mediump float x = -_radius; x < _radius; x += _radius / axis) {
-        for (mediump float y = -_radius; y < _radius; y += _radius / axis) {
-        for (mediump float z = -_radius; z < _radius; z += _radius / axis) {
-
-            mediump vec3 offset = vec3(x, y, z);
-
-            offset *= _texelSize * multiplier;
-
-            result += ShadowCalculationHard3D(_dir, offset, _bias);
-
-            hits += 1.0;
-        }}}
-
-        return result / max(hits, 1.0);
-    }
-
-    mediump float ShadowCalculationDisk3D(in mediump vec3 _dir, in mediump float _texelSize, in mediump float _bias, in mediump float _radius) {
-
-        mediump float result = 0.0;
-
-        for (int i = 0; i < u_ShadowSamples; i++) {
-
-            mediump vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(u_Time), 0.1));
-
-            offset *= _texelSize * _radius * Random1S(_dir.xy + vec2(i + 1), fract(u_Time), 0.4);
-
-            result += ShadowCalculationHard3D(_dir, offset, _bias);
-        }
-
-        return result / u_ShadowSamples;
-    }
-
-    mediump float ShadowCalculationPCSS3D(in mediump vec3 _dir, in mediump  float _texelSize, in mediump float _bias) {
-
-        mediump float result = 0.0;
-
-        mediump float radius = PCSS_Radius3D(_dir, _texelSize, _bias);
-
-        result = ShadowCalculationDisk3D(_dir, _texelSize, _bias, radius);
-
-        return result;
-    }
-
     mediump float TransferShadow3D(in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump vec3 _fragPos, in mediump float _bias, in mediump float _normalBias) {
 
         mediump float texelSize = 1.0 /
@@ -251,114 +145,10 @@
         mediump float adjustedBias =
             texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
-        //return ShadowCalculationHard3D(fragToLight, vec3(0), adjustedBias);
-        //return ShadowCalculationPCF3D(fragToLight, texelSize, adjustedBias, 1.0f);
-        //return ShadowCalculationDisk3D(fragToLight, texelSize, adjustedBias, 1.0f);
-        return ShadowCalculationPCSS3D(fragToLight, PCSS_SCENE_SCALE, adjustedBias);
-    }
-
-    mediump float PCSS_GetOccluderDepth2D(in mediump vec3 _fragPos, in mediump float _texelSize, in mediump float _bias) {
-
-        mediump float result = 0.0;
-
-        int hits = 0;
-
-        for (int i = 0; i < u_ShadowSamples; i++) {
-
-            mediump vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1);
-
-            dir *= float(i + 1.0) * _texelSize;
-
-            mediump float occluderDepth = Sample1(u_ShadowMap2D, _fragPos.xy + dir);
-
-            if (occluderDepth < _fragPos.z - _bias) {
-                result += occluderDepth;
-
-                hits++;
-            }
-        }
-
-        if (hits == 0) {
-            result = -1;
-        }
-
-        return result / float(max(hits, 1));
-    }
-
-    mediump float PCSS_Radius2D(in mediump vec3 _fragPos, in mediump float _texelSize, in mediump float _bias) {
-
-        mediump float occluderDepth = PCSS_GetOccluderDepth2D(_fragPos, _texelSize, _bias);
-
-        if (occluderDepth == -1.0) {
-            return 1.0;
-        }
-
-        mediump float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
-
-        return penumbraWidth * u_LightSize * (u_NearPlane / _fragPos.z);
-    }
-
-    mediump float ShadowCalculationHard2D(in mediump vec3 _fragPos, in mediump vec2 _offset, in mediump float _bias) {
-
-        // Get depth from light to closest surface.
-        mediump float shadowDepth = Sample1(u_ShadowMap2D, _fragPos.xy + _offset);
-
-        // Compare the depth of the light against the distance from the light to the current fragment (converted to light space).
-        return (_fragPos.z <= 1.0) && (_fragPos.z - _bias > shadowDepth) ?
-            1.0 : 0.0;
-    }
-
-    mediump float ShadowCalculationPCF2D(in mediump vec3 _fragPos, in mediump float _texelSize, in mediump float _bias, in mediump float _radius) {
-
-        mediump float result = 0.0;
-
-        mediump float hits = 0.0;
-
-        mediump float PCF_SAMPLES = 4.0;
-
-        mediump float axis = pow(PCF_SAMPLES, 1.0 / 2.0);
-        for (mediump float x = -_radius; x < _radius; x += _radius / axis) {
-        for (mediump float y = -_radius; y < _radius; y += _radius / axis) {
-
-            mediump vec2 dir = vec2(x, y);
-
-            dir *= _texelSize;
-
-            result += ShadowCalculationHard2D(_fragPos, dir, _bias);
-
-            hits += 1.0;
-        }}
-
-        return result / max(hits, 1.0);
-    }
-
-    mediump float ShadowCalculationDisk2D(in mediump vec3 _fragPos, in mediump float _texelSize, in mediump float _bias, in mediump float _radius) {
-
-        mediump float result = 0.0;
-
-        for (int i = 0; i < u_ShadowSamples; i++) {
-
-            mediump vec2 dir = normalize(Random2S(_fragPos.xy + vec2(i + 1), fract(u_Time), 0.1));
-
-            dir *= _texelSize * _radius * (float(i + 1) / float(u_ShadowSamples));
-
-            result += ShadowCalculationHard2D(_fragPos, dir, _bias);
-        }
-
-        return result / u_ShadowSamples;
-    }
-
-    mediump float ShadowCalculationPCSS2D(in mediump vec3 _fragPos, in mediump float _texelSize, in mediump float _bias) {
-
-        mediump float result = 0.0;
-
-        mediump float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
-
-        mediump float radius = PCSS_Radius2D(_fragPos, _texelSize, _bias) / _texelSize;
-
-        result = ShadowCalculationDisk2D(_fragPos, _texelSize, _bias, radius * perspective_multiplier);
-
-        return result;
+        //return ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0), adjustedBias, u_LightRange);
+        //return ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
+        //return ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
+        return ShadowCalculationPCSS3D(u_ShadowMap3D, fragToLight, PCSS_SCENE_SCALE, adjustedBias, u_LightRange, u_LightSize, fract(u_Time), u_ShadowSamples);
     }
 
     mediump float TransferShadow2D(in mediump vec4 _fragPosLightSpace, in mediump vec3 _normal, in mediump vec3 _lightDir, in mediump float _bias, in mediump float _normalBias) {
@@ -374,10 +164,10 @@
         mediump float adjustedBias =
             texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
-        //return ShadowCalculationHard2D(projCoords, vec2(0), adjustedBias);
-        //return ShadowCalculationPCF2D(projCoords, texelSize, adjustedBias, 1.0f);
-        //return ShadowCalculationDisk2D(projCoords, texelSize, adjustedBias, 1.0f);
-        return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
+        //return ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0), adjustedBias);
+        //return ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
+        //return ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
+        return ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize, fract(u_Time), u_ShadowSamples);
     }
 
     void main() {
