@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "OrbitCam.h"
+#include "Settings.h"
 
 namespace LouiEriksson {
 	
@@ -62,29 +63,30 @@ namespace LouiEriksson {
 			m_Camera = Parent()->AddComponent<Camera>();
 		}
 		
-		GetCamera()->FOV(60.0f);
+		FOV(60.0f);
+		
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
-		GetCamera()->ClearColor(glm::vec4(0.0f)); //glm::vec4(0.34f, 0.764f, 1.0f, 0.0f)
+		GetCamera()->ClearColor(glm::vec4(0.0f));
 	}
 	
 	void OrbitCam::Tick() {
 		
-		float rot_speed = 0.75f;
-		float bob_speed = 0.33f;
+		using target = Settings::Graphics::Perspective::Orbit;
 		
-		float rot_distance = -12;
-		float bob_distance = 2.5;
-		float bob_amount = 4;
+		if (target::s_Enabled) {
+			
+			float distance = target::s_Offset.z + glm::sin(m_AnimationProgress * target::s_Speed.z) * target::s_Amount.z;
+			
+			GetTransform()->m_Position = glm::vec3(
+				glm::sin(m_AnimationProgress * target::s_Speed.x) * distance,
+				target::s_Offset.y + glm::sin(m_AnimationProgress * target::s_Speed.y) * target::s_Amount.y,
+				glm::cos(m_AnimationProgress * target::s_Speed.x) * distance
+			);
+			
+			GetTransform()->m_Rotation = glm::lookAt(glm::vec3(0.0f), GetTransform()->m_Position, VEC_UP);
 		
-		rot_distance += glm::sin(Time::Elapsed() * 0.5f) * 5.0f;
-		
-		GetTransform()->m_Position = glm::vec3(
-				glm::sin(Time::Elapsed() * rot_speed) * rot_distance,
-				bob_distance + glm::sin(Time::Elapsed() * bob_speed) * bob_amount,
-				glm::cos(Time::Elapsed() * rot_speed) * rot_distance
-		);
-		
-		GetTransform()->m_Rotation = glm::lookAt(glm::vec3(0.0f), GetTransform()->m_Position, VEC_UP);
+			m_AnimationProgress += Time::DeltaTime();
+		}
 	}
 }

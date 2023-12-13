@@ -33,6 +33,8 @@ namespace LouiEriksson {
 		/// <summary> Distance from target. </summary>
 		float m_OrbitDistance;
 	
+		float m_AnimationProgress;
+		
 		/// <summary> Called at the beginning of the first frame. </summary>
 		void Begin() override;
 	

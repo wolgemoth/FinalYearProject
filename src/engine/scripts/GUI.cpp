@@ -541,21 +541,41 @@ namespace LouiEriksson {
 		/* RENDERING SETTINGS */
 		ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 		
+		/* CAMERA */
+	    if (ImGui::TreeNode("Camera")) {
+			
+			using target = Settings::Graphics::Perspective;
+			
+			// Toggle for orbit.
+		    ImGui::Checkbox("Orbit", &target::Orbit::s_Enabled);
+			
+		    if (target::Orbit::s_Enabled) {
+				
+				ImGui::DragFloat3("Speed",  &target::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::DragFloat3("Amount", &target::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::DragFloat3("Offset", &target::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
+		    }
+			
+	        ImGui::TreePop(); // END CAMERA SECTION.
+	    }
+		
 		/* SKYBOX */
 	    if (ImGui::TreeNode("Skybox")) {
+			
+			using target = Settings::Graphics::Skybox;
 			
 			// Dropdown selection for skybox:
 			static int selected = 0;
 			
-			ImGui::Combo(" ", &selected, Settings::Graphics::Skybox::s_AvailableSkyboxes.data(), Settings::Graphics::Skybox::s_AvailableSkyboxes.size());
+			ImGui::Combo(" ", &selected, target::s_AvailableSkyboxes.data(), target::s_AvailableSkyboxes.size());
 			
 			// If the selected values mismatch, it means the selection has changed...
-			if (selected != Settings::Graphics::Skybox::s_CurrentSkyboxSelection) {
-				Settings::Graphics::Skybox::UpdateSkybox(selected);
+			if (selected != target::s_CurrentSkyboxSelection) {
+				target::UpdateSkybox(selected);
 			}
 			
-			ImGui::SliderFloat("Blur", &Settings::Graphics::Skybox::s_Blur, 0.0f, 1.0f);
-			ImGui::DragFloat("Exposure", &Settings::Graphics::Skybox::s_Exposure, 0.001f, 0.0f, 65535.0f);
+			ImGui::SliderFloat("Blur", &target::s_Blur, 0.0f, 1.0f);
+			ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0f, 65535.0f);
 			
 	        ImGui::TreePop(); // END SKYBOX SECTION.
 	    }
@@ -563,17 +583,22 @@ namespace LouiEriksson {
 		/* MATERIAL */
 	    if (ImGui::TreeNode("Material")) {
 			
-			// Dropdown selection for skybox:
+			using target = Settings::Graphics::Material;
+			
+			// Dropdown selection for shader:
 			static int selected = 0;
 			
-			ImGui::Combo(" ", &selected, Settings::Graphics::Material::s_AvailableShaders.data(), Settings::Graphics::Material::s_AvailableShaders.size());
+			ImGui::Combo(" ", &selected, target::s_AvailableShaders.data(), target::s_AvailableShaders.size());
 			
 			// If the selected values mismatch, it means the selection has changed...
-			if (selected != Settings::Graphics::Material::s_CurrentShaderSelection) {
-				Settings::Graphics::Material::UpdateShader(selected);
+			if (selected != target::s_CurrentShaderSelection) {
+				target::UpdateShader(selected);
 			}
 			
-	        ImGui::TreePop(); // END SKYBOX SECTION.
+			ImGui::DragFloat("Displacement", &target::s_Displacement, 0.0001f, 0.0f, 65535.0f);
+			ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
+			
+	        ImGui::TreePop(); // END MATERIAL SECTION.
 	    }
 		
 		ImGui::End();

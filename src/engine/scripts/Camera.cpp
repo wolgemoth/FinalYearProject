@@ -69,10 +69,6 @@ namespace LouiEriksson {
 	
 	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
 		
-		glm::vec4 const st(3.0f, 3.0f, 0.0f, 0.0f);
-		
-		const float displacement = 0.01f;
-		
 		GLint cullMode, depthMode;
 		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
 		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
@@ -87,8 +83,8 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Projection"), Projection()); /* PROJECTION */
 			program.lock()->Assign(program.lock()->AttributeID("u_View"),             View()); /* VIEW       */
 			
-			program.lock()->Assign(program.lock()->AttributeID("u_ST"), st);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
+			program.lock()->Assign(program.lock()->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_Displacement);
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
 			
 			RenderTexture::Bind(m_TexCoord_gBuffer);
@@ -298,7 +294,7 @@ namespace LouiEriksson {
 			
 			program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), 1.0f);
 			program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), 2.0f);
-			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), displacement);
+			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_Displacement);
 			
 			program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
 

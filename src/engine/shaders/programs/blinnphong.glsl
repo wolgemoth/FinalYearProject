@@ -217,7 +217,7 @@
             // Sample at variable mip level (determined by roughness) for specular.
             mediump vec3 specular = SampleAmbient(u_Ambient, specularDir, roughness);
 
-            mediump float fresnel = pow(1.0 - dot(normal, viewDir), 5.0);//BlinnPhong(normal, -normal, viewDir, roughness);
+            mediump float fresnel = pow(1.0 - max(0.0, dot(normal, specularDir)), 5.0);
 
             indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * u_AmbientExposure;
         }

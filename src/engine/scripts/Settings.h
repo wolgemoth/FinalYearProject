@@ -7,6 +7,7 @@
 class Application;
 class Camera;
 class GUI;
+class OrbitCam;
 
 namespace LouiEriksson {
 	
@@ -23,8 +24,23 @@ namespace LouiEriksson {
 			
 			friend Camera;
 			
+			struct Perspective {
+				
+				friend OrbitCam;
+			
+				struct Orbit {
+					
+					inline static bool s_Enabled = true;
+					
+					inline static glm::vec3 s_Speed  = glm::vec3(-0.25f, 0.33f,   0.5f);
+					inline static glm::vec3 s_Amount = glm::vec3(  0.0f,  4.0f,   5.0f);
+					inline static glm::vec3 s_Offset = glm::vec3(  0.0f,  2.5f, -12.0f);
+				};
+			};
+			
 			struct Skybox {
 				
+				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes = {
 					"little_paris_eiffel_tower_4k",
 					"abandoned_workshop_02_8k",
@@ -35,14 +51,17 @@ namespace LouiEriksson {
 				
 				inline static std::weak_ptr<Texture> s_Skybox;
 				
+				static void UpdateSkybox(const int& _index);
+				
+				/* PARAMETERS */
 				inline static float s_Blur     = 0.0f;
 				inline static float s_Exposure = 1.0f;
 				
-				static void UpdateSkybox(const int& _index);
 			};
 			
 			struct Material {
 				
+				/* SHADER */
 				inline static std::vector<const char*> s_AvailableShaders = {
 					"pbr",
 					"blinnphong",
@@ -53,6 +72,10 @@ namespace LouiEriksson {
 				inline static std::weak_ptr<Shader> s_Shader;
 				
 				static void UpdateShader(const int& _index);
+				
+				/* PARAMETERS */
+				inline static float s_Displacement = 0.01;
+				inline static glm::vec4 s_TextureScaleTranslate = glm::vec4(3.0f, 3.0f, 0.0f, 0.0f);
 			};
 		};
 		
