@@ -6,84 +6,94 @@
 
     in mediump vec3 a_Position;
     in mediump vec2 a_TexCoord;
-    in mediump vec3 a_Normal;
 
-    out mediump vec3 v_Position;
     out mediump vec2 v_TexCoord;
-    out mediump vec3 v_Normal;
-
-    /* PARAMETERS */
-    layout (location = 3) uniform mediump mat4 u_Projection;
-    layout (location = 4) uniform mediump mat4 u_Model;
-    layout (location = 5) uniform mediump mat4 u_View;
 
     void main() {
 
-        gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
-
-        v_Position = vec3(u_Model * vec4(a_Position, 1.0));
         v_TexCoord = a_TexCoord;
-        v_Normal   = transpose(inverse(mat3((u_Model)))) * a_Normal;
+
+        gl_Position = vec4(a_Position.x, a_Position.y, 0.0, 1.0);
     }
 
 #pragma fragment
 
     #version 330 core
 
+    #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_texture_query_levels      : enable
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/rand.glsl"
+    #include "/shaders/include/constants.glsl"
+    #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/include/lighting_utils.glsl"
+
     in mediump vec2 v_TexCoord;
-    in mediump vec3 v_Position;
-    in mediump vec3 v_Normal;
 
-    uniform sampler2D u_Texture;
+    /* G-BUFFER */
+    layout (location = 0) uniform sampler2D   u_Albedo_gBuffer;
+    layout (location = 1) uniform sampler2D u_Emission_gBuffer;
+    layout (location = 2) uniform sampler2D u_Material_gBuffer;
+    layout (location = 3) uniform sampler2D u_Position_gBuffer;
+    layout (location = 4) uniform sampler2D   u_Normal_gBuffer;
+    layout (location = 5) uniform sampler2D    u_Depth_gBuffer;
 
-    /* PARAMETERS */
-    uniform mediump  vec3 u_CameraPosition; // Camera position. Mainly used for lighting calculations.
-    uniform mediump float u_Roughness;		// Roughness of the surface (inverse of smoothness / shininess).
+    /* AMBIENT LIGHTING */
 
-    /* LIGHTING */
-    uniform mediump vec4 u_AmbientLighting; // Color of ambient lighting. Accepts HDR values.
+    //#define SAMPLER_CUBE
 
-    uniform mediump  vec3 u_PointLightPosition;   // Position of light.
-    uniform mediump float u_PointLightRange;      // Range of light.
-    uniform mediump float u_PointLightBrightness; // Brightness of light.
-    uniform mediump  vec4 u_PointLightColor;      // Color of light.
+    // Ambient lighting texture.
+    #ifdef SAMPLER_CUBE
+        layout (location = 98) uniform samplerCube u_Ambient;
+    #else
+        layout (location = 98) uniform sampler2D u_Ambient;
+    #endif
 
-    uniform mediump  vec3 u_DirectionalLightNormal;     // Direction of light.
-    uniform mediump float u_DirectionalLightBrightness; // Brightness of light.
-    uniform mediump  vec4 u_DirectionalLightColor;      // Color of light.
+    /* SHADOWS */
+    layout (location =  99) uniform sampler2D   u_ShadowMap2D;
+    layout (location = 100) uniform samplerCube u_ShadowMap3D;
 
-    /* FOG */
-    uniform mediump  vec4 u_FogColor;	 // Color of fog effect. Accepts HDR values.
-    uniform mediump float u_FogDensity;  // Density of fog effect.
+    uniform mediump mat4 u_LightSpaceMatrix;
 
-    // Couldn't find a square distance function so made my own. Does GLSL not have one?
-    mediump float SqrDistance(in vec3 _A, in vec3 _B) {
+    uniform mediump vec2 u_ScreenDimensions;
 
-        vec3 delta = _B - _A;
+    uniform mediump float u_AmbientExposure = 1.0; // Brightness of ambient texture.
 
-        return dot(delta, delta);
+    uniform mediump vec3 u_CameraPosition;
+
+    const mediump float PCSS_SCENE_SCALE = 0.015625; // Scale of shadow blur (PCSS only).
+
+    uniform mediump float u_ShadowBias       = 0.005; // Shadow bias.
+    uniform mediump float u_ShadowNormalBias = 0.1;   // Shadow normal bias.
+    uniform mediump float u_NearPlane        = 0.1;   // Light's shadow near plane.
+
+    uniform int u_ShadowSamples = 10; // Number of shadow samples. Please choose a sane value.
+
+    uniform mediump float u_Time;
+
+    /* DIRECT LIGHTING */
+
+    uniform mediump  vec3 u_LightPosition;  // Position of light in world-space.
+    uniform mediump  vec3 u_LightDirection; // Direction of the light in world-space.
+    uniform mediump float u_LightRange;     // Range of light.
+    uniform mediump float u_LightIntensity; // Brightness of light.
+    uniform mediump  vec3 u_LightColor;     // Color of light.
+    uniform mediump float u_LightSize       =  0.2; // Size of the light (PCSS only).
+    uniform mediump float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
+
+    // Lambert diffuse irradiance.
+    mediump float Lambert(const vec3 _normal, const vec3 _lightDirection) {
+        return max(dot(_normal, _lightDirection), 0.0);
     }
 
-    mediump vec4 Fog(in mediump vec3 _cameraPosition, in mediump vec3 _fragPosition, in mediump vec4 _color, in mediump float _density) {
-        return SqrDistance(_cameraPosition, _fragPosition) * _color * _density;
-    }
-
-    // Light falloff with inverse square law.
-    mediump float LightAttenuation(in mediump vec3 _lightPosition, in mediump vec3 _fragPosition, in mediump float _range) {
-        return _range / SqrDistance(_lightPosition, _fragPosition);
-    }
-
-    // Inspired by a modification to the lambert diffuse by John Edwards (https://youtu.be/wt2yYnBRD3U?t=892)
-    mediump float EdwardsLambertIrradiance(const vec3 _normal, const vec3 _lightDirection) {
-        return max(4.0 * dot(_normal, _lightDirection) * 0.2, 0.0);
-    }
-
-    mediump float BlinnPhongSpecular(const mediump vec3 _normal, const mediump vec3 _lightDirection, const mediump vec3 _viewDirection, in mediump float _roughness) {
+    mediump float BlinnPhong(const mediump vec3 _normal, const mediump vec3 _lightDirection, const mediump vec3 _viewDirection, in mediump float _roughness) {
 
         mediump vec3  halfDir   = normalize(_lightDirection + _viewDirection);
         mediump float specAngle = max(dot(halfDir, _normal), 0.0);
 
-        mediump float specularity = clamp(u_Roughness, 0.0, 0.998);
+        mediump float specularity = clamp(_roughness, 0.0, 0.998);
         specularity *= specularity;
 
         return pow(specAngle, 1.0 / specularity);
@@ -91,57 +101,91 @@
 
     void main() {
 
-        mediump vec4 color = texture2D(u_Texture, v_TexCoord);
-        mediump vec4 result;
+        mediump vec3 albedo   = Sample3(  u_Albedo_gBuffer, v_TexCoord);
+        mediump vec3 emission = Sample3(u_Emission_gBuffer, v_TexCoord);
+        mediump vec4 material = Sample4(u_Material_gBuffer, v_TexCoord);
+        mediump vec3 position = Sample3(u_Position_gBuffer, v_TexCoord);
+        mediump vec4 normDisp = Sample4(  u_Normal_gBuffer, v_TexCoord);
+        mediump float   depth = Sample1(   u_Depth_gBuffer, v_TexCoord);
 
-        mediump float lighting = 0.0;
+        mediump float roughness = material.x;
+        mediump float metallic  = material.y;
+        mediump float ao        = material.z;
+        mediump float ps        = material.w;
 
-        mediump vec3  viewDirection = normalize(u_CameraPosition - v_Position);
-        mediump vec3         normal = normalize(v_Normal);
+        mediump vec3 normal = normDisp.xyz;
 
-        /* POINT LIGHT */
-        mediump vec3 lightDirection = normalize( u_PointLightPosition - v_Position);
+        mediump vec3  viewDir = normalize(u_CameraPosition - position);
+        mediump vec3 lightDir = normalize( u_LightPosition - position);
+        mediump vec3  halfVec = normalize(lightDir + viewDir);
 
-        // Compute Diffuse Irradiance
-        mediump float diffuse = EdwardsLambertIrradiance(normal, lightDirection);
+        /* DIRECT */
 
-        // Compute Specular Reflection
-        mediump float specular = BlinnPhongSpecular(
-            lightDirection,
-            viewDirection,
-            normal,
-            u_Roughness
-        );
+        mediump vec3 directLighting;
+        {
+            mediump float attenuation = Attenuation(u_LightPosition, position, u_LightRange);
 
-        mediump float attenuation = LightAttenuation(u_PointLightPosition, v_Position, u_PointLightRange);
+            mediump vec4 position_lightSpace = u_LightSpaceMatrix * vec4(position, 1.0);
 
-        lighting += ((diffuse + specular) * u_PointLightBrightness) * attenuation;
+//            mediump float visibility = clamp(
+//                (
+//                    #define LIGHT_TYPE 2
+//
+//                    /* DIRECTIONAL */
+//                    #if LIGHT_TYPE == 0
+//                        (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
+//                        1.0 - max(
+//                            TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
+//                            ps
+//                        )
+//                    /* SPOT */
+//                    #elif LIGHT_TYPE == 1
+//                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+//                        1.0 - max(
+//                            TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
+//                            ps
+//                        )
+//                    /* POINT */
+//                    #elif LIGHT_TYPE == 2
+//                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+//                        1.0 - max(
+//                            TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
+//                            ps
+//                        )
+//                    #endif
+//                ),
+//                0.0,
+//                1.0
+//            );
 
-        result += color * (u_PointLightColor * lighting);
+            mediump float visibility = 1.0;
 
-        /* DIRECTIONAL LIGHT */
-        lightDirection = u_DirectionalLightNormal;
+            mediump float lighting =
+                 Lambert(normal, lightDir) +
+                BlinnPhong(normal, lightDir, viewDir, roughness);
 
-        // Compute Diffuse Irradiance
-        diffuse = EdwardsLambertIrradiance(normal, lightDirection);
+            directLighting += (visibility * lighting) * u_LightColor;
+        }
 
-        // Compute Specular Reflection
-        specular = BlinnPhongSpecular(
-            lightDirection,
-            viewDirection,
-            normal,
-            u_Roughness
-        );
+        directLighting *= albedo.rgb;
 
-        lighting = ((diffuse + specular) * u_DirectionalLightBrightness);
+        /* INDIRECT */
 
-        result += color * (u_DirectionalLightColor * lighting);
+        mediump vec3 indirectLighting;
+        {
+            // Sample at a lower resolution for the diffuse. TODO: Actual diffuse irradiance.
+            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 0.8);
 
-        /* AMBIENT LIGHTING */
-        result += color * u_AmbientLighting;
+            // Figure out the direction of the specular light
+            mediump vec3 specularDir = reflect(-viewDir, normal);
 
-        // This type of fog is of the "Exponential Squared" variety, which is slightly more performant as it skips a square root.
-        mediump float depth = SqrDistance(u_CameraPosition, v_Position);
+            // Sample at variable mip level (determined by roughness) for specular.
+            mediump vec3 specular = SampleAmbient(u_Ambient, specularDir, roughness);
 
-        gl_FragColor = mix(result, u_FogColor, clamp(depth * u_FogDensity, 0.0, 1.0));
+            mediump float fresnel = pow(1.0 - dot(normal, viewDir), 5.0);//BlinnPhong(normal, -normal, viewDir, roughness);
+
+            indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * u_AmbientExposure;
+        }
+
+        gl_FragColor = vec4(((directLighting + indirectLighting) * ao) + emission, 1.0);
     }

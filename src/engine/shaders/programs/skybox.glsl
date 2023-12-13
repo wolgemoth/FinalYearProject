@@ -24,10 +24,12 @@
 
     #version 330
 
-    #extension GL_ARB_texture_query_levels      : enable
     #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_texture_query_levels      : enable
 
-    const mediump float PI = 3.141593;
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/shaders/include/common_utils.glsl"
 
     in mediump vec3 v_TexCoord;
 
@@ -42,54 +44,51 @@
     uniform mediump float u_Exposure = 1.0;
     uniform mediump float u_Blur     = 0.0;
 
-    mediump vec3 SampleAmbient(in vec3 _dir) {
+    void main() {
 
-        mediump vec3 result;
+        vec3 result;
 
-        mediump float s = textureSize(u_Texture, 0).x;
-
-        mediump float levels = log2(s);
+        float      s = textureSize(u_Texture, 0).x;
+        float levels = log2(s);
 
         int b = int(pow(u_Blur, 2.0f) * levels);
 
-        #ifdef SAMPLER_CUBE
+    #if SAMPLER_CUBE
 
-            // Sample the cubemap the direction directly.
-            result = texture(u_Texture, _dir, b).rgb;
-        #else
+        // Sample the cubemap using the direction directly.
+        result = Sample3(u_Texture, v_TexCoord, b);
 
-            mediump vec3 d = normalize(_dir);
+    #else
 
-            // Sample the texture2d by converting the direction to a uv coordinate.
-            // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
+        vec3 d = normalize(v_TexCoord);
 
-            mediump vec2 uv = vec2(
-                0.5 + ((atan(d.z, d.x) / PI) / 2.0),
-                0.5 - (asin(d.y) / PI)
-            );
+        // Sample the texture2d by converting the direction to a uv coordinate.
+        // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
 
-            // Fix seam at wrap-around point.
-            mediump float threshold = 4.0 / textureSize(u_Texture, b).x;
+        vec2 uv = vec2(
+            0.5 + ((atan(d.z, d.x) / PI) / 2.0),
+            0.5 - (asin(d.y) / PI)
+        );
 
-            mediump float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
+        // Fix seam at wrap-around point.
+        float threshold = 0.0005;
 
-            //result = texture(u_Texture, vec2(uv.x * check, uv.y), b).rgb;
+        float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 
-            // Seemingly no way to do this without a branch.
-            // Compiler seems to need an explicit branch to 'get it'.
-            //
-            // See for yourself by commenting out the following code
-            // and uncommenting the previous code.
+        //result = Sample3(u_Texture, vec2(uv.x * check, uv.y), b);
 
-            result = check > 0 ?
-                texture(u_Texture, uv, b).rgb :
-                texture(u_Texture, vec2(0.0, uv.y), b).rgb;
+        // Seemingly no way to do this without a branch.
+        // Compiler seems to need an explicit branch on
+        // texture access to 'get it'.
+        //
+        // See for yourself by commenting out the following code
+        // and uncommenting the previous code.
 
-        #endif
+        result = check > 0.0 ?
+            Sample3(u_Texture, uv, b) :
+            Sample3(u_Texture, vec2(0.0, uv.y), b);
 
-        return result * u_Exposure;
-    }
+    #endif
 
-    void main() {
-        gl_FragColor = vec4(SampleAmbient(v_TexCoord), 1.0);
+        gl_FragColor = vec4(result, 1.0) * u_Exposure;
     }

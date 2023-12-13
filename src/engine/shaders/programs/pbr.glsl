@@ -380,53 +380,6 @@
         return ShadowCalculationPCSS2D(projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias);
     }
 
-    mediump vec3 SampleAmbient(in mediump vec3 _dir, in mediump float _blur) {
-
-        mediump vec3 result;
-
-        mediump float s = textureSize(u_Ambient, 0).x;
-
-        mediump float levels = log2(s);
-
-        int b = int(pow(_blur, 2.0f) * levels);
-
-        #ifdef SAMPLER_CUBE
-
-            // Sample the cubemap the direction directly.
-            result = Sample3(u_Ambient, _dir, b);
-        #else
-
-            // Sample the texture2d by converting the direction to a uv coordinate.
-            // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
-
-            mediump vec2 uv = vec2(
-                0.5 + ((atan(_dir.z, _dir.x) / PI) / 2.0),
-                0.5 - (asin(_dir.y) / PI)
-            );
-
-            // Fix seam at wrap-around point.
-            mediump float threshold = 4.0 / textureSize(u_Ambient, b).x;
-
-            mediump float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
-
-            //result = Sample3(u_Texture, vec2(uv.x * check, uv.y), b);
-
-            // Seemingly no way to do this without a branch.
-            // Compiler seems to need an explicit branch on
-            // texture access to 'get it'.
-            //
-            // See for yourself by commenting out the following code
-            // and uncommenting the previous code.
-
-            result = check > 0.0 ?
-                Sample3(u_Ambient, uv, b) :
-                Sample3(u_Ambient, vec2(0.0, uv.y), b);
-
-        #endif
-
-        return result * u_AmbientExposure;
-    }
-
     void main() {
 
         mediump vec3 albedo   = Sample3(  u_Albedo_gBuffer, v_TexCoord);
@@ -505,21 +458,20 @@
 
         mediump vec3 indirectLighting;
         {
-            // Figure out the direction of the ambient light
-            mediump vec3 ambientDir = reflect(-viewDir, normal);
+            // Sample at a lower resolution for the diffuse. TODO: Actual diffuse irradiance.
+            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 0.8);
 
-            // Sample at max mip level for the diffuse.
-            // TODO: Actual diffuse irradiance.
-            mediump vec3 diffuse = SampleAmbient(normal, 0.75);
+            // Figure out the direction of the specular light
+            mediump vec3 specularDir = reflect(-viewDir, normal);
 
             // Sample at variable mip level (determined by roughness) for specular.
-            mediump vec3 specular = SampleAmbient(ambientDir, roughness);
+            mediump vec3 specular = SampleAmbient(u_Ambient, specularDir, roughness);
 
             mediump vec3 F0 = mix(vec3(0.04), vec3(1.0), metallic);
 
-            mediump vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, ambientDir)));
+            mediump vec3 fresnel = Fresnel(F0, max(0.0, dot(normal, specularDir)));
 
-            indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular));
+            indirectLighting = (((diffuse * (1.0 - metallic)) * albedo.rgb) + (fresnel * specular)) * u_AmbientExposure;
         }
 
         gl_FragColor = vec4(((directLighting + indirectLighting) * ao) + emission, 1.0);
