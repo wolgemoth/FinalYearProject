@@ -120,10 +120,10 @@ namespace LouiEriksson {
 				void* data;
 				GLenum data_format;
 				
-				if (strcmp(_path.extension().c_str(), ".hdr") == 0) {
+				if (strcmp(_path.extension().string().c_str(), ".hdr") == 0) {
 					data_format = GL_FLOAT;
 					data = stbi_loadf(
-						_path.c_str(),
+						_path.string().c_str(),
 						&_output->m_Width,
 						&_output->m_Height,
 						nullptr,
@@ -133,7 +133,7 @@ namespace LouiEriksson {
 				else {
 					data_format = GL_UNSIGNED_BYTE;
 					data = stbi_load(
-						_path.c_str(),
+						_path.string().c_str(),
 						&_output->m_Width,
 						&_output->m_Height,
 						nullptr,
@@ -604,10 +604,10 @@ namespace LouiEriksson {
 						void* data;
 						GLenum data_format;
 						
-						if (strcmp(_paths[i].extension().c_str(), ".hdr") == 0) {
+						if (strcmp(_paths[i].extension().string().c_str(), ".hdr") == 0) {
 							data_format = GL_FLOAT;
 							data = stbi_loadf(
-								_paths[i].c_str(),
+								_paths[i].string().c_str(),
 								&loaded_resolution.x,
 								&loaded_resolution.y,
 								nullptr,
@@ -617,7 +617,7 @@ namespace LouiEriksson {
 						else {
 							data_format = GL_UNSIGNED_BYTE;
 							data = stbi_load(
-								_paths[i].c_str(),
+								_paths[i].string().c_str(),
 								&loaded_resolution.x,
 								&loaded_resolution.y,
 								nullptr,

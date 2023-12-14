@@ -5,7 +5,7 @@
 
 /* EXTERNAL */
 
-#include <SDL2/SDL.h>               // SDL2
+#include <SDL.h>                    // SDL2
 #include <GL/glew.h>                // OPENGL
 
 #include <imgui.h>                  // IMGUI ...
@@ -26,6 +26,7 @@
 #include <any>
 #include <regex>
 #include <queue>
+#include <array>
 #include <string>
 #include <chrono>
 #include <vector>
