@@ -33,10 +33,6 @@ namespace LouiEriksson {
 		
 		~Material();
 		
-		GLuint m_ProjectionMatrixID;
-		GLuint      m_ModelMatrixID;
-		GLuint       m_ViewMatrixID;
-		
 		/// <summary> Get the currently assigned Shader. </summary>
 		std::weak_ptr<Shader> GetShader();
 		

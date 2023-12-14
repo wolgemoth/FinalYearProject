@@ -39,9 +39,9 @@ namespace LouiEriksson {
 		
 		static void Unbind();
 		
-		void Discard() const;
+		void Discard() const override;
 		
-		GLuint DepthID() const;
+		[[nodiscard]] GLuint DepthID() const;
 	
 	private:
 		

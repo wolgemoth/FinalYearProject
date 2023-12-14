@@ -88,7 +88,7 @@ namespace LouiEriksson {
 							
 							// Process window resize event:
 							if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-								Window::Get(event.window.windowID)->SetDirty();
+								Window::Get(static_cast<int>(event.window.windowID))->SetDirty();
 							}
 						}
 						else if (event.type == SDL_QUIT) {

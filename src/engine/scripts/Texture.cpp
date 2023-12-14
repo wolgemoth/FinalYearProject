@@ -1,6 +1,6 @@
-#include "Texture.h"
+#include "stdafx.h"
 
-#include <utility>
+#include "Texture.h"
 
 namespace LouiEriksson {
 	
@@ -69,7 +69,7 @@ namespace LouiEriksson {
 	void Texture::Bind(const Texture& _texture) {
 		
 		if (Texture::s_CurrentTexture != _texture.m_TextureID) {
-			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = _texture.m_TextureID);
+			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = static_cast<GLint>(_texture.m_TextureID));
 		}
 	}
 	
@@ -129,9 +129,9 @@ namespace LouiEriksson {
 		}
 	}
 	
-	const Texture::Parameters::Format&     Texture::Format()     const { return m_Format; }
+	const Texture::Parameters::Format&     Texture::Format()     const { return m_Format;     }
 	const Texture::Parameters::FilterMode& Texture::FilterMode() const { return m_FilterMode; }
-	const Texture::Parameters::WrapMode&   Texture::WrapMode()   const { return m_WrapMode; }
+	const Texture::Parameters::WrapMode&   Texture::WrapMode()   const { return m_WrapMode;   }
 	
 	Texture::Parameters::Format::Format(const GLenum& _pixelFormat, bool _mips) {
 		
@@ -149,15 +149,7 @@ namespace LouiEriksson {
 		m_Mips          = _other.m_Mips;
 	}
 	
-	Texture::Parameters::Format& Texture::Parameters::Format::operator = (const Texture::Parameters::Format& _other) {
-		
-		m_PixelFormat   = _other.m_PixelFormat;
-		m_TextureFormat = _other.m_TextureFormat;
-		m_Channels      = _other.m_Channels;
-		m_Mips          = _other.m_Mips;
-		
-		return *this;
-	}
+	Texture::Parameters::Format& Texture::Parameters::Format::operator = (const Texture::Parameters::Format& _other) = default;
 	
 	Texture::Parameters::Format::Format(Texture::Parameters::Format&& _other) noexcept {
 	
@@ -257,14 +249,7 @@ namespace LouiEriksson {
 		m_WrapR = _other.m_WrapR;
 	}
 	
-	Texture::Parameters::WrapMode& Texture::Parameters::WrapMode::operator = (const Texture::Parameters::WrapMode& _other) {
-		
-		m_WrapS = _other.m_WrapS;
-		m_WrapT = _other.m_WrapT;
-		m_WrapR = _other.m_WrapR;
-		
-		return *this;
-	}
+	Texture::Parameters::WrapMode& Texture::Parameters::WrapMode::operator = (const Texture::Parameters::WrapMode& _other) = default;
 	
 	Texture::Parameters::WrapMode::WrapMode(Texture::Parameters::WrapMode&& _other) noexcept {
 		

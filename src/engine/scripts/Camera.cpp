@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "Camera.h"
+
+#include <cstddef>
 #include "Settings.h"
 
 namespace LouiEriksson {
@@ -280,7 +282,7 @@ namespace LouiEriksson {
 				Mesh::Bind(*s_Cube);
 	
 				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+				glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 	
 				// Restore culling and depth options.
 				glCullFace ( cullMode);
@@ -442,7 +444,7 @@ namespace LouiEriksson {
 				// Compute the size of a texel in world space.
 				// We can round the light's position to these coordinates
 				// to reduce an artifact known as "shimmering".
-				const float texelSize = light->m_Range / (float)(light->m_Shadow.m_Resolution / 4);
+				const float texelSize = light->m_Range / static_cast<float>((light->m_Shadow.m_Resolution / 4));
 				
 				const auto lightDir = VEC_FORWARD * light->m_Transform.lock()->m_Rotation;
 				
@@ -732,7 +734,7 @@ namespace LouiEriksson {
 					light->m_Color);
 
 				/* DRAW */
-				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+				glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 			}
 		}
 		
@@ -840,13 +842,13 @@ namespace LouiEriksson {
 	 
 		// DRAW:
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 		
 		// Reset gamma correction.
 		glDisable(GL_FRAMEBUFFER_SRGB);
 	}
 	
-	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {
+	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) {
 		
 		// Get dimensions of screen.
 		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
@@ -863,7 +865,7 @@ namespace LouiEriksson {
 		const int w = (int)dimensions.x,
                   h = (int)dimensions.y;
 
-		// Optionally, use a multipler proportional to the screen's resolution to
+		// Optionally, use a multiplier proportional to the screen's resolution to
 		// keep the blur effect consistent across a range of different resolutions.
         const float dpiFactor = _consistentDPI ?
             glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) : // (1.0f / 3000.0f) is an arbitrary value I chose by eye.
@@ -948,7 +950,7 @@ namespace LouiEriksson {
 		Blit(m_RT, luma_out, shader);
 		
 		// Create a buffer for the luminosity samples:
-		std::vector<float> pixels(luma_res.x * luma_res.y * luma_out.Format().Channels());
+		std::vector<float> pixels(static_cast<size_t>(luma_res.x * luma_res.y * luma_out.Format().Channels()));
 		
 		// Load the luminosity samples into the buffer.
 		RenderTexture::Bind(luma_out);
@@ -1061,7 +1063,7 @@ namespace LouiEriksson {
 		
 		// Draw
 		RenderTexture::Bind(ao_rt);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 		
 		// Blur the AO.
 		Blur(ao_rt, 1.0f, 1, true, false);
@@ -1164,7 +1166,7 @@ namespace LouiEriksson {
 
 		// Blit to main render target:
 		RenderTexture::Bind(m_RT);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 		RenderTexture::Unbind();
 		
 		/* LENS DIRT */
@@ -1178,7 +1180,7 @@ namespace LouiEriksson {
 	
 			// Blit to main render target:
 			RenderTexture::Bind(m_RT);
-			glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 		}
 	}
 	
@@ -1211,12 +1213,12 @@ namespace LouiEriksson {
 		glActiveTexture(GL_TEXTURE0);
 
 		if (Texture::s_CurrentTexture != _src.ID()) {
-			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = _src.ID());
+			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = static_cast<GLint>(_src.ID()));
 		}
 		
 		// Bind destination target:
 		RenderTexture::Bind(_dest);
-		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
+		glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(Mesh::Primitives::Quad::Instance().lock()->VertexCount()));
 		
 		if (dimensionsDirty) {
 			
@@ -1225,7 +1227,7 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void Camera::SetWindow(std::shared_ptr<Window> _window) {
+	void Camera::SetWindow(const std::shared_ptr<Window>& _window) {
 		_window->Link(*this);
 	}
 	
@@ -1233,7 +1235,7 @@ namespace LouiEriksson {
 		return m_Window;
 	}
 	
-	void Camera::SetTransform(std::shared_ptr<Transform> _transform) {
+	void Camera::SetTransform(const std::shared_ptr<Transform>& _transform) {
 		m_Transform = _transform;
 	}
 	
@@ -1293,7 +1295,7 @@ namespace LouiEriksson {
 		glClearColor(_color[0], _color[1], _color[2], _color[3]);
 	}
 	
-	glm::vec4 Camera::ClearColor() const {
+	glm::vec4 Camera::ClearColor() {
 		
 		glm::vec4 result;
 		

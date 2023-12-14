@@ -10,10 +10,7 @@ namespace LouiEriksson {
 		m_Camera    = std::shared_ptr<Camera>   (nullptr);
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 	
-		m_Target = glm::vec3(0.0f);
-	
-		m_OrbitSpeed    =  5.0f;
-		m_OrbitDistance = 15.0f;
+		m_AnimationProgress = 0.0f;
 	}
 	
 	OrbitCam::~OrbitCam() = default;
@@ -24,13 +21,6 @@ namespace LouiEriksson {
 	
 	std::shared_ptr<Transform> OrbitCam::GetTransform() {
 		return m_Transform.lock();
-	}
-	
-	void OrbitCam::Target(const glm::vec3 _target) {
-		m_Target = _target;
-	}
-	const glm::vec3& OrbitCam::Target() {
-		return m_Target;
 	}
 	
 	void OrbitCam::Begin() {

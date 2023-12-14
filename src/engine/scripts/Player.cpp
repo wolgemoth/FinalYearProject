@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Player.h"
-
 #include "Application.h"
 
 namespace LouiEriksson {

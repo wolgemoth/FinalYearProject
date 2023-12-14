@@ -29,14 +29,14 @@ namespace LouiEriksson {
 	
 			float d0 = DistanceToPlane(c0, q);
 			float d1 = DistanceToPlane(c1, q);
-	
-			if (glm::abs(d0) <= r || (d0 > r && d1 < r)) {
+			
+			if (glm::abs(d0) > r && !(d0 > r && d1 < r)) {
+				t += Time::FixedDeltaTime();
+			}
+			else {
 				result = true;
 				
 				break;
-			}
-			else {
-				t += Time::FixedDeltaTime();
 			}
 		}
 	

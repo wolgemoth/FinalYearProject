@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Resources.h"
 
 namespace LouiEriksson {
@@ -89,9 +91,9 @@ namespace LouiEriksson {
 					// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 					glNamedStringARB(
 						GL_SHADER_INCLUDE_ARB,
-						    name.length(),
+						    static_cast<GLint>(name.length()),
 						    name.c_str(),
-						contents.length(),
+						static_cast<GLint>(contents.length()),
 						contents.c_str()
 					);
 					
@@ -149,7 +151,7 @@ namespace LouiEriksson {
 					subShaders.reserve(kvp.second.size());
 					
 					for (const auto& subshader : kvp.second) {
-						subShaders.emplace_back(Shader::SubShader(subshader.first.string().c_str(), subshader.second));
+						subShaders.emplace_back(subshader.first.string().c_str(), subshader.second);
 					}
 					
 					// Compile shader and add to cache.

@@ -115,7 +115,7 @@ namespace LouiEriksson {
 			// Check to see if the shadow map is already initialised.
 			if (m_ShadowMap_Texture != 0) {
 				
-				glBindTexture(target, Texture::s_CurrentTexture = m_ShadowMap_Texture);
+				glBindTexture(target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
 				
 				// Check the texture's resolution.
 				int curr_resolution;
@@ -146,7 +146,7 @@ namespace LouiEriksson {
 				glGenTextures(1, &m_ShadowMap_Texture);
 			
 				// Generate texture for shadow map (will bind it to the FBO).
-				glBindTexture(target, Texture::s_CurrentTexture = m_ShadowMap_Texture);
+				glBindTexture(target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
 				
 				if (_type == Light::Parameters::Type::Point) {
 					

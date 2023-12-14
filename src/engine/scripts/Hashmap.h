@@ -97,7 +97,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns true if the Hashmap contains no entries.
 		/// </summary>
-		bool empty() const {
+		[[nodiscard]] bool empty() const {
 			return m_Size == 0;
 		}
 		

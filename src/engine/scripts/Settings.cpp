@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Settings.h"
 #include "Resources.h"
 

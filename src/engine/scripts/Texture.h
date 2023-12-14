@@ -113,7 +113,7 @@ namespace LouiEriksson {
 		
 		static void Unbind();
 		
-		void Discard() const;
+		virtual void Discard() const;
 		
 		[[nodiscard]] const GLuint& ID() const;
 		

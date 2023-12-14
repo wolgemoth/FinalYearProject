@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Material.h"
-
 #include "Resources.h"
 
 namespace LouiEriksson {
@@ -10,9 +9,9 @@ namespace LouiEriksson {
 	
 		m_Shader = Resources::GetShader("pbr");
 		
-		m_ProjectionMatrixID = m_Shader.lock()->AttributeID("u_Projection");
-		     m_ModelMatrixID = m_Shader.lock()->AttributeID("u_Model");
-		      m_ViewMatrixID = m_Shader.lock()->AttributeID("u_View");
+		m_Shader.lock()->AttributeID("u_Projection");
+		     m_Shader.lock()->AttributeID("u_Model");
+		      m_Shader.lock()->AttributeID("u_View");
 		
 		m_Albedo       = Resources::GetTexture("white");
 		m_Roughness    = Resources::GetTexture("black");

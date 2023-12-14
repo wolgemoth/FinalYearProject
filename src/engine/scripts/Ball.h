@@ -31,7 +31,7 @@ namespace LouiEriksson {
 	public:
 	
 		explicit Ball(const std::shared_ptr<GameObject>& _parent);
-		~Ball();
+		~Ball() override;
 	
 	};
 }

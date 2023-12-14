@@ -21,7 +21,7 @@ namespace LouiEriksson {
 		GLuint   m_TangentVBO_ID;
 		GLuint m_BitangentVBO_ID;
 		
-		int m_VertexCount;
+		size_t m_VertexCount;
 		
 		Mesh();
 		

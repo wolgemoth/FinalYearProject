@@ -162,7 +162,7 @@ namespace LouiEriksson {
 				
 				ImGui::PushStyleColor(ImGuiCol_PlotLines, plotLinesCol);
 				
-				ImGui::PlotLines("", s_Samples.data(), s_Samples.size(), 1, nullptr, min_fps, max_fps, plot_size);
+				ImGui::PlotLines("", s_Samples.data(), static_cast<int>(s_Samples.size()), 1, nullptr, min_fps, max_fps, plot_size);
 				
 				ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLines
 			}
@@ -553,7 +553,7 @@ namespace LouiEriksson {
 		    {
 				using target_vsync = Settings::Graphics::VSync;
 				
-				ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), target_vsync::s_AvailableOptions.size());
+				ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), static_cast<int>(target_vsync::s_AvailableOptions.size()));
 			}
 			
 			ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0f);
@@ -581,7 +581,7 @@ namespace LouiEriksson {
 			// Dropdown selection for skybox:
 			static int selected = 0;
 			
-			ImGui::Combo(" ", &selected, target::s_AvailableSkyboxes.data(), target::s_AvailableSkyboxes.size());
+			ImGui::Combo(" ", &selected, target::s_AvailableSkyboxes.data(), static_cast<int>(target::s_AvailableSkyboxes.size()));
 			
 			// If the selected values mismatch, it means the selection has changed...
 			if (selected != target::s_CurrentSkyboxSelection) {
@@ -602,7 +602,7 @@ namespace LouiEriksson {
 			// Dropdown selection for shader:
 			static int selected_shader = 0;
 			
-			ImGui::Combo("Shader", &selected_shader, target::s_AvailableShaders.data(), target::s_AvailableShaders.size());
+			ImGui::Combo("Shader", &selected_shader, target::s_AvailableShaders.data(), static_cast<int>(target::s_AvailableShaders.size()));
 			
 			// If the selected values mismatch, it means the selection has changed...
 			if (selected_shader != target::s_CurrentShaderSelection) {
@@ -622,8 +622,8 @@ namespace LouiEriksson {
 			
 			if (ImGui::CollapsingHeader("Shadows")) {
 				
-				ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,            target::s_ShadowTechniques.data(),  target::s_ShadowTechniques.size());
-				ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), target::s_ShadowResolutions.size());
+				ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,           target::s_ShadowTechniques.data(),  static_cast<int>(target::s_ShadowTechniques.size()));
+				ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), static_cast<int>(target::s_ShadowResolutions.size()));
 				
 				ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
 				ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
@@ -645,7 +645,7 @@ namespace LouiEriksson {
 			
 			if (ImGui::CollapsingHeader("Light")) {
 				
-				ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), target::s_AvailableLightTypes.size());
+				ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
 				
 				ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
 				ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );

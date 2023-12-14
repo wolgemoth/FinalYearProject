@@ -26,13 +26,7 @@ namespace LouiEriksson {
 		
 		/// <summary> Target of the OrbitCam. </summary>
 		glm::vec3 m_Target;
-	
-		/// <summary> Speed of orbit. </summary>
-		float m_OrbitSpeed;
-	
-		/// <summary> Distance from target. </summary>
-		float m_OrbitDistance;
-	
+		
 		/// <summary> Progression of the animation. </summary>
 		float m_AnimationProgress;
 		
@@ -45,7 +39,7 @@ namespace LouiEriksson {
 	public:
 	
 		explicit OrbitCam(const std::shared_ptr<GameObject>& _parent);
-		~OrbitCam();
+		~OrbitCam() override;
 		
 		/// <summary> Get the Camera of the OrbitCam. </summary>
 		std::shared_ptr<Camera> GetCamera();
@@ -53,11 +47,6 @@ namespace LouiEriksson {
 		/// <summary> Get the Transform of the OrbitCam. </summary>
 		std::shared_ptr<Transform> GetTransform();
 	
-		/// <summary> Set the target of the OrbitCam. </summary>
-		void Target(glm::vec3 _target);
-		
-		/// <summary> Get the target of the OrbitCam. </summary>
-		const glm::vec3& Target();
 	};
 }
 

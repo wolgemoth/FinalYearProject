@@ -18,7 +18,7 @@ namespace LouiEriksson {
 			SDL_SetWindowFullscreen(m_Window.get(), SDL_WINDOW_FULLSCREEN);
 		}
 		
-		m_ID = SDL_GetWindowID(m_Window.get());
+		m_ID = static_cast<int>(SDL_GetWindowID(m_Window.get()));
 	
 		// Grab the display mode to further configure parameters.
 	    SDL_DisplayMode displayMode;

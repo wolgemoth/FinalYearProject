@@ -10,7 +10,10 @@ namespace LouiEriksson {
 	}
 	
 	Component::~Component() {
-		m_GameObject.lock()->RemoveComponent<Component>(m_Index);
+		
+		if (!m_GameObject.expired()) {
+			m_GameObject.lock()->RemoveComponent<Component>(m_Index);
+		}
 	}
 	
 	std::shared_ptr<GameObject> Component::Parent() const {

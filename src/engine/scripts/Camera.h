@@ -77,7 +77,7 @@ namespace LouiEriksson {
 		/* POST PROCESSING */
 		
 		/// <summary> Blur the contents of a RenderTexture. </summary>
-		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
+		static void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) ;
 
 		/// <summary> Auto exposure effect for use in conjunction with tonemapping. </summary>
 		void AutoExposure();
@@ -106,13 +106,13 @@ namespace LouiEriksson {
 		void PostRender();
 		
 		/// <summary> Set the Camera's Window. </summary>
-		void SetWindow(std::shared_ptr<Window> _window);
+		void SetWindow(const std::shared_ptr<Window>& _window);
 		
 		/// <summary> Get the Camera's Window. </summary>
 		[[nodiscard]] std::shared_ptr<Window> GetWindow() const;
 		
 		/// <summary> Set the Camera's Transform. </summary>
-		void SetTransform(std::shared_ptr<Transform> _transform);
+		void SetTransform(const std::shared_ptr<Transform>& _transform);
 		
 		/// <summary> Get the Camera's Transform. </summary>
 		[[nodiscard]] std::shared_ptr<Transform> GetTransform() const;
@@ -139,10 +139,10 @@ namespace LouiEriksson {
 		[[nodiscard]] const float& FarClip() const;
 		
 		/// <summary> Set the Camera's clear color. </summary>
-		void ClearColor(glm::vec4 _color);
+		static void ClearColor(glm::vec4 _color);
 		
 		/// <summary> Get the Camera's clear color. </summary>
-		[[nodiscard]] glm::vec4 ClearColor() const;
+		[[nodiscard]] static glm::vec4 ClearColor() ;
 		
 		/// <summary> Get the Camera's projection matrix. </summary>
 		const glm::mat4& Projection();

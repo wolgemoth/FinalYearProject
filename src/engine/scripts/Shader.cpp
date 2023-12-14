@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Shader.h"
-
 #include "File.h"
 #include "Utils.h"
 

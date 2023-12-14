@@ -14,28 +14,20 @@ namespace LouiEriksson {
 	
 		std::stringstream result;
 	
-		std::fstream fstream;
-		fstream.open(_path, std::ios::in);
+		std::fstream fs;
+		fs.open(_path, std::ios::in);
 	
-		if (fstream.is_open()) {
+		if (fs.is_open()) {
 	
 			std::string line;
 	
-			while (std::getline(fstream, line)) {
+			while (std::getline(fs, line)) {
 				result << line << "\n";
 			}
-			fstream.close();
+			fs.close();
 		}
 	
 		return result.str();
-	}
-	
-	std::filesystem::path File::AsPath(const char* _path) {
-		return { _path };
-	}
-	
-	std::filesystem::path File::AsPath(const std::string& _path) {
-		return { _path };
 	}
 	
 	std::vector<std::filesystem::path> File::Directory::GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type) {
@@ -143,12 +135,12 @@ namespace LouiEriksson {
 				
 				if (data != nullptr) {
 				
-					Texture::Bind(*_output.get());
+					Texture::Bind(*_output);
 					
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
-						_format,
+						static_cast<GLint>(_format),
 						_output->m_Width,
 						_output->m_Height,
 						0,
@@ -222,27 +214,36 @@ namespace LouiEriksson {
 				while (std::getline(inputFile, currentLine)) {
 					
 					std::stringstream currentLineStream(currentLine);
-					//std::cout<< currentLine <<std::endl;
 					
-					if (!currentLine.substr(0, 2).compare(0, 2, "vt")) {
+					if (currentLine.substr(0, 2).compare(0, 2, "vt") == 0) {
+						
 						std::string junk;
+						
 						float x, y;
+						
 						currentLineStream >> junk >> x >> y;
-						rawUVs.push_back(glm::vec2(x, y));
+						rawUVs.emplace_back(x, y);
 					}
-					else if (!currentLine.substr(0, 2).compare(0, 2, "vn")) {
+					else if (currentLine.substr(0, 2).compare(0, 2, "vn") == 0) {
+						
 						std::string junk;
+						
 						float x, y, z;
+						
 						currentLineStream >> junk >> x >> y >> z;
-						rawNormals.push_back(glm::vec3(x, y, z));
+						rawNormals.emplace_back(x, y, z);
 					}
-					else if (!currentLine.substr(0, 2).compare(0, 1, "v")) {
+					else if (currentLine.substr(0, 2).compare(0, 1, "v") == 0) {
+						
 						std::string junk;
+						
 						float x, y, z;
+						
 						currentLineStream >> junk >> x >> y >> z;
-						rawVertices.push_back(glm::vec3(x, y, z));
+						rawVertices.emplace_back(x, y, z);
 					}
-					else if (!currentLine.substr(0, 2).compare(0, 1, "f")) {
+					else if (currentLine.substr(0, 2).compare(0, 1, "f") == 0) {
+						
 						std::string junk;
 						std::string verts[4];
 						
@@ -255,8 +256,8 @@ namespace LouiEriksson {
 								std::stringstream currentSection(verts[i]);
 								
 								// There is just position data
-								unsigned int posID = 0;
-								unsigned int uvID = 0;
+								unsigned int  posID = 0;
+								unsigned int   uvID = 0;
 								unsigned int normID = 0;
 								
 								if (verts[i].find('/') == std::string::npos) {
@@ -310,14 +311,14 @@ namespace LouiEriksson {
 					// With this buffer active, we can now send our data to OpenGL
 					// We need to tell it how much data to send
 					// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-					glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, vertices.data(), GL_STATIC_DRAW);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 3), vertices.data(), GL_STATIC_DRAW);
 					
 					// This tells OpenGL how we link the vertex data to the shader
 					// (We will look at this properly in the lectures)
 					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 					glEnableVertexAttribArray(0);
 					
-					if (normals.size() > 0) {
+					if (!normals.empty()) {
 						
 						// Create a generic 'buffer'
 						glGenBuffers(1, &_output->m_NormalVBO_ID);
@@ -326,7 +327,7 @@ namespace LouiEriksson {
 						// With this buffer active, we can now send our data to OpenGL
 						// We need to tell it how much data to send
 						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 3, normals.data(), GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 3), normals.data(), GL_STATIC_DRAW);
 						
 						// This tells OpenGL how we link the vertex data to the shader
 						// (We will look at this properly in the lectures)
@@ -334,7 +335,7 @@ namespace LouiEriksson {
 						glEnableVertexAttribArray(1);
 					}
 					
-					if (UVs.size() > 0) {
+					if (!UVs.empty()) {
 						
 						// Create a generic 'buffer'
 						glGenBuffers(1, &_output->m_TexCoordVBO_ID);
@@ -343,7 +344,7 @@ namespace LouiEriksson {
 						// With this buffer active, we can now send our data to OpenGL
 						// We need to tell it how much data to send
 						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _output->m_VertexCount * 2, &UVs[0], GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 2), UVs.data(), GL_STATIC_DRAW);
 						
 						// This tells OpenGL how we link the vertex data to the shader
 						// (We will look at this properly in the lectures)
@@ -397,14 +398,14 @@ namespace LouiEriksson {
 						
 					    glGenBuffers(1, &_output->m_TangentVBO_ID);
 					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_TangentVBO_ID);
-					    glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(tangents[0]), tangents.data(), GL_STATIC_DRAW);
+					    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(tangents.size() * sizeof(tangents[0])), tangents.data(), GL_STATIC_DRAW);
 					
 						glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 						glEnableVertexAttribArray(3);
 						
 					    glGenBuffers(1, &_output->m_BitangentVBO_ID);
 					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_BitangentVBO_ID);
-					    glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(bitangents[0]), bitangents.data(), GL_STATIC_DRAW);
+					    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(bitangents.size() * sizeof(bitangents[0])), bitangents.data(), GL_STATIC_DRAW);
 						
 						glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 						glEnableVertexAttribArray(4);
@@ -441,14 +442,14 @@ namespace LouiEriksson {
 			
 			_output.reset(new Material());
 			
-			std::fstream fstream;
-			fstream.open(_path, std::ios::in);
+			std::fstream fs;
+			fs.open(_path, std::ios::in);
 		
-			if (fstream.is_open()) {
+			if (fs.is_open()) {
 		
 				std::string line;
 		
-				while (std::getline(fstream, line)) {
+				while (std::getline(fs, line)) {
 					
 					auto subStrings = Utils::Split(line, ' ');
 					
@@ -552,7 +553,7 @@ namespace LouiEriksson {
 					}
 				}
 				
-				fstream.close();
+				fs.close();
 				
 				result = true;
 				
@@ -591,7 +592,7 @@ namespace LouiEriksson {
 			
 			if (_output->m_TextureID > 0) {
 				
-				Cubemap::Bind(*_output.get());
+				Cubemap::Bind(*_output);
 				
 				int cubemap_resolution = -1;
 				
@@ -638,7 +639,7 @@ namespace LouiEriksson {
 							glTexImage2D(
 								GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 								0,
-								_output->Format().PixelFormat(),
+								static_cast<GLint>(_output->Format().PixelFormat()),
 								loaded_resolution.x,
 								loaded_resolution.y,
 								0,
@@ -658,10 +659,10 @@ namespace LouiEriksson {
 					}
 				}
 				
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, _output->WrapMode().WrapS());
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, _output->WrapMode().WrapT());
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, _output->WrapMode().WrapR());
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(_output->FilterMode().Mag()));
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S,     static_cast<GLint>(_output->WrapMode().WrapS()));
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T,     static_cast<GLint>(_output->WrapMode().WrapT()));
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R,     static_cast<GLint>(_output->WrapMode().WrapR()));
 				
 				if (_generateMipmaps) {
 					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -669,7 +670,7 @@ namespace LouiEriksson {
 					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 				}
 				else {
-					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, _output->FilterMode().Min());
+					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_output->FilterMode().Min()));
 				}
 				
 				glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
