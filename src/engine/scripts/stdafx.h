@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_STDAFX_H
 #define FINALYEARPROJECT_STDAFX_H
 

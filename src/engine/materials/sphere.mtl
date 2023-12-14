@@ -11,11 +11,9 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-map_Kd floor_tiles_06_diff_1k_ORIGINAL.jpg
+map_Kd floor_tiles_06_diff_1k.jpg
 map_Ao floor_tiles_06_ao_1k.jpg
 disp black
 map_Pm black
 norm floor_tiles_06_nor_gl_1k.jpg
 map_Pr floor_tiles_06_rough_1k.jpg
-
-#floor_tiles_06_disp_1k.jpg

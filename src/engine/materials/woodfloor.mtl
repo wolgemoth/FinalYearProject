@@ -13,10 +13,7 @@ illum 2
 
 map_Kd tavern-wood-planks1_albedo.png
 map_Ao tavern-wood-planks1_ao.png
-disp tavern-wood-planks1_height_CHANGED.png
+disp tavern-wood-planks1_height.png
 map_Pm tavern-wood-planks1_metallic.png
 norm tavern-wood-planks1_normal-dx.png
 map_Pr tavern-wood-planks1_roughness.png
-
-#toy_box_disp.png
-#tavern-wood-planks1_height_CHANGED.png

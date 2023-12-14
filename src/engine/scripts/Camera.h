@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_CAMERA_H
 #define FINALYEARPROJECT_CAMERA_H
 

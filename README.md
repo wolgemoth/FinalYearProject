@@ -44,6 +44,64 @@ If you are able to successfully build for Windows, please let me know so that I 
 
 #### Code Sources
 
+The following are a list of code sources I have used (with or without adaption) and the files they appear in:
+
+##### include/common_utils.glsl
+
+ - Convert RGB to Luminosity - https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
+
+##### include/lighting_utils.glsl
+
+- NVIDIA PCSS - https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
+
+
+- Learn OpenGL Parallax Mapping - https://learnopengl.com/Advanced-Lighting/Parallax-Mapping
+
+
+- Parallax Occlusion Shadows - https://stackoverflow.com/questions/55089830/adding-shadows-to-parallax-occlusion-map
+
+
+- Learn OpenGL Shadow Mapping - https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping
+
+
+- Learn OpenGL Point Shadows - https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows
+
+##### include/rand.glsl
+
+- Gold Noise - https://stackoverflow.com/questions/4200224/random-noise-functions-for-glsl
+
+##### bloom/downscale.glsl
+
+- Learn OpenGL Phys. Based Bloom - https://learnopengl.com/Guest-Articles/2022/Phys.-Based-Bloom
+
+
+##### render_passes/pass_normals.glsl
+
+- Learn OpenGL Normal Mapping - https://learnopengl.com/Advanced-Lighting/Normal-Mapping
+
+
+##### ao.glsl
+
+- Learn OpenGL SSAO - https://learnopengl.com/Advanced-Lighting/SSAO
+
+##### fxaa.glsl
+
+- Catlike Coding: FXAA - https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/
+
+##### Camera.cpp
+
+- Learn OpenGL Gamma Correction - https://learnopengl.com/Advanced-Lighting/Gamma-Correction
+
 #### Academic Sources
 
-#### Additional Sources
+These are academic sources I used for reference while researching for this project:
+
+- NVIDIA PCSS Whitepaper - https://developer.download.nvidia.com/shaderlibrary/docs/shadow_PCSS.pdf
+
+
+- The Cherno: "Bloom." - https://www.youtube.com/watch?v=tI70-HIc5ro&pp=ygUQdGhlIGNoZXJubyBibG9vbQ%3D%3D
+
+
+- Auto Exposure - https://bruop.github.io/exposure/
+
+#### Asset Sources

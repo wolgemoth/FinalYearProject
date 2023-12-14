@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_TIME_H
 #define FINALYEARPROJECT_TIME_H
 

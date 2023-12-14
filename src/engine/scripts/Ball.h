@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_BALL_H
 #define FINALYEARPROJECT_BALL_H
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_CUBEMAP_H
 #define FINALYEARPROJECT_CUBEMAP_H
 

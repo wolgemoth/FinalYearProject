@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_SCRIPTS_H
 #define FINALYEARPROJECT_SCRIPTS_H
 

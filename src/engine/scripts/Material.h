@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_MATERIAL_H
 #define FINALYEARPROJECT_MATERIAL_H
 

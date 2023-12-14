@@ -2,7 +2,6 @@
 
 #include "Camera.h"
 
-#include <cstddef>
 #include "Settings.h"
 
 namespace LouiEriksson {
@@ -39,7 +38,6 @@ namespace LouiEriksson {
 	
 		// Set exposure level from settings.
 		m_Exposure = Settings::PostProcessing::ToneMapping::s_Exposure;
-		
 	}
 	
 	Camera::~Camera() {

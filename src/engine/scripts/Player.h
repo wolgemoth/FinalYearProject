@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_PLAYER_H
 #define FINALYEARPROJECT_PLAYER_H
 

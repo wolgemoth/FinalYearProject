@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_WINDOW_H
 #define FINALYEARPROJECT_WINDOW_H
 

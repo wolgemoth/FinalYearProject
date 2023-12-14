@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_SHADER_H
 #define FINALYEARPROJECT_SHADER_H
 

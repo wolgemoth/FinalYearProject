@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_LIGHT_H
 #define FINALYEARPROJECT_LIGHT_H
 

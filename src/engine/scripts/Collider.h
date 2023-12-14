@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_COLLIDER_H
 #define FINALYEARPROJECT_COLLIDER_H
 

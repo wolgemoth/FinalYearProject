@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_HASHMAP_H
 #define FINALYEARPROJECT_HASHMAP_H
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_RENDERER_H
 #define FINALYEARPROJECT_RENDERER_H
 

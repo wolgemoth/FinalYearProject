@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_ORBITCAM_H
 #define FINALYEARPROJECT_ORBITCAM_H
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_TEXTURE_H
 #define FINALYEARPROJECT_TEXTURE_H
 

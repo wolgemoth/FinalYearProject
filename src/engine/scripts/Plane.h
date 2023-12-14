@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_PLANE_H
 #define FINALYEARPROJECT_PLANE_H
 

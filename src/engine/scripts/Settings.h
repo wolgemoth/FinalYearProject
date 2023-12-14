@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef FINALYEARPROJECT_SETTINGS_H
 #define FINALYEARPROJECT_SETTINGS_H
 
