@@ -5,14 +5,17 @@
 
     #include "/shaders/include/constants.glsl"
 
+    /// <summary> Returns the square of a value. </summary>
     int sqr(in int _value) {
         return _value * _value;
     }
 
+    /// <summary> Returns the square of a value. </summary>
     float sqr(in float _value) {
         return _value * _value;
     }
 
+    /// <summary> Returns the square distance between two vectors. </summary>
     float length2(in vec3 _A, in vec3 _B) {
 
         vec3 delta = _B - _A;
@@ -174,7 +177,7 @@
         return result;
     }
 
-    // https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
+    /// https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
     float Linear01Depth(in float _depth, const float _near, const float _far) {
         return (2.0 * _near) / (_far + _near - _depth * (_far - _near));
     }

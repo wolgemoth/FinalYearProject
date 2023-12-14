@@ -1,5 +1,7 @@
 # Final Year Project
 
+![Preview image](preview.png)
+
 ## Table of Contents
 
 - [About](#About)
@@ -50,6 +52,9 @@ The following are a list of code sources I have used (with or without adaption) 
 
  - Convert RGB to Luminosity - https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
 
+
+  - Convert Depth to Linear - https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/
+
 ##### include/lighting_utils.glsl
 
 - NVIDIA PCSS - https://developer.download.nvidia.com/whitepapers/2008/PCSS_Integration.pdf
@@ -88,13 +93,16 @@ The following are a list of code sources I have used (with or without adaption) 
 
 - Catlike Coding: FXAA - https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/
 
+##### pbr.glsl
+- Nadrin PBR - https://github.com/Nadrin/PBR
+
 ##### Camera.cpp
 
 - Learn OpenGL Gamma Correction - https://learnopengl.com/Advanced-Lighting/Gamma-Correction
 
 #### Academic Sources
 
-These are academic sources I used for reference while researching for this project:
+These are the academic sources I used for reference while researching for this project:
 
 - NVIDIA PCSS Whitepaper - https://developer.download.nvidia.com/shaderlibrary/docs/shadow_PCSS.pdf
 
