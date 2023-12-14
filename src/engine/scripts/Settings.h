@@ -123,7 +123,7 @@ namespace LouiEriksson {
 				
 				inline static int s_CurrentLightType = 0;
 				
-			    inline static glm::vec3 s_LightPosition   = glm::vec3(   0.0f,   5.0f,  0.0f  ); // Position of light in world-space.
+			    inline static glm::vec3 s_LightPosition   = glm::vec3(   0.0f,   2.5f,  0.0f  ); // Position of light in world-space.
 			    inline static glm::vec3 s_LightRotation   = glm::vec3(-125.0f, 225.0f,  0.0f  ); // Position of light in world-space.
 			    inline static glm::vec3 s_LightColor      = glm::vec3(   1.0f,  0.91f,  0.874f); // Color of light.
 				inline static     float s_LightIntensity  =   3.0f;                              // Brightness of light.
