@@ -838,6 +838,7 @@ namespace LouiEriksson {
 			glEnable(GL_FRAMEBUFFER_SRGB); // Enable gamma correction.
 		}
 	 
+		// DRAW:
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
@@ -847,23 +848,30 @@ namespace LouiEriksson {
 	
 	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {
 		
+		// Get dimensions of screen.
 		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
 		
+		// Horizontal and vertical blur passes.
 		auto horizontal = Resources::GetShader("blur_horizontal");
 		auto   vertical = Resources::GetShader("blur_vertical");
 		
+		// Assign target texture to shader programs:
 		horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Texture"), _rt.ID());
 		  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Texture"), _rt.ID());
-		
+		  
+		// Screen width and height as integers.
 		const int w = (int)dimensions.x,
                   h = (int)dimensions.y;
 
-        float const dpiFactor = _consistentDPI ?
-            glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) :
+		// Optionally, use a multipler proportional to the screen's resolution to
+		// keep the blur effect consistent across a range of different resolutions.
+        const float dpiFactor = _consistentDPI ?
+            glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) : // (1.0f / 3000.0f) is an arbitrary value I chose by eye.
             1.0f;
 
         float rootIntensity, scalar, aspectCorrection;
 
+		// Perform some initialisation:
         if (_highQuality) {
                rootIntensity = 0.0f;
                       scalar = 0.0f;
