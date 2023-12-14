@@ -553,6 +553,10 @@ namespace LouiEriksson {
 				ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), target_vsync::s_AvailableOptions.size());
 			}
 			
+			ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0f);
+			ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1f, 0.005f, 65535.0f);
+			ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1f, target_perspective::s_NearClip, 65535.0f);
+			
 			// Toggle for orbit.
 		    ImGui::Checkbox("Orbit", &target_perspective::Orbit::s_Enabled);
 			

@@ -33,13 +33,6 @@ namespace LouiEriksson {
 		return m_Target;
 	}
 	
-	void OrbitCam::FOV(const float& _fov) {
-		m_Camera.lock()->FOV(_fov);
-	}
-	const float& OrbitCam::FOV() {
-		return m_Camera.lock()->FOV();
-	}
-	
 	void OrbitCam::Begin() {
 		
 		auto scene = Parent()->GetScene();
@@ -63,7 +56,9 @@ namespace LouiEriksson {
 			m_Camera = Parent()->AddComponent<Camera>();
 		}
 		
-		FOV(60.0f);
+		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
+		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
+		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 		
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
@@ -71,6 +66,10 @@ namespace LouiEriksson {
 	}
 	
 	void OrbitCam::Tick() {
+		
+		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
+		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
+		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 		
 		using target = Settings::Graphics::Perspective::Orbit;
 		

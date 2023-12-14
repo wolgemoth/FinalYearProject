@@ -58,12 +58,6 @@ namespace LouiEriksson {
 		
 		/// <summary> Get the target of the OrbitCam. </summary>
 		const glm::vec3& Target();
-	
-		/// <summary> Set the FOV of the OrbitCam. </summary>
-		void FOV(const float& _fov);
-	
-		/// <summary> Get the FOV of the OrbitCam. </summary>
-		const float& FOV();
 	};
 }
 

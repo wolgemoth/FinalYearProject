@@ -40,6 +40,10 @@ namespace LouiEriksson {
 				
 				friend OrbitCam;
 			
+				inline static float      s_FOV = 60.0f;
+				inline static float s_NearClip = 0.1f;
+				inline static float  s_FarClip = 60.0f;
+				
 				struct Orbit {
 					
 					inline static bool s_Enabled = true;

@@ -1203,9 +1203,11 @@ namespace LouiEriksson {
 	
 	void Camera::FOV(const float& _fov) {
 		
-		m_IsDirty = true; // Set dirty.
-		
-		m_FOV = _fov;
+		if (m_FOV != _fov) {
+			m_FOV = _fov;
+			
+			m_IsDirty = true; // Set dirty.
+		}
 	}
 	
 	const float& Camera::FOV() const {
@@ -1214,9 +1216,11 @@ namespace LouiEriksson {
 	
 	void Camera::NearClip(const float& _nearClip) {
 		
-		m_IsDirty = true; // Set dirty.
-		
-		m_NearClip = _nearClip;
+		if (m_NearClip != _nearClip) {
+			m_NearClip = _nearClip;
+			
+			m_IsDirty = true; // Set dirty.
+		}
 	}
 	
 	const float& Camera::NearClip() const {
@@ -1225,9 +1229,11 @@ namespace LouiEriksson {
 	
 	void Camera::FarClip(const float& _farClip) {
 		
-		m_IsDirty = true; // Set dirty.
-		
-		m_FarClip = _farClip;
+		if (m_FarClip != _farClip) {
+			m_FarClip = _farClip;
+			
+			m_IsDirty = true; // Set dirty.
+		}
 	}
 	
 	const float& Camera::FarClip() const {
