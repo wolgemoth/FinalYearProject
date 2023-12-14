@@ -293,6 +293,8 @@ namespace LouiEriksson {
 				4,
 				GL_TEXTURE_2D
 			);
+
+			program.lock()->Assign(program.lock()->AttributeID(    "u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
 			
 			program.lock()->Assign(program.lock()->AttributeID(   "u_Roughness_Amount"), Settings::Graphics::Material::s_RoughnessAmount);
 			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount);
@@ -402,7 +404,7 @@ namespace LouiEriksson {
 			// Initialise / reinitialise the buffers used for the shadow map.
 			light->m_Shadow.UpdateShadowMap(light->m_Type);
 			
-			if (light->m_Shadow.m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
+			if (light->m_Shadow.m_Resolution > 0) {
 				
 				// Set the viewport resolution to that of the shadow map.
 				glViewport(0, 0, light->m_Shadow.m_Resolution, light->m_Shadow.m_Resolution);
@@ -647,18 +649,42 @@ namespace LouiEriksson {
 				// Draw the scene once for each light (forward rendering technique).
 				for (const auto& light : _lights) {
 					
+					using target_light = Settings::Graphics::Material;
+					
 					// TODO: Replace.
 					{
-						light->m_Transform.lock()->m_Position = Settings::Graphics::Material::s_LightPosition;
-						light->m_Transform.lock()->m_Rotation = glm::quat(glm::radians(Settings::Graphics::Material::s_LightPosition));
-						light->m_Range                        = Settings::Graphics::Material::s_LightRange;
-						light->m_Intensity                    = Settings::Graphics::Material::s_LightIntensity;
-						light->m_Color                        = Settings::Graphics::Material::s_LightColor;
-						light->m_Size                         = Settings::Graphics::Material::s_LightSize;
-						light->m_Angle                        = Settings::Graphics::Material::s_LightAngle;
-						light->m_Type                         = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
+						bool isDirty;
 						
-						//light->m_Shadow.UpdateShadowMap((Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType);
+						{
+							auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
+							
+							auto newBias       = target_light::s_ShadowBias;
+							auto newNormalBias = target_light::s_ShadowNormalBias;
+							
+							isDirty = newResolution != light->m_Shadow.m_Resolution ||
+									  newBias       != light->m_Shadow.m_Bias       ||
+									  newNormalBias != light->m_Shadow.m_NormalBias ||
+									  target_light::s_LightRange              != light->m_Range               ||
+									  target_light::s_LightAngle              != light->m_Angle               ||
+									  target_light::s_CurrentLightType        != light->m_Type;
+							
+							light->m_Shadow.m_Resolution = newResolution;
+							light->m_Shadow.m_Bias       = newBias;
+							light->m_Shadow.m_NormalBias = newNormalBias;
+						}
+						
+						light->m_Transform.lock()->m_Position = target_light::s_LightPosition;
+						light->m_Transform.lock()->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
+						light->m_Range                        = target_light::s_LightRange;
+						light->m_Intensity                    = target_light::s_LightIntensity;
+						light->m_Color                        = target_light::s_LightColor;
+						light->m_Size                         = target_light::s_LightSize;
+						light->m_Angle                        = target_light::s_LightAngle;
+						light->m_Type                         = (Light::Parameters::Type)target_light::s_CurrentLightType;
+						
+						if (isDirty) {
+							light->m_Shadow.UpdateShadowMap(light->Type());
+						}
 					}
 					
 					if (light->Type() == Light::Parameters::Type::Point) {
@@ -690,10 +716,10 @@ namespace LouiEriksson {
 						light->m_Shadow.m_NormalBias);
 
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
-						Settings::Graphics::Material::s_ShadowSamples);
+						target_light::s_ShadowSamples);
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowTechnique"),
-						Settings::Graphics::Material::s_CurrentShadowTechnique);
+						target_light::s_CurrentShadowTechnique);
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_LightType"),
 						light->m_Type);

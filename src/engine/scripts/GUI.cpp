@@ -608,7 +608,13 @@ namespace LouiEriksson {
 			
 			if (ImGui::CollapsingHeader("Shadows")) {
 				
-				ImGui::Combo("Shadow Technique", &target::s_CurrentShadowTechnique, target::s_ShadowTechniques.data(), target::s_ShadowTechniques.size());
+				ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,            target::s_ShadowTechniques.data(),  target::s_ShadowTechniques.size());
+				ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), target::s_ShadowResolutions.size());
+				
+				ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
+				ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
+				
+				ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
 				
 				// PCSS and Poisson-Disk:
 				if (target::s_CurrentShadowTechnique == 2 ||
@@ -624,25 +630,18 @@ namespace LouiEriksson {
 			}
 			
 			if (ImGui::CollapsingHeader("Light")) {
-			
-				static int selected_light = 0;
 				
-				ImGui::Combo("Light Type", &selected_light, target::s_AvailableLightTypes.data(), target::s_AvailableLightTypes.size());
+				ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), target::s_AvailableLightTypes.size());
 				
 				ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
+				ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );
 				ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
 				ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0f, 65535.0f);
 				ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1f,  0.0f, 65535.0f);
 				
-				if (selected_light == 2) {
-					ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 65535.0f);
+				if (target::s_CurrentLightType == 2) {
+					ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 180.0f);
 				}
-				
-				if (selected_light != target::s_CurrentLightType) {
-				
-				}
-				
-				target::s_CurrentLightType = selected_light;
 			}
 			
 	        ImGui::TreePop(); // END MATERIAL SECTION.

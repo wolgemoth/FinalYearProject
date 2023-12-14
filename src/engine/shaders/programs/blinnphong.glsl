@@ -107,17 +107,17 @@
 
         mediump vec3 fragToLight = _fragPos - u_LightPosition;
 
-        mediump float perspective_multiplier = 32.0;
+        mediump float bias_multiplier = 5000.0;
 
         mediump float adjustedBias =
-            texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+            texelSize * bias_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
         float result;
 
         switch(u_ShadowTechnique) {
 
             case 0: {
-                result = ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0), adjustedBias, u_LightRange);
+                result = ShadowCalculationHard3D(u_ShadowMap3D, fragToLight, vec3(0.0), adjustedBias, u_LightRange);
                 break;
             }
             case 1: {
@@ -149,17 +149,18 @@
         mediump vec3 projCoords =
             ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
 
-        mediump float perspective_multiplier = u_LightAngle == -1.0 ? 1.0 : 32.0;
+        mediump float        bias_multiplier = u_LightAngle == -1.0 ?    1.0 : 100.0;
+        mediump float perspective_multiplier = u_LightAngle == -1.0 ? 1000.0 :   1.0;
 
         mediump float adjustedBias =
-            texelSize * perspective_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
+            texelSize * bias_multiplier * max(_normalBias * (1.0 - dot(_normal, _lightDir)), _bias);
 
         float result;
 
         switch(u_ShadowTechnique) {
 
             case 0: {
-                result = ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0), adjustedBias);
+                result = ShadowCalculationHard2D(u_ShadowMap2D, projCoords, vec2(0.0), adjustedBias);
                 break;
             }
             case 1: {
@@ -171,7 +172,7 @@
                 break;
             }
             case 3: {
-                result = ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize, fract(u_Time), u_ShadowSamples);
+                result = ShadowCalculationPCSS2D(u_ShadowMap2D, projCoords, pow(PCSS_SCENE_SCALE, 2.0) * 2.0, adjustedBias, u_NearPlane, u_LightAngle, u_LightSize * perspective_multiplier, fract(u_Time), u_ShadowSamples);
                 break;
             }
             default: {

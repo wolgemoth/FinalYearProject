@@ -81,10 +81,10 @@ namespace LouiEriksson {
 		m_ShadowMap_Texture = 0;
 		m_ShadowMap_FBO     = 0;
 		
-		m_Resolution = Light::Parameters::Shadow::Resolution::VeryLow;
+		m_Resolution = 128;
 		
-		m_Bias       = 0.05f;
-		m_NormalBias = 0.2f;
+		m_Bias       = 0.01f;
+		m_NormalBias = 0.02f;
 		
 		m_NearPlane = 0.2f;
 		
@@ -107,7 +107,7 @@ namespace LouiEriksson {
 	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
 		
 		// Check if shadows are enabled.
-		if (m_Resolution > Light::Parameters::Shadow::Resolution::Disabled) {
+		if (m_Resolution > 0) {
 		
 			const GLenum target = _type == Light::Parameters::Type::Point ?
 					GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;

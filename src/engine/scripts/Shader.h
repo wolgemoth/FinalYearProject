@@ -61,6 +61,9 @@ namespace LouiEriksson {
 		
 		GLint AttributeID(const char* _name);
 		
+		/// <summary> Assign a boolean to the Shader. </summary>
+		static void Assign(const GLint& _id, const bool& _value);
+		
 		/// <summary> Assign an integer to the Shader. </summary>
 		static void Assign(const GLint& _id, const GLint& _value);
 		

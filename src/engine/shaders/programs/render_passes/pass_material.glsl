@@ -61,6 +61,8 @@
 
     uniform mediump vec2 u_ScreenDimensions;
 
+    uniform bool u_ParallaxShadows = false;
+
     uniform mediump float    u_Roughness_Amount = 1.0; // How rough the surface is.
     uniform mediump float           u_AO_Amount = 1.0; // Strength of AO.
     uniform mediump float u_Displacement_Amount = 0.0; // Strength of displacement.
@@ -77,13 +79,15 @@
 
         mediump vec3 lightDir = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
 
-        mediump float parallaxShadow = ParallaxShadowsHard(
-            u_Displacement,
-            lightDir,
-            uv,
-            vec4(1.0, 1.0, 0.0, 0.0),
-            u_Displacement_Amount
-        );
+        mediump float parallaxShadow = u_ParallaxShadows ?
+            ParallaxShadowsHard(
+                u_Displacement,
+                lightDir,
+                uv,
+                vec4(1.0, 1.0, 0.0, 0.0),
+                u_Displacement_Amount
+            ) :
+            0.0f;
 
         gl_FragColor = vec4(roughness, metallic, ao, parallaxShadow);
     }

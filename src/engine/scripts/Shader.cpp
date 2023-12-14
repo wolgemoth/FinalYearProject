@@ -295,6 +295,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
+	void Shader::Assign(const GLint& _id, const bool&    _value) { glUniform1i (_id, static_cast<GLint>(_value)); }
 	void Shader::Assign(const GLint& _id, const GLint&   _value) { glUniform1i (_id, _value); }
 	void Shader::Assign(const GLint& _id, const GLuint&  _value) { glUniform1ui(_id, _value); }
 	void Shader::Assign(const GLint& _id, const GLfloat& _value) { glUniform1f (_id, _value); }

@@ -41,32 +41,6 @@ namespace LouiEriksson {
 			
 			struct Shadow {
 				
-				struct Resolution {
-					
-					static const int Disabled = 0;
-					
-					/// <summary> 128x128. </summary>
-					static const int ExtremelyLow = 128;
-					
-					/// <summary> 256x256. </summary>
-					static const int VeryLow = 256;
-					
-					/// <summary> 512x512. </summary>
-					static const int Low = 512;
-					
-					/// <summary> 1024x1024. </summary>
-					static const int Medium = 1024;
-					
-					/// <summary> 2048x2048. </summary>
-					static const int High = 2048;
-					
-					/// <summary> 4096x4096. </summary>
-					static const int VeryHigh = 4096;
-					
-					/// <summary> 8192x8192. </summary>
-					static const int ExtremelyHigh = 8192;
-				};
-				
 				GLuint m_ShadowMap_Texture;
 				GLuint m_ShadowMap_FBO;
 				
