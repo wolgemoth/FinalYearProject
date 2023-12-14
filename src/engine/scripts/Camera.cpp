@@ -871,7 +871,7 @@ namespace LouiEriksson {
 
         float rootIntensity, scalar, aspectCorrection;
 
-		// Perform some initialisation:
+		// Init rootIntensity, scalar, and aspectCorrection.
         if (_highQuality) {
                rootIntensity = 0.0f;
                       scalar = 0.0f;
@@ -883,12 +883,14 @@ namespace LouiEriksson {
             aspectCorrection = glm::sqrt(dimensions.x / (float)dimensions.y);
         }
 
+		// Perform a blur pass:
         for (int i = 0; i < _passes; i++) {
             
             int width, height;
             
             float size;
             
+			// Init width, height and size.
             if (_highQuality) {
                 width  = w;
                 height = h;
@@ -902,15 +904,19 @@ namespace LouiEriksson {
                 size = (float)i * rootIntensity;
             }
             
+			// Assign step value to shader programs.
 			horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Step"), dpiFactor * size);
 			  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Step"), dpiFactor * size);
-
+			  
+			// Blit into a temporary texture, and blur that once on the x, and once on the y.
 			RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 	        Blit(_rt, tmp, horizontal);
 	        Blit(tmp, tmp, vertical);
 			
+			// Copy the temp texture back to the original target.
 			Copy(tmp, _rt);
 		
+			// Break early if the width or height are 1, as additional blurring is practically pointless.
             if (width == 1 && height == 1) {
                 break;
             }
@@ -921,23 +927,30 @@ namespace LouiEriksson {
 	
 		using target = Settings::PostProcessing::ToneMapping::AutoExposure;
 		
+		// Get window dimensions:
 		const auto dimensions = GetWindow()->Dimensions();
 		
+		// Load shader program:
 		auto shader = Resources::GetShader("auto_exposure");
 		
+		// Create a 32 by 32 render texture for the luminosity calculations.
 		const glm::ivec2 luma_res(32, 32);
 		
 		RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
+		// Load a mask for the average luminosity calculation.
 		auto mask = Resources::GetTexture("exposure_weights");
 		
+		// Generate the luminosity texture:
 		Shader::Bind(shader.lock()->ID());
-		shader.lock()->Assign(shader.lock()->AttributeID("u_Weights"),  mask.lock()->ID(), 1, GL_TEXTURE_2D);
+		shader.lock()->Assign(shader.lock()->AttributeID("u_Weights"), mask.lock()->ID(), 1, GL_TEXTURE_2D);
 		
 		Blit(m_RT, luma_out, shader);
 		
+		// Create a buffer for the luminosity samples:
 		std::vector<float> pixels(luma_res.x * luma_res.y * luma_out.Format().Channels());
 		
+		// Load the luminosity samples into the buffer.
 		RenderTexture::Bind(luma_out);
 		glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_FLOAT, pixels.data());
 		
@@ -964,11 +977,19 @@ namespace LouiEriksson {
 		
 		avg = avg / (float)glm::max(avg_count, 1);
 		
-		const float curr = avg;
+		// Get difference between current exposure and average luma.
+		const float diff = glm::clamp(
+			(Settings::PostProcessing::ToneMapping::s_Exposure + target::s_Compensation) - avg,
+			-1.0f,
+			1.0f
+		);
 		
-		const float diff = glm::clamp((Settings::PostProcessing::ToneMapping::s_Exposure + target::s_Compensation) - curr, -1.0f, 1.0f);
-		const float speed = (diff - m_Exposure) >= 0 ? target::s_SpeedUp : target::s_SpeedDown;
+		// Determine the speed to change exposure by:
+		const float speed = (diff - m_Exposure) >= 0 ?
+				target::s_SpeedUp :
+				target::s_SpeedDown;
 		
+		// Set a new exposure value:
 		m_Exposure = glm::mix(
 			m_Exposure,
 			glm::clamp(Settings::PostProcessing::ToneMapping::s_Exposure + diff, target::s_MinEV, target::s_MaxEV),
@@ -978,11 +999,15 @@ namespace LouiEriksson {
 	
 	void Camera::AmbientOcclusion() const {
 		
-		const auto dimensions = GetWindow()->Dimensions();
+		// Get viewport dimensions:
+		glm::ivec4 viewport;
+		glGetIntegerv(GL_VIEWPORT, &viewport[0]);
 		
+		// Get shader program:
 		auto ao = Resources::GetShader("ao");
 		Shader::Bind(ao.lock()->ID());
 		
+		// Assign program values:
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), Settings::PostProcessing::AmbientOcclusion::s_Intensity);
@@ -996,17 +1021,20 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_VP"), m_Projection * View());
 		ao.lock()->Assign(ao.lock()->AttributeID("u_View"), View());
 		
+		// Create a render texture for the AO. Optionally, downscale the texture
+		// to save performance by computing AO at a lower resolution.
 		int downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
 		
 		RenderTexture ao_rt(
-			dimensions.x / (downscale + 1),
-			dimensions.y / (downscale + 1),
+			glm::max(viewport[2] / (downscale + 1), 1),
+			glm::max(viewport[3] / (downscale + 1), 1),
 			Texture::Parameters::Format(GL_RGB, false),
 			Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
 			m_RT.WrapMode(),
 			RenderTexture::Parameters::DepthMode::NONE
 		);
 		
+		/* ASSIGN G-BUFFERS */
 		ao.lock()->Assign(
 			ao.lock()->AttributeID("u_Position_gBuffer"),
 			m_Position_gBuffer.DepthID(),
@@ -1028,15 +1056,20 @@ namespace LouiEriksson {
 			GL_TEXTURE_2D
 		);
 		
-		glViewport(0, 0, ao_rt.Width(), ao_rt.Height());
+		// Set the viewport resolution to the scale of the AO render target.
+		glViewport(viewport[0], viewport[1], ao_rt.Width(), ao_rt.Height());
 		
+		// Draw
 		RenderTexture::Bind(ao_rt);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
+		// Blur the AO.
 		Blur(ao_rt, 1.0f, 1, true, false);
 
-		glViewport(0, 0, m_RT.Width(), m_RT.Height());
+		// Reset the viewport.
+		glViewport(viewport[0], viewport[1], m_RT.Width(), m_RT.Height());
 		
+		// Apply the colors of the AO image to the main image using multiply blending:
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_DST_COLOR, GL_ZERO);
 
@@ -1049,6 +1082,7 @@ namespace LouiEriksson {
 		
 		using target = Settings::PostProcessing::Bloom;
 		
+		// Get screen dimensions.
 		const auto dimensions = GetWindow()->Dimensions();
 		
 		// Get each shader used for rendering the effect.
@@ -1148,14 +1182,14 @@ namespace LouiEriksson {
 	
 	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) {
 		
-		glm::ivec4 dimensions;
-		glGetIntegerv(GL_VIEWPORT, &dimensions[0]);
+		glm::ivec4 viewport;
+		glGetIntegerv(GL_VIEWPORT, &viewport[0]);
 
-		const bool dimensionsDirty = dimensions[2] != _dest.Width() ||
-		                             dimensions[3] != _dest.Height();
+		const bool dimensionsDirty = viewport[2] != _dest.Width() ||
+		                             viewport[3] != _dest.Height();
 
 		if (dimensionsDirty) {
-			glViewport(dimensions[0], dimensions[1], _dest.Width(), _dest.Height());
+			glViewport(viewport[0], viewport[1], _dest.Width(), _dest.Height());
 		}
 
 		Shader::Bind(_shader.lock()->ID());
@@ -1170,7 +1204,7 @@ namespace LouiEriksson {
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		if (dimensionsDirty) {
-			glViewport(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+			glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 		}
 	}
 	
