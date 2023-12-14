@@ -544,16 +544,23 @@ namespace LouiEriksson {
 		/* CAMERA */
 	    if (ImGui::TreeNode("Camera")) {
 			
-			using target = Settings::Graphics::Perspective;
+			using target_perspective = Settings::Graphics::Perspective;
+		 
+			/* VSYNC OPTIONS */
+		    {
+				using target_vsync = Settings::Graphics::VSync;
+				
+				ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), target_vsync::s_AvailableOptions.size());
+			}
 			
 			// Toggle for orbit.
-		    ImGui::Checkbox("Orbit", &target::Orbit::s_Enabled);
+		    ImGui::Checkbox("Orbit", &target_perspective::Orbit::s_Enabled);
 			
-		    if (target::Orbit::s_Enabled) {
+		    if (target_perspective::Orbit::s_Enabled) {
 				
-				ImGui::DragFloat3("Speed",  &target::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
-				ImGui::DragFloat3("Amount", &target::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
-				ImGui::DragFloat3("Offset", &target::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::DragFloat3("Speed",  &target_perspective::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::DragFloat3("Amount", &target_perspective::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::DragFloat3("Offset", &target_perspective::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
 		    }
 			
 	        ImGui::TreePop(); // END CAMERA SECTION.

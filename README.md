@@ -42,6 +42,8 @@ If you are able to successfully build for Windows, please let me know so that I 
 
 ### References
 
+#### Code Sources
+
 #### Academic Sources
 
-#### Code References
+#### Additional Sources

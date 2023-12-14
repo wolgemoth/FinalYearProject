@@ -26,8 +26,10 @@ namespace LouiEriksson {
 		Application& operator = (const Application&  _other) = delete;
 		Application& operator =       (Application&& _other) = delete;
 	
+		/// <summary> Quits the application. </summary>
 		static void Quit();
 	
+		/// <summary> Main function of the application. </summary>
 		static int Main();
 	};
 }

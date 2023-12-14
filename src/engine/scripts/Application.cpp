@@ -20,12 +20,6 @@ namespace LouiEriksson {
 			/* CREATE A MAIN WINDOW */
 			auto main_window = Window::Create(1280, 720, "FinalYearProject");
 			
-			// Configure V-sync:
-			//  0 = Disable
-			//  1 = Enable
-			// -1 = Adaptive
-			SDL_GL_SetSwapInterval(0);
-	
 			// Check if GLEW initialised correctly.
 			if (glewInit() != GLEW_OK) {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
@@ -66,22 +60,39 @@ namespace LouiEriksson {
 				
 				try {
 				
+					// Get the beginning of the frame for timing purposes.
 					auto frame_start = std::chrono::high_resolution_clock::now();
-					
-					SDL_Event event = { 0 };
+				
+					// Configure V-sync:
+					// -1 = Adaptive
+					//  0 = Disable
+					//  1 = Enable
+					{
+						auto selected = Settings::Graphics::VSync::s_CurrentSelection - 1;
+						
+						if (selected != SDL_GL_GetSwapInterval()) {
+							SDL_GL_SetSwapInterval(selected);
+						}
+					}
 					
 					/* HANDLE INPUT EVENTS */
+					SDL_Event event = { 0 };
+					
 					while (SDL_PollEvent(&event) != 0) {
 						
+						// Send event to GUI for processing.
 						GUI::ProcessEvent(event);
 						
 						if (event.type == SDL_WINDOWEVENT) {
 							
+							// Process window resize event:
 							if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
 								Window::Get(event.window.windowID)->SetDirty();
 							}
 						}
 						else if (event.type == SDL_QUIT) {
+							
+							// Quit application:
 							Application::Quit();
 							
 							goto NestedBreak;
@@ -111,18 +122,16 @@ namespace LouiEriksson {
 					
 					/* UPDATE TIMERS */
 					
-					// Update the delta time.
+					// Update delta time.
 					Time::s_DeltaTime =
 						(float)std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() -
 							frame_start
 						).count() / 1000000.0f;
 		
-					// Update the elapsed time.
 					Time::s_Elapsed += Time::DeltaTime();
-		
-					physics_step -= Time::DeltaTime();
-					fps_timer    -= Time::DeltaTime();
+					   physics_step -= Time::DeltaTime();
+					   fps_timer    -= Time::DeltaTime();
 				}
 				catch (const std::exception& e) {
 					std::cout << e.what() << "\n";

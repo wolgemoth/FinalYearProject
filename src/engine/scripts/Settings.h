@@ -24,6 +24,18 @@ namespace LouiEriksson {
 			
 			friend Camera;
 			
+			struct VSync {
+				
+				/* SKYBOX TEXTURE */
+				inline static std::vector<const char*> s_AvailableOptions = {
+					"Adaptive",
+					"Off",
+					"On",
+				};
+				
+				inline static int s_CurrentSelection = 0;
+			};
+			
 			struct Perspective {
 				
 				friend OrbitCam;
