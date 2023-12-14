@@ -15,16 +15,20 @@ namespace LouiEriksson {
 	
 	class Window;
 	
+	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
 	class Camera : public Component {
 	
 		friend class Window;
 	
 	private:
 		
-		/// <summary> Skybox Cube Mesh </summary>.
-		std::shared_ptr<Mesh> m_Cube;
+		// Main render target:
+		RenderTexture m_RT;
 		
-		/// <summary> Lens Dirt Texture </summary>
+		/// <summary> Skybox cube Mesh. </summary>.
+		inline static std::shared_ptr<Mesh> s_Cube = nullptr;
+		
+		/// <summary> Lens-dirt Texture. </summary>
 		std::weak_ptr<Texture> m_LensDirt;
 		
 		/// <summary> Window of the Camera. </summary>
@@ -33,18 +37,24 @@ namespace LouiEriksson {
 		/// <summary> Transform of the Camera. </summary>
 		std::shared_ptr<Transform> m_Transform;
 		
-		float m_FOV;
-		float m_NearClip;
-		float m_FarClip;
+		/* PERSPECTIVE */
 		
-		float m_Exposure;
+		/// <summary> Projection matrix. </summary>.
+		glm::mat4 m_Projection;
 		
+		/// <summary> Flag that indicates if the projection matrix needs to be rebuilt or not. </summary>.
 		bool m_IsDirty;
 		
-		// Main render target:
-		RenderTexture m_RT;
+		float m_FOV;        // Field of view.
+		float m_NearClip;   // Near clipping plane.
+		float m_FarClip;    // Far clipping plane.
 		
-		// G-BUFFER:
+		/* EFFECTS */
+		
+		float m_Exposure;   // Camera exposure for tonemapping.
+		
+		/* G-BUFFER: */
+		
 		RenderTexture   m_Albedo_gBuffer; // Albedo channel
 		RenderTexture m_Emission_gBuffer; // Emission channel
 		RenderTexture m_Material_gBuffer; // Material properties (Roughness, Metallic)
@@ -52,22 +62,30 @@ namespace LouiEriksson {
 		RenderTexture   m_Normal_gBuffer; // Surface normals
 		RenderTexture m_TexCoord_gBuffer; // Texture coordinates
 		
-		glm::mat4 m_Projection;
-		
+		/// <summary> Deferred rendering geometry pass. </summary>
 		void GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers);
 		
+		/// <summary> Deferred rendering shadow pass. </summary>
 		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const;
 		
+		/// <summary> Copies one RenderTexture into another. </summary>
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
+		/// <summary> Blit one RenderTexture into another with a specified shader. </summary>
 		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) ;
 
+		/* POST PROCESSING */
+		
+		/// <summary> Blur the contents of a RenderTexture. </summary>
 		void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const;
 
+		/// <summary> Auto exposure effect for use in conjunction with tonemapping. </summary>
 		void AutoExposure();
 		
+		/// <summary> Ambient occlusion effect. </summary>
 		void AmbientOcclusion() const;
 		
+		/// <summary> Physically-based bloom effect using 13-tap sampling method. </summary>
 		void Bloom() const;
 		
 	public:

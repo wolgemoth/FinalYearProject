@@ -12,6 +12,7 @@ namespace LouiEriksson {
 	
 	int Application::Main() {
 		
+		// Restrict Main() to one instance.
 		if (!s_Initialised) {
 			s_Initialised = true;
 			

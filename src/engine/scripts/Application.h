@@ -10,6 +10,7 @@
 
 namespace LouiEriksson {
 	
+	/// <summary> Main class for the application. </summary>
 	class Application {
 	
 	private:

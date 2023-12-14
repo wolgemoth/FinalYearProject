@@ -40,7 +40,7 @@ namespace LouiEriksson {
 		private:
 			
 			struct Shadow {
-				
+
 				GLuint m_ShadowMap_Texture;
 				GLuint m_ShadowMap_FBO;
 				

@@ -14,23 +14,30 @@ namespace LouiEriksson {
 		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG16F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER)
 	{
-		m_Window    = std::shared_ptr<Window>   (nullptr);
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-		m_Cube      = std::shared_ptr<Mesh>     (nullptr);
+		
+		m_Window    = std::shared_ptr<Window>   (nullptr); // Init to nullptr.
+		m_Transform = std::shared_ptr<Transform>(nullptr); // Init to nullptr.
 	
+		// Load the skybox cube mesh (if it isn't already).
+		if (s_Cube == nullptr) {
+			File::TryLoad("models/cube/cube.obj", s_Cube);
+		}
+	
+		// Load the lens-dirt texture.
+		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
+		
+		// Initialise default values for perspective matrix:
 		m_FOV      = 90.0f;
 		m_NearClip =  0.1f;
 		m_FarClip  = 60.0f;
 		
+		// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
+		m_Projection = glm::mat4(1.0f);
+		m_IsDirty    = true;
+	
+		// Set exposure level from settings.
 		m_Exposure = Settings::PostProcessing::ToneMapping::s_Exposure;
 		
-		m_Projection = glm::mat4(1.0f);
-		
-		m_IsDirty = true;
-		
-		File::TryLoad("models/cube/cube.obj", m_Cube);
-		
-		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
 	}
 	
 	Camera::~Camera() {
@@ -55,7 +62,7 @@ namespace LouiEriksson {
 	void Camera::PreRender() {
 		
 		// Resize the frame buffers.
-		// TODO: Set up enum flags for dirtying instead of m_IsDirty so that this doesn't happen every frame.
+		// TODO: Set up enum flags for dirtying instead of just m_IsDirty so that this doesn't happen every frame.
 		auto dimensions = GetWindow()->Dimensions();
 		
 		              m_RT.Reinitialise(dimensions[0], dimensions[1]);
@@ -69,6 +76,7 @@ namespace LouiEriksson {
 	
 	void Camera::GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers) {
 		
+		// Get the current culling and depth modes and cache them here.
 		GLint cullMode, depthMode;
 		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
 		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
@@ -233,6 +241,7 @@ namespace LouiEriksson {
 			
 			/* DRAW SKY */
 			{
+				// Change culling and depth options for skybox rendering.
 				glCullFace (GL_FRONT );
 				glDepthFunc(GL_LEQUAL);
 	
@@ -268,11 +277,12 @@ namespace LouiEriksson {
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
-				Mesh::Bind(*m_Cube);
+				Mesh::Bind(*s_Cube);
 	
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 	
+				// Restore culling and depth options.
 				glCullFace ( cullMode);
 				glDepthFunc(depthMode);
 			}
@@ -399,11 +409,13 @@ namespace LouiEriksson {
 	
 	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const {
 		
+		// Perform these computations for every light in the scene.
 		for (const auto& light : _lights) {
 	
 			// Initialise / reinitialise the buffers used for the shadow map.
 			light->m_Shadow.UpdateShadowMap(light->m_Type);
 			
+			// Check if the light has shadows enabled:
 			if (light->m_Shadow.m_Resolution > 0) {
 				
 				// Set the viewport resolution to that of the shadow map.
@@ -449,6 +461,7 @@ namespace LouiEriksson {
 				
 				if (light->Type() == Light::Parameters::Type::Point) {
 					
+					// Collection of shadow transforms for each face of the cubemap.
 					const std::array<glm::mat4, 6> shadowTransforms {
 						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
 						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
@@ -458,6 +471,7 @@ namespace LouiEriksson {
 						light->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
 					};
 					
+					// Assign the transforms to the shader.
 					glUniformMatrix4fv(
 						program.lock()->AttributeID("u_Matrices"),
 						shadowTransforms.size(),
@@ -465,9 +479,7 @@ namespace LouiEriksson {
 						glm::value_ptr(shadowTransforms[0])
 					);
 					
-					program.lock()->Assign(
-							program.lock()->AttributeID("u_LightPosition"), lightPos);
-					
+					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), lightPos);
 					program.lock()->Assign(program.lock()->AttributeID("u_FarPlane"), light->m_Range);
 					
 					light->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
@@ -511,14 +523,16 @@ namespace LouiEriksson {
 	
 	void Camera::Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) {
 		
+		// Enable culling and depth.
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 		
+		// Set the preferred culling and depth modes:
 		const auto  cullMode = GL_BACK;
 		const auto depthMode = GL_LESS;
 		
-		glDepthFunc(depthMode);
 		glCullFace(cullMode);
+		glDepthFunc(depthMode);
 		
 		/* GEOMETRY PASS */
 		{
@@ -538,6 +552,7 @@ namespace LouiEriksson {
 			glCullFace(cullMode);
 		}
 		
+		// Bind quad mesh:
 		Mesh::Bind(*Mesh::Primitives::Quad::Instance().lock());
 		
 		/* SHADING */
@@ -551,6 +566,7 @@ namespace LouiEriksson {
 			// Bind program.
 			Shader::Bind(program.lock()->ID());
 
+			// Assign g-buffers:
 			program.lock()->Assign(
 				program.lock()->AttributeID("u_Albedo_gBuffer"),
 				m_Albedo_gBuffer.ID(),
@@ -593,10 +609,9 @@ namespace LouiEriksson {
 				GL_TEXTURE_2D
 			);
 			
+			// Assign other material parameters:
 			program.lock()->Assign(program.lock()->AttributeID("u_Time"), Time::Elapsed());
-
 			program.lock()->Assign(program.lock()->AttributeID("u_CameraPosition"), GetTransform()->m_Position);
-
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
 			program.lock()->Assign(
@@ -608,155 +623,116 @@ namespace LouiEriksson {
 
 			program.lock()->Assign(program.lock()->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
 
-			if (_lights.empty()) {
+			// For the time being, there is only one light. TODO: Introduce a lighting buffer.
+			for (const auto& light : _lights) {
+				
+				using target_light = Settings::Graphics::Material;
+				
+				// TODO: Placeholder code for settings.
+				{
+					bool isDirty;
+					
+					{
+						auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
+						
+						auto newBias       = target_light::s_ShadowBias;
+						auto newNormalBias = target_light::s_ShadowNormalBias;
+						
+						isDirty = newResolution != light->m_Shadow.m_Resolution ||
+								  newBias       != light->m_Shadow.m_Bias       ||
+								  newNormalBias != light->m_Shadow.m_NormalBias ||
+								  target_light::s_LightRange              != light->m_Range               ||
+								  target_light::s_LightAngle              != light->m_Angle               ||
+								  target_light::s_CurrentLightType        != light->m_Type;
+						
+						light->m_Shadow.m_Resolution = newResolution;
+						light->m_Shadow.m_Bias       = newBias;
+						light->m_Shadow.m_NormalBias = newNormalBias;
+					}
+					
+					light->m_Transform.lock()->m_Position = target_light::s_LightPosition;
+					light->m_Transform.lock()->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
+					light->m_Range                        = target_light::s_LightRange;
+					light->m_Intensity                    = target_light::s_LightIntensity;
+					light->m_Color                        = target_light::s_LightColor;
+					light->m_Size                         = target_light::s_LightSize;
+					light->m_Angle                        = target_light::s_LightAngle;
+					light->m_Type                         = (Light::Parameters::Type)target_light::s_CurrentLightType;
+					
+					if (isDirty) {
+						light->m_Shadow.UpdateShadowMap(light->Type());
+					}
+				}
+				
+				if (light->Type() == Light::Parameters::Type::Point) {
 
-				// Draw the scene with no lighting.
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_ShadowMap2D"),
-					Resources::GetTexture("white").lock()->ID(),
-					99,
-					GL_TEXTURE_2D
+					program.lock()->Assign(
+						program.lock()->AttributeID("u_ShadowMap3D"),
+						light->m_Shadow.m_ShadowMap_Texture,
+						100,
+						GL_TEXTURE_CUBE_MAP
+					);
+				}
+				else {
+
+					program.lock()->Assign(
+						program.lock()->AttributeID("u_ShadowMap2D"),
+						light->m_Shadow.m_ShadowMap_Texture,
+						99,
+						GL_TEXTURE_2D
+					);
+				}
+
+				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
+					light->m_Shadow.m_ViewProjection);
+
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
+					light->m_Shadow.m_Bias);
+
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
+					light->m_Shadow.m_NormalBias);
+
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
+					target_light::s_ShadowSamples);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_ShadowTechnique"),
+					target_light::s_CurrentShadowTechnique);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_LightType"),
+					light->m_Type);
+				
+				program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
+					light->m_Size);
+
+				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
+					glm::cos(glm::radians(
+						light->Type() == Light::Parameters::Type::Spot ?
+							light->m_Angle * 0.5f :
+							180.0f
+						)
+					)
 				);
 
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_ShadowMap3D"),
-					Resources::GetTexture("white").lock()->ID(),
-					100,
-					GL_TEXTURE_CUBE_MAP
-				);
+				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),
+					light->m_Shadow.m_NearPlane);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), glm::mat4(1.0));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
+					light->m_Transform.lock()->m_Position);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"      ), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"), 0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
+					light->m_Transform.lock()->FORWARD);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),    0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),   0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),    0.0f);
+				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
+					light->m_Range);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_LightPosition" ), glm::vec3(0.0f));
-				program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"), glm::vec3(0.0f));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
+					light->m_Intensity);
 
-				program.lock()->Assign(program.lock()->AttributeID("u_LightRange"    ), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"), 0.0f);
-				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"    ), glm::vec3(0.0f));
+				program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
+					light->m_Color);
 
 				/* DRAW */
 				glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-			}
-			else {
-
-				// Draw the scene once for each light (forward rendering technique).
-				for (const auto& light : _lights) {
-					
-					using target_light = Settings::Graphics::Material;
-					
-					// TODO: Replace.
-					{
-						bool isDirty;
-						
-						{
-							auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
-							
-							auto newBias       = target_light::s_ShadowBias;
-							auto newNormalBias = target_light::s_ShadowNormalBias;
-							
-							isDirty = newResolution != light->m_Shadow.m_Resolution ||
-									  newBias       != light->m_Shadow.m_Bias       ||
-									  newNormalBias != light->m_Shadow.m_NormalBias ||
-									  target_light::s_LightRange              != light->m_Range               ||
-									  target_light::s_LightAngle              != light->m_Angle               ||
-									  target_light::s_CurrentLightType        != light->m_Type;
-							
-							light->m_Shadow.m_Resolution = newResolution;
-							light->m_Shadow.m_Bias       = newBias;
-							light->m_Shadow.m_NormalBias = newNormalBias;
-						}
-						
-						light->m_Transform.lock()->m_Position = target_light::s_LightPosition;
-						light->m_Transform.lock()->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
-						light->m_Range                        = target_light::s_LightRange;
-						light->m_Intensity                    = target_light::s_LightIntensity;
-						light->m_Color                        = target_light::s_LightColor;
-						light->m_Size                         = target_light::s_LightSize;
-						light->m_Angle                        = target_light::s_LightAngle;
-						light->m_Type                         = (Light::Parameters::Type)target_light::s_CurrentLightType;
-						
-						if (isDirty) {
-							light->m_Shadow.UpdateShadowMap(light->Type());
-						}
-					}
-					
-					if (light->Type() == Light::Parameters::Type::Point) {
-
-						program.lock()->Assign(
-							program.lock()->AttributeID("u_ShadowMap3D"),
-							light->m_Shadow.m_ShadowMap_Texture,
-							100,
-							GL_TEXTURE_CUBE_MAP
-						);
-					}
-					else {
-
-						program.lock()->Assign(
-							program.lock()->AttributeID("u_ShadowMap2D"),
-							light->m_Shadow.m_ShadowMap_Texture,
-							99,
-							GL_TEXTURE_2D
-						);
-					}
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"),
-						light->m_Shadow.m_ViewProjection);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowBias"),
-						light->m_Shadow.m_Bias);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowNormalBias"),
-						light->m_Shadow.m_NormalBias);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowSamples"),
-						target_light::s_ShadowSamples);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_ShadowTechnique"),
-						target_light::s_CurrentShadowTechnique);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_LightType"),
-						light->m_Type);
-					
-					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
-						light->m_Size);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightAngle"),
-						glm::cos(glm::radians(
-							light->Type() == Light::Parameters::Type::Spot ?
-								light->m_Angle * 0.5f :
-								180.0f
-							)
-						)
-					);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_NearPlane"),
-						light->m_Shadow.m_NearPlane);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"),
-						light->m_Transform.lock()->m_Position);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightDirection"),
-						light->m_Transform.lock()->FORWARD);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightRange"),
-						light->m_Range);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightIntensity"),
-						light->m_Intensity);
-
-					program.lock()->Assign(program.lock()->AttributeID("u_LightColor"),
-						light->m_Color);
-
-					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
-				}
 			}
 		}
 		
@@ -768,14 +744,17 @@ namespace LouiEriksson {
 		/* POST PROCESSING */
 		if (Settings::PostProcessing::s_Enabled) {
 			
+			// Do ambient occlusion first.
 			if (Settings::PostProcessing::AmbientOcclusion::IsActiveAndEnabled()) {
 				AmbientOcclusion();
 			}
 			
+			// Auto exposure after ambient occlusion.
 			if (Settings::PostProcessing::ToneMapping::AutoExposure::IsActiveAndEnabled()) {
 				AutoExposure();
 			}
 			
+			// Bloom after auto exposure.
 			if (Settings::PostProcessing::Bloom::IsActiveAndEnabled()) {
 				Bloom();
 			}
@@ -795,6 +774,7 @@ namespace LouiEriksson {
 				effects.push(tonemapping);
 			}
 			
+			// Perform anti-aliasing after tonemapping as FXAA suffers in the HDR range.
 			if (Settings::PostProcessing::AntiAliasing::IsActiveAndEnabled()) {
 				
 				auto aa = Resources::GetShader("fxaa");
@@ -828,6 +808,7 @@ namespace LouiEriksson {
 				effects.push(vignette);
 			}
 			
+			// Check if there are effects in the stack...
 			if (!effects.empty()) {
 				
 				// Render post-processing effects stack:
@@ -842,22 +823,26 @@ namespace LouiEriksson {
 				}
 			}
 			else {
-				Blit(m_RT, m_RT, Resources::GetShader("passthrough"));
+				Copy(m_RT, m_RT); // Passthrough main render target.
 			}
 		}
 		else {
-			Blit(m_RT, m_RT, Resources::GetShader("passthrough"));
+			Copy(m_RT, m_RT); // Passthrough main render target.
 		}
 		
 		/* RENDER TO SCREEN */
 		RenderTexture::Unbind();
 		
-		glEnable(GL_FRAMEBUFFER_SRGB);  // ENABLE GAMMA CORRECTION
-	
+		// Check if gamma correction is enabled in settings.
+		if (Settings::Graphics::s_GammaCorrection) {
+			glEnable(GL_FRAMEBUFFER_SRGB); // Enable gamma correction.
+		}
+	 
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
-		glDisable(GL_FRAMEBUFFER_SRGB); // DISABLE GAMMA CORRECTION
+		// Reset gamma correction.
+		glDisable(GL_FRAMEBUFFER_SRGB);
 	}
 	
 	void Camera::Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) const {

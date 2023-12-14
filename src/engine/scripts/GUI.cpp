@@ -540,6 +540,9 @@ namespace LouiEriksson {
 		
 		/* RENDERING SETTINGS */
 		ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+		// Display checkbox for gamma correction.
+		ImGui::Checkbox("Gamma Correction", &Settings::Graphics::s_GammaCorrection);
 		
 		/* CAMERA */
 	    if (ImGui::TreeNode("Camera")) {

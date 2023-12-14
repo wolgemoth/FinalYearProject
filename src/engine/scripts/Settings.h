@@ -24,6 +24,8 @@ namespace LouiEriksson {
 			
 			friend Camera;
 			
+			inline static bool s_GammaCorrection = true;
+			
 			struct VSync {
 				
 				/* SKYBOX TEXTURE */
@@ -33,7 +35,7 @@ namespace LouiEriksson {
 					"On",
 				};
 				
-				inline static int s_CurrentSelection = 0;
+				inline static int s_CurrentSelection = 1;
 			};
 			
 			struct Perspective {
