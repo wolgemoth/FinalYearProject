@@ -12,7 +12,7 @@ namespace LouiEriksson {
 		
 		for (const auto& item : File::Directory::GetEntriesRecursive(m_MaterialsDirectory, File::Directory::EntryType::FILE)) {
 			
-			if (strcmp(item.extension().c_str(), ".mtl") == 0) {
+			if (strcmp(item.extension().string().c_str(), ".mtl") == 0) {
 				files.Add(item.stem().string(), item);
 			}
 		}
@@ -71,7 +71,7 @@ namespace LouiEriksson {
 			
 			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderIncludeDirectory, File::Directory::EntryType::FILE)) {
 				
-				if (strcmp(item.extension().c_str(), ".glsl") == 0) {
+				if (strcmp(item.extension().string().c_str(), ".glsl") == 0) {
 					dependencies.push_back(item);
 				}
 			}
@@ -118,10 +118,10 @@ namespace LouiEriksson {
 				
 				GLenum shaderType;
 				
-				     if (strcmp(item.extension().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
-				else if (strcmp(item.extension().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
-				else if (strcmp(item.extension().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
-				else if (strcmp(item.extension().c_str(), ".glsl") == 0) { shaderType =          GL_SHADER; }
+				     if (strcmp(item.extension().string().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
+				else if (strcmp(item.extension().string().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
+				else if (strcmp(item.extension().string().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
+				else if (strcmp(item.extension().string().c_str(), ".glsl") == 0) { shaderType =          GL_SHADER; }
 				else {
 					shaderType = GL_NONE;
 				}
@@ -149,7 +149,7 @@ namespace LouiEriksson {
 					subShaders.reserve(kvp.second.size());
 					
 					for (const auto& subshader : kvp.second) {
-						subShaders.emplace_back(Shader::SubShader(subshader.first.c_str(), subshader.second));
+						subShaders.emplace_back(Shader::SubShader(subshader.first.string().c_str(), subshader.second));
 					}
 					
 					// Compile shader and add to cache.
