@@ -247,12 +247,24 @@
 
             visibility = clamp(visibility, 0.0, 1.0);
 
-            mediump float lighting = (
-                Lambert(normal, lightDir) +
-                BlinnPhong(normal, lightDir, viewDir, roughness)
-            ) * u_LightIntensity * attenuation;
+            mediump float lighting;
 
-            directLighting += (visibility * lighting) * u_LightColor;
+            if (u_LightType == 1) {
+
+                lighting = (
+                    Lambert(normal, u_LightDirection) +
+                    BlinnPhong(normal, u_LightDirection, viewDir, roughness)
+                );
+            }
+            else {
+
+                lighting = (
+                    Lambert(normal, lightDir) +
+                    BlinnPhong(normal, lightDir, viewDir, roughness)
+                ) * attenuation;
+            }
+
+            directLighting += (visibility * lighting * u_LightIntensity) * u_LightColor;
         }
 
         directLighting *= albedo.rgb;

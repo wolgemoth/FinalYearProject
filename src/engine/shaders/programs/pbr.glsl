@@ -282,17 +282,34 @@
 
             visibility = clamp(visibility, 0.0, 1.0);
 
-            mediump vec3 lighting = BRDF(
-                albedo.rgb,
-                normal,
-                lightDir,
-                viewDir,
-                halfVec,
-                metallic,
-                roughness
-            ) * u_LightIntensity * attenuation;
+            mediump vec3 lighting;
 
-            directLighting += (visibility * lighting) * u_LightColor;
+            if (u_LightType == 1) {
+
+                lighting = BRDF(
+                    albedo.rgb,
+                    normal,
+                    u_LightDirection,
+                    viewDir,
+                    halfVec,
+                    metallic,
+                    roughness
+                );
+            }
+            else {
+
+                lighting = BRDF(
+                    albedo.rgb,
+                    normal,
+                    lightDir,
+                    viewDir,
+                    halfVec,
+                    metallic,
+                    roughness
+                ) * attenuation;
+            }
+
+            directLighting += (visibility * lighting * u_LightIntensity) * u_LightColor;
         }
 
         directLighting *= albedo.rgb;
