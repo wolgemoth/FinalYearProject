@@ -1,7 +1,3 @@
-//
-// Created by loui on 23/10/23.
-//
-
 #include "Cubemap.h"
 
 namespace LouiEriksson {

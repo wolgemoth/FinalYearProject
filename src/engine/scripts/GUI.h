@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef FINALYEARPROJECT_GUI_H
 #define FINALYEARPROJECT_GUI_H
 
