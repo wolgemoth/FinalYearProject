@@ -73,14 +73,6 @@ namespace LouiEriksson {
 				
 				static void UpdateShader(const int& _index);
 				
-				/* SHADOWS */
-				inline static std::vector<const char*> s_ShadowTechniques = {
-					"hard",
-					"pcf",
-					"poisson-disk",
-					"pcss"
-				};
-				
 				inline static int s_CurrentShadowTechnique = 3;
 				inline static int s_ShadowSamples = 12;
 				
@@ -92,6 +84,31 @@ namespace LouiEriksson {
 				inline static float s_AOAmount           = 2.0f;
 				
 				inline static glm::vec4 s_TextureScaleTranslate = glm::vec4(3.0f, 3.0f, 0.0f, 0.0f);
+			
+				/* SHADOWS */
+				inline static std::vector<const char*> s_ShadowTechniques = {
+					"hard",
+					"pcf",
+					"poisson-disk",
+					"pcss"
+				};
+				
+				/* LIGHT */
+				inline static std::vector<const char*> s_AvailableLightTypes = {
+					"point",
+					"directional",
+					"spot"
+				};
+				
+				inline static int s_CurrentLightType = 0;
+				
+			    inline static glm::vec3 s_LightPosition   = glm::vec3(  0.0f,   1.5f, 0.0f);    // Position of light in world-space.
+			    inline static glm::vec3 s_LightRotation   = glm::vec3(-45.0f, 135.0f, 0.0f);    // Position of light in world-space.
+			    inline static glm::vec3 s_LightColor      = glm::vec3(1.0f, 1.0f, 1.0f);        // Color of light.
+				inline static     float s_LightIntensity  =   3.0f;                             // Brightness of light.
+			    inline static     float s_LightRange      = 200.0f;                             // Range of light.
+			    inline static     float s_LightAngle      = 120.0f;                             // Cos of light's FOV (for spot lights).
+				inline static     float s_LightSize       =   0.2f;                             // Size of the light (PCSS only).
 			};
 		};
 		

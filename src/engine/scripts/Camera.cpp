@@ -646,7 +646,21 @@ namespace LouiEriksson {
 
 				// Draw the scene once for each light (forward rendering technique).
 				for (const auto& light : _lights) {
-
+					
+					// TODO: Replace.
+					{
+						light->m_Transform.lock()->m_Position = Settings::Graphics::Material::s_LightPosition;
+						light->m_Transform.lock()->m_Rotation = glm::quat(glm::radians(Settings::Graphics::Material::s_LightPosition));
+						light->m_Range                        = Settings::Graphics::Material::s_LightRange;
+						light->m_Intensity                    = Settings::Graphics::Material::s_LightIntensity;
+						light->m_Color                        = Settings::Graphics::Material::s_LightColor;
+						light->m_Size                         = Settings::Graphics::Material::s_LightSize;
+						light->m_Angle                        = Settings::Graphics::Material::s_LightAngle;
+						light->m_Type                         = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
+						
+						//light->m_Shadow.UpdateShadowMap((Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType);
+					}
+					
 					if (light->Type() == Light::Parameters::Type::Point) {
 
 						program.lock()->Assign(
@@ -680,6 +694,9 @@ namespace LouiEriksson {
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_ShadowTechnique"),
 						Settings::Graphics::Material::s_CurrentShadowTechnique);
+					
+					program.lock()->Assign(program.lock()->AttributeID("u_LightType"),
+						light->m_Type);
 					
 					program.lock()->Assign(program.lock()->AttributeID("u_LightSize"),
 						light->m_Size);

@@ -586,25 +586,64 @@ namespace LouiEriksson {
 			using target = Settings::Graphics::Material;
 			
 			// Dropdown selection for shader:
-			static int selected = 0;
+			static int selected_shader = 0;
 			
-			ImGui::Combo(" ", &selected, target::s_AvailableShaders.data(), target::s_AvailableShaders.size());
+			ImGui::Combo("Shader", &selected_shader, target::s_AvailableShaders.data(), target::s_AvailableShaders.size());
 			
 			// If the selected values mismatch, it means the selection has changed...
-			if (selected != target::s_CurrentShaderSelection) {
-				target::UpdateShader(selected);
+			if (selected_shader != target::s_CurrentShaderSelection) {
+				target::UpdateShader(selected_shader);
 			}
 			
-			ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
-			ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
-			ImGui::DragFloat(     "Normals", &target::s_NormalAmount,        0.001f, 0.0f, 65535.0f);
-			ImGui::DragFloat(    "Emission", &target::s_EmissionAmount,      0.001f, 0.0f, 65535.0f);
-			ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
+			if (ImGui::CollapsingHeader("Parameters")) {
 			
-			ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
+				ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
+				ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
+				ImGui::DragFloat(     "Normals", &target::s_NormalAmount,        0.001f, 0.0f, 65535.0f);
+				ImGui::DragFloat(    "Emission", &target::s_EmissionAmount,      0.001f, 0.0f, 65535.0f);
+				ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
+				
+				ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
+			}
 			
-			ImGui::Combo("Shadow Technique", &target::s_CurrentShadowTechnique, target::s_ShadowTechniques.data(), target::s_ShadowTechniques.size());
-			ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
+			if (ImGui::CollapsingHeader("Shadows")) {
+				
+				ImGui::Combo("Shadow Technique", &target::s_CurrentShadowTechnique, target::s_ShadowTechniques.data(), target::s_ShadowTechniques.size());
+				
+				// PCSS and Poisson-Disk:
+				if (target::s_CurrentShadowTechnique == 2 ||
+				    target::s_CurrentShadowTechnique == 3) {
+					
+					ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
+				}
+				
+				// PCSS-only:
+				if (target::s_CurrentShadowTechnique == 3) {
+					ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0f, 65535.0f);
+				}
+			}
+			
+			if (ImGui::CollapsingHeader("Light")) {
+			
+				static int selected_light = 0;
+				
+				ImGui::Combo("Light Type", &selected_light, target::s_AvailableLightTypes.data(), target::s_AvailableLightTypes.size());
+				
+				ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
+				ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
+				ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0f, 65535.0f);
+				ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1f,  0.0f, 65535.0f);
+				
+				if (selected_light == 2) {
+					ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 65535.0f);
+				}
+				
+				if (selected_light != target::s_CurrentLightType) {
+				
+				}
+				
+				target::s_CurrentLightType = selected_light;
+			}
 			
 	        ImGui::TreePop(); // END MATERIAL SECTION.
 	    }

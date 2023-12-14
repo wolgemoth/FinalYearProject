@@ -75,6 +75,7 @@
     uniform mediump float u_Time;
 
     /* DIRECT LIGHTING */
+    uniform int u_LightType = 0;
 
     uniform mediump  vec3 u_LightPosition;  // Position of light in world-space.
     uniform mediump  vec3 u_LightDirection; // Direction of the light in world-space.
@@ -245,36 +246,40 @@
 
             mediump vec4 position_lightSpace = u_LightSpaceMatrix * vec4(position, 1.0);
 
-            mediump float visibility = clamp(
-                (
-                    #define LIGHT_TYPE 2
+            mediump float visibility;
 
-                    /* DIRECTIONAL */
-                    #if LIGHT_TYPE == 0
-                        (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
-                        1.0 - max(
-                            TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
-                            ps
-                        )
-                    /* SPOT */
-                    #elif LIGHT_TYPE == 1
-                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-                        1.0 - max(
-                            TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
-                            ps
-                        )
-                    /* POINT */
-                    #elif LIGHT_TYPE == 2
-                        (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
-                        1.0 - max(
-                            TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
-                            ps
-                        )
-                    #endif
-                ),
-                0.0,
-                1.0
-            );
+            switch (u_LightType) {
+                case 0: { /* POINT */
+                    visibility = (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                    1.0 - max(
+                        TransferShadow3D(normal, lightDir, position, u_ShadowBias, u_ShadowNormalBias),
+                        ps
+                    );
+                    break;
+                }
+                case 1: {  /* DIRECTIONAL */
+                    visibility = (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
+                    1.0 - max(
+                        TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
+                        ps
+                    );
+                    break;
+                }
+                case 2: { /* SPOT */
+                    visibility = (dot(u_LightDirection, lightDir) > u_LightAngle ? 1.0 : 0.0) *
+                    1.0 - max(
+                        TransferShadow2D(position_lightSpace, normal, lightDir, u_ShadowBias, u_ShadowNormalBias),
+                        ps
+                    );
+                    break;
+                }
+                default: {
+                    visibility = 1.0;
+                    break;
+                }
+            }
+
+            visibility = clamp(visibility, 0.0, 1.0);
 
             mediump vec3 lighting = BRDF(
                 albedo.rgb,
