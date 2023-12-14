@@ -1092,20 +1092,20 @@ namespace LouiEriksson {
 		auto   combine_shader = Resources::GetShader("combine");
 		auto lens_dirt_shader = Resources::GetShader("lens_dirt");
 		
-		/* SET BLOOM PARAMETERS */
-		const int scalingPasses = 6;
-		
+		/* THRESHOLD PASS */
 		Shader::Bind(threshold_shader.lock()->ID());
 		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Threshold"), target::s_Threshold);
 		threshold_shader.lock()->Assign(threshold_shader.lock()->AttributeID("u_Clamp"), target::s_Clamp);
 		
 		RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-		
 		Blit(m_RT, tmp, threshold_shader);
 		
+		/* DOWNSCALING */
 		Shader::Bind(downscale_shader.lock()->ID());
 		downscale_shader.lock()->Assign(downscale_shader.lock()->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 
+		// Mip chain. (currently hard-coded). TODO: Dynamically-sized mip chain.
+		const int scalingPasses = 6;
 		RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
@@ -1113,6 +1113,7 @@ namespace LouiEriksson {
 		RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		
+		// Downscale passes:
 		Blit(tmp,  mip0, downscale_shader);
 		Blit(mip0, mip1, downscale_shader);
 		Blit(mip1, mip2, downscale_shader);
@@ -1120,6 +1121,7 @@ namespace LouiEriksson {
 		Blit(mip3, mip4, downscale_shader);
 		Blit(mip4, mip5, downscale_shader);
 
+		/* UPSCALING */
 		Shader::Bind(upscale_shader.lock()->ID());
 
 		// Create the diffusion vector for the bloom algorithm:
@@ -1143,6 +1145,7 @@ namespace LouiEriksson {
 	    glBlendFunc(GL_ONE, GL_ONE);
 	    glBlendEquation(GL_FUNC_ADD);
 		
+		// Upscale passes:
 		Blit(mip5, mip4, upscale_shader);
 		Blit(mip4, mip3, upscale_shader);
 		Blit(mip3, mip2, upscale_shader);
@@ -1159,51 +1162,65 @@ namespace LouiEriksson {
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 		combine_shader.lock()->Assign(combine_shader.lock()->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
 
+		// Blit to main render target:
 		RenderTexture::Bind(m_RT);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		RenderTexture::Unbind();
 		
 		/* LENS DIRT */
 		if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0f) {
+			
 			Shader::Bind(lens_dirt_shader.lock()->ID());
 			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
 			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
 			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Bloom"),  tmp.ID(), 1, GL_TEXTURE_2D);
 			lens_dirt_shader.lock()->Assign(lens_dirt_shader.lock()->AttributeID("u_Dirt"),  m_LensDirt.lock()->ID(), 2, GL_TEXTURE_2D);
 	
+			// Blit to main render target:
 			RenderTexture::Bind(m_RT);
 			glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		}
 	}
 	
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
+		
+		// Simply blit _src to _dest using a passthrough shader.
 		Blit(_src, _dest, Resources::GetShader("passthrough").lock());
 	}
 	
 	void Camera::Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) {
 		
+		// Cache the viewport dimensions.
 		glm::ivec4 viewport;
 		glGetIntegerv(GL_VIEWPORT, &viewport[0]);
-
+		
+		// Determine if the viewport dimensions need to change.
 		const bool dimensionsDirty = viewport[2] != _dest.Width() ||
 		                             viewport[3] != _dest.Height();
 
 		if (dimensionsDirty) {
+			
+			// Set new viewport dimensions.
 			glViewport(viewport[0], viewport[1], _dest.Width(), _dest.Height());
 		}
 
+		// Bind program.
 		Shader::Bind(_shader.lock()->ID());
 
+		// Enable texture channel.
 		glActiveTexture(GL_TEXTURE0);
 
 		if (Texture::s_CurrentTexture != _src.ID()) {
 			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = _src.ID());
 		}
 		
+		// Bind destination target:
 		RenderTexture::Bind(_dest);
 		glDrawArrays(GL_TRIANGLES, 0, Mesh::Primitives::Quad::Instance().lock()->VertexCount());
 		
 		if (dimensionsDirty) {
+			
+			// Reset viewport dimensions:
 			glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 		}
 	}
@@ -1230,6 +1247,7 @@ namespace LouiEriksson {
 	
 	void Camera::FOV(const float& _fov) {
 		
+		// Check if the value differs from the current one.
 		if (m_FOV != _fov) {
 			m_FOV = _fov;
 			
@@ -1243,6 +1261,7 @@ namespace LouiEriksson {
 	
 	void Camera::NearClip(const float& _nearClip) {
 		
+		// Check if the value differs from the current one.
 		if (m_NearClip != _nearClip) {
 			m_NearClip = _nearClip;
 			
@@ -1256,6 +1275,7 @@ namespace LouiEriksson {
 	
 	void Camera::FarClip(const float& _farClip) {
 		
+		// Check if the value differs from the current one.
 		if (m_FarClip != _farClip) {
 			m_FarClip = _farClip;
 			
