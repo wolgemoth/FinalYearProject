@@ -614,8 +614,6 @@ namespace LouiEriksson {
 				ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
 				ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
 				
-				ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
-				
 				// PCSS and Poisson-Disk:
 				if (target::s_CurrentShadowTechnique == 2 ||
 				    target::s_CurrentShadowTechnique == 3) {
@@ -627,6 +625,8 @@ namespace LouiEriksson {
 				if (target::s_CurrentShadowTechnique == 3) {
 					ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0f, 65535.0f);
 				}
+				
+				ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
 			}
 			
 			if (ImGui::CollapsingHeader("Light")) {

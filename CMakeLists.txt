@@ -113,8 +113,10 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Utils.cpp
         src/engine/scripts/Utils.h
+
         src/engine/scripts/GUI.cpp
         src/engine/scripts/GUI.h
+
         src/engine/scripts/Settings.cpp
         src/engine/scripts/Settings.h
 )
@@ -141,9 +143,6 @@ include_directories(
         ${IMGUI_BACKENDS_PATH}
 )
 
-# Add the external .c file as a library target
-add_library(WAVEFRONT ${PROJECT_SOURCE_DIR}/external/wavefront/src/wavefront/Model.c)
-
 add_library(IMGUI STATIC
         ${IMGUI_PATH}/imgui.cpp                         # MAIN ...
         ${IMGUI_PATH}/imgui_draw.cpp
@@ -166,7 +165,6 @@ target_link_libraries(FinalYearProject
         GLU
         SDL2main
         SDL2
-        WAVEFRONT
         IMGUI
 )
 

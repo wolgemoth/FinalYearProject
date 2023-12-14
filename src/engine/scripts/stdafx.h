@@ -17,7 +17,6 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/projection.hpp>
 
-#include "stb_image.h"              // STB
 #include "cereal/archives/xml.hpp"  // CEREAL
 
 /* INTERNAL */
