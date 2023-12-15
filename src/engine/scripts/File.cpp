@@ -43,10 +43,10 @@ namespace LouiEriksson {
 			bool append;
 			
 			if (item.is_directory()) {
-				append = (((uint)_type & (uint)File::Directory::EntryType::DIRECTORY) != 0);
+				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::DIRECTORY) != 0);
 			}
 			else {
-				append = (((uint)_type & (uint)File::Directory::EntryType::FILE) != 0);
+				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::FILE) != 0);
 			}
 			
 			if (append) { result.push_back(item); }
@@ -70,10 +70,10 @@ namespace LouiEriksson {
 				// Append all subdirectories to a vector.
 				subDirectories.push_back(item);
 				
-				append = (((uint)_type & (uint)File::Directory::EntryType::DIRECTORY) != 0);
+				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::DIRECTORY) != 0);
 			}
 			else {
-				append = (((uint)_type & (uint)File::Directory::EntryType::FILE) != 0);
+				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::FILE) != 0);
 			}
 			
 			// Append entries of requested type to result.

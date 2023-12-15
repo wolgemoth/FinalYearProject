@@ -37,5 +37,8 @@
 /cmake-build-release/
 /cmake-build-release/**
 
+/cmake-build-releasewindows/
+/cmake-build-releasewindows/**
+
 #WHITELIST /src/engine
 !/src/engine/**

@@ -162,7 +162,6 @@ link_directories(FinalYearProject
 target_link_libraries(FinalYearProject
         GLEW
         GL
-        GLU
         SDL2main
         SDL2
         IMGUI
