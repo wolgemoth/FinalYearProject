@@ -19,9 +19,9 @@ It is an extension of my 3DGP assignment from second year, and is expected to un
 
 If you are assessing this project, please search for instances of `"@Assessor"` in the project's source code for notes and references. Please also refer to the [Dependencies](#Dependencies) and [References](#References) sections of this document for a comprehensive list of external sources.
 
-### Instructions
+### Build from Source
 
-#### Linux:
+#### Linux
 
 The SDL2 and GLEW development packages are necessary for this project. If they are not already installed on your system, you may need to install them:
 
@@ -29,7 +29,7 @@ The SDL2 and GLEW development packages are necessary for this project. If they a
 
 ```sudo apt-get install libsdl2-dev libglew-dev```
 
-#### Windows:
+#### Windows
 
 I have not yet tested building for Windows. SDL2 and GLEW are already included in the project's "external" folder and linked through CMakeLists.txt, but you may need to do additional setup. 
 
@@ -76,7 +76,7 @@ If you are able to successfully build for Windows, please let me know so that I 
 - de Vries, J. (n.d.). LearnOpenGL - SSAO. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/SSAO [Accessed 15 Dec. 2023].
 
 
-- , R. and NVIDIA Corporation (2005). Percentage-Closer Soft Shadows. [online] Available at: https://developer.download.nvidia.com/shaderlibrary/docs/shadow_PCSS.pdf [Accessed 15 Dec. 2023].
+- Fernando, R. and NVIDIA Corporation (2005). Percentage-Closer Soft Shadows. [online] Available at: https://developer.download.nvidia.com/shaderlibrary/docs/shadow_PCSS.pdf [Accessed 15 Dec. 2023].
 
 
 - Flick, J. (2018). FXAA. [online] catlikecoding.com. Available at: https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/ [Accessed 15 Dec. 2023].
