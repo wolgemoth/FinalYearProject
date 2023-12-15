@@ -28,6 +28,7 @@
 
     uniform mediump float u_Step = 2.0;
 
+    /// <summary> Simple box blur horizontal pass. </summary>
     vec4 BlurHorizontal(in vec2 _coordinate, const float _diffusion) {
 
         mediump vec2 l = (vec2(1.0) / textureSize(u_Texture, 0)) * _diffusion;

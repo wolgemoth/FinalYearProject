@@ -35,6 +35,11 @@
 
     void main() {
 
+        // @Assessor: This shader is functionally-identical to the threshold shader
+        // which I submitted for my 3DGP assignment. I personally consider it to be
+        // boilerplate code which is necessary for the bloom effect, however you may
+        // wish to exclude this from marking altogether.
+
         gl_FragColor = min(
             vec4(
                 max(

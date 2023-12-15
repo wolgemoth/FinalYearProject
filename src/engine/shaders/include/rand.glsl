@@ -18,10 +18,12 @@
 
     /* SIGNED */
 
+    /// <summary> Random Noise. 1-Dimensional. Signed. </summary>
     float Random1S(in vec2 _xy, in float _seed, in float _offset) {
         return (gold_noise(_xy * 1000.0, _seed + _offset) - 0.5) * 2.0;
     }
 
+    /// <summary> Random Noise. 2-Dimensional. Signed. </summary>
     vec2 Random2S(in vec2 _xy, in float _seed, in float _offset) {
 
         return vec2(
@@ -30,6 +32,7 @@
         );
     }
 
+    /// <summary> Random Noise. 3-Dimensional. Signed. </summary>
     vec3 Random3S(in vec3 _xyz, in float _seed, in float _offset) {
 
         return vec3(
@@ -41,10 +44,12 @@
 
     /* UNSIGNED */
 
+    /// <summary> Random Noise. 1-Dimensional. Unsigned. </summary>
     float Random1U(in vec2 _xy, in float _seed, in float _offset) {
         return gold_noise(_xy * 1000.0, _seed + _offset);
     }
 
+    /// <summary> Random Noise. 2-Dimensional. Unsigned. </summary>
     vec2 Random2U(in vec2 _xy, in float _seed, in float _offset) {
 
         return vec2(
@@ -53,6 +58,7 @@
         );
     }
 
+    /// <summary> Random Noise. 3-Dimensional. Unsigned. </summary>
     vec3 Random3U(in vec3 _xyz, in float _seed, in float _offset) {
 
         return vec3(

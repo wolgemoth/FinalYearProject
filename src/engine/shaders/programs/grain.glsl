@@ -33,6 +33,10 @@
 
     void main() {
 
+        // @Assessor: This shader is NOT the same as the grain shader I submitted
+        // for my 3DGP assignment as it applies coloured noise to the image.
+        // Please mark this for GACP.
+
         mediump vec3 grain = Random3S(vec3(v_TexCoord.x, v_TexCoord.y, v_TexCoord.x + v_TexCoord.y), u_Time, 0.5);
 
         gl_FragColor = vec4(Sample3(u_Texture, v_TexCoord) - (grain * u_Amount), 1.0);

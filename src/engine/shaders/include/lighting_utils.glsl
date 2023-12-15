@@ -4,8 +4,9 @@
     #include "/shaders/include/common_utils.glsl"
     #include "/shaders/include/rand.glsl"
 
-    float Attenuation(in vec3 _lightPosition, in vec3 _fragPosition, in float _range) {
-        return _range / length2(_lightPosition, _fragPosition);
+    // Light attenuation function using the squared distance between the light and fragment.
+    float Attenuation(in vec3 _lightPos, in vec3 _fragPos, in float _range) {
+        return _range / length2(_lightPos, _fragPos);
     }
 
     float ParallaxShadowsHard(in sampler2D _displacement, in vec3 _lightDir, in vec2 _uv, in vec4 _st, in float _scale) {

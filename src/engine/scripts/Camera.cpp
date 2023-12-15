@@ -1012,7 +1012,7 @@ namespace LouiEriksson {
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Strength"), Settings::PostProcessing::AmbientOcclusion::s_Intensity);
-		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -0.2f);
+		ao.lock()->Assign(ao.lock()->AttributeID("u_Bias"), -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
 		ao.lock()->Assign(ao.lock()->AttributeID("u_Radius"), Settings::PostProcessing::AmbientOcclusion::s_Radius);
 		
 		ao.lock()->Assign(ao.lock()->AttributeID("u_NearClip"), m_NearClip);

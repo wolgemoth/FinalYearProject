@@ -38,5 +38,6 @@
         mediump vec3  dirt_col = Sample3(u_Dirt, v_TexCoord);
         mediump vec3 bloom_col = Sample3(u_Bloom, v_TexCoord);
 
+        // Modulate the brightness of the dirt color using the bloom color, and add to the original color.
         gl_FragColor = vec4(dst_col + (dirt_col * (bloom_col * u_Strength)), 1.0);
     }

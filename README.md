@@ -17,6 +17,8 @@ This project represents the culmination of all the programming work I have compl
 
 It is an extension of my 3DGP assignment from second year, and is expected to undergo changes and transformations in the upcoming months as more additions and modifications are implemented.
 
+If you are assessing this project, please search for instances of `"@Assessor"` in the project's source code for notes and references. Please also refer to the [Dependencies](#Dependencies) and [References](#References) sections of this document for a comprehensive list of external sources.
+
 ### Instructions
 
 #### Linux:
@@ -31,7 +33,7 @@ The SDL2 and GLEW development packages are necessary for this project. If they a
 
 I have not yet tested building for Windows. SDL2 and GLEW are already included in the project's "external" folder and linked through CMakeLists.txt, but you may need to do additional setup. 
 
-If you are able to successfully build for Windows, please let me know so that I can officially add build support for this platform.
+If you are able to successfully build for Windows, please let me know so that I can officially add build support for this platform!
 
 ### Dependencies
 
@@ -46,7 +48,7 @@ If you are able to successfully build for Windows, please let me know so that I 
 
 #### Code Sources
 
-The following are a list of code sources I have used (with or without adaption) and the files they appear in:
+The following are a list of code sources I have used either directly or for reference and the files they appear in:
 
 ##### include/common_utils.glsl
 
@@ -84,6 +86,10 @@ The following are a list of code sources I have used (with or without adaption) 
 
 - Learn OpenGL Normal Mapping - https://learnopengl.com/Advanced-Lighting/Normal-Mapping
 
+
+##### aces.glsl
+
+- @64, Tonemapping - https://64.github.io/tonemapping/
 
 ##### ao.glsl
 
