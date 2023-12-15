@@ -249,6 +249,9 @@
 
     void main() {
 
+        // @Assessor: This shader is heavily derived from an FXAA implementation provided by "Catlike Coding".
+        // Flick, J. (2018). FXAA. [online] catlikecoding.com. Available at: https://catlikecoding.com/unity/tutorials/advanced-rendering/fxaa/ [Accessed 15 Dec. 2023].
+
         mediump vec2 texelSize = vec2(1.0) / textureSize(u_Texture, 0);
 
         Luminance luma = SampleLuma(v_TexCoord, texelSize);

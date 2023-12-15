@@ -57,6 +57,9 @@
 
     void main() {
 
+        // @Assessor:
+        // de Vries, J. (n.d.). LearnOpenGL - Normal Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Normal-Mapping [Accessed 15 Dec. 2023].
+
         mediump vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
         mediump vec3 normal = normalize((Sample3(u_Normals, uv) * 2.0) - 1.0);

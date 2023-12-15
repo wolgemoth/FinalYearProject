@@ -33,6 +33,8 @@
     uniform mediump float u_Gain     = 0.0;
     uniform mediump float u_Exposure = 1.0;
 
+    // Performs ACES tonemapping on a color represented by a 3D vector.
+    // Taylor, M. (2019). Tone Mapping. [online] 64.github.io. Available at: https://64.github.io/tonemapping/ [Accessed 15 Dec. 2023].
     vec3 ACES(in vec3 _hdr) {
 
         mediump mat3 aInput;

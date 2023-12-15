@@ -190,8 +190,12 @@ namespace LouiEriksson {
 		_output.reset(new Mesh());
 		
 		/*
+		 * @Assessor:
 		 * Implementation derived from Mesh.cpp and Mesh.h
 		 * provided with OBJLoader_v3 project in GCP labs.
+		 *
+		 * I added tangent calculations to the code derived from an implementation by Learn OpengGL:
+         * de Vries, J. (n.d.). LearnOpenGL - Normal Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Normal-Mapping [Accessed 15 Dec. 2023].
 		 */
 		
 		try {
@@ -588,6 +592,9 @@ namespace LouiEriksson {
 		);
 		
 		try {
+			
+			// @Assessor:
+			// de Vries, J. (n.d.). LearnOpenGL - Cubemaps. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-OpenGL/Cubemaps [Accessed 15 Dec. 2023].
 			
 			glGenTextures(1, &_output->m_TextureID);
 			

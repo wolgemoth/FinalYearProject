@@ -7,6 +7,10 @@
     uniform mediump mat4 u_Model;
 
     void main() {
+
+        // @Assessor: This shader derived from an implementation by Learn OpenGL.
+        // de Vries, J. (n.d.). LearnOpenGL - Point Shadows. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows [Accessed 15 Dec. 2023].
+
         gl_Position = u_Model * vec4(a_Position, 1.0);
     }
 

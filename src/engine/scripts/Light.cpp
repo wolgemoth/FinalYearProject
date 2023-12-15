@@ -11,6 +11,7 @@ namespace LouiEriksson {
 		m_Intensity = 3.0f;
 		m_Range     = 200.0f;
 		m_Angle     = 120.0f;
+		m_Angle     = 120.0f;
 		m_Size      = 0.2f;
 		m_Color     = glm::vec3(1, 1, 1);
 		
@@ -107,6 +108,10 @@ namespace LouiEriksson {
 	}
 	
 	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
+		
+		// @Assessor: Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
+        //  - de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
+        //  - de Vries, J. (n.d.). LearnOpenGL - Point Shadows. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows [Accessed 15 Dec. 2023].
 		
 		// Check if shadows are enabled.
 		if (m_Resolution > 0) {

@@ -411,6 +411,10 @@ namespace LouiEriksson {
 	
 	void Camera::ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const {
 		
+		// @Assessor: Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
+        //  - de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
+        //  - de Vries, J. (n.d.). LearnOpenGL - Point Shadows. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows [Accessed 15 Dec. 2023].
+		
 		// Perform these computations for every light in the scene.
 		for (const auto& light : _lights) {
 	
@@ -640,11 +644,11 @@ namespace LouiEriksson {
 						auto newBias       = target_light::s_ShadowBias;
 						auto newNormalBias = target_light::s_ShadowNormalBias;
 						
-						isDirty = newResolution != light->m_Shadow.m_Resolution ||
-								  newBias       != light->m_Shadow.m_Bias       ||
-								  newNormalBias != light->m_Shadow.m_NormalBias ||
-								  target_light::s_LightRange              != light->m_Range               ||
-								  target_light::s_LightAngle              != light->m_Angle               ||
+						isDirty = newResolution != light->m_Shadow.m_Resolution             ||
+								  newBias       != light->m_Shadow.m_Bias                   ||
+								  newNormalBias != light->m_Shadow.m_NormalBias             ||
+								  target_light::s_LightRange              != light->m_Range ||
+								  target_light::s_LightAngle              != light->m_Angle ||
 								  target_light::s_CurrentLightType        != light->m_Type;
 						
 						light->m_Shadow.m_Resolution = newResolution;
@@ -835,6 +839,9 @@ namespace LouiEriksson {
 		
 		/* RENDER TO SCREEN */
 		RenderTexture::Unbind();
+		
+		// @Assessor:
+		// de Vries, J. (n.d.). LearnOpenGL - Gamma Correction. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Gamma-Correction [Accessed 15 Dec. 2023].
 		
 		// Check if gamma correction is enabled in settings.
 		if (Settings::Graphics::s_GammaCorrection) {

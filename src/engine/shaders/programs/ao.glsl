@@ -49,6 +49,9 @@
 
     void main() {
 
+        // @Assessor:
+        // de Vries, J. (n.d.). LearnOpenGL - SSAO. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/SSAO [Accessed 15 Dec. 2023].
+
         mediump vec3  position = Sample3(u_Position_gBuffer, v_TexCoord);
         mediump vec3  normal   = Sample3(  u_Normal_gBuffer, v_TexCoord);
         mediump float depth    = Linear01Depth(Sample1(u_Depth_gBuffer, v_TexCoord), u_NearClip, u_FarClip) * u_FarClip;

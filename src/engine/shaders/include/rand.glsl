@@ -5,6 +5,9 @@
 
     /* THIRD-PARTY */
 
+    // @Assessor:
+    // Cerisano, D. (2022). Random / noise functions for GLSL. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/4200224/random-noise-functions-for-glsl [Accessed 15 Dec. 2023].
+
     // Gold Noise ©2015 dcerisano@standard3d.com
     // - based on the Golden Ratio
     // - uniform normalized distribution
