@@ -67,9 +67,9 @@ namespace LouiEriksson {
 				
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes = {
-					"little_paris_eiffel_tower_4k",
-					"abandoned_workshop_02_8k",
-					"blue_photo_studio_4k",
+					"little_paris_eiffel_tower_1k",
+					"abandoned_workshop_02_1k",
+					"blue_photo_studio_1k",
 				};
 				
 				inline static int s_CurrentSkyboxSelection = 0;
