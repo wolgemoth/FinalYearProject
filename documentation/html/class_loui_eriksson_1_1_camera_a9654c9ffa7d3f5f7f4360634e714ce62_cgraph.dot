@@ -1,0 +1,16 @@
+digraph "LouiEriksson::Camera::PreRender"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LouiEriksson::Camera\l::PreRender",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Called before rendering."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LouiEriksson::Camera\l::GetWindow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_camera.html#ae134d3e2f37cc8dde7cd635aacbad41e",tooltip="Get the Camera's Window."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LouiEriksson::RenderTexture\l::Reinitialise",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_render_texture.html#a9f3f2b225b717755b562b33e9178a65b",tooltip="Reinitialise the texture with a given width and height."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="LouiEriksson::RenderTexture\l::Discard",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_render_texture.html#ae6450f2f2aad0c88be25f56431d6c896",tooltip="Discard the RenderTexture."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="LouiEriksson::Texture\l::Discard",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_texture.html#a249c8ec80375d2cf32303c58b0ad3dc5",tooltip="Discard the Texture."];
+}

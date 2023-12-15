@@ -1,0 +1,12 @@
+digraph "LouiEriksson::Rigidbody::Velocity"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="LouiEriksson::Rigidbody\l::Velocity",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Get the velocity of the Rigidbody."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="LouiEriksson::Rigidbody\l::DragForce",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a",tooltip="Compute the drag force of the Rigidbody."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="LouiEriksson::Rigidbody\l::FrictionForce",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86",tooltip="Compute the friction force of the Rigidbody given Collision information."];
+}

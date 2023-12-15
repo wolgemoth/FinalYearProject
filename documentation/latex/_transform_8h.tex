@@ -1,0 +1,131 @@
+\hypertarget{_transform_8h}{}\doxysection{scripts/\+Transform.h File Reference}
+\label{_transform_8h}\index{scripts/Transform.h@{scripts/Transform.h}}
+{\ttfamily \#include \char`\"{}Component.\+h\char`\"{}}\newline
+Include dependency graph for Transform.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Loui\+Eriksson\+::\+Transform}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_loui_eriksson_1_1_component}{Component}} representing a \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespace_loui_eriksson}{Loui\+Eriksson}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a1b1143ed06fff5b61c97b0a8a2776d87}{VEC\+\_\+\+ZERO}}~glm\+::vec3(0)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a249363f4cb77cc11683fe7e6af933027}{VEC\+\_\+\+ONE}}~glm\+::vec3(1)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a66f32fa8c6d414cd5fab669a06706906}{VEC\+\_\+\+RIGHT}}~glm\+::vec3(1, 0, 0)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a74080b4783b4141cddc62eabf05050d6}{VEC\+\_\+\+UP}}~glm\+::vec3(0, 1, 0)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_ae7b6797ee0bef737e5af059287157c61}{VEC\+\_\+\+FORWARD}}~glm\+::vec3(0, 0, 1)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_ac2e1d40b86daf357f0cdaa47e189e40a}{QUAT\+\_\+\+IDENTITY}}~glm\+::quat(1.\+0f, 0.\+0f, 0.\+0f, 0.\+0f)
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a80fb826a684cf3f0d306b22aa100ddac}{RIGHT}}~To\+World(\mbox{\hyperlink{_transform_8h_a66f32fa8c6d414cd5fab669a06706906}{VEC\+\_\+\+RIGHT}})
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a1965eaca47dbf3f87acdafc2208f04eb}{UP}}~To\+World(\mbox{\hyperlink{_transform_8h_a74080b4783b4141cddc62eabf05050d6}{VEC\+\_\+\+UP}})
+\item 
+\#define \mbox{\hyperlink{_transform_8h_a6ddfdda7a062d10cff4a72b76b44aeb8}{FORWARD}}~To\+World(\mbox{\hyperlink{_transform_8h_ae7b6797ee0bef737e5af059287157c61}{VEC\+\_\+\+FORWARD}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_transform_8h_a6ddfdda7a062d10cff4a72b76b44aeb8}\label{_transform_8h_a6ddfdda7a062d10cff4a72b76b44aeb8}} 
+\index{Transform.h@{Transform.h}!FORWARD@{FORWARD}}
+\index{FORWARD@{FORWARD}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{FORWARD}{FORWARD}}
+{\footnotesize\ttfamily \#define FORWARD~To\+World(\mbox{\hyperlink{_transform_8h_ae7b6797ee0bef737e5af059287157c61}{VEC\+\_\+\+FORWARD}})}
+
+
+
+Definition at line 39 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_ac2e1d40b86daf357f0cdaa47e189e40a}\label{_transform_8h_ac2e1d40b86daf357f0cdaa47e189e40a}} 
+\index{Transform.h@{Transform.h}!QUAT\_IDENTITY@{QUAT\_IDENTITY}}
+\index{QUAT\_IDENTITY@{QUAT\_IDENTITY}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{QUAT\_IDENTITY}{QUAT\_IDENTITY}}
+{\footnotesize\ttfamily \#define QUAT\+\_\+\+IDENTITY~glm\+::quat(1.\+0f, 0.\+0f, 0.\+0f, 0.\+0f)}
+
+
+
+Definition at line 12 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a80fb826a684cf3f0d306b22aa100ddac}\label{_transform_8h_a80fb826a684cf3f0d306b22aa100ddac}} 
+\index{Transform.h@{Transform.h}!RIGHT@{RIGHT}}
+\index{RIGHT@{RIGHT}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{RIGHT}{RIGHT}}
+{\footnotesize\ttfamily \#define RIGHT~To\+World(\mbox{\hyperlink{_transform_8h_a66f32fa8c6d414cd5fab669a06706906}{VEC\+\_\+\+RIGHT}})}
+
+
+
+Definition at line 37 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a1965eaca47dbf3f87acdafc2208f04eb}\label{_transform_8h_a1965eaca47dbf3f87acdafc2208f04eb}} 
+\index{Transform.h@{Transform.h}!UP@{UP}}
+\index{UP@{UP}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{UP}{UP}}
+{\footnotesize\ttfamily \#define UP~To\+World(\mbox{\hyperlink{_transform_8h_a74080b4783b4141cddc62eabf05050d6}{VEC\+\_\+\+UP}})}
+
+
+
+Definition at line 38 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_ae7b6797ee0bef737e5af059287157c61}\label{_transform_8h_ae7b6797ee0bef737e5af059287157c61}} 
+\index{Transform.h@{Transform.h}!VEC\_FORWARD@{VEC\_FORWARD}}
+\index{VEC\_FORWARD@{VEC\_FORWARD}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{VEC\_FORWARD}{VEC\_FORWARD}}
+{\footnotesize\ttfamily \#define VEC\+\_\+\+FORWARD~glm\+::vec3(0, 0, 1)}
+
+
+
+Definition at line 10 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a249363f4cb77cc11683fe7e6af933027}\label{_transform_8h_a249363f4cb77cc11683fe7e6af933027}} 
+\index{Transform.h@{Transform.h}!VEC\_ONE@{VEC\_ONE}}
+\index{VEC\_ONE@{VEC\_ONE}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{VEC\_ONE}{VEC\_ONE}}
+{\footnotesize\ttfamily \#define VEC\+\_\+\+ONE~glm\+::vec3(1)}
+
+
+
+Definition at line 7 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a66f32fa8c6d414cd5fab669a06706906}\label{_transform_8h_a66f32fa8c6d414cd5fab669a06706906}} 
+\index{Transform.h@{Transform.h}!VEC\_RIGHT@{VEC\_RIGHT}}
+\index{VEC\_RIGHT@{VEC\_RIGHT}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{VEC\_RIGHT}{VEC\_RIGHT}}
+{\footnotesize\ttfamily \#define VEC\+\_\+\+RIGHT~glm\+::vec3(1, 0, 0)}
+
+
+
+Definition at line 8 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a74080b4783b4141cddc62eabf05050d6}\label{_transform_8h_a74080b4783b4141cddc62eabf05050d6}} 
+\index{Transform.h@{Transform.h}!VEC\_UP@{VEC\_UP}}
+\index{VEC\_UP@{VEC\_UP}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{VEC\_UP}{VEC\_UP}}
+{\footnotesize\ttfamily \#define VEC\+\_\+\+UP~glm\+::vec3(0, 1, 0)}
+
+
+
+Definition at line 9 of file Transform.\+h.
+
+\mbox{\Hypertarget{_transform_8h_a1b1143ed06fff5b61c97b0a8a2776d87}\label{_transform_8h_a1b1143ed06fff5b61c97b0a8a2776d87}} 
+\index{Transform.h@{Transform.h}!VEC\_ZERO@{VEC\_ZERO}}
+\index{VEC\_ZERO@{VEC\_ZERO}!Transform.h@{Transform.h}}
+\doxysubsubsection{\texorpdfstring{VEC\_ZERO}{VEC\_ZERO}}
+{\footnotesize\ttfamily \#define VEC\+\_\+\+ZERO~glm\+::vec3(0)}
+
+
+
+Definition at line 6 of file Transform.\+h.
+

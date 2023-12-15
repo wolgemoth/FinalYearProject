@@ -1,0 +1,122 @@
+\hypertarget{class_loui_eriksson_1_1_script}{}\doxysection{Loui\+Eriksson\+::Script Class Reference}
+\label{class_loui_eriksson_1_1_script}\index{LouiEriksson::Script@{LouiEriksson::Script}}
+
+
+Base class to be inherited by scriptable types.  
+
+
+
+
+{\ttfamily \#include $<$Script.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Script\+:
+% FIG 0
+
+
+Collaboration diagram for Loui\+Eriksson\+::Script\+:
+% FIG 1
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_script_a5ec5d729084bb91ed0652cc953b587b5}{Script}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_script_a315a7d9dae3c4666dc6bf51da8632d8e}{$\sim$\+Script}} () override=default
+\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}{Tick}} ()
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_script_a032858ae1fe02d2d1170981c2af2d67c}{Scene}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Base class to be inherited by scriptable types. 
+
+
+
+Definition at line 17 of file Script.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a5ec5d729084bb91ed0652cc953b587b5}\label{class_loui_eriksson_1_1_script_a5ec5d729084bb91ed0652cc953b587b5}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!Script@{Script}}
+\index{Script@{Script}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{Script()}{Script()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Script\+::\+Script (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 9 of file Script.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a315a7d9dae3c4666dc6bf51da8632d8e}\label{class_loui_eriksson_1_1_script_a315a7d9dae3c4666dc6bf51da8632d8e}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!````~Script@{$\sim$Script}}
+\index{````~Script@{$\sim$Script}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{$\sim$Script()}{~Script()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Script\+::$\sim$\+Script (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}\label{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Script\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_a0945c4a13eb0a62114ec460601a932d7}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_aaf2ccbbc234e6a74a6fe47fc47f48eda}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}{Loui\+Eriksson\+::\+Orbit\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_af2d97dc0ee10bbbe699de756a29ddbd0}{Loui\+Eriksson\+::\+Ball}}.
+
+
+
+Definition at line 11 of file Script.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}\label{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Script\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_afc0ca3aa5a61bd359902d3ec3babc0fd}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_a52b9e97d4c0c14952c91ece79b9faf0e}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}{Loui\+Eriksson\+::\+Orbit\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_a3a863474d8fd08846718eae655a621c8}{Loui\+Eriksson\+::\+Ball}}.
+
+
+
+Definition at line 12 of file Script.\+cpp.
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a032858ae1fe02d2d1170981c2af2d67c}\label{class_loui_eriksson_1_1_script_a032858ae1fe02d2d1170981c2af2d67c}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!Scene@{Scene}}
+\index{Scene@{Scene}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{Scene}{Scene}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_scene}{Scene}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 19 of file Script.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_script_8h}{Script.\+h}}\item 
+scripts/\mbox{\hyperlink{_script_8cpp}{Script.\+cpp}}\end{DoxyCompactItemize}

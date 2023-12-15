@@ -1,0 +1,123 @@
+\hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox}{}\doxysection{Loui\+Eriksson\+::Settings\+::Graphics\+::Skybox Struct Reference}
+\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox}\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+
+
+Container for the settings of the application\textquotesingle{}s skybox.  
+
+
+
+
+{\ttfamily \#include $<$Settings.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aefe5367353ec24123a46bf1632afc8d8}{Update\+Skybox}} (const int \&\+\_\+index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::vector$<$ const char $\ast$ $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aed455e2a8fd049b11a45a0a66e064c86}{s\+\_\+\+Available\+Skyboxes}}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac34baccf322c2a78e5ee7139dae41bf8}{s\+\_\+\+Current\+Skybox\+Selection}} = 0
+\item 
+static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_texture}{Texture}} $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a439515edfdee46ef4342100803f88215}{s\+\_\+\+Skybox}}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac1ce30c094424805249d6d9828fdd99b}{s\+\_\+\+Blur}} = 0.\+0f
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a090c1480b3a30c4023b79873c3f04246}{s\+\_\+\+Exposure}} = 1.\+0f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Container for the settings of the application\textquotesingle{}s skybox. 
+
+
+
+Definition at line 66 of file Settings.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aefe5367353ec24123a46bf1632afc8d8}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aefe5367353ec24123a46bf1632afc8d8}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!UpdateSkybox@{UpdateSkybox}}
+\index{UpdateSkybox@{UpdateSkybox}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{UpdateSkybox()}{UpdateSkybox()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::\+Update\+Skybox (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 43 of file Settings.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aed455e2a8fd049b11a45a0a66e064c86}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_aed455e2a8fd049b11a45a0a66e064c86}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!s\_AvailableSkyboxes@{s\_AvailableSkyboxes}}
+\index{s\_AvailableSkyboxes@{s\_AvailableSkyboxes}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{s\_AvailableSkyboxes}{s\_AvailableSkyboxes}}
+{\footnotesize\ttfamily std\+::vector$<$const char$\ast$$>$ Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::s\+\_\+\+Available\+Skyboxes\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}little\_paris\_eiffel\_tower\_1k"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}abandoned\_workshop\_02\_1k"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}blue\_photo\_studio\_1k"{}},}
+\DoxyCodeLine{                \}}
+
+\end{DoxyCode}
+
+
+Definition at line 69 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac1ce30c094424805249d6d9828fdd99b}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac1ce30c094424805249d6d9828fdd99b}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!s\_Blur@{s\_Blur}}
+\index{s\_Blur@{s\_Blur}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{s\_Blur}{s\_Blur}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::s\+\_\+\+Blur = 0.\+0f\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 82 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac34baccf322c2a78e5ee7139dae41bf8}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_ac34baccf322c2a78e5ee7139dae41bf8}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!s\_CurrentSkyboxSelection@{s\_CurrentSkyboxSelection}}
+\index{s\_CurrentSkyboxSelection@{s\_CurrentSkyboxSelection}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{s\_CurrentSkyboxSelection}{s\_CurrentSkyboxSelection}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::s\+\_\+\+Current\+Skybox\+Selection = 0\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 75 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a090c1480b3a30c4023b79873c3f04246}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a090c1480b3a30c4023b79873c3f04246}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!s\_Exposure@{s\_Exposure}}
+\index{s\_Exposure@{s\_Exposure}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{s\_Exposure}{s\_Exposure}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::s\+\_\+\+Exposure = 1.\+0f\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 83 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a439515edfdee46ef4342100803f88215}\label{struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox_a439515edfdee46ef4342100803f88215}} 
+\index{LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}!s\_Skybox@{s\_Skybox}}
+\index{s\_Skybox@{s\_Skybox}!LouiEriksson::Settings::Graphics::Skybox@{LouiEriksson::Settings::Graphics::Skybox}}
+\doxysubsubsection{\texorpdfstring{s\_Skybox}{s\_Skybox}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_texture}{Texture}}$>$ Loui\+Eriksson\+::\+Settings\+::\+Graphics\+::\+Skybox\+::s\+\_\+\+Skybox\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 77 of file Settings.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_settings_8h}{Settings.\+h}}\item 
+scripts/\mbox{\hyperlink{_settings_8cpp}{Settings.\+cpp}}\end{DoxyCompactItemize}

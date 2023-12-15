@@ -1,0 +1,43 @@
+digraph "main"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="main",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Entry point for the program."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="LouiEriksson::Application\l::Main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657",tooltip="Main function of the application."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="LouiEriksson::Window\l::Create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_window.html#a7b7d824da6668c14e0fbfe6e1c44189b",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="LouiEriksson::GameObject\l::Create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859",tooltip="Factory function which creates a GameObject within a Scene."];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="LouiEriksson::Time\l::DeltaTime",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_time.html#a5a3dc4db767b5dc8d88e560d764e770c",tooltip=" "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="LouiEriksson::Time\l::FixedDeltaTime",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_time.html#ac62a8ce3c9de43087216c1d57a9aea3d",tooltip=" "];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="LouiEriksson::Window::Get",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19",tooltip=" "];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="LouiEriksson::Settings\l::Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090",tooltip="Intialise settings on application start."];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="LouiEriksson::Settings\l::Graphics::Material::\lUpdateShader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_material.html#a2dbd157a39ddbb149e951ecdc4d14d71",tooltip=" "];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="LouiEriksson::Resources\l::GetShader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5",tooltip=" "];
+  Node8 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="LouiEriksson::Settings\l::Graphics::Skybox::UpdateSkybox",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox.html#aefe5367353ec24123a46bf1632afc8d8",tooltip=" "];
+  Node11 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="LouiEriksson::Resources\l::GetTexture",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_resources.html#a0d1a352395262f177f8e0bf9697f1198",tooltip=" "];
+  Node2 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="LouiEriksson::Input\l::KeyboardState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_input.html#afc8c10b0cc3accf45e2d8c5fcf19bad2",tooltip=" "];
+  Node2 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="LouiEriksson::Scene\l::Load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_scene.html#aefa6e8596c7a6b42d7b87b429312a764",tooltip="TryLoad the Scene from xml format at a given path."];
+  Node14 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="LouiEriksson::Serialisation\l::NotImplementedException",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_serialisation.html#a4a5faa1808910344e2cdf251d63c56ed",tooltip="Placeholder for an actual custom exception."];
+  Node14 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="LouiEriksson::Serialisation\l::ParseNext",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_serialisation.html#adeb428f5d6d87f3d36aa7fef13dd8f90",tooltip=" "];
+  Node2 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="LouiEriksson::Resources\l::Preload",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f",tooltip=" "];
+  Node2 -> Node18 [color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="LouiEriksson::Application\l::Quit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_application.html#a527b4c4cae3f53b94cff4f8d5001710e",tooltip="Quits the application."];
+}

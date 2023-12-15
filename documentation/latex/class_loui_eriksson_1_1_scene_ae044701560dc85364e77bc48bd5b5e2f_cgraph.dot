@@ -1,0 +1,16 @@
+digraph "LouiEriksson::Scene::Save"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LouiEriksson::Scene\l::Save",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Save the Scene in xml format at a given path."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="LouiEriksson::Scene\l::Entities",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_scene.html#a7ef5ebc6d160f88a216468fcdc7fd448",tooltip="Get the entities within the Scene."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="LouiEriksson::Hashmap\l::GetAll",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_hashmap.html#a47ab566955ae605e99ce7efb2dff5b0c",tooltip="Returns all entries stored within the hashmap."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="LouiEriksson::File\l::ReadAllText",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_file.html#a9664fa1dfaff7df7ed808c138159c2ea",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="LouiEriksson::Serialisation\l::Serialise",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_serialisation.html#ad14660bc460059bbb260c94e445892b0",tooltip=" "];
+}

@@ -1,0 +1,8 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="LouiEriksson::Texture\l::Parameters::WrapMode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_wrap_mode.html",tooltip="Container specifying a Texture's wrap mode."];
+}

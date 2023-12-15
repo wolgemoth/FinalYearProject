@@ -1,0 +1,16 @@
+digraph "LouiEriksson::Cubemap"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LouiEriksson::Cubemap",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="LouiEriksson::Texture",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_texture.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_FilterMode" ];
+  Node3 [label="LouiEriksson::Texture\l::Parameters::FilterMode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_filter_mode.html",tooltip="Container specifying a Texture's filter mode."];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_Format" ];
+  Node4 [label="LouiEriksson::Texture\l::Parameters::Format",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html",tooltip="Container specifying a Texture's format."];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_WrapMode" ];
+  Node5 [label="LouiEriksson::Texture\l::Parameters::WrapMode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_wrap_mode.html",tooltip="Container specifying a Texture's wrap mode."];
+}

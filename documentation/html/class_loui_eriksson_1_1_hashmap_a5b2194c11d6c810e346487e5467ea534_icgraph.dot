@@ -1,0 +1,20 @@
+digraph "LouiEriksson::Hashmap::size"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="LouiEriksson::Hashmap\l::size",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Returns the number of items stored within the hashmap."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LouiEriksson::Hashmap::Add",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0",tooltip="Inserts a new entry into the hashmap with given key and value, if one does not already exist."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LouiEriksson::Entity\l::AddComponent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_entity.html#a1d7e1f07753b0c1c163e3ae13db34b7d",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="LouiEriksson::GameObject\l::AddComponent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_game_object.html#a3caf7ef5f79e0b6f7fa2fa01799fc88a",tooltip="Add a Component of type to the GameObject."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="LouiEriksson::Hashmap\l::Assign",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_hashmap.html#a5e4fdb966120278c87601959c51124af",tooltip="Inserts or replaces an entry within the hashmap with the given key."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="LouiEriksson::Scene\l::Attach",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_scene.html#a6923e929fcac3cb63c7bbce35c7eb435",tooltip="Attach an instance of a type to the Scene."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="LouiEriksson::Hashmap\l::Trim",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_hashmap.html#a2dd66e3c1416274673c6325dcefd8e54",tooltip="Trims unused entries from the end of the hashmap."];
+}

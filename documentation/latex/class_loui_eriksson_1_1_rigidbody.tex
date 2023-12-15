@@ -1,0 +1,396 @@
+\hypertarget{class_loui_eriksson_1_1_rigidbody}{}\doxysection{Loui\+Eriksson\+::Rigidbody Class Reference}
+\label{class_loui_eriksson_1_1_rigidbody}\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} \mbox{\hyperlink{class_loui_eriksson_1_1_component}{Component}} implementing \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} dynamics and \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} response behaviour.  
+
+
+
+
+{\ttfamily \#include $<$Rigidbody.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Rigidbody\+:
+% FIG 0
+
+
+Collaboration diagram for Loui\+Eriksson\+::Rigidbody\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_aa6f7abb5ad94737fc366409540ec6df5}{Rigidbody}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a917abda59d74670473271a319c4a1a6b}{$\sim$\+Rigidbody}} () override=default
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb}{Set\+Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&\+\_\+transform)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ac933f8566ef8cceab3e9f86db893c117}{Get\+Transform}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a696692e8c2d42f854318813438ad9eba}{Set\+Collider}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ \&\+\_\+transform)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_af661fc2102f50b71ef8fc1ae7fcc5eaa}{Get\+Collider}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a766293410e25e1d2c24a0cba6254877d}{Velocity}} (const glm\+::vec3 \&\+\_\+velocity)
+\begin{DoxyCompactList}\small\item\em Set the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ac38ac970560e9d98c85754aa1af6f1d7}{Velocity}} ()
+\begin{DoxyCompactList}\small\item\em Get the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a020659a904591f00085464a84fbd7452}{Angular\+Velocity}} (const glm\+::vec3 \&\+\_\+angular\+Velocity)
+\begin{DoxyCompactList}\small\item\em Set the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ac90f4888c127c7049e67ab32eeb51310}{Angular\+Velocity}} ()
+\begin{DoxyCompactList}\small\item\em Get the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ab07f106ad8406848895933c848a41781}{Add\+Force}} (const glm\+::vec3 \&\+\_\+force)
+\begin{DoxyCompactList}\small\item\em Add a force to the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a2337c9f593a9463aa9125a2d7e3eb8f0}{Clear\+Force}} ()
+\begin{DoxyCompactList}\small\item\em Clear the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a8508970791cd49ecf20603999866c22a}{Drag\+Force}} (const float \&\+\_\+radius)
+\begin{DoxyCompactList}\small\item\em Compute the drag force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a356233f221e19733815544de2ba69f86}{Friction\+Force}} (\mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} \&\+\_\+collision)
+\begin{DoxyCompactList}\small\item\em Compute the friction force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} given \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} information. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_adbf7168474a0538a6f6d11db964d1c01}{Get\+Force}} ()
+\begin{DoxyCompactList}\small\item\em Get the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a073509aa441420457e062bf0faee6ca3}{Euler}} (const float \&\+\_\+delta)
+\begin{DoxyCompactList}\small\item\em Compute the Euler integration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a3d6b5cac74ae02e9d9bde01752c3fc6a}{Mass}} (const float \&\+\_\+mass)
+\begin{DoxyCompactList}\small\item\em Set the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a560b97576cb737390c677e994f93aba4}{Mass}} () const
+\begin{DoxyCompactList}\small\item\em Get the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_ab8f8b042778e04a83e62e0ca94bb3d7b}{Drag}} (const float \&\+\_\+drag)
+\begin{DoxyCompactList}\small\item\em Set the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a6cfafed8d1223482500db1b453183292}{Drag}} () const
+\begin{DoxyCompactList}\small\item\em Get the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_aa4ed2c41ff1176e4a0684e264297c06e}{Angular\+Drag}} (const float \&\+\_\+angular\+Drag)
+\begin{DoxyCompactList}\small\item\em Set the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody_a658c6477e2d594aef842b071032863cd}{Angular\+Drag}} () const
+\begin{DoxyCompactList}\small\item\em Get the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} \mbox{\hyperlink{class_loui_eriksson_1_1_component}{Component}} implementing \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} dynamics and \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} response behaviour. 
+
+
+
+Definition at line 16 of file Rigidbody.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_aa6f7abb5ad94737fc366409540ec6df5}\label{class_loui_eriksson_1_1_rigidbody_aa6f7abb5ad94737fc366409540ec6df5}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Rigidbody@{Rigidbody}}
+\index{Rigidbody@{Rigidbody}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Rigidbody()}{Rigidbody()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Rigidbody\+::\+Rigidbody (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 9 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a917abda59d74670473271a319c4a1a6b}\label{class_loui_eriksson_1_1_rigidbody_a917abda59d74670473271a319c4a1a6b}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!````~Rigidbody@{$\sim$Rigidbody}}
+\index{````~Rigidbody@{$\sim$Rigidbody}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{$\sim$Rigidbody()}{~Rigidbody()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Rigidbody\+::$\sim$\+Rigidbody (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ab07f106ad8406848895933c848a41781}\label{class_loui_eriksson_1_1_rigidbody_ab07f106ad8406848895933c848a41781}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!AddForce@{AddForce}}
+\index{AddForce@{AddForce}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AddForce()}{AddForce()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Add\+Force (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+force }\end{DoxyParamCaption})}
+
+
+
+Add a force to the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 51 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a658c6477e2d594aef842b071032863cd}\label{class_loui_eriksson_1_1_rigidbody_a658c6477e2d594aef842b071032863cd}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!AngularDrag@{AngularDrag}}
+\index{AngularDrag@{AngularDrag}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularDrag()}{AngularDrag()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Rigidbody\+::\+Angular\+Drag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 141 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_aa4ed2c41ff1176e4a0684e264297c06e}\label{class_loui_eriksson_1_1_rigidbody_aa4ed2c41ff1176e4a0684e264297c06e}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!AngularDrag@{AngularDrag}}
+\index{AngularDrag@{AngularDrag}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularDrag()}{AngularDrag()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Angular\+Drag (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+angular\+Drag }\end{DoxyParamCaption})}
+
+
+
+Set the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 138 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ac90f4888c127c7049e67ab32eeb51310}\label{class_loui_eriksson_1_1_rigidbody_ac90f4888c127c7049e67ab32eeb51310}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!AngularVelocity@{AngularVelocity}}
+\index{AngularVelocity@{AngularVelocity}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularVelocity()}{AngularVelocity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Rigidbody\+::\+Angular\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 47 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a020659a904591f00085464a84fbd7452}\label{class_loui_eriksson_1_1_rigidbody_a020659a904591f00085464a84fbd7452}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!AngularVelocity@{AngularVelocity}}
+\index{AngularVelocity@{AngularVelocity}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularVelocity()}{AngularVelocity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Angular\+Velocity (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+angular\+Velocity }\end{DoxyParamCaption})}
+
+
+
+Set the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 44 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a2337c9f593a9463aa9125a2d7e3eb8f0}\label{class_loui_eriksson_1_1_rigidbody_a2337c9f593a9463aa9125a2d7e3eb8f0}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!ClearForce@{ClearForce}}
+\index{ClearForce@{ClearForce}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{ClearForce()}{ClearForce()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Clear\+Force (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 54 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a6cfafed8d1223482500db1b453183292}\label{class_loui_eriksson_1_1_rigidbody_a6cfafed8d1223482500db1b453183292}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Drag@{Drag}}
+\index{Drag@{Drag}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Drag()}{Drag()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Rigidbody\+::\+Drag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 85 of file Rigidbody.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ab8f8b042778e04a83e62e0ca94bb3d7b}\label{class_loui_eriksson_1_1_rigidbody_ab8f8b042778e04a83e62e0ca94bb3d7b}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Drag@{Drag}}
+\index{Drag@{Drag}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Drag()}{Drag()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Drag (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+drag }\end{DoxyParamCaption})}
+
+
+
+Set the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 82 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a8508970791cd49ecf20603999866c22a}\label{class_loui_eriksson_1_1_rigidbody_a8508970791cd49ecf20603999866c22a}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!DragForce@{DragForce}}
+\index{DragForce@{DragForce}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{DragForce()}{DragForce()}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Rigidbody\+::\+Drag\+Force (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+radius }\end{DoxyParamCaption})}
+
+
+
+Compute the drag force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 89 of file Rigidbody.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a073509aa441420457e062bf0faee6ca3}\label{class_loui_eriksson_1_1_rigidbody_a073509aa441420457e062bf0faee6ca3}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Euler@{Euler}}
+\index{Euler@{Euler}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Euler()}{Euler()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Euler (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+delta }\end{DoxyParamCaption})}
+
+
+
+Compute the Euler integration. 
+
+
+
+Definition at line 62 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a356233f221e19733815544de2ba69f86}\label{class_loui_eriksson_1_1_rigidbody_a356233f221e19733815544de2ba69f86}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!FrictionForce@{FrictionForce}}
+\index{FrictionForce@{FrictionForce}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{FrictionForce()}{FrictionForce()}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Rigidbody\+::\+Friction\+Force (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} \&}]{\+\_\+collision }\end{DoxyParamCaption})}
+
+
+
+Compute the friction force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} given \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} information. 
+
+
+
+Definition at line 108 of file Rigidbody.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_af661fc2102f50b71ef8fc1ae7fcc5eaa}\label{class_loui_eriksson_1_1_rigidbody_af661fc2102f50b71ef8fc1ae7fcc5eaa}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!GetCollider@{GetCollider}}
+\index{GetCollider@{GetCollider}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetCollider()}{GetCollider()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ Loui\+Eriksson\+::\+Rigidbody\+::\+Get\+Collider (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 33 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_adbf7168474a0538a6f6d11db964d1c01}\label{class_loui_eriksson_1_1_rigidbody_adbf7168474a0538a6f6d11db964d1c01}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!GetForce@{GetForce}}
+\index{GetForce@{GetForce}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetForce()}{GetForce()}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Rigidbody\+::\+Get\+Force (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 58 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ac933f8566ef8cceab3e9f86db893c117}\label{class_loui_eriksson_1_1_rigidbody_ac933f8566ef8cceab3e9f86db893c117}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ Loui\+Eriksson\+::\+Rigidbody\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 26 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a560b97576cb737390c677e994f93aba4}\label{class_loui_eriksson_1_1_rigidbody_a560b97576cb737390c677e994f93aba4}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Mass@{Mass}}
+\index{Mass@{Mass}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Mass()}{Mass()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Rigidbody\+::\+Mass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 78 of file Rigidbody.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a3d6b5cac74ae02e9d9bde01752c3fc6a}\label{class_loui_eriksson_1_1_rigidbody_a3d6b5cac74ae02e9d9bde01752c3fc6a}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Mass@{Mass}}
+\index{Mass@{Mass}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Mass()}{Mass()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Mass (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+mass }\end{DoxyParamCaption})}
+
+
+
+Set the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 75 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a696692e8c2d42f854318813438ad9eba}\label{class_loui_eriksson_1_1_rigidbody_a696692e8c2d42f854318813438ad9eba}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!SetCollider@{SetCollider}}
+\index{SetCollider@{SetCollider}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{SetCollider()}{SetCollider()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Set\+Collider (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 30 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb}\label{class_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!SetTransform@{SetTransform}}
+\index{SetTransform@{SetTransform}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{SetTransform()}{SetTransform()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 23 of file Rigidbody.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_ac38ac970560e9d98c85754aa1af6f1d7}\label{class_loui_eriksson_1_1_rigidbody_ac38ac970560e9d98c85754aa1af6f1d7}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Velocity()}{Velocity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Rigidbody\+::\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 40 of file Rigidbody.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_loui_eriksson_1_1_rigidbody_a766293410e25e1d2c24a0cba6254877d}\label{class_loui_eriksson_1_1_rigidbody_a766293410e25e1d2c24a0cba6254877d}} 
+\index{LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!LouiEriksson::Rigidbody@{LouiEriksson::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Velocity()}{Velocity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Rigidbody\+::\+Velocity (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+velocity }\end{DoxyParamCaption})}
+
+
+
+Set the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 37 of file Rigidbody.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_rigidbody_8h}{Rigidbody.\+h}}\item 
+scripts/\mbox{\hyperlink{_rigidbody_8cpp}{Rigidbody.\+cpp}}\end{DoxyCompactItemize}

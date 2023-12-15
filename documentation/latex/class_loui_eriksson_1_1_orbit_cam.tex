@@ -1,0 +1,234 @@
+\hypertarget{class_loui_eriksson_1_1_orbit_cam}{}\doxysection{Loui\+Eriksson\+::Orbit\+Cam Class Reference}
+\label{class_loui_eriksson_1_1_orbit_cam}\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} that orbits a target.  
+
+
+
+
+{\ttfamily \#include $<$Orbit\+Cam.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Orbit\+Cam\+:
+% FIG 0
+
+
+Collaboration diagram for Loui\+Eriksson\+::Orbit\+Cam\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ab9e5aeeddc7a9fad6d6021be7d25e4f4}{Orbit\+Cam}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a25158bba93025b8dee76b4d34477a5ec}{$\sim$\+Orbit\+Cam}} () override
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a35bac8bba4585d586d845fc28ff6c4a8}{Get\+Camera}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a34d24021b5dc604df0f3355711ae832d}{Get\+Transform}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a0d4d0a722471d843fdd4490e23175660}{m\+\_\+\+Camera}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a5e5e543bd51b493357273a2aef3ba554}{m\+\_\+\+Transform}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ab18061bf198ccfb9bacd33e27445934a}{m\+\_\+\+Target}}
+\begin{DoxyCompactList}\small\item\em Target of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_afa868761aaa14ebb2366e8552875c96a}{m\+\_\+\+Animation\+Progress}}
+\begin{DoxyCompactList}\small\item\em Progression of the animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a032858ae1fe02d2d1170981c2af2d67c}{Scene}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} that orbits a target. 
+
+
+
+Definition at line 13 of file Orbit\+Cam.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_ab9e5aeeddc7a9fad6d6021be7d25e4f4}\label{class_loui_eriksson_1_1_orbit_cam_ab9e5aeeddc7a9fad6d6021be7d25e4f4}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!OrbitCam@{OrbitCam}}
+\index{OrbitCam@{OrbitCam}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{OrbitCam()}{OrbitCam()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Orbit\+Cam\+::\+Orbit\+Cam (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 10 of file Orbit\+Cam.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a25158bba93025b8dee76b4d34477a5ec}\label{class_loui_eriksson_1_1_orbit_cam_a25158bba93025b8dee76b4d34477a5ec}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!````~OrbitCam@{$\sim$OrbitCam}}
+\index{````~OrbitCam@{$\sim$OrbitCam}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{$\sim$OrbitCam()}{~OrbitCam()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Orbit\+Cam\+::$\sim$\+Orbit\+Cam (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}\label{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Orbit\+Cam\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}{Loui\+Eriksson\+::\+Script}}.
+
+
+
+Definition at line 28 of file Orbit\+Cam.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a35bac8bba4585d586d845fc28ff6c4a8}\label{class_loui_eriksson_1_1_orbit_cam_a35bac8bba4585d586d845fc28ff6c4a8}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!GetCamera@{GetCamera}}
+\index{GetCamera@{GetCamera}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{GetCamera()}{GetCamera()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} $>$ Loui\+Eriksson\+::\+Orbit\+Cam\+::\+Get\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. 
+
+
+
+Definition at line 20 of file Orbit\+Cam.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a34d24021b5dc604df0f3355711ae832d}\label{class_loui_eriksson_1_1_orbit_cam_a34d24021b5dc604df0f3355711ae832d}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ Loui\+Eriksson\+::\+Orbit\+Cam\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. 
+
+
+
+Definition at line 24 of file Orbit\+Cam.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}\label{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Orbit\+Cam\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}{Loui\+Eriksson\+::\+Script}}.
+
+
+
+Definition at line 60 of file Orbit\+Cam.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 5
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a032858ae1fe02d2d1170981c2af2d67c}\label{class_loui_eriksson_1_1_orbit_cam_a032858ae1fe02d2d1170981c2af2d67c}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!Scene@{Scene}}
+\index{Scene@{Scene}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{Scene}{Scene}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_scene}{Scene}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 15 of file Orbit\+Cam.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_afa868761aaa14ebb2366e8552875c96a}\label{class_loui_eriksson_1_1_orbit_cam_afa868761aaa14ebb2366e8552875c96a}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!m\_AnimationProgress@{m\_AnimationProgress}}
+\index{m\_AnimationProgress@{m\_AnimationProgress}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{m\_AnimationProgress}{m\_AnimationProgress}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Orbit\+Cam\+::m\+\_\+\+Animation\+Progress\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Progression of the animation. 
+
+
+
+Definition at line 31 of file Orbit\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a0d4d0a722471d843fdd4490e23175660}\label{class_loui_eriksson_1_1_orbit_cam_a0d4d0a722471d843fdd4490e23175660}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!m\_Camera@{m\_Camera}}
+\index{m\_Camera@{m\_Camera}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{m\_Camera}{m\_Camera}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}$>$ Loui\+Eriksson\+::\+Orbit\+Cam\+::m\+\_\+\+Camera\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. 
+
+
+
+Definition at line 20 of file Orbit\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_ab18061bf198ccfb9bacd33e27445934a}\label{class_loui_eriksson_1_1_orbit_cam_ab18061bf198ccfb9bacd33e27445934a}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!m\_Target@{m\_Target}}
+\index{m\_Target@{m\_Target}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{m\_Target}{m\_Target}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Orbit\+Cam\+::m\+\_\+\+Target\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Target of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. 
+
+
+
+Definition at line 28 of file Orbit\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_orbit_cam_a5e5e543bd51b493357273a2aef3ba554}\label{class_loui_eriksson_1_1_orbit_cam_a5e5e543bd51b493357273a2aef3ba554}} 
+\index{LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}!m\_Transform@{m\_Transform}}
+\index{m\_Transform@{m\_Transform}!LouiEriksson::OrbitCam@{LouiEriksson::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{m\_Transform}{m\_Transform}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}$>$ Loui\+Eriksson\+::\+Orbit\+Cam\+::m\+\_\+\+Transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam}{Orbit\+Cam}}. 
+
+
+
+Definition at line 25 of file Orbit\+Cam.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_orbit_cam_8h}{Orbit\+Cam.\+h}}\item 
+scripts/\mbox{\hyperlink{_orbit_cam_8cpp}{Orbit\+Cam.\+cpp}}\end{DoxyCompactItemize}

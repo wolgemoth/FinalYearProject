@@ -1,0 +1,342 @@
+\hypertarget{class_loui_eriksson_1_1_hashmap}{}\doxysection{Loui\+Eriksson\+::Hashmap$<$ Tk, Tv $>$ Class Template Reference}
+\label{class_loui_eriksson_1_1_hashmap}\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+
+
+Custom hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.  
+
+
+
+
+{\ttfamily \#include $<$Hashmap.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a2f045298bff0d6400e1590cec0a21b4b}{Hashmap}} (size\+\_\+t \+\_\+capacity=1)
+\begin{DoxyCompactList}\small\item\em Initialise hashmap. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a5b2194c11d6c810e346487e5467ea534}{size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of items stored within the hashmap. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a89a7fa1a765d330f3e54a2215c1df101}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if the \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}} contains no entries. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a281ae3f7badf3085784380fd2e1990b0}{Add}} (const Tk \&\+\_\+key, const Tv \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Inserts a new entry into the hashmap with given key and value, if one does not already exist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a5e4fdb966120278c87601959c51124af}{Assign}} (const Tk \&\+\_\+key, const Tv \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Inserts or replaces an entry within the hashmap with the given key. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_aea5fe38e01a1945de675823060e3a2bf}{Remove}} (const Tk \&\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Removes entry with given key from the hashmap. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a32eb3fbdd72971a138b979d3c2b72919}{Get}} (const Tk \&\+\_\+key, Tv \&\+\_\+out) const
+\begin{DoxyCompactList}\small\item\em Retrieves a reference to the entry within the hashmap with the given key, if one exists. \end{DoxyCompactList}\item 
+Tv \& \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a36bdd6a20e3b17225459a524ab951b86}{Return}} (const Tk \&\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Retrieves a reference to the entry within the hashmap with the given key, if one exists. This method will throw an exception if no entry is found. Consider using \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a32eb3fbdd72971a138b979d3c2b72919}{Get()}} instead. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a2dd66e3c1416274673c6325dcefd8e54}{Trim}} ()
+\begin{DoxyCompactList}\small\item\em Trims unused entries from the end of the hashmap. \end{DoxyCompactList}\item 
+std\+::vector$<$ Tk $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a23a4f549cc4b98cad1a8e2de466af097}{Keys}} () const
+\begin{DoxyCompactList}\small\item\em Returns the keys of all entries stored within the hashmap. \end{DoxyCompactList}\item 
+std\+::vector$<$ Tv $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_ae4862038f9265a75bde658817afbac95}{Values}} () const
+\begin{DoxyCompactList}\small\item\em Returns the values of all entries stored within the hashmap. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a47ab566955ae605e99ce7efb2dff5b0c}{Get\+All}} () const
+\begin{DoxyCompactList}\small\item\em Returns all entries stored within the hashmap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_aca42f461d97dbee1b773a9942b5a5bc1}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears all entries from the hashmap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tk, typename Tv$>$\newline
+class Loui\+Eriksson\+::\+Hashmap$<$ Tk, Tv $>$}
+
+Custom hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial. 
+
+This implementation requires that your \char`\"{}key\char`\"{} type is compatible with std\+::hash and that the stored data types are copyable.
+
+Reference\+: (\char`\"{}\+Implementing Your Own Hash\+Map (\+Explanation + Code)\char`\"{}, Random Coder, 14 Sept 2020 \mbox{[}\href{https://www.youtube.com/watch?v=_Q-eNqTOxlE}{\texttt{ https\+://www.\+youtube.\+com/watch?v=\+\_\+\+Q-\/e\+Nq\+TOxlE}}\mbox{]}).
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Tk} & Key type of the hashmap.\\
+\hline
+{\em Tv} & Value type of the hashmap.\\
+\hline
+\end{DoxyTemplParams}
+
+
+Definition at line 16 of file Hashmap.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a2f045298bff0d6400e1590cec0a21b4b}\label{class_loui_eriksson_1_1_hashmap_a2f045298bff0d6400e1590cec0a21b4b}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Hashmap@{Hashmap}}
+\index{Hashmap@{Hashmap}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Hashmap()}{Hashmap()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{\+\_\+capacity = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initialise hashmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+capacity} & Initial capacity of the hashmap. Must be larger than 0.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 83 of file Hashmap.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a281ae3f7badf3085784380fd2e1990b0}\label{class_loui_eriksson_1_1_hashmap_a281ae3f7badf3085784380fd2e1990b0}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Add@{Add}}
+\index{Add@{Add}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Add (\begin{DoxyParamCaption}\item[{const Tk \&}]{\+\_\+key,  }\item[{const Tv \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inserts a new entry into the hashmap with given key and value, if one does not already exist. 
+
+If you are trying to modify an existing key, see \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a5e4fdb966120278c87601959c51124af}{Hashmap\+::\+Assign}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+key} & Key of the entry.\\
+\hline
+{\em \+\_\+value} & Value of the entry.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise.
+\end{DoxyReturn}
+
+
+Definition at line 115 of file Hashmap.\+h.
+
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a5e4fdb966120278c87601959c51124af}\label{class_loui_eriksson_1_1_hashmap_a5e4fdb966120278c87601959c51124af}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Assign (\begin{DoxyParamCaption}\item[{const Tk \&}]{\+\_\+key,  }\item[{const Tv \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inserts or replaces an entry within the hashmap with the given key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+key} & Key of the entry.\\
+\hline
+{\em \+\_\+value} & Value of the entry.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 154 of file Hashmap.\+h.
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_aca42f461d97dbee1b773a9942b5a5bc1}\label{class_loui_eriksson_1_1_hashmap_aca42f461d97dbee1b773a9942b5a5bc1}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Clear@{Clear}}
+\index{Clear@{Clear}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Clears all entries from the hashmap. 
+
+This function is not responsible for memory management of items contained within the hashmap. 
+
+Definition at line 353 of file Hashmap.\+h.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a89a7fa1a765d330f3e54a2215c1df101}\label{class_loui_eriksson_1_1_hashmap_a89a7fa1a765d330f3e54a2215c1df101}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!empty@{empty}}
+\index{empty@{empty}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if the \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}} contains no entries. 
+
+
+
+Definition at line 100 of file Hashmap.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a32eb3fbdd72971a138b979d3c2b72919}\label{class_loui_eriksson_1_1_hashmap_a32eb3fbdd72971a138b979d3c2b72919}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Get@{Get}}
+\index{Get@{Get}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Get (\begin{DoxyParamCaption}\item[{const Tk \&}]{\+\_\+key,  }\item[{Tv \&}]{\+\_\+out }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves a reference to the entry within the hashmap with the given key, if one exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+key} & Key of the entry to retrieve.\\
+\hline
+{\em \+\_\+out} & Out value result.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise.
+\end{DoxyReturn}
+
+
+Definition at line 223 of file Hashmap.\+h.
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a47ab566955ae605e99ce7efb2dff5b0c}\label{class_loui_eriksson_1_1_hashmap_a47ab566955ae605e99ce7efb2dff5b0c}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!GetAll@{GetAll}}
+\index{GetAll@{GetAll}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+std\+::vector$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}}$>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Get\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns all entries stored within the hashmap. 
+
+
+
+Definition at line 332 of file Hashmap.\+h.
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a23a4f549cc4b98cad1a8e2de466af097}\label{class_loui_eriksson_1_1_hashmap_a23a4f549cc4b98cad1a8e2de466af097}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Keys@{Keys}}
+\index{Keys@{Keys}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Keys()}{Keys()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+std\+::vector$<$Tk$>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the keys of all entries stored within the hashmap. 
+
+
+
+Definition at line 300 of file Hashmap.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_aea5fe38e01a1945de675823060e3a2bf}\label{class_loui_eriksson_1_1_hashmap_aea5fe38e01a1945de675823060e3a2bf}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Remove@{Remove}}
+\index{Remove@{Remove}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Remove()}{Remove()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Remove (\begin{DoxyParamCaption}\item[{const Tk \&}]{\+\_\+key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Removes entry with given key from the hashmap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+key} & Key of the entry to be removed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful, false otherwise.
+\end{DoxyReturn}
+
+
+Definition at line 190 of file Hashmap.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a36bdd6a20e3b17225459a524ab951b86}\label{class_loui_eriksson_1_1_hashmap_a36bdd6a20e3b17225459a524ab951b86}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Return@{Return}}
+\index{Return@{Return}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Return()}{Return()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+Tv\& \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Return (\begin{DoxyParamCaption}\item[{const Tk \&}]{\+\_\+key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves a reference to the entry within the hashmap with the given key, if one exists. This method will throw an exception if no entry is found. Consider using \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a32eb3fbdd72971a138b979d3c2b72919}{Get()}} instead. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+key} & Key of the entry to retrieve.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Out value result.
+\end{DoxyReturn}
+
+
+Definition at line 253 of file Hashmap.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a5b2194c11d6c810e346487e5467ea534}\label{class_loui_eriksson_1_1_hashmap_a5b2194c11d6c810e346487e5467ea534}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!size@{size}}
+\index{size@{size}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+size\+\_\+t \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of items stored within the hashmap. 
+
+
+
+Definition at line 93 of file Hashmap.\+h.
+
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_a2dd66e3c1416274673c6325dcefd8e54}\label{class_loui_eriksson_1_1_hashmap_a2dd66e3c1416274673c6325dcefd8e54}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Trim@{Trim}}
+\index{Trim@{Trim}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Trim()}{Trim()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Trims unused entries from the end of the hashmap. 
+
+
+
+Definition at line 282 of file Hashmap.\+h.
+
+Here is the call graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{class_loui_eriksson_1_1_hashmap_ae4862038f9265a75bde658817afbac95}\label{class_loui_eriksson_1_1_hashmap_ae4862038f9265a75bde658817afbac95}} 
+\index{LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}!Values@{Values}}
+\index{Values@{Values}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
+\doxysubsubsection{\texorpdfstring{Values()}{Values()}}
+{\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
+std\+::vector$<$Tv$>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the values of all entries stored within the hashmap. 
+
+
+
+Definition at line 316 of file Hashmap.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_hashmap_8h}{Hashmap.\+h}}\end{DoxyCompactItemize}

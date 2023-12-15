@@ -1,0 +1,427 @@
+\hypertarget{class_loui_eriksson_1_1_camera}{}\doxysection{Loui\+Eriksson\+::Camera Class Reference}
+\label{class_loui_eriksson_1_1_camera}\index{LouiEriksson::Camera@{LouiEriksson::Camera}}
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} class for 3D rendering of a scene from a perspective.  
+
+
+
+
+{\ttfamily \#include $<$Camera.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Camera\+:
+% FIG 0
+
+
+Collaboration diagram for Loui\+Eriksson\+::Camera\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera_a08d31b3cf2fcd1434601b390bf739cf4}{Camera}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera_ae329ae5b5b0cbfe50706b2a22117c7ea}{$\sim$\+Camera}} () override
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a9654c9ffa7d3f5f7f4360634e714ce62}{Pre\+Render}} ()
+\begin{DoxyCompactList}\small\item\em Called before rendering. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_acb96e3b1e18dddebd14938b566552559}{Render}} (const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_renderer}{Renderer}} $>$$>$ \&\+\_\+renderers, const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_light}{Light}} $>$$>$ \&\+\_\+lights)
+\begin{DoxyCompactList}\small\item\em Renders each \mbox{\hyperlink{class_loui_eriksson_1_1_renderer}{Renderer}} using the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_afbce2008328772eb292e55855ee67208}{Post\+Render}} ()
+\begin{DoxyCompactList}\small\item\em Called after rendering. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ac077f1baa7eb105891745ebc1ffe3c02}{Set\+Window}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \&\+\_\+window)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}}. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ae134d3e2f37cc8dde7cd635aacbad41e}{Get\+Window}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ab586a2cfa8b730ca892e709f246e05c9}{Set\+Transform}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&\+\_\+transform)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a2018680ba6ce0bca2b1f567e7e314282}{Get\+Transform}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_camera_afe33df615ba9db2a4c4dfa49fe31e65f}{Aspect}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s Aspect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ae501dd1f7b1989a179359af36fff246a}{FOV}} (const float \&\+\_\+fov)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s field of view. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ad4d9cdf44de3748a1719ef4b65163db1}{FOV}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s field of view. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ae587101497c33a40ae7178023bea47bb}{Near\+Clip}} (const float \&\+\_\+near\+Clip)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s near clip plane. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ae8377ce594e4352941706bcd98dea4b3}{Near\+Clip}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s near clip plane. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a94362605dd497b5487ade000800bbdab}{Far\+Clip}} (const float \&\+\_\+far\+Clip)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s far clip plane. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a7f44d1923aa12b896e644ce52d81ad9e}{Far\+Clip}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s far clip plane. \end{DoxyCompactList}\item 
+const glm\+::mat4 \& \mbox{\hyperlink{class_loui_eriksson_1_1_camera_af5a5f982ca65e5663e69ab0a70219e0c}{Projection}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s projection matrix. \end{DoxyCompactList}\item 
+glm\+::mat4 \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a8b3c76cf1d79a12a72773777282a3d5e}{View}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s view matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a0234789025a667c96a871a8133d901e8}{Set\+Dirty}} ()
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} dirty, so that it computes a new projection matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_aeae56184513e9ec1dc294dc0e99b25e8}{Clear}} ()
+\begin{DoxyCompactList}\small\item\em Render clear the m\+\_\+\+Camera. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_camera_aaa6917e107d4f07d323e20b14b9aba8b}{Clear\+Color}} (glm\+::vec4 \+\_\+color)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s clear color. \end{DoxyCompactList}\item 
+static glm\+::vec4 \mbox{\hyperlink{class_loui_eriksson_1_1_camera_ac0a93389f6e9059e8c1641ca6b5b8ef6}{Clear\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s clear color. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_camera_a553f958a25683445088050a69d3de8e9}{Window}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} class for 3D rendering of a scene from a perspective. 
+
+
+
+Definition at line 19 of file Camera.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a08d31b3cf2fcd1434601b390bf739cf4}\label{class_loui_eriksson_1_1_camera_a08d31b3cf2fcd1434601b390bf739cf4}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Camera()}{Camera()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Camera\+::\+Camera (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 11 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ae329ae5b5b0cbfe50706b2a22117c7ea}\label{class_loui_eriksson_1_1_camera_ae329ae5b5b0cbfe50706b2a22117c7ea}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!````~Camera@{$\sim$Camera}}
+\index{````~Camera@{$\sim$Camera}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{$\sim$Camera()}{~Camera()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Camera\+::$\sim$\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line 45 of file Camera.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_afe33df615ba9db2a4c4dfa49fe31e65f}\label{class_loui_eriksson_1_1_camera_afe33df615ba9db2a4c4dfa49fe31e65f}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Aspect@{Aspect}}
+\index{Aspect@{Aspect}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Aspect()}{Aspect()}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Camera\+::\+Aspect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s Aspect. 
+
+
+
+Definition at line 1254 of file Camera.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_aeae56184513e9ec1dc294dc0e99b25e8}\label{class_loui_eriksson_1_1_camera_aeae56184513e9ec1dc294dc0e99b25e8}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Clear@{Clear}}
+\index{Clear@{Clear}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Render clear the m\+\_\+\+Camera. 
+
+
+
+Definition at line 58 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ac0a93389f6e9059e8c1641ca6b5b8ef6}\label{class_loui_eriksson_1_1_camera_ac0a93389f6e9059e8c1641ca6b5b8ef6}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!ClearColor@{ClearColor}}
+\index{ClearColor@{ClearColor}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{ClearColor()}{ClearColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily glm\+::vec4 Loui\+Eriksson\+::\+Camera\+::\+Clear\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s clear color. 
+
+
+
+Definition at line 1306 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_aaa6917e107d4f07d323e20b14b9aba8b}\label{class_loui_eriksson_1_1_camera_aaa6917e107d4f07d323e20b14b9aba8b}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!ClearColor@{ClearColor}}
+\index{ClearColor@{ClearColor}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{ClearColor()}{ClearColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Clear\+Color (\begin{DoxyParamCaption}\item[{glm\+::vec4}]{\+\_\+color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s clear color. 
+
+
+
+Definition at line 1300 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a7f44d1923aa12b896e644ce52d81ad9e}\label{class_loui_eriksson_1_1_camera_a7f44d1923aa12b896e644ce52d81ad9e}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!FarClip@{FarClip}}
+\index{FarClip@{FarClip}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{FarClip()}{FarClip()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Camera\+::\+Far\+Clip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s far clip plane. 
+
+
+
+Definition at line 1296 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a94362605dd497b5487ade000800bbdab}\label{class_loui_eriksson_1_1_camera_a94362605dd497b5487ade000800bbdab}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!FarClip@{FarClip}}
+\index{FarClip@{FarClip}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{FarClip()}{FarClip()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Far\+Clip (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+far\+Clip }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s far clip plane. 
+
+
+
+Definition at line 1286 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ad4d9cdf44de3748a1719ef4b65163db1}\label{class_loui_eriksson_1_1_camera_ad4d9cdf44de3748a1719ef4b65163db1}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!FOV@{FOV}}
+\index{FOV@{FOV}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{FOV()}{FOV()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Camera\+::\+FOV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s field of view. 
+
+
+
+Definition at line 1268 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ae501dd1f7b1989a179359af36fff246a}\label{class_loui_eriksson_1_1_camera_ae501dd1f7b1989a179359af36fff246a}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!FOV@{FOV}}
+\index{FOV@{FOV}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{FOV()}{FOV()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+FOV (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+fov }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s field of view. 
+
+
+
+Definition at line 1258 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a2018680ba6ce0bca2b1f567e7e314282}\label{class_loui_eriksson_1_1_camera_a2018680ba6ce0bca2b1f567e7e314282}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ Loui\+Eriksson\+::\+Camera\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}. 
+
+
+
+Definition at line 1250 of file Camera.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ae134d3e2f37cc8dde7cd635aacbad41e}\label{class_loui_eriksson_1_1_camera_ae134d3e2f37cc8dde7cd635aacbad41e}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!GetWindow@{GetWindow}}
+\index{GetWindow@{GetWindow}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{GetWindow()}{GetWindow()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ Loui\+Eriksson\+::\+Camera\+::\+Get\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}}. 
+
+
+
+Definition at line 1242 of file Camera.\+cpp.
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ae8377ce594e4352941706bcd98dea4b3}\label{class_loui_eriksson_1_1_camera_ae8377ce594e4352941706bcd98dea4b3}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!NearClip@{NearClip}}
+\index{NearClip@{NearClip}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{NearClip()}{NearClip()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Camera\+::\+Near\+Clip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s near clip plane. 
+
+
+
+Definition at line 1282 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ae587101497c33a40ae7178023bea47bb}\label{class_loui_eriksson_1_1_camera_ae587101497c33a40ae7178023bea47bb}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!NearClip@{NearClip}}
+\index{NearClip@{NearClip}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{NearClip()}{NearClip()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Near\+Clip (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+near\+Clip }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s near clip plane. 
+
+
+
+Definition at line 1272 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_afbce2008328772eb292e55855ee67208}\label{class_loui_eriksson_1_1_camera_afbce2008328772eb292e55855ee67208}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!PostRender@{PostRender}}
+\index{PostRender@{PostRender}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{PostRender()}{PostRender()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Post\+Render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Called after rendering. 
+
+
+
+Definition at line 748 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a9654c9ffa7d3f5f7f4360634e714ce62}\label{class_loui_eriksson_1_1_camera_a9654c9ffa7d3f5f7f4360634e714ce62}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!PreRender@{PreRender}}
+\index{PreRender@{PreRender}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{PreRender()}{PreRender()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Pre\+Render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Called before rendering. 
+
+
+
+Definition at line 64 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_af5a5f982ca65e5663e69ab0a70219e0c}\label{class_loui_eriksson_1_1_camera_af5a5f982ca65e5663e69ab0a70219e0c}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Projection@{Projection}}
+\index{Projection@{Projection}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Projection()}{Projection()}}
+{\footnotesize\ttfamily const glm\+::mat4 \& Loui\+Eriksson\+::\+Camera\+::\+Projection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s projection matrix. 
+
+
+
+Definition at line 1316 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_acb96e3b1e18dddebd14938b566552559}\label{class_loui_eriksson_1_1_camera_acb96e3b1e18dddebd14938b566552559}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Render@{Render}}
+\index{Render@{Render}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Render (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_renderer}{Renderer}} $>$$>$ \&}]{\+\_\+renderers,  }\item[{const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_light}{Light}} $>$$>$ \&}]{\+\_\+lights }\end{DoxyParamCaption})}
+
+
+
+Renders each \mbox{\hyperlink{class_loui_eriksson_1_1_renderer}{Renderer}} using the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}. 
+
+
+
+Definition at line 530 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a0234789025a667c96a871a8133d901e8}\label{class_loui_eriksson_1_1_camera_a0234789025a667c96a871a8133d901e8}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!SetDirty@{SetDirty}}
+\index{SetDirty@{SetDirty}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{SetDirty()}{SetDirty()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Set\+Dirty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}} dirty, so that it computes a new projection matrix. 
+
+
+
+Definition at line 1339 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ab586a2cfa8b730ca892e709f246e05c9}\label{class_loui_eriksson_1_1_camera_ab586a2cfa8b730ca892e709f246e05c9}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!SetTransform@{SetTransform}}
+\index{SetTransform@{SetTransform}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{SetTransform()}{SetTransform()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}. 
+
+
+
+Definition at line 1246 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_ac077f1baa7eb105891745ebc1ffe3c02}\label{class_loui_eriksson_1_1_camera_ac077f1baa7eb105891745ebc1ffe3c02}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!SetWindow@{SetWindow}}
+\index{SetWindow@{SetWindow}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{SetWindow()}{SetWindow()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Camera\+::\+Set\+Window (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \&}]{\+\_\+window }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}}. 
+
+
+
+Definition at line 1238 of file Camera.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a8b3c76cf1d79a12a72773777282a3d5e}\label{class_loui_eriksson_1_1_camera_a8b3c76cf1d79a12a72773777282a3d5e}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!View@{View}}
+\index{View@{View}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{View()}{View()}}
+{\footnotesize\ttfamily glm\+::mat4 Loui\+Eriksson\+::\+Camera\+::\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\textquotesingle{}s view matrix. 
+
+
+
+Definition at line 1328 of file Camera.\+cpp.
+
+Here is the call graph for this function\+:
+% FIG 10
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_camera_a553f958a25683445088050a69d3de8e9}\label{class_loui_eriksson_1_1_camera_a553f958a25683445088050a69d3de8e9}} 
+\index{LouiEriksson::Camera@{LouiEriksson::Camera}!Window@{Window}}
+\index{Window@{Window}!LouiEriksson::Camera@{LouiEriksson::Camera}}
+\doxysubsubsection{\texorpdfstring{Window}{Window}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 21 of file Camera.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\mbox{\hyperlink{_camera_8h}{Camera.\+h}}\item 
+scripts/\mbox{\hyperlink{_camera_8cpp}{Camera.\+cpp}}\end{DoxyCompactItemize}

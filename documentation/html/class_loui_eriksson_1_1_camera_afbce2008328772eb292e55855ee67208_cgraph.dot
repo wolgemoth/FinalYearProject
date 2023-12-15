@@ -1,0 +1,34 @@
+digraph "LouiEriksson::Camera::PostRender"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LouiEriksson::Camera\l::PostRender",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Called after rendering."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LouiEriksson::Shader\l::Bind",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_shader.html#a286d5fbd80dbabf7e81c5039eaa5171c",tooltip="Bind the provided Shader."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LouiEriksson::Time\l::Elapsed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_time.html#a0ab6dedba5fd4d2c013ec28be702e0dc",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="LouiEriksson::Resources\l::GetShader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="LouiEriksson::Texture::ID",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_texture.html#ae7d94f5492bfd834ca6fc867f4afcca4",tooltip="Get the Texture's ID."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="LouiEriksson::Mesh\l::Primitives::Quad::\lInstance",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_mesh_1_1_primitives_1_1_quad.html#af3fef9d1e0926f04b9b4ce0d2cd460a6",tooltip="Returns a pointer to the static instance of the mesh."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="LouiEriksson::Settings\l::PostProcessing::AmbientOcclusion\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_ambient_occlusion.html#a2138752a2498066f0a862c6c3bc071ab",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="LouiEriksson::Settings\l::PostProcessing::Bloom\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_bloom.html#ad2d4794dd64f671b5b829ef3e9b4c33e",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="LouiEriksson::Settings\l::PostProcessing::ToneMapping\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_tone_mapping.html#a7ec296158d1b3824ef063f10c0997e3a",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="LouiEriksson::Settings\l::PostProcessing::ToneMapping\l::AutoExposure::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_tone_mapping_1_1_auto_exposure.html#a72c088645bb6b92aec3dd8a56a71a435",tooltip=" "];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="LouiEriksson::Settings\l::PostProcessing::AntiAliasing\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_anti_aliasing.html#a41698ec2f33563554c742a6a002845d2",tooltip=" "];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="LouiEriksson::Settings\l::PostProcessing::Grain\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_grain.html#a43b4058e6ed7cb165150ddb9f1072a1f",tooltip=" "];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="LouiEriksson::Settings\l::PostProcessing::Vignette\l::IsActiveAndEnabled",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_vignette.html#a2d886b5f7d8c6304f75200c07a534baf",tooltip=" "];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="LouiEriksson::RenderTexture\l::Unbind",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_loui_eriksson_1_1_render_texture.html#a3939762e1d63e168f307411dcd422410",tooltip="Unbind the currently bound RenderTexture."];
+}
