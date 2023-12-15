@@ -26,10 +26,16 @@
 
 	/* PARAMETERS */
 	uniform mediump float u_Amount;
+	uniform mediump float u_Smoothness;
 
 	void main() {
 
 	    mediump vec2 uv = (v_TexCoord - 0.5) * 2.0;
 
-	    gl_FragColor = vec4(texture2D(u_Texture, v_TexCoord)) * (1.0 - distance(uv * u_Amount, vec2(0, 0)));
+		// Darken the image proportional to the distance of the texture coordinate to screen center.
+		// The smoothness value modulates the brightness using a pow function. This allows the strength
+		// of the transition to be controlled using a value between 0 and 1.
+	    gl_FragColor =
+			vec4(texture2D(u_Texture, v_TexCoord)) *
+				pow(1.0 - distance(uv * u_Amount, vec2(0.0)), u_Smoothness);
 	}

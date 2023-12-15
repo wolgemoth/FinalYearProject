@@ -804,6 +804,7 @@ namespace LouiEriksson {
 				auto vignette = Resources::GetShader("vignette");
 				Shader::Bind(vignette.lock()->ID());
 				vignette.lock()->Assign(vignette.lock()->AttributeID("u_Amount"), Settings::PostProcessing::Vignette::s_Intensity);
+				vignette.lock()->Assign(vignette.lock()->AttributeID("u_Smoothness"), Settings::PostProcessing::Vignette::s_Smoothness);
 				
 				effects.push(vignette);
 			}

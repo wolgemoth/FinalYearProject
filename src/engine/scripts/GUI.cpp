@@ -511,7 +511,8 @@ namespace LouiEriksson {
 			    ImGui::Checkbox("Enabled", &target::s_Enabled);
 				
 			    if (target::s_Enabled) {
-					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
+					ImGui::SliderFloat("Intensity",  &target::s_Intensity,  0.0f, 1.0f);
+					ImGui::SliderFloat("Smoothness", &target::s_Smoothness, 0.0f, 1.0f);
 			    }
 				
 		        ImGui::TreePop(); // END VIGNETTE SECTION.

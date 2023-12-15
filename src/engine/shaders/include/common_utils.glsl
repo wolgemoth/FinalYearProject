@@ -23,9 +23,12 @@
         return dot(delta, delta);
     }
 
+    /// <summary> Scale and translate the provided coordinate </summary>
     vec2 TransformCoord(in vec2 _uv, in vec4 _st) {
         return (_uv + fract(_st.zw)) * _st.xy;
     }
+
+    /* TEXTURE SAMPLING */
 
     vec4 Sample4(in sampler2D _texture, in vec2 _uv) {
         return texture(_texture, _uv);
@@ -123,13 +126,16 @@
         return texture(_texture, _dir, _lod).r;
     }
 
+    /// <summary> Sample a panoramic image using a direction vector, with optional blurring. </summary>
     vec3 SampleAmbient(in sampler2D _samplerTexture, in vec3 _dir, in float _blur) {
 
+        // Compute the mip level to sample at for 'blurring':
         float      s = textureSize(_samplerTexture, 0).x;
         float levels = log2(s);
 
         int b = int(pow(_blur, 2.0f) * levels);
 
+        // Normalise the direction, or the coordinate will be wrong.
         vec3 d = normalize(_dir);
 
         // Sample the texture2d by converting the direction to a uv coordinate.
@@ -144,6 +150,7 @@
 
     }
 
+    /// <summary> Sample a cubemap using a direction vector, with optional blurring. </summary>
     mediump vec3 SampleAmbient(in samplerCube _samplerTexture, in vec3 _dir, in float _blur) {
 
         float      s = textureSize(_samplerTexture, 0).x;

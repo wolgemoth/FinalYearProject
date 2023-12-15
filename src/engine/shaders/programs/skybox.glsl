@@ -48,6 +48,7 @@
 
         vec3 result;
 
+        // Compute the mip level to sample at for 'blurring':
         float      s = textureSize(u_Texture, 0).x;
         float levels = log2(s);
 
@@ -60,6 +61,7 @@
 
     #else
 
+        // Normalise the direction, or the coordinate will be wrong.
         vec3 d = normalize(v_TexCoord);
 
         // Sample the texture2d by converting the direction to a uv coordinate.
@@ -71,7 +73,7 @@
         );
 
         // Fix seam at wrap-around point.
-        float threshold = 0.0005;
+        float threshold = 0.001;
 
         float check = step(fract(uv.x - threshold), 1.0 - (threshold * 2.0));
 

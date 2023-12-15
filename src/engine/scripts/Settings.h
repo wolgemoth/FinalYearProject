@@ -233,7 +233,8 @@ namespace LouiEriksson {
 			
 				inline static bool s_Enabled = true;
 				
-				inline static float s_Intensity = 0.33f;
+				inline static float s_Intensity  = 0.667f;
+				inline static float s_Smoothness = 0.333f;
 				
 				static bool IsActiveAndEnabled();
 			};

@@ -261,30 +261,8 @@
             color = vec3(FXAA(luma, texelSize));
         }
         else {
-            color = Sample3(u_Texture, v_TexCoord).rgb;//vec3(0.0);//
+            color = Sample3(u_Texture, v_TexCoord).rgb;
         }
-
-//        color = min(abs(color - Sample3(u_Texture, v_TexCoord).rgb) * F32PMAX, vec3(1.0)).rrr;
-
-//        color -= Sample3(u_Texture, v_TexCoord).rgb;
-//
-//        if (abs(luma.direction.x) > abs(luma.direction.y)) {
-//
-//            if (luma.direction.x > 0.0) {
-//                color *= vec3(1.0, 0.0, 0.0);
-//            }
-//            else {
-//                color *= vec3(0.0, 0.0, 1.0);
-//            }
-//        }
-//        else {
-//            if (luma.direction.y > 0.0) {
-//                color *= vec3(0.0, 1.0, 0.0);
-//            }
-//            else {
-//                color *= vec3(1.0, 0.0, 1.0);
-//            }
-//        }
 
         gl_FragColor = vec4(color, 1.0);
     }
