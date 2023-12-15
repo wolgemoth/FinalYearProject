@@ -2,6 +2,8 @@
 
 #include "Entity.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	void Entity::Name(const std::string& _name) {

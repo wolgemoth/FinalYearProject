@@ -2,6 +2,8 @@
 
 #include "Transform.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 	
 	Transform::Transform(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {

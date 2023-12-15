@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_HASHMAP_H
 #define FINALYEARPROJECT_HASHMAP_H
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	/// <summary>

@@ -5,6 +5,8 @@
 
 #include "Application.h"
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
+
 namespace LouiEriksson {
 	
 	class GUI {
@@ -38,14 +40,19 @@ namespace LouiEriksson {
 			
 		};
 		
+		/// <summary> Initialise the GUI. </summary>
 		static void Init(const std::weak_ptr<Window>& _window, const char* _glsl_version);
 		
+		/// <summary> Set the GUI to a specific color palette. </summary>
 		static void Style(const GUI::Parameters::Style& _style);
 		
+		/// <summary> Processes a given SDL_Event. </summary>
 		static void ProcessEvent(const SDL_Event& _event);
 		
+		/// <summary> Main loop. </summary>
 		static void OnGUI(const std::weak_ptr<Window>& _window);
 		
+		/// <summary> Dispose of the GUI. </summary>
 		static void Dispose();
 	};
 }

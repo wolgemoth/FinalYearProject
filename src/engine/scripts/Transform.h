@@ -11,6 +11,8 @@
 
 #define QUAT_IDENTITY glm::quat(1.0f, 0.0f, 0.0f, 0.0f)
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 
 	/// <summary>

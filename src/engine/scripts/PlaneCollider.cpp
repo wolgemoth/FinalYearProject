@@ -2,6 +2,8 @@
 
 #include "PlaneCollider.h"
 
+// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 	
 	PlaneCollider::PlaneCollider(const std::shared_ptr<GameObject>& _parent) : Collider(_parent) {}

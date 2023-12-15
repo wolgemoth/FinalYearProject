@@ -2,6 +2,8 @@
 
 #include "GameObject.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene>& _scene, const std::string& _name) {

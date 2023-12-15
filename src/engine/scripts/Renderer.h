@@ -5,6 +5,8 @@
 #include "Mesh.h"
 #include "Material.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	class Renderer : public Component {

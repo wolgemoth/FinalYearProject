@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_SCRIPTS_H
 #define FINALYEARPROJECT_SCRIPTS_H
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 /* BASE */
 #include "Script.h"
 

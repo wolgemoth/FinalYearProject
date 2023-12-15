@@ -9,6 +9,8 @@ class Camera;
 class GUI;
 class OrbitCam;
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
+
 namespace LouiEriksson {
 	
 	class Settings {
@@ -18,14 +20,17 @@ namespace LouiEriksson {
 		
 	public:
 		
+		/// <summary> Intialise settings on application start. </summary>
 		static void Init();
 		
+		/// <summary> Container for the application's graphics settings. </summary>
 		struct Graphics {
 			
 			friend Camera;
 			
 			inline static bool s_GammaCorrection = true;
 			
+			/// <summary> Container for the application's v-sync settings. </summary>
 			struct VSync {
 				
 				/* SKYBOX TEXTURE */
@@ -38,6 +43,7 @@ namespace LouiEriksson {
 				inline static int s_CurrentSelection = 1;
 			};
 			
+			/// <summary> Container for the settings of the OrbitCam script. </summary>
 			struct Perspective {
 				
 				friend OrbitCam;
@@ -56,6 +62,7 @@ namespace LouiEriksson {
 				};
 			};
 			
+			/// <summary> Container for the settings of the application's skybox. </summary>
 			struct Skybox {
 				
 				/* SKYBOX TEXTURE */
@@ -77,6 +84,7 @@ namespace LouiEriksson {
 				
 			};
 			
+			/// <summary> Container for the settings of the application's "pbr" and "blinnphong" materials. </summary>
 			struct Material {
 				
 				/* SHADER */
@@ -151,12 +159,14 @@ namespace LouiEriksson {
 			};
 		};
 		
+		/// <summary> Container for the settings of the application's post-processing effects. </summary>
 		struct PostProcessing {
 			
 			friend Camera;
 			
 			inline static bool s_Enabled = true;
 			
+			/// <summary> Container for the settings of the AmbientOcclusion post-processing effect. </summary>
 			struct AmbientOcclusion {
 			
 				inline static bool s_Enabled = true;
@@ -170,6 +180,7 @@ namespace LouiEriksson {
 				static bool IsActiveAndEnabled();
 			};
 			
+			/// <summary> Container for the settings of the Bloom post-processing effect. </summary>
 			struct Bloom {
 			
 				inline static bool s_Enabled = true;
@@ -184,6 +195,7 @@ namespace LouiEriksson {
 				static bool IsActiveAndEnabled();
 			};
 			
+			/// <summary> Container for the settings of the "aces" post-processing effect. </summary>
 			struct ToneMapping {
 				
 				inline static bool s_Enabled = true;
@@ -193,6 +205,7 @@ namespace LouiEriksson {
 				
 				static bool IsActiveAndEnabled();
 				
+				/// <summary> Container for the settings of the AutoExposure post-processing effect. </summary>
 				struct AutoExposure {
 					
 					inline static bool s_Enabled = true;
@@ -207,6 +220,7 @@ namespace LouiEriksson {
 				};
 			};
 			
+			/// <summary> Container for the settings of the "fxaa" post-processing effect. </summary>
 			struct AntiAliasing {
 			
 				inline static bool s_Enabled = true;
@@ -220,6 +234,7 @@ namespace LouiEriksson {
 				static bool IsActiveAndEnabled();
 			};
 			
+			/// <summary> Container for the settings of the "grain" post-processing effect. </summary>
 			struct Grain {
 			
 				inline static bool s_Enabled = true;
@@ -229,6 +244,7 @@ namespace LouiEriksson {
 				static bool IsActiveAndEnabled();
 			};
 			
+			/// <summary> Container for the settings of the "vignette" post-processing effect. </summary>
 			struct Vignette {
 			
 				inline static bool s_Enabled = true;

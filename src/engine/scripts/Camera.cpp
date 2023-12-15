@@ -4,6 +4,8 @@
 
 #include "Settings.h"
 
+// @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
+
 namespace LouiEriksson {
 
 	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),

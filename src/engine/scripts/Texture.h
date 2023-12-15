@@ -5,6 +5,8 @@
 
 class Cubemap;
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
+
 namespace LouiEriksson {
 	
 	class Texture {
@@ -21,6 +23,7 @@ namespace LouiEriksson {
 	
 		struct Parameters {
 			
+			/// <summary> Container specifying a Texture's format. </summary>
 			struct Format {
 			
 			private:
@@ -47,6 +50,7 @@ namespace LouiEriksson {
 				[[nodiscard]] const   bool&          Mips() const;
 			};
 			
+			/// <summary> Container specifying a Texture's filter mode. </summary>
 			struct FilterMode {
 			
 			private:
@@ -67,6 +71,7 @@ namespace LouiEriksson {
 				[[nodiscard]] const GLenum& Mag() const;
 			};
 			
+			/// <summary> Container specifying a Texture's wrap mode. </summary>
 			struct WrapMode {
 			
 			private:
@@ -98,27 +103,33 @@ namespace LouiEriksson {
 		Texture             (Texture&& _other) noexcept;
 		Texture& operator = (Texture&& _other) noexcept;
 		
-		[[nodiscard]] const int&      Width() const;
-		[[nodiscard]] const int&     Height() const;
+		[[nodiscard]] const int&  Width() const;
+		[[nodiscard]] const int& Height() const;
 		
-		[[nodiscard]] const Parameters::Format&     Format() const;
+		[[nodiscard]] const Parameters::Format&         Format() const;
 		[[nodiscard]] const Parameters::FilterMode& FilterMode() const;
-		[[nodiscard]] const Parameters::WrapMode&   WrapMode() const;
+		[[nodiscard]] const Parameters::WrapMode&     WrapMode() const;
 		
-		static void GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels);
+		/// <summary> Determine a Texture's format and number of channels using its pixel format. </summary>
+		static void GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels);
 		
+		/// <summary> Bind the provided Texture. </summary>
 		static void Bind(const Texture& _texture);
 		
+		/// <summary> Unbind the currently bound Texture. </summary>
 		static void Unbind();
 		
+		/// <summary> Discard the Texture. </summary>
 		virtual void Discard() const;
 		
+		/// <summary> Get the Texture's ID. </summary>
 		[[nodiscard]] const GLuint& ID() const;
 		
 		explicit operator GLuint() const { return this->ID(); }
 	
 	private:
 		
+		/// <summary> ID of currently bound texture. </summary>
 		inline static GLint s_CurrentTexture = GL_NONE;
 		
 	protected:
@@ -128,12 +139,16 @@ namespace LouiEriksson {
 		
 		GLuint m_TextureID;
 		
+		/// <summary> Texture's formatting parameters. </summary>
 		Parameters::Format m_Format;
 		
+		/// <summary> Texture's filtering parameters. </summary>
 		Parameters::FilterMode m_FilterMode;
-		Parameters::  WrapMode m_WrapMode;
 		
-		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode);
+		/// <summary> Texture's wrapping parameters. </sum  mary>
+		Parameters::WrapMode m_WrapMode;
+		
+		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format _format, Texture::Parameters::FilterMode _filterMode, Texture::Parameters::WrapMode _wrapMode);
 	};
 	
 }

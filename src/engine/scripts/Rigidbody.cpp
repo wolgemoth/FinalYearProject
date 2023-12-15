@@ -2,6 +2,8 @@
 
 #include "Rigidbody.h"
 
+// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 	
 	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {

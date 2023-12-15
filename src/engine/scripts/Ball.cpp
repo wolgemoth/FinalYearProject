@@ -2,6 +2,8 @@
 
 #include "Ball.h"
 
+// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 	
 	Ball::Ball(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {

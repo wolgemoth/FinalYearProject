@@ -8,6 +8,8 @@
 #include "File.h"
 #include "Resources.h"
 
+// @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GEP.
+
 namespace LouiEriksson {
 	
 	std::string File::ReadAllText(const std::filesystem::path& _path) {
@@ -104,7 +106,6 @@ namespace LouiEriksson {
 			if (_output->m_TextureID > 0) {
 				
 				int channels;
-				
 				GLenum texture_format;
 				
 				Texture::GetFormatData(_format, texture_format, channels);

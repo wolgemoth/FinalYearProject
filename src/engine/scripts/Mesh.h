@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_MODEL_H
 #define FINALYEARPROJECT_MODEL_H
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
+
 namespace LouiEriksson {
 	
 	class Mesh {
@@ -9,6 +11,7 @@ namespace LouiEriksson {
 		
 	private:
 		
+		/// <summary> Currently bound mesh. </summary>
 		inline static GLuint m_CurrentVAO = GL_NONE;
 		
 		GLuint m_VAO_ID;
@@ -25,8 +28,10 @@ namespace LouiEriksson {
 		
 	public:
 		
+		/// <summary> Container for various primitive mesh types. </summary>
 		struct Primitives {
 			
+			/// <summary> Information for a quad primitive. </summary>
 			struct Quad {
 	
 			private:
@@ -44,10 +49,12 @@ namespace LouiEriksson {
 				// Number of vertices in the mesh.
 				static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
 				
+				// Static Quad instance.
 				inline static std::shared_ptr<Mesh> s_Instance = nullptr;
 				
 			public:
 				
+				/// <summary> Returns a pointer to the static instance of the mesh. </summary>
 				static std::weak_ptr<Mesh> Instance();
 				
 			};
@@ -55,7 +62,10 @@ namespace LouiEriksson {
 		
 		~Mesh();
 		
+		/// <summary> Bind the provided mesh. </summary>
 		static void   Bind(const Mesh& _mesh);
+		
+		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
 		
 		[[nodiscard]] GLuint          VAO_ID() const;

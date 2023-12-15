@@ -9,6 +9,8 @@
 #include "Light.h"
 #include "Resources.h"
 
+// @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
+
 namespace LouiEriksson {
 	
 	class Window;

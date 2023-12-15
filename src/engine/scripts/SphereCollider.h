@@ -3,12 +3,15 @@
 
 #include "Collider.h"
 
+// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
+
 namespace LouiEriksson {
 	
 	class SphereCollider final : Collider {
 	
 	private:
 		
+		/// <summary> Radius of the SphereCollider. </summary>
 		float m_Radius;
 		
 	public:
@@ -16,7 +19,10 @@ namespace LouiEriksson {
 		explicit SphereCollider(const std::shared_ptr<GameObject>& _parent);
 		~SphereCollider() override;
 		
-		void  Radius(const float& _radius) override;
+		/// <summary> Set the radius of the SphereCollider. </summary>
+		void Radius(const float& _radius) override;
+		
+		/// <summary> Get the radius of the SphereCollider. </summary>
 		[[nodiscard]] float Radius() const;
 		
 	};

@@ -8,6 +8,8 @@
 
 #include "RenderTexture.h"
 
+// @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GEP.
+
 class Camera;
 
 namespace LouiEriksson {

@@ -7,6 +7,8 @@
 
 #include "Resources.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	class Application;

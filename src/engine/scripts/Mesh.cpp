@@ -2,6 +2,8 @@
 
 #include "Mesh.h"
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
+
 namespace LouiEriksson {
 	
 	Mesh::Mesh() {

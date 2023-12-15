@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	class Player final : public Script {
@@ -19,9 +21,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Floor planes. </summary>
 		std::vector<std::weak_ptr<GameObject>> m_Planes;
+		
+		/// <summary> Obstacles. </summary>
 		std::vector<std::weak_ptr<GameObject>> m_Obstacles;
-		
-		
 		
 		int m_NumObstacles;
 		

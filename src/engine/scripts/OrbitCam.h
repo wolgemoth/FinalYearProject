@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 
+// @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
+
 namespace LouiEriksson {
 	
 	/// <summary>

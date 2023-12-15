@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	Window::Window(const int& _width, const int& _height, const char* _name, bool _fullscreen, bool _hdr10) {

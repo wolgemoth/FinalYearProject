@@ -2,6 +2,8 @@
 
 #include "Light.h"
 
+// @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
+
 namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {

@@ -3,6 +3,8 @@
 #include "Material.h"
 #include "Resources.h"
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
+
 namespace LouiEriksson {
 	
 	Material::Material() {

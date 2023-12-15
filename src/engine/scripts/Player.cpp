@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Application.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 
 	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {

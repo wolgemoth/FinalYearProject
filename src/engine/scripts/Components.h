@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_COMPONENTS_H
 #define FINALYEARPROJECT_COMPONENTS_H
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 /* Transformation */
 #include "Transform.h"
 

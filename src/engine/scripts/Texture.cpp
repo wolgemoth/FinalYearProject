@@ -2,8 +2,9 @@
 
 #include "Texture.h"
 
+// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
+
 namespace LouiEriksson {
-	
 	
 	Texture::Texture(
 		const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) :
@@ -88,34 +89,34 @@ namespace LouiEriksson {
 		return m_TextureID;
 	}
 	
-	void Texture::GetFormatData(const GLenum& _internalFormat, GLenum& _textureFormat, int& _channels) {
+	void Texture::GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels) {
 		
-		if (_internalFormat == GL_R    || _internalFormat == GL_R8   || _internalFormat == GL_R16 ||
-			_internalFormat == GL_R16F || _internalFormat == GL_R32F || _internalFormat == GL_R32F_EXT
+		if (_pixelFormat == GL_R    || _pixelFormat == GL_R8   || _pixelFormat == GL_R16 ||
+			_pixelFormat == GL_R16F || _pixelFormat == GL_R32F || _pixelFormat == GL_R32F_EXT
 		) {
 		    _textureFormat = GL_R;
 			_channels      = 1;
 		}
-		else if (_internalFormat == GL_RG    || _internalFormat == GL_RG8   || _internalFormat == GL_RG16 ||
-		         _internalFormat == GL_RG16F || _internalFormat == GL_RG32F || _internalFormat == GL_RG32F_EXT
+		else if (_pixelFormat == GL_RG    || _pixelFormat == GL_RG8   || _pixelFormat == GL_RG16 ||
+		         _pixelFormat == GL_RG16F || _pixelFormat == GL_RG32F || _pixelFormat == GL_RG32F_EXT
 		) {
 		    _textureFormat = GL_RG;
 			_channels      = 2;
 		}
-		else if (_internalFormat == GL_RGB        || _internalFormat == GL_SRGB       || _internalFormat == GL_SRGB8        ||
-				 _internalFormat == GL_SRGB_EXT   || _internalFormat == GL_RGB8       || _internalFormat == GL_RGB10        ||
-				 _internalFormat == GL_RGB10_A2   || _internalFormat == GL_RGB10_A2UI || _internalFormat == GL_RGB10_A2_EXT ||
-				 _internalFormat == GL_RGB10_EXT  || _internalFormat == GL_RGB12      || _internalFormat == GL_RGB12_EXT    ||
-				 _internalFormat == GL_RGB16      || _internalFormat == GL_RGB16F     || _internalFormat == GL_RGB32F       ||
-				 _internalFormat == GL_RGB32F_ARB || _internalFormat == GL_RGB32F_EXT
+		else if (_pixelFormat == GL_RGB        || _pixelFormat == GL_SRGB       || _pixelFormat == GL_SRGB8        ||
+				 _pixelFormat == GL_SRGB_EXT   || _pixelFormat == GL_RGB8       || _pixelFormat == GL_RGB10        ||
+				 _pixelFormat == GL_RGB10_A2   || _pixelFormat == GL_RGB10_A2UI || _pixelFormat == GL_RGB10_A2_EXT ||
+				 _pixelFormat == GL_RGB10_EXT  || _pixelFormat == GL_RGB12      || _pixelFormat == GL_RGB12_EXT    ||
+				 _pixelFormat == GL_RGB16      || _pixelFormat == GL_RGB16F     || _pixelFormat == GL_RGB32F       ||
+				 _pixelFormat == GL_RGB32F_ARB || _pixelFormat == GL_RGB32F_EXT
 		) {
 		    _textureFormat = GL_RGB;
 			_channels      = 3;
 		}
-		else if (_internalFormat == GL_SRGB_ALPHA || _internalFormat == GL_SRGB8_ALPHA8 || _internalFormat == GL_SRGB8_ALPHA8_EXT ||
-				 _internalFormat == GL_RGBA       || _internalFormat == GL_RGBA8        || _internalFormat == GL_RGBA12           ||
-				 _internalFormat == GL_RGBA12_EXT || _internalFormat == GL_RGBA16       || _internalFormat == GL_RGBA16F          ||
-				 _internalFormat == GL_RGBA32F    || _internalFormat == GL_RGBA32F_ARB  || _internalFormat == GL_RGBA32F_EXT
+		else if (_pixelFormat == GL_SRGB_ALPHA || _pixelFormat == GL_SRGB8_ALPHA8 || _pixelFormat == GL_SRGB8_ALPHA8_EXT ||
+				 _pixelFormat == GL_RGBA       || _pixelFormat == GL_RGBA8        || _pixelFormat == GL_RGBA12           ||
+				 _pixelFormat == GL_RGBA12_EXT || _pixelFormat == GL_RGBA16       || _pixelFormat == GL_RGBA16F          ||
+				 _pixelFormat == GL_RGBA32F    || _pixelFormat == GL_RGBA32F_ARB  || _pixelFormat == GL_RGBA32F_EXT
 		) {
 		    _textureFormat = GL_RGBA;
 			_channels      = 4;
@@ -125,7 +126,7 @@ namespace LouiEriksson {
 			_textureFormat = GL_NONE;
 			_channels      = 0;
 			
-		    std::cout << "Unknown format \"" << _internalFormat << "\"\n";
+		    std::cout << "Unknown format \"" << _pixelFormat << "\"\n";
 		}
 	}
 	
@@ -213,6 +214,7 @@ namespace LouiEriksson {
 	Texture::Parameters::FilterMode::FilterMode(Texture::Parameters::FilterMode&& _other) noexcept {
 	
 		if (&_other != this) {
+			
 			m_Min = _other.m_Min;
 			m_Mag = _other.m_Mag;
 			
@@ -224,12 +226,14 @@ namespace LouiEriksson {
 	Texture::Parameters::FilterMode& Texture::Parameters::FilterMode::operator = (Texture::Parameters::FilterMode&& _other) noexcept {
 		
 		if (&_other != this) {
+			
 			m_Min = _other.m_Min;
 			m_Mag = _other.m_Mag;
 			
 			_other.m_Min = GL_NONE;
 			_other.m_Mag = GL_NONE;
 		}
+		
 		return *this;
 	}
 	
@@ -254,6 +258,7 @@ namespace LouiEriksson {
 	Texture::Parameters::WrapMode::WrapMode(Texture::Parameters::WrapMode&& _other) noexcept {
 		
 		if (&_other != this) {
+			
 			m_WrapS = _other.m_WrapS;
 			m_WrapT = _other.m_WrapT;
 			m_WrapR = _other.m_WrapR;
@@ -267,6 +272,7 @@ namespace LouiEriksson {
 	Texture::Parameters::WrapMode& Texture::Parameters::WrapMode::operator = (Texture::Parameters::WrapMode&& _other) noexcept {
 		
 		if (&_other != this) {
+			
 			m_WrapS = _other.m_WrapS;
 			m_WrapT = _other.m_WrapT;
 			m_WrapR = _other.m_WrapR;

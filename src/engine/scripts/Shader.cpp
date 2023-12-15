@@ -4,6 +4,8 @@
 #include "File.h"
 #include "Utils.h"
 
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+
 namespace LouiEriksson {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(_type) {}
