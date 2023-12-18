@@ -1,8 +1,6 @@
 #ifndef _COMMON_UTILS
 #define _COMMON_UTILS
 
-    #extension GL_ARB_shading_language_include : require
-
     #include "/shaders/include/constants.glsl"
 
     /// <summary> Returns the square of a value. </summary>

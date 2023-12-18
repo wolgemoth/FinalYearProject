@@ -35,4 +35,17 @@ namespace LouiEriksson {
 		return _bMin + (_val - _aMin) * (_bMax - _bMin) / (_aMax - _aMin);
 	}
 	
+	template<typename T>
+	void Utils::Empty(std::queue<T>& _queue) {
+		
+		while (!_queue.empty()) {
+			_queue.pop();
+		}
+	}
+	
+	template<typename T>
+	size_t Utils::GetHashcode(const T& _item) {
+		return std::hash<T>()(_item);
+	}
+	
 } // LouiEriksson

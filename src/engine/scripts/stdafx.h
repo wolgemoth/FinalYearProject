@@ -39,5 +39,6 @@
 #include <algorithm>
 #include <filesystem>
 #include <functional>
+#include <unordered_set>
 
 #endif //FINALYEARPROJECT_STDAFX_H

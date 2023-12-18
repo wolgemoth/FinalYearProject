@@ -71,37 +71,29 @@ namespace LouiEriksson {
 					{
 						auto selected = Settings::Graphics::VSync::s_CurrentSelection - 1;
 						
-						if (selected != SDL_GL_GetSwapInterval()) {
-							SDL_GL_SetSwapInterval(selected);
-						}
+						if (selected != SDL_GL_GetSwapInterval()) { SDL_GL_SetSwapInterval(selected); }
 					}
 					
-					/* HANDLE INPUT EVENTS */
-					SDL_Event event = { 0 };
+					/* INPUT */
+					Input::Tick();
 					
-					while (SDL_PollEvent(&event) != 0) {
+					// Handle input events:
+					{
+						SDL_Event event {};
 						
-						// Send event to GUI for processing.
-						GUI::ProcessEvent(event);
-						
-						if (event.type == SDL_WINDOWEVENT) {
-							
-							// Process window resize event:
-							if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-								Window::Get(static_cast<int>(event.window.windowID))->SetDirty();
-							}
+						// Process window resize event:
+						if (Input::HasEvent(SDL_WINDOWEVENT_RESIZED)) {
+							Window::Get(static_cast<int>(event.window.windowID))->SetDirty();
 						}
-						else if (event.type == SDL_QUIT) {
+						
+						// Process quit event:
+						if (Input::HasEvent(SDL_QUIT)) {
 							
-							// Quit application:
 							Application::Quit();
-							
+	
 							goto NestedBreak;
 						}
 					}
-					
-					SDL_PumpEvents();
-					Input::KeyboardState(SDL_GetKeyboardState(nullptr));
 					
 					/* UPDATE */
 					scene->Tick();

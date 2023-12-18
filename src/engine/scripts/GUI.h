@@ -3,15 +3,19 @@
 
 #include "stdafx.h"
 
-#include "Application.h"
+#include "Window.h"
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
+
+class Application;
+class Input;
 
 namespace LouiEriksson {
 	
 	class GUI {
 	
 		friend Application;
+		friend Input;
 		
 	private:
 	
