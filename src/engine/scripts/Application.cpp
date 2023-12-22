@@ -37,7 +37,7 @@ namespace LouiEriksson {
 			GUI::Style(GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = Scene::Load("levels/pfg.scene");
+			auto scene = Scene::Load("levels/3dgp.scene");
 			scene->Begin();
 	
 			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");
@@ -77,18 +77,23 @@ namespace LouiEriksson {
 					/* INPUT */
 					Input::Tick();
 					
-					// Handle input events:
+					// Handle events:
 					{
-						SDL_Event event {};
+						std::vector<SDL_Event> items;
 						
 						// Process window resize event:
-						if (Input::HasEvent(SDL_WINDOWEVENT_RESIZED)) {
-							Window::Get(static_cast<int>(event.window.windowID))->SetDirty();
+						if (Input::Get(SDL_WINDOWEVENT, items)) {
+							
+							for (auto item : items) {
+								
+								if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
+									Window::Get(static_cast<int>(item.window.windowID))->SetDirty();
+								}
+							}
 						}
 						
 						// Process quit event:
-						if (Input::HasEvent(SDL_QUIT)) {
-							
+						if (Input::Get(SDL_QUIT)) {
 							Application::Quit();
 	
 							goto NestedBreak;

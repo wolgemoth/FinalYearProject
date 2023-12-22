@@ -102,6 +102,33 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
+		/// Queries for the existence of an item in the hashmap.
+		/// </summary>
+		/// <param name="_key">Key of the entry.</param>
+		/// <returns>True if successful, false otherwise.</returns>
+		bool ContainsKey(const Tk& _key) {
+			
+			bool result = false;
+			
+			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+			size_t hash = GetHashcode(_key);
+			size_t i = hash % m_Buckets.size();
+			
+			auto& bucket = m_Buckets[i];
+			
+			for (auto& kvp: bucket) {
+				
+				if (GetHashcode(kvp.first) == hash) {
+					result = true;
+					
+					break;
+				}
+			}
+			
+			return result;
+		}
+		
+		/// <summary>
 		/// Inserts a new entry into the hashmap with given key and value, if one does not already exist.
 		/// <para>
 		/// <remarks>

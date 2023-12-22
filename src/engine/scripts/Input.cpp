@@ -2,31 +2,27 @@
 
 #include "Input.h"
 
-#include "Utils.h"
+#include "GUI.h"
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 namespace LouiEriksson {
 	
-	std::size_t Input::SDL_Event_Hash::operator ()(const SDL_Event& _item) const {
-		return Utils::GetHashcode(_item);
-	}
-	
-	bool Input::SDL_Event_Comparator::operator ()(const SDL_Event& _a, const SDL_Event& _b) const {
-		return &_a == &_b;
-	}
-	
 	const Uint8* Input::KeyboardState() {
 		return s_KeyboardState;
 	}
 	
-	bool Input::HasEvent(const SDL_Event& _event) {
-		return s_Events.find(_event) != s_Events.end();
+	bool Input::Get(const Uint32& _event, std::vector<SDL_Event>& _results) {
+		return s_Events.Get(_event, _results);
+	}
+	
+	bool Input::Get(const Uint32& _event) {
+		return s_Events.ContainsKey(_event);
 	}
 	
 	void Input::Tick() {
 		
-		s_Events.clear();
+		s_Events.Clear(); // Reset collection of events.
 		
 		SDL_Event event = { 0 };
 		
@@ -35,8 +31,15 @@ namespace LouiEriksson {
 			// Send event to GUI for processing.
 			GUI::ProcessEvent(event);
 			
-			// Add to hash set.
-			s_Events.insert(event);
+			// Get list of events of the same type, if they exist.
+			std::vector<SDL_Event> bucket;
+			s_Events.Get(event.type, bucket);
+			
+			// Append the current event to the list.
+			bucket.emplace_back(event);
+			
+			// Update the list in the hashmap.
+			s_Events.Assign(event.type, bucket);
 		}
 		
 		// Assign new keyboard state.

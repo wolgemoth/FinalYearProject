@@ -16,7 +16,7 @@ namespace LouiEriksson {
 		
 		m_PlayerSpeed = 6.0f;
 		m_CameraSpeed = 3.0f;
-		  m_GameSpeed = 15.0f;
+		  m_GameSpeed = 5.0f;
 		
 		m_PlayerMoveFreedom = 0.0f;
 		

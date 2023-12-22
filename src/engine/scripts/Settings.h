@@ -40,7 +40,7 @@ namespace LouiEriksson {
 					"On",
 				};
 				
-				inline static int s_CurrentSelection = 1;
+				inline static int s_CurrentSelection = -1;
 			};
 			
 			/// <summary> Container for the settings of the OrbitCam script. </summary>

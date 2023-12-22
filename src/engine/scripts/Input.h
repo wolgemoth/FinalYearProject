@@ -3,8 +3,6 @@
 
 #include "stdafx.h"
 
-#include "GUI.h"
-
 class Application;
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
@@ -17,23 +15,15 @@ namespace LouiEriksson {
 	
 	private:
 		
-		struct SDL_Event_Hash {
-			
-			std::size_t operator() (const SDL_Event& _item) const;
-		};
-		
-		struct SDL_Event_Comparator : std::equal_to<SDL_Event> {
-			
-			bool operator() (const SDL_Event& _a, const SDL_Event& _b) const;
-		};
-		
-		static std::unordered_set<SDL_Event, SDL_Event_Hash, SDL_Event_Comparator> s_Events;
-		
+		inline static Hashmap<Uint32, std::vector<SDL_Event>> s_Events;
+
 		inline static const Uint8* s_KeyboardState = nullptr;
 		
 	public:
 	
-		static bool HasEvent(const SDL_Event& _event);
+		static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results);
+		
+		static bool Get(const Uint32& _event);
 		
 		static const Uint8* KeyboardState();
 		
