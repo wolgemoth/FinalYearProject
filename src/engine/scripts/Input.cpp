@@ -8,16 +8,16 @@
 
 namespace LouiEriksson {
 	
-	const Uint8* Input::KeyboardState() {
-		return s_KeyboardState;
-	}
-	
 	bool Input::Get(const Uint32& _event, std::vector<SDL_Event>& _results) {
 		return s_Events.Get(_event, _results);
 	}
 	
 	bool Input::Get(const Uint32& _event) {
 		return s_Events.ContainsKey(_event);
+	}
+	
+	bool Input::GetKey(const SDL_Scancode& _key) {
+		return s_KeyboardState[_key] != 0u;
 	}
 	
 	void Input::Tick() {

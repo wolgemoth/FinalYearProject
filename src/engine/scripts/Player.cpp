@@ -206,9 +206,7 @@ namespace LouiEriksson {
 		//cam->m_Rotation = glm::quat(glm::radians(glm::vec3(-90.0f, 0.0f, 0.0f)));
 		
 		/* MOVE PLAYER */
-		const auto& input = Input::KeyboardState();
-		
-		auto direction = (float)(-(input[SDL_SCANCODE_D] - input[SDL_SCANCODE_A]));
+		auto direction = static_cast<float>(Input::GetKey(SDL_SCANCODE_A) - Input::GetKey(SDL_SCANCODE_D));
 		
 		const float dt = Time::DeltaTime();
 		

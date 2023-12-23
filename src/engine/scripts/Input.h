@@ -5,7 +5,7 @@
 
 class Application;
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+// @Assessor: This class was originally submitted for 3DGP and modified for GEP.
 
 namespace LouiEriksson {
 	
@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		
 		static bool Get(const Uint32& _event);
 		
-		static const Uint8* KeyboardState();
+		static bool GetKey(const SDL_Scancode& _key);
 		
 		 Input()                    = delete;
 		 Input(const Input& _other) = delete;
