@@ -135,7 +135,7 @@ class LouiEriksson::Hashmap&lt; Tk, Tv &gt;</h3>
 <p>Reference: ("Implementing Your Own HashMap (Explanation + Code)", Random Coder, 14 Sept 2020 [<a href="https://www.youtube.com/watch?v=_Q-eNqTOxlE">https://www.youtube.com/watch?v=_Q-eNqTOxlE</a>]).</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Tk</td><td>Key type of the hashmap.</td></tr>
+    <tr><td class="paramname">Tk</td><td>Events type of the hashmap.</td></tr>
     <tr><td class="paramname">Tv</td><td>Value type of the hashmap.</td></tr>
   </table>
   </dd>
@@ -222,7 +222,7 @@ template&lt;typename Tk , typename Tv &gt; </div>
 <p>If you are trying to modify an existing key, see <a class="el" href="class_loui_eriksson_1_1_hashmap.html#a5e4fdb966120278c87601959c51124af" title="Inserts or replaces an entry within the hashmap with the given key.">Hashmap::Assign</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_key</td><td>Key of the entry.</td></tr>
+    <tr><td class="paramname">_key</td><td>Events of the entry.</td></tr>
     <tr><td class="paramname">_value</td><td>Value of the entry.</td></tr>
   </table>
   </dd>
@@ -282,7 +282,7 @@ template&lt;typename Tk , typename Tv &gt; </div>
 <p>Inserts or replaces an entry within the hashmap with the given key. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_key</td><td>Key of the entry.</td></tr>
+    <tr><td class="paramname">_key</td><td>Events of the entry.</td></tr>
     <tr><td class="paramname">_value</td><td>Value of the entry.</td></tr>
   </table>
   </dd>
@@ -409,7 +409,7 @@ template&lt;typename Tk , typename Tv &gt; </div>
 <p>Retrieves a reference to the entry within the hashmap with the given key, if one exists. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_key</td><td>Key of the entry to retrieve.</td></tr>
+    <tr><td class="paramname">_key</td><td>Events of the entry to retrieve.</td></tr>
     <tr><td class="paramname">_out</td><td>Out value result.</td></tr>
   </table>
   </dd>
@@ -521,7 +521,7 @@ template&lt;typename Tk , typename Tv &gt; </div>
 <p>Removes entry with given key from the hashmap. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_key</td><td>Key of the entry to be removed.</td></tr>
+    <tr><td class="paramname">_key</td><td>Events of the entry to be removed.</td></tr>
   </table>
   </dd>
 </dl>
@@ -560,7 +560,7 @@ template&lt;typename Tk , typename Tv &gt; </div>
 <p>Retrieves a reference to the entry within the hashmap with the given key, if one exists. This method will throw an exception if no entry is found. Consider using <a class="el" href="class_loui_eriksson_1_1_hashmap.html#a32eb3fbdd72971a138b979d3c2b72919" title="Retrieves a reference to the entry within the hashmap with the given key, if one exists.">Get()</a> instead. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_key</td><td>Key of the entry to retrieve.</td></tr>
+    <tr><td class="paramname">_key</td><td>Events of the entry to retrieve.</td></tr>
   </table>
   </dd>
 </dl>

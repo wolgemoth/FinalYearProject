@@ -12,7 +12,7 @@ Custom hashmap implementation accepting a customisable key and value type. Creat
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}}
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Events\+Value\+Pair}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -39,7 +39,7 @@ std\+::vector$<$ Tk $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a23a4f5
 \begin{DoxyCompactList}\small\item\em Returns the keys of all entries stored within the hashmap. \end{DoxyCompactList}\item 
 std\+::vector$<$ Tv $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_ae4862038f9265a75bde658817afbac95}{Values}} () const
 \begin{DoxyCompactList}\small\item\em Returns the values of all entries stored within the hashmap. \end{DoxyCompactList}\item 
-std\+::vector$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a47ab566955ae605e99ce7efb2dff5b0c}{Get\+All}} () const
+std\+::vector$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Events\+Value\+Pair}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_a47ab566955ae605e99ce7efb2dff5b0c}{Get\+All}} () const
 \begin{DoxyCompactList}\small\item\em Returns all entries stored within the hashmap. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap_aca42f461d97dbee1b773a9942b5a5bc1}{Clear}} ()
 \begin{DoxyCompactList}\small\item\em Clears all entries from the hashmap. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -57,7 +57,7 @@ Reference\+: (\char`\"{}\+Implementing Your Own Hash\+Map (\+Explanation + Code)
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Tk} & Key type of the hashmap.\\
+{\em Tk} & Events type of the hashmap.\\
 \hline
 {\em Tv} & Value type of the hashmap.\\
 \hline
@@ -107,7 +107,7 @@ If you are trying to modify an existing key, see \mbox{\hyperlink{class_loui_eri
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+key} & Key of the entry.\\
+{\em \+\_\+key} & Events of the entry.\\
 \hline
 {\em \+\_\+value} & Value of the entry.\\
 \hline
@@ -136,7 +136,7 @@ Inserts or replaces an entry within the hashmap with the given key.
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+key} & Key of the entry.\\
+{\em \+\_\+key} & Events of the entry.\\
 \hline
 {\em \+\_\+value} & Value of the entry.\\
 \hline
@@ -194,7 +194,7 @@ Retrieves a reference to the entry within the hashmap with the given key, if one
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+key} & Key of the entry to retrieve.\\
+{\em \+\_\+key} & Events of the entry to retrieve.\\
 \hline
 {\em \+\_\+out} & Out value result.\\
 \hline
@@ -213,7 +213,7 @@ Here is the caller graph for this function\+:
 \index{GetAll@{GetAll}!LouiEriksson::Hashmap$<$ Tk, Tv $>$@{LouiEriksson::Hashmap$<$ Tk, Tv $>$}}
 \doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
 {\footnotesize\ttfamily template$<$typename Tk , typename Tv $>$ \\
-std\+::vector$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Key\+Value\+Pair}}$>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Get\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::vector$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair}{Events\+Value\+Pair}}$>$ \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Loui\+Eriksson\+::\+Hashmap}}$<$ Tk, Tv $>$\+::Get\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -253,7 +253,7 @@ Removes entry with given key from the hashmap.
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+key} & Key of the entry to be removed.\\
+{\em \+\_\+key} & Events of the entry to be removed.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -276,7 +276,7 @@ Retrieves a reference to the entry within the hashmap with the given key, if one
 
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+key} & Key of the entry to retrieve.\\
+{\em \+\_\+key} & Events of the entry to retrieve.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

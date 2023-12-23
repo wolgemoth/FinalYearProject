@@ -206,15 +206,10 @@ namespace LouiEriksson {
 		//cam->m_Rotation = glm::quat(glm::radians(glm::vec3(-90.0f, 0.0f, 0.0f)));
 		
 		/* MOVE PLAYER */
-		auto direction = static_cast<float>(Input::GetKey(SDL_SCANCODE_A) - Input::GetKey(SDL_SCANCODE_D));
-		
-		const float dt = Time::DeltaTime();
-		
-		//m_GameSpeed += dt;
+		auto direction = static_cast<float>(Input::Key::Get(SDL_SCANCODE_A) - Input::Key::Get(SDL_SCANCODE_D));
 		
 		auto l = player->ToWorld(glm::vec3(1, 0, 0));
-		
-		auto t = player->m_Position + (player->RIGHT * direction * dt * m_PlayerSpeed);
+		auto t = player->m_Position + (player->RIGHT * direction * Time::DeltaTime() * m_PlayerSpeed);
 		
 		player->m_Position = glm::clamp(
 			t,
