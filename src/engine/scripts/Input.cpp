@@ -20,6 +20,10 @@ namespace LouiEriksson {
 		return s_KeyboardState[_key] != 0u;
 	}
 	
+	bool Input::GetKey(const SDL_Keycode& _key) {
+		return s_KeyboardState[SDL_GetScancodeFromKey(_key)] != 0u;
+	}
+	
 	void Input::Tick() {
 		
 		s_Events.Clear(); // Reset collection of events.

@@ -37,10 +37,13 @@ namespace LouiEriksson {
 				inline static std::vector<const char*> s_AvailableOptions = {
 					"Adaptive",
 					"Off",
-					"On",
+					"Every V-Blank",
+					"Every Second V-Blank",
+					"Every Three V-Blanks",
+					"Every Four V-Blanks",
 				};
 				
-				inline static int s_CurrentSelection = -1;
+				inline static int s_CurrentSelection = 0;
 			};
 			
 			/// <summary> Container for the settings of the OrbitCam script. </summary>

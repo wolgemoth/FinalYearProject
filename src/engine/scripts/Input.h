@@ -27,6 +27,8 @@ namespace LouiEriksson {
 		
 		static bool GetKey(const SDL_Scancode& _key);
 		
+		static bool GetKey(const SDL_Keycode& _key);
+		
 		 Input()                    = delete;
 		 Input(const Input& _other) = delete;
 		~Input()                    = delete;
