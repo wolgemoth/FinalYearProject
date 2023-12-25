@@ -51,7 +51,7 @@ namespace LouiEriksson {
 			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
 				SDL_GetError();
 	
-			std::cout << err.str() << "\n";
+			std::cout << err.str()<< '\n';
 	
 			throw std::runtime_error(err.str());
 		}

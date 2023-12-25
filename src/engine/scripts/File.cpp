@@ -24,7 +24,7 @@ namespace LouiEriksson {
 			std::string line;
 	
 			while (std::getline(fs, line)) {
-				result << line << "\n";
+				result << line<< '\n';
 			}
 			fs.close();
 		}
@@ -162,7 +162,7 @@ namespace LouiEriksson {
 						glGenerateMipmap(GL_TEXTURE_2D);
 					}
 					else {
-						glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 					}
 					
 					Texture::Unbind();
@@ -177,7 +177,7 @@ namespace LouiEriksson {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 		
 		return result;
@@ -425,13 +425,13 @@ namespace LouiEriksson {
 			else {
 				
 				std::stringstream ss;
-					ss << "WARNING: File not found: " << _path << "\n";
+					ss << "WARNING: File not found: " << _path<< '\n';
 				
 				throw std::runtime_error(ss.str());
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 		
 		return result;
@@ -572,7 +572,7 @@ namespace LouiEriksson {
 			
 			std::cout << "Failed.\n";
 			
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 		
 		return result;
@@ -663,7 +663,7 @@ namespace LouiEriksson {
 						}
 					}
 					catch (const std::exception& e) {
-						std::cout << e.what() << "\n";
+						std::cout << e.what()<< '\n';
 					}
 				}
 				
@@ -673,7 +673,7 @@ namespace LouiEriksson {
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R,     static_cast<GLint>(_output->WrapMode().WrapR()));
 				
 				if (_generateMipmaps) {
-					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); //TODO: Load filter from filtermode correctly.
 				
 					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 				}
@@ -692,7 +692,7 @@ namespace LouiEriksson {
 			result = true;
 		}
 		catch (const std::exception& _e) {
-			std::cout << _e.what() << "\n";
+			std::cout << _e.what()<< '\n';
 		}
 		
 		return result;

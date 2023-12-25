@@ -38,6 +38,9 @@ add_executable(FinalYearProject
         src/engine/scripts/File.cpp
         src/engine/scripts/File.h
 
+        src/engine/scripts/FlyCam.cpp
+        src/engine/scripts/FlyCam.h
+
         src/engine/scripts/GameObject.cpp
         src/engine/scripts/GameObject.h
 
@@ -119,6 +122,11 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Settings.cpp
         src/engine/scripts/Settings.h
+
+        src/engine/scripts/Cursor.cpp
+        src/engine/scripts/Cursor.h
+        src/engine/scripts/Screen.cpp
+        src/engine/scripts/Screen.h
 )
 
 set(SDL2_PATH        ${PROJECT_SOURCE_DIR}/external/SDL2)

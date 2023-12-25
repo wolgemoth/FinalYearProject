@@ -1,8 +1,10 @@
 #include "stdafx.h"
 
 #include "Application.h"
-#include "Settings.h"
+
+#include "Cursor.h"
 #include "GUI.h"
+#include "Settings.h"
 
 namespace LouiEriksson {
 	
@@ -21,8 +23,16 @@ namespace LouiEriksson {
 			/* CREATE A MAIN WINDOW */
 			auto main_window = Window::Create(1280, 720, "FinalYearProject");
 			
-			// Check if GLEW initialised correctly.
+			/* INIT CURSOR STATE */
+			
+			// Init the cursor's state.
+			Cursor::State state = { main_window, Cursor::State::LockMode::Centered, false };
+			Cursor::SetState(state);
+			
+			/* INIT GLEW */
 			if (glewInit() != GLEW_OK) {
+				
+				// Throw error if GLEW fails to initialise correctly.
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
@@ -37,7 +47,7 @@ namespace LouiEriksson {
 			GUI::Style(GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = Scene::Load("levels/3dgp.scene");
+			auto scene = Scene::Load("levels/gep.scene");
 			scene->Begin();
 	
 			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");
@@ -55,7 +65,7 @@ namespace LouiEriksson {
 	
 			float physics_step = 0.0f;
 			float fps_timer    = 0.0f;
-	
+			
 			/* LOOP */
 			while (!Application::s_Quit) {
 				
@@ -86,19 +96,51 @@ namespace LouiEriksson {
 							
 							for (auto item : items) {
 								
+								const auto window = Window::Get(static_cast<int>(item.window.windowID));
+								
 								if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
-									Window::Get(static_cast<int>(item.window.windowID))->SetDirty();
+									window->SetDirty();
+								}
+								else if (item.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+									
+									std::cout << "Lost focus of window \"" << window->m_ID << "\"\n";
+									
+									/*
+									 * Set the last_focused_state value to the cursor's
+									 * current state, and invalidate the window.
+									 */
+									state = Cursor::GetState();
+									state.m_Window.reset();
+								
+									// Reset the cursor's state.
+									Cursor::Reset();
+								}
+								else if (item.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+									
+									std::cout << "Gained focus of window \"" << window->m_ID << "\"\n";
+									
+									/*
+									 * Update the window of the last_focused_state value
+									 * and set it as the cursor's current state.
+									 */
+									state.m_Window = window;
+									
+									Cursor::SetState(state);
 								}
 							}
 						}
 						
 						// Process quit event:
 						if (Input::Event::Get(SDL_QUIT)) {
+							
 							Application::Quit();
 	
 							goto NestedBreak;
 						}
 					}
+					
+					/* UPDATE CURSOR STATE */
+					Cursor::Update();
 					
 					/* UPDATE */
 					scene->Tick();
@@ -113,32 +155,33 @@ namespace LouiEriksson {
 					/* GUI UPDATE */
 					GUI::OnGUI(main_window);
 					
+					/* UPDATE WINDOWS */
 					auto windows = Window::m_Windows.Values();
 					for (const auto& window : windows) {
 						window->Update();
 					}
 					
 					/* UPDATE TIMERS */
-					
-					// Update delta time.
 					Time::s_DeltaTime =
 						(float)std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() -
 							frame_start
-						).count() / 1000000.0f;
+						).count() / 1000000.0f; // Calculate delta time.
 		
 					Time::s_Elapsed += Time::DeltaTime();
 					   physics_step -= Time::DeltaTime();
 					   fps_timer    -= Time::DeltaTime();
 				}
 				catch (const std::exception& e) {
-					std::cout << e.what() << "\n";
+					std::cout << e.what()<< '\n';
 				}
 			}
 			
 NestedBreak:
 			
-			/* DISPOSE */
+			/* FINALISE */
+			Cursor::Reset();
+			
 			GUI::Dispose();
 			SDL_Quit();
 		}

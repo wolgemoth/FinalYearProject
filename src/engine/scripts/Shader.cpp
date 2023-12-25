@@ -23,7 +23,7 @@ namespace LouiEriksson {
 		catch (const std::exception& e){
 			std::cout << "Failed.\n";
 			
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 		
 		if (!subShaders.empty()) {
@@ -104,7 +104,7 @@ namespace LouiEriksson {
 			
 			std::stringstream err;
 			err << "ERROR (Shader.cpp [LinkShaders()]): \"" <<
-				m_Name << "\", " << glGetError() << "\n";
+				m_Name << "\", " << glGetError()<< '\n';
 			
 			{
 				char buff[4096] = { 0 };
@@ -115,7 +115,7 @@ namespace LouiEriksson {
 				err << buff;
 			}
 			
-			std::cout << err.str() << "\n";
+			std::cout << err.str()<< '\n';
 			
 			throw std::runtime_error(err.str());
 		}
@@ -195,7 +195,7 @@ namespace LouiEriksson {
 			else if (line == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
 			
 			if (type == curr) {
-				ss << line << "\n";
+				ss << line<< '\n';
 			}
 			else {
 				
@@ -265,7 +265,7 @@ namespace LouiEriksson {
 			err << "ERROR (Shader.cpp [TryBindAttribute(const GLint&, const char*)]): Shader \"" <<
 			    Name() << "\": Attempt at binding attribute \"" <<
 			    _name  << "\", to location (" << _pos << ") failed. " <<
-			              "GL Error Code: " << errorCode << "\n";
+			              "GL Error Code: " << errorCode<< '\n';
 			
 			throw std::runtime_error(err.str());
 		}

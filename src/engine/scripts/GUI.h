@@ -56,7 +56,7 @@ namespace LouiEriksson {
 		/// <summary> Main loop. </summary>
 		static void OnGUI(const std::weak_ptr<Window>& _window);
 		
-		/// <summary> Dispose of the GUI. </summary>
+		/// <summary> Reset of the GUI. </summary>
 		static void Dispose();
 	};
 }

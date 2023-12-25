@@ -88,7 +88,7 @@ namespace LouiEriksson {
 					const auto name = "/" + dependency.string();
 					const auto contents = File::ReadAllText(dependency);
 					
-					std::cout << name.c_str() << "\n";
+					std::cout << name.c_str()<< '\n';
 					
 					// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 					glNamedStringARB(
@@ -105,7 +105,7 @@ namespace LouiEriksson {
 					
 					std::cout << "Failed.\n";
 					
-					std::cout << e.what() << "\n";
+					std::cout << e.what()<< '\n';
 				}
 			}
 		}

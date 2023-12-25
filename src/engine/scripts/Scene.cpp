@@ -2,6 +2,9 @@
 
 #include "Scene.h"
 
+#include "Resources.h"
+#include "Serialisation.h"
+
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 namespace LouiEriksson {
@@ -311,7 +314,7 @@ namespace LouiEriksson {
 			xml.loadSize(gameObjectCount);
 		
 			if (log) {
-				std::cout << "GameObjects: " << gameObjectCount << "\n";
+				std::cout << "GameObjects: " << gameObjectCount<< '\n';
 			}
 			for (size_t i = 0; i < gameObjectCount; i++) {
 		
@@ -331,7 +334,7 @@ namespace LouiEriksson {
 				xml.loadSize(componentCount);
 		
 				if (log) {
-					std::cout << "\tComponents: " << componentCount << "\n";
+					std::cout << "\tComponents: " << componentCount<< '\n';
 				}
 				
 				for (size_t j = 0; j < componentCount; j++) {
@@ -339,7 +342,7 @@ namespace LouiEriksson {
 					auto componentName = std::string(xml.getNodeName());
 					
 					if (log) {
-						std::cout << "\t\t" << componentName << "\n";
+						std::cout << "\t\t" << componentName<< '\n';
 					}
 					
 					if (componentName == "Transform") {			// Deserialise Transform.
@@ -427,6 +430,9 @@ namespace LouiEriksson {
 						else if (type == "class std::shared_ptr<class OrbitCam>") {	// OrbitCam
 							script = gameObject->AddComponent<OrbitCam>();
 						}
+						else if (type == "class std::shared_ptr<class FlyCam>") {	// FlyCam
+							script = gameObject->AddComponent<FlyCam>();
+						}
 						else {
 							Serialisation::NotImplementedException(type);
 						}
@@ -442,13 +448,13 @@ namespace LouiEriksson {
 		
 			xml.finishNode();
 			
-			std::cout << "Done." << "\n";
+			std::cout << "Done."<< '\n';
 		}
 		catch (const std::exception& e) {
 			
 			std::cout << "Failed.\n";
 			
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 		
 		return result;

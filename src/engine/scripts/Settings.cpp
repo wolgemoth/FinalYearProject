@@ -48,7 +48,7 @@ namespace LouiEriksson {
 			s_CurrentSkyboxSelection = _index;
 		}
 		catch (const std::runtime_error& e) {
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 	}
 	
@@ -60,7 +60,7 @@ namespace LouiEriksson {
 			s_CurrentShaderSelection = _index;
 		}
 		catch (const std::runtime_error& e) {
-			std::cout << e.what() << "\n";
+			std::cout << e.what()<< '\n';
 		}
 	}
 	

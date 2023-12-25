@@ -8,6 +8,7 @@
 
 /* DERIVED */
 #include "Ball.h"
+#include "FlyCam.h"
 #include "OrbitCam.h"
 #include "Plane.h"
 #include "Player.h"

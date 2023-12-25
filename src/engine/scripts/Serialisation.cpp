@@ -9,7 +9,7 @@ namespace LouiEriksson {
 	void Serialisation::NotImplementedException(const std::string& _type) {
 	
 		std::stringstream err;
-		err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type\"" <<
+		err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<
 			_type << "\" Has not been implemented.";
 	
 		throw std::runtime_error(err.str());

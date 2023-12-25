@@ -37,10 +37,10 @@ namespace LouiEriksson {
 				inline static std::vector<const char*> s_AvailableOptions = {
 					"Adaptive",
 					"Off",
-					"Every V-Blank",
-					"Every Second V-Blank",
-					"Every Three V-Blanks",
-					"Every Four V-Blanks",
+					"1:1",
+					"1:2",
+					"1:3",
+					"1:4",
 				};
 				
 				inline static int s_CurrentSelection = 0;
@@ -52,7 +52,7 @@ namespace LouiEriksson {
 				friend OrbitCam;
 			
 				inline static float      s_FOV = 60.0f;
-				inline static float s_NearClip = 0.1f;
+				inline static float s_NearClip = 0.01f;
 				inline static float  s_FarClip = 60.0f;
 				
 				struct Orbit {

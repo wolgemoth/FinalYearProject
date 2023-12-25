@@ -27,17 +27,26 @@ namespace LouiEriksson {
 		/// </summary>
 		template<typename T>
 		static void Empty(std::queue<T>& _queue);
-
-		/// <summary>
-		/// Calculate the hashcode of a given object using std::hash.
-		/// <remarks>
-		/// This function will throw if the type given is not supported by std::hash.
-		/// </remarks>
-		/// <param name="_item">Item to calculate hash of.</param>
-		/// </summary>
-		template<typename T>
-		static size_t GetHashcode(const T& _item);
 		
+		/// <summary>
+		/// Repeats a value within the range 0 -> _max.
+		/// </summary>
+		static float Repeat(const float& _value, const float& _max);
+		
+		/// <summary>
+		/// Repeats a value within the range _min -> _max.
+		/// </summary>
+		static float Repeat(const float& _value, const float& _min, const float& _max);
+		
+		/// <summary>
+		/// Wraps an angle so that it remains within -180 to 180 degrees.
+		/// </summary>
+		static float WrapAngle(const float& _degrees);
+		
+		/// <summary>
+		/// Wraps an angle so that it remains within -180 to 180 degrees.
+		/// </summary>
+		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
 	};
 	
 } // LouiEriksson

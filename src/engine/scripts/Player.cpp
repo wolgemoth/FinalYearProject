@@ -203,8 +203,6 @@ namespace LouiEriksson {
 		cam->m_Position = glm::mix(cam->m_Position, targetPos, Time::DeltaTime() * m_CameraSpeed);
 		cam->m_Rotation = glm::slerp(cam->m_Rotation, targetRot, Time::DeltaTime() * m_CameraSpeed);
 		
-		//cam->m_Rotation = glm::quat(glm::radians(glm::vec3(-90.0f, 0.0f, 0.0f)));
-		
 		/* MOVE PLAYER */
 		auto direction = static_cast<float>(Input::Key::Get(SDL_SCANCODE_A) - Input::Key::Get(SDL_SCANCODE_D));
 		
@@ -214,7 +212,7 @@ namespace LouiEriksson {
 		player->m_Position = glm::clamp(
 			t,
 			-m_PlayerMoveFreedom,
-			m_PlayerMoveFreedom
+			 m_PlayerMoveFreedom
 		);
 		
 		/* MOVE ENVIRONMENT */

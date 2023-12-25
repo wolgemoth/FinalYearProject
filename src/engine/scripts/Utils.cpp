@@ -2,6 +2,8 @@
 
 #include "Utils.h"
 
+#include <cmath>
+
 namespace LouiEriksson {
 	
 	std::vector<std::string> Utils::Split(const std::string& _string, const char& _divider) {
@@ -43,9 +45,24 @@ namespace LouiEriksson {
 		}
 	}
 	
-	template<typename T>
-	size_t Utils::GetHashcode(const T& _item) {
-		return std::hash<T>()(_item);
+	float Utils::Repeat(const float& _value, const float& _max) {
+		return std::fmod(_max + std::fmod(_value, _max), _max);
+	}
+	
+	float Utils::Repeat(const float& _value, const float& _min, const float& _max) {
+		return _min + Repeat(_value - _max, _max - _min);
+	}
+	
+	float Utils::WrapAngle(const float& _degrees) {
+		return Repeat(_degrees, -180.0f, 180.0f);
+	}
+	
+	glm::vec3 Utils::WrapAngle(const glm::vec3& _degrees) {
+		return {
+			WrapAngle(_degrees.x),
+			WrapAngle(_degrees.y),
+			WrapAngle(_degrees.z)
+		};
 	}
 	
 } // LouiEriksson
