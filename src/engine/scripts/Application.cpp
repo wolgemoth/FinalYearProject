@@ -164,6 +164,9 @@ namespace LouiEriksson {
 						window->Update();
 					}
 					
+					// Dump latest GL error log to the console.
+					Utils::GLDumpError();
+				
 					/* UPDATE TIMERS */
 					Time::s_DeltaTime =
 						(float)std::chrono::duration_cast<std::chrono::microseconds>(

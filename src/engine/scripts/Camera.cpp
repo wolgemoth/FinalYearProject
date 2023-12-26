@@ -773,7 +773,7 @@ namespace LouiEriksson {
 			if (Settings::PostProcessing::AmbientOcclusion::IsActiveAndEnabled()) {
 				AmbientOcclusion();
 			}
-			
+		
 			// Auto exposure after ambient occlusion.
 			if (Settings::PostProcessing::ToneMapping::AutoExposure::IsActiveAndEnabled()) {
 				AutoExposure();
@@ -885,8 +885,8 @@ namespace LouiEriksson {
 		auto   vertical = Resources::GetShader("blur_vertical");
 		
 		// Assign target texture to shader programs:
-		horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Texture"), _rt.ID());
-		  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Texture"), _rt.ID());
+		horizontal.lock()->Assign(horizontal.lock()->AttributeID("u_Texture"), _rt.ID(), 0, GL_TEXTURE_2D);
+		  vertical.lock()->Assign(  vertical.lock()->AttributeID("u_Texture"), _rt.ID(), 0, GL_TEXTURE_2D);
 		  
 		// Screen width and height as integers.
 		const int w = (int)dimensions.x,
