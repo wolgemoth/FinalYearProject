@@ -2,6 +2,8 @@
 
 #include "Light.h"
 
+#include "Utils.h"
+
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
 
 namespace LouiEriksson {
@@ -126,7 +128,7 @@ namespace LouiEriksson {
 				
 				// Check the texture's resolution.
 				int curr_resolution;
-				glGetTexLevelParameteriv(target, 0, GL_TEXTURE_WIDTH, &curr_resolution);
+				glGetTexLevelParameteriv(_type == Light::Parameters::Type::Point ? GL_TEXTURE_CUBE_MAP_POSITIVE_X : GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
 				
 				Texture::Unbind();
 				

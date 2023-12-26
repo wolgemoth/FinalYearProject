@@ -65,5 +65,5 @@
         mediump vec3 normal = normalize((Sample3(u_Normals, uv) * 2.0) - 1.0);
         normal = mix(v_TBN[2], normalize(v_TBN * normal), u_NormalAmount);
 
-        gl_FragColor = vec4(normal, 1.0f);
+        gl_FragColor = vec4(normal, 1.0);
     }

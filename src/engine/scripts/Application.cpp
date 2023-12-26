@@ -26,7 +26,7 @@ namespace LouiEriksson {
 			/* INIT CURSOR STATE */
 			
 			// Init the cursor's state.
-			Cursor::State state = { main_window, Cursor::State::LockMode::Centered, false };
+			Cursor::State state = { main_window, Cursor::State::LockMode::Relative, true };
 			Cursor::SetState(state);
 			
 			/* INIT GLEW */
@@ -71,6 +71,9 @@ namespace LouiEriksson {
 				
 				try {
 				
+					// Clear the GL error state by dumping the error at the start of the frame.
+					Utils::GLDumpError(true);
+					
 					// Get the beginning of the frame for timing purposes.
 					auto frame_start = std::chrono::high_resolution_clock::now();
 				
@@ -101,7 +104,7 @@ namespace LouiEriksson {
 								if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
 									window->SetDirty();
 								}
-								else if (item.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+								else if (item.window.event == SDL_WINDOWEVENT_HIDDEN) {
 									
 									std::cout << "Lost focus of window \"" << window->m_ID << "\"\n";
 									
@@ -115,7 +118,7 @@ namespace LouiEriksson {
 									// Reset the cursor's state.
 									Cursor::Reset();
 								}
-								else if (item.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+								else if (item.window.event == SDL_WINDOWEVENT_SHOWN) {
 									
 									std::cout << "Gained focus of window \"" << window->m_ID << "\"\n";
 									

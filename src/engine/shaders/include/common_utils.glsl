@@ -21,6 +21,16 @@
         return dot(delta, delta);
     }
 
+    /// <summary> Repeats a value within the range 0 -> _max. </summary>
+    float repeat(in float _value, in float _max) {
+		return mod(_max + mod(_value, _max), _max);
+    }
+
+    /// <summary> Repeats a value within the range _min -> _max. </summary>
+    float repeat(in float _value, in float _min, in float _max) {
+		return _min + repeat(_value - _max, _max - _min);
+    }
+
     /// <summary> Scale and translate the provided coordinate </summary>
     vec2 TransformCoord(in vec2 _uv, in vec4 _st) {
         return (_uv + fract(_st.zw)) * _st.xy;
@@ -131,7 +141,7 @@
         float      s = textureSize(_samplerTexture, 0).x;
         float levels = log2(s);
 
-        int b = int(pow(_blur, 2.0f) * levels);
+        int b = int(pow(_blur, 2.0) * levels);
 
         // Normalise the direction, or the coordinate will be wrong.
         vec3 d = normalize(_dir);
@@ -154,7 +164,7 @@
         float      s = textureSize(_samplerTexture, 0).x;
         float levels = log2(s);
 
-        int b = int(pow(_blur, 2.0f) * levels);
+        int b = int(pow(_blur, 2.0) * levels);
 
         // Sample the cubemap using the direction directly.
         return Sample3(_samplerTexture, _dir, b);

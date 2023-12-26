@@ -268,13 +268,6 @@ namespace LouiEriksson {
 					GL_TEXTURE_2D
 				);
 	
-				program.lock()->Assign(
-					program.lock()->AttributeID("u_TexCoord_gBuffer"),
-					m_Normal_gBuffer.ID(),
-					1,
-					GL_TEXTURE_2D
-				);
-				
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
 				skybox.lock()->Assign(skybox.lock()->AttributeID("u_Blur"), Settings::Graphics::Skybox::s_Blur);
 	
@@ -430,9 +423,23 @@ namespace LouiEriksson {
 				glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = light->m_Shadow.m_ShadowMap_FBO);
 				glClear(GL_DEPTH_BUFFER_BIT);
 				
-				/* DRAW SHADOWS */
-				glCullFace(light->m_Shadow.m_TwoSided ? GL_NONE : GL_FRONT);
+				/* CONFIGURE CULLING */
 				
+				// Get current culling settings.
+				bool cullEnabled = glIsEnabled(GL_CULL_FACE) == GL_TRUE;
+				int cullMode;
+				glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
+				
+				// Configure culling based on whether or not the light uses two-sided shadows.
+				if (light->m_Shadow.m_TwoSided) {
+					glDisable(GL_CULL_FACE);
+				}
+				else {
+					glEnable(GL_CULL_FACE);
+					glCullFace(GL_FRONT);
+				}
+				
+				// Get the correct shader program for the type of light:
 				std::weak_ptr<Shader> program;
 				switch(light->Type()) {
 					case Light::Parameters::Point:       { program = Resources::GetShader("shadowDepthCube"); break; }
@@ -503,7 +510,9 @@ namespace LouiEriksson {
 					light->m_Shadow.m_ViewProjection = light->m_Shadow.m_Projection * lightView;
 				}
 				
-				program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				if (light->Type() != Light::Parameters::Type::Point) {
+					program.lock()->Assign(program.lock()->AttributeID("u_LightSpaceMatrix"), light->m_Shadow.m_ViewProjection);
+				}
 				
 				// We need to render the scene from the light's perspective.
 				for (const auto& renderer : _renderers) {
@@ -519,6 +528,16 @@ namespace LouiEriksson {
 					/* DRAW */
 					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(mesh->VertexCount()));
 				}
+				
+				// Restore original culling settings:
+				if (cullEnabled) {
+					glEnable(GL_CULL_FACE);
+				}
+				else {
+					glDisable(GL_CULL_FACE);
+				}
+				
+				glCullFace(cullMode);
 				
 				       Shader::Unbind(); // Unbind the program.
 				      Texture::Unbind(); // Unbind the texture.

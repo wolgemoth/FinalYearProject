@@ -195,7 +195,7 @@ namespace LouiEriksson {
 			else if (line == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
 			
 			if (type == curr) {
-				ss << line<< '\n';
+				ss << line << '\n';
 			}
 			else {
 				

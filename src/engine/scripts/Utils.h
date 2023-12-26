@@ -29,6 +29,11 @@ namespace LouiEriksson {
 		static void Empty(std::queue<T>& _queue);
 		
 		/// <summary>
+		/// Dumps the latest OpenGL error to the console.
+		/// </summary>
+		static void GLDumpError(const bool& _silent = false);
+		
+		/// <summary>
 		/// Repeats a value within the range 0 -> _max.
 		/// </summary>
 		static float Repeat(const float& _value, const float& _max);

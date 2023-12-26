@@ -159,11 +159,11 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
+                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange);
                 break;
             }
             case 2: {
-                result = ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
+                result = ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange, fract(u_Time), u_ShadowSamples);
                 break;
             }
             case 3: {
@@ -202,11 +202,11 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
+                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0);
                 break;
             }
             case 2: {
-                result = ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
+                result = ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0, fract(u_Time), u_ShadowSamples);
                 break;
             }
             case 3: {

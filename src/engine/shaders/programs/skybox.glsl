@@ -1,6 +1,6 @@
 #pragma vertex
 
-    #version 330
+    #version 330 core
 
     #extension GL_ARB_explicit_uniform_location : enable
 
@@ -22,7 +22,7 @@
 
 #pragma fragment
 
-    #version 330
+    #version 330 core
 
     #extension GL_ARB_explicit_uniform_location : enable
     #extension GL_ARB_texture_query_levels      : enable
@@ -52,7 +52,7 @@
         float      s = textureSize(u_Texture, 0).x;
         float levels = log2(s);
 
-        int b = int(pow(u_Blur, 2.0f) * levels);
+        int b = int(pow(u_Blur, 2.0) * levels);
 
     #if SAMPLER_CUBE
 

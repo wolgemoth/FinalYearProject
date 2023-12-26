@@ -87,7 +87,7 @@
                 vec4(1.0, 1.0, 0.0, 0.0),
                 u_Displacement_Amount
             ) :
-            0.0f;
+            0.0;
 
         gl_FragColor = vec4(roughness, metallic, ao, parallaxShadow);
     }
