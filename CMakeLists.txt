@@ -127,6 +127,8 @@ add_executable(FinalYearProject
         src/engine/scripts/Cursor.h
         src/engine/scripts/Screen.cpp
         src/engine/scripts/Screen.h
+        src/engine/scripts/Sound.cpp
+        src/engine/scripts/Sound.h
 )
 
 set(SDL2_PATH        ${PROJECT_SOURCE_DIR}/external/SDL2)

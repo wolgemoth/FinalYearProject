@@ -5,6 +5,7 @@
 #include "Cursor.h"
 #include "GUI.h"
 #include "Settings.h"
+#include "Sound.h"
 
 namespace LouiEriksson {
 	
@@ -41,6 +42,8 @@ namespace LouiEriksson {
 			
 			/* INIT SETTINGS */
 			Settings::Init();
+			
+			Sound::Init();
 			
 			/* INIT GUI */
 			GUI::Init(main_window, "#version 330");
@@ -169,10 +172,10 @@ namespace LouiEriksson {
 				
 					/* UPDATE TIMERS */
 					Time::s_DeltaTime =
-						(float)std::chrono::duration_cast<std::chrono::microseconds>(
+						static_cast<float>(std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() -
 							frame_start
-						).count() / 1000000.0f; // Calculate delta time.
+						).count()) / 1000000.0f; // Calculate delta time.
 		
 					Time::s_Elapsed += Time::DeltaTime();
 					   physics_step -= Time::DeltaTime();
