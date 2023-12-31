@@ -3,17 +3,18 @@
 
 class Sound {
 
-private:
-
 public:
 
 	struct Clip {
 		
 		SDL_AudioSpec m_Specification;
-	
-		std::vector<char> m_Buffer;
 		
-		Clip(const std::string& _path);
+		Uint8* data;
+		Uint32 size;
+		
+		Clip(const std::filesystem::path& _path);
+		
+		~Clip();
 	};
 	
 	static void Play(const Clip& _clip);

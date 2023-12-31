@@ -4,6 +4,7 @@
 
 #include "Settings.h"
 #include "Input.h"
+#include "Resources.h"
 
 // @Assessor: Please mark this class for GEP.
 
@@ -56,6 +57,8 @@ namespace LouiEriksson {
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f));
+		
+		Sound::Play(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
 	}
 	
 	void FlyCam::Tick() {

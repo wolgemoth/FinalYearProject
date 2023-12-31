@@ -43,6 +43,7 @@ If you are able to successfully build for Windows, please let me know so that I 
 - [Dear ImGui v1.90 (IMGUI)](https://www.dearimgui.com/)
 - [Simple Direct Media Layer v2.x (SDL2)](https://www.libsdl.org/index.php)
 - [stb_image v2.27](https://github.com/nothings/stb/blob/master/stb_image.h)
+- [openal-soft-1.23.1](https://github.com/kcat/openal-soft/releases/tag/1.23.1)
 
 ### References
 

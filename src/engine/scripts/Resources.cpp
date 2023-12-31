@@ -6,6 +6,27 @@
 
 namespace LouiEriksson {
 	
+	void Resources::PreloadAudio() {
+		
+		Hashmap<std::string, std::filesystem::path> files;
+		
+		for (const auto& item : File::Directory::GetEntriesRecursive(m_AudioDirectory, File::Directory::EntryType::FILE)) {
+			files.Add(item.stem().string(), item);
+		}
+		
+		for (const auto& kvp : files.GetAll()) {
+			
+			std::shared_ptr<Sound::Clip> clip;
+			if (File::TryLoad(kvp.second, clip)) {
+				
+				std::cout << kvp.first << "\n";
+				
+				m_Audio.Add(kvp.first, clip);
+			}
+		}
+		
+	}
+	
 	void Resources::PreloadMeshes() {
 		std::cout << "Please implement PreloadMeshes() function!\n";
 	}
@@ -174,10 +195,15 @@ namespace LouiEriksson {
 	}
 	
 	void Resources::Preload() {
+		PreloadAudio();
 		PreloadShaders();
 		PreloadMeshes();
 		PreloadTextures();
 		PreloadMaterials();
+	}
+	
+	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<Sound::Clip>& _output) {
+		return m_Audio.Get(_name, _output);
 	}
 	
 	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) {
@@ -194,6 +220,10 @@ namespace LouiEriksson {
 	
 	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) {
 		return m_Shaders.Get(_name, _output);
+	}
+	
+	std::weak_ptr<Sound::Clip> Resources::GetAudio(const std::string& _name) {
+		return m_Audio.Return(_name);
 	}
 	
 	std::weak_ptr<Mesh> Resources::GetMesh(const std::string& _name) {

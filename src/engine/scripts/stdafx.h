@@ -15,7 +15,10 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/projection.hpp>
 
-#include "cereal/archives/xml.hpp"  // CEREAL
+#include <AL/al.h>                  // AL ...
+#include <AL/alc.h>
+
+#include <cereal/archives/xml.hpp>  // CEREAL
 
 /* INTERNAL */
 #include "Hashmap.h"

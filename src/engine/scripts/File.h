@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
+#include "Sound.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "Cubemap.h"
@@ -34,6 +35,8 @@ namespace LouiEriksson {
 		File& operator = (const File& _other) = delete;
 		
 		static std::string ReadAllText(const std::filesystem::path& _path);
+		
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Sound::Clip>& _output);
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format, bool _generateMipmaps);
 		
