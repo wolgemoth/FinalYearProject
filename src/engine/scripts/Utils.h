@@ -29,6 +29,11 @@ namespace LouiEriksson {
 		static void Empty(std::queue<T>& _queue);
 		
 		/// <summary>
+		/// Dumps the latest OpenAL error to the console.
+		/// </summary>
+		static void ALDumpError(const bool& _silent = false);
+		
+		/// <summary>
 		/// Dumps the latest OpenGL error to the console.
 		/// </summary>
 		static void GLDumpError(const bool& _silent = false);

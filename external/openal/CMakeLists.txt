@@ -2,6 +2,8 @@
 
 cmake_minimum_required(VERSION 3.0.2)
 
+find_package(Threads REQUIRED)
+
 if(APPLE)
     # The workaround for try_compile failing with code signing
     # since cmake-3.18.2, not required

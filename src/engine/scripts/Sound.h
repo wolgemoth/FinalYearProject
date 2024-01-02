@@ -1,26 +1,54 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
+#include "stdafx.h"
+
 class Sound {
 
+private:
+	
+	inline static ALCdevice*  s_Device  = nullptr;
+	inline static ALCcontext* s_Context = nullptr;
+	
+	inline static unsigned int s_SDL_Device = 0u;
+	
+	inline static ALuint s_GlobalSource = AL_NONE;
+	
 public:
 
 	struct Clip {
 		
-		SDL_AudioSpec m_Specification;
+		struct Format {
 		
-		Uint8* data;
-		Uint32 size;
+			SDL_AudioSpec m_Specification;
+			
+			[[nodiscard]] ALenum OpenALFormat() const;
+			
+			explicit Format(const SDL_AudioSpec& _audioSpec);
+		};
 		
-		Clip(const std::filesystem::path& _path);
+		Format m_Format;
+		
+		ALuint m_ALBuffer;
+		
+		Uint8* m_Data;
+		Uint32 m_Size;
+		
+		explicit Clip(const std::filesystem::path& _path);
 		
 		~Clip();
+		
+		void Free();
+		
+		void Dispose();
 	};
-	
-	static void Play(const Clip& _clip);
 	
 	static void Init();
 
+	static void Play(const Clip& _clip);
+	
+	static void Dispose();
+	
 };
 
 #endif //FINALYEARPROJECT_SOUND_H

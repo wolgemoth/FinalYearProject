@@ -57,8 +57,6 @@ namespace LouiEriksson {
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f));
-		
-		Sound::Play(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
 	}
 	
 	void FlyCam::Tick() {
@@ -66,6 +64,10 @@ namespace LouiEriksson {
 		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
 		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
 		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
+		
+		if (Input::Key::Get(SDL_SCANCODE_P)) {
+			Sound::Play(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
+		}
 		
 		const auto movement_input = glm::vec3(
 			static_cast<float>(Input::Key::Get(SDL_SCANCODE_A     ) - Input::Key::Get(SDL_SCANCODE_D    )),

@@ -18,6 +18,8 @@
 #include <AL/al.h>                  // AL ...
 #include <AL/alc.h>
 
+#include <btBulletDynamicsCommon.h> // BULLET
+
 #include <cereal/archives/xml.hpp>  // CEREAL
 
 /* INTERNAL */

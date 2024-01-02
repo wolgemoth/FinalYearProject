@@ -147,12 +147,14 @@ set(SDL2_DIR         ${PROJECT_SOURCE_DIR}/external/SDL2)
 set(SDL2_INCLUDE_DIR ${SDL2_DIR}/include)
 set(SDL2_LIB_DIR     ${SDL2_DIR}/lib/x86/)
 
+set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/external/openal)
+set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
+
 include_directories(
         ${PROJECT_SOURCE_DIR}/external/cereal/include
         ${GLEW_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/glm
         ${IMGUI_DIR}
-        ${PROJECT_SOURCE_DIR}/external/openal/include
         ${PELLET_INCLUDE_DIR}
         ${SDL2_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/external/stb/include/
@@ -178,17 +180,21 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3OverlappingPairCache.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3ConvexUtility.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3CpuNarrowPhase.cpp
+
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3AlignedAllocator.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Logging.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Vector3.cpp
+
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/b3CpuRigidBodyPipeline.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3FixedConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Generic6DofConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3PgsJacobiSolver.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Point2PointConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3TypedConstraint.cpp
+
         ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3ConvexHullComputer.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3GeometryUtil.cpp
+
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp
@@ -283,6 +289,7 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
+
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Character/btKinematicCharacterController.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btContactConstraint.cpp
@@ -319,10 +326,12 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletDynamics/MLCPSolvers/btMLCPSolver.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btRaycastVehicle.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btWheelInfo.cpp
+
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeImpl.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeInitCache.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/IDMath.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/MultiBodyTree.cpp
+
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btDefaultSoftBodySolver.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBody.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
@@ -332,6 +341,7 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidDynamicsWorld.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
+
         ${PELLET_INCLUDE_DIR}/LinearMath/btAlignedAllocator.cpp
         ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHull.cpp
         ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHullComputer.cpp
@@ -348,10 +358,13 @@ link_directories(FinalYearProject
         ${SDL2_LIB_DIR}
 )
 
+add_subdirectory(${OPENAL_DIR})
+
 target_link_libraries(FinalYearProject
         GLEW
         GL
         IMGUI
+        OpenAL
         PELLET
         SDL2main
         SDL2

@@ -37,13 +37,14 @@ namespace LouiEriksson {
 				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
 			}
 			
+			/* INIT SOUND */
+			Sound::Init();
+			
 			/* PRELOAD RESOURCES */
 			Resources::Preload();
 			
 			/* INIT SETTINGS */
 			Settings::Init();
-			
-			Sound::Init();
 			
 			/* INIT GUI */
 			GUI::Init(main_window, "#version 330");
@@ -74,6 +75,9 @@ namespace LouiEriksson {
 				
 				try {
 				
+					// Clear the AL error state by dumping the error at the start of the frame.
+					Utils::GLDumpError(true);
+					
 					// Clear the GL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
@@ -166,6 +170,9 @@ namespace LouiEriksson {
 					for (const auto& window : windows) {
 						window->Update();
 					}
+					
+					// Dump latest AL error log to the console.
+					Utils::ALDumpError();
 					
 					// Dump latest GL error log to the console.
 					Utils::GLDumpError();

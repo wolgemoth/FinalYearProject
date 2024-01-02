@@ -45,6 +45,27 @@ namespace LouiEriksson {
 		}
 	}
 	
+	
+void Utils::ALDumpError(const bool& _silent) {
+	
+	const auto error = alGetError();
+    if (error != AL_NO_ERROR) {
+	   
+		std::cout << "OpenAL Error: \"";
+		
+	    switch (error) {
+		    case AL_INVALID_NAME:      { std::cout << "AL_INVALID_NAME\"\n";      break; }
+			case AL_INVALID_ENUM:      { std::cout << "AL_INVALID_ENUM\"\n";      break; }
+			case AL_INVALID_VALUE:     { std::cout << "AL_INVALID_VALUE\"\n";     break; }
+			case AL_INVALID_OPERATION: { std::cout << "AL_INVALID_OPERATION\"\n"; break; }
+			case AL_OUT_OF_MEMORY:     { std::cout << "AL_OUT_OF_MEMORY\"\n";     break; }
+			default: {
+				std::cout << "Unknown.\"\n";
+			}
+	    }
+    }
+}
+	
 	void Utils::GLDumpError(const bool& _silent) {
 		
 		if (const auto glError = glGetError() && !_silent) {
