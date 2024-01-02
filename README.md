@@ -44,6 +44,7 @@ If you are able to successfully build for Windows, please let me know so that I 
 - [Simple Direct Media Layer v2.x (SDL2)](https://www.libsdl.org/index.php)
 - [stb_image v2.27](https://github.com/nothings/stb/blob/master/stb_image.h)
 - [openal-soft-1.23.1](https://github.com/kcat/openal-soft/releases/tag/1.23.1)
+- [Bullet Physics 3.2.5](https://github.com/bulletphysics/bullet3)
 
 ### References
 
