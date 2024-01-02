@@ -43,10 +43,10 @@ public:
 		void Dispose();
 	};
 	
-	static void Init();
-
 	static void Play(const Clip& _clip);
 	
+	static void Init();
+
 	static void Dispose();
 	
 };

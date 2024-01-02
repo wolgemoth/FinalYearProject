@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "Settings.h"
 #include "Sound.h"
+#include "Physics.h"
 
 namespace LouiEriksson {
 	
@@ -45,6 +46,9 @@ namespace LouiEriksson {
 			
 			/* INIT SETTINGS */
 			Settings::Init();
+			
+			/* INIT PHYSICS */
+			Physics::Init();
 			
 			/* INIT GUI */
 			GUI::Init(main_window, "#version 330");
@@ -159,6 +163,7 @@ namespace LouiEriksson {
 					if (physics_step <= 0.0f) {
 						physics_step = Time::FixedDeltaTime();
 		
+						Physics::Tick();
 						scene->FixedTick();
 					}
 					
@@ -198,7 +203,9 @@ NestedBreak:
 			/* FINALISE */
 			Cursor::Reset();
 			
-			GUI::Dispose();
+			    GUI::Dispose();
+			Physics::Dispose();
+			
 			SDL_Quit();
 		}
 		else {
