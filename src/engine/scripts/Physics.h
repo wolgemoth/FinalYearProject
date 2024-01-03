@@ -6,14 +6,15 @@ namespace LouiEriksson {
 	class Physics {
 	
 		friend class Application;
+		friend class Rigidbody;
+		
+	private:
 		
 		inline static std::shared_ptr<btDefaultCollisionConfiguration>     s_Configuration = nullptr;
 		inline static std::shared_ptr<btCollisionDispatcher>               s_Dispatcher    = nullptr;
 		inline static std::shared_ptr<btBroadphaseInterface>               s_Broadphase    = nullptr;
 		inline static std::shared_ptr<btSequentialImpulseConstraintSolver> s_Solver        = nullptr;
 		inline static std::shared_ptr<btDiscreteDynamicsWorld>             s_DynamicsWorld = nullptr;
-		
-	private:
 		
 		inline static glm::vec3 s_Gravity = glm::vec3(0.0f, -9.82f, 0.0f);
 		

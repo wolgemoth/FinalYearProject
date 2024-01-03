@@ -33,7 +33,7 @@ namespace LouiEriksson {
 			std::cout << "Done.\n";
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n" << e.what() << "\n";
+			std::cout << "Failed.\n" << e.what() << '\n';
 		}
 	}
 	

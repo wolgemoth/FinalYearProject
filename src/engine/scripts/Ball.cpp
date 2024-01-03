@@ -47,9 +47,9 @@ namespace LouiEriksson {
 		renderer->SetTransform(transform);
 	
 		// Get or add collider.
-		auto collider = scene->Attach<Collider>(Parent()->AddComponent<Collider>());
+		auto collider = scene->Attach<SphereCollider>(Parent()->AddComponent<SphereCollider>());
 		if (collider == nullptr) {
-			collider = Parent()->AddComponent<Collider>();
+			collider = Parent()->AddComponent<SphereCollider>();
 		}
 	
 		collider->SetTransform(transform);

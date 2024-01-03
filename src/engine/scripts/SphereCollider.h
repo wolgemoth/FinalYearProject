@@ -7,20 +7,15 @@
 
 namespace LouiEriksson {
 	
-	class SphereCollider final : Collider {
+	class SphereCollider final : public Collider {
 	
-	private:
-		
-		/// <summary> Radius of the SphereCollider. </summary>
-		float m_Radius;
-		
 	public:
 		
 		explicit SphereCollider(const std::shared_ptr<GameObject>& _parent);
 		~SphereCollider() override;
 		
 		/// <summary> Set the radius of the SphereCollider. </summary>
-		void Radius(const float& _radius) override;
+		void Radius(const float& _radius);
 		
 		/// <summary> Get the radius of the SphereCollider. </summary>
 		[[nodiscard]] float Radius() const;

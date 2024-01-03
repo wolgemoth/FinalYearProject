@@ -77,75 +77,13 @@ namespace LouiEriksson {
 	
 	void Scene::FixedTick() {
 	
-		const glm::vec3 gravity(0.0f, -9.82f, 0.0f);
-	
 		std::vector<std::any> rigidbodies;
 		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
 	
-			/* FRAME BEGIN */
 			for (const auto& r : rigidbodies) {
-	
+				
 				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
-	
-				const float radius = rigidbody->GetCollider().lock()->Radius();
-	
-				rigidbody->ClearForce();
-	
-				// Accumulate forces applied every frame.
-				auto force =
-					gravity +
-					rigidbody->DragForce(radius);
-	
-				// Apply the forces to the rigidbody.
-				rigidbody->AddForce(force);
-			}
-	
-			std::vector<std::pair<std::shared_ptr<Rigidbody>, Collision>> collisions;
-			
-			/* COLLISION */
-			for (const auto& r : rigidbodies) {
-	
-				auto rigidbody    = std::any_cast<std::shared_ptr<Rigidbody>>(r);
-				auto thisCollider = rigidbody->GetCollider().lock();
-	
-				std::vector<std::any> colliders;
-				if (m_Entities.Get(typeid(Collider), colliders)) {
-	
-					for (auto c : colliders) {
-	
-						auto otherCollider = std::any_cast<std::shared_ptr<Collider>>(c);
-	
-						Collision hit;
-						if (thisCollider->Evaluate(otherCollider, &hit)) {
-							collisions.emplace_back( rigidbody, hit );
-						}
-					}
-				}
-			}
-			
-			for (const auto& pair : collisions) {
-				
-				auto rigidbody = pair.first;
-				auto       hit = pair.second;
-				
-				rigidbody->GetTransform().lock()->m_Position += hit.ContactPoint();
-				
-				// Accumulate forces created by this collision.
-				auto force =
-						hit.Impulse() +
-						rigidbody->FrictionForce(hit);
-				
-				// Apply the forces to the rigidbody.
-				// These forces happen 'instantly' so we cancel the delta.
-				rigidbody->AddForce(force / Time::FixedDeltaTime());
-			}
-	
-			/* FRAME END */
-			for (const auto& r : rigidbodies) {
-	
-				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
-	
-				rigidbody->Euler(Time::FixedDeltaTime());
+				rigidbody->Sync();
 			}
 		}
 	}

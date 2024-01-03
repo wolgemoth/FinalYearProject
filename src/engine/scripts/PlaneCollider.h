@@ -7,19 +7,13 @@
 
 namespace LouiEriksson {
 	
-	class PlaneCollider final : Collider {
+	class PlaneCollider final : public Collider {
 	
 	public:
 		
 		explicit PlaneCollider(const std::shared_ptr<GameObject>& _parent);
 		
 		~PlaneCollider() override;
-		
-		float DistanceToPlane(glm::vec3 _point, glm::vec3 _pointOnPlane);
-		
-		bool Evaluate(const std::shared_ptr<Collider>& _other);
-		
-		glm::vec3 Normal();
 	};
 }
 

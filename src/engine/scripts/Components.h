@@ -8,7 +8,8 @@
 
 /* Physics */
 #include "Rigidbody.h"
-#include "Collider.h"
+#include "SphereCollider.h"
+#include "PlaneCollider.h"
 
 /* Graphics */
 #include "Camera.h"

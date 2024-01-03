@@ -19,7 +19,7 @@ namespace LouiEriksson {
 			std::shared_ptr<Sound::Clip> clip;
 			if (File::TryLoad(kvp.second, clip)) {
 				
-				std::cout << kvp.first << "\n";
+				std::cout << kvp.first << '\n';
 				
 				m_Audio.Add(kvp.first, clip);
 			}

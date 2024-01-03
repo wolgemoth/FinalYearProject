@@ -2,26 +2,112 @@
 
 #include "Rigidbody.h"
 
+#include "Physics.h"
+#include "Collider.h"
+
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
 namespace LouiEriksson {
 	
-	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
+	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) {
+		
+		try {
+			
+			m_MotionState.reset(new btDefaultMotionState());
+			
+			m_Rigidbody.reset(
+				new btRigidBody(
+					_parameters.m_Mass,
+					m_MotionState.get(),
+					_collider.lock()->m_CollisionShape.get()
+				)
+			);
+			
+			Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << '\n';
+		}
+	}
 	
+	Rigidbody::BulletRigidbody::~BulletRigidbody() {
+		
+		if (m_Rigidbody != nullptr) {
+			Physics::s_DynamicsWorld->removeRigidBody(m_Rigidbody.get());
+		}
+	}
+	
+	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
+		
 		m_Transform = std::shared_ptr<Transform>(nullptr);
 		m_Collider  = std::shared_ptr<Collider> (nullptr);
+	}
 	
+	Rigidbody::Parameters::Parameters() {
+		
+		m_BulletRigidbody = std::shared_ptr<BulletRigidbody>(nullptr);
+		
 		m_Velocity        = glm::vec3(0.0f);
 		m_AngularVelocity = glm::vec3(0.0f);
-		m_Force		      = glm::vec3(0.0f);
-	
-		m_Mass = 1.0f;
-		m_Drag = 0.0f;
+		m_Force           = glm::vec3(0.0f);
+		
+		m_Mass        = 0.0f;
+		m_Drag        = 0.0f;
 		m_AngularDrag = 0.0f;
+	}
+	
+	void Rigidbody::BulletReinitialise() {
+		
+		try {
+			const auto transform = m_Transform.lock();
+			const auto collider  =  m_Collider.lock();
+			
+			if (transform != nullptr &&
+			    collider != nullptr) {
+				
+				m_Parameters.m_BulletRigidbody.reset(
+					new BulletRigidbody(
+						m_Transform,
+						m_Collider,
+						m_Parameters
+					)
+				);
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << '\n';
+		}
+	}
+	
+	void Rigidbody::Sync() {
+		
+		try {
+			
+			const auto transform = m_Transform.lock();
+			
+			if (transform != nullptr) {
+				
+				// Get the transform from the bullet physics engine.
+				btTransform t;
+				m_Parameters.m_BulletRigidbody->m_MotionState->getWorldTransform(t);
+				
+				const auto bOrigin   = t.getOrigin();
+				const auto bRotation = t.getRotation();
+				
+				// Sync the transform from bullet with the transform in-engine.
+				transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
+				transform->m_Rotation = glm::quat(bRotation.x(), bRotation.y(), bRotation.z(), bRotation.w());
+			}
+		}
+		catch (const std::exception e) {
+			std::cout << e.what() << '\n';
+		}
 	}
 	
 	void Rigidbody::SetTransform(const std::weak_ptr<Transform>& _transform) {
 		m_Transform = _transform;
+		
+		BulletReinitialise();
 	}
 	std::weak_ptr<Transform> Rigidbody::GetTransform() {
 		return m_Transform;
@@ -29,43 +115,53 @@ namespace LouiEriksson {
 	
 	void Rigidbody::SetCollider(const std::weak_ptr<Collider>& _transform) {
 		m_Collider = _transform;
+		
+		BulletReinitialise();
 	}
 	std::weak_ptr<Collider> Rigidbody::GetCollider() {
 		return m_Collider;
 	}
 	
 	void Rigidbody::Velocity(const glm::vec3& _velocity) {
-		m_Velocity = _velocity;
+		m_Parameters.m_Velocity = _velocity;
+		
+		BulletReinitialise();
 	}
 	glm::vec3 Rigidbody::Velocity() {
-		return m_Velocity;
+		return m_Parameters.m_Velocity;
 	}
 	
 	void Rigidbody::AngularVelocity(const glm::vec3& _angularVelocity) {
-		m_AngularVelocity = _angularVelocity;
+		m_Parameters.m_AngularVelocity = _angularVelocity;
+		
+		BulletReinitialise();
 	}
 	glm::vec3 Rigidbody::AngularVelocity() {
-		return m_AngularVelocity;
+		return m_Parameters.m_AngularVelocity;
 	}
 	
 	void Rigidbody::AddForce(const glm::vec3& _force) {
-		m_Force += _force;
+		m_Parameters.m_Force += _force;
+		
+		BulletReinitialise();
 	}
 	void Rigidbody::ClearForce() {
-		m_Force = glm::vec3(0.0f);
+		m_Parameters.m_Force = glm::vec3(0.0f);
+		
+		BulletReinitialise();
 	}
 	
 	glm::vec3 Rigidbody::GetForce() {
-		return m_Force;
+		return m_Parameters.m_Force;
 	}
 	
 	void Rigidbody::Euler(const float& _delta) {
 	
 		/* Implementation of Euler Integration */
 	
-		m_Velocity += (m_Force / m_Mass) * _delta;
+		m_Parameters.m_Velocity += (m_Parameters.m_Force / m_Parameters.m_Mass) * _delta;
 	
-		m_Transform.lock()->m_Position += m_Velocity * _delta;
+		m_Transform.lock()->m_Position += m_Parameters.m_Velocity * _delta;
 	}
 	
 	glm::vec3 Rigidbody::Force(const float& _mass, glm::vec3 _velocity) {
@@ -73,17 +169,21 @@ namespace LouiEriksson {
 	}
 	
 	void Rigidbody::Mass(const float& _mass) {
-		m_Mass = std::max(_mass, 0.005f); // Clamp smallest mass value to 0.005.
+		m_Parameters.m_Mass = std::max(_mass, 0.005f); // Clamp smallest mass value to 0.005.
+	
+		BulletReinitialise();
 	}
 	float Rigidbody::Mass() const {
-		return m_Mass;
+		return m_Parameters.m_Mass;
 	}
 	
 	void Rigidbody::Drag(const float& _drag) {
-		m_Drag = _drag;
+		m_Parameters.m_Drag = _drag;
+		
+		BulletReinitialise();
 	}
 	float Rigidbody::Drag() const {
-		return m_Drag;
+		return m_Parameters.m_Drag;
 	}
 	
 	glm::vec3 Rigidbody::DragForce(const float& _radius) {
@@ -136,9 +236,11 @@ namespace LouiEriksson {
 	}
 	
 	void Rigidbody::AngularDrag(const float& _angularDrag) {
-		m_AngularDrag = _angularDrag;
+		m_Parameters.m_AngularDrag = _angularDrag;
+		
+		BulletReinitialise();
 	}
 	float Rigidbody::AngularDrag() const {
-		return m_AngularDrag;
+		return m_Parameters.m_AngularDrag;
 	}
 }
