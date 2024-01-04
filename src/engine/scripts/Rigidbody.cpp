@@ -23,6 +23,48 @@ namespace LouiEriksson {
 				)
 			);
 			
+			// Assign the drag and angular drag coefficients.
+			m_Rigidbody->setDamping(_parameters.m_Drag, _parameters.m_AngularDrag);
+			
+			// Set the transform of the rigidbody.
+			{
+				const auto pos  = _transform.lock()->m_Position;
+				const auto quat = _transform.lock()->m_Rotation;
+				
+				// Get the rigidbody's transform and assign the current position and rotation.
+				auto t = m_Rigidbody->getWorldTransform();
+				t.setOrigin  ({ pos.x, pos.y, pos.z });
+				t.setRotation({ quat.x, quat.y, quat.z, quat.w });
+				
+				// Update the rigidbody's transform with the new values.
+				m_Rigidbody->setWorldTransform(t);
+			}
+			
+			if (_parameters.m_Kinematic) {
+				
+				// Set the collision flags to kinematic, if specified.
+				m_Rigidbody->setCollisionFlags(
+					m_Rigidbody->getCollisionFlags() |
+					btCollisionObject::CF_KINEMATIC_OBJECT
+				);
+				
+				// Reset the velocities:
+				m_Rigidbody->setLinearFactor(btVector3(0, 0, 0));
+				m_Rigidbody->setAngularFactor(btVector3(0, 0, 0));
+			}
+			
+			// Set up how the rigidbody interacts with gravity:
+			{
+				const auto g = Physics::Gravity();
+				
+				m_Rigidbody->setGravity(
+					_parameters.m_UseGravity ?
+						btVector3(g.x, g.y, g.z) :
+						btVector3(0, 0, 0)
+				);
+			}
+			
+			// Add the rigidbody to the dynamics world.
 			Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
 		}
 		catch (const std::exception& e) {
@@ -47,12 +89,15 @@ namespace LouiEriksson {
 		
 		m_BulletRigidbody = std::shared_ptr<BulletRigidbody>(nullptr);
 		
+		m_Kinematic  = false;
+		m_UseGravity = true;
+		
 		m_Velocity        = glm::vec3(0.0f);
 		m_AngularVelocity = glm::vec3(0.0f);
 		m_Force           = glm::vec3(0.0f);
 		
-		m_Mass        = 0.0f;
-		m_Drag        = 0.0f;
+		m_Mass        = 1.0f;
+		m_Drag        = 0.005f; // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
 		m_AngularDrag = 0.0f;
 	}
 	
@@ -94,9 +139,11 @@ namespace LouiEriksson {
 				const auto bOrigin   = t.getOrigin();
 				const auto bRotation = t.getRotation();
 				
+				//printf("%.1f, %.1f, %.1f, %.1f\n", bOrigin.x(), bOrigin.y(), bOrigin.z(), bOrigin.w());
+				
 				// Sync the transform from bullet with the transform in-engine.
 				transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
-				transform->m_Rotation = glm::quat(bRotation.x(), bRotation.y(), bRotation.z(), bRotation.w());
+				transform->m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
 			}
 		}
 		catch (const std::exception e) {
@@ -120,6 +167,26 @@ namespace LouiEriksson {
 	}
 	std::weak_ptr<Collider> Rigidbody::GetCollider() {
 		return m_Collider;
+	}
+	
+	void Rigidbody::Kinematic(const bool& _value) {
+		m_Parameters.m_Kinematic = _value;
+		
+		BulletReinitialise();
+	}
+	
+	const bool& Rigidbody::Kinematic() {
+		return m_Parameters.m_Kinematic;
+	}
+	
+	void Rigidbody::Gravity(const bool& _value) {
+		m_Parameters.m_UseGravity = _value;
+		
+		BulletReinitialise();
+	}
+	
+	const bool& Rigidbody::Gravity() {
+		return m_Parameters.m_UseGravity;
 	}
 	
 	void Rigidbody::Velocity(const glm::vec3& _velocity) {
@@ -155,19 +222,6 @@ namespace LouiEriksson {
 		return m_Parameters.m_Force;
 	}
 	
-	void Rigidbody::Euler(const float& _delta) {
-	
-		/* Implementation of Euler Integration */
-	
-		m_Parameters.m_Velocity += (m_Parameters.m_Force / m_Parameters.m_Mass) * _delta;
-	
-		m_Transform.lock()->m_Position += m_Parameters.m_Velocity * _delta;
-	}
-	
-	glm::vec3 Rigidbody::Force(const float& _mass, glm::vec3 _velocity) {
-		return _velocity * _mass; // Newton's F = ma.
-	}
-	
 	void Rigidbody::Mass(const float& _mass) {
 		m_Parameters.m_Mass = std::max(_mass, 0.005f); // Clamp smallest mass value to 0.005.
 	
@@ -184,55 +238,6 @@ namespace LouiEriksson {
 	}
 	float Rigidbody::Drag() const {
 		return m_Parameters.m_Drag;
-	}
-	
-	glm::vec3 Rigidbody::DragForce(const float& _radius) {
-	
-		const float airDensity = 1.0f; // 1 atm
-		
-		// Courtesy of: https://www.calculatordonkey.com/math/surface-area-sphere-calculator.html
-		float referenceArea = 4.0f * (glm::pi<float>() * (_radius * _radius)) / 2.0f;
-	
-		// Courtesy of: https://www.grc.nasa.gov/WWW/k-12/airplane/drageq.html
-		// This code snippet initializes a 3D vector called "result" with all components set to 0.0. It then calculates the magnitude of a velocity vector and stores it in the variable "len".
-		float v = glm::length2(Velocity());
-	
-		float drag = Drag() * ((airDensity * (v)) * 0.5f) * referenceArea;
-	
-		// Compute the force of the drag from the current velocity and mass.
-		glm::vec3 force = -Velocity() * drag * Mass();
-	
-		return force;
-	}
-	
-	glm::vec3 Rigidbody::FrictionForce(Collision& _collision) {
-	
-		glm::vec3 result(0.0f);
-	
-		const float coefficient = 0.2f;
-	
-		// Velocity vector and its magnitude.
-		auto dir = Velocity();
-		auto len = glm::length(dir);
-	
-		if (len != 0) {
-	
-			// Project the velocity onto the normal.
-			auto proj = dir - _collision.Normal() * glm::dot(dir, _collision.Normal());
-	
-			// Objects with more momentum going "into" a surface should receive more friction.
-			float response = 1.0f - (glm::dot(proj, dir) / len);
-	
-			// Friction should never speed up an object.
-			if (response > 0.0f) {
-	
-				// Compute friction by multiplying the values.
-				// Courtesy of: https://www.toppr.com/guides/physics-formula/friction-formula/
-				result = -proj * coefficient * response * Mass();
-			}
-		}
-	
-		return result;
 	}
 	
 	void Rigidbody::AngularDrag(const float& _angularDrag) {

@@ -44,13 +44,26 @@ namespace LouiEriksson {
 		renderer->SetTransform(transform);
 		
 		// Get or add Collider.
-		auto collider = scene->Attach(Parent()->AddComponent<Collider>());
+		auto collider = scene->Attach(Parent()->AddComponent<PlaneCollider>());
 		if (collider == nullptr) {
-			collider = Parent()->AddComponent<Collider>();
+			collider = Parent()->AddComponent<PlaneCollider>();
 		}
 		
 		collider->SetTransform(transform);
 		collider->SetType(Collider::Type::Plane);
+		
+		// Get or add rigidbody.
+		auto rigidbody = scene->Attach(Parent()->AddComponent<Rigidbody>());
+		if (rigidbody == nullptr) {
+			rigidbody = Parent()->AddComponent<Rigidbody>();
+		}
+		
+		rigidbody->SetTransform(transform);
+		rigidbody->SetCollider(collider);
+		rigidbody->Kinematic(true);
+		rigidbody->Gravity(false);
+		
+		collider->SetRigidbody(rigidbody);
 	}
 	
 	void Plane::Tick() {

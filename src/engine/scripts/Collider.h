@@ -30,16 +30,16 @@ namespace LouiEriksson {
 		~Collider() override = default;
 	
 		/// <summary> Set the Transform of the Collider. </summary>
-		void SetTransform(std::weak_ptr<Transform> _transform);
+		virtual void SetTransform(const std::weak_ptr<Transform>& _transform);
 	
 		/// <summary> Get the Transform of the Collider. </summary>
-		std::weak_ptr<Transform> GetTransform();
+		const std::weak_ptr<Transform>& GetTransform();
 	
 		/// <summary> Set the Rigidbody of the Collider. </summary>
-		void SetRigidbody(std::weak_ptr<Rigidbody> _transform);
+		void SetRigidbody(const std::weak_ptr<Rigidbody>& _transform);
 	
 		/// <summary> Get the Rigidbody of the Collider. </summary>
-		std::weak_ptr<Rigidbody> GetRigidbody();
+		const std::weak_ptr<Rigidbody>& GetRigidbody();
 	
 		/// <summary> Set the Collider's Type. </summary>
 		void SetType(const Type& _type);

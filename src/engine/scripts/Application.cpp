@@ -28,7 +28,7 @@ namespace LouiEriksson {
 			/* INIT CURSOR STATE */
 			
 			// Init the cursor's state.
-			Cursor::State state = { main_window, Cursor::State::LockMode::Relative, true };
+			Cursor::State state = { main_window, Cursor::State::LockMode::Absolute, true };
 			Cursor::SetState(state);
 			
 			/* INIT GLEW */

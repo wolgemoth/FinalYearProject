@@ -43,6 +43,12 @@ namespace LouiEriksson {
 			// <summary> Wrapped implementation of Bullet's rigidbody system. </summary>
 			std::shared_ptr<BulletRigidbody> m_BulletRigidbody;
 			
+			/// <summary> Whether or not the rigidbody is influenced by external forces. </summary>
+			bool m_Kinematic;
+			
+			/// <summary> Whether or not the rigidbody is affected by gravity. </summary>
+			bool m_UseGravity;
+			
 			/// <summary> Velocity of the Rigidbody. </summary>
 			glm::vec3 m_Velocity;
 			
@@ -76,9 +82,6 @@ namespace LouiEriksson {
 		/// <summary> Collider of the Rigidbody. </summary>
 		std::weak_ptr<Collider> m_Collider;
 	
-		/// <summary> Compute the force from mass and velocity. </summary>
-		static glm::vec3 Force(const float& _mass, glm::vec3 _velocity);
-	
 		void BulletReinitialise();
 		
 	public:
@@ -101,6 +104,18 @@ namespace LouiEriksson {
 		/// <summary> Get the Collider of the Rigidbody. </summary>
 		std::weak_ptr<Collider> GetCollider();
 	
+		/// <summary> Set the kinematic state of the Rigidbody. </summary>
+		void Kinematic(const bool& _value);
+		
+		/// <summary> Get the kinematic state of the Rigidbody. </summary>
+		const bool& Kinematic();
+		
+		/// <summary> Set the kinematic state of the Rigidbody. </summary>
+		void Gravity(const bool& _value);
+		
+		/// <summary> Get the kinematic state of the Rigidbody. </summary>
+		const bool& Gravity();
+		
 		/// <summary> Set the velocity of the Rigidbody. </summary>
 		void Velocity(const glm::vec3& _velocity);
 		
@@ -119,17 +134,8 @@ namespace LouiEriksson {
 		/// <summary> Clear the force of the Rigidbody. </summary>
 		void ClearForce();
 	
-		/// <summary> Compute the drag force of the Rigidbody. </summary>
-		glm::vec3 DragForce(const float& _radius);
-	
-		/// <summary> Compute the friction force of the Rigidbody given Collision information. </summary>
-		glm::vec3 FrictionForce(Collision& _collision);
-	
 		/// <summary> Get the force of the Rigidbody. </summary>
 		glm::vec3 GetForce();
-	
-		/// <summary> Compute the Euler integration. </summary>
-		void Euler(const float& _delta);
 	
 		/// <summary> Set the mass of the Rigidbody. </summary>
 		void Mass(const float& _mass);
