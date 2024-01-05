@@ -215,7 +215,7 @@
         float currentLayerDepth = 0.0;
 
         // the amount to shift the texture coordinates per layer (from vector P)
-        vec2 P = _viewDir.xy / _viewDir.z * _scale;
+        vec2 P = _viewDir.xy / _viewDir.z * (_scale / maxLayers);
         vec2 deltaTexCoords = P / numLayers;
 
         vec2  currentTexCoords     = _uv;

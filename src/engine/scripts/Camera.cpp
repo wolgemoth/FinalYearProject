@@ -305,12 +305,18 @@ namespace LouiEriksson {
 			program.lock()->Assign(program.lock()->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount);
 			program.lock()->Assign(program.lock()->AttributeID(          "u_AO_Amount"), Settings::Graphics::Material::s_AOAmount);
 
-			program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), glm::vec3(0, 0, 0));
+			const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
+			
+			auto lightPos = lightType == Light::Parameters::Type::Directional ?
+					GetTransform()->m_Position + (VEC_FORWARD * glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation)) * 65535.0f) :
+					Settings::Graphics::Material::s_LightPosition;
+			
+			program.lock()->Assign(program.lock()->AttributeID("u_LightPosition"), lightPos);
 
 			program.lock()->Assign(program.lock()->AttributeID("u_ScreenDimensions"), (glm::vec2)GetWindow()->Dimensions());
 			
 			RenderTexture::Bind(m_Material_gBuffer);
-
+			
 			for (const auto& renderer : _renderers) {
 				
 				const auto transform = renderer->GetTransform();

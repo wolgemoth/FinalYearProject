@@ -77,12 +77,14 @@
 
         ao = mix(1.0, 0.0, clamp((1.0 - ao) * u_AO_Amount, 0.0, 1.0));
 
-        mediump vec3 lightDir = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
+        mediump vec3 lightDir_Tangent = normalize(v_LightPos_Tangent - v_FragPos_Tangent);
+
+        const float displacement_multiplier = 1.0;
 
         mediump float parallaxShadow = u_ParallaxShadows ?
             ParallaxShadowsHard(
                 u_Displacement,
-                lightDir,
+                lightDir_Tangent,
                 uv,
                 vec4(1.0, 1.0, 0.0, 0.0),
                 u_Displacement_Amount

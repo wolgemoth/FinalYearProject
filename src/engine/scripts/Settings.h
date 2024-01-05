@@ -104,7 +104,7 @@ namespace LouiEriksson {
 				
 				/* PARAMETERS */
 				inline static float s_RoughnessAmount    = 1.0f;
-				inline static float s_DisplacementAmount = 0.01f;
+				inline static float s_DisplacementAmount = 0.3f;
 				inline static float s_NormalAmount       = 1.0f;
 				inline static float s_EmissionAmount     = 0.0f;
 				inline static float s_AOAmount           = 2.0f;

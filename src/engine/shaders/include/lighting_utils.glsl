@@ -30,7 +30,7 @@
         float currentLayerDepth = currentDepthMapValue;
 
         float layerDepth = 1.0 / numLayers;
-        vec2 P = _lightDir.xy / _lightDir.z * _scale;
+        vec2 P = _lightDir.xy / _lightDir.z * (_scale / maxLayers);
         vec2 deltaTexCoords = P / numLayers;
 
         while (currentLayerDepth <= currentDepthMapValue && currentLayerDepth > 0.0) {
