@@ -68,7 +68,9 @@ void Utils::ALDumpError(const bool& _silent) {
 	
 	void Utils::GLDumpError(const bool& _silent) {
 		
-		if (const auto glError = glGetError() && !_silent) {
+		const auto glError = glGetError();
+		
+		if ((glError != GL_NONE) && !_silent) {
 			
 			std::cout << "OpenGL Error \"" << glError << "\": "
 				<< glewGetErrorString(glError) << '\n';

@@ -43,7 +43,7 @@ namespace LouiEriksson {
 			
 			T result;
 	
-			char delimiter = ' ';
+			const char delimiter = ' ';
 	
 			auto split = Utils::Split(_str, delimiter);
 			for (auto i = 0; i < split.size(); i++) {

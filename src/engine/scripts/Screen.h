@@ -1,7 +1,3 @@
-//
-// Created by ubuntu on 24/12/23.
-//
-
 #ifndef FINALYEARPROJECT_SCREEN_H
 #define FINALYEARPROJECT_SCREEN_H
 

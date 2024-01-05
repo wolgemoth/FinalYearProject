@@ -108,7 +108,7 @@ namespace LouiEriksson {
 		/// <returns>True if successful, false otherwise.</returns>
 		bool ContainsKey(const Tk& _key) {
 			
-			bool result = false;
+			auto result = false;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
 			size_t hash = GetHashcode(_key);
@@ -141,7 +141,7 @@ namespace LouiEriksson {
 		/// <returns>True if successful, false otherwise.</returns>
 		bool Add(const Tk& _key, const Tv& _value) {
 			
-			bool result = true;
+			auto result = true;
 			
 			if (size() >= m_Buckets.size()) {
 				Resize();
@@ -190,7 +190,7 @@ namespace LouiEriksson {
 			
 			auto& bucket = m_Buckets[i];
 			
-			bool exists = false;
+			auto exists = false;
 			for (auto& kvp: bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
@@ -249,7 +249,7 @@ namespace LouiEriksson {
 		/// <returns>True if successful, false otherwise.</returns>
 		bool Get(const Tk& _key, Tv& _out) const {
 			
-			bool result = false;
+			auto result = false;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
 			size_t hash = GetHashcode(_key);
@@ -324,7 +324,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns the keys of all entries stored within the hashmap.
 		/// </summary>
-		std::vector<Tk> Keys() const {
+		[[nodiscard]] std::vector<Tk> Keys() const {
 			
 			std::vector<Tk> result;
 			
@@ -340,7 +340,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns the values of all entries stored within the hashmap.
 		/// </summary>
-		std::vector<Tv> Values() const {
+		[[nodiscard]] std::vector<Tv> Values() const {
 			
 			std::vector<Tv> result;
 			
@@ -356,7 +356,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Returns all entries stored within the hashmap.
 		/// </summary>
-		std::vector<KeyValuePair> GetAll() const {
+		[[nodiscard]] std::vector<KeyValuePair> GetAll() const {
 			
 			std::vector<KeyValuePair> result;
 			

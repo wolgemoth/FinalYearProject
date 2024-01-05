@@ -4,9 +4,11 @@
 
 #include "Cursor.h"
 #include "GUI.h"
+#include "Input.h"
 #include "Settings.h"
 #include "Sound.h"
 #include "Physics.h"
+#include "Resources.h"
 
 namespace LouiEriksson {
 	
@@ -74,7 +76,7 @@ namespace LouiEriksson {
 				
 				try {
 				
-					// Clear thes AL error state by dumping the error at the start of the frame.
+					// Clear the AL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
 					// Clear the GL error state by dumping the error at the start of the frame.

@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include "Application.h"
+#include "Input.h"
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 

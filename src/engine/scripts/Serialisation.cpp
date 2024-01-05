@@ -17,7 +17,8 @@ namespace LouiEriksson {
 	
 	std::string Serialisation::ParseNext(cereal::XMLInputArchive& _xml, int _log) {
 	
-		std::string name = _xml.getNodeName();
+		const auto name = _xml.getNodeName();
+		
 		std::string result;
 		_xml(result);
 	

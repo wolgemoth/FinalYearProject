@@ -4,19 +4,14 @@
 #include "Texture.h"
 #include "Shader.h"
 
-class Application;
-class Camera;
-class GUI;
-class OrbitCam;
-
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
 namespace LouiEriksson {
 	
 	class Settings {
 	
-		friend Application;
-		friend GUI;
+		friend class Application;
+		friend class GUI;
 		
 	public:
 		
@@ -26,7 +21,7 @@ namespace LouiEriksson {
 		/// <summary> Container for the application's graphics settings. </summary>
 		struct Graphics {
 			
-			friend Camera;
+			friend class Camera;
 			
 			inline static bool s_GammaCorrection = true;
 			
@@ -49,7 +44,7 @@ namespace LouiEriksson {
 			/// <summary> Container for the settings of the OrbitCam script. </summary>
 			struct Perspective {
 				
-				friend OrbitCam;
+				friend class OrbitCam;
 			
 				inline static float      s_FOV = 60.0f;
 				inline static float s_NearClip = 0.01f;
@@ -165,7 +160,7 @@ namespace LouiEriksson {
 		/// <summary> Container for the settings of the application's post-processing effects. </summary>
 		struct PostProcessing {
 			
-			friend Camera;
+			friend class Camera;
 			
 			inline static bool s_Enabled = true;
 			

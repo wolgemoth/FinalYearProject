@@ -31,14 +31,14 @@ namespace LouiEriksson {
 			
 			// COLOR
 			glGenTextures(1, &m_TextureID);
-			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = m_TextureID);
+			glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = static_cast<GLint>(m_TextureID));
 			
-			glTexImage2D(GL_TEXTURE_2D, 0, _format.PixelFormat(), _width, _height, 0, _format.TextureFormat(), GL_HALF_FLOAT, nullptr);
+			glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(_format.PixelFormat()), _width, _height, 0, _format.TextureFormat(), GL_HALF_FLOAT, nullptr);
 			
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _filterMode.Min());
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _filterMode.Mag());
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapMode.WrapS());
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapMode.WrapT());
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_filterMode.Min()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(_filterMode.Mag()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapMode.WrapS()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapMode.WrapT()));
 			
 			Texture::Unbind();
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureID, 0);
@@ -61,14 +61,14 @@ namespace LouiEriksson {
 				case RenderTexture::Parameters::FRAME_BUFFER: {
 					
 					glGenTextures(1, &m_Depth_ID);
-					glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = m_Depth_ID);
+					glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = static_cast<GLint>(m_Depth_ID));
 					
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _width, _height, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 					
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _filterMode.Min());
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _filterMode.Mag());
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _wrapMode.WrapS());
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _wrapMode.WrapT());
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_filterMode.Min()));
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(_filterMode.Mag()));
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapMode.WrapS()));
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapMode.WrapT()));
 					
 					Texture::Unbind();
 					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);

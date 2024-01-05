@@ -2,8 +2,6 @@
 
 #include "Physics.h"
 
-#include "Time.h"
-
 namespace LouiEriksson {
 	
 	Physics::Debugger::Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld) {

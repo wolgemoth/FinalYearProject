@@ -29,7 +29,7 @@ namespace LouiEriksson {
 		
 			bool m_Visible;
 		
-			State(const std::weak_ptr<Window>& _window, const LockMode& _lockMode, const bool _visible);
+			State(const std::weak_ptr<Window>& _window, const LockMode& _lockMode, const bool& _visible);
 			
 		private:
 			

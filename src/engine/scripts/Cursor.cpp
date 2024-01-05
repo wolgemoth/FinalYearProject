@@ -41,7 +41,7 @@ namespace LouiEriksson {
 		}
 	}
 	
-	Cursor::State::State(const std::weak_ptr<Window>& _window, const Cursor::State::LockMode& _lockMode, const bool _visible) {
+	Cursor::State::State(const std::weak_ptr<Window>& _window, const Cursor::State::LockMode& _lockMode, const bool& _visible) {
 		
 		m_Window   = _window;
 		m_LockMode = _lockMode;

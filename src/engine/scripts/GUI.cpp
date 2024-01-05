@@ -67,8 +67,8 @@ namespace LouiEriksson {
 		static std::vector<float> s_Timestamps;
 		static std::vector<float> s_Samples;
 		
-		static float s_Plot_SamplingWindowSize = 20.0f;
-		static float  s_FPS_SamplingWindowSize =  0.5f;
+		static const auto s_Plot_SamplingWindowSize = 20.0f;
+		static const auto  s_FPS_SamplingWindowSize =  0.5f;
 		
 		// Append the current frame.
 		s_Timestamps.push_back(Time::Elapsed());
@@ -84,8 +84,8 @@ namespace LouiEriksson {
 		
 		for (int i = 0; i < s_Samples.size(); ++i) {
 			
-			float timestamp = s_Timestamps[i],
-			            fps =    s_Samples[i];
+			const auto timestamp = s_Timestamps[i];
+			auto fps = s_Samples[i];
 			
 			if (timestamp > 0.0f) {
 				
@@ -150,11 +150,11 @@ namespace LouiEriksson {
 			
 			plot_size.y -= plot_vMargin;
 			
-			const float bottom = plot_cursor.y + plot_size.y;
-			const float right  = plot_cursor.x + plot_size.x;
-			const float hMargin = 5.0f;
+			const auto bottom = plot_cursor.y + plot_size.y;
+			const auto right  = plot_cursor.x + plot_size.x;
+			const auto hMargin = 5.0f;
 			
-			float range = max_fps - min_fps;
+			const auto range = max_fps - min_fps;
 			
 			// Draw the main plot:
 			{
@@ -220,7 +220,7 @@ namespace LouiEriksson {
 			 *     - Polling-rate for some consumer peripherals.
 			 *     - Likely pointless in most consumer use-cases.
 			 */
-			std::vector<float> fps_ticks = {
+			const std::vector<float> fps_ticks = {
 				   1.0f,   3.0f,   6.0f,  12.0f,  24.0f,   30.0f,
 				  50.0f,  60.0f,  72.0f,  90.0f, 100.0f,  120.0f,
 				 144.0f, 240.0f, 360.0f, 480.0f, 500.0f, 1000.0f,
@@ -240,7 +240,7 @@ namespace LouiEriksson {
 				while (t > oldest_plot_timestamp) {
 					
 					// Compute the x offset of the line.
-					float x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0f, plot_size.x);
+					const auto x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0f, plot_size.x);
 					
 					// Draw the line:
 					{
@@ -272,7 +272,7 @@ namespace LouiEriksson {
 			}
 			
 			// Draw horizontal lines for the common FPS values.
-			for (float val : fps_ticks) {
+			for (const auto val : fps_ticks) {
 				
 				if (val < max_fps && val > min_fps) {
 					

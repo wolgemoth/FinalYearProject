@@ -6,17 +6,17 @@
 
 namespace LouiEriksson {
 	
-	float Time::Elapsed() {
+	const float& Time::Elapsed() {
 		return s_Elapsed;
 	}
-	float Time::DeltaTime() {
+	const float& Time::DeltaTime() {
 		return s_DeltaTime;
 	}
 	
 	void Time::FixedDeltaTime(const float& _value) {
 		s_FixedDeltaTime = _value;
 	}
-	float Time::FixedDeltaTime() {
+	const float& Time::FixedDeltaTime() {
 		return s_FixedDeltaTime;
 	}
 }

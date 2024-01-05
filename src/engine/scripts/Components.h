@@ -11,6 +11,10 @@
 #include "SphereCollider.h"
 #include "PlaneCollider.h"
 
+/* Audio */
+#include "AudioListener.h"
+#include "AudioSource.h"
+
 /* Graphics */
 #include "Camera.h"
 #include "Light.h"

@@ -57,7 +57,7 @@ namespace LouiEriksson {
 	public:
 	
 		 explicit Player(const std::shared_ptr<GameObject>& _parent);
-		~Player();
+		~Player() override;
 	
 	};
 }

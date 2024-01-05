@@ -23,11 +23,11 @@ namespace LouiEriksson {
 		 Time(const Time& _other) = delete;
 		~Time()                   = delete;
 		
-		static float Elapsed();
-		static float DeltaTime();
+		static const float& Elapsed();
+		static const float& DeltaTime();
 	
 		static void  FixedDeltaTime(const float& _value);
-		static float FixedDeltaTime();
+		static const float& FixedDeltaTime();
 		
 		Time& operator = (const Time&  _other) = delete;
 		Time& operator =       (Time&& _other) = delete;

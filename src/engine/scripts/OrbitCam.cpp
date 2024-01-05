@@ -68,7 +68,7 @@ namespace LouiEriksson {
 		
 		if (target::s_Enabled) {
 			
-			float distance = target::s_Offset.z + glm::sin(m_AnimationProgress * target::s_Speed.z) * target::s_Amount.z;
+			const auto distance = target::s_Offset.z + glm::sin(m_AnimationProgress * target::s_Speed.z) * target::s_Amount.z;
 			
 			GetTransform()->m_Position = glm::vec3(
 				glm::sin(m_AnimationProgress * target::s_Speed.x) * distance,

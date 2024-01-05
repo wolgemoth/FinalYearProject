@@ -31,7 +31,7 @@ namespace LouiEriksson {
 				SDL_PIXELFORMAT_ARGB2101010 :
 				SDL_PIXELFORMAT_RGB24;
 		
-	    if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
+		if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
 			
 			std::stringstream err;
 			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<

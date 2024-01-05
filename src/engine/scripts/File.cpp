@@ -219,7 +219,7 @@ namespace LouiEriksson {
 		 * Implementation derived from Mesh.cpp and Mesh.h
 		 * provided with OBJLoader_v3 project in GCP labs.
 		 *
-		 * I added tangent calculations to the code derived from an implementation by Learn OpengGL:
+		 * I added tangent calculations to the code derived from an implementation by Learn OpenGL:
          * de Vries, J. (n.d.). LearnOpenGL - Normal Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Normal-Mapping [Accessed 15 Dec. 2023].
 		 */
 		
@@ -408,7 +408,7 @@ namespace LouiEriksson {
 						    const auto delta_texcoord1 = uv1 - uv0;
 						    const auto delta_texcoord2 = uv2 - uv0;
 						
-							float f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
+							const auto f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
 						    const auto   tangent = f * (delta_pos1 * delta_texcoord2.y - delta_pos2 * delta_texcoord1.y);
 						    const auto bitangent = f * (delta_pos2 * delta_texcoord1.x - delta_pos1 * delta_texcoord2.x);
 							

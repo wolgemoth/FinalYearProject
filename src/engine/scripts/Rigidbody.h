@@ -102,13 +102,13 @@ namespace LouiEriksson {
 		void SetTransform(const std::weak_ptr<Transform>& _transform);
 	
 		/// <summary> Get the Transform of the Rigidbody. </summary>
-		std::weak_ptr<Transform> GetTransform();
+		const std::weak_ptr<Transform>& GetTransform() const;
 	
 		/// <summary> Set the Collider of the Rigidbody. </summary>
 		void SetCollider(const std::weak_ptr<Collider>& _collider);
 	
 		/// <summary> Get the Collider of the Rigidbody. </summary>
-		std::weak_ptr<Collider> GetCollider();
+		const std::weak_ptr<Collider>& GetCollider() const ;
 	
 		/// <summary>
 		/// Set the position of the Rigidbody.
@@ -134,61 +134,61 @@ namespace LouiEriksson {
 		void Kinematic(const bool& _value);
 		
 		/// <summary> Get the kinematic state of the Rigidbody. </summary>
-		const bool& Kinematic();
+		[[nodiscard]] const bool& Kinematic() const;
 		
 		/// <summary> Set the kinematic state of the Rigidbody. </summary>
 		void Gravity(const bool& _value);
 		
 		/// <summary> Get the kinematic state of the Rigidbody. </summary>
-		const bool& Gravity();
+		[[nodiscard]] const bool& Gravity() const;
 		
 		/// <summary> Set the velocity of the Rigidbody. </summary>
 		void Velocity(const glm::vec3& _value);
 		
 		/// <summary> Get the velocity of the Rigidbody. </summary>
-		glm::vec3 Velocity();
+		[[nodiscard]] glm::vec3 Velocity() const;
 		
 		/// <summary> Set the angular velocity of the Rigidbody. </summary>
 		void AngularVelocity(const glm::vec3& _value);
 	
 		/// <summary> Get the angular velocity of the Rigidbody. </summary>
-		glm::vec3 AngularVelocity();
+		[[nodiscard]] glm::vec3 AngularVelocity() const;
 	
 		/// <summary> Add a force to the Rigidbody. </summary>
 		void AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition = glm::vec3(0.0f));
 	
 		/// <summary> Get the force of the Rigidbody. </summary>
-		glm::vec3 GetForce();
+		[[nodiscard]] glm::vec3 GetForce() const;
 	
 		/// <summary> Set the mass of the Rigidbody. </summary>
 		void Mass(const float& _value);
 		
 		/// <summary> Get the mass of the Rigidbody. </summary>
-		[[nodiscard]] float Mass() const;
+		[[nodiscard]] const float& Mass() const;
 	
 		/// <summary> Set the drag of the Rigidbody. </summary>
 		void Drag(const float& _value);
 	
 		/// <summary> Get the drag of the Rigidbody. </summary>
-		[[nodiscard]] float Drag() const;
+		[[nodiscard]] const float& Drag() const;
 	
 		/// <summary> Set the angular drag of the Rigidbody. </summary>
 		void AngularDrag(const float& _value);
 	
 		/// <summary> Get the angular drag of the Rigidbody. </summary>
-		[[nodiscard]] float AngularDrag() const;
+		[[nodiscard]] const float& AngularDrag() const;
 	
 		/// <summary> Set the friction of the Rigidbody. </summary>
 		void Friction(const float& _value);
 	
 		/// <summary> Get the friction of the Rigidbody. </summary>
-		[[nodiscard]] float Friction() const;
+		[[nodiscard]] const float& Friction() const;
 		
 		/// <summary> Set the bounciness of the Rigidbody. </summary>
 		void Bounciness(const float& _value);
 	
 		/// <summary> Get the bounciness of the Rigidbody. </summary>
-		[[nodiscard]] float Bounciness() const;
+		[[nodiscard]] const float& Bounciness() const;
 	};
 }
 

@@ -248,7 +248,7 @@ namespace LouiEriksson {
 		auto result = std::make_shared<Scene>();
 		
 		// TODO: Better logging.
-		bool log = false;
+		const auto log = false;
 		
 		try {
 			

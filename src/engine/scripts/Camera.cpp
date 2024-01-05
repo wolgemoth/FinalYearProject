@@ -434,7 +434,7 @@ namespace LouiEriksson {
 				/* CONFIGURE CULLING */
 				
 				// Get current culling settings.
-				bool cullEnabled = glIsEnabled(GL_CULL_FACE) == GL_TRUE;
+				const bool cullEnabled = glIsEnabled(GL_CULL_FACE) == GL_TRUE;
 				int cullMode;
 				glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
 				
@@ -995,12 +995,12 @@ namespace LouiEriksson {
 		
 		// Compute the average luminosity:
 		int avg_count = 0;
-		float avg = 0.0f;
+		auto avg = 0.0f;
 		
 		for (auto y = 0; y < luma_res.y; y++) {
 		for (auto x = 0; x < luma_res.x; x++) {
 			
-			float l = pixels.at((y * luma_res.x) + x);
+			const auto l = pixels.at((y * luma_res.x) + x);
 			
 			if (l > 0) {
 				avg += l;
@@ -1062,7 +1062,7 @@ namespace LouiEriksson {
 		
 		// Create a render texture for the AO. Optionally, downscale the texture
 		// to save performance by computing AO at a lower resolution.
-		int downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
+		const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
 		
 		RenderTexture ao_rt(
 			glm::max(viewport[2] / (downscale + 1), 1),
@@ -1165,10 +1165,10 @@ namespace LouiEriksson {
 
 		// Create the diffusion vector for the bloom algorithm:
 		{
-			float t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
+			const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
 		
 			// Imitate anamorphic artifacts by morphing the shape of the diffusion vector:
-			glm::vec2 diffusionVec(
+			const glm::vec2 diffusionVec(
 				glm::mix(0.0f, target::s_Diffusion,        t),
 				glm::mix(0.0f, target::s_Diffusion, 1.0f - t)
 			);

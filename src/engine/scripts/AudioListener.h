@@ -19,14 +19,26 @@ namespace LouiEriksson {
 		 explicit AudioListener(const std::shared_ptr<GameObject>& _parent);
 		~AudioListener() override;
 		
+		float m_Gain;
+		
+		glm::vec3 m_LastPosition;
+		
 	public:
 		
+		/// <summary> Initialise the AudioListener. </summary>
 		void Init();
 	
+		/// <summary> Updates the AudioListener every frame.</summary>
 		void Tick();
 		
+		/// <summary> Synchronise the AudioListener with the internal audio engine. </summary>
 		void Sync();
 		
+		/// <summary> Set the master gain of the AudioListener. </summary>
+		void Gain(const float& _value);
+		
+		/// <summary> Get the master gain of the AudioListener. </summary>
+		[[nodiscard]] const float& Gain() const;
 	};
 	
 } // LouiEriksson

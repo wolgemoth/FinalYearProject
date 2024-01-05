@@ -62,7 +62,7 @@ namespace LouiEriksson {
 				m_Rigidbody->setAngularFactor({ 0.0f, 0.0f, 0.0f });
 			}
 			else {
-#
+				
 				// Ensure motion is permitted along all axes.
 				m_Rigidbody-> setLinearFactor({ 1.0f, 1.0f, 1.0f });
 				m_Rigidbody->setAngularFactor({ 1.0f, 1.0f, 1.0f });
@@ -246,7 +246,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	std::weak_ptr<Transform> Rigidbody::GetTransform() {
+	const std::weak_ptr<Transform>& Rigidbody::GetTransform() const {
 		return m_Transform;
 	}
 	
@@ -262,7 +262,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	std::weak_ptr<Collider> Rigidbody::GetCollider() {
+	const std::weak_ptr<Collider>& Rigidbody::GetCollider() const {
 		return m_Collider;
 	}
 	
@@ -297,7 +297,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const bool& Rigidbody::Kinematic() {
+	const bool& Rigidbody::Kinematic() const {
 		return m_Parameters.m_Kinematic;
 	}
 	
@@ -306,7 +306,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const bool& Rigidbody::Gravity() {
+	const bool& Rigidbody::Gravity() const {
 		return m_Parameters.m_UseGravity;
 	}
 	
@@ -316,7 +316,7 @@ namespace LouiEriksson {
 			{ _value.x, _value.y, _value.z }
 		);
 	}
-	glm::vec3 Rigidbody::Velocity() {
+	glm::vec3 Rigidbody::Velocity() const {
 		
 		const auto v = m_Parameters.m_BulletRigidbody->m_Rigidbody->getLinearVelocity();
 		
@@ -329,11 +329,11 @@ namespace LouiEriksson {
 			{ _value.x, _value.y, _value.z }
 		);
 	}
-	glm::vec3 Rigidbody::AngularVelocity() {
+	glm::vec3 Rigidbody::AngularVelocity() const {
 		
 		const auto av = m_Parameters.m_BulletRigidbody->m_Rigidbody->getAngularVelocity();
 		
-		return {av.x(), av.y(), av.z()};
+		return { av.x(), av.y(), av.z() };
 	}
 	
 	void Rigidbody::AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition) {
@@ -343,11 +343,11 @@ namespace LouiEriksson {
 			{ _relativePosition.x, _relativePosition.y, _relativePosition.z }
 		);
 	}
-	glm::vec3 Rigidbody::GetForce() {
+	glm::vec3 Rigidbody::GetForce() const {
 		
 		const auto f = m_Parameters.m_BulletRigidbody->m_Rigidbody->getTotalForce();
 		
-		return {f.x(), f.y(), f.z()};
+		return { f.x(), f.y(), f.z() };
 	}
 	
 	void Rigidbody::Mass(const float& _value) {
@@ -355,7 +355,7 @@ namespace LouiEriksson {
 	
 		BulletReinitialise();
 	}
-	float Rigidbody::Mass() const {
+	const float& Rigidbody::Mass() const {
 		return m_Parameters.m_Mass;
 	}
 	
@@ -364,7 +364,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	float Rigidbody::Drag() const {
+	const float& Rigidbody::Drag() const {
 		return m_Parameters.m_Drag;
 	}
 	
@@ -373,7 +373,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	float Rigidbody::AngularDrag() const {
+	const float& Rigidbody::AngularDrag() const {
 		return m_Parameters.m_AngularDrag;
 	}
 	
@@ -382,7 +382,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	float Rigidbody::Friction() const {
+	const float& Rigidbody::Friction() const {
 		return m_Parameters.m_Friction;
 	}
 	
@@ -391,7 +391,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	float Rigidbody::Bounciness() const {
+	const float& Rigidbody::Bounciness() const {
 		return m_Parameters.m_Bounciness;
 	}
 }

@@ -2,9 +2,7 @@
 #define FINALYEARPROJECT_APPLICATION_H
 
 #include "Time.h"
-#include "Input.h"
 #include "Scene.h"
-#include "Resources.h"
 
 namespace LouiEriksson {
 	

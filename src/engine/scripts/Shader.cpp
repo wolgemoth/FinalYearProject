@@ -8,7 +8,7 @@
 
 namespace LouiEriksson {
 	
-	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(_type) {}
+	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(static_cast<GLint>(_type)) {}
 	
 	Shader::Shader(const std::filesystem::path& _path) {
 		
@@ -58,7 +58,7 @@ namespace LouiEriksson {
 					std::string src = File::ReadAllText(shader.m_Path);
 				std::cout << "Done.\n";
 				
-				Compile(src.data(), shader.m_Type);
+				Compile(src, shader.m_Type);
 			}
 			
 			m_ProgramID = glCreateProgram();
@@ -152,7 +152,7 @@ namespace LouiEriksson {
 			glGetShaderiv(m_SubShaders.back(), GL_INFO_LOG_LENGTH, &maxLength);
 			
 			std::vector<GLchar> errorLog(maxLength);
-			glGetShaderInfoLog(m_SubShaders.back(), maxLength, &maxLength, &errorLog[0]);
+			glGetShaderInfoLog(m_SubShaders.back(), maxLength, &maxLength, errorLog.data());
 			
 			std::stringstream err;
 			err << "ERROR (Shader.cpp [Compile(const char*, GLint)]): Failed to compile shader:\n\t";
