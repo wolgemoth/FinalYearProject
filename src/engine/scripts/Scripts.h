@@ -12,5 +12,6 @@
 #include "OrbitCam.h"
 #include "Plane.h"
 #include "Player.h"
+#include "Rigidbody.h"
 
 #endif //FINALYEARPROJECT_SCRIPTS_H

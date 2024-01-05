@@ -6,10 +6,7 @@
 
 namespace LouiEriksson {
 	
-	Plane::Plane(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-	
-	}
-	
+	Plane::Plane(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {}
 	Plane::~Plane() = default;
 	
 	void Plane::Begin() {
@@ -32,6 +29,8 @@ namespace LouiEriksson {
 		if (transform == nullptr) {
 			transform = Parent()->AddComponent<Transform>();
 		}
+		
+		transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
 		
 		// Get or add Renderer.
 		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());

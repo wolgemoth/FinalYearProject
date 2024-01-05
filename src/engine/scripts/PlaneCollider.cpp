@@ -18,20 +18,12 @@ namespace LouiEriksson {
 		
 		if (transform != nullptr) {
 			
-			// Compute the normal using the transform.
-			const auto normal = transform->UP;
+			const auto s = transform->m_Scale;
 			
-			/* The 'plane' collision shape requires a normal, hence
-			 * why it is initialised here when the transform is assigned. */
+			/* Use box-shaped collision instead of a plane-shape so that
+			 * we can allow our plane to have edges, and not just be infinite. */
 			m_CollisionShape.reset(
-				new btStaticPlaneShape(
-					btVector3(
-						normal.x,
-						normal.y,
-						normal.z
-					),
-					0.0f
-				)
+				new btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })
 			);
 		}
 		

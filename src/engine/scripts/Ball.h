@@ -14,13 +14,17 @@ namespace LouiEriksson {
 	
 		friend class Scene;
 	
-	protected:
-	
+	private:
+		
 		/// <summary> Mesh of the Ball. </summary>
 		inline static std::shared_ptr<Mesh> s_Mesh;
 		
 		/// <summary> Material of the Ball. </summary>
 		inline static std::weak_ptr<Material> s_Material;
+	
+		glm::vec3 m_StartingPosition;
+		
+	protected:
 	
 		/// <summary> Called at the beginning of the first frame. </summary>
 		void Begin() override;

@@ -65,11 +65,13 @@ namespace LouiEriksson {
 		/// <summary> Value of gravity. </summary>
 		inline static glm::vec3 s_Gravity = glm::vec3(0.0f, -9.82f, 0.0f);
 		
+		inline static float s_LastTick = 0.0f;
+		
 		/// <summary> Initialise the physics engine. </summary>
 		static void Init();
 		
 		/// <summary> Update the physics simulation by one step. </summary>
-		static void Tick();
+		static void Tick(const float& _step);
 		
 		/// <summary> Set the value of gravity within the simulation. </summary>
 		static void Gravity(const glm::vec3& _value);

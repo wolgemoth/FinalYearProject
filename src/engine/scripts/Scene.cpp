@@ -64,7 +64,17 @@ namespace LouiEriksson {
 	}
 	
 	void Scene::Tick() {
+		
+		std::vector<std::any> rigidbodies;
+		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
 	
+			for (const auto& r : rigidbodies) {
+				
+				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
+				rigidbody->Interpolate();
+			}
+		}
+		
 		std::vector<std::any> scripts;
 		if (m_Entities.Get(typeid(Script), scripts)) {
 			for (const auto& s : scripts) {
@@ -308,6 +318,8 @@ namespace LouiEriksson {
 						rigidbody->    AngularDrag(Serialisation::Deserialise<float>    (Serialisation::ParseNext(xml, log ? 3 : -1)));
 						
 						xml.finishNode();
+						
+						result->Attach(std::dynamic_pointer_cast<Script>(rigidbody));
 					}
 					else if (componentName == "Camera") {		// Deserialise Camera.
 					

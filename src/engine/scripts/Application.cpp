@@ -69,17 +69,16 @@ namespace LouiEriksson {
 			}
 			
 			// Set the delta time of the physics simulation.
-			Time::FixedDeltaTime(0.02f);
+			Time::FixedDeltaTime(1.0f / 60.0f);
 	
 			float physics_step = 0.0f;
-			float fps_timer    = 0.0f;
 			
 			/* LOOP */
 			while (!Application::s_Quit) {
 				
 				try {
 				
-					// Clear the AL error state by dumping the error at the start of the frame.
+					// Clear thes AL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
 					// Clear the GL error state by dumping the error at the start of the frame.
@@ -156,17 +155,21 @@ namespace LouiEriksson {
 					/* UPDATE CURSOR STATE */
 					Cursor::Update();
 					
+					/* FIXED UPDATE */
+					
+					// Runs as many times as needed to restore the physics step below zero.
+					while (physics_step >= 0.0f) {
+						
+						Physics::Tick(Time::FixedDeltaTime());
+						
+						scene->FixedTick();
+						
+						physics_step -= Time::FixedDeltaTime();
+					}
+					
 					/* UPDATE */
 					scene->Tick();
 		
-					/* FIXED UPDATE */
-					if (physics_step <= 0.0f) {
-						physics_step = Time::FixedDeltaTime();
-		
-						Physics::Tick();
-						scene->FixedTick();
-					}
-					
 					/* GUI UPDATE */
 					GUI::OnGUI(main_window);
 					
@@ -189,9 +192,9 @@ namespace LouiEriksson {
 							frame_start
 						).count()) / 1000000.0f; // Calculate delta time.
 		
-					Time::s_Elapsed += Time::DeltaTime();
-					   physics_step -= Time::DeltaTime();
-					   fps_timer    -= Time::DeltaTime();
+					   Time::s_Elapsed  += Time::DeltaTime(); // Increment total elapsed time.
+					Physics::s_LastTick += Time::DeltaTime(); // Increment time since last physics update.
+					       physics_step += Time::DeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 				}
 				catch (const std::exception& e) {
 					std::cout << e.what()<< '\n';

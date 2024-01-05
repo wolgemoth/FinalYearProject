@@ -13,18 +13,27 @@ namespace LouiEriksson {
 		
 		try {
 			
+			// Initialise the motion state.
 			m_MotionState.reset(new btDefaultMotionState());
 			
+			// Initialise the rigidbody.
 			m_Rigidbody.reset(
 				new btRigidBody(
 					_parameters.m_Mass,
 					m_MotionState.get(),
-					_collider.lock()->m_CollisionShape.get()
+					_collider.lock()->m_CollisionShape.get(),
+					_parameters.m_Inertia
 				)
 			);
 			
 			// Assign the drag and angular drag coefficients.
 			m_Rigidbody->setDamping(_parameters.m_Drag, _parameters.m_AngularDrag);
+			
+			// Assign the friction coefficient.
+			m_Rigidbody->setFriction(_parameters.m_Friction);
+			
+			// Assign the restitution (bounciness) of the rigidbody.
+			m_Rigidbody->setRestitution(_parameters.m_Bounciness);
 			
 			// Set the transform of the rigidbody.
 			{
@@ -48,9 +57,15 @@ namespace LouiEriksson {
 					btCollisionObject::CF_KINEMATIC_OBJECT
 				);
 				
-				// Reset the velocities:
-				m_Rigidbody->setLinearFactor(btVector3(0, 0, 0));
-				m_Rigidbody->setAngularFactor(btVector3(0, 0, 0));
+				// Restrict all motion.
+				m_Rigidbody-> setLinearFactor({ 0.0f, 0.0f, 0.0f });
+				m_Rigidbody->setAngularFactor({ 0.0f, 0.0f, 0.0f });
+			}
+			else {
+#
+				// Ensure motion is permitted along all axes.
+				m_Rigidbody-> setLinearFactor({ 1.0f, 1.0f, 1.0f });
+				m_Rigidbody->setAngularFactor({ 1.0f, 1.0f, 1.0f });
 			}
 			
 			// Set up how the rigidbody interacts with gravity:
@@ -59,9 +74,47 @@ namespace LouiEriksson {
 				
 				m_Rigidbody->setGravity(
 					_parameters.m_UseGravity ?
-						btVector3(g.x, g.y, g.z) :
-						btVector3(0, 0, 0)
+						btVector3( g.x,  g.y,  g.z) :
+						btVector3(0.0f, 0.0f, 0.0f)
 				);
+			}
+			
+			// See: https://docs.panda3d.org/1.10/python/programming/physics/bullet/ccd
+			if (_parameters.m_Continuous) {
+				
+				// Compute the continuous sphere radius using the collider's AABB.
+				float sweep_sphere_radius = 0.01f;
+				{
+					const auto* col = m_Rigidbody->getCollisionShape();
+				
+					btTransform t;
+					btVector3 min;
+					btVector3 max;
+					
+					col->getAabb(t, min, max);
+					
+					const auto delta = max - min;
+					
+					// Get largest axis:
+					const auto multiplier = 0.707f;
+				
+					sweep_sphere_radius = glm::max(
+						sweep_sphere_radius,
+						glm::max(
+							delta.x(),
+							glm::max(
+								delta.y(),
+								delta.z()
+							)
+						) * multiplier
+					);
+				}
+				
+				// Threshold to activate CCD in units per second.
+				const float threshold_Ms = sweep_sphere_radius;
+				
+				m_Rigidbody->setCcdMotionThreshold(Time::FixedDeltaTime() * threshold_Ms);
+				m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
 			}
 			
 			// Add the rigidbody to the dynamics world.
@@ -70,6 +123,25 @@ namespace LouiEriksson {
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
+	}
+	
+	Rigidbody::Parameters::Parameters() {
+		
+		m_BulletRigidbody = std::shared_ptr<BulletRigidbody>(nullptr);
+		
+		m_Kinematic  = false;
+		m_UseGravity = true;
+		m_Continuous = true;
+		
+		// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
+		
+		m_Mass        = 1.0f;
+		m_Drag        = 0.2f;
+		m_AngularDrag = 0.005f;
+		m_Friction    = 0.5f;
+		m_Bounciness  = 0.5f;
+		
+		m_Inertia = { 1.0f, 1.0f, 1.0f };
 	}
 	
 	Rigidbody::BulletRigidbody::~BulletRigidbody() {
@@ -85,20 +157,41 @@ namespace LouiEriksson {
 		m_Collider  = std::shared_ptr<Collider> (nullptr);
 	}
 	
-	Rigidbody::Parameters::Parameters() {
+	void Rigidbody::Interpolate() {
 		
-		m_BulletRigidbody = std::shared_ptr<BulletRigidbody>(nullptr);
-		
-		m_Kinematic  = false;
-		m_UseGravity = true;
-		
-		m_Velocity        = glm::vec3(0.0f);
-		m_AngularVelocity = glm::vec3(0.0f);
-		m_Force           = glm::vec3(0.0f);
-		
-		m_Mass        = 1.0f;
-		m_Drag        = 0.005f; // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-		m_AngularDrag = 0.0f;
+		if (Physics::s_LastTick > 0.0f) {
+			
+			const auto transform = m_Transform.lock();
+			
+			if (transform != nullptr) {
+				
+				// Get the transform from the bullet physics engine.
+				auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
+				
+				// Get the position and rotation of the rigidbody as they exist within bullet.
+				const auto bOrigin   = t.getOrigin();
+				const auto bRotation = t.getRotation().inverse();
+				
+				// Convert to glm types.
+				const auto lastPos = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
+				const auto lastRot = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
+			
+				// Compute quaternion from angular velocity.
+				const auto av = AngularVelocity();
+				
+				glm::quat rot;
+				if (glm::length(av) > 0.005f) {
+					rot = glm::angleAxis(glm::cos(glm::length(av)) * Time::FixedDeltaTime(), glm::normalize(av));
+				}
+				else {
+					rot = glm::identity<glm::quat>();
+				}
+				
+				// Apply new values. Linearly interpolate using length of time since last physics update.
+				transform->m_Position = lastPos + (Velocity() * Physics::s_LastTick * Time::FixedDeltaTime());
+				transform->m_Rotation = glm::slerp(lastRot, lastRot * rot, glm::max(Physics::s_LastTick, 0.0f));
+			}
+		}
 	}
 	
 	void Rigidbody::BulletReinitialise() {
@@ -133,20 +226,17 @@ namespace LouiEriksson {
 			if (transform != nullptr) {
 				
 				// Get the transform from the bullet physics engine.
-				btTransform t;
-				m_Parameters.m_BulletRigidbody->m_MotionState->getWorldTransform(t);
+				auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
 				
 				const auto bOrigin   = t.getOrigin();
-				const auto bRotation = t.getRotation();
-				
-				//printf("%.1f, %.1f, %.1f, %.1f\n", bOrigin.x(), bOrigin.y(), bOrigin.z(), bOrigin.w());
+				const auto bRotation = t.getRotation().inverse();
 				
 				// Sync the transform from bullet with the transform in-engine.
 				transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
 				transform->m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
 			}
 		}
-		catch (const std::exception e) {
+		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
 	}
@@ -160,8 +250,15 @@ namespace LouiEriksson {
 		return m_Transform;
 	}
 	
-	void Rigidbody::SetCollider(const std::weak_ptr<Collider>& _transform) {
-		m_Collider = _transform;
+	void Rigidbody::SetCollider(const std::weak_ptr<Collider>& _collider) {
+		
+		const auto col = _collider.lock();
+		
+		m_Collider = col;
+		
+		if (col != nullptr) {
+			col->m_CollisionShape->calculateLocalInertia(m_Parameters.m_Mass, m_Parameters.m_Inertia);
+		}
 		
 		BulletReinitialise();
 	}
@@ -169,12 +266,37 @@ namespace LouiEriksson {
 		return m_Collider;
 	}
 	
+	void Rigidbody::Position(const glm::vec3& _value) {
+		
+		m_Transform.lock()->m_Position = _value;
+		
+		BulletReinitialise();
+	}
+	const glm::vec3& Rigidbody::Position() {
+		
+		Sync();
+		
+		return m_Transform.lock()->m_Position;
+	}
+	
+	void Rigidbody::Rotation(const glm::quat& _value) {
+		
+		m_Transform.lock()->m_Rotation = _value;
+		
+		BulletReinitialise();
+	}
+	const glm::quat& Rigidbody::Rotation() {
+		
+		Sync();
+		
+		return m_Transform.lock()->m_Rotation;
+	}
+	
 	void Rigidbody::Kinematic(const bool& _value) {
 		m_Parameters.m_Kinematic = _value;
 		
 		BulletReinitialise();
 	}
-	
 	const bool& Rigidbody::Kinematic() {
 		return m_Parameters.m_Kinematic;
 	}
@@ -184,46 +306,52 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	
 	const bool& Rigidbody::Gravity() {
 		return m_Parameters.m_UseGravity;
 	}
 	
-	void Rigidbody::Velocity(const glm::vec3& _velocity) {
-		m_Parameters.m_Velocity = _velocity;
+	void Rigidbody::Velocity(const glm::vec3& _value) {
 		
-		BulletReinitialise();
+		m_Parameters.m_BulletRigidbody->m_Rigidbody->setLinearVelocity(
+			{ _value.x, _value.y, _value.z }
+		);
 	}
 	glm::vec3 Rigidbody::Velocity() {
-		return m_Parameters.m_Velocity;
+		
+		const auto v = m_Parameters.m_BulletRigidbody->m_Rigidbody->getLinearVelocity();
+		
+		return {v.x(), v.y(), v.z()};
 	}
 	
-	void Rigidbody::AngularVelocity(const glm::vec3& _angularVelocity) {
-		m_Parameters.m_AngularVelocity = _angularVelocity;
+	void Rigidbody::AngularVelocity(const glm::vec3& _value) {
 		
-		BulletReinitialise();
+		m_Parameters.m_BulletRigidbody->m_Rigidbody->setAngularVelocity(
+			{ _value.x, _value.y, _value.z }
+		);
 	}
 	glm::vec3 Rigidbody::AngularVelocity() {
-		return m_Parameters.m_AngularVelocity;
+		
+		const auto av = m_Parameters.m_BulletRigidbody->m_Rigidbody->getAngularVelocity();
+		
+		return {av.x(), av.y(), av.z()};
 	}
 	
-	void Rigidbody::AddForce(const glm::vec3& _force) {
-		m_Parameters.m_Force += _force;
-		
-		BulletReinitialise();
-	}
-	void Rigidbody::ClearForce() {
-		m_Parameters.m_Force = glm::vec3(0.0f);
-		
-		BulletReinitialise();
-	}
+	void Rigidbody::AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition) {
 	
+		m_Parameters.m_BulletRigidbody->m_Rigidbody->applyForce(
+			{            _value.x,            _value.y,            _value.z },
+			{ _relativePosition.x, _relativePosition.y, _relativePosition.z }
+		);
+	}
 	glm::vec3 Rigidbody::GetForce() {
-		return m_Parameters.m_Force;
+		
+		const auto f = m_Parameters.m_BulletRigidbody->m_Rigidbody->getTotalForce();
+		
+		return {f.x(), f.y(), f.z()};
 	}
 	
-	void Rigidbody::Mass(const float& _mass) {
-		m_Parameters.m_Mass = std::max(_mass, 0.005f); // Clamp smallest mass value to 0.005.
+	void Rigidbody::Mass(const float& _value) {
+		m_Parameters.m_Mass = std::max(_value, 0.005f); // Clamp smallest mass value to 0.005.
 	
 		BulletReinitialise();
 	}
@@ -231,8 +359,8 @@ namespace LouiEriksson {
 		return m_Parameters.m_Mass;
 	}
 	
-	void Rigidbody::Drag(const float& _drag) {
-		m_Parameters.m_Drag = _drag;
+	void Rigidbody::Drag(const float& _value) {
+		m_Parameters.m_Drag = _value;
 		
 		BulletReinitialise();
 	}
@@ -240,12 +368,30 @@ namespace LouiEriksson {
 		return m_Parameters.m_Drag;
 	}
 	
-	void Rigidbody::AngularDrag(const float& _angularDrag) {
-		m_Parameters.m_AngularDrag = _angularDrag;
+	void Rigidbody::AngularDrag(const float& _value) {
+		m_Parameters.m_AngularDrag = _value;
 		
 		BulletReinitialise();
 	}
 	float Rigidbody::AngularDrag() const {
 		return m_Parameters.m_AngularDrag;
+	}
+	
+	void Rigidbody::Friction(const float& _value) {
+		m_Parameters.m_Friction = _value;
+		
+		BulletReinitialise();
+	}
+	float Rigidbody::Friction() const {
+		return m_Parameters.m_Friction;
+	}
+	
+	void Rigidbody::Bounciness(const float& _value) {
+		m_Parameters.m_Bounciness = _value;
+		
+		BulletReinitialise();
+	}
+	float Rigidbody::Bounciness() const {
+		return m_Parameters.m_Bounciness;
 	}
 }

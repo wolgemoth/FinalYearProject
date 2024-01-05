@@ -68,7 +68,7 @@ namespace LouiEriksson {
 		
 		try {
 			
-			// Initialise the configuration of the physics system to the engine's default.
+			// Initialise the configuration of the physics system.
 			std::cout << "Initialising Default Configuration... ";
 				s_Configuration.reset(new btDefaultCollisionConfiguration());
 			std::cout << "Done.\n\t";
@@ -103,8 +103,10 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void Physics::Tick() {
-		s_DynamicsWorld->stepSimulation(Time::FixedDeltaTime());
+	void Physics::Tick(const float& _step) {
+		s_DynamicsWorld->stepSimulation(_step);
+		
+		s_LastTick = 0.0f;
 	}
 	
 	void Physics::Gravity(const glm::vec3& _value) {

@@ -32,6 +32,8 @@ namespace LouiEriksson {
 		if (transform == nullptr) {
 			transform = Parent()->AddComponent<Transform>();
 		}
+		
+		m_StartingPosition = transform->m_Position;
 	
 		// Get radius.
 		const float r = glm::length(transform->m_Scale) / 2.0f;
@@ -72,5 +74,22 @@ namespace LouiEriksson {
 	
 	void Ball::Tick() {
 	
+		const auto transform = Parent()->GetComponent<Transform>();
+		
+		if (transform != nullptr) {
+			
+			// 'Reset' balls which fall beneath a certain height.
+			if (transform->m_Position.y <= -100.0f) {
+				
+				const auto rb = Parent()->GetComponent<Rigidbody>();
+		
+				// Reset position.
+				rb->Position(m_StartingPosition);
+				
+				// Reset motion.
+				rb->Velocity       (glm::vec3(0.0f));
+				rb->AngularVelocity(glm::vec3(0.0f));
+			}
+		}
 	}
 }
