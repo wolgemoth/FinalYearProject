@@ -152,7 +152,7 @@ void Sound::Init() {
 	}
 }
 
-void Sound::Play(const Sound::Clip& _clip) {
+void Sound::PlayGlobal(const Sound::Clip& _clip) {
 
 	if (_clip.m_Size > 0) {
 	

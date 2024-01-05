@@ -10,10 +10,6 @@
 
 namespace LouiEriksson {
 	
-	void Application::Quit() {
-		Application::s_Quit = true;
-	}
-	
 	int Application::Main() {
 		
 		// Restrict Main() to one instance.
@@ -217,4 +213,9 @@ NestedBreak:
 	
 		return 0;
 	}
+	
+	void Application::Quit() {
+		Application::s_Quit = true;
+	}
+	
 }

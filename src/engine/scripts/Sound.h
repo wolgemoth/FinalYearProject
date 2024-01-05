@@ -5,6 +5,11 @@
 
 class Sound {
 
+	/*
+	 * Please refer to OpenAL-Soft spec:
+	 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
+	 */
+	
 private:
 	
 	inline static ALCdevice*  s_Device  = nullptr;
@@ -43,7 +48,7 @@ public:
 		void Dispose();
 	};
 	
-	static void Play(const Clip& _clip);
+	static void PlayGlobal(const Sound::Clip& _clip);
 	
 	static void Init();
 

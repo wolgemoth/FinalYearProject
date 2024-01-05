@@ -716,8 +716,8 @@ namespace LouiEriksson {
 			
 			result = true;
 		}
-		catch (const std::exception& _e) {
-			std::cout << _e.what()<< '\n';
+		catch (const std::exception& e) {
+			std::cout << e.what()<< '\n';
 		}
 		
 		return result;

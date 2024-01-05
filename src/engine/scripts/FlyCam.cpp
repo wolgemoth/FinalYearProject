@@ -66,7 +66,7 @@ namespace LouiEriksson {
 		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 		
 		if (Input::Key::Get(SDL_SCANCODE_P)) {
-			Sound::Play(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
+			Sound::PlayGlobal(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
 		}
 		
 		const auto movement_input = glm::vec3(

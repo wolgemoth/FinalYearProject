@@ -134,6 +134,8 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Physics.cpp
         src/engine/scripts/Physics.h
+        src/engine/scripts/AudioSource.cpp
+        src/engine/scripts/AudioSource.h
 )
 
 set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/external/glew)
