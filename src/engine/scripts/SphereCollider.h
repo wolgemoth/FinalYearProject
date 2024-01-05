@@ -21,6 +21,7 @@ namespace LouiEriksson {
 		[[nodiscard]] float Radius() const;
 		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SPHERECOLLIDER_H

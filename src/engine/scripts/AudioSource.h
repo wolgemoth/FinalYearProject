@@ -9,6 +9,11 @@ namespace LouiEriksson {
 	
 	class AudioSource : public Component {
 	
+	/*
+	 * Please refer to OpenAL-Soft spec:
+	 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
+	 */
+	
 	private:
 		
 		ALuint m_Source;
@@ -20,6 +25,10 @@ namespace LouiEriksson {
 		
 		void Init();
 	
+		void Tick();
+		
+		void Sync();
+		
 		void Play(const Sound::Clip& _clip) const;
 		
 	};

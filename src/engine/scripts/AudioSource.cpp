@@ -35,20 +35,34 @@ namespace LouiEriksson {
 		}
 	}
 	
+	void AudioSource::Tick() {
+		Sync();
+	}
+	
+	void AudioSource::Sync() {
+	
+		const auto transform = Parent()->GetComponent<Transform>();
+		
+		if (transform != nullptr) {
+			alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
+		}
+	}
+	
 	void AudioSource::Play(const Sound::Clip& _clip) const {
 		
 		if (_clip.m_Size > 0) {
 		
 			if (_clip.m_ALBuffer == AL_NONE) {
 				
-				// AL buffer non-existent. Implies AL failed to initialise correctly.
-				// Fall back to playing sound globally instead...
-				
+				/*
+				 * AL buffer non-existent. Implies AL failed to initialise correctly.
+				 *
+				 * Attempt to play the clip globally, instead -which will use whatever
+				 * fallback is available.
+				 */
 				Sound::PlayGlobal(_clip);
 			}
 			else {
-				
-				std::cout << "Playing using OpenAL!\n";
 				
 				// Play using OpenAL!
 				alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(_clip.m_ALBuffer));
@@ -56,5 +70,6 @@ namespace LouiEriksson {
 			}
 		}
 	}
+	
 	
 } // LouiEriksson
