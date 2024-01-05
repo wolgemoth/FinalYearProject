@@ -81,7 +81,7 @@ namespace LouiEriksson {
 			for (const auto& kvp : files.GetAll()) {
 				
 				std::shared_ptr<Texture> texture;
-				if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
+				if (File::TryLoad(kvp.second, texture, GL_RGB16F, true)) {
 					m_Textures.Add(kvp.first, texture);
 				}
 			}
