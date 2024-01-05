@@ -184,10 +184,10 @@ namespace LouiEriksson {
 		/// <summary> Get the friction of the Rigidbody. </summary>
 		[[nodiscard]] float Friction() const;
 		
-		/// <summary> Set the friction of the Rigidbody. </summary>
+		/// <summary> Set the bounciness of the Rigidbody. </summary>
 		void Bounciness(const float& _value);
 	
-		/// <summary> Get the friction of the Rigidbody. </summary>
+		/// <summary> Get the bounciness of the Rigidbody. </summary>
 		[[nodiscard]] float Bounciness() const;
 	};
 }
