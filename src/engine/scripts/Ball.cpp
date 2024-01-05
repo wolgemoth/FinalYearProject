@@ -36,7 +36,7 @@ namespace LouiEriksson {
 		m_StartingPosition = transform->m_Position;
 	
 		// Get radius.
-		const float r = glm::length(transform->m_Scale) / 2.0f;
+		const float r = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
 	
 		// Get or add renderer.
 		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());
