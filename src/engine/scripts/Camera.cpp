@@ -15,7 +15,7 @@ namespace LouiEriksson {
 		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
 		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG16F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER)
+		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER)
 	{
 		
 		m_Window    = std::shared_ptr<Window>   (nullptr); // Init to nullptr.
@@ -863,6 +863,8 @@ namespace LouiEriksson {
 		else {
 			Copy(m_RT, m_RT); // Passthrough main render target.
 		}
+		
+		//Copy(m_Albedo_gBuffer, m_RT);
 		
 		/* RENDER TO SCREEN */
 		RenderTexture::Unbind();

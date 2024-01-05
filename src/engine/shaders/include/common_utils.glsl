@@ -33,7 +33,7 @@
 
     /// <summary> Scale and translate the provided coordinate </summary>
     vec2 TransformCoord(in vec2 _uv, in vec4 _st) {
-        return _uv;//(_uv + fract(_st.zw)) * _st.xy;
+        return (_uv + fract(_st.zw)) * _st.xy;
     }
 
     /* TEXTURE SAMPLING */
