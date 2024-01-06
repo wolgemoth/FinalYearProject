@@ -18,10 +18,10 @@ namespace LouiEriksson {
 		
 		ALuint m_Source;
 		
+	public:
+		
 		 explicit AudioSource(const std::shared_ptr<GameObject>& _parent);
 		~AudioSource() override;
-		
-	public:
 		
 		void Init();
 	

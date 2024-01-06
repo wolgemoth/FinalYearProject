@@ -39,21 +39,32 @@ namespace LouiEriksson {
 		auto scene = Parent()->GetScene();
 		
 		// Get or add Transform.
+		// TODO: Do this better:
 		m_Transform = Parent()->GetComponent<Transform>();
 		if (m_Transform.expired()) {
 			m_Transform = Parent()->AddComponent<Transform>();
 		}
 		
 		// Get or add Camera.
+		// TODO: Do this better:
 		m_Camera = scene->Attach(Parent()->AddComponent<Camera>());
 		if (m_Camera.expired()) {
 			m_Camera = Parent()->AddComponent<Camera>();
 		}
 		
-		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
-		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
-		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
+		// Get or add AudioListener.
+		// TODO: Do this better:
+		m_AudioListener = Parent()->GetComponent<AudioListener>();
+		if (m_AudioListener.expired()) {
+			m_AudioListener = Parent()->AddComponent<AudioListener>();
+		}
 		
+		m_AudioListener.lock()->Init();
+		
+		// Update the camera's parameters to match the ones in Settings.
+		SyncCameraSettings();
+		
+		// Set camera defaults:
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f));
@@ -61,9 +72,8 @@ namespace LouiEriksson {
 	
 	void FlyCam::Tick() {
 		
-		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
-		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
-		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
+		// Update the camera's parameters to match the ones in Settings.
+		SyncCameraSettings();
 		
 		if (Input::Key::Get(SDL_SCANCODE_P)) {
 			Sound::PlayGlobal(*Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
@@ -101,5 +111,14 @@ namespace LouiEriksson {
 		);
 		
 		GetTransform()->m_Position += (m_Motion * Time::DeltaTime());
+		
+		m_AudioListener.lock()->Tick();
+	}
+	
+	void FlyCam::SyncCameraSettings() {
+		
+		GetCamera()->FOV     (Settings::Graphics::Perspective::s_FOV);
+		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
+		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 	}
 }

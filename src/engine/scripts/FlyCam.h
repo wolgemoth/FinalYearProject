@@ -24,6 +24,9 @@ namespace LouiEriksson {
 		/// <summary> Transform of the FlyCam. </summary>
 		std::weak_ptr<Transform> m_Transform;
 		
+		/// <summary> AudioListener component. </summary>
+		std::weak_ptr<AudioListener> m_AudioListener;
+		
 		/// <summary> Current motion vector of the FlyCam. </summary>
 		glm::vec3 m_Motion;
 		
@@ -45,6 +48,9 @@ namespace LouiEriksson {
 		/// <summary> Called every frame. </summary>
 		void Tick() override;
 	
+		/// <summary> Synchronise the camera's parameters with the ones defined in Settings. </summary>
+		void SyncCameraSettings();
+		
 	public:
 	
 		explicit FlyCam(const std::shared_ptr<GameObject>& _parent);

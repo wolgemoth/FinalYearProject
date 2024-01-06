@@ -65,6 +65,7 @@ namespace LouiEriksson {
 	
 	void Scene::Tick() {
 		
+		// Interpolate Rigidbodies:
 		std::vector<std::any> rigidbodies;
 		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
 	
@@ -75,6 +76,18 @@ namespace LouiEriksson {
 			}
 		}
 		
+		// Update AudioListeners:
+		std::vector<std::any> audioListeners;
+		if (m_Entities.Get(typeid(AudioListener), audioListeners)) {
+	
+			for (const auto& al : audioListeners) {
+				
+				auto audioListener = std::any_cast<std::shared_ptr<AudioListener>>(al);
+				audioListener->Tick();
+			}
+		}
+		
+		// Update scripts:
 		std::vector<std::any> scripts;
 		if (m_Entities.Get(typeid(Script), scripts)) {
 			for (const auto& s : scripts) {
@@ -87,6 +100,7 @@ namespace LouiEriksson {
 	
 	void Scene::FixedTick() {
 	
+		// Update rigidbodies:
 		std::vector<std::any> rigidbodies;
 		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
 	

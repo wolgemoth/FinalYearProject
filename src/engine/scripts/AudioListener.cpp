@@ -24,15 +24,7 @@ namespace LouiEriksson {
 	
 	void AudioListener::Sync() {
 	
-		      auto transform = Parent()->GetComponent<Transform>();
-		const auto rigidbody = Parent()->GetComponent<Rigidbody>();
-		
-		if (rigidbody != nullptr) {
-			
-			if (transform == nullptr) {
-				transform = rigidbody->GetTransform().lock();
-			}
-		}
+		auto transform = Parent()->GetComponent<Transform>();
 		
 		if (transform != nullptr) {
 			
@@ -54,6 +46,8 @@ namespace LouiEriksson {
 			{
 				glm::vec3 velocity;
 				
+				const auto rigidbody = Parent()->GetComponent<Rigidbody>();
+				
 				if (rigidbody != nullptr) {
 					velocity = rigidbody->Velocity();
 				}
@@ -70,6 +64,10 @@ namespace LouiEriksson {
 		
 		// Update "last position" (used for transform-based doppler effect).
 		m_LastPosition = transform->m_Position;
+		
+//		std::cout << transform->m_Position.x << ", "
+//		          << transform->m_Position.y << ", "
+//		          << transform->m_Position.z << '\n';
 	}
 	
 	void AudioListener::Gain(const float& _value) {

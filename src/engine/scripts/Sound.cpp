@@ -141,6 +141,8 @@ namespace LouiEriksson {
 					throw std::runtime_error("Failed creating global audio source!");
 				}
 				
+				alDistanceModel(AL_INVERSE_DISTANCE);
+				
 				std::cout << "Done.\n";
 			}
 			catch (const std::exception& e) {
@@ -176,6 +178,12 @@ namespace LouiEriksson {
 				
 				// Play using OpenAL!
 				alSourcei(s_GlobalSource, AL_BUFFER, static_cast<ALint>(_clip.m_ALBuffer));
+				
+				alSource3f(s_GlobalSource, AL_POSITION, 0.0f, 0.0f, 0.0f);
+				
+				alSourcef(s_GlobalSource, AL_REFERENCE_DISTANCE, 0.0f);
+				alSourcef(s_GlobalSource, AL_MAX_DISTANCE, 10.0f);
+				
 				alSourcePlay(s_GlobalSource);
 			}
 		}
