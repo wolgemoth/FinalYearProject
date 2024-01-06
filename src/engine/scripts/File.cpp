@@ -175,18 +175,40 @@ namespace LouiEriksson {
 					
 					stbi_image_free(data);
 					
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+					if (_generateMipmaps) {
+						glGenerateMipmap(GL_TEXTURE_2D);
+						
+						const auto min = _output->FilterMode().Min();
+						
+						switch (min) {
+							case GL_NEAREST: {
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+								break;
+							}
+							case GL_LINEAR:  {
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+								break;
+							}
+							case GL_NEAREST_MIPMAP_NEAREST:
+							case GL_NEAREST_MIPMAP_LINEAR:
+							case GL_LINEAR_MIPMAP_NEAREST:
+							case GL_LINEAR_MIPMAP_LINEAR: {
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+								break;
+							}
+							default: {
+								
+								std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
+								
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+								break;
+							}
+						}
+					}
+					
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-					
-					if (_generateMipmaps) {
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-						glGenerateMipmap(GL_TEXTURE_2D);
-					}
-					else {
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					}
 					
 					Texture::Unbind();
 					
@@ -692,19 +714,41 @@ namespace LouiEriksson {
 					}
 				}
 				
+				if (_generateMipmaps) {
+					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+					
+					const auto min = _output->FilterMode().Min();
+					
+					switch (min) {
+						case GL_NEAREST: {
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+							break;
+						}
+						case GL_LINEAR:  {
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+							break;
+						}
+						case GL_NEAREST_MIPMAP_NEAREST:
+						case GL_NEAREST_MIPMAP_LINEAR:
+						case GL_LINEAR_MIPMAP_NEAREST:
+						case GL_LINEAR_MIPMAP_LINEAR: {
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, min);
+							break;
+						}
+						default: {
+							
+							std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
+							
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, min);
+							break;
+						}
+					}
+				}
+				
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(_output->FilterMode().Mag()));
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S,     static_cast<GLint>(_output->WrapMode().WrapS()));
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T,     static_cast<GLint>(_output->WrapMode().WrapT()));
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R,     static_cast<GLint>(_output->WrapMode().WrapR()));
-				
-				if (_generateMipmaps) {
-					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); //TODO: Load filter from filtermode correctly.
-				
-					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-				}
-				else {
-					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_output->FilterMode().Min()));
-				}
 				
 				glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 				

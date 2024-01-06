@@ -23,7 +23,11 @@
 
     /// <summary> Random Noise. 1-Dimensional. Signed. </summary>
     float Random1S(in vec2 _xy, in float _seed, in float _offset) {
-        return (gold_noise(_xy * 1000.0, _seed + _offset) - 0.5) * 2.0;
+        return clamp(
+            (gold_noise(_xy * 1000.0, _seed + _offset) - 0.5) * 2.0,
+            -1.0,
+             1.0
+        );
     }
 
     /// <summary> Random Noise. 2-Dimensional. Signed. </summary>
@@ -49,7 +53,11 @@
 
     /// <summary> Random Noise. 1-Dimensional. Unsigned. </summary>
     float Random1U(in vec2 _xy, in float _seed, in float _offset) {
-        return gold_noise(_xy * 1000.0, _seed + _offset);
+        return clamp(
+            gold_noise(_xy * 1000.0, _seed + _offset),
+            0.0,
+            1.0
+        );
     }
 
     /// <summary> Random Noise. 2-Dimensional. Unsigned. </summary>

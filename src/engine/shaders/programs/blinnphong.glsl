@@ -274,7 +274,7 @@
         mediump vec3 indirectLighting;
         {
             // Sample at a lower resolution for the diffuse. TODO: Actual diffuse irradiance.
-            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 0.71);
+            mediump vec3 diffuse = SampleAmbient(u_Ambient, normal, 1.0);
 
             // Figure out the direction of the specular light
             mediump vec3 specularDir = reflect(-viewDir, normal);
