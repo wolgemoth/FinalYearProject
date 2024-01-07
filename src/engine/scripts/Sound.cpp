@@ -60,6 +60,7 @@ namespace LouiEriksson {
 				 */
 				s_GlobalSource.reset(new AudioSource(nullptr));
 				s_GlobalSource->Init();
+				s_GlobalSource->Global(true);
 				
 				std::cout << "Done.\n";
 			}
