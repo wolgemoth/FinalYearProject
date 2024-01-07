@@ -18,6 +18,7 @@ namespace LouiEriksson {
 		
 		float m_Gain;
 		
+		/// <summary> Last position of the AudioListener (for computing transform-based velocity). </summary>
 		glm::vec3 m_LastPosition;
 		
 		/// <summary> Synchronise the AudioListener with the internal audio engine. </summary>

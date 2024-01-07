@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "AudioListener.h"
 
 #include "Rigidbody.h"
@@ -28,10 +30,8 @@ namespace LouiEriksson {
 		
 		if (transform != nullptr) {
 			
-			// Set position:
-			{
-				alListenerfv(AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
-			}
+			// Set position of listener:
+			alListenerfv(AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
 			
 			// Set orientation (forward, up):
 			{
@@ -57,6 +57,7 @@ namespace LouiEriksson {
 				
 				alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
 			}
+			
 		}
 		
 		// Assign gain value:
@@ -64,10 +65,6 @@ namespace LouiEriksson {
 		
 		// Update "last position" (used for transform-based doppler effect).
 		m_LastPosition = transform->m_Position;
-		
-//		std::cout << transform->m_Position.x << ", "
-//		          << transform->m_Position.y << ", "
-//		          << transform->m_Position.z << '\n';
 	}
 	
 	void AudioListener::Gain(const float& _value) {

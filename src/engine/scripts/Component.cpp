@@ -7,14 +7,22 @@
 namespace LouiEriksson {
 	
 	Component::Component(const std::shared_ptr<GameObject>& _parent) {
+		
+		if (_parent == nullptr) {
+			std::cout << "Warning: Component initialised with nullptr.\n";
+		}
+		
 		m_GameObject = _parent;
+		
 		m_Index = 0;
 	}
 	
 	Component::~Component() {
 		
-		if (!m_GameObject.expired()) {
-			m_GameObject.lock()->RemoveComponent<Component>(m_Index);
+		auto go = m_GameObject.lock();
+		
+		if (go != nullptr) {
+			go->RemoveComponent<Component>(m_Index);
 		}
 	}
 	

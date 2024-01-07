@@ -17,7 +17,7 @@ namespace LouiEriksson {
 	private:
 	
 		/// <summary>
-		/// Index of the component within it's category in the GameObject. Used for tidying up during destruction.
+		/// Index of the component within its category in the GameObject. Used for tidying up during destruction.
 		/// </summary>
 		size_t m_Index;
 	
