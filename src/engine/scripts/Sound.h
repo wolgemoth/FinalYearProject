@@ -32,15 +32,37 @@ namespace LouiEriksson {
 		
 	public:
 	
-		/// <summary> Set the distance model used by the audio engine. </summary>
-		static void DistanceModel(const ALenum& _value);
-		
-		/// <summary> Play the Clip without positional audio. </summary>
-		static void PlayGlobal(const std::weak_ptr<AudioClip>& _clip);
-		
 		/// <summary> Initialise the audio subsystems. </summary>
 		static void Init();
 	
+		/// <summary> Play the Clip without positional audio. </summary>
+		static void PlayGlobal(const std::weak_ptr<AudioClip>& _clip);
+		
+		/// <summary> Set the distance model used by the audio engine. </summary>
+		static void DistanceModel(const ALenum& _value);
+		
+		/// <summary> Get the distance model used by the audio engine. </summary>
+		[[nodiscard]] ALenum DistanceModel() const;
+		
+		/// <summary>
+		/// Set the doppler factor used by the audio engine.
+		/// Must be greater than or equal to zero.
+		/// </summary>
+		static void DopplerFactor(const float& _value);
+		
+		/// <summary> Get the doppler factor used by the audio engine. </summary>
+		[[nodiscard]] float DopplerFactor() const;
+		
+		/// <summary>
+		/// Set the speed of sound used by the audio engine.
+		/// This influences the doppler effect.
+		/// Must be greater than or equal to zero.
+		/// </summary>
+		static void SpeedOfSound(const float& _value);
+		
+		/// <summary> Get the speed of sound used by the audio engine. </summary>
+		[[nodiscard]] float SpeedOfSound() const;
+		
 		/// <summary> Finalise the audio subsystems. </summary>
 		static void Dispose();
 		

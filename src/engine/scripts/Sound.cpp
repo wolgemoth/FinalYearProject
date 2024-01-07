@@ -54,6 +54,11 @@ namespace LouiEriksson {
 				// Set the default distance model for the audio context:
 				DistanceModel(AL_INVERSE_DISTANCE);
 				
+				// Set default values for doppler shift.
+				// See: https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide#doppler-shift
+				DopplerFactor(1.0f);
+				SpeedOfSound(343.3f);
+				
 				/*
 				 * Generate the global audio source.
 				 * This will be responsible for playing non-positional sound on-demand.
@@ -73,10 +78,6 @@ namespace LouiEriksson {
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
-	}
-	
-	void Sound::DistanceModel(const ALenum& _value) {
-		alDistanceModel(_value);
 	}
 	
 	void Sound::PlayGlobal(const std::weak_ptr<AudioClip>& _clip) {
@@ -119,6 +120,27 @@ namespace LouiEriksson {
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
+	}
+	
+	void Sound::DistanceModel(const ALenum& _value) {
+		alDistanceModel(_value);
+	}
+	ALenum Sound::DistanceModel() const {
+		return alGetInteger(AL_DISTANCE_MODEL);
+	}
+	
+	void Sound::DopplerFactor(const float& _value) {
+		alDopplerFactor(glm::max(_value, 0.0f));
+	}
+	float Sound::DopplerFactor() const {
+		return alGetFloat(AL_DOPPLER_FACTOR);
+	}
+	
+	void Sound::SpeedOfSound(const float& _value) {
+		alDopplerVelocity(glm::max(_value, 0.0f));
+	}
+	float Sound::SpeedOfSound() const {
+		return alGetFloat(AL_DOPPLER_VELOCITY);
 	}
 	
 	void Sound::Dispose() {
