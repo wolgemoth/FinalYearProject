@@ -128,8 +128,20 @@ namespace LouiEriksson {
 		/// <summary> Updates the AudioSource every frame.</summary>
 		void Tick();
 		
-		/// <summary> Play a sound from this AudioSource.</summary>
-		void Play(const std::weak_ptr<AudioClip>& _clip, const bool& _allowFallback = true);
+		/// <summary> Play this AudioSource.</summary>
+		void Play(const bool& _allowFallback = true);
+		
+		/// <summary> Pause this AudioSource.</summary>
+		void Pause();
+		
+		/// <summary> Stop this AudioSource.</summary>
+		void Stop();
+		
+		/// <summary> Set this AudioSource's AudioClip. </summary>
+		void Clip(const std::weak_ptr<AudioClip>& _value);
+		
+		/// <summary> Get weak reference to the currently used AudioClip. </summary>
+		const std::weak_ptr<AudioClip>& Clip() const;
 		
 		/// <summary> Sets whether this AudioSource is global or not. </summary>
 		void Global(const bool& _value);
@@ -196,6 +208,23 @@ namespace LouiEriksson {
 		
 		/// <summary> Gets the maximum angle of this AudioSource. </summary>
 		[[nodiscard]] const float& MaxAngle() const;
+		
+		/// <summary> Sets the playback position of the AudioSource in seconds. <summary>
+		void PlaybackPosition(const float& _value);
+		
+		/// <summary> Gets the playback position of the AudioSource expressed in seconds. </summary>
+		[[nodiscard]] float PlaybackPosition() const;
+		
+		/// <summary>
+		/// Sets the playback position of the AudioSource in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
+		/// </summary>
+		void PlaybackPosition(const ALenum& _param, const int& _value);
+		
+		/// <summary>
+		/// Gets the playback position of the AudioSource expressed in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
+		/// </summary>
+		[[nodiscard]] int PlaybackPosition(const ALenum& _param) const;
+		
 	};
 	
 } // LouiEriksson

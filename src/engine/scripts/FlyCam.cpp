@@ -76,7 +76,7 @@ namespace LouiEriksson {
 		SyncCameraSettings();
 		
 		if (Input::Key::Get(SDL_SCANCODE_P)) {
-			Sound::PlayGlobal(Resources::GetAudio("Fred Falke - Intro (Cover)").lock());
+			Sound::PlayGlobal(Resources::GetAudio("Fred Falke - Intro (Cover)"));
 		}
 		
 		const auto movement_input = glm::vec3(

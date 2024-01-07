@@ -81,30 +81,43 @@ namespace LouiEriksson {
 	
 	void Sound::PlayGlobal(const std::weak_ptr<AudioClip>& _clip) {
 	
-		// Attempt to lock clip pointer and evaluate if it is valid.
-		auto c = _clip.lock();
-		
-		if (c != nullptr) {
+		try {
 			
-			// Only play if the clip actually contains data.
-			if (c->m_Size > 0) {
+			auto c = _clip.lock();
 			
-				if (c->m_ALBuffer == AL_NONE) {
-					
-					if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
-					
-					s_SDL_Device = SDL_OpenAudioDevice(nullptr, 0, &c->m_Format.m_Specification, nullptr, 0);
-					
-					// Play using SDL!
-					SDL_QueueAudio(s_SDL_Device, c->m_Data, c->m_Size);
-					SDL_PauseAudioDevice(s_SDL_Device, 0);
+			if (c != nullptr) {
+			
+				// Only play if the clip actually contains data.
+				if (c->m_Samples.m_Length > 0) {
+				
+					if (c->m_ALBuffer == AL_NONE) {
+						
+						// Use SDL2 as fallback if AL buffer is uninitialised.
+						if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
+						
+						s_SDL_Device = SDL_OpenAudioDevice(nullptr, 0, &c->m_Format.m_Specification, nullptr, 0);
+						
+						// Play using SDL!
+						SDL_QueueAudio(s_SDL_Device, c->m_Samples.m_Data, c->m_Samples.m_Length);
+						SDL_PauseAudioDevice(s_SDL_Device, 0);
+					}
+					else {
+						
+						// Play the clip (without fallback, as that could potentially lead to infinite recursion).
+						s_GlobalSource->Clip(c);
+						s_GlobalSource->Play(false);
+					}
 				}
 				else {
-					
-					// Play the clip (without fallback, as that could potentially lead to infinite recursion).
-					s_GlobalSource->Play(_clip, false);
+					throw std::runtime_error("Cannot play AudioClip since its size is zero!");
 				}
 			}
+			else {
+				throw std::runtime_error("Cannot play AudioSource since the current clip is nullptr!");
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << '\n';
 		}
 	}
 	

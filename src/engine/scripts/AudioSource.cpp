@@ -158,20 +158,17 @@ namespace LouiEriksson {
 		Sync();
 	}
 	
-	void AudioSource::Play(const std::weak_ptr<AudioClip>& _clip, const bool& _allowFallback) {
+	void AudioSource::Play(const bool& _allowFallback) {
 		
 		try {
 			
-			// Set _clip as most recent clip.
-			m_Clip = _clip;
-			
-			// Attempt to lock clip pointer and evaluate if it is valid.
-			auto c = _clip.lock();
+			// Try and get current clip.
+			const auto c = m_Clip.lock();
 			
 			if (c != nullptr) {
 				
 				// Only play if the clip actually contains data.
-				if (c->m_Size > 0) {
+				if (c->m_Samples.m_Length > 0) {
 				
 					if (c->m_ALBuffer == AL_NONE) {
 						
@@ -181,7 +178,7 @@ namespace LouiEriksson {
 						 */
 						
 						if (_allowFallback) {
-							Sound::PlayGlobal(_clip);
+							Sound::PlayGlobal(c);
 						}
 						else {
 							throw std::runtime_error(
@@ -197,11 +194,32 @@ namespace LouiEriksson {
 						alSourcePlay(m_Source);
 					}
 				}
+				else {
+					throw std::runtime_error("Cannot play AudioClip since its size is zero!");
+				}
+			}
+			else {
+				throw std::runtime_error("Cannot play AudioSource since the current clip is nullptr!");
 			}
 		}
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
+	}
+	
+	void AudioSource::Pause() {
+		alSourcePause(m_Source);
+	}
+	
+	void AudioSource::Stop() {
+		alSourceStop(m_Source);
+	}
+	
+	void AudioSource::Clip(const std::weak_ptr<AudioClip>& _value) {
+		m_Clip = _value;
+	}
+	const std::weak_ptr<AudioClip>& AudioSource::Clip() const {
+		return m_Clip;
 	}
 	
 	void AudioSource::Global(const bool& _value) {
@@ -304,6 +322,30 @@ namespace LouiEriksson {
 	}
 	const float& AudioSource::MaxAngle() const {
 		return m_Parameters.m_MaxAngle;
+	}
+	
+	void AudioSource::PlaybackPosition(const float& _value) {
+		alSourcef(m_Source, AL_SEC_OFFSET, _value);
+	}
+	float AudioSource::PlaybackPosition() const {
+		
+		float result;
+		
+        alGetSourcef(m_Source, AL_SEC_OFFSET, &result);
+		
+		return result;
+	}
+	
+	void AudioSource::PlaybackPosition(const ALenum& _param, const int& _value) {
+		alSourcei(m_Source, _param, _value);
+	}
+	int AudioSource::PlaybackPosition(const ALenum& _param) const {
+		
+		int result;
+		
+        alGetSourcei(m_Source, _param, &result);
+		
+		return result;
 	}
 	
 } // LouiEriksson

@@ -41,53 +41,14 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	AudioClip::AudioClip(const std::filesystem::path& _path) : m_Format({}) {
-	
-		// Generate audio buffer.
-		alGenBuffers(1, &m_ALBuffer);
-	
-		{
-			SDL_AudioSpec spec;
-			
-			// Load the audio data into a c-style byte array using SDL.
-			SDL_LoadWAV(_path.c_str(), &spec, &m_Data, &m_Size);
-			
-			m_Format = Format(spec);
-		}
-		
-		// Buffer the audio data and free the loaded data.
-		if (m_ALBuffer != AL_NONE) {
-	
-			alBufferData(
-				m_ALBuffer,
-				m_Format.OpenALFormat(),
-				m_Data,
-				static_cast<ALsizei>(m_Size),
-				m_Format.m_Specification.freq
-			);
-		}
-	}
-	
-	AudioClip::~AudioClip() {
-		Dispose();
-	}
-	
-	void AudioClip::Dispose() {
-		
-		Free();
-		
-		// Delete the buffer.
-		if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
-	}
-	
-	void AudioClip::Free() {
+	void AudioClip::Samples::Free() {
 		
 		try {
 			
 			// Free data using SDL.
 			if (m_Data != nullptr) { SDL_FreeWAV(m_Data); m_Data = nullptr; }
 			
-			m_Size = 0;
+			m_Length = 0;
 		}
 		catch (const std::exception& e) {
 			
@@ -99,5 +60,49 @@ namespace LouiEriksson {
 		}
 	}
 	
+	AudioClip::AudioClip(const std::filesystem::path& _path) : m_Format({}) {
+	
+		// Generate audio buffer.
+		alGenBuffers(1, &m_ALBuffer);
+	
+		{
+			SDL_AudioSpec spec;
+			
+			// Load the audio data into a c-style byte array using SDL.
+			SDL_LoadWAV(_path.c_str(), &spec, &m_Samples.m_Data, &m_Samples.m_Length);
+			
+			m_Format = Format(spec);
+
+			// Compute the duration of the audio file by performing the following operation:
+			m_Duration = static_cast<float>(m_Samples.m_Length) /                // Sample Count
+					     static_cast<float>(spec.freq)          /                // Sample Rate
+					     static_cast<float>(spec.channels)      /                // Channel Count
+						 static_cast<float>(SDL_AUDIO_BITSIZE(spec.format) / 8); // Stride
+		}
+		
+		// Buffer the audio data and free the loaded data.
+		if (m_ALBuffer != AL_NONE) {
+	
+			alBufferData(
+				m_ALBuffer,
+				m_Format.OpenALFormat(),
+				m_Samples.m_Data,
+				static_cast<ALsizei>(m_Samples.m_Length),
+				m_Format.m_Specification.freq
+			);
+		}
+	}
+	
+	AudioClip::~AudioClip() {
+		Dispose();
+	}
+	
+	void AudioClip::Dispose() {
+		
+		m_Samples.Free();
+		
+		// Delete the buffer.
+		if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
+	}
 	
 } // LouiEriksson
