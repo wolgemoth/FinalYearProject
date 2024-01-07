@@ -16,6 +16,7 @@ namespace LouiEriksson {
 	
 	private:
 		
+		/// <summary> Master gain. Should be between zero and one. </summary>
 		float m_Gain;
 		
 		/// <summary> Last position of the AudioListener (for computing transform-based velocity). </summary>

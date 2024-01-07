@@ -19,11 +19,11 @@ namespace LouiEriksson {
 		inline static std::filesystem::path  m_ShaderIncludeDirectory = "shaders/include";
 		inline static std::filesystem::path m_ShaderProgramsDirectory = "shaders/programs";
 		
-		inline static Hashmap<std::string, std::shared_ptr<Sound::Clip>> m_Audio;
-		inline static Hashmap<std::string, std::shared_ptr<Mesh       >> m_Meshes;
-		inline static Hashmap<std::string, std::shared_ptr<Material   >> m_Materials;
-		inline static Hashmap<std::string, std::shared_ptr<Texture    >> m_Textures;
-		inline static Hashmap<std::string, std::shared_ptr<Shader     >> m_Shaders;
+		inline static Hashmap<std::string, std::shared_ptr<AudioClip>> m_Audio;
+		inline static Hashmap<std::string, std::shared_ptr<Mesh     >> m_Meshes;
+		inline static Hashmap<std::string, std::shared_ptr<Material >> m_Materials;
+		inline static Hashmap<std::string, std::shared_ptr<Texture  >> m_Textures;
+		inline static Hashmap<std::string, std::shared_ptr<Shader   >> m_Shaders;
 		
 		/// <summary>
 		/// Preload meshes and add them to the cache.
@@ -54,7 +54,7 @@ namespace LouiEriksson {
 	
 		static void Preload();
 	
-		static bool TryGetAudio(const std::string& _name, std::shared_ptr<Sound::Clip>& _output);
+		static bool TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output);
 		
 		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output);
 		
@@ -64,7 +64,7 @@ namespace LouiEriksson {
 		
 		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output);
 		
-		static std::weak_ptr<Sound::Clip> GetAudio(const std::string& _name);
+		static std::weak_ptr<AudioClip> GetAudio(const std::string& _name);
 		
 		static std::weak_ptr<Mesh> GetMesh(const std::string& _name);
 		
@@ -73,7 +73,6 @@ namespace LouiEriksson {
 		static std::weak_ptr<Texture> GetTexture(const std::string& _name);
 		
 		static std::weak_ptr<Shader> GetShader(const std::string& _name);
-		
 	};
 	
 } // LouiEriksson

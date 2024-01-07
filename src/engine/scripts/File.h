@@ -36,7 +36,7 @@ namespace LouiEriksson {
 		
 		static std::string ReadAllText(const std::filesystem::path& _path);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Sound::Clip>& _output);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<AudioClip>& _output);
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format, bool _generateMipmaps);
 		

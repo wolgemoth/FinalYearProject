@@ -92,14 +92,14 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Sound::Clip>& _output) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<AudioClip>& _output) {
 		
 		bool result = false;
 		
 		std::cout << "Loading Texture Asset \"" << _path.c_str() << "\"... ";
 		
 		try {
-			_output.reset(new Sound::Clip(_path));
+			_output.reset(new AudioClip(_path));
 			
 			std::cout << "Done.\n";
 			

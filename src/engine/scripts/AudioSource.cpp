@@ -2,23 +2,25 @@
 
 #include "AudioSource.h"
 
+#include "Sound.h"
 #include "Rigidbody.h"
 #include "Time.h"
+
+#include "Utils.h"
 
 namespace LouiEriksson {
 	
 	AudioSource::Parameters::Parameters() {
 	
-		m_IsGlobal = false; // Do not start global.
+		m_IsGlobal = false; // Do not start as global.
 		m_Loop     = false; // Do not loop.
 		
 		// Default panning value. (Will only apply if if the audio source is global.)
 		m_Panning = glm::vec3(0.0f);
 		
 		// Set default minimum and maximum distances.
-		// Minimum should be smallest positive value as a value of 0.0 disables attenuation.
-		m_MinDistance = std::numeric_limits<float>().epsilon();
-		m_MaxDistance = 50.0f;
+		m_MinDistance = 1.0f;
+		m_MaxDistance = 100.0f;
 		
 		// Set other defaults:
 		m_Pitch        = 1.0f;
@@ -34,9 +36,6 @@ namespace LouiEriksson {
 	
 	void AudioSource::Sync() {
 	
-		// Get reference to transform (can be null).
-		const auto transform = Parent()->GetComponent<Transform>();
-		
 		// If the audio source is global...
 		if (m_Parameters.m_IsGlobal) {
 			
@@ -76,37 +75,46 @@ namespace LouiEriksson {
 			alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_Parameters.m_MinDistance);
 			alSourcef(m_Source, AL_MAX_DISTANCE,       m_Parameters.m_MaxDistance);
 			
-			if (transform != nullptr) {
-				
-				// Set world position to that of the current transform.
-				alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
-				
-				// Set the direction of the audio source using the current transform.
-				{
-					const auto dir = transform->FORWARD;
-					
-					alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
-				}
-			}
+			// Get reference to parent (may be null).
+			const auto parent = Parent();
 			
-			// Set velocity (using rigidbody, if available):
-			{
-				glm::vec3 velocity;
+			if (parent != nullptr) {
 				
-				const auto rigidbody = Parent()->GetComponent<Rigidbody>();
+				// Get reference to transform (may be null).
+				const auto transform = parent->GetComponent<Transform>();
 				
-				if (rigidbody != nullptr) {
-					velocity = rigidbody->Velocity();
+				if (transform != nullptr) {
+					
+					// Set world position to that of the current transform.
+					alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
+					
+					// Set the direction of the audio source using the current transform.
+					{
+						const auto dir = transform->FORWARD;
+						
+						alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
+					}
 				}
-				else {
-					velocity = (transform->m_Position - m_LastPosition) * Time::DeltaTime();
+				
+				// Set velocity (using rigidbody, if available):
+				{
+					glm::vec3 velocity;
+					
+					const auto rigidbody = parent->GetComponent<Rigidbody>();
+					
+					if (rigidbody != nullptr) {
+						velocity = rigidbody->Velocity();
+					}
+					else {
+						velocity = (transform->m_Position - m_LastPosition) * Time::DeltaTime();
+					}
+					
+					alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
 				}
 				
-				alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
+				m_LastPosition = transform->m_Position;
 			}
 		}
-		
-		m_LastPosition = transform->m_Position;
 	}
 	
 	AudioSource::AudioSource(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
@@ -150,34 +158,49 @@ namespace LouiEriksson {
 		Sync();
 	}
 	
-	void AudioSource::Play(const std::weak_ptr<Sound::Clip>& _clip) {
+	void AudioSource::Play(const std::weak_ptr<AudioClip>& _clip, const bool& _allowFallback) {
 		
-		// Set _clip as most recent clip.
-		m_Clip = _clip;
-		
-		// Attempt to lock clip pointer and evaluate if it is valid.
-		auto c = _clip.lock();
-		
-		if (c != nullptr) {
+		try {
 			
-			// Only play if the clip actually contains data.
-			if (c->m_Size > 0) {
+			// Set _clip as most recent clip.
+			m_Clip = _clip;
 			
-				if (c->m_ALBuffer == AL_NONE) {
-					
-					/*
-					 * AL buffer non-existent. Implies AL failed to initialise correctly.
-					 * Attempt to play the clip globally instead. This will use whatever fallback is available.
-					 */
-					Sound::PlayGlobal(_clip);
-				}
-				else {
-					
-					// Play!
-					alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
-					alSourcePlay(m_Source);
+			// Attempt to lock clip pointer and evaluate if it is valid.
+			auto c = _clip.lock();
+			
+			if (c != nullptr) {
+				
+				// Only play if the clip actually contains data.
+				if (c->m_Size > 0) {
+				
+					if (c->m_ALBuffer == AL_NONE) {
+						
+						/*
+						 * AL buffer non-existent. Implies AL failed to initialise correctly.
+						 * Attempt to play the clip globally instead. This will use whatever fallback is available.
+						 */
+						
+						if (_allowFallback) {
+							Sound::PlayGlobal(_clip);
+						}
+						else {
+							throw std::runtime_error(
+								"Cannot play audio clip since m_ALBuffer == AL_NONE, "
+								"and permission to use a fallback is denied!\n"
+							);
+						}
+					}
+					else {
+						
+						// Play!
+						alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
+						alSourcePlay(m_Source);
+					}
 				}
 			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << '\n';
 		}
 	}
 	

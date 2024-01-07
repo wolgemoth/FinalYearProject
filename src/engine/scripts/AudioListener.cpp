@@ -68,7 +68,7 @@ namespace LouiEriksson {
 	}
 	
 	void AudioListener::Gain(const float& _value) {
-		m_Gain = _value;
+		m_Gain = glm::clamp(_value, 0.0f, 1.0f);
 	}
 	
 	const float& AudioListener::Gain() const {

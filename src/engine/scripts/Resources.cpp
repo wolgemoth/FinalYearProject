@@ -16,7 +16,7 @@ namespace LouiEriksson {
 		
 		for (const auto& kvp : files.GetAll()) {
 			
-			std::shared_ptr<Sound::Clip> clip;
+			std::shared_ptr<AudioClip> clip;
 			if (File::TryLoad(kvp.second, clip)) {
 				
 				std::cout << kvp.first << '\n';
@@ -202,7 +202,7 @@ namespace LouiEriksson {
 		PreloadMaterials();
 	}
 	
-	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<Sound::Clip>& _output) {
+	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) {
 		return m_Audio.Get(_name, _output);
 	}
 	
@@ -222,7 +222,7 @@ namespace LouiEriksson {
 		return m_Shaders.Get(_name, _output);
 	}
 	
-	std::weak_ptr<Sound::Clip> Resources::GetAudio(const std::string& _name) {
+	std::weak_ptr<AudioClip> Resources::GetAudio(const std::string& _name) {
 		return m_Audio.Return(_name);
 	}
 	

@@ -4,103 +4,6 @@
 
 namespace LouiEriksson {
 	
-	Sound::Clip::Format::Format(const SDL_AudioSpec& _audioSpec) {
-		m_Specification = _audioSpec;
-	}
-	
-	ALenum Sound::Clip::Format::OpenALFormat() const {
-		
-		ALenum result = AL_NONE;
-		
-		if (m_Specification.channels == 1) {
-			
-			switch (m_Specification.format) {
-		        case AUDIO_U8:
-		        case AUDIO_S8:     { result = AL_FORMAT_MONO8;  break; }
-		        case AUDIO_U16LSB:
-		        case AUDIO_S16LSB:
-		        case AUDIO_U16MSB:
-		        case AUDIO_S16MSB: { result = AL_FORMAT_MONO16; break; }
-		        default: {
-					std::cout << "Unimplemented format.\n";
-				}
-			}
-		}
-		else {
-			switch (m_Specification.format) {
-		        case AUDIO_U8:
-		        case AUDIO_S8:     { result = AL_FORMAT_STEREO8;  break; }
-		        case AUDIO_U16LSB:
-		        case AUDIO_S16LSB:
-		        case AUDIO_U16MSB:
-		        case AUDIO_S16MSB: { result = AL_FORMAT_STEREO16; break; }
-		        default: {
-					std::cout << "Unimplemented format.\n";
-				}
-			}
-		}
-		
-		return result;
-	}
-	
-	Sound::Clip::Clip(const std::filesystem::path& _path) : m_Format({}) {
-	
-		// Generate audio buffer.
-		alGenBuffers(1, &m_ALBuffer);
-	
-		{
-			SDL_AudioSpec spec;
-			
-			// Load the audio data into a c-style byte array using SDL.
-			SDL_LoadWAV(_path.c_str(), &spec, &m_Data, &m_Size);
-			
-			m_Format = Format(spec);
-		}
-		
-		// Buffer the audio data and free the loaded data.
-		if (m_ALBuffer != AL_NONE) {
-	
-			alBufferData(
-				m_ALBuffer,
-				m_Format.OpenALFormat(),
-				m_Data,
-				static_cast<ALsizei>(m_Size),
-				m_Format.m_Specification.freq
-			);
-		}
-	}
-	
-	Sound::Clip::~Clip() {
-		Dispose();
-	}
-	
-	void Sound::Clip::Dispose() {
-		
-		Free();
-		
-		// Delete the buffer.
-		if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
-	}
-	
-	void Sound::Clip::Free() {
-		
-		try {
-			
-			// Free data using SDL.
-			if (m_Data != nullptr) { SDL_FreeWAV(m_Data); m_Data = nullptr; }
-			
-			m_Size = 0;
-		}
-		catch (const std::exception& e) {
-			
-			std::cout <<
-				"Exception occurred when freeing allocated audio data. " <<
-				"This is a potential memory leak!\n";
-			
-			std::cout << e.what() << '\n';
-		}
-	}
-	
 	void Sound::Init() {
 		
 		std::cout << "Initialising audio subsystems...\n";
@@ -156,6 +59,7 @@ namespace LouiEriksson {
 				 * This will be responsible for playing non-positional sound on-demand.
 				 */
 				s_GlobalSource.reset(new AudioSource(nullptr));
+				s_GlobalSource->Init();
 				
 				std::cout << "Done.\n";
 			}
@@ -174,7 +78,7 @@ namespace LouiEriksson {
 		alDistanceModel(_value);
 	}
 	
-	void Sound::PlayGlobal(const std::weak_ptr<Sound::Clip>& _clip) {
+	void Sound::PlayGlobal(const std::weak_ptr<AudioClip>& _clip) {
 	
 		// Attempt to lock clip pointer and evaluate if it is valid.
 		auto c = _clip.lock();
@@ -186,8 +90,6 @@ namespace LouiEriksson {
 			
 				if (c->m_ALBuffer == AL_NONE) {
 					
-					std::cout << "Playing using SDL!\n";
-					
 					if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
 					
 					s_SDL_Device = SDL_OpenAudioDevice(nullptr, 0, &c->m_Format.m_Specification, nullptr, 0);
@@ -198,11 +100,8 @@ namespace LouiEriksson {
 				}
 				else {
 					
-					std::cout << "Playing using OpenAL!\n";
-					
-					// Play using OpenAL!
-					alSourcei(s_GlobalSource->m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
-					alSourcePlay(s_GlobalSource->m_Source);
+					// Play the clip (without fallback, as that could potentially lead to infinite recursion).
+					s_GlobalSource->Play(_clip, false);
 				}
 			}
 		}
@@ -210,9 +109,11 @@ namespace LouiEriksson {
 	
 	void Sound::Dispose() {
 		
-		s_GlobalSource.reset();         // Release global source.
+		// Release global source.
+		s_GlobalSource.reset();
 		
-	    alcMakeContextCurrent(nullptr); // Release AL context.
+		// Release AL context.
+	    alcMakeContextCurrent(nullptr);
 		
 		if (s_Context != nullptr) { alcDestroyContext(s_Context); s_Context = nullptr; }
 		if (s_Device  != nullptr) { alcCloseDevice(s_Device);     s_Device  = nullptr; }

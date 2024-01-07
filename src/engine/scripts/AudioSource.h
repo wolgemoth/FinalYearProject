@@ -1,16 +1,14 @@
 #ifndef FINALYEARPROJECT_AUDIOSOURCE_H
 #define FINALYEARPROJECT_AUDIOSOURCE_H
 
-#include "Transform.h"
+#include "Component.h"
 
-#include "Sound.h"
+#include "AudioClip.h"
 
 namespace LouiEriksson {
 	
 	class AudioSource : public Component {
 	
-		friend class Sound;
-		
 		/*
 		 * Please refer to OpenAL-Soft spec:
 		 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
@@ -111,7 +109,7 @@ namespace LouiEriksson {
 		Parameters m_Parameters;
 		
 		/// <summary> Weak reference to most recently played AudioClip. </summary>
-		std::weak_ptr<Sound::Clip> m_Clip;
+		std::weak_ptr<AudioClip> m_Clip;
 		
 		/// <summary> Last position of the AudioSource (for computing transform-based velocity). </summary>
 		glm::vec3 m_LastPosition;
@@ -131,7 +129,7 @@ namespace LouiEriksson {
 		void Tick();
 		
 		/// <summary> Play a sound from this AudioSource.</summary>
-		void Play(const std::weak_ptr<Sound::Clip>& _clip);
+		void Play(const std::weak_ptr<AudioClip>& _clip, const bool& _allowFallback = true);
 		
 		/// <summary> Sets whether this AudioSource is global or not. </summary>
 		void Global(const bool& _value);
