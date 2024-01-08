@@ -17,6 +17,7 @@
 
 #include <AL/al.h>                  // AL ...
 #include <AL/alc.h>
+#include <AL/alext.h>
 
 #include <btBulletDynamicsCommon.h> // BULLET
 

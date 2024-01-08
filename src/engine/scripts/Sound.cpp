@@ -51,7 +51,8 @@ namespace LouiEriksson {
 					throw std::runtime_error("Failed setting audio context!");
 				}
 				
-				// Set the default distance model for the audio context:
+				// Set the default distance model for the audio context.
+				// See: https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide#aldistancemodel
 				DistanceModel(AL_INVERSE_DISTANCE);
 				
 				// Set default values for doppler shift.
