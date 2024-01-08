@@ -189,9 +189,16 @@ namespace LouiEriksson {
 					}
 					else {
 						
-						// Play!
-						alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
-						alSourcePlay(m_Source);
+						// If already playing, nothing needs to be done.
+						if (State() != AL_PLAYING) {
+							
+							// Play!
+							alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
+							alSourcePlay(m_Source);
+						}
+						else {
+							throw std::runtime_error("Attempted to call Play() on an AudioSource that is already playing.");
+						}
 					}
 				}
 				else {
@@ -220,6 +227,15 @@ namespace LouiEriksson {
 	}
 	const std::weak_ptr<AudioClip>& AudioSource::Clip() const {
 		return m_Clip;
+	}
+	
+	ALenum AudioSource::State() const {
+		
+		ALint state;
+		
+	    alGetSourcei(m_Source, AL_SOURCE_STATE, &state);
+		
+	    return static_cast<ALenum>(state);
 	}
 	
 	void AudioSource::Global(const bool& _value) {

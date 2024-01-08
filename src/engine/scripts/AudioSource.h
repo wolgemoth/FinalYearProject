@@ -143,6 +143,9 @@ namespace LouiEriksson {
 		/// <summary> Get weak reference to the currently used AudioClip. </summary>
 		const std::weak_ptr<AudioClip>& Clip() const;
 		
+		/// <summary> Get the current state of the AudioSource. </summary>
+		[[nodiscard]] ALenum State() const;
+		
 		/// <summary> Sets whether this AudioSource is global or not. </summary>
 		void Global(const bool& _value);
 		

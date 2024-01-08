@@ -39,7 +39,30 @@ namespace LouiEriksson {
 		
 		private:
 			
-			inline static const Uint8* s_KeyboardState = nullptr;
+			/// <summary> Wraps a c-style pointer representing the state of the keyboard. </summary>
+			struct State {
+			
+				friend Input;
+				
+			private:
+				
+				const Uint8* s_Data;
+				int s_Length;
+				
+			public:
+				
+				 State();
+				~State();
+				
+				/// <summary> Returns the state of the keyboard at the provided SDL_KeyCode. </summary>
+				[[nodiscard]]bool Get(const SDL_Keycode& _value) const;
+				
+				/// <summary> Returns the state of the keyboard at the provided SDL_Scancode. </summary>
+				[[nodiscard]]bool Get(const SDL_Scancode& _value) const;
+			};
+			
+			inline static State s_PreviousKeyboardState = State();
+			inline static State  s_CurrentKeyboardState = State();
 		
 		public:
 			
@@ -47,6 +70,13 @@ namespace LouiEriksson {
 			
 			static bool Get(const SDL_Keycode& _key);
 			
+			static bool GetDown(const SDL_Scancode& _key);
+			
+			static bool GetDown(const SDL_Keycode& _key);
+			
+			static bool GetUp(const SDL_Scancode& _key);
+			
+			static bool GetUp(const SDL_Keycode& _key);
 		};
 		
 		struct Mouse {
@@ -59,7 +89,7 @@ namespace LouiEriksson {
 			
 		public:
 			
-			static glm::vec2 Motion();
+			static const glm::vec2& Motion();
 			
 		};
 		
@@ -72,6 +102,7 @@ namespace LouiEriksson {
 		
 		static void Tick();
 		
+		static void Dispose();
 	};
 }
 

@@ -75,7 +75,7 @@ namespace LouiEriksson {
 		// Update the camera's parameters to match the ones in Settings.
 		SyncCameraSettings();
 		
-		if (Input::Key::Get(SDL_SCANCODE_P)) {
+		if (Input::Key::GetDown(SDL_SCANCODE_P)) {
 			Sound::PlayGlobal(Resources::GetAudio("Fred Falke - Intro (Cover)"));
 		}
 		

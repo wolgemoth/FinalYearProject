@@ -105,8 +105,15 @@ namespace LouiEriksson {
 					}
 					else {
 						
-						// Play the clip (without fallback, as that could potentially lead to infinite recursion).
+						// Stop the source if it is already playing.
+						if (s_GlobalSource->State() == AL_PLAYING) {
+							s_GlobalSource->Stop();
+						}
+						
+						// Assign the new clip.
 						s_GlobalSource->Clip(c);
+						
+						// Play! (Set fallback to false as we have already established it is not necessary.)
 						s_GlobalSource->Play(false);
 					}
 				}

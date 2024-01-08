@@ -206,6 +206,7 @@ NestedBreak:
 			
 			    GUI::Dispose();
 			Physics::Dispose();
+			  Input::Dispose();
 			
 			SDL_Quit();
 		}
