@@ -9,6 +9,13 @@
 
 namespace LouiEriksson {
 	
+	btScalar Rigidbody::BulletRigidbody::CollisionCallback::addSingleResult(
+			btManifoldPoint& _cp, const btCollisionObjectWrapper* _colObj0Wrap, int _partId0, int _index0, const btCollisionObjectWrapper* _colObj1Wrap,
+			int _partId1, int _index1
+	) {
+		std::cout << "I collided!\n";
+	}
+	
 	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) {
 		
 		try {
@@ -117,11 +124,22 @@ namespace LouiEriksson {
 				m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
 			}
 			
-			// Add the rigidbody to the dynamics world.
+			// Initialise and assign the collision callback.
+			m_Callback.reset(new CollisionCallback(this));
+			Physics::s_DynamicsWorld->contactTest();
+			
+			// Finally, add the rigidbody to the dynamics world.
 			Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
 		}
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
+		}
+	}
+	
+	Rigidbody::BulletRigidbody::~BulletRigidbody() {
+		
+		if (m_Rigidbody != nullptr) {
+			Physics::s_DynamicsWorld->removeRigidBody(m_Rigidbody.get());
 		}
 	}
 	
@@ -142,13 +160,6 @@ namespace LouiEriksson {
 		m_Bounciness  = 0.5f;
 		
 		m_Inertia = { 1.0f, 1.0f, 1.0f };
-	}
-	
-	Rigidbody::BulletRigidbody::~BulletRigidbody() {
-		
-		if (m_Rigidbody != nullptr) {
-			Physics::s_DynamicsWorld->removeRigidBody(m_Rigidbody.get());
-		}
 	}
 	
 	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
@@ -239,6 +250,10 @@ namespace LouiEriksson {
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
+	}
+	
+	void Rigidbody::OnCollision(Collision& _collision) {
+	
 	}
 	
 	void Rigidbody::SetTransform(const std::weak_ptr<Transform>& _transform) {
@@ -394,4 +409,5 @@ namespace LouiEriksson {
 	const float& Rigidbody::Bounciness() const {
 		return m_Parameters.m_Bounciness;
 	}
+	
 }

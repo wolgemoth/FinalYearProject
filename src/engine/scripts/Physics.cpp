@@ -91,10 +91,10 @@ namespace LouiEriksson {
 				s_DynamicsWorld.reset(new btDiscreteDynamicsWorld(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get()));
 			std::cout << "Done.\n";
 			
-			// Create and initialise an instance of the visual debugging class.
-			std::cout << "Initialising Debug Drawer... ";
-				//s_Debugger.reset(new Debugger(s_DynamicsWorld));
-			std::cout << "Done.\n";
+			//// Create and initialise an instance of the visual debugging class.
+			//std::cout << "Initialising Debug Drawer... ";
+			//	s_Debugger.reset(new Debugger(s_DynamicsWorld));
+			//std::cout << "Done.\n";
 		}
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n" << e.what() << '\n';

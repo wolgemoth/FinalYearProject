@@ -65,6 +65,7 @@ namespace LouiEriksson {
 		/// <summary> Value of gravity. </summary>
 		inline static glm::vec3 s_Gravity = glm::vec3(0.0f, -9.82f, 0.0f);
 		
+		/// <summary> Time in seconds since the physics engine was last updated. </summary>
 		inline static float s_LastTick = 0.0f;
 		
 		/// <summary> Initialise the physics engine. </summary>

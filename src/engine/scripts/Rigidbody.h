@@ -23,13 +23,31 @@ namespace LouiEriksson {
 			
 			friend Parameters;
 			
+			/// <summary>
+			/// Implementation of the abstract btCollisionWorld::ContactResultCallback class.
+			/// </summary>
+			class CollisionCallback : public btCollisionWorld::ContactResultCallback {
+			
+				/// <summary> Reference to the rigidbody this object belongs to. </summary>
+				std::weak_ptr<Rigidbody> m_Rigidbody;
+				
+				/// </inheritdoc>
+			    btScalar addSingleResult(btManifoldPoint& _cp, const btCollisionObjectWrapper* _colObj0Wrap, int _partId0, int _index0, const btCollisionObjectWrapper* _colObj1Wrap, int _partId1, int _index1) override;
+				
+				 CollisionCallback(std::weak_ptr<Rigidbody> _rigidbody);
+				~CollisionCallback()
+			};
+			
 			/// <summary> (Bullet Physics Engine) Internal Rigidbody component. </summary>
 			std::shared_ptr<btRigidBody> m_Rigidbody;
 			
 			/// <summary> (Bullet Physics Engine) Internal Rigidbody component. </summary>
 			std::shared_ptr<btMotionState> m_MotionState;
 			
-			 BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters);
+			/// <summary> Reference to collision callback. </summary>
+			std::weak_ptr<CollisionCallback> m_Callback;
+			
+			 BulletRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody, const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters);
 			~BulletRigidbody();
 		};
 		
@@ -97,6 +115,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Sync the transform with the physics engine. </summary>
 		void Sync();
+		
+		/// <summary> Invoked when this Rigidbody collides with something. </summary>
+		void OnCollision(Collision& _collision);
 		
 		/// <summary> Set the Transform of the Rigidbody. </summary>
 		void SetTransform(const std::weak_ptr<Transform>& _transform);
