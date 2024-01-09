@@ -72,7 +72,7 @@ namespace LouiEriksson {
 		
 		// Append the current frame.
 		s_Timestamps.push_back(Time::Elapsed());
-		   s_Samples.push_back(1.0f / Time::DeltaTime());
+		   s_Samples.push_back(1.0f / Time::UnscaledDeltaTime());
 		   
 		// Extract various values from the sampling window:
 		float oldest_avg_timestamp  = std::numeric_limits<float>::infinity(),

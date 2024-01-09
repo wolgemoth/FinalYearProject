@@ -104,7 +104,7 @@ namespace LouiEriksson {
 	
 	void Physics::Tick(const float& _step) {
 		
-		s_DynamicsWorld->stepSimulation(_step, 1, Time::FixedDeltaTime());
+		s_DynamicsWorld->stepSimulation(_step, 1, glm::max(Time::FixedDeltaTime(), std::numeric_limits<float>().epsilon()));
 		
 		if (_step != 0.0f) {
 			s_LastTick = 0.0f;
