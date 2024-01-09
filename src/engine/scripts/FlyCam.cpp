@@ -75,8 +75,12 @@ namespace LouiEriksson {
 		// Update the camera's parameters to match the ones in Settings.
 		SyncCameraSettings();
 		
-		if (Input::Key::GetDown(SDL_SCANCODE_P)) {
-			Sound::PlayGlobal(Resources::GetAudio("Fred Falke - Intro (Cover)"));
+		// Cool slow motion effect:
+		{
+			const auto targetScale = Input::Key::Get(SDL_SCANCODE_P) ? 0.0f : 1.0f;
+			const auto effectSpeed = 3.0f;
+			
+			Time::Scale(glm::mix(Time::Scale(), targetScale, Time::UnscaledDeltaTime() * effectSpeed));
 		}
 		
 		const auto movement_input = glm::vec3(

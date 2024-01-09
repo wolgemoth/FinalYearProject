@@ -165,7 +165,7 @@ namespace LouiEriksson {
 						scene->FixedTick();
 						
 						// Subtract delta time from the physics step.
-						physics_step -= Time::FixedDeltaTime();
+						physics_step -= Time::FixedUnscaledDeltaTime();
 					}
 					
 					/* UPDATE */
@@ -187,15 +187,15 @@ namespace LouiEriksson {
 					Utils::GLDumpError();
 				
 					/* UPDATE TIMERS */
-					Time::s_DeltaTime =
+					Time::s_UnscaledDeltaTime =
 						static_cast<float>(std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() -
 							frame_start
 						).count()) / 1000000.0f; // Calculate delta time.
 		
-					   Time::s_Elapsed  += Time::DeltaTime(); // Increment total elapsed time.
-					Physics::s_LastTick += Time::DeltaTime(); // Increment time since last physics update.
-					       physics_step += Time::DeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
+					   Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
+					Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.
+					       physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 				}
 				catch (const std::exception& e) {
 					std::cout << e.what()<< '\n';

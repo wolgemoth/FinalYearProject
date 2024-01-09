@@ -81,14 +81,14 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keywordflow">return</span> s_Elapsed;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    }</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_time.html#a5a3dc4db767b5dc8d88e560d764e770c">   12</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_time.html#a5a3dc4db767b5dc8d88e560d764e770c">Time::DeltaTime</a>() {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">return</span> s_DeltaTime;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">return</span> s_UnscaledDeltaTime;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    }</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_time.html#a320a3f92ab022b38a810db62dfb56316">   16</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_time.html#ac62a8ce3c9de43087216c1d57a9aea3d">Time::FixedDeltaTime</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        s_FixedDeltaTime = _value;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        s_FixedUnscaledDeltaTime = _value;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_time.html#ac62a8ce3c9de43087216c1d57a9aea3d">   19</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_time.html#ac62a8ce3c9de43087216c1d57a9aea3d">Time::FixedDeltaTime</a>() {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span> s_FixedDeltaTime;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span> s_FixedUnscaledDeltaTime;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="ttc" id="a_time_8h_html"><div class="ttname"><a href="_time_8h.html">Time.h</a></div></div>

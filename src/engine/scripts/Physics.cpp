@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Physics.h"
+#include "Time.h"
 
 namespace LouiEriksson {
 	
@@ -102,9 +103,12 @@ namespace LouiEriksson {
 	}
 	
 	void Physics::Tick(const float& _step) {
-		s_DynamicsWorld->stepSimulation(_step);
 		
-		s_LastTick = 0.0f;
+		s_DynamicsWorld->stepSimulation(_step, 1, Time::FixedDeltaTime());
+		
+		if (_step != 0.0f) {
+			s_LastTick = 0.0f;
+		}
 	}
 	
 	void Physics::Gravity(const glm::vec3& _value) {
