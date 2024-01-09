@@ -6,30 +6,39 @@
 
 namespace LouiEriksson {
 	
-	Collision::Collision() {
-		m_ContactPoint = glm::vec3(-1.0f);
-		m_Normal       = glm::vec3( 0.0f);
-		m_Impulse      = glm::vec3( 0.0f);
+	Collision::Collision(const btManifoldPoint& _point, const int& _body) {
+		
+		// Get the contact point of the collision from the manifold:
+		{
+			const auto contactPoint = _body == 0 ?
+					_point.getPositionWorldOnA() :
+					_point.getPositionWorldOnB();
+			
+			m_ContactPoint = glm::vec3(contactPoint.x(), contactPoint.y(), contactPoint.z());
+		}
+		
+		// Get the normal of the collision from the manifold:
+		{
+			const auto normal = _body == 0 ?
+					-_point.m_normalWorldOnB :
+					 _point.m_normalWorldOnB;
+			
+			m_Normal = glm::vec3(normal.x(), normal.y(), normal.z());
+		}
+		
+		// Get the impulse of the collision from the manifold:
+		m_Impulse = _point.getAppliedImpulse();
 	}
 	
-	void Collision::ContactPoint(const glm::vec3& _contactPoint) {
-		m_ContactPoint = _contactPoint;
-	}
-	const glm::vec3& Collision::ContactPoint() {
+	const glm::vec3& Collision::ContactPoint() const {
 		return m_ContactPoint;
 	}
 	
-	void Collision::Normal(const glm::vec3& _normal) {
-		m_Normal = _normal;
-	}
-	const glm::vec3& Collision::Normal() {
+	const glm::vec3& Collision::Normal() const {
 		return m_Normal;
 	}
 	
-	void Collision::Impulse(const glm::vec3& _impulse) {
-		m_Impulse = _impulse;
-	}
-	const glm::vec3& Collision::Impulse() {
+	const float& Collision::Impulse() const {
 		return m_Impulse;
 	}
 }

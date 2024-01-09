@@ -88,7 +88,7 @@ namespace LouiEriksson {
 		 * This takes some finangling as the keyboard state (as represented by
 		 * SDL2) is a pointer to an internal SDL2 array. This means that simply
 		 * having a second copy of the pointer to the internal array isn't
-		 * enough as it will fundamentally point to the same data as all others.
+		 * enough as it will fundamentally point to the exact same data.
 		 *
 		 * To remedy this, we manually copy the internal SDL2 array and use that
 		 * for our previous keyboard state. We also wrap the state into a struct
@@ -121,6 +121,7 @@ namespace LouiEriksson {
 		
 		SDL_Event event = { 0 };
 		
+		// Poll for pending events. Calling SDL_PollEvent also updates the internal keyboard state.
 		while (SDL_PollEvent(&event) != 0) {
 			
 			// Send event to GUI for processing.

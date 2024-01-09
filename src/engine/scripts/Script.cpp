@@ -10,4 +10,6 @@ namespace LouiEriksson {
 	
 	void Script::Begin() {}
 	void Script::Tick() {}
+	void Script::FixedTick() {}
+	void Script::OnCollision(const Collision& _collision) {}
 }

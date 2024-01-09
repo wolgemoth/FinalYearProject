@@ -62,7 +62,7 @@ namespace LouiEriksson {
 				
 				/*
 				 * Generate the global audio source.
-				 * This will be responsible for playing non-positional sound on-demand.
+				 * This will be responsible for on-demand playback of non-positional sound.
 				 */
 				s_GlobalSource.reset(new AudioSource(nullptr));
 				s_GlobalSource->Init();

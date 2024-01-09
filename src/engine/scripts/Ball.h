@@ -26,12 +26,18 @@ namespace LouiEriksson {
 		
 	protected:
 	
-		/// <summary> Called at the beginning of the first frame. </summary>
+		/// <inheritdoc/>
 		void Begin() override;
 	
-		/// <summary> Called every frame. </summary>
+		/// <inheritdoc/>
 		void Tick() override;
 	
+		/// <inheritdoc/>
+		void FixedTick() override;
+		
+		/// <inheritdoc/>
+		void OnCollision(const Collision& _collision) override;
+		
 	public:
 	
 		explicit Ball(const std::shared_ptr<GameObject>& _parent);

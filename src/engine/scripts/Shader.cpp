@@ -13,7 +13,7 @@ namespace LouiEriksson {
 	Shader::Shader(const std::filesystem::path& _path) {
 		
 		Hashmap<GLenum, std::string> subShaders;
-		std::cout << "Loading Shader Asset \"" << _path.c_str() << "\"... ";
+		std::cout << "Loading Shader \"" << _path.c_str() << "\"... ";
 		
 		try {
 			subShaders = ExtractSubshaders(File::ReadAllText(_path));
@@ -135,7 +135,7 @@ namespace LouiEriksson {
 				type_string = "UNKNOWN TYPE";
 			}
 			
-			std::cout << "Compiling Shader Program \"" << m_Name << "\" (" << type_string << ")... ";
+			std::cout << "Compiling Shader \"" << m_Name << "\" (" << type_string << ")... ";
 		}
 		
 		const auto* const src = _src.c_str();

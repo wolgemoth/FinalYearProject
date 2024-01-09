@@ -40,10 +40,10 @@ namespace LouiEriksson {
 	
 	protected:
 		
-		/// <summary> Called at the beginning of the first frame. </summary>
+		/// <inheritdoc/>
 		void Begin() override;
 		
-		/// <summary> Called every frame. </summary>
+		/// <inheritdoc/>
 		void Tick() override;
 		
 		void SpawnPlanes();

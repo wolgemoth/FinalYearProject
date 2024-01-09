@@ -74,6 +74,10 @@ namespace LouiEriksson {
 	
 	void Ball::Tick() {
 	
+	}
+	
+	void Ball::FixedTick() {
+	
 		const auto transform = Parent()->GetComponent<Transform>();
 		
 		if (transform != nullptr) {
@@ -89,6 +93,18 @@ namespace LouiEriksson {
 				// Reset motion.
 				rb->Velocity       (glm::vec3(0.0f));
 				rb->AngularVelocity(glm::vec3(0.0f));
+			}
+		}
+	}
+	
+	void Ball::OnCollision(const Collision& _collision) {
+		
+		const auto rb = Parent()->GetComponent<Rigidbody>();
+		
+		if (rb != nullptr) {
+			
+			if (_collision.Impulse() > rb->Mass()) {
+				std::cout << Time::Elapsed() << '\n';
 			}
 		}
 	}

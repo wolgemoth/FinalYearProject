@@ -9,13 +9,6 @@
 
 namespace LouiEriksson {
 	
-	btScalar Rigidbody::BulletRigidbody::CollisionCallback::addSingleResult(
-			btManifoldPoint& _cp, const btCollisionObjectWrapper* _colObj0Wrap, int _partId0, int _index0, const btCollisionObjectWrapper* _colObj1Wrap,
-			int _partId1, int _index1
-	) {
-		std::cout << "I collided!\n";
-	}
-	
 	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) {
 		
 		try {
@@ -124,10 +117,6 @@ namespace LouiEriksson {
 				m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
 			}
 			
-			// Initialise and assign the collision callback.
-			m_Callback.reset(new CollisionCallback(this));
-			Physics::s_DynamicsWorld->contactTest();
-			
 			// Finally, add the rigidbody to the dynamics world.
 			Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
 		}
@@ -232,19 +221,68 @@ namespace LouiEriksson {
 		
 		try {
 			
-			const auto transform = m_Transform.lock();
+			/* SYNCHRONISE POSITION AND ORIENTATION */
+			{
+				const auto transform = m_Transform.lock();
+				
+				if (transform != nullptr) {
+					
+					// Get the transform from the bullet physics engine.
+					auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
+					
+					const auto bOrigin   = t.getOrigin();
+					const auto bRotation = t.getRotation().inverse();
+					
+					// Sync the transform from bullet with the transform in-engine.
+					transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
+					transform->m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
+				}
+			}
 			
-			if (transform != nullptr) {
+			/* GET COLLISIONS */
+			{
+				// Reset the collisions.
+				m_Collisions.clear();
 				
-				// Get the transform from the bullet physics engine.
-				auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
+				/*
+				 * TODO: Move this to the Physics class and have some kind of managed, internal
+				 * system for indexing Rigidbody objects against btRigidbody objects.
+				 */
 				
-				const auto bOrigin   = t.getOrigin();
-				const auto bRotation = t.getRotation().inverse();
-				
-				// Sync the transform from bullet with the transform in-engine.
-				transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
-				transform->m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
+				// Get and iterate through every contact manifold in the physics engine.
+			    int numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
+			    for (int i = 0; i < numManifolds; i++) {
+					
+			        auto* contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+			
+			        // Get and iterate through every contact in the manifold.
+			        int numContacts = contactManifold->getNumContacts();
+			        for (int j = 0; j < numContacts; j++) {
+						
+						// Get a pointer to the btRigidbody associated with this rigidbody.
+						const auto* rbThis = m_Parameters.m_BulletRigidbody->m_Rigidbody.get();
+						
+						// Validate the pointer. If is fails the null check we will throw.
+						if (rbThis != nullptr) {
+							
+							// Determine if either of the bodies in the manifold are this rigidbody.
+							int body;
+							
+							if      (contactManifold->getBody0() == rbThis) { body =  0; }
+							else if (contactManifold->getBody1() == rbThis) { body =  1; }
+							else                                            { body = -1; }
+							
+							// If one of the rigidbodies involved in the collision event are this rigidbody,
+							// generate a collision object and append it to the list of collisions.
+							if (body >= 0) {
+								m_Collisions.emplace_back(contactManifold->getContactPoint(j), body);
+							}
+						}
+						else {
+							throw std::runtime_error("btRigidbody associated with this Rigidbody is nullptr!");
+						}
+			        }
+				}
 			}
 		}
 		catch (const std::exception& e) {
@@ -252,8 +290,8 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void Rigidbody::OnCollision(Collision& _collision) {
-	
+	const std::vector<Collision>& Rigidbody::Collisions() const {
+		return m_Collisions;
 	}
 	
 	void Rigidbody::SetTransform(const std::weak_ptr<Transform>& _transform) {
@@ -409,5 +447,4 @@ namespace LouiEriksson {
 	const float& Rigidbody::Bounciness() const {
 		return m_Parameters.m_Bounciness;
 	}
-	
 }

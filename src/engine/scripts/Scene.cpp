@@ -110,6 +110,39 @@ namespace LouiEriksson {
 				rigidbody->Sync();
 			}
 		}
+		
+		// Handle physics-based operations on Scripts.
+		std::vector<std::any> scripts;
+		if (m_Entities.Get(typeid(Script), scripts)) {
+	
+			for (const auto& s : scripts) {
+				
+				auto script = std::any_cast<std::shared_ptr<Script>>(s);
+				
+				/*
+				 * Invoke collision event for every collision that the attached
+				 * rigidbody component has encountered.
+				 */
+				{
+					// Get rigidbody on Script's parent.
+					const auto rb = script->Parent()->GetComponent<Rigidbody>();
+					
+					// Check if the pointer is valid.
+					if (rb != nullptr) {
+						
+						// Invoke collision event for every Collision:
+						const auto collisions = rb->Collisions();
+						
+						for (auto collision : collisions) {
+							script->OnCollision(collision);
+						}
+					}
+				}
+				
+				// Run the script's FixedTick().
+				script->FixedTick();
+			}
+		}
 	}
 	
 	Hashmap<std::type_index, std::vector<std::any>> Scene::Entities() {

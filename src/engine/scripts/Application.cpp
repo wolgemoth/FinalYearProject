@@ -158,10 +158,13 @@ namespace LouiEriksson {
 					// Runs as many times as needed to restore the physics step below zero.
 					while (physics_step >= 0.0f) {
 						
+						// Tick the physics engine.
 						Physics::Tick(Time::FixedDeltaTime());
 						
+						// Tick the scene's fixed update.
 						scene->FixedTick();
 						
+						// Subtract delta time from the physics step.
 						physics_step -= Time::FixedDeltaTime();
 					}
 					

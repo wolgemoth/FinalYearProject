@@ -19,24 +19,11 @@ namespace LouiEriksson {
 		
 		struct Parameters;
 		
-		struct BulletRigidbody {
+		class BulletRigidbody {
 			
 			friend Parameters;
 			
-			/// <summary>
-			/// Implementation of the abstract btCollisionWorld::ContactResultCallback class.
-			/// </summary>
-			class CollisionCallback : public btCollisionWorld::ContactResultCallback {
-			
-				/// <summary> Reference to the rigidbody this object belongs to. </summary>
-				std::weak_ptr<Rigidbody> m_Rigidbody;
-				
-				/// </inheritdoc>
-			    btScalar addSingleResult(btManifoldPoint& _cp, const btCollisionObjectWrapper* _colObj0Wrap, int _partId0, int _index0, const btCollisionObjectWrapper* _colObj1Wrap, int _partId1, int _index1) override;
-				
-				 CollisionCallback(std::weak_ptr<Rigidbody> _rigidbody);
-				~CollisionCallback()
-			};
+		public:
 			
 			/// <summary> (Bullet Physics Engine) Internal Rigidbody component. </summary>
 			std::shared_ptr<btRigidBody> m_Rigidbody;
@@ -44,10 +31,7 @@ namespace LouiEriksson {
 			/// <summary> (Bullet Physics Engine) Internal Rigidbody component. </summary>
 			std::shared_ptr<btMotionState> m_MotionState;
 			
-			/// <summary> Reference to collision callback. </summary>
-			std::weak_ptr<CollisionCallback> m_Callback;
-			
-			 BulletRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody, const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters);
+			 BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters);
 			~BulletRigidbody();
 		};
 		
@@ -103,6 +87,9 @@ namespace LouiEriksson {
 		/// <summary> Collider of the Rigidbody. </summary>
 		std::weak_ptr<Collider> m_Collider;
 	
+		/// <summary> List of collisions for the current tick of the physics engine. </summary>
+		std::vector<Collision> m_Collisions;
+		
 		void BulletReinitialise();
 		
 	public:
@@ -116,25 +103,25 @@ namespace LouiEriksson {
 		/// <summary> Sync the transform with the physics engine. </summary>
 		void Sync();
 		
-		/// <summary> Invoked when this Rigidbody collides with something. </summary>
-		void OnCollision(Collision& _collision);
+		/// <summary> Retrieve the list of collisions for the current tick of the physics engine. </summary>
+		[[nodiscard]] const std::vector<Collision>& Collisions() const;
 		
 		/// <summary> Set the Transform of the Rigidbody. </summary>
 		void SetTransform(const std::weak_ptr<Transform>& _transform);
 	
 		/// <summary> Get the Transform of the Rigidbody. </summary>
-		const std::weak_ptr<Transform>& GetTransform() const;
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const;
 	
 		/// <summary> Set the Collider of the Rigidbody. </summary>
 		void SetCollider(const std::weak_ptr<Collider>& _collider);
 	
 		/// <summary> Get the Collider of the Rigidbody. </summary>
-		const std::weak_ptr<Collider>& GetCollider() const ;
+		[[nodiscard]] const std::weak_ptr<Collider>& GetCollider() const ;
 	
 		/// <summary>
 		/// Set the position of the Rigidbody.
 		/// You shouldn't normally need to do this.
-		/// See AddForce() Instead.
+		/// See AddForce() instead.
 		/// </summary>
 		void Position(const glm::vec3& _value);
 		

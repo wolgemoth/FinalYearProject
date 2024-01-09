@@ -9,6 +9,7 @@
 
 namespace LouiEriksson {
 
+	class Collision;
 	class Scene;
 	
 	/// <summary>
@@ -29,6 +30,11 @@ namespace LouiEriksson {
 		/// <summary> Called every frame. </summary>
 		virtual void Tick();
 		
+		/// <summary> Called every tick of the physics engine. </summary>
+		virtual void FixedTick();
+		
+		/// <summary> Called every time a collision event occurs. </summary>
+		virtual void OnCollision(const Collision& _collision);
 	};
 }
 

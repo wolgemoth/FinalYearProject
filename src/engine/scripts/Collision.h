@@ -19,30 +19,21 @@ namespace LouiEriksson {
 		glm::vec3 m_Normal;
 	
 		/// <summary> Impulse of the Collision. </summary>
-		glm::vec3 m_Impulse;
+		float m_Impulse;
 	
 	public:
 	
-		 Collision();
+		 Collision(const btManifoldPoint& _point, const int& _body);
 		~Collision() = default;
 	
-		/// <summary> Set the contact point of the Collision. </summary>
-		void ContactPoint(const glm::vec3& _contactPoint);
-	
 		/// <summary> Get the contact point of the Collision. </summary>
-		const glm::vec3& ContactPoint();
+		[[nodiscard]] const glm::vec3& ContactPoint() const;
 	
-		/// <summary> Set the normal of the Collision. </summary>
-		void Normal(const glm::vec3& _normal);
-		
 		/// <summary> Get the normal of the Collision. </summary>
-		const glm::vec3& Normal();
+		[[nodiscard]] const glm::vec3& Normal() const;
 	
-		/// <summary> Set the impulse of the Collision. </summary>
-		void Impulse(const glm::vec3& _contactPoint);
-		
 		/// <summary> Get the impulse of the Collision. </summary>
-		const glm::vec3& Impulse();
+		[[nodiscard]] const float& Impulse() const;
 	};
 }
 

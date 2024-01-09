@@ -96,7 +96,7 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
-		std::cout << "Loading Texture Asset \"" << _path.c_str() << "\"... ";
+		std::cout << "Loading AudioClip \"" << _path.c_str() << "\"... ";
 		
 		try {
 			_output.reset(new AudioClip(_path));
@@ -118,7 +118,7 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
-		std::cout << "Loading Texture Asset \"" << _path.c_str() << "\"... ";
+		std::cout << "Loading Texture \"" << _path.c_str() << "\"... ";
 		
 		try {
 			
