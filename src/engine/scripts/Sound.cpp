@@ -65,7 +65,6 @@ namespace LouiEriksson {
 				 * This will be responsible for on-demand playback of non-positional sound.
 				 */
 				s_GlobalSource.reset(new AudioSource(nullptr));
-				s_GlobalSource->Init();
 				s_GlobalSource->Global(true);
 				
 				std::cout << "Done.\n";

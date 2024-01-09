@@ -22,7 +22,12 @@ namespace LouiEriksson {
 		/// <summary> Material of the Ball. </summary>
 		inline static std::weak_ptr<Material> s_Material;
 	
+		/// <summary> AudioSource component. </summary>
+		std::weak_ptr<AudioSource> m_AudioSource;
+		
 		glm::vec3 m_StartingPosition;
+		
+		float m_Radius;
 		
 	protected:
 	

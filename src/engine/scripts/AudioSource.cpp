@@ -35,7 +35,14 @@ namespace LouiEriksson {
 	AudioSource::Parameters::~Parameters() {}
 	
 	void AudioSource::Sync() {
-	
+		
+		// Set values that do not change depending on if the source is global or not:
+		alSourcef(m_Source, AL_PITCH,          m_Parameters.m_Pitch);
+		alSourcef(m_Source, AL_GAIN,           m_Parameters.m_GainModifier);
+		alSourcef(m_Source, AL_MIN_GAIN,       m_Parameters.m_MinGain);
+		alSourcef(m_Source, AL_MAX_GAIN,       m_Parameters.m_MaxGain);
+		alSourcef(m_Source, AL_ROLLOFF_FACTOR, m_Parameters.m_Rolloff);
+		
 		// If the audio source is global...
 		if (m_Parameters.m_IsGlobal) {
 			
@@ -54,8 +61,7 @@ namespace LouiEriksson {
 			
 			/* SET PANNING */
 			
-			// Global audio source has a relative position to the listener,
-			// so update its local position only.
+			// Global AudioSources have relative position to the listener, so update local position only.
 			alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&m_Parameters.m_Panning[0]));
 			
 			/* DISABLE ATTENUATION */
@@ -66,6 +72,10 @@ namespace LouiEriksson {
 			// Set max distance to infinity (not strictly-necessary).
 			alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<float>::max());
 			
+			// Nullify directionality of AudioSource
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0f);
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0f);
+			
 			/* RESET VELOCITY */
 			alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);
 		}
@@ -74,6 +84,10 @@ namespace LouiEriksson {
 			// Set all defined parameters in a positional context:
 			alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_Parameters.m_MinDistance);
 			alSourcef(m_Source, AL_MAX_DISTANCE,       m_Parameters.m_MaxDistance);
+			
+			// Set min and max cone angles of the source.
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MinAngle);
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MaxAngle);
 			
 			// Get reference to parent (may be null).
 			const auto parent = Parent();
@@ -120,8 +134,9 @@ namespace LouiEriksson {
 	AudioSource::AudioSource(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
 		
 		m_Source = AL_NONE;
-		
 		m_Parameters = {};
+		
+		Init();
 	}
 	
 	AudioSource::~AudioSource() {

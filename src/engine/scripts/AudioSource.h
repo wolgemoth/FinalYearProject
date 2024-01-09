@@ -114,6 +114,9 @@ namespace LouiEriksson {
 		/// <summary> Last position of the AudioSource (for computing transform-based velocity). </summary>
 		glm::vec3 m_LastPosition;
 		
+		/// <summary> Initialise the AudioSource.</summary>
+		void Init();
+	
 		/// <summary> Synchronise the AudioSource with the internal audio engine. </summary>
 		void Sync();
 		
@@ -122,9 +125,6 @@ namespace LouiEriksson {
 		 explicit AudioSource(const std::shared_ptr<GameObject>& _parent);
 		~AudioSource() override;
 		
-		/// <summary> Initialise the AudioSource.</summary>
-		void Init();
-	
 		/// <summary> Updates the AudioSource every frame.</summary>
 		void Tick();
 		
