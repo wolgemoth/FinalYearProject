@@ -25,8 +25,10 @@ namespace LouiEriksson {
 		/// <summary> AudioSource component. </summary>
 		std::weak_ptr<AudioSource> m_AudioSource;
 		
+		/// <summary> Position of the ball when it spawned. </summary>
 		glm::vec3 m_StartingPosition;
 		
+		/// <summary> Radius of the ball. </summary>
 		float m_Radius;
 		
 	protected:

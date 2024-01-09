@@ -122,7 +122,7 @@ namespace LouiEriksson {
 			const auto pitch_multiplier         = 2.0f; // Total pitch multiplier.
 			const auto pitch_impulse_multiplier = 0.4f; // Effect of impulse on pitch (inverse).
 			const auto pitch_radius_multiplier  = 1.0f; // Effect of ball radius on pitch (inverse).
-			const auto pitch_min                = 0.3f; // Minimum final pitch.
+			const auto pitch_min                = 0.7f; // Minimum final pitch.
 			const auto pitch_max                = 2.0f; // Maximum final pitch.
 			
 			// Volume settings:
@@ -131,7 +131,7 @@ namespace LouiEriksson {
 			const auto volume_min              = 0.1f; // Minimum final volume.
 			const auto volume_max              = 2.0f; // Maximum final volume.
 			
-			if (_collision.Impulse() > impulse_threshold) {
+			if (_collision.Impulse() >= impulse_threshold) {
 
 				auto as = m_AudioSource.lock();
 				
