@@ -33,11 +33,11 @@ namespace LouiEriksson {
 			// Constant for the margins between the window and screen edge.
 			inline static const ImVec2 s_WindowMargin = ImVec2(16, 16);
 			
-			static void DrawDiagnosticsWindow(const std::weak_ptr<Window>& _window);
+			static void DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
 			
-			static void DrawPostProcessingWindow(const std::weak_ptr<Window>& _window);
+			static void PostProcessingWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
 			
-			static void DrawRenderSettingsWindow(const std::weak_ptr<Window>& _window);
+			static void RenderSettingsWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
 		};
 		
 		inline static bool s_DrawDebugWindows = false;

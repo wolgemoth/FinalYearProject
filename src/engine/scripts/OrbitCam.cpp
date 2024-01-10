@@ -56,6 +56,16 @@ namespace LouiEriksson {
 		GetCamera()->SetWindow(Window::Get(2));
 		GetCamera()->SetTransform(GetTransform());
 		GetCamera()->ClearColor(glm::vec4(0.0f));
+		
+		// TODO: Add a light to the scene through the scene's file, not code.
+		{
+			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");
+			scene->Attach(light_gameObject);
+		
+			// Add a light to the scene for testing purposes.
+			auto light_transform = light_gameObject->AddComponent<Transform>();
+			auto light = scene->Attach(light_gameObject->AddComponent<Light>());
+		}
 	}
 	
 	void OrbitCam::Tick() {

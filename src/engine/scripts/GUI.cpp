@@ -44,22 +44,28 @@ namespace LouiEriksson {
 		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
 		ImGui::NewFrame();
 		
-		// Use the '~' key (on ANSI keyboard layouts) to enter debug mode ('`' key on UK layout).
-		if (Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
-			s_DrawDebugWindows = !s_DrawDebugWindows;
-		}
-		
-		if (s_DrawDebugWindows) {
+		/* DEBUG MODE */
+		{
+			// Use the '~' key (on ANSI keyboard layouts or '`' key on UK layout) to enter debug mode.
+			if (Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
+				s_DrawDebugWindows = !s_DrawDebugWindows;
+			}
 			
-			// Make cursor visible.
-			Cursor::SetState({ Cursor::GetState().m_Window, Cursor::State::LockMode::Absolute, true });
+			/*
+			 * If s_DrawDebugWindows is true, unlock the cursor and make it visible.
+			 * This will override any previous changes to the cursor's state.
+			 */
+			if (s_DrawDebugWindows) {
+				
+				// Make cursor visible.
+				Cursor::SetState({ Cursor::State::LockMode::Absolute, true });
+			}
 			
-			// Draw the windows:
-			GUIWindows::DrawDiagnosticsWindow   (_window);
-			GUIWindows::DrawPostProcessingWindow(_window);
-			GUIWindows::DrawRenderSettingsWindow(_window);
+			// Update (and optionally, draw) debugging windows:
+			GUIWindows::DiagnosticsWindow(_window, s_DrawDebugWindows);
+			GUIWindows::PostProcessingWindow(_window, s_DrawDebugWindows);
+			GUIWindows::RenderSettingsWindow(_window, s_DrawDebugWindows);
 		}
-		
 		/* FINALIZE GUI FRAME */
 		ImGui::Render();
 		
@@ -75,13 +81,13 @@ namespace LouiEriksson {
 		ImGui::DestroyContext();
 	}
 	
-	void GUI::GUIWindows::DrawDiagnosticsWindow(const std::weak_ptr<Window>& _window) {
+	void GUI::GUIWindows::DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
 		
 		// Initialise FPS sampling window.
 		static std::vector<float> s_Timestamps;
 		static std::vector<float> s_Samples;
 		
-		static const auto s_Plot_SamplingWindowSize = 20.0f;
+		static const auto s_Plot_SamplingWindowSize = 10.0f;
 		static const auto  s_FPS_SamplingWindowSize =  0.5f;
 		
 		// Append the current frame.
@@ -129,7 +135,8 @@ namespace LouiEriksson {
 		avg_fps /= glm::max(avg_fps_count, 1.0f);
 		
 		// Diagnostics window:
-		{
+		if (_draw) {
+			
 			// Set default values (on first run):
 			{
 	            auto screenSize   = glm::vec2(_window.lock()->Dimensions());
@@ -367,317 +374,323 @@ namespace LouiEriksson {
 		}
 	}
 	
-	void GUI::GUIWindows::DrawPostProcessingWindow(const std::weak_ptr<Window>& _window) {
+	void GUI::GUIWindows::PostProcessingWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
 		
-		/*
-		 * Set minimum size constraints as this window will
-		 * auto-size and we don't want it to be too small.
-		 */
-		ImGui::SetNextWindowSizeConstraints(
-			ImVec2(200.0f, 0.0f),
-			ImVec2(
-				std::numeric_limits<float>::infinity(),
-				std::numeric_limits<float>::infinity()
-			)
-		);
-		
-		ImGui::SetNextWindowPos(s_WindowMargin, ImGuiCond_Once);
-		ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
-		
-		/* POST PROCESSING SETTINGS */
-		ImGui::Begin("Post Processing", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-		
-		// Toggle for post processing.
-	    ImGui::Checkbox("Enabled", &Settings::PostProcessing::s_Enabled);
-		
-	    if (Settings::PostProcessing::s_Enabled) {
+		if (_draw) {
 			
-			/* AMBIENT OCCLUSION */
-		    if (ImGui::TreeNode("Ambient Occlusion")) {
-				
-				using target = Settings::PostProcessing::AmbientOcclusion;
-				
-		        ImGui::TextWrapped("Adds self-shadowing effects to areas of the image where light doesn't easily reach.");
-		
-				// Toggle for ambient occlusion.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				
-			    if (target::s_Enabled) {
-					
-					ImGui::SliderInt("Samples",   &target::s_Samples,   1, 32);
-					ImGui::SliderInt("Downscale", &target::s_Downscale, 0,  4);
-					
-					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 6.0f);
-					ImGui::SliderFloat("Radius",    &target::s_Radius,    0.0f, 2.0f);
-			    }
-				
-		        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
-		    }
+			/*
+			 * Set minimum size constraints as this window will
+			 * auto-size and we don't want it to be too small.
+			 */
+			ImGui::SetNextWindowSizeConstraints(
+				ImVec2(200.0f, 0.0f),
+				ImVec2(
+					std::numeric_limits<float>::infinity(),
+					std::numeric_limits<float>::infinity()
+				)
+			);
 			
-			/* BLOOM SETTINGS */
-		    if (ImGui::TreeNode("Bloom")) {
-				
-				using target = Settings::PostProcessing::Bloom;
-				
-		        ImGui::TextWrapped("Simulates the diffusion of light around bright parts of an image.");
-		
-				// Toggle for bloom.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				
-			    if (target::s_Enabled) {
-					
-					ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0f, 65535.0f);
-					ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0f, 65535.0f);
-					ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0f, 65535.0f);
-					ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0f, 65535.0f);
-					
-					ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f,  1.0f);
-					ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0f, 10.0f);
-			    }
-				
-		        ImGui::TreePop(); // END BLOOM SECTION.
-		    }
+			ImGui::SetNextWindowPos(s_WindowMargin, ImGuiCond_Once);
+			ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 			
-			/* TONEMAPPING SETTINGS */
-		    if (ImGui::TreeNode("Tone Mapping")) {
+			/* POST PROCESSING SETTINGS */
+			ImGui::Begin("Post Processing", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+			
+			// Toggle for post processing.
+		    ImGui::Checkbox("Enabled", &Settings::PostProcessing::s_Enabled);
+			
+		    if (Settings::PostProcessing::s_Enabled) {
 				
-				using target              = Settings::PostProcessing::ToneMapping;
-				using target_autoExposure = Settings::PostProcessing::ToneMapping::AutoExposure;
-						
-		        ImGui::TextWrapped("Remaps the colors of the image from HDR to LDR.");
-				
-				// Toggle for tonemapping.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				
-			    if (target::s_Enabled) {
+				/* AMBIENT OCCLUSION */
+			    if (ImGui::TreeNode("Ambient Occlusion")) {
 					
-					ImGui::DragFloat("Gain",     &target::s_Gain,     0.001f);
-					ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f);
+					using target = Settings::PostProcessing::AmbientOcclusion;
 					
-					/* AUTO-EXPOSURE */
-					ImGui::Checkbox("Auto Exposure", &target_autoExposure::s_Enabled);
+			        ImGui::TextWrapped("Adds self-shadowing effects to areas of the image where light doesn't easily reach.");
+			
+					// Toggle for ambient occlusion.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
 					
-				    if (target_autoExposure::s_Enabled) {
+				    if (target::s_Enabled) {
 						
-				        ImGui::TextWrapped("Automatically adjusts the overall exposure of the image towards a designated exposure target");
+						ImGui::SliderInt("Samples",   &target::s_Samples,   1, 32);
+						ImGui::SliderInt("Downscale", &target::s_Downscale, 0,  4);
 						
-						ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0f, 9.0f);
-						ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0f, 9.0f);
-						
-						ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001f);
-						
-						ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
-						ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0f, 10.0f);
+						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 6.0f);
+						ImGui::SliderFloat("Radius",    &target::s_Radius,    0.0f, 2.0f);
 				    }
+					
+			        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
 			    }
 				
-		        ImGui::TreePop(); // END TONEMAPPING SECTION.
+				/* BLOOM SETTINGS */
+			    if (ImGui::TreeNode("Bloom")) {
+					
+					using target = Settings::PostProcessing::Bloom;
+					
+			        ImGui::TextWrapped("Simulates the diffusion of light around bright parts of an image.");
+			
+					// Toggle for bloom.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
+					
+				    if (target::s_Enabled) {
+						
+						ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0f, 65535.0f);
+						ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0f, 65535.0f);
+						ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0f, 65535.0f);
+						ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0f, 65535.0f);
+						
+						ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f,  1.0f);
+						ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0f, 10.0f);
+				    }
+					
+			        ImGui::TreePop(); // END BLOOM SECTION.
+			    }
+				
+				/* TONEMAPPING SETTINGS */
+			    if (ImGui::TreeNode("Tone Mapping")) {
+					
+					using target              = Settings::PostProcessing::ToneMapping;
+					using target_autoExposure = Settings::PostProcessing::ToneMapping::AutoExposure;
+							
+			        ImGui::TextWrapped("Remaps the colors of the image from HDR to LDR.");
+					
+					// Toggle for tonemapping.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
+					
+				    if (target::s_Enabled) {
+						
+						ImGui::DragFloat("Gain",     &target::s_Gain,     0.001f);
+						ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f);
+						
+						/* AUTO-EXPOSURE */
+						ImGui::Checkbox("Auto Exposure", &target_autoExposure::s_Enabled);
+						
+					    if (target_autoExposure::s_Enabled) {
+							
+					        ImGui::TextWrapped("Automatically adjusts the overall exposure of the image towards a designated exposure target");
+							
+							ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0f, 9.0f);
+							ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0f, 9.0f);
+							
+							ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001f);
+							
+							ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
+							ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0f, 10.0f);
+					    }
+				    }
+					
+			        ImGui::TreePop(); // END TONEMAPPING SECTION.
+			    }
+				
+				/* ANTI-ALIASING SETTINGS */
+			    if (ImGui::TreeNode("Anti-Aliasing")) {
+					
+					using target = Settings::PostProcessing::AntiAliasing;
+					
+			        ImGui::TextWrapped("Reduces jagged aliasing artifacts in the image.");
+					
+					// Toggle for anti-aliasing.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
+					 
+				    if (target::s_Enabled) {
+						
+						ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312f, 0.0833f);
+						ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063f,  0.333f);
+						ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0f,    1.0f);
+						ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f,    1.0f);
+						
+						ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001f);
+						
+						target::s_LocalContrastModifier = glm::max(target::s_LocalContrastModifier, 0.0f);
+				    }
+					
+			        ImGui::TreePop(); // END ANTI-ALIASING SECTION.
+			    }
+				
+				/* GRAIN SETTINGS */
+			    if (ImGui::TreeNode("Grain")) {
+					
+					using target = Settings::PostProcessing::Grain;
+					
+			        ImGui::TextWrapped("Adds visual noise to an image, which can be applied aesthetically or as a technique to reduce the prominence of color banding.");
+					
+					// Toggle for grain.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
+					
+				    if (target::s_Enabled) {
+						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
+				    }
+					
+			        ImGui::TreePop(); // END GRAIN SECTION.
+			    }
+				
+				/* GRAIN SETTINGS */
+			    if (ImGui::TreeNode("Vignette")) {
+					
+					using target = Settings::PostProcessing::Vignette;
+					
+			        ImGui::TextWrapped("Darkens areas of the image further from the center.");
+					
+					// Toggle for vignette.
+				    ImGui::Checkbox("Enabled", &target::s_Enabled);
+					
+				    if (target::s_Enabled) {
+						ImGui::SliderFloat("Intensity",  &target::s_Intensity,  0.0f, 1.0f);
+						ImGui::SliderFloat("Smoothness", &target::s_Smoothness, 0.0f, 1.0f);
+				    }
+					
+			        ImGui::TreePop(); // END VIGNETTE SECTION.
+			    }
 		    }
 			
-			/* ANTI-ALIASING SETTINGS */
-		    if (ImGui::TreeNode("Anti-Aliasing")) {
-				
-				using target = Settings::PostProcessing::AntiAliasing;
-				
-		        ImGui::TextWrapped("Reduces jagged aliasing artifacts in the image.");
-				
-				// Toggle for anti-aliasing.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				 
-			    if (target::s_Enabled) {
-					
-					ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312f, 0.0833f);
-					ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063f,  0.333f);
-					ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0f,    1.0f);
-					ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f,    1.0f);
-					
-					ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001f);
-					
-					target::s_LocalContrastModifier = glm::max(target::s_LocalContrastModifier, 0.0f);
-			    }
-				
-		        ImGui::TreePop(); // END ANTI-ALIASING SECTION.
-		    }
-			
-			/* GRAIN SETTINGS */
-		    if (ImGui::TreeNode("Grain")) {
-				
-				using target = Settings::PostProcessing::Grain;
-				
-		        ImGui::TextWrapped("Adds visual noise to an image, which can be applied aesthetically or as a technique to reduce the prominence of color banding.");
-				
-				// Toggle for grain.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				
-			    if (target::s_Enabled) {
-					ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
-			    }
-				
-		        ImGui::TreePop(); // END GRAIN SECTION.
-		    }
-			
-			/* GRAIN SETTINGS */
-		    if (ImGui::TreeNode("Vignette")) {
-				
-				using target = Settings::PostProcessing::Vignette;
-				
-		        ImGui::TextWrapped("Darkens areas of the image further from the center.");
-				
-				// Toggle for vignette.
-			    ImGui::Checkbox("Enabled", &target::s_Enabled);
-				
-			    if (target::s_Enabled) {
-					ImGui::SliderFloat("Intensity",  &target::s_Intensity,  0.0f, 1.0f);
-					ImGui::SliderFloat("Smoothness", &target::s_Smoothness, 0.0f, 1.0f);
-			    }
-				
-		        ImGui::TreePop(); // END VIGNETTE SECTION.
-		    }
-	    }
-		
-		ImGui::End();
+			ImGui::End();
+		}
 	}
 	
-	void GUI::GUIWindows::DrawRenderSettingsWindow(const std::weak_ptr<Window>& _window) {
+	void GUI::GUIWindows::RenderSettingsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
 	
-		/*
-		 * Set minimum size constraints as this window will
-		 * auto-size and we don't want it to be too small.
-		 */
-		ImGui::SetNextWindowSizeConstraints(
-			ImVec2(200.0f, 0.0f),
-			ImVec2(
-				std::numeric_limits<float>::infinity(),
-				std::numeric_limits<float>::infinity()
-			)
-		);
-		
-		ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0f) + 200.0f, s_WindowMargin.y), ImGuiCond_Once);
-		ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
-		
-		/* RENDERING SETTINGS */
-		ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-
-		// Display checkbox for gamma correction.
-		ImGui::Checkbox("Gamma Correction", &Settings::Graphics::s_GammaCorrection);
-		
-		/* CAMERA */
-	    if (ImGui::TreeNode("Camera")) {
+		if (_draw) {
 			
-			using target_perspective = Settings::Graphics::Perspective;
-		 
-			/* VSYNC OPTIONS */
-		    {
-				using target_vsync = Settings::Graphics::VSync;
+			/*
+			 * Set minimum size constraints as this window will
+			 * auto-size and we don't want it to be too small.
+			 */
+			ImGui::SetNextWindowSizeConstraints(
+				ImVec2(200.0f, 0.0f),
+				ImVec2(
+					std::numeric_limits<float>::infinity(),
+					std::numeric_limits<float>::infinity()
+				)
+			);
+			
+			ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0f) + 200.0f, s_WindowMargin.y), ImGuiCond_Once);
+			ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
+			
+			/* RENDERING SETTINGS */
+			ImGui::Begin("Rendering", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	
+			// Display checkbox for gamma correction.
+			ImGui::Checkbox("Gamma Correction", &Settings::Graphics::s_GammaCorrection);
+			
+			/* CAMERA */
+		    if (ImGui::TreeNode("Camera")) {
 				
-				ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), static_cast<int>(target_vsync::s_AvailableOptions.size()));
-			}
-			
-			ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0f);
-			ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1f, 0.005f, 65535.0f);
-			ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1f, target_perspective::s_NearClip, 65535.0f);
-			
-			// Toggle for orbit.
-		    ImGui::Checkbox("Orbit", &target_perspective::Orbit::s_Enabled);
-			
-		    if (target_perspective::Orbit::s_Enabled) {
+				using target_perspective = Settings::Graphics::Perspective;
+			 
+				/* VSYNC OPTIONS */
+			    {
+					using target_vsync = Settings::Graphics::VSync;
+					
+					ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), static_cast<int>(target_vsync::s_AvailableOptions.size()));
+				}
 				
-				ImGui::DragFloat3("Speed",  &target_perspective::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
-				ImGui::DragFloat3("Amount", &target_perspective::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
-				ImGui::DragFloat3("Offset", &target_perspective::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
+				ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0f);
+				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1f, 0.005f, 65535.0f);
+				ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1f, target_perspective::s_NearClip, 65535.0f);
+				
+				// Toggle for orbit.
+			    ImGui::Checkbox("Orbit", &target_perspective::Orbit::s_Enabled);
+				
+			    if (target_perspective::Orbit::s_Enabled) {
+					
+					ImGui::DragFloat3("Speed",  &target_perspective::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
+					ImGui::DragFloat3("Amount", &target_perspective::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
+					ImGui::DragFloat3("Offset", &target_perspective::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
+			    }
+				
+		        ImGui::TreePop(); // END CAMERA SECTION.
 		    }
 			
-	        ImGui::TreePop(); // END CAMERA SECTION.
-	    }
-		
-		/* SKYBOX */
-	    if (ImGui::TreeNode("Skybox")) {
-			
-			using target = Settings::Graphics::Skybox;
-			
-			// Dropdown selection for skybox:
-			static int selected = 0;
-			
-			ImGui::Combo(" ", &selected, target::s_AvailableSkyboxes.data(), static_cast<int>(target::s_AvailableSkyboxes.size()));
-			
-			// If the selected values mismatch, it means the selection has changed...
-			if (selected != target::s_CurrentSkyboxSelection) {
-				target::UpdateSkybox(selected);
-			}
-			
-			ImGui::SliderFloat("Blur", &target::s_Blur, 0.0f, 1.0f);
-			ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0f, 65535.0f);
-			
-	        ImGui::TreePop(); // END SKYBOX SECTION.
-	    }
-		
-		/* MATERIAL */
-	    if (ImGui::TreeNode("Material")) {
-			
-			using target = Settings::Graphics::Material;
-			
-			// Dropdown selection for shader:
-			static int selected_shader = 0;
-			
-			ImGui::Combo("Shader", &selected_shader, target::s_AvailableShaders.data(), static_cast<int>(target::s_AvailableShaders.size()));
-			
-			// If the selected values mismatch, it means the selection has changed...
-			if (selected_shader != target::s_CurrentShaderSelection) {
-				target::UpdateShader(selected_shader);
-			}
-			
-			if (ImGui::CollapsingHeader("Parameters")) {
-			
-				ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
-				ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
-				ImGui::DragFloat(     "Normals", &target::s_NormalAmount,        0.001f, 0.0f, 65535.0f);
-				ImGui::DragFloat(    "Emission", &target::s_EmissionAmount,      0.001f, 0.0f, 65535.0f);
-				ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
+			/* SKYBOX */
+		    if (ImGui::TreeNode("Skybox")) {
 				
-				ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
-			}
+				using target = Settings::Graphics::Skybox;
+				
+				// Dropdown selection for skybox:
+				static int selected = 0;
+				
+				ImGui::Combo(" ", &selected, target::s_AvailableSkyboxes.data(), static_cast<int>(target::s_AvailableSkyboxes.size()));
+				
+				// If the selected values mismatch, it means the selection has changed...
+				if (selected != target::s_CurrentSkyboxSelection) {
+					target::UpdateSkybox(selected);
+				}
+				
+				ImGui::SliderFloat("Blur", &target::s_Blur, 0.0f, 1.0f);
+				ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0f, 65535.0f);
+				
+		        ImGui::TreePop(); // END SKYBOX SECTION.
+		    }
 			
-			if (ImGui::CollapsingHeader("Shadows")) {
+			/* MATERIAL */
+		    if (ImGui::TreeNode("Material")) {
 				
-				ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,           target::s_ShadowTechniques.data(),  static_cast<int>(target::s_ShadowTechniques.size()));
-				ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), static_cast<int>(target::s_ShadowResolutions.size()));
+				using target = Settings::Graphics::Material;
 				
-				ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
-				ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
+				// Dropdown selection for shader:
+				static int selected_shader = 0;
 				
-				// PCSS and Poisson-Disk:
-				if (target::s_CurrentShadowTechnique == 2 ||
-				    target::s_CurrentShadowTechnique == 3) {
+				ImGui::Combo("Shader", &selected_shader, target::s_AvailableShaders.data(), static_cast<int>(target::s_AvailableShaders.size()));
+				
+				// If the selected values mismatch, it means the selection has changed...
+				if (selected_shader != target::s_CurrentShaderSelection) {
+					target::UpdateShader(selected_shader);
+				}
+				
+				if (ImGui::CollapsingHeader("Parameters")) {
+				
+					ImGui::DragFloat(   "Roughness", &target::s_RoughnessAmount,     0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat("Displacement", &target::s_DisplacementAmount, 0.0001f, 0.0f, 65535.0f);
+					ImGui::DragFloat(     "Normals", &target::s_NormalAmount,        0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat(    "Emission", &target::s_EmissionAmount,      0.001f, 0.0f, 65535.0f);
+					ImGui::DragFloat(          "AO", &target::s_AOAmount,            0.001f, 0.0f, 65535.0f);
 					
-					ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
+					ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
 				}
 				
-				// PCSS-only:
-				if (target::s_CurrentShadowTechnique == 3) {
-					ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0f, 65535.0f);
+				if (ImGui::CollapsingHeader("Shadows")) {
+					
+					ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,           target::s_ShadowTechniques.data(),  static_cast<int>(target::s_ShadowTechniques.size()));
+					ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), static_cast<int>(target::s_ShadowResolutions.size()));
+					
+					ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
+					ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
+					
+					// PCSS and Poisson-Disk:
+					if (target::s_CurrentShadowTechnique == 2 ||
+					    target::s_CurrentShadowTechnique == 3) {
+						
+						ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
+					}
+					
+					// PCSS-only:
+					if (target::s_CurrentShadowTechnique == 3) {
+						ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0f, 65535.0f);
+					}
+					
+					ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
 				}
 				
-				ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
-			}
+				if (ImGui::CollapsingHeader("Light")) {
+					
+					ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
+					
+					ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
+					ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );
+					ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
+					ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0f, 65535.0f);
+					ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1f,  0.0f, 65535.0f);
+					
+					if (target::s_CurrentLightType == 2) {
+						ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 180.0f);
+					}
+				}
+				
+		        ImGui::TreePop(); // END MATERIAL SECTION.
+		    }
 			
-			if (ImGui::CollapsingHeader("Light")) {
-				
-				ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
-				
-				ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
-				ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );
-				ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
-				ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0f, 65535.0f);
-				ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1f,  0.0f, 65535.0f);
-				
-				if (target::s_CurrentLightType == 2) {
-					ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 180.0f);
-				}
-			}
-			
-	        ImGui::TreePop(); // END MATERIAL SECTION.
-	    }
-		
-		ImGui::End();
+			ImGui::End();
+		}
 	}
 }

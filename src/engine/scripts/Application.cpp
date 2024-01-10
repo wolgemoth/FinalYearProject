@@ -5,10 +5,10 @@
 #include "Cursor.h"
 #include "GUI.h"
 #include "Input.h"
-#include "Settings.h"
-#include "Sound.h"
 #include "Physics.h"
 #include "Resources.h"
+#include "Settings.h"
+#include "Sound.h"
 
 namespace LouiEriksson {
 	
@@ -16,7 +16,7 @@ namespace LouiEriksson {
 		
 		// Restrict Main() to one instance.
 		if (!s_Initialised) {
-			s_Initialised = true;
+			 s_Initialised = true;
 			
 			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
 			
@@ -26,7 +26,10 @@ namespace LouiEriksson {
 			/* INIT CURSOR STATE */
 			
 			// Init the cursor's state.
-			Cursor::SetState({ main_window, Cursor::State::LockMode::Absolute, true });
+			Cursor::SetState({ Cursor::State::LockMode::Absolute, true });
+			
+			// Capture the mouse on startup.
+			SDL_CaptureMouse(SDL_TRUE);
 			
 			/* INIT GLEW */
 			if (glewInit() != GLEW_OK) {
@@ -55,16 +58,6 @@ namespace LouiEriksson {
 			auto scene = Scene::Load("levels/gep.scene");
 			scene->Begin();
 	
-			auto light_gameObject = GameObject::Create(scene->shared_from_this(), "Light");
-			scene->Attach(light_gameObject);
-			
-			// TODO: Temporary code for debugging. Please remove me!
-			{
-				// Add a light to the scene for testing purposes.
-				auto light_transform = light_gameObject->AddComponent<Transform>();
-				auto light = scene->Attach(light_gameObject->AddComponent<Light>());
-			}
-			
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(1.0f / 60.0f);
 	
@@ -75,15 +68,18 @@ namespace LouiEriksson {
 				
 				try {
 				
+					// Get the beginning of the frame for timing purposes.
+					auto frame_start = std::chrono::high_resolution_clock::now();
+				
 					// Clear the AL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
 					// Clear the GL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
-					// Get the beginning of the frame for timing purposes.
-					auto frame_start = std::chrono::high_resolution_clock::now();
-				
+					// Update (apply) the cursor's state.
+					Cursor::Update();
+					
 					// Configure V-sync:
 					// -1 = Adaptive
 					//  0 = Disable
