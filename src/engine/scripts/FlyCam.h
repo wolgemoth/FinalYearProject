@@ -27,6 +27,9 @@ namespace LouiEriksson {
 		/// <summary> AudioListener component. </summary>
 		std::weak_ptr<AudioListener> m_AudioListener;
 		
+		/// <summary> AudioSource component for gun sounds. </summary>
+		std::weak_ptr<AudioSource> m_GunSound;
+		
 		/// <summary> Current motion vector of the FlyCam. </summary>
 		glm::vec3 m_Motion;
 		

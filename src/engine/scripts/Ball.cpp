@@ -82,6 +82,7 @@ namespace LouiEriksson {
 		auto clip = Resources::GetAudio("Hollow_Bass");
 		
 		m_AudioSource.lock()->Clip(clip);
+		m_AudioSource.lock()->Global(true);
 	}
 	
 	void Ball::Tick() {

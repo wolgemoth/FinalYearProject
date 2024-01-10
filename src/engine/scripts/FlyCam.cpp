@@ -59,8 +59,16 @@ namespace LouiEriksson {
 		if (m_AudioListener.expired()) {
 			m_AudioListener = Parent()->AddComponent<AudioListener>();
 		}
-		
 		m_AudioListener.lock()->Init();
+		
+		// Get or add AudioListener.
+		// TODO: Do this better:
+		m_GunSound = Parent()->GetComponent<AudioSource>();
+		if (m_GunSound.expired()) {
+			m_GunSound = Parent()->AddComponent<AudioSource>();
+		}
+		
+		m_GunSound.lock()->Clip(Resources::GetAudio("machineGun").lock());
 		
 		// Update the camera's parameters to match the ones in Settings.
 		SyncCameraSettings();
@@ -83,6 +91,8 @@ namespace LouiEriksson {
 	
 	void FlyCam::Tick() {
 		
+		m_GunSound.lock()->Tick();
+		
 		// Update the camera's parameters to match the ones in Settings.
 		SyncCameraSettings();
 		
@@ -96,8 +106,14 @@ namespace LouiEriksson {
 			glm::vec3 movement_input;
 			glm::vec3    mouse_input;
 			
-			// Handle look and move input. Disable if cursor is not centered.
+			// Handle look, move, and shoot input. Disable if cursor is not centered.
 			if (Cursor::GetState().m_LockMode == Cursor::State::LockMode::Centered) {
+				
+				mouse_input = glm::vec3(
+					 Input::Mouse::Motion().y,
+					 Input::Mouse::Motion().x,
+					 0.0f
+				);
 				
 				movement_input = glm::vec3(
 					static_cast<float>(Input::Key::Get(SDL_SCANCODE_A     ) - Input::Key::Get(SDL_SCANCODE_D    )),
@@ -105,15 +121,14 @@ namespace LouiEriksson {
 					static_cast<float>(Input::Key::Get(SDL_SCANCODE_W     ) - Input::Key::Get(SDL_SCANCODE_S    ))
 				);
 				
-				mouse_input = glm::vec3(
-					 Input::Mouse::Motion().y,
-					 Input::Mouse::Motion().x,
-					 0.0f
-				);
+				if (Input::Key::GetDown(SDL_SCANCODE_SPACE)) {
+					m_GunSound.lock()->Stop();
+					m_GunSound.lock()->Play();
+				}
 			}
 			else {
-				movement_input = glm::vec3(0.0f);
 				   mouse_input = glm::vec3(0.0f);
+				movement_input = glm::vec3(0.0f);
 			}
 			
 			// Rotate the camera:
@@ -151,6 +166,7 @@ namespace LouiEriksson {
 		}
 		
 		m_AudioListener.lock()->Tick();
+		m_GunSound.lock()->Tick();
 	}
 	
 	void FlyCam::SyncCameraSettings() {

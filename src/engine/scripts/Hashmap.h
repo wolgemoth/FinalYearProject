@@ -1,17 +1,46 @@
-#ifndef FINALYEARPROJECT_HASHMAP_H
-#define FINALYEARPROJECT_HASHMAP_H
+/*
+ * MIT License
+ *
+ * Copyright (c) 2024 Louis Eriksson
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
+#ifndef LOUIERIKSSON_HASHMAP_H
+#define LOUIERIKSSON_HASHMAP_H
+
+#include <functional>
+#include <stdexcept>
+#include <vector>
 
 namespace LouiEriksson {
 	
 	/// <summary>
-	/// Custom hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.
+	/// <para>
+	/// Version 1.0.1
+	/// </para>
+	/// Custom Hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.
 	/// <para><remarks>This implementation requires that your "key" type is compatible with std::hash and that the stored data types are copyable.</remarks></para>
-	/// <para>Reference: ("Implementing Your Own HashMap (Explanation + Code)", Random Coder, 14 Sept 2020 [https://www.youtube.com/watch?v=_Q-eNqTOxlE]).</para>
+	/// <para>Reference: Wang, Q. (Harry) (2020). Implementing Your Own HashMap (Explanation + Code). YouTube. Available at: https://www.youtube.com/watch?v=_Q-eNqTOxlE [Accessed 2021].</para>
 	/// </summary>
-	/// <typeparam name="Tk">Key type of the hashmap.</typeparam>
-	/// <typeparam name="Tv">Value type of the hashmap.</typeparam>
+	/// <typeparam name="Tk">Key type of the Hashmap.</typeparam>
+	/// <typeparam name="Tv">Value type of the Hashmap.</typeparam>
 	template<typename Tk, typename Tv>
 	class Hashmap {
 	
@@ -22,11 +51,11 @@ namespace LouiEriksson {
 			Tk first;
 			Tv second;
 			
-			KeyValuePair(Tk _key, Tv _value) :
+			KeyValuePair(Tk _key, Tv _value) noexcept  :
 				 first(_key),
 				second(_value) {}
 			
-            KeyValuePair(const KeyValuePair& other) :
+            KeyValuePair(const KeyValuePair& other) noexcept  :
 				 first(other.first),
 				second(other.second) {}
 		};
@@ -34,12 +63,12 @@ namespace LouiEriksson {
 	private:
 		
 		/// <summary>
-		/// Buckets of the hashmap.
+		/// Buckets of the Hashmap.
 		/// </summary>
 		std::vector<std::vector<KeyValuePair>> m_Buckets;
 		
 		/// <summary>
-		/// Current number of elements within the hashmap.
+		/// Current number of elements within the Hashmap.
 		/// </summary>
 		size_t m_Size;
 		
@@ -50,12 +79,12 @@ namespace LouiEriksson {
 		/// </remarks>
 		/// <param name="_item">Item to calculate hash of.</param>
 		/// </summary>
-		static size_t GetHashcode(const Tk& _item) {
+		static size_t GetHashcode(const Tk& _item) noexcept {
 			return std::hash<Tk>()(_item);
 		}
 		
 		/// <summary>
-		/// Reinitialise the hashmap. An expensive operation that increases the hashmap's capacity.
+		/// Reinitialise the Hashmap. An expensive operation that increases the Hashmap's capacity.
 		/// </summary>
 		void Resize() {
 			
@@ -67,8 +96,8 @@ namespace LouiEriksson {
 			m_Buckets.clear();
 			m_Buckets.resize(size() + resize_amount);
 			
-			for (auto& bucket: shallowCopy) {
-				for (auto& kvp: bucket) {
+			for (auto& bucket : shallowCopy) {
+				for (auto& kvp : bucket) {
 					Add(kvp.first, kvp.second);
 				}
 			}
@@ -77,36 +106,33 @@ namespace LouiEriksson {
 	public:
 		
 		/// <summary>
-		/// Initialise hashmap.
+		/// Initialise Hashmap.
 		/// </summary>
-		/// <param name="_capacity">Initial capacity of the hashmap. Must be larger than 0.</param>
-		Hashmap(size_t _capacity = 1) {
-			
-			m_Size = 0;
-			
+		/// <param name="_capacity">Initial capacity of the Hashmap. Must be larger than 0.</param>
+		Hashmap(const size_t& _capacity = 1) : m_Size(0) {
 			m_Buckets.resize(_capacity);
 		}
 		
 		/// <summary>
-		/// Returns the number of items stored within the hashmap.
+		/// Returns the number of items stored within the Hashmap.
 		/// </summary>
-		[[nodiscard]] size_t size() const {
+		[[nodiscard]] size_t size() const noexcept  {
 			return m_Size;
 		}
 		
 		/// <summary>
 		/// Returns true if the Hashmap contains no entries.
 		/// </summary>
-		[[nodiscard]] bool empty() const {
+		[[nodiscard]] bool empty() const noexcept  {
 			return m_Size == 0;
 		}
 		
 		/// <summary>
-		/// Queries for the existence of an item in the hashmap.
+		/// Queries for the existence of an item in the Hashmap.
 		/// </summary>
 		/// <param name="_key">Key of the entry.</param>
 		/// <returns>True if successful, false otherwise.</returns>
-		bool ContainsKey(const Tk& _key) {
+		bool ContainsKey(const Tk& _key) const noexcept {
 			
 			auto result = false;
 			
@@ -116,7 +142,7 @@ namespace LouiEriksson {
 			
 			auto& bucket = m_Buckets[i];
 			
-			for (auto& kvp: bucket) {
+			for (auto& kvp : bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
 					result = true;
@@ -129,7 +155,7 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Inserts a new entry into the hashmap with given key and value, if one does not already exist.
+		/// Inserts a new entry into the Hashmap with given key and value, if one does not already exist.
 		/// <para>
 		/// <remarks>
 		/// If you are trying to modify an existing key, see Hashmap::Assign.
@@ -155,7 +181,7 @@ namespace LouiEriksson {
 			
 			// In the case of a hash collision, determine if the key is unique.
 			// We will treat duplicate insertions as a mistake on the developer's part and return failure.
-			for (auto& kvp: bucket) {
+			for (auto& kvp : bucket) {
 				if (GetHashcode(kvp.first) == hash) {
 					result = false;
 					
@@ -174,7 +200,7 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Inserts or replaces an entry within the hashmap with the given key.
+		/// Inserts or replaces an entry within the Hashmap with the given key.
 		/// </summary>
 		/// <param name="_key">Key of the entry.</param>
 		/// <param name="_value">Value of the entry.</param>
@@ -191,7 +217,7 @@ namespace LouiEriksson {
 			auto& bucket = m_Buckets[i];
 			
 			auto exists = false;
-			for (auto& kvp: bucket) {
+			for (auto& kvp : bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
 					exists = true;
@@ -210,11 +236,11 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Removes entry with given key from the hashmap.
+		/// Removes entry with given key from the Hashmap.
 		/// </summary>
 		/// <param name="_key">Key of the entry to be removed.</param>
 		/// <returns>True if successful, false otherwise.</returns>
-		bool Remove(const Tk& _key) {
+		bool Remove(const Tk& _key) noexcept {
 			
 			bool result = false;
 			
@@ -242,12 +268,12 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Retrieves a reference to the entry within the hashmap with the given key, if one exists.
+		/// Retrieves a reference to the entry within the Hashmap with the given key, if one exists.
 		/// </summary>
 		/// <param name="_key">Key of the entry to retrieve.</param>
 		/// <param name="_out">Out value result.</param>
 		/// <returns>True if successful, false otherwise.</returns>
-		bool Get(const Tk& _key, Tv& _out) const {
+		bool Get(const Tk& _key, Tv& _out) const noexcept  {
 			
 			auto result = false;
 			
@@ -257,7 +283,7 @@ namespace LouiEriksson {
 			
 			auto& bucket = m_Buckets[i];
 			
-			for (auto& kvp: bucket) {
+			for (auto& kvp : bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
 					result = true;
@@ -272,7 +298,7 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Retrieves a reference to the entry within the hashmap with the given key, if one exists.
+		/// Retrieves a reference to the entry within the Hashmap with the given key, if one exists.
 		///	This method will throw an exception if no entry is found. Consider using Get() instead.
 		/// </summary>
 		/// <param name="_key">Key of the entry to retrieve.</param>
@@ -287,7 +313,7 @@ namespace LouiEriksson {
 			
 			auto& bucket = m_Buckets[i];
 			
-			for (auto& kvp: bucket) {
+			for (auto& kvp : bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
 					result = &kvp.second;
@@ -297,14 +323,14 @@ namespace LouiEriksson {
 			}
 			
 			if (result == nullptr) {
-				throw std::runtime_error("Attempted to access a nonexistent entry from the hashmap.");
+				throw std::runtime_error("Attempted to access a nonexistent entry from the Hashmap.");
 			}
 			
 			return *result;
 		}
 		
 		/// <summary>
-		/// Trims unused entries from the end of the hashmap.
+		/// Trims unused entries from the end of the Hashmap.
 		/// </summary>
 		void Trim() {
 			
@@ -322,15 +348,15 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Returns the keys of all entries stored within the hashmap.
+		/// Returns the keys of all entries stored within the Hashmap.
 		/// </summary>
 		[[nodiscard]] std::vector<Tk> Keys() const {
 			
 			std::vector<Tk> result;
 			
-			for (auto& bucket: m_Buckets) {
-				for (auto& kvp: bucket) {
-					result.push_back(kvp.first);
+			for (auto& bucket : m_Buckets) {
+				for (auto& kvp : bucket) {
+					result.emplace_back(kvp.first);
 				}
 			}
 			
@@ -338,15 +364,15 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Returns the values of all entries stored within the hashmap.
+		/// Returns the values of all entries stored within the Hashmap.
 		/// </summary>
 		[[nodiscard]] std::vector<Tv> Values() const {
 			
 			std::vector<Tv> result;
 			
-			for (auto& bucket: m_Buckets) {
-				for (auto& kvp: bucket) {
-					result.push_back(kvp.second);
+			for (auto& bucket : m_Buckets) {
+				for (auto& kvp : bucket) {
+					result.emplace_back(kvp.second);
 				}
 			}
 			
@@ -354,15 +380,15 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Returns all entries stored within the hashmap.
+		/// Returns all entries stored within the Hashmap.
 		/// </summary>
 		[[nodiscard]] std::vector<KeyValuePair> GetAll() const {
 			
 			std::vector<KeyValuePair> result;
 			
-			for (auto& bucket: m_Buckets) {
-				for (auto& kvp: bucket) {
-					result.push_back(kvp);
+			for (auto& bucket : m_Buckets) {
+				for (auto& kvp : bucket) {
+					result.emplace_back(kvp);
 				}
 			}
 			
@@ -370,19 +396,20 @@ namespace LouiEriksson {
 		}
 		
 		/// <summary>
-		/// Clears all entries from the hashmap.
+		/// Clears all entries from the Hashmap.
 		/// <para>
 		/// <remarks>
-		/// This function is not responsible for memory management of items contained within the hashmap.
+		/// This function is not responsible for memory management of items contained within the Hashmap.
 		/// </remarks>
 		/// </para>
 		/// </summary>
-		void Clear() {
+		void Clear() noexcept  {
 			
 			m_Buckets.clear();
 			m_Buckets.resize(1);
 		}
 	};
-}
+	
+} // LouiEriksson
 
-#endif //FINALYEARPROJECT_HASHMAP_H
+#endif //LOUIERIKSSON_HASHMAP_H
