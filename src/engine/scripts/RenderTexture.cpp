@@ -63,6 +63,7 @@ namespace LouiEriksson {
 					glGenTextures(1, &m_Depth_ID);
 					glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = static_cast<GLint>(m_Depth_ID));
 					
+					// TODO: Investigate compatibility of GL_HALF_FLOAT vs GL_FLOAT on non-Nvidia cards.
 					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, _width, _height, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 					
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_filterMode.Min()));

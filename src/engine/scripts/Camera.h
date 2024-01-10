@@ -55,12 +55,12 @@ namespace LouiEriksson {
 		
 		/* G-BUFFER: */
 		
-		RenderTexture   m_Albedo_gBuffer; // Albedo channel
-		RenderTexture m_Emission_gBuffer; // Emission channel
-		RenderTexture m_Material_gBuffer; // Material properties (Roughness, Metallic)
-		RenderTexture m_Position_gBuffer; // World-space surface positions
-		RenderTexture   m_Normal_gBuffer; // Surface normals
-		RenderTexture m_TexCoord_gBuffer; // Texture coordinates
+		RenderTexture   m_Albedo_gBuffer; // Albedo channel.
+		RenderTexture m_Emission_gBuffer; // Emission channel.
+		RenderTexture m_Material_gBuffer; // Material properties (Roughness, Metallic).
+		RenderTexture m_Position_gBuffer; // World-space surface positions.
+		RenderTexture   m_Normal_gBuffer; // Surface normals.
+		RenderTexture m_TexCoord_gBuffer; // Texture coordinates.
 		
 		/// <summary> Deferred rendering geometry pass. </summary>
 		void GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers);
