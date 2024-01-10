@@ -173,4 +173,20 @@ namespace LouiEriksson {
 		const auto dimensions = Dimensions();
 		glViewport(0, 0, dimensions[0], dimensions[1]);
 	}
+	
+	const bool Window::Focused() const {
+		return GetFlag(SDL_WINDOW_INPUT_FOCUS);
+	}
+	
+	const Uint32 Window::GetFlags() const {
+		return SDL_GetWindowFlags(m_Window.get());
+	}
+	
+	const bool Window::GetFlag(const Uint32& _flag) const {
+		
+		auto flags = GetFlags();
+		
+		return flags & _flag;
+	}
+	
 }

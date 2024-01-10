@@ -26,8 +26,7 @@ namespace LouiEriksson {
 			/* INIT CURSOR STATE */
 			
 			// Init the cursor's state.
-			Cursor::State state = { main_window, Cursor::State::LockMode::Absolute, true };
-			Cursor::SetState(state);
+			Cursor::SetState({ main_window, Cursor::State::LockMode::Absolute, true });
 			
 			/* INIT GLEW */
 			if (glewInit() != GLEW_OK) {
@@ -111,32 +110,6 @@ namespace LouiEriksson {
 								
 								if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
 									window->SetDirty();
-								}
-								else if (item.window.event == SDL_WINDOWEVENT_HIDDEN) {
-									
-									std::cout << "Lost focus of window \"" << window->m_ID << "\"\n";
-									
-									/*
-									 * Set the last_focused_state value to the cursor's
-									 * current state, and invalidate the window.
-									 */
-									state = Cursor::GetState();
-									state.m_Window.reset();
-								
-									// Reset the cursor's state.
-									Cursor::Reset();
-								}
-								else if (item.window.event == SDL_WINDOWEVENT_SHOWN) {
-									
-									std::cout << "Gained focus of window \"" << window->m_ID << "\"\n";
-									
-									/*
-									 * Update the window of the last_focused_state value
-									 * and set it as the cursor's current state.
-									 */
-									state.m_Window = window;
-									
-									Cursor::SetState(state);
 								}
 							}
 						}

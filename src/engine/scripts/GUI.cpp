@@ -1,6 +1,9 @@
 #include "stdafx.h"
 
 #include "GUI.h"
+
+#include "Cursor.h"
+#include "Input.h"
 #include "Settings.h"
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
@@ -41,10 +44,21 @@ namespace LouiEriksson {
 		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
 		ImGui::NewFrame();
 		
-		// Draw the windows:
-		GUIWindows::DrawDiagnosticsWindow   (_window);
-		GUIWindows::DrawPostProcessingWindow(_window);
-		GUIWindows::DrawRenderSettingsWindow(_window);
+		// Use the '~' key (on ANSI keyboard layouts) to enter debug mode ('`' key on UK layout).
+		if (Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
+			s_DrawDebugWindows = !s_DrawDebugWindows;
+		}
+		
+		if (s_DrawDebugWindows) {
+			
+			// Make cursor visible.
+			Cursor::SetState({ Cursor::GetState().m_Window, Cursor::State::LockMode::Absolute, true });
+			
+			// Draw the windows:
+			GUIWindows::DrawDiagnosticsWindow   (_window);
+			GUIWindows::DrawPostProcessingWindow(_window);
+			GUIWindows::DrawRenderSettingsWindow(_window);
+		}
 		
 		/* FINALIZE GUI FRAME */
 		ImGui::Render();

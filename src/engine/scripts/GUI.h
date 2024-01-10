@@ -38,8 +38,9 @@ namespace LouiEriksson {
 			static void DrawPostProcessingWindow(const std::weak_ptr<Window>& _window);
 			
 			static void DrawRenderSettingsWindow(const std::weak_ptr<Window>& _window);
-			
 		};
+		
+		inline static bool s_DrawDebugWindows = false;
 		
 		/// <summary> Initialise the GUI. </summary>
 		static void Init(const std::weak_ptr<Window>& _window, const char* _glsl_version);

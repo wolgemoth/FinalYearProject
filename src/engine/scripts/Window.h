@@ -53,6 +53,12 @@ namespace LouiEriksson {
 	
 		[[nodiscard]] float Aspect() const;
 	
+		const bool Focused() const;
+		
+		const Uint32 GetFlags() const;
+		
+		const bool GetFlag(const Uint32& _flag) const;
+		
 		void SetDirty();
 	
 		explicit operator SDL_Window* () { return m_Window.get(); }
