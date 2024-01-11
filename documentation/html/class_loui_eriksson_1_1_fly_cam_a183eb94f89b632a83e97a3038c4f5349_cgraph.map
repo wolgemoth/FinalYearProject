@@ -1,0 +1,18 @@
+<map id="LouiEriksson::FlyCam::Tick" name="LouiEriksson::FlyCam::Tick">
+<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,352,168,393"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_time.html#aadeb2fc8178c31a73eb41e43ae5fd5b1" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="226,5,371,47"/>
+<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_input_1_1_key.html#aef45ccd4703125b626d90d5b7d0b88cf" title="Returns true if the provided key (in the form of SDL_Scancode) is held." alt="" coords="226,71,371,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_fly_cam.html#a3892234d2b009d79f258efe683c322c5" title="Get the Camera of the FlyCam." alt="" coords="429,391,592,432"/>
+<area shape="rect" id="node5" href="$struct_loui_eriksson_1_1_input_1_1_mouse.html#ae895ba8c70b8be3a44beb52695205a41" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="226,136,371,177"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257" title="Return the current state of the Cursor." alt="" coords="221,253,376,295"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_fly_cam.html#a6be91b86e17dc0082cc46eafb464c29c" title="Get the Transform of the FlyCam." alt="" coords="217,319,380,360"/>
+<area shape="rect" id="node10" href="$struct_loui_eriksson_1_1_input_1_1_mouse.html#a5e8b26a0be3e69ae8a6d361f414195ae" title="Returns the relative motion of the mouse." alt="" coords="226,384,371,425"/>
+<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_time.html#a877cc3c41f69bab2aec1207a2fbac997" title="Get the speed of time within the engine." alt="" coords="226,449,371,491"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f" title="Set the pending state of the Cursor." alt="" coords="221,515,376,556"/>
+<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_fly_cam.html#aef3dce1cb877f9133df19dc235114bfa" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="216,580,381,621"/>
+<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_time.html#a7609b5f13749d783d4f22cdcc897d5f8" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="219,645,378,687"/>
+<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_utils.html#a3a1c7df699b49379a71dee5b018208fb" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="227,711,370,752"/>
+<area shape="rect" id="node6" href="$struct_loui_eriksson_1_1_input_1_1_event.html#a37d08ca8c252d727d9c677ad34c0ff88" title=" " alt="" coords="438,136,583,177"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="640,143,845,170"/>
+<area shape="rect" id="node16" href="$class_loui_eriksson_1_1_utils.html#adf29cc2033b68c8c3f0c1706b2b0f512" title="Repeats a value within the range 0 &#45;&gt; _max." alt="" coords="439,711,582,752"/>
+</map>

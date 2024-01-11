@@ -4,28 +4,28 @@
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 /* Transformation */
-#include "Transform.h"
+#include "Core/Transform.h"
 
 /* Physics */
-#include "Rigidbody.h"
-#include "SphereCollider.h"
-#include "PlaneCollider.h"
+#include "Physics/Rigidbody.h"
+#include "Physics/Colliders/SphereCollider.h"
+#include "Physics/Colliders/PlaneCollider.h"
 
 /* Audio */
-#include "AudioListener.h"
-#include "AudioSource.h"
+#include "Audio/AudioListener.h"
+#include "Audio/AudioSource.h"
 
 /* Graphics */
-#include "Camera.h"
-#include "Light.h"
-#include "Material.h"
-#include "Mesh.h"
-#include "Renderer.h"
+#include "Graphics/Camera.h"
+#include "Graphics/Light.h"
+#include "Graphics/Material.h"
+#include "Graphics/Mesh.h"
+#include "Graphics/Renderer.h"
 
 /* Scripts */
 #include "Scripts.h"
 
 /* GameObject */
-#include "GameObject.h"
+#include "ECS/GameObject.h"
 
 #endif //FINALYEARPROJECT_COMPONENTS_H

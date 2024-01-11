@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['light_871',['Light',['../class_loui_eriksson_1_1_render_texture.html#a27862a9fe512b352f98ec1c054680edd',1,'LouiEriksson::RenderTexture::Light()'],['../class_loui_eriksson_1_1_texture.html#a27862a9fe512b352f98ec1c054680edd',1,'LouiEriksson::Texture::Light()']]]
+  ['input_1076',['Input',['../class_loui_eriksson_1_1_g_u_i.html#a9732a2f3b51c8d069f54b1a13fb64c68',1,'LouiEriksson::GUI']]]
 ];

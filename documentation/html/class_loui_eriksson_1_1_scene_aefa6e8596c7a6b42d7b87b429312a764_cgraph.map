@@ -1,0 +1,6 @@
+<map id="LouiEriksson::Scene::Load" name="LouiEriksson::Scene::Load">
+<area shape="rect" id="node1" title="TryLoad the Scene from xml format at a given path." alt="" coords="5,71,156,112"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="209,5,403,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_serialisation.html#a4a5faa1808910344e2cdf251d63c56ed" title="Placeholder for an actual custom exception." alt="" coords="204,71,408,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_serialisation.html#adeb428f5d6d87f3d36aa7fef13dd8f90" title=" " alt="" coords="209,136,403,177"/>
+</map>

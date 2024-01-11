@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$Utils.\+h$>$}
 
+
+
+Collaboration diagram for Loui\+Eriksson\+::Utils\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{class_loui_eriksson_1_1_utils__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,7 +22,21 @@ static std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_loui_eriksson_1
 static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_utils_a3f0bbd50f95b6df3c8417a90c6da3688}{Trim}} (const std\+::string \&\+\_\+string)
 \begin{DoxyCompactList}\small\item\em Trim leading and trailing whitespace characters from a string. \end{DoxyCompactList}\item 
 static float \mbox{\hyperlink{class_loui_eriksson_1_1_utils_a63ab869ac5ff30281ed57fdff10cfb0c}{Remap}} (const float \&\+\_\+val, const float \&\+\_\+a\+Min, const float \&\+\_\+a\+Max, const float \&\+\_\+b\+Min, const float \&\+\_\+b\+Max)
-\begin{DoxyCompactList}\small\item\em Remap a float from one range to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Remap a float from one range to another. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static void \mbox{\hyperlink{class_loui_eriksson_1_1_utils_a1e44ff23fd8250bb364b36903b7bf6e1}{Empty}} (std\+::queue$<$ T $>$ \&\+\_\+queue)
+\begin{DoxyCompactList}\small\item\em Empties a queue. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_utils_a8f224f7d3b75e3e26ec0aebad333935a}{ALDump\+Error}} (const bool \&\+\_\+silent=false)
+\begin{DoxyCompactList}\small\item\em Dumps the latest Open\+AL error to the console. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_utils_ae89b9431315af52dcc8aa1b038c94125}{GLDump\+Error}} (const bool \&\+\_\+silent=false)
+\begin{DoxyCompactList}\small\item\em Dumps the latest Open\+GL error to the console. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_utils_adf29cc2033b68c8c3f0c1706b2b0f512}{Repeat}} (const float \&\+\_\+value, const float \&\+\_\+max)
+\begin{DoxyCompactList}\small\item\em Repeats a value within the range 0 -\/$>$ \+\_\+max. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_utils_aefbcc3026057d3a5c026072a7440c06c}{Repeat}} (const float \&\+\_\+value, const float \&\+\_\+min, const float \&\+\_\+max)
+\begin{DoxyCompactList}\small\item\em Repeats a value within the range \+\_\+min -\/$>$ \+\_\+max. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_utils_a3a1c7df699b49379a71dee5b018208fb}{Wrap\+Angle}} (const float \&\+\_\+degrees)
+\begin{DoxyCompactList}\small\item\em Wraps an angle so that it remains within -\/180 to 180 degrees. \end{DoxyCompactList}\item 
+static glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_utils_aa8a25fdaec9158510c20812c21252296}{Wrap\+Angle}} (const glm\+::vec3 \&\+\_\+degrees)
+\begin{DoxyCompactList}\small\item\em Wraps an angle so that it remains within -\/180 to 180 degrees. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -23,6 +47,65 @@ Definition at line 6 of file Utils.\+h.
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_a8f224f7d3b75e3e26ec0aebad333935a}\label{class_loui_eriksson_1_1_utils_a8f224f7d3b75e3e26ec0aebad333935a}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!ALDumpError@{ALDumpError}}
+\index{ALDumpError@{ALDumpError}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{ALDumpError()}{ALDumpError()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Utils\+::\+ALDump\+Error (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+silent = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Dumps the latest Open\+AL error to the console. 
+
+
+
+Definition at line 49 of file Utils.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_utils_a8f224f7d3b75e3e26ec0aebad333935a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_a1e44ff23fd8250bb364b36903b7bf6e1}\label{class_loui_eriksson_1_1_utils_a1e44ff23fd8250bb364b36903b7bf6e1}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!Empty@{Empty}}
+\index{Empty@{Empty}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{Empty()}{Empty()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Loui\+Eriksson\+::\+Utils\+::\+Empty (\begin{DoxyParamCaption}\item[{std\+::queue$<$ T $>$ \&}]{\+\_\+queue }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Empties a queue. 
+
+
+
+Definition at line 41 of file Utils.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_ae89b9431315af52dcc8aa1b038c94125}\label{class_loui_eriksson_1_1_utils_ae89b9431315af52dcc8aa1b038c94125}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!GLDumpError@{GLDumpError}}
+\index{GLDumpError@{GLDumpError}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{GLDumpError()}{GLDumpError()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Utils\+::\+GLDump\+Error (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+silent = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Dumps the latest Open\+GL error to the console. 
+
+
+
+Definition at line 69 of file Utils.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_utils_ae89b9431315af52dcc8aa1b038c94125_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_utils_a63ab869ac5ff30281ed57fdff10cfb0c}\label{class_loui_eriksson_1_1_utils_a63ab869ac5ff30281ed57fdff10cfb0c}} 
 \index{LouiEriksson::Utils@{LouiEriksson::Utils}!Remap@{Remap}}
 \index{Remap@{Remap}!LouiEriksson::Utils@{LouiEriksson::Utils}}
@@ -35,8 +118,52 @@ Remap a float from one range to another.
 
 
 
-Definition at line 32 of file Utils.\+cpp.
+Definition at line 34 of file Utils.\+cpp.
 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_adf29cc2033b68c8c3f0c1706b2b0f512}\label{class_loui_eriksson_1_1_utils_adf29cc2033b68c8c3f0c1706b2b0f512}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!Repeat@{Repeat}}
+\index{Repeat@{Repeat}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{Repeat()}{Repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Utils\+::\+Repeat (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value,  }\item[{const float \&}]{\+\_\+max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Repeats a value within the range 0 -\/$>$ \+\_\+max. 
+
+
+
+Definition at line 80 of file Utils.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_utils_adf29cc2033b68c8c3f0c1706b2b0f512_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_aefbcc3026057d3a5c026072a7440c06c}\label{class_loui_eriksson_1_1_utils_aefbcc3026057d3a5c026072a7440c06c}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!Repeat@{Repeat}}
+\index{Repeat@{Repeat}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{Repeat()}{Repeat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Utils\+::\+Repeat (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value,  }\item[{const float \&}]{\+\_\+min,  }\item[{const float \&}]{\+\_\+max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Repeats a value within the range \+\_\+min -\/$>$ \+\_\+max. 
+
+
+
+Definition at line 84 of file Utils.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_loui_eriksson_1_1_utils_aefbcc3026057d3a5c026072a7440c06c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_utils_ae14fb185a0b930843c2e1a8fb38463e1}\label{class_loui_eriksson_1_1_utils_ae14fb185a0b930843c2e1a8fb38463e1}} 
 \index{LouiEriksson::Utils@{LouiEriksson::Utils}!Split@{Split}}
 \index{Split@{Split}!LouiEriksson::Utils@{LouiEriksson::Utils}}
@@ -49,10 +176,16 @@ Split a string in a collection of substrings using a divider.
 
 
 
-Definition at line 7 of file Utils.\+cpp.
+Definition at line 9 of file Utils.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_utils_ae14fb185a0b930843c2e1a8fb38463e1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_utils_a3f0bbd50f95b6df3c8417a90c6da3688}\label{class_loui_eriksson_1_1_utils_a3f0bbd50f95b6df3c8417a90c6da3688}} 
 \index{LouiEriksson::Utils@{LouiEriksson::Utils}!Trim@{Trim}}
 \index{Trim@{Trim}!LouiEriksson::Utils@{LouiEriksson::Utils}}
@@ -65,11 +198,63 @@ Trim leading and trailing whitespace characters from a string.
 
 
 
-Definition at line 24 of file Utils.\+cpp.
+Definition at line 26 of file Utils.\+cpp.
 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_a3a1c7df699b49379a71dee5b018208fb}\label{class_loui_eriksson_1_1_utils_a3a1c7df699b49379a71dee5b018208fb}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!WrapAngle@{WrapAngle}}
+\index{WrapAngle@{WrapAngle}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{WrapAngle()}{WrapAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Utils\+::\+Wrap\+Angle (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+degrees }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Wraps an angle so that it remains within -\/180 to 180 degrees. 
+
+
+
+Definition at line 88 of file Utils.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_loui_eriksson_1_1_utils_a3a1c7df699b49379a71dee5b018208fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{class_loui_eriksson_1_1_utils_a3a1c7df699b49379a71dee5b018208fb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_utils_aa8a25fdaec9158510c20812c21252296}\label{class_loui_eriksson_1_1_utils_aa8a25fdaec9158510c20812c21252296}} 
+\index{LouiEriksson::Utils@{LouiEriksson::Utils}!WrapAngle@{WrapAngle}}
+\index{WrapAngle@{WrapAngle}!LouiEriksson::Utils@{LouiEriksson::Utils}}
+\doxysubsubsection{\texorpdfstring{WrapAngle()}{WrapAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Utils\+::\+Wrap\+Angle (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+degrees }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Wraps an angle so that it remains within -\/180 to 180 degrees. 
+
+
+
+Definition at line 92 of file Utils.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_utils_aa8a25fdaec9158510c20812c21252296_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_utils_8h}{Utils.\+h}}\item 
-scripts/\mbox{\hyperlink{_utils_8cpp}{Utils.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Utils/\mbox{\hyperlink{_utils_8h}{Utils.\+h}}\item 
+src/engine/scripts/\+Utils/\mbox{\hyperlink{_utils_8cpp}{Utils.\+cpp}}\end{DoxyCompactItemize}

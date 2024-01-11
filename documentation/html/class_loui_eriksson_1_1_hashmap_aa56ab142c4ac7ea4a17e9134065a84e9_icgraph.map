@@ -1,0 +1,9 @@
+<map id="LouiEriksson::Hashmap::size" name="LouiEriksson::Hashmap::size">
+<area shape="rect" id="node1" title="Returns the number of items stored within the Hashmap." alt="" coords="501,133,676,175"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="247,78,453,105"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_hashmap.html#a5e4fdb966120278c87601959c51124af" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="263,133,437,175"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_hashmap.html#a2dd66e3c1416274673c6325dcefd8e54" title="Trims unused entries from the end of the Hashmap." alt="" coords="263,199,437,240"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_entity.html#a1d7e1f07753b0c1c163e3ae13db34b7d" title=" " alt="" coords="27,5,177,47"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_object.html#a3caf7ef5f79e0b6f7fa2fa01799fc88a" title="Add a Component of type to the GameObject." alt="" coords="5,71,199,112"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_scene.html#a6923e929fcac3cb63c7bbce35c7eb435" title="Attach an instance of a type to the Scene." alt="" coords="27,136,177,177"/>
+</map>

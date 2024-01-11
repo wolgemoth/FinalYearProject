@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Utils::WrapAngle" name="LouiEriksson::Utils::WrapAngle">
+<area shape="rect" id="node1" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_utils.html#adf29cc2033b68c8c3f0c1706b2b0f512" title="Repeats a value within the range 0 &#45;&gt; _max." alt="" coords="196,5,339,47"/>
+</map>

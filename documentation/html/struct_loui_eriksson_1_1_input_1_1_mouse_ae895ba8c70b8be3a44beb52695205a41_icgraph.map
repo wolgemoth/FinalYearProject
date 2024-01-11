@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Input::Mouse::GetDown" name="LouiEriksson::Input::Mouse::GetDown">
+<area shape="rect" id="node1" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="216,5,361,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349" title="Called every frame." alt="" coords="5,5,168,47"/>
+</map>

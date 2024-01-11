@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_s.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -190,14 +210,8 @@ $(function() {
 <li>s_LocalContrastModifier
 : <a class="el" href="struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_anti_aliasing.html#ae6a786fc6ec18b1441bba2afb7716a51">LouiEriksson::Settings::PostProcessing::AntiAliasing</a>
 </li>
-<li>s_Material
-: <a class="el" href="class_loui_eriksson_1_1_ball.html#ac302403c185151a5e6ec44b78ce07af3">LouiEriksson::Ball</a>
-</li>
 <li>s_MaxEV
 : <a class="el" href="struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_tone_mapping_1_1_auto_exposure.html#a7d89854e2a98fb8b88ecb9c59de9f62c">LouiEriksson::Settings::PostProcessing::ToneMapping::AutoExposure</a>
-</li>
-<li>s_Mesh
-: <a class="el" href="class_loui_eriksson_1_1_ball.html#a7b68b0fcff1fd6e0f93750f5484a4deb">LouiEriksson::Ball</a>
 </li>
 <li>s_MinEV
 : <a class="el" href="struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_tone_mapping_1_1_auto_exposure.html#ae9a7061f48a9e76667151689ae0f9ca6">LouiEriksson::Settings::PostProcessing::ToneMapping::AutoExposure</a>
@@ -271,9 +285,13 @@ $(function() {
 <li>Save()
 : <a class="el" href="class_loui_eriksson_1_1_scene.html#ae044701560dc85364e77bc48bd5b5e2f">LouiEriksson::Scene</a>
 </li>
+<li>Scale()
+: <a class="el" href="class_loui_eriksson_1_1_time.html#aa26ac718ffeb5b5a470f194f54f16f6e">LouiEriksson::Time</a>
+</li>
 <li>Scene
 : <a class="el" href="class_loui_eriksson_1_1_ball.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::Ball</a>
 , <a class="el" href="class_loui_eriksson_1_1_entity.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::Entity</a>
+, <a class="el" href="class_loui_eriksson_1_1_fly_cam.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::FlyCam</a>
 , <a class="el" href="class_loui_eriksson_1_1_game_object.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::GameObject</a>
 , <a class="el" href="class_loui_eriksson_1_1_orbit_cam.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::OrbitCam</a>
 , <a class="el" href="class_loui_eriksson_1_1_plane.html#a032858ae1fe02d2d1170981c2af2d67c">LouiEriksson::Plane</a>
@@ -294,7 +312,7 @@ $(function() {
 : <a class="el" href="class_loui_eriksson_1_1_serialisation.html#ad14660bc460059bbb260c94e445892b0">LouiEriksson::Serialisation</a>
 </li>
 <li>SetCollider()
-: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">LouiEriksson::Rigidbody</a>
+: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">LouiEriksson::Rigidbody</a>
 </li>
 <li>SetDirty()
 : <a class="el" href="class_loui_eriksson_1_1_camera.html#a0234789025a667c96a871a8133d901e8">LouiEriksson::Camera</a>
@@ -307,14 +325,18 @@ $(function() {
 : <a class="el" href="class_loui_eriksson_1_1_renderer.html#a0e8bf410ca805bf32b21827181fdb5e5">LouiEriksson::Renderer</a>
 </li>
 <li>SetRigidbody()
-: <a class="el" href="class_loui_eriksson_1_1_collider.html#a6c483917a3ac8a63b11b3ca471f8d9d4">LouiEriksson::Collider</a>
+: <a class="el" href="class_loui_eriksson_1_1_collider.html#a28fa75ca1c11e8a0d2ad535447e38bae">LouiEriksson::Collider</a>
+</li>
+<li>SetState()
+: <a class="el" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">LouiEriksson::Cursor</a>
 </li>
 <li>Settings
 : <a class="el" href="class_loui_eriksson_1_1_texture.html#a720761556766a2d77ad9125743710d4c">LouiEriksson::Texture</a>
 </li>
 <li>SetTransform()
 : <a class="el" href="class_loui_eriksson_1_1_camera.html#ab586a2cfa8b730ca892e709f246e05c9">LouiEriksson::Camera</a>
-, <a class="el" href="class_loui_eriksson_1_1_collider.html#a7482f21d063f9572e7befb2a4220af20">LouiEriksson::Collider</a>
+, <a class="el" href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">LouiEriksson::Collider</a>
+, <a class="el" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">LouiEriksson::PlaneCollider</a>
 , <a class="el" href="class_loui_eriksson_1_1_renderer.html#a9e6816406a5847e9612f7730d129e958">LouiEriksson::Renderer</a>
 , <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">LouiEriksson::Rigidbody</a>
 </li>
@@ -325,7 +347,7 @@ $(function() {
 : <a class="el" href="class_loui_eriksson_1_1_camera.html#ac077f1baa7eb105891745ebc1ffe3c02">LouiEriksson::Camera</a>
 </li>
 <li>size()
-: <a class="el" href="class_loui_eriksson_1_1_hashmap.html#a5b2194c11d6c810e346487e5467ea534">LouiEriksson::Hashmap&lt; Tk, Tv &gt;</a>
+: <a class="el" href="class_loui_eriksson_1_1_hashmap.html#aa56ab142c4ac7ea4a17e9134065a84e9">LouiEriksson::Hashmap&lt; Tk, Tv &gt;</a>
 </li>
 <li>SpawnBalls()
 : <a class="el" href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94">LouiEriksson::Player</a>
@@ -339,6 +361,9 @@ $(function() {
 <li>SpawnPlayer()
 : <a class="el" href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5">LouiEriksson::Player</a>
 </li>
+<li>SpeedOfSound()
+: <a class="el" href="class_loui_eriksson_1_1_sound.html#a70fa3f6836e00ed5a847177082af820a">LouiEriksson::Sound</a>
+</li>
 <li>Sphere
 : <a class="el" href="class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33adad1e6018fe699604344fdef93af62d030">LouiEriksson::Collider</a>
 </li>
@@ -351,11 +376,27 @@ $(function() {
 <li>Spot
 : <a class="el" href="struct_loui_eriksson_1_1_light_1_1_parameters.html#a4bec57ed2e0feddadb0f5335ca0a98c7a13b0d001f8b2594278f5caf1afc15091">LouiEriksson::Light::Parameters</a>
 </li>
+<li>State()
+: <a class="el" href="class_loui_eriksson_1_1_audio_source.html#a5c7e61625243c8fd93c4a5d1c3f57504">LouiEriksson::AudioSource</a>
+, <a class="el" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2c7999836ba7aa8966b50702a9d5adef">LouiEriksson::Cursor::State</a>
+</li>
+<li>Stop()
+: <a class="el" href="class_loui_eriksson_1_1_audio_source.html#a78cee16e6c9b0f86a88dac1dca6c271e">LouiEriksson::AudioSource</a>
+</li>
+<li>Sync()
+: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">LouiEriksson::Rigidbody</a>
+</li>
+<li>SyncCameraSettings()
+: <a class="el" href="class_loui_eriksson_1_1_fly_cam.html#aef3dce1cb877f9133df19dc235114bfa">LouiEriksson::FlyCam</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_serialisation.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_serialisation.html">Serialisation</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -76,6 +92,14 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_serialisation_8h_source.html">Serialisation.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for LouiEriksson::Serialisation:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_serialisation__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_serialisation_coll__map" alt="Collaboration graph"/></div>
+<map name="a_loui_eriksson_1_1_serialisation_coll__map" id="a_loui_eriksson_1_1_serialisation_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,247,508"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -258,6 +282,10 @@ template&lt;typename T &gt; </div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac_cgraph" id="aclass_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,199,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_utils.html#ae14fb185a0b930843c2e1a8fb38463e1" title="Split a string in a collection of substrings using a divider." alt="" coords="247,5,389,47"/>
+</map>
 </div>
 
 </div>
@@ -333,6 +361,12 @@ template&lt;&gt; </div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed_icgraph" id="aclass_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed_icgraph">
+<area shape="rect" title="Placeholder for an actual custom exception." alt="" coords="540,5,744,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#aefa6e8596c7a6b42d7b87b429312a764" title="TryLoad the Scene from xml format at a given path." alt="" coords="341,5,492,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="108,5,293,47"/>
+<area shape="rect" href="main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,13,60,39"/>
+</map>
 </div>
 
 </div>
@@ -402,6 +436,12 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_serialisation_adeb428f5d6d87f3d36aa7fef13dd8f90_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_serialisation_adeb428f5d6d87f3d36aa7fef13dd8f90_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_serialisation_adeb428f5d6d87f3d36aa7fef13dd8f90_icgraph" id="aclass_loui_eriksson_1_1_serialisation_adeb428f5d6d87f3d36aa7fef13dd8f90_icgraph">
+<area shape="rect" title=" " alt="" coords="540,5,733,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#aefa6e8596c7a6b42d7b87b429312a764" title="TryLoad the Scene from xml format at a given path." alt="" coords="341,5,492,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="108,5,293,47"/>
+<area shape="rect" href="main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,13,60,39"/>
+</map>
 </div>
 
 </div>
@@ -440,7 +480,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_serialisation_8cpp_source.html#l00050">50</a> of file <a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_serialisation_8cpp_source.html#l00051">51</a> of file <a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a>.</p>
 
 </div>
 </div>
@@ -478,23 +518,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_serialisation_8cpp_source.html#l00036">36</a> of file <a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_serialisation_8cpp_source.html#l00037">37</a> of file <a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0_icgraph" id="aclass_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0_icgraph">
+<area shape="rect" title=" " alt="" coords="204,5,397,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#ae044701560dc85364e77bc48bd5b5e2f" title="Save the Scene in xml format at a given path." alt="" coords="5,5,156,47"/>
+</map>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>scripts/<a class="el" href="_serialisation_8h_source.html">Serialisation.h</a></li>
-<li>scripts/<a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_serialisation_8h_source.html">Serialisation.h</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_serialisation_8cpp_source.html">Serialisation.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_serialisation.html">Serialisation</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

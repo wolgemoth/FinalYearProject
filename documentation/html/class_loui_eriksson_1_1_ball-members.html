@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_ball.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_ball.html">Ball</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">LouiEriksson::Ball Member List</div>  </div>
@@ -75,9 +91,9 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#ac629c0b51e569a88190432e7914bb557">Ball</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#af2d97dc0ee10bbbe699de756a29ddbd0">Begin</a>() override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#ac39d6b1bbeca2f053ff6279b3c73e385">Component</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#a8bd321a9b6704c769cae0abea6020461">FixedTick</a>() override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#a7245bbad3ebcf592b754d8e4ee3996ec">OnCollision</a>(const Collision &amp;_collision) override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">Parent</a>() const</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#ac302403c185151a5e6ec44b78ce07af3">s_Material</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#a7b68b0fcff1fd6e0f93750f5484a4deb">s_Mesh</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#a032858ae1fe02d2d1170981c2af2d67c">Scene</a> class</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_script.html#a5ec5d729084bb91ed0652cc953b587b5">Script</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_script.html">LouiEriksson::Script</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html#a3a863474d8fd08846718eae655a621c8">Tick</a>() override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_ball.html">LouiEriksson::Ball</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
@@ -85,9 +101,12 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#a20003b7735dba8ab493812c37a580b6c">~Component</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_script.html#a315a7d9dae3c4666dc6bf51da8632d8e">~Script</a>() override=default</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_script.html">LouiEriksson::Script</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/Rigidbody.cpp Source File</title>
+<title>Final Year Project: src/engine/scripts/Physics/Rigidbody.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_rigidbody_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,186 +80,496 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Rigidbody.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_rigidbody_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="stdafx_8h.html">stdafx.h</a>&quot;</span></div>
+<a href="_rigidbody_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;../stdafx.h&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_rigidbody_8h.html">Rigidbody.h</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">    9</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">Rigidbody::Rigidbody</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent) : <a class="code" href="class_loui_eriksson_1_1_component.html">Component</a>(_parent) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        m_Transform = std::shared_ptr&lt;Transform&gt;(<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        m_Collider  = std::shared_ptr&lt;Collider&gt; (<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        m_Velocity        = glm::vec3(0.0f);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        m_AngularVelocity = glm::vec3(0.0f);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        m_Force           = glm::vec3(0.0f);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        m_Mass = 1.0f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        m_Drag = 0.0f;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        m_AngularDrag = 0.0f;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">   23</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">Rigidbody::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        m_Transform = _transform;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">   26</a></span>&#160;    std::weak_ptr&lt;Transform&gt; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">Rigidbody::GetTransform</a>() {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> m_Transform;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">   30</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">Rigidbody::SetCollider</a>(<span class="keyword">const</span> std::weak_ptr&lt;Collider&gt;&amp; _transform) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        m_Collider = _transform;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">   33</a></span>&#160;    std::weak_ptr&lt;Collider&gt; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">Rigidbody::GetCollider</a>() {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> m_Collider;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a766293410e25e1d2c24a0cba6254877d">   37</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Rigidbody::Velocity</a>(<span class="keyword">const</span> glm::vec3&amp; _velocity) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        m_Velocity = _velocity;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">   40</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Rigidbody::Velocity</a>() {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> m_Velocity;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a020659a904591f00085464a84fbd7452">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">Rigidbody::AngularVelocity</a>(<span class="keyword">const</span> glm::vec3&amp; _angularVelocity) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        m_AngularVelocity = _angularVelocity;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">   47</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">Rigidbody::AngularVelocity</a>() {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> m_AngularVelocity;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ab07f106ad8406848895933c848a41781">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ab07f106ad8406848895933c848a41781">Rigidbody::AddForce</a>(<span class="keyword">const</span> glm::vec3&amp; _force) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        m_Force += _force;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a2337c9f593a9463aa9125a2d7e3eb8f0">   54</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a2337c9f593a9463aa9125a2d7e3eb8f0">Rigidbody::ClearForce</a>() {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_Force = glm::vec3(0.0f);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">   58</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">Rigidbody::GetForce</a>() {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> m_Force;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a073509aa441420457e062bf0faee6ca3">   62</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a073509aa441420457e062bf0faee6ca3">Rigidbody::Euler</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _delta) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="comment">/* Implementation of Euler Integration */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        m_Velocity += (m_Force / m_Mass) * _delta;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        m_Transform.lock()-&gt;m_Position += m_Velocity * _delta;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    glm::vec3 Rigidbody::Force(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _mass, glm::vec3 _velocity) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> _velocity * _mass; <span class="comment">// Newton&#39;s F = ma.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a3d6b5cac74ae02e9d9bde01752c3fc6a">   75</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">Rigidbody::Mass</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _mass) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        m_Mass = std::max(_mass, 0.005f); <span class="comment">// Clamp smallest mass value to 0.005.</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">   78</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">Rigidbody::Mass</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">return</span> m_Mass;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ab8f8b042778e04a83e62e0ca94bb3d7b">   82</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">Rigidbody::Drag</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _drag) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        m_Drag = _drag;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">   85</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">Rigidbody::Drag</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> m_Drag;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a">   89</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a">Rigidbody::DragForce</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _radius) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> airDensity = 1.0f; <span class="comment">// 1 atm</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="comment">// Courtesy of: https://www.calculatordonkey.com/math/surface-area-sphere-calculator.html</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">float</span> referenceArea = 4.0f * (glm::pi&lt;float&gt;() * (_radius * _radius)) / 2.0f;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// Courtesy of: https://www.grc.nasa.gov/WWW/k-12/airplane/drageq.html</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">// This code snippet initializes a 3D vector called &quot;result&quot; with all components set to 0.0. It then calculates the magnitude of a velocity vector and stores it in the variable &quot;len&quot;.</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">float</span> v = glm::length2(<a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Velocity</a>());</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">float</span> drag = <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">Drag</a>() * ((airDensity * (v)) * 0.5f) * referenceArea;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="comment">// Compute the force of the drag from the current velocity and mass.</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        glm::vec3 force = -<a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Velocity</a>() * drag * <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">Mass</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> force;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86">  108</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86">Rigidbody::FrictionForce</a>(<a class="code" href="struct_loui_eriksson_1_1_collision.html">Collision</a>&amp; _collision) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        glm::vec3 result(0.0f);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> coefficient = 0.2f;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="comment">// Velocity vector and its magnitude.</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">auto</span> dir = <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Velocity</a>();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">auto</span> len = glm::length(dir);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">if</span> (len != 0) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="comment">// Project the velocity onto the normal.</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keyword">auto</span> proj = dir - _collision.<a class="code" href="struct_loui_eriksson_1_1_collision.html#a60e4776180f318ec993d1255894bea1d">Normal</a>() * glm::dot(dir, _collision.<a class="code" href="struct_loui_eriksson_1_1_collision.html#a60e4776180f318ec993d1255894bea1d">Normal</a>());</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="comment">// Objects with more momentum going &quot;into&quot; a surface should receive more friction.</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordtype">float</span> response = 1.0f - (glm::dot(proj, dir) / len);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="comment">// Friction should never speed up an object.</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (response &gt; 0.0f) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="comment">// Compute friction by multiplying the values.</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="comment">// Courtesy of: https://www.toppr.com/guides/physics-formula/friction-formula/</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                result = -proj * coefficient * response * <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">Mass</a>();</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_physics_8h.html">Physics.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_collider_8h.html">Collider.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    Rigidbody::BulletRigidbody::BulletRigidbody(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform, <span class="keyword">const</span> std::weak_ptr&lt;Collider&gt;&amp; _collider, <span class="keyword">const</span> Parameters&amp; _parameters) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            <span class="comment">// Initialise the motion state.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            m_MotionState.reset(<span class="keyword">new</span> btDefaultMotionState());</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="comment">// Initialise the rigidbody.</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            m_Rigidbody.reset(</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                <span class="keyword">new</span> btRigidBody(</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                    _parameters.m_Mass,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                    m_MotionState.get(),</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    _collider.lock()-&gt;m_CollisionShape.get(),</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                    _parameters.m_Inertia</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                )</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="comment">// Assign the drag and angular drag coefficients.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            m_Rigidbody-&gt;setDamping(_parameters.m_Drag, _parameters.m_AngularDrag);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="comment">// Assign the friction coefficient.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            m_Rigidbody-&gt;setFriction(_parameters.m_Friction);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">// Assign the restitution (bounciness) of the rigidbody.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            m_Rigidbody-&gt;setRestitution(_parameters.m_Bounciness);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="comment">// Set the transform of the rigidbody.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> pos  = _transform.lock()-&gt;m_Position;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> quat = _transform.lock()-&gt;m_Rotation;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="comment">// Get the rigidbody&#39;s transform and assign the current position and rotation.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                <span class="keyword">auto</span> t = m_Rigidbody-&gt;getWorldTransform();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                t.setOrigin  ({ pos.x, pos.y, pos.z });</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                t.setRotation({ quat.x, quat.y, quat.z, quat.w });</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="comment">// Update the rigidbody&#39;s transform with the new values.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                m_Rigidbody-&gt;setWorldTransform(t);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">if</span> (_parameters.m_Kinematic) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="comment">// Set the collision flags to kinematic, if specified.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                m_Rigidbody-&gt;setCollisionFlags(</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    m_Rigidbody-&gt;getCollisionFlags() |</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    btCollisionObject::CF_KINEMATIC_OBJECT</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="comment">// Restrict all motion.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                m_Rigidbody-&gt; setLinearFactor({ 0.0f, 0.0f, 0.0f });</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                m_Rigidbody-&gt;setAngularFactor({ 0.0f, 0.0f, 0.0f });</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="comment">// Ensure motion is permitted along all axes.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                m_Rigidbody-&gt; setLinearFactor({ 1.0f, 1.0f, 1.0f });</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                m_Rigidbody-&gt;setAngularFactor({ 1.0f, 1.0f, 1.0f });</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="comment">// Set up how the rigidbody interacts with gravity:</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> g = Physics::Gravity();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                m_Rigidbody-&gt;setGravity(</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    _parameters.m_UseGravity ?</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        btVector3( g.x,  g.y,  g.z) :</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        btVector3(0.0f, 0.0f, 0.0f)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                );</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="comment">// See: https://docs.panda3d.org/1.10/python/programming/physics/bullet/ccd</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">if</span> (_parameters.m_Continuous) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="comment">// Compute the continuous sphere radius using the collider&#39;s AABB.</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                <span class="keywordtype">float</span> sweep_sphere_radius = 0.01f;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span>* col = m_Rigidbody-&gt;getCollisionShape();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    btTransform t;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    btVector3 min;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    btVector3 max;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    col-&gt;getAabb(t, min, max);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span> delta = max - min;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    <span class="comment">// Get largest axis:</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span> multiplier = 0.707f;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    sweep_sphere_radius = glm::max(</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                        sweep_sphere_radius,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                        glm::max(</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                            delta.x(),</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                            glm::max(</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                delta.y(),</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                delta.z()</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                            )</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        ) * multiplier</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <span class="comment">// Threshold to activate CCD in units per second.</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> threshold_Ms = sweep_sphere_radius;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                m_Rigidbody-&gt;setCcdMotionThreshold(<a class="code" href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca">Time::FixedDeltaTime</a>() * threshold_Ms);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                m_Rigidbody-&gt;setCcdSweptSphereRadius(sweep_sphere_radius);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="comment">// Finally, add the rigidbody to the dynamics world.</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            Physics::s_DynamicsWorld-&gt;addRigidBody(m_Rigidbody.get());</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    Rigidbody::BulletRigidbody::~BulletRigidbody() {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">if</span> (m_Rigidbody != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            Physics::s_DynamicsWorld-&gt;removeRigidBody(m_Rigidbody.get());</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#aa4ed2c41ff1176e4a0684e264297c06e">  138</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">Rigidbody::AngularDrag</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _angularDrag) {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        m_AngularDrag = _angularDrag;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">  141</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">Rigidbody::AngularDrag</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">return</span> m_AngularDrag;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    }</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    Rigidbody::Parameters::Parameters() {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        m_BulletRigidbody = std::shared_ptr&lt;BulletRigidbody&gt;(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        m_Kinematic  = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        m_UseGravity = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        m_Continuous = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="comment">// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        m_Mass        = 1.0f;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        m_Drag        = 0.2f;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        m_AngularDrag = 0.005f;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        m_Friction    = 0.5f;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        m_Bounciness  = 0.5f;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        m_Inertia = { 1.0f, 1.0f, 1.0f };</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    </div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">  154</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">Rigidbody::Rigidbody</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent) : <a class="code" href="class_loui_eriksson_1_1_component.html">Component</a>(_parent) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        m_Transform = std::shared_ptr&lt;Transform&gt;(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        m_Collider  = std::shared_ptr&lt;Collider&gt; (<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf">  160</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf">Rigidbody::Interpolate</a>() {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">if</span> (Physics::s_LastTick &gt; 0.0f) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> transform = m_Transform.lock();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="comment">// Get the transform from the bullet physics engine.</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                <span class="keyword">auto</span> t = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;getWorldTransform();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                <span class="comment">// Get the position and rotation of the rigidbody as they exist within bullet.</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> bOrigin   = t.getOrigin();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> bRotation = t.getRotation().inverse();</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                <span class="comment">// Convert to glm types.</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> lastPos = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> lastRot = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                <span class="comment">// Compute quaternion from angular velocity.</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> av = <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">AngularVelocity</a>();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                glm::quat rot;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                <span class="keywordflow">if</span> (glm::length(av) &gt; 0.005f) {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    rot = glm::angleAxis(glm::cos(glm::length(av)) * <a class="code" href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca">Time::FixedDeltaTime</a>(), glm::normalize(av));</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                    rot = glm::identity&lt;glm::quat&gt;();</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                <span class="comment">// Apply new values. Linearly interpolate using length of time since last physics update.</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                transform-&gt;m_Position = lastPos + (<a class="code" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">Velocity</a>() * Physics::s_LastTick * <a class="code" href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca">Time::FixedDeltaTime</a>());</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                transform-&gt;m_Rotation = glm::slerp(lastRot, lastRot * rot, glm::max(Physics::s_LastTick, 0.0f));</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordtype">void</span> Rigidbody::BulletReinitialise() {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> transform = m_Transform.lock();</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> collider  =  m_Collider.lock();</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span> &amp;&amp;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                collider != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                m_Parameters.m_BulletRigidbody.reset(</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                    <span class="keyword">new</span> BulletRigidbody(</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                        m_Transform,</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                        m_Collider,</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                        m_Parameters</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                    )</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                );</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    </div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">  220</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">Rigidbody::Sync</a>() {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <span class="comment">/* SYNCHRONISE POSITION AND ORIENTATION */</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> transform = m_Transform.lock();</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                    </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                    <span class="comment">// Get the transform from the bullet physics engine.</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                    <span class="keyword">auto</span> t = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;getWorldTransform();</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span> bOrigin   = t.getOrigin();</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span> bRotation = t.getRotation().inverse();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                    </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                    <span class="comment">// Sync the transform from bullet with the transform in-engine.</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                    transform-&gt;m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                    transform-&gt;m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="comment">/* GET COLLISIONS */</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                <span class="comment">// Reset the collisions.</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                m_Collisions.clear();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                <span class="comment">/*</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">                 * TODO: Move this to the Physics class and have some kind of managed, internal</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment">                 * system for indexing Rigidbody objects against btRigidbody objects.</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="comment">                 */</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                <span class="comment">// Get and iterate through every contact manifold in the physics engine.</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                <span class="keywordtype">int</span> numManifolds = Physics::s_DynamicsWorld-&gt;getDispatcher()-&gt;getNumManifolds();</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; numManifolds; i++) {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                    </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                    <span class="keyword">auto</span>* contactManifold = Physics::s_DynamicsWorld-&gt;getDispatcher()-&gt;getManifoldByIndexInternal(i);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    <span class="comment">// Get and iterate through every contact in the manifold.</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                    <span class="keywordtype">int</span> numContacts = contactManifold-&gt;getNumContacts();</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; numContacts; j++) {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                        </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                        <span class="comment">// Get a pointer to the btRigidbody associated with this rigidbody.</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                        <span class="keyword">const</span> <span class="keyword">auto</span>* rbThis = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody.get();</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                        </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                        <span class="comment">// Validate the pointer. If is fails the null check we will throw.</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                        <span class="keywordflow">if</span> (rbThis != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                            </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                            <span class="comment">// Determine if either of the bodies in the manifold are this rigidbody.</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                            <span class="keywordtype">int</span> body;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                            </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                            <span class="keywordflow">if</span>      (contactManifold-&gt;getBody0() == rbThis) { body =  0; }</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (contactManifold-&gt;getBody1() == rbThis) { body =  1; }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                            <span class="keywordflow">else</span>                                            { body = -1; }</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                            </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                            <span class="comment">// If one of the rigidbodies involved in the collision event are this rigidbody,</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                            <span class="comment">// generate a collision object and append it to the list of collisions.</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                            <span class="keywordflow">if</span> (body &gt;= 0) {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                m_Collisions.emplace_back(contactManifold-&gt;getContactPoint(j), body);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                            }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                        }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;btRigidbody associated with this Rigidbody is nullptr!&quot;</span>);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                        }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                    }</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    </div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a92394fd5a08a958a6c56dc1957e9ae7f">  293</a></span>&#160;    <span class="keyword">const</span> std::vector&lt;Collision&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a92394fd5a08a958a6c56dc1957e9ae7f">Rigidbody::Collisions</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordflow">return</span> m_Collisions;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    </div>
+<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">  297</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">Rigidbody::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        m_Transform = _transform;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    }</div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">  302</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">Rigidbody::GetTransform</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">return</span> m_Transform;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    </div>
+<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">  306</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">Rigidbody::SetCollider</a>(<span class="keyword">const</span> std::weak_ptr&lt;Collider&gt;&amp; _collider) {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> col = _collider.lock();</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        </div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        m_Collider = col;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="keywordflow">if</span> (col != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            col-&gt;m_CollisionShape-&gt;calculateLocalInertia(m_Parameters.m_Mass, m_Parameters.m_Inertia);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        }</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    }</div>
+<div class="line"><a name="l00318"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">  318</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Collider&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">Rigidbody::GetCollider</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keywordflow">return</span> m_Collider;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    }</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    </div>
+<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a08a8420f38eae05c584e60466290eeb1">  322</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">Rigidbody::Position</a>(<span class="keyword">const</span> glm::vec3&amp; _value) {</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        </div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        m_Transform.lock()-&gt;m_Position = _value;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
+<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">  328</a></span>&#160;    <span class="keyword">const</span> glm::vec3&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">Rigidbody::Position</a>() {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        </div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">Sync</a>();</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">return</span> m_Transform.lock()-&gt;m_Position;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    </div>
+<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a1da82bf000d903b4105c38273a45364f">  335</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">Rigidbody::Rotation</a>(<span class="keyword">const</span> glm::quat&amp; _value) {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        m_Transform.lock()-&gt;m_Rotation = _value;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">  341</a></span>&#160;    <span class="keyword">const</span> glm::quat&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">Rigidbody::Rotation</a>() {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        </div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">Sync</a>();</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keywordflow">return</span> m_Transform.lock()-&gt;m_Rotation;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    </div>
+<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a6a35c908be37316a1b3bd75227df9c97">  348</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">Rigidbody::Kinematic</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _value) {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        m_Parameters.m_Kinematic = _value;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        </div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    }</div>
+<div class="line"><a name="l00353"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">  353</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">Rigidbody::Kinematic</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_Kinematic;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    }</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    </div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a96dfb254f7a84ff397dd963c48a4b870">  357</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">Rigidbody::Gravity</a>(<span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _value) {</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        m_Parameters.m_UseGravity = _value;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    }</div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">  362</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">Rigidbody::Gravity</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_UseGravity;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    }</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    </div>
+<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a7c9c6a8766e4e1ceeb3b42f1dce35d0a">  366</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">Rigidbody::Velocity</a>(<span class="keyword">const</span> glm::vec3&amp; _value) {</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;setLinearVelocity(</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            { _value.x, _value.y, _value.z }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        );</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    }</div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">  372</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">Rigidbody::Velocity</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> v = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;getLinearVelocity();</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="keywordflow">return</span> {v.x(), v.y(), v.z()};</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    </div>
+<div class="line"><a name="l00379"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a585aded25f0613104f1966c2403a723f">  379</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">Rigidbody::AngularVelocity</a>(<span class="keyword">const</span> glm::vec3&amp; _value) {</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;setAngularVelocity(</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            { _value.x, _value.y, _value.z }</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        );</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
+<div class="line"><a name="l00385"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">  385</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">Rigidbody::AngularVelocity</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> av = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;getAngularVelocity();</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keywordflow">return</span> { av.x(), av.y(), av.z() };</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    }</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    </div>
+<div class="line"><a name="l00392"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0">  392</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0">Rigidbody::AddForce</a>(<span class="keyword">const</span> glm::vec3&amp; _value, <span class="keyword">const</span> glm::vec3&amp; _relativePosition) {</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;applyForce(</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            {            _value.x,            _value.y,            _value.z },</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            { _relativePosition.x, _relativePosition.y, _relativePosition.z }</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        );</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    }</div>
+<div class="line"><a name="l00399"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">  399</a></span>&#160;    glm::vec3 <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">Rigidbody::GetForce</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> f = m_Parameters.m_BulletRigidbody-&gt;m_Rigidbody-&gt;getTotalForce();</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="keywordflow">return</span> { f.x(), f.y(), f.z() };</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    }</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    </div>
+<div class="line"><a name="l00406"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#afa3515d080d092d9c43957acbb3df3c1">  406</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">Rigidbody::Mass</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        m_Parameters.m_Mass = std::max(_value, 0.005f); <span class="comment">// Clamp smallest mass value to 0.005.</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    }</div>
+<div class="line"><a name="l00411"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">  411</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">Rigidbody::Mass</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_Mass;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    }</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    </div>
+<div class="line"><a name="l00415"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a687724bbb6a9cc2950759a65bdec5792">  415</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">Rigidbody::Drag</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        m_Parameters.m_Drag = _value;</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    }</div>
+<div class="line"><a name="l00420"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">  420</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">Rigidbody::Drag</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_Drag;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    }</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    </div>
+<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a268a1d17f6d53fd13552f3983e343532">  424</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">Rigidbody::AngularDrag</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        m_Parameters.m_AngularDrag = _value;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
+<div class="line"><a name="l00429"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">  429</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">Rigidbody::AngularDrag</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_AngularDrag;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    }</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    </div>
+<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#aabbdae1f0269ff2f4ff34a10c990ad21">  433</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">Rigidbody::Friction</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        m_Parameters.m_Friction = _value;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        </div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    }</div>
+<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">  438</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">Rigidbody::Friction</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_Friction;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    </div>
+<div class="line"><a name="l00442"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a46ea6a300f77bab9cb37806b91365a58">  442</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">Rigidbody::Bounciness</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) {</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        m_Parameters.m_Bounciness = _value;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;        BulletReinitialise();</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    }</div>
+<div class="line"><a name="l00447"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">  447</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">Rigidbody::Bounciness</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        <span class="keywordflow">return</span> m_Parameters.m_Bounciness;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    }</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;}</div>
+<div class="ttc" id="a_collider_8h_html"><div class="ttname"><a href="_collider_8h.html">Collider.h</a></div></div>
+<div class="ttc" id="a_physics_8h_html"><div class="ttname"><a href="_physics_8h.html">Physics.h</a></div></div>
 <div class="ttc" id="a_rigidbody_8h_html"><div class="ttname"><a href="_rigidbody_8h.html">Rigidbody.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00013">Component.h:13</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a073509aa441420457e062bf0faee6ca3"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a073509aa441420457e062bf0faee6ca3">LouiEriksson::Rigidbody::Euler</a></div><div class="ttdeci">void Euler(const float &amp;_delta)</div><div class="ttdoc">Compute the Euler integration.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00062">Rigidbody.cpp:62</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a2337c9f593a9463aa9125a2d7e3eb8f0"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a2337c9f593a9463aa9125a2d7e3eb8f0">LouiEriksson::Rigidbody::ClearForce</a></div><div class="ttdeci">void ClearForce()</div><div class="ttdoc">Clear the force of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00054">Rigidbody.cpp:54</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a356233f221e19733815544de2ba69f86"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86">LouiEriksson::Rigidbody::FrictionForce</a></div><div class="ttdeci">glm::vec3 FrictionForce(Collision &amp;_collision)</div><div class="ttdoc">Compute the friction force of the Rigidbody given Collision information.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00108">Rigidbody.cpp:108</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a560b97576cb737390c677e994f93aba4"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">LouiEriksson::Rigidbody::Mass</a></div><div class="ttdeci">float Mass() const</div><div class="ttdoc">Get the mass of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00078">Rigidbody.cpp:78</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a658c6477e2d594aef842b071032863cd"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">LouiEriksson::Rigidbody::AngularDrag</a></div><div class="ttdeci">float AngularDrag() const</div><div class="ttdoc">Get the angular drag of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00141">Rigidbody.cpp:141</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a696692e8c2d42f854318813438ad9eba"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">LouiEriksson::Rigidbody::SetCollider</a></div><div class="ttdeci">void SetCollider(const std::weak_ptr&lt; Collider &gt; &amp;_transform)</div><div class="ttdoc">Set the Collider of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00030">Rigidbody.cpp:30</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a6cfafed8d1223482500db1b453183292"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">LouiEriksson::Rigidbody::Drag</a></div><div class="ttdeci">float Drag() const</div><div class="ttdoc">Get the drag of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00085">Rigidbody.cpp:85</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a8508970791cd49ecf20603999866c22a"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a">LouiEriksson::Rigidbody::DragForce</a></div><div class="ttdeci">glm::vec3 DragForce(const float &amp;_radius)</div><div class="ttdoc">Compute the drag force of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00089">Rigidbody.cpp:89</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_aa6f7abb5ad94737fc366409540ec6df5"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">LouiEriksson::Rigidbody::Rigidbody</a></div><div class="ttdeci">Rigidbody(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00009">Rigidbody.cpp:9</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ab07f106ad8406848895933c848a41781"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ab07f106ad8406848895933c848a41781">LouiEriksson::Rigidbody::AddForce</a></div><div class="ttdeci">void AddForce(const glm::vec3 &amp;_force)</div><div class="ttdoc">Add a force to the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00051">Rigidbody.cpp:51</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ac38ac970560e9d98c85754aa1af6f1d7"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">LouiEriksson::Rigidbody::Velocity</a></div><div class="ttdeci">glm::vec3 Velocity()</div><div class="ttdoc">Get the velocity of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00040">Rigidbody.cpp:40</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ac90f4888c127c7049e67ab32eeb51310"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">LouiEriksson::Rigidbody::AngularVelocity</a></div><div class="ttdeci">glm::vec3 AngularVelocity()</div><div class="ttdoc">Get the angular velocity of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00047">Rigidbody.cpp:47</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ac933f8566ef8cceab3e9f86db893c117"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">LouiEriksson::Rigidbody::GetTransform</a></div><div class="ttdeci">std::weak_ptr&lt; Transform &gt; GetTransform()</div><div class="ttdoc">Get the Transform of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00026">Rigidbody.cpp:26</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_adbf7168474a0538a6f6d11db964d1c01"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">LouiEriksson::Rigidbody::GetForce</a></div><div class="ttdeci">glm::vec3 GetForce()</div><div class="ttdoc">Get the force of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00058">Rigidbody.cpp:58</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ae922aee1a43d757f3b49ff0f197055bb"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">LouiEriksson::Rigidbody::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Transform of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00023">Rigidbody.cpp:23</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_af661fc2102f50b71ef8fc1ae7fcc5eaa"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">LouiEriksson::Rigidbody::GetCollider</a></div><div class="ttdeci">std::weak_ptr&lt; Collider &gt; GetCollider()</div><div class="ttdoc">Get the Collider of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00033">Rigidbody.cpp:33</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00007">Application.cpp:7</a></div></div>
-<div class="ttc" id="astdafx_8h_html"><div class="ttname"><a href="stdafx_8h.html">stdafx.h</a></div></div>
-<div class="ttc" id="astruct_loui_eriksson_1_1_collision_html"><div class="ttname"><a href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></div><div class="ttdoc">Contains information describing a collision between a Rigidbody and a Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collision_8h_source.html#l00011">Collision.h:11</a></div></div>
-<div class="ttc" id="astruct_loui_eriksson_1_1_collision_html_a60e4776180f318ec993d1255894bea1d"><div class="ttname"><a href="struct_loui_eriksson_1_1_collision.html#a60e4776180f318ec993d1255894bea1d">LouiEriksson::Collision::Normal</a></div><div class="ttdeci">void Normal(const glm::vec3 &amp;_normal)</div><div class="ttdoc">Set the normal of the Collision.</div><div class="ttdef"><b>Definition:</b> <a href="_collision_8cpp_source.html#l00022">Collision.cpp:22</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a039b7aad836379683005489e1637a6eb"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">LouiEriksson::Rigidbody::SetCollider</a></div><div class="ttdeci">void SetCollider(const std::weak_ptr&lt; Collider &gt; &amp;_collider)</div><div class="ttdoc">Set the Collider of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00306">Rigidbody.cpp:306</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a306d38721f2132bd289c4f63574c00b8"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">LouiEriksson::Rigidbody::AngularDrag</a></div><div class="ttdeci">const float &amp; AngularDrag() const</div><div class="ttdoc">Get the angular drag of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00429">Rigidbody.cpp:429</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a31d43bd6294805b5b545642e37b62e6c"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">LouiEriksson::Rigidbody::Drag</a></div><div class="ttdeci">const float &amp; Drag() const</div><div class="ttdoc">Get the drag of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00420">Rigidbody.cpp:420</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a37e78ff6192da4e0628d4dec0eccece3"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">LouiEriksson::Rigidbody::Position</a></div><div class="ttdeci">const glm::vec3 &amp; Position()</div><div class="ttdoc">Get the position of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00328">Rigidbody.cpp:328</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a3af412118b2a88ba091a1644e8f4d062"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">LouiEriksson::Rigidbody::Bounciness</a></div><div class="ttdeci">const float &amp; Bounciness() const</div><div class="ttdoc">Get the bounciness of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00447">Rigidbody.cpp:447</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a6ecee28de45c86df47e55fc29f3de61b"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">LouiEriksson::Rigidbody::GetForce</a></div><div class="ttdeci">glm::vec3 GetForce() const</div><div class="ttdoc">Get the force of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00399">Rigidbody.cpp:399</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a799f17a548e0b605778d085c0052a5f4"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">LouiEriksson::Rigidbody::Kinematic</a></div><div class="ttdeci">const bool &amp; Kinematic() const</div><div class="ttdoc">Get the kinematic state of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00353">Rigidbody.cpp:353</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a7bdf41cd5de6c15a3c6b9a5e275180ea"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">LouiEriksson::Rigidbody::GetTransform</a></div><div class="ttdeci">const std::weak_ptr&lt; Transform &gt; &amp; GetTransform() const</div><div class="ttdoc">Get the Transform of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00302">Rigidbody.cpp:302</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a92394fd5a08a958a6c56dc1957e9ae7f"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a92394fd5a08a958a6c56dc1957e9ae7f">LouiEriksson::Rigidbody::Collisions</a></div><div class="ttdeci">const std::vector&lt; Collision &gt; &amp; Collisions() const</div><div class="ttdoc">Retrieve the list of collisions for the current tick of the physics engine.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00293">Rigidbody.cpp:293</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a928656c22200161feb0c0c4e3a9ad0cf"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf">LouiEriksson::Rigidbody::Interpolate</a></div><div class="ttdeci">void Interpolate()</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00160">Rigidbody.cpp:160</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_a9c78c3a1ecf280c5137e743ebdb0ffb5"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">LouiEriksson::Rigidbody::GetCollider</a></div><div class="ttdeci">const std::weak_ptr&lt; Collider &gt; &amp; GetCollider() const</div><div class="ttdoc">Get the Collider of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00318">Rigidbody.cpp:318</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_aa10038f3b7965568c95db3826285168b"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">LouiEriksson::Rigidbody::AngularVelocity</a></div><div class="ttdeci">glm::vec3 AngularVelocity() const</div><div class="ttdoc">Get the angular velocity of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00385">Rigidbody.cpp:385</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_aa6f7abb5ad94737fc366409540ec6df5"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#aa6f7abb5ad94737fc366409540ec6df5">LouiEriksson::Rigidbody::Rigidbody</a></div><div class="ttdeci">Rigidbody(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00154">Rigidbody.cpp:154</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ab2c869e7724866baa4cecf2e4b578451"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">LouiEriksson::Rigidbody::Sync</a></div><div class="ttdeci">void Sync()</div><div class="ttdoc">Sync the transform with the physics engine.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00220">Rigidbody.cpp:220</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ab3febeee921fd2fd4496acda5d4a5dc0"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0">LouiEriksson::Rigidbody::AddForce</a></div><div class="ttdeci">void AddForce(const glm::vec3 &amp;_value, const glm::vec3 &amp;_relativePosition=glm::vec3(0.0f))</div><div class="ttdoc">Add a force to the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00392">Rigidbody.cpp:392</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ad5263a8069365ca22eacd64484b197a4"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">LouiEriksson::Rigidbody::Gravity</a></div><div class="ttdeci">const bool &amp; Gravity() const</div><div class="ttdoc">Get the kinematic state of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00362">Rigidbody.cpp:362</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ad63ed50229c4672103c9d09f5bf1564d"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">LouiEriksson::Rigidbody::Mass</a></div><div class="ttdeci">const float &amp; Mass() const</div><div class="ttdoc">Get the mass of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00411">Rigidbody.cpp:411</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ad72db833b56f9fc5145c573907c41a3b"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">LouiEriksson::Rigidbody::Friction</a></div><div class="ttdeci">const float &amp; Friction() const</div><div class="ttdoc">Get the friction of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00438">Rigidbody.cpp:438</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ae14a822f5fc5948efecebc9ff648d385"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">LouiEriksson::Rigidbody::Rotation</a></div><div class="ttdeci">const glm::quat &amp; Rotation()</div><div class="ttdoc">Get the rotation of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00341">Rigidbody.cpp:341</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_ae922aee1a43d757f3b49ff0f197055bb"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">LouiEriksson::Rigidbody::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Transform of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00297">Rigidbody.cpp:297</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_rigidbody_html_af82f24eab5a0f2a76db0f83f290bc41a"><div class="ttname"><a href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">LouiEriksson::Rigidbody::Velocity</a></div><div class="ttdeci">glm::vec3 Velocity() const</div><div class="ttdoc">Get the velocity of the Rigidbody.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8cpp_source.html#l00372">Rigidbody.cpp:372</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_time_html_af757a37d73ad39440574bc0b7e6f44ca"><div class="ttname"><a href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca">LouiEriksson::Time::FixedDeltaTime</a></div><div class="ttdeci">static const float FixedDeltaTime()</div><div class="ttdoc">Get the scaled fixed delta time. (Time between physics updates.)</div><div class="ttdef"><b>Definition:</b> <a href="_time_8cpp_source.html#l00031">Time.cpp:31</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_6e10289c43f02308ba756dcb7ce76a14.html">Physics</a></li><li class="navelem"><a class="el" href="_rigidbody_8cpp.html">Rigidbody.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

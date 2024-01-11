@@ -1,0 +1,10 @@
+<map id="LouiEriksson::FlyCam::Begin" name="LouiEriksson::FlyCam::Begin">
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,181,168,223"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="217,5,410,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="216,71,411,98"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_resources.html#a9326226daea9ad778dff3adac2b7584e" title=" " alt="" coords="224,123,403,164"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_fly_cam.html#a3892234d2b009d79f258efe683c322c5" title="Get the Camera of the FlyCam." alt="" coords="459,276,621,317"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_fly_cam.html#a6be91b86e17dc0082cc46eafb464c29c" title="Get the Transform of the FlyCam." alt="" coords="232,240,395,281"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="220,305,407,347"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_fly_cam.html#aef3dce1cb877f9133df19dc235114bfa" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="231,371,396,412"/>
+</map>

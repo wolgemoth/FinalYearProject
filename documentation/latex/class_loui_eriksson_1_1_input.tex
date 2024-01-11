@@ -4,6 +4,25 @@
 
 {\ttfamily \#include $<$Input.\+h$>$}
 
+
+
+Collaboration diagram for Loui\+Eriksson\+::Input\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{class_loui_eriksson_1_1_input__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_input_1_1_event}{Event}}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_input_1_1_key}{Key}}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_input_1_1_mouse}{Mouse}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,8 +39,10 @@
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static const Uint8 $\ast$ \mbox{\hyperlink{class_loui_eriksson_1_1_input_afc8c10b0cc3accf45e2d8c5fcf19bad2}{Keyboard\+State}} ()
-\end{DoxyCompactItemize}
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_input_a1734500919da2c8bf58321e3fc624f05}{Tick}} ()
+\begin{DoxyCompactList}\small\item\em Refresh the input. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_input_a3c4d2188d0bcb2187bea4a4ea3218427}{Dispose}} ()
+\begin{DoxyCompactList}\small\item\em Finalise input. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -58,18 +79,28 @@ Definition at line 12 of file Input.\+h.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_input_afc8c10b0cc3accf45e2d8c5fcf19bad2}\label{class_loui_eriksson_1_1_input_afc8c10b0cc3accf45e2d8c5fcf19bad2}} 
-\index{LouiEriksson::Input@{LouiEriksson::Input}!KeyboardState@{KeyboardState}}
-\index{KeyboardState@{KeyboardState}!LouiEriksson::Input@{LouiEriksson::Input}}
-\doxysubsubsection{\texorpdfstring{KeyboardState()}{KeyboardState()}}
-{\footnotesize\ttfamily const Uint8 $\ast$ Loui\+Eriksson\+::\+Input\+::\+Keyboard\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_input_a3c4d2188d0bcb2187bea4a4ea3218427}\label{class_loui_eriksson_1_1_input_a3c4d2188d0bcb2187bea4a4ea3218427}} 
+\index{LouiEriksson::Input@{LouiEriksson::Input}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!LouiEriksson::Input@{LouiEriksson::Input}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Input\+::\+Dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 13 of file Input.\+cpp.
+Finalise input. 
+
+
+
+Definition at line 221 of file Input.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_input_a3c4d2188d0bcb2187bea4a4ea3218427_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_input_a6e8c06f3c2ca49e64fe984c16dc99d67}\label{class_loui_eriksson_1_1_input_a6e8c06f3c2ca49e64fe984c16dc99d67}} 
 \index{LouiEriksson::Input@{LouiEriksson::Input}!operator=@{operator=}}
 \index{operator=@{operator=}!LouiEriksson::Input@{LouiEriksson::Input}}
@@ -82,6 +113,28 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_input}{Input}}\& Loui\+Eriksson\+::\+Input\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_loui_eriksson_1_1_input}{Input}} \&\&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_input_a1734500919da2c8bf58321e3fc624f05}\label{class_loui_eriksson_1_1_input_a1734500919da2c8bf58321e3fc624f05}} 
+\index{LouiEriksson::Input@{LouiEriksson::Input}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Input@{LouiEriksson::Input}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Input\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Refresh the input. 
+
+
+
+Definition at line 129 of file Input.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_input_a1734500919da2c8bf58321e3fc624f05_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -99,5 +152,5 @@ Definition at line 14 of file Input.\+h.
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_input_8h}{Input.\+h}}\item 
-scripts/\mbox{\hyperlink{_input_8cpp}{Input.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Input/\mbox{\hyperlink{_input_8h}{Input.\+h}}\item 
+src/engine/scripts/\+Input/\mbox{\hyperlink{_input_8cpp}{Input.\+cpp}}\end{DoxyCompactItemize}

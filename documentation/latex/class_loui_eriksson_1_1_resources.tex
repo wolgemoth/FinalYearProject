@@ -4,10 +4,22 @@
 
 {\ttfamily \#include $<$Resources.\+h$>$}
 
+
+
+Collaboration diagram for Loui\+Eriksson\+::Resources\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{class_loui_eriksson_1_1_resources__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a7b99796ee90be12e77eba2bbe4022e2f}{Preload}} ()
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_resources_ac4955cff23c6fb83e5ed690de36ed0fc}{Try\+Get\+Audio}} (const std\+::string \&\+\_\+name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \&\+\_\+output)
 \item 
 static bool \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a7c0550f6692d7e4bdca0d898d0b5ec2f}{Try\+Get\+Mesh}} (const std\+::string \&\+\_\+name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_mesh}{Mesh}} $>$ \&\+\_\+output)
 \item 
@@ -16,6 +28,8 @@ static bool \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a78b67e81160b049d
 static bool \mbox{\hyperlink{class_loui_eriksson_1_1_resources_aab1773038d82325276054399b2219d02}{Try\+Get\+Texture}} (const std\+::string \&\+\_\+name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_texture}{Texture}} $>$ \&\+\_\+output)
 \item 
 static bool \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a43eedf230ca1f4e578b5b70318372add}{Try\+Get\+Shader}} (const std\+::string \&\+\_\+name, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_shader}{Shader}} $>$ \&\+\_\+output)
+\item 
+static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a9326226daea9ad778dff3adac2b7584e}{Get\+Audio}} (const std\+::string \&\+\_\+name)
 \item 
 static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_mesh}{Mesh}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_resources_a19f03d140602f0408fc3879c0479b6c5}{Get\+Mesh}} (const std\+::string \&\+\_\+name)
 \item 
@@ -35,6 +49,24 @@ Definition at line 10 of file Resources.\+h.
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a9326226daea9ad778dff3adac2b7584e}\label{class_loui_eriksson_1_1_resources_a9326226daea9ad778dff3adac2b7584e}} 
+\index{LouiEriksson::Resources@{LouiEriksson::Resources}!GetAudio@{GetAudio}}
+\index{GetAudio@{GetAudio}!LouiEriksson::Resources@{LouiEriksson::Resources}}
+\doxysubsubsection{\texorpdfstring{GetAudio()}{GetAudio()}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ Loui\+Eriksson\+::\+Resources\+::\+Get\+Audio (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 222 of file Resources.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_a9326226daea9ad778dff3adac2b7584e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a97e55f53dfdced6266ed6c92601ba8a2}\label{class_loui_eriksson_1_1_resources_a97e55f53dfdced6266ed6c92601ba8a2}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!GetMaterial@{GetMaterial}}
 \index{GetMaterial@{GetMaterial}!LouiEriksson::Resources@{LouiEriksson::Resources}}
@@ -43,10 +75,16 @@ Definition at line 10 of file Resources.\+h.
 
 
 
-Definition at line 205 of file Resources.\+cpp.
+Definition at line 230 of file Resources.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_a97e55f53dfdced6266ed6c92601ba8a2_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a19f03d140602f0408fc3879c0479b6c5}\label{class_loui_eriksson_1_1_resources_a19f03d140602f0408fc3879c0479b6c5}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!GetMesh@{GetMesh}}
 \index{GetMesh@{GetMesh}!LouiEriksson::Resources@{LouiEriksson::Resources}}
@@ -55,7 +93,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 201 of file Resources.\+cpp.
+Definition at line 226 of file Resources.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a7c2062c2bfb5d5a3675a1bbc2e0771e5}\label{class_loui_eriksson_1_1_resources_a7c2062c2bfb5d5a3675a1bbc2e0771e5}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!GetShader@{GetShader}}
@@ -65,10 +103,16 @@ Definition at line 201 of file Resources.\+cpp.
 
 
 
-Definition at line 213 of file Resources.\+cpp.
+Definition at line 238 of file Resources.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_a7c2062c2bfb5d5a3675a1bbc2e0771e5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a0d1a352395262f177f8e0bf9697f1198}\label{class_loui_eriksson_1_1_resources_a0d1a352395262f177f8e0bf9697f1198}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!GetTexture@{GetTexture}}
 \index{GetTexture@{GetTexture}!LouiEriksson::Resources@{LouiEriksson::Resources}}
@@ -77,10 +121,16 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 209 of file Resources.\+cpp.
+Definition at line 234 of file Resources.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 2
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_a0d1a352395262f177f8e0bf9697f1198_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a7b99796ee90be12e77eba2bbe4022e2f}\label{class_loui_eriksson_1_1_resources_a7b99796ee90be12e77eba2bbe4022e2f}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!Preload@{Preload}}
 \index{Preload@{Preload}!LouiEriksson::Resources@{LouiEriksson::Resources}}
@@ -89,10 +139,26 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 178 of file Resources.\+cpp.
+Definition at line 194 of file Resources.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 3
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_a7b99796ee90be12e77eba2bbe4022e2f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_resources_ac4955cff23c6fb83e5ed690de36ed0fc}\label{class_loui_eriksson_1_1_resources_ac4955cff23c6fb83e5ed690de36ed0fc}} 
+\index{LouiEriksson::Resources@{LouiEriksson::Resources}!TryGetAudio@{TryGetAudio}}
+\index{TryGetAudio@{TryGetAudio}!LouiEriksson::Resources@{LouiEriksson::Resources}}
+\doxysubsubsection{\texorpdfstring{TryGetAudio()}{TryGetAudio()}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Resources\+::\+Try\+Get\+Audio (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+name,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 202 of file Resources.\+cpp.
+
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a78b67e81160b049dbe7b95665c06f994}\label{class_loui_eriksson_1_1_resources_a78b67e81160b049dbe7b95665c06f994}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!TryGetMaterial@{TryGetMaterial}}
 \index{TryGetMaterial@{TryGetMaterial}!LouiEriksson::Resources@{LouiEriksson::Resources}}
@@ -101,7 +167,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 189 of file Resources.\+cpp.
+Definition at line 210 of file Resources.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a7c0550f6692d7e4bdca0d898d0b5ec2f}\label{class_loui_eriksson_1_1_resources_a7c0550f6692d7e4bdca0d898d0b5ec2f}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!TryGetMesh@{TryGetMesh}}
@@ -111,7 +177,7 @@ Definition at line 189 of file Resources.\+cpp.
 
 
 
-Definition at line 185 of file Resources.\+cpp.
+Definition at line 206 of file Resources.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_a43eedf230ca1f4e578b5b70318372add}\label{class_loui_eriksson_1_1_resources_a43eedf230ca1f4e578b5b70318372add}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!TryGetShader@{TryGetShader}}
@@ -121,7 +187,7 @@ Definition at line 185 of file Resources.\+cpp.
 
 
 
-Definition at line 197 of file Resources.\+cpp.
+Definition at line 218 of file Resources.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_resources_aab1773038d82325276054399b2219d02}\label{class_loui_eriksson_1_1_resources_aab1773038d82325276054399b2219d02}} 
 \index{LouiEriksson::Resources@{LouiEriksson::Resources}!TryGetTexture@{TryGetTexture}}
@@ -131,13 +197,19 @@ Definition at line 197 of file Resources.\+cpp.
 
 
 
-Definition at line 193 of file Resources.\+cpp.
+Definition at line 214 of file Resources.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 4
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_resources_aab1773038d82325276054399b2219d02_icgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_resources_8h}{Resources.\+h}}\item 
-scripts/\mbox{\hyperlink{_resources_8cpp}{Resources.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Core/\mbox{\hyperlink{_resources_8h}{Resources.\+h}}\item 
+src/engine/scripts/\+Core/\mbox{\hyperlink{_resources_8cpp}{Resources.\+cpp}}\end{DoxyCompactItemize}

@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$File.\+h$>$}
 
+
+
+Collaboration diagram for Loui\+Eriksson\+::File\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_loui_eriksson_1_1_file__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,6 +35,8 @@ struct \mbox{\hyperlink{struct_loui_eriksson_1_1_file_1_1_directory}{Directory}}
 \item 
 static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea}{Read\+All\+Text}} (const std\+::filesystem\+::path \&\+\_\+path)
 \item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \&\+\_\+output)
+\item 
 static bool \mbox{\hyperlink{class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_texture}{Texture}} $>$ \&\+\_\+output, GLenum \+\_\+format, bool \+\_\+generate\+Mipmaps)
 \item 
 static bool \mbox{\hyperlink{class_loui_eriksson_1_1_file_a47e2b9adb3ca0c98a5c7d91ead83d340}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_mesh}{Mesh}} $>$ \&\+\_\+output)
@@ -38,7 +50,7 @@ static bool \mbox{\hyperlink{class_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1
 \doxysubsection{Detailed Description}
 
 
-Definition at line 13 of file File.\+h.
+Definition at line 14 of file File.\+h.
 
 
 
@@ -78,61 +90,101 @@ Definition at line 13 of file File.\+h.
 
 
 
-Definition at line 15 of file File.\+cpp.
+Definition at line 16 of file File.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf}\label{class_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf}} 
 \index{LouiEriksson::File@{LouiEriksson::File}!TryLoad@{TryLoad}}
 \index{TryLoad@{TryLoad}!LouiEriksson::File@{LouiEriksson::File}}
-\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
 {\footnotesize\ttfamily bool Loui\+Eriksson\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::array$<$ std\+::filesystem\+::path, 6 $>$ \&}]{\+\_\+paths,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_cubemap}{Cubemap}} $>$ \&}]{\+\_\+output,  }\item[{GLenum}]{\+\_\+format = {\ttfamily GL\+\_\+RGBA},  }\item[{bool}]{\+\_\+generate\+Mipmaps = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 581 of file File.\+cpp.
+Definition at line 628 of file File.\+cpp.
 
 Here is the call graph for this function\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{class_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879}\label{class_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879}} 
+\index{LouiEriksson::File@{LouiEriksson::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::File@{LouiEriksson::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 95 of file File.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d}\label{class_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d}} 
 \index{LouiEriksson::File@{LouiEriksson::File}!TryLoad@{TryLoad}}
 \index{TryLoad@{TryLoad}!LouiEriksson::File@{LouiEriksson::File}}
-\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
 {\footnotesize\ttfamily bool Loui\+Eriksson\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_material}{Material}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 440 of file File.\+cpp.
+Definition at line 487 of file File.\+cpp.
 
 Here is the call graph for this function\+:
-% FIG 2
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_file_a47e2b9adb3ca0c98a5c7d91ead83d340}\label{class_loui_eriksson_1_1_file_a47e2b9adb3ca0c98a5c7d91ead83d340}} 
 \index{LouiEriksson::File@{LouiEriksson::File}!TryLoad@{TryLoad}}
 \index{TryLoad@{TryLoad}!LouiEriksson::File@{LouiEriksson::File}}
-\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily bool Loui\+Eriksson\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_mesh}{Mesh}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 186 of file File.\+cpp.
+Definition at line 233 of file File.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd}\label{class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd}} 
 \index{LouiEriksson::File@{LouiEriksson::File}!TryLoad@{TryLoad}}
 \index{TryLoad@{TryLoad}!LouiEriksson::File@{LouiEriksson::File}}
-\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily bool Loui\+Eriksson\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_texture}{Texture}} $>$ \&}]{\+\_\+output,  }\item[{GLenum}]{\+\_\+format = {\ttfamily GL\+\_\+RGBA},  }\item[{bool}]{\+\_\+generate\+Mipmaps = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 94 of file File.\+cpp.
+Definition at line 117 of file File.\+cpp.
 
 Here is the call graph for this function\+:
-% FIG 3
-Here is the caller graph for this function\+:
-% FIG 4
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_file_8h}{File.\+h}}\item 
-scripts/\mbox{\hyperlink{_file_8cpp}{File.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Core/\mbox{\hyperlink{_file_8h}{File.\+h}}\item 
+src/engine/scripts/\+Core/\mbox{\hyperlink{_file_8cpp}{File.\+cpp}}\end{DoxyCompactItemize}

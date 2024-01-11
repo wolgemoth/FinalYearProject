@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Input::Mouse::Motion" name="LouiEriksson::Input::Mouse::Motion">
+<area shape="rect" id="node1" title="Returns the relative motion of the mouse." alt="" coords="216,5,361,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349" title="Called every frame." alt="" coords="5,5,168,47"/>
+</map>

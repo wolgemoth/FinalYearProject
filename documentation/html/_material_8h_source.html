@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/Material.h Source File</title>
+<title>Final Year Project: src/engine/scripts/Graphics/Material.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_material_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Material.h</div>  </div>
@@ -73,7 +89,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_MATERIAL_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Textures/Texture.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">class </span>File;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
@@ -119,7 +135,7 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_MATERIAL_H</span></div>
 <div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
 <div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_file_html"><div class="ttname"><a href="class_loui_eriksson_1_1_file.html">LouiEriksson::File</a></div><div class="ttdef"><b>Definition:</b> <a href="_file_8h_source.html#l00013">File.h:13</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_file_html"><div class="ttname"><a href="class_loui_eriksson_1_1_file.html">LouiEriksson::File</a></div><div class="ttdef"><b>Definition:</b> <a href="_file_8h_source.html#l00014">File.h:14</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html">LouiEriksson::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="_material_8h_source.html#l00013">Material.h:13</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html_a1011984e1d3ac6e318ac6f2b08150a0d"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html#a1011984e1d3ac6e318ac6f2b08150a0d">LouiEriksson::Material::GetEmission</a></div><div class="ttdeci">std::weak_ptr&lt; Texture &gt; GetEmission() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_8cpp_source.html#l00057">Material.cpp:57</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html_a30e3ef43f969577dd64d057fcf403a7e"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html#a30e3ef43f969577dd64d057fcf403a7e">LouiEriksson::Material::GetAO</a></div><div class="ttdeci">std::weak_ptr&lt; Texture &gt; GetAO() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_8cpp_source.html#l00053">Material.cpp:53</a></div></div>
@@ -130,11 +146,15 @@ $(function() {
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html_aa6406c022db577a85d7fa0d20fb39c71"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html#aa6406c022db577a85d7fa0d20fb39c71">LouiEriksson::Material::GetDisplacement</a></div><div class="ttdeci">std::weak_ptr&lt; Texture &gt; GetDisplacement() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_8cpp_source.html#l00049">Material.cpp:49</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html_ad9bd61833b9e6f409fff0b0853539d7a"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html#ad9bd61833b9e6f409fff0b0853539d7a">LouiEriksson::Material::GetShader</a></div><div class="ttdeci">std::weak_ptr&lt; Shader &gt; GetShader()</div><div class="ttdoc">Get the currently assigned Shader.</div><div class="ttdef"><b>Definition:</b> <a href="_material_8cpp_source.html#l00029">Material.cpp:29</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_material_html_aed566c78fb7fdde6161de433c5a0272d"><div class="ttname"><a href="class_loui_eriksson_1_1_material.html#aed566c78fb7fdde6161de433c5a0272d">LouiEriksson::Material::GetNormals</a></div><div class="ttdeci">std::weak_ptr&lt; Texture &gt; GetNormals() const</div><div class="ttdef"><b>Definition:</b> <a href="_material_8cpp_source.html#l00045">Material.cpp:45</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00007">Application.cpp:7</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_4a4f39d2b219974aa2251c7e5fb6272e.html">Graphics</a></li><li class="navelem"><a class="el" href="_material_8h.html">Material.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,0 +1,4 @@
+<map id="LouiEriksson::GameObject" name="LouiEriksson::GameObject">
+<area shape="rect" id="node1" title="An Entity which exists in a Scene and can contain Components." alt="" coords="5,145,235,545"/>
+<area shape="rect" id="node2" title=" " alt="" coords="19,5,221,97"/>
+</map>

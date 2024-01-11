@@ -7,11 +7,23 @@
 
 
 Inheritance diagram for Loui\+Eriksson\+::Collider\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_collider__inherit__graph}
+\end{center}
+\end{figure}
 
 
 Collaboration diagram for Loui\+Eriksson\+::Collider\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_collider__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,24 +38,29 @@ enum \mbox{\hyperlink{class_loui_eriksson_1_1_collider_aef193a74e8472eb6049b0f26
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a95ffcd60d4e693f8d501fb9f1a98681a}{$\sim$\+Collider}} () override=default
 \item 
-bool \mbox{\hyperlink{class_loui_eriksson_1_1_collider_afa9dc85714b71900e022350a63c81bec}{Evaluate}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ \&\+\_\+other, \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} $\ast$\+\_\+hit)
-\begin{DoxyCompactList}\small\item\em Check if the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} overlaps another. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a7482f21d063f9572e7befb2a4220af20}{Set\+Transform}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \+\_\+transform)
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_adba992328415288071e5cc314b6c4e2e}{Set\+Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&\+\_\+transform)
 \begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
-std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider_adaeddb58c081cc993a880369314f3c7a}{Get\+Transform}} ()
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a621aef706e4e40ecd0b3fffda9cd6cdd}{Get\+Transform}} ()
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a6c483917a3ac8a63b11b3ca471f8d9d4}{Set\+Rigidbody}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \+\_\+transform)
+void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a28fa75ca1c11e8a0d2ad535447e38bae}{Set\+Rigidbody}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \&\+\_\+transform)
 \begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
-std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a8273ae38d3a5a3eba2f4cbd571781c50}{Get\+Rigidbody}} ()
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_collider_ae069c115a73f6f8fb90b94e0a99bd86a}{Get\+Rigidbody}} ()
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_abc385ed0098cc13cac308a2060a88f54}{Set\+Type}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_collider_aef193a74e8472eb6049b0f26213f33ad}{Type}} \&\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s Type. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_collider_aef193a74e8472eb6049b0f26213f33ad}{Type}} \mbox{\hyperlink{class_loui_eriksson_1_1_collider_ab134daa0219b0898eae30734354ea118}{Get\+Type}} ()
-\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s Type. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a7a37504b86ba161acd9ab7bad6344022}{Radius}} (const float \&\+\_\+other)
-\begin{DoxyCompactList}\small\item\em Set the Sphere \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s radius. \end{DoxyCompactList}\item 
-virtual float \mbox{\hyperlink{class_loui_eriksson_1_1_collider_af347ec977a9866a5c92d02f68c09c33e}{Radius}} ()
-\begin{DoxyCompactList}\small\item\em Get the Sphere \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s radius. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s Type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_collider_aef193a74e8472eb6049b0f26213f33ad}{Type}} \mbox{\hyperlink{class_loui_eriksson_1_1_collider_ad3c1bde5ae6886227d5a1bc2f5ee1bf6}{m\+\_\+\+Type}}
+\item 
+std\+::shared\+\_\+ptr$<$ bt\+Collision\+Shape $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a580f1607725057795785d23d5b3896f6}{m\+\_\+\+Collision\+Shape}}
+\begin{DoxyCompactList}\small\item\em (Bullet \mbox{\hyperlink{class_loui_eriksson_1_1_physics}{Physics}} Engine) Shape of collider. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider_abe95338b55320dc95e34d576462e5bbc}{m\+\_\+\+Transform}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider_a4850fd8325dfa192d91d77672a358f4e}{m\+\_\+\+Rigidbody}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -77,7 +94,7 @@ Plane&\mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} is a \mbox{\
 \end{DoxyEnumFields}
 
 
-Definition at line 20 of file Collider.\+h.
+Definition at line 22 of file Collider.\+h.
 
 
 
@@ -101,37 +118,11 @@ Definition at line 9 of file Collider.\+cpp.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_afa9dc85714b71900e022350a63c81bec}\label{class_loui_eriksson_1_1_collider_afa9dc85714b71900e022350a63c81bec}} 
-\index{LouiEriksson::Collider@{LouiEriksson::Collider}!Evaluate@{Evaluate}}
-\index{Evaluate@{Evaluate}!LouiEriksson::Collider@{LouiEriksson::Collider}}
-\doxysubsubsection{\texorpdfstring{Evaluate()}{Evaluate()}}
-{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Collider\+::\+Evaluate (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} $>$ \&}]{\+\_\+other,  }\item[{\mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} $\ast$}]{\+\_\+hit }\end{DoxyParamCaption})}
-
-
-
-Check if the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}} overlaps another. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em \+\_\+other} & Other \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}.\\
-\hline
-{\em \+\_\+hit} & Information about the collision.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-True if successful.
-\end{DoxyReturn}
-
-
-Definition at line 19 of file Collider.\+cpp.
-
-Here is the call graph for this function\+:
-% FIG 2
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a8273ae38d3a5a3eba2f4cbd571781c50}\label{class_loui_eriksson_1_1_collider_a8273ae38d3a5a3eba2f4cbd571781c50}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_ae069c115a73f6f8fb90b94e0a99bd86a}\label{class_loui_eriksson_1_1_collider_ae069c115a73f6f8fb90b94e0a99bd86a}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!GetRigidbody@{GetRigidbody}}
 \index{GetRigidbody@{GetRigidbody}!LouiEriksson::Collider@{LouiEriksson::Collider}}
 \doxysubsubsection{\texorpdfstring{GetRigidbody()}{GetRigidbody()}}
-{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ Loui\+Eriksson\+::\+Collider\+::\+Get\+Rigidbody (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \& Loui\+Eriksson\+::\+Collider\+::\+Get\+Rigidbody (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -139,13 +130,13 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \
 
 
 
-Definition at line 57 of file Collider.\+cpp.
+Definition at line 29 of file Collider.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_adaeddb58c081cc993a880369314f3c7a}\label{class_loui_eriksson_1_1_collider_adaeddb58c081cc993a880369314f3c7a}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a621aef706e4e40ecd0b3fffda9cd6cdd}\label{class_loui_eriksson_1_1_collider_a621aef706e4e40ecd0b3fffda9cd6cdd}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!GetTransform@{GetTransform}}
 \index{GetTransform@{GetTransform}!LouiEriksson::Collider@{LouiEriksson::Collider}}
 \doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
-{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ Loui\+Eriksson\+::\+Collider\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \& Loui\+Eriksson\+::\+Collider\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -153,10 +144,8 @@ Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the 
 
 
 
-Definition at line 50 of file Collider.\+cpp.
+Definition at line 22 of file Collider.\+cpp.
 
-Here is the caller graph for this function\+:
-% FIG 3
 \mbox{\Hypertarget{class_loui_eriksson_1_1_collider_ab134daa0219b0898eae30734354ea118}\label{class_loui_eriksson_1_1_collider_ab134daa0219b0898eae30734354ea118}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!GetType@{GetType}}
 \index{GetType@{GetType}!LouiEriksson::Collider@{LouiEriksson::Collider}}
@@ -169,47 +158,13 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotes
 
 
 
-Definition at line 64 of file Collider.\+cpp.
+Definition at line 36 of file Collider.\+cpp.
 
-Here is the caller graph for this function\+:
-% FIG 4
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_af347ec977a9866a5c92d02f68c09c33e}\label{class_loui_eriksson_1_1_collider_af347ec977a9866a5c92d02f68c09c33e}} 
-\index{LouiEriksson::Collider@{LouiEriksson::Collider}!Radius@{Radius}}
-\index{Radius@{Radius}!LouiEriksson::Collider@{LouiEriksson::Collider}}
-\doxysubsubsection{\texorpdfstring{Radius()}{Radius()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Collider\+::\+Radius (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Get the Sphere \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s radius. 
-
-
-
-Definition at line 71 of file Collider.\+cpp.
-
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a7a37504b86ba161acd9ab7bad6344022}\label{class_loui_eriksson_1_1_collider_a7a37504b86ba161acd9ab7bad6344022}} 
-\index{LouiEriksson::Collider@{LouiEriksson::Collider}!Radius@{Radius}}
-\index{Radius@{Radius}!LouiEriksson::Collider@{LouiEriksson::Collider}}
-\doxysubsubsection{\texorpdfstring{Radius()}{Radius()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Collider\+::\+Radius (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Set the Sphere \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotesingle{}s radius. 
-
-
-
-Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_sphere_collider_ae970710cb018094bb658a80665ba8b28}{Loui\+Eriksson\+::\+Sphere\+Collider}}.
-
-
-
-Definition at line 68 of file Collider.\+cpp.
-
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a6c483917a3ac8a63b11b3ca471f8d9d4}\label{class_loui_eriksson_1_1_collider_a6c483917a3ac8a63b11b3ca471f8d9d4}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a28fa75ca1c11e8a0d2ad535447e38bae}\label{class_loui_eriksson_1_1_collider_a28fa75ca1c11e8a0d2ad535447e38bae}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!SetRigidbody@{SetRigidbody}}
 \index{SetRigidbody@{SetRigidbody}!LouiEriksson::Collider@{LouiEriksson::Collider}}
 \doxysubsubsection{\texorpdfstring{SetRigidbody()}{SetRigidbody()}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Collider\+::\+Set\+Rigidbody (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$}]{\+\_\+transform }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Collider\+::\+Set\+Rigidbody (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})}
 
 
 
@@ -217,13 +172,13 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \
 
 
 
-Definition at line 54 of file Collider.\+cpp.
+Definition at line 26 of file Collider.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a7482f21d063f9572e7befb2a4220af20}\label{class_loui_eriksson_1_1_collider_a7482f21d063f9572e7befb2a4220af20}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_adba992328415288071e5cc314b6c4e2e}\label{class_loui_eriksson_1_1_collider_adba992328415288071e5cc314b6c4e2e}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!SetTransform@{SetTransform}}
 \index{SetTransform@{SetTransform}!LouiEriksson::Collider@{LouiEriksson::Collider}}
 \doxysubsubsection{\texorpdfstring{SetTransform()}{SetTransform()}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Collider\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$}]{\+\_\+transform }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Collider\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -231,10 +186,20 @@ Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the 
 
 
 
-Definition at line 47 of file Collider.\+cpp.
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_plane_collider_a586a64921d73083c152214d5262bf7b0}{Loui\+Eriksson\+::\+Plane\+Collider}}.
+
+
+
+Definition at line 19 of file Collider.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 5
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_collider_adba992328415288071e5cc314b6c4e2e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_collider_abc385ed0098cc13cac308a2060a88f54}\label{class_loui_eriksson_1_1_collider_abc385ed0098cc13cac308a2060a88f54}} 
 \index{LouiEriksson::Collider@{LouiEriksson::Collider}!SetType@{SetType}}
 \index{SetType@{SetType}!LouiEriksson::Collider@{LouiEriksson::Collider}}
@@ -247,13 +212,74 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}\textquotes
 
 
 
-Definition at line 61 of file Collider.\+cpp.
+Definition at line 33 of file Collider.\+cpp.
 
 Here is the caller graph for this function\+:
-% FIG 6
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_collider_abc385ed0098cc13cac308a2060a88f54_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a580f1607725057795785d23d5b3896f6}\label{class_loui_eriksson_1_1_collider_a580f1607725057795785d23d5b3896f6}} 
+\index{LouiEriksson::Collider@{LouiEriksson::Collider}!m\_CollisionShape@{m\_CollisionShape}}
+\index{m\_CollisionShape@{m\_CollisionShape}!LouiEriksson::Collider@{LouiEriksson::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_CollisionShape}{m\_CollisionShape}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$bt\+Collision\+Shape$>$ Loui\+Eriksson\+::\+Collider\+::m\+\_\+\+Collision\+Shape\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+(Bullet \mbox{\hyperlink{class_loui_eriksson_1_1_physics}{Physics}} Engine) Shape of collider. 
+
+
+
+Definition at line 58 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_a4850fd8325dfa192d91d77672a358f4e}\label{class_loui_eriksson_1_1_collider_a4850fd8325dfa192d91d77672a358f4e}} 
+\index{LouiEriksson::Collider@{LouiEriksson::Collider}!m\_Rigidbody@{m\_Rigidbody}}
+\index{m\_Rigidbody@{m\_Rigidbody}!LouiEriksson::Collider@{LouiEriksson::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Rigidbody}{m\_Rigidbody}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}}$>$ Loui\+Eriksson\+::\+Collider\+::m\+\_\+\+Rigidbody\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 64 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_abe95338b55320dc95e34d576462e5bbc}\label{class_loui_eriksson_1_1_collider_abe95338b55320dc95e34d576462e5bbc}} 
+\index{LouiEriksson::Collider@{LouiEriksson::Collider}!m\_Transform@{m\_Transform}}
+\index{m\_Transform@{m\_Transform}!LouiEriksson::Collider@{LouiEriksson::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Transform}{m\_Transform}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}$>$ Loui\+Eriksson\+::\+Collider\+::m\+\_\+\+Transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 61 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_collider_ad3c1bde5ae6886227d5a1bc2f5ee1bf6}\label{class_loui_eriksson_1_1_collider_ad3c1bde5ae6886227d5a1bc2f5ee1bf6}} 
+\index{LouiEriksson::Collider@{LouiEriksson::Collider}!m\_Type@{m\_Type}}
+\index{m\_Type@{m\_Type}!LouiEriksson::Collider@{LouiEriksson::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Type}{m\_Type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_collider_aef193a74e8472eb6049b0f26213f33ad}{Type}} Loui\+Eriksson\+::\+Collider\+::m\+\_\+\+Type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 53 of file Collider.\+h.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_collider_8h}{Collider.\+h}}\item 
-scripts/\mbox{\hyperlink{_collider_8cpp}{Collider.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Physics/\mbox{\hyperlink{_collider_8h}{Collider.\+h}}\item 
+src/engine/scripts/\+Physics/\mbox{\hyperlink{_collider_8cpp}{Collider.\+cpp}}\end{DoxyCompactItemize}

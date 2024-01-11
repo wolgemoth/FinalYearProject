@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_sphere_collider.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">SphereCollider</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">LouiEriksson::SphereCollider Member List</div>  </div>
@@ -72,15 +88,35 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#ae970710cb018094bb658a80665ba8b28">Radius</a>(const float &amp;_radius) override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#a252d1ff2718f90f6e9f7ed0600cec7bc">Radius</a>() const</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#af347ec977a9866a5c92d02f68c09c33e">LouiEriksson::Collider::Radius</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a47259a059d0a12063db7c67145991232">Collider</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#ac39d6b1bbeca2f053ff6279b3c73e385">Component</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">explicit</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#ae069c115a73f6f8fb90b94e0a99bd86a">GetRigidbody</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a621aef706e4e40ecd0b3fffda9cd6cdd">GetTransform</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#ab134daa0219b0898eae30734354ea118">GetType</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a580f1607725057795785d23d5b3896f6">m_CollisionShape</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a4850fd8325dfa192d91d77672a358f4e">m_Rigidbody</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#abe95338b55320dc95e34d576462e5bbc">m_Transform</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#ad3c1bde5ae6886227d5a1bc2f5ee1bf6">m_Type</a></td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">Parent</a>() const</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33adab5403b4ffd458fef488e100c46906035">Plane</a> enum value</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#aa8f48bfbe736dc527d6e26b8c4768b3e">Radius</a>(const float &amp;_radius)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#a252d1ff2718f90f6e9f7ed0600cec7bc">Radius</a>() const</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a28fa75ca1c11e8a0d2ad535447e38bae">SetRigidbody</a>(const std::weak_ptr&lt; Rigidbody &gt; &amp;_transform)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">SetTransform</a>(const std::weak_ptr&lt; Transform &gt; &amp;_transform)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#abc385ed0098cc13cac308a2060a88f54">SetType</a>(const Type &amp;_type)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33adad1e6018fe699604344fdef93af62d030">Sphere</a> enum value</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#a972a4c395b7bd59dba6860a2c4193f9e">SphereCollider</a>(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#aa17d1381ba394d59fe0e520c58500d00">~SphereCollider</a>() override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33ad">Type</a> enum name</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html#a95ffcd60d4e693f8d501fb9f1a98681a">~Collider</a>() override=default</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html#a20003b7735dba8ab493812c37a580b6c">~Component</a>()</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html#aa17d1381ba394d59fe0e520c58500d00">~SphereCollider</a>() override</td><td class="entry"><a class="el" href="class_loui_eriksson_1_1_sphere_collider.html">LouiEriksson::SphereCollider</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

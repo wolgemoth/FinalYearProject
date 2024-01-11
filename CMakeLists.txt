@@ -10,139 +10,139 @@ add_executable(FinalYearProject
 
         src/engine/scripts/main.cpp
 
-        src/engine/scripts/Application.cpp
-        src/engine/scripts/Application.h
+        src/engine/scripts/Core/Application.cpp
+        src/engine/scripts/Core/Application.h
 
-        src/engine/scripts/Ball.cpp
-        src/engine/scripts/Ball.h
+        "src/engine/scripts/User Scripts/Ball.cpp"
+        "src/engine/scripts/User Scripts/Ball.h"
 
-        src/engine/scripts/Camera.cpp
-        src/engine/scripts/Camera.h
+        src/engine/scripts/Graphics/Camera.cpp
+        src/engine/scripts/Graphics/Camera.h
 
-        src/engine/scripts/Collider.cpp
-        src/engine/scripts/Collider.h
+        src/engine/scripts/Physics/Collider.cpp
+        src/engine/scripts/Physics/Collider.h
 
         src/engine/scripts/Colliders.h
 
-        src/engine/scripts/Collision.cpp
-        src/engine/scripts/Collision.h
+        src/engine/scripts/Physics/Collision.cpp
+        src/engine/scripts/Physics/Collision.h
 
-        src/engine/scripts/Component.cpp
-        src/engine/scripts/Component.h
+        src/engine/scripts/ECS/Component.cpp
+        src/engine/scripts/ECS/Component.h
 
         src/engine/scripts/Components.h
 
-        src/engine/scripts/Entity.cpp
-        src/engine/scripts/Entity.h
+        src/engine/scripts/ECS/Entity.cpp
+        src/engine/scripts/ECS/Entity.h
 
-        src/engine/scripts/File.cpp
-        src/engine/scripts/File.h
+        src/engine/scripts/Core/File.cpp
+        src/engine/scripts/Core/File.h
 
-        src/engine/scripts/FlyCam.cpp
-        src/engine/scripts/FlyCam.h
+        "src/engine/scripts/User Scripts/FlyCam.cpp"
+        "src/engine/scripts/User Scripts/FlyCam.h"
 
-        src/engine/scripts/GameObject.cpp
-        src/engine/scripts/GameObject.h
+        src/engine/scripts/ECS/GameObject.cpp
+        src/engine/scripts/ECS/GameObject.h
 
-        src/engine/scripts/Hashmap.h
+        src/engine/scripts/Utils/Hashmap.h
 
-        src/engine/scripts/Input.cpp
-        src/engine/scripts/Input.h
+        src/engine/scripts/Input/Input.cpp
+        src/engine/scripts/Input/Input.h
 
-        src/engine/scripts/Light.cpp
-        src/engine/scripts/Light.h
+        src/engine/scripts/Graphics/Light.cpp
+        src/engine/scripts/Graphics/Light.h
 
-        src/engine/scripts/Material.cpp
-        src/engine/scripts/Material.h
+        src/engine/scripts/Graphics/Material.cpp
+        src/engine/scripts/Graphics/Material.h
 
-        src/engine/scripts/Mesh.cpp
-        src/engine/scripts/Mesh.h
+        src/engine/scripts/Graphics/Mesh.cpp
+        src/engine/scripts/Graphics/Mesh.h
 
-        src/engine/scripts/OrbitCam.cpp
-        src/engine/scripts/OrbitCam.h
+        "src/engine/scripts/User Scripts/OrbitCam.cpp"
+        "src/engine/scripts/User Scripts/OrbitCam.h"
 
-        src/engine/scripts/Plane.cpp
-        src/engine/scripts/Plane.h
+        "src/engine/scripts/User Scripts/Plane.cpp"
+        "src/engine/scripts/User Scripts/Plane.h"
 
-        src/engine/scripts/PlaneCollider.cpp
-        src/engine/scripts/PlaneCollider.h
+        src/engine/scripts/Physics/Colliders/PlaneCollider.cpp
+        src/engine/scripts/Physics/Colliders/PlaneCollider.h
 
-        src/engine/scripts/Player.cpp
-        src/engine/scripts/Player.h
+        "src/engine/scripts/User Scripts/Player.cpp"
+        "src/engine/scripts/User Scripts/Player.h"
 
-        src/engine/scripts/RenderTexture.cpp
-        src/engine/scripts/RenderTexture.h
+        src/engine/scripts/Graphics/Textures/RenderTexture.cpp
+        src/engine/scripts/Graphics/Textures/RenderTexture.h
 
-        src/engine/scripts/Renderer.cpp
-        src/engine/scripts/Renderer.h
+        src/engine/scripts/Graphics/Renderer.cpp
+        src/engine/scripts/Graphics/Renderer.h
 
-        src/engine/scripts/Rigidbody.cpp
-        src/engine/scripts/Rigidbody.h
+        src/engine/scripts/Physics/Rigidbody.cpp
+        src/engine/scripts/Physics/Rigidbody.h
 
-        src/engine/scripts/Scene.cpp
-        src/engine/scripts/Scene.h
+        src/engine/scripts/ECS/Scene.cpp
+        src/engine/scripts/ECS/Scene.h
 
-        src/engine/scripts/Script.cpp
-        src/engine/scripts/Script.h
+        src/engine/scripts/Core/Script.cpp
+        src/engine/scripts/Core/Script.h
 
         src/engine/scripts/Scripts.h
 
-        src/engine/scripts/Serialisation.cpp
-        src/engine/scripts/Serialisation.h
+        src/engine/scripts/Core/Serialisation.cpp
+        src/engine/scripts/Core/Serialisation.h
 
-        src/engine/scripts/Shader.cpp
-        src/engine/scripts/Shader.h
+        src/engine/scripts/Graphics/Shader.cpp
+        src/engine/scripts/Graphics/Shader.h
 
-        src/engine/scripts/SphereCollider.cpp
-        src/engine/scripts/SphereCollider.h
+        src/engine/scripts/Physics/Colliders/SphereCollider.cpp
+        src/engine/scripts/Physics/Colliders/SphereCollider.h
 
-        src/engine/scripts/Time.cpp
-        src/engine/scripts/Time.h
+        src/engine/scripts/Core/Time.cpp
+        src/engine/scripts/Core/Time.h
 
-        src/engine/scripts/Transform.cpp
-        src/engine/scripts/Transform.h
+        src/engine/scripts/Core/Transform.cpp
+        src/engine/scripts/Core/Transform.h
 
-        src/engine/scripts/Window.cpp
-        src/engine/scripts/Window.h
+        src/engine/scripts/Core/Window.cpp
+        src/engine/scripts/Core/Window.h
 
-        src/engine/scripts/Texture.cpp
-        src/engine/scripts/Texture.h
+        src/engine/scripts/Graphics/Textures/Texture.cpp
+        src/engine/scripts/Graphics/Textures/Texture.h
 
-        src/engine/scripts/Cubemap.cpp
-        src/engine/scripts/Cubemap.h
+        src/engine/scripts/Graphics/Textures/Cubemap.cpp
+        src/engine/scripts/Graphics/Textures/Cubemap.h
 
-        src/engine/scripts/Resources.cpp
-        src/engine/scripts/Resources.h
+        src/engine/scripts/Core/Resources.cpp
+        src/engine/scripts/Core/Resources.h
 
-        src/engine/scripts/Utils.cpp
-        src/engine/scripts/Utils.h
+        src/engine/scripts/Utils/Utils.cpp
+        src/engine/scripts/Utils/Utils.h
 
-        src/engine/scripts/GUI.cpp
-        src/engine/scripts/GUI.h
+        src/engine/scripts/UI/GUI.cpp
+        src/engine/scripts/UI/GUI.h
 
-        src/engine/scripts/Settings.cpp
-        src/engine/scripts/Settings.h
+        src/engine/scripts/Core/Settings.cpp
+        src/engine/scripts/Core/Settings.h
 
-        src/engine/scripts/Cursor.cpp
-        src/engine/scripts/Cursor.h
+        src/engine/scripts/Input/Cursor.cpp
+        src/engine/scripts/Input/Cursor.h
 
-        src/engine/scripts/Screen.cpp
-        src/engine/scripts/Screen.h
+        src/engine/scripts/Core/Screen.cpp
+        src/engine/scripts/Core/Screen.h
 
-        src/engine/scripts/Sound.cpp
-        src/engine/scripts/Sound.h
+        src/engine/scripts/Audio/Sound.cpp
+        src/engine/scripts/Audio/Sound.h
 
-        src/engine/scripts/Physics.cpp
-        src/engine/scripts/Physics.h
+        src/engine/scripts/Physics/Physics.cpp
+        src/engine/scripts/Physics/Physics.h
 
-        src/engine/scripts/AudioSource.cpp
-        src/engine/scripts/AudioSource.h
+        src/engine/scripts/Audio/AudioSource.cpp
+        src/engine/scripts/Audio/AudioSource.h
 
-        src/engine/scripts/AudioListener.cpp
-        src/engine/scripts/AudioListener.h
+        src/engine/scripts/Audio/AudioListener.cpp
+        src/engine/scripts/Audio/AudioListener.h
 
-        src/engine/scripts/AudioClip.cpp
-        src/engine/scripts/AudioClip.h
+        src/engine/scripts/Audio/AudioClip.cpp
+        src/engine/scripts/Audio/AudioClip.h
 )
 
 set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/external/glew)

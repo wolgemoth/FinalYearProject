@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_texture.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_texture.html">Texture</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -83,12 +99,23 @@ $(function() {
 Inheritance diagram for LouiEriksson::Texture:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture__inherit__graph.png" border="0" usemap="#a_loui_eriksson_1_1_texture_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<map name="a_loui_eriksson_1_1_texture_inherit__map" id="a_loui_eriksson_1_1_texture_inherit__map">
+<area shape="rect" title=" " alt="" coords="124,5,361,801"/>
+<area shape="rect" href="class_loui_eriksson_1_1_cubemap.html" title=" " alt="" coords="5,1055,211,1205"/>
+<area shape="rect" href="class_loui_eriksson_1_1_render_texture.html" title=" " alt="" coords="235,849,522,1411"/>
+</map>
+</div>
 <div class="dynheader">
 Collaboration diagram for LouiEriksson::Texture:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_texture_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<map name="a_loui_eriksson_1_1_texture_coll__map" id="a_loui_eriksson_1_1_texture_coll__map">
+<area shape="rect" title=" " alt="" coords="256,424,493,1132"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_filter_mode.html" title="Container specifying a Texture&#39;s filter mode." alt="" coords="5,27,229,339"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html" title="Container specifying a Texture&#39;s format." alt="" coords="253,5,496,361"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_wrap_mode.html" title="Container specifying a Texture&#39;s wrap mode." alt="" coords="520,5,741,361"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -202,6 +229,10 @@ Friends</h2></td></tr>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_a7b5afb357e37fe0cbdb5ac683d6eef87_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_a7b5afb357e37fe0cbdb5ac683d6eef87_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_a7b5afb357e37fe0cbdb5ac683d6eef87_cgraph" id="aclass_loui_eriksson_1_1_texture_a7b5afb357e37fe0cbdb5ac683d6eef87_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,165,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#a249c8ec80375d2cf32303c58b0ad3dc5" title="Discard the Texture." alt="" coords="213,5,373,47"/>
+</map>
 </div>
 
 </div>
@@ -354,6 +385,10 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_a71fb463b2be6a3d1c1dfca60ad0f6be0_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_a71fb463b2be6a3d1c1dfca60ad0f6be0_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_a71fb463b2be6a3d1c1dfca60ad0f6be0_icgraph" id="aclass_loui_eriksson_1_1_texture_a71fb463b2be6a3d1c1dfca60ad0f6be0_icgraph">
+<area shape="rect" title="Bind the provided Texture." alt="" coords="188,5,348,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_file.html#a0032f04b0f4541c7b6e75e73005d55dd" title=" " alt="" coords="5,5,140,47"/>
+</map>
 </div>
 
 </div>
@@ -390,6 +425,14 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_a249c8ec80375d2cf32303c58b0ad3dc5_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_a249c8ec80375d2cf32303c58b0ad3dc5_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_a249c8ec80375d2cf32303c58b0ad3dc5_icgraph" id="aclass_loui_eriksson_1_1_texture_a249c8ec80375d2cf32303c58b0ad3dc5_icgraph">
+<area shape="rect" title="Discard the Texture." alt="" coords="725,71,885,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_render_texture.html#ae6450f2f2aad0c88be25f56431d6c896" title="Discard the RenderTexture." alt="" coords="471,37,677,79"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#a7b5afb357e37fe0cbdb5ac683d6eef87" title=" " alt="" coords="494,103,654,144"/>
+<area shape="rect" href="class_loui_eriksson_1_1_render_texture.html#a9f3f2b225b717755b562b33e9178a65b" title="Reinitialise the texture with a given width and height." alt="" coords="216,5,423,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_render_texture.html#a1042c45e7cfb54df913c9649c8d0be3b" title=" " alt="" coords="216,71,423,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_camera.html#a9654c9ffa7d3f5f7f4360634e714ce62" title="Called before rendering." alt="" coords="5,5,168,47"/>
+</map>
 </div>
 
 </div>
@@ -479,6 +522,11 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_a37357f5df389ba43413c64cbd895c995_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_a37357f5df389ba43413c64cbd895c995_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_a37357f5df389ba43413c64cbd895c995_icgraph" id="aclass_loui_eriksson_1_1_texture_a37357f5df389ba43413c64cbd895c995_icgraph">
+<area shape="rect" title="Determine a Texture&#39;s format and number of channels using its pixel format." alt="" coords="213,50,373,91"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html#ab755c4d76eb6e4f7e0c87d7cc17a7663" title=" " alt="" coords="5,5,165,61"/>
+<area shape="rect" href="class_loui_eriksson_1_1_file.html#a0032f04b0f4541c7b6e75e73005d55dd" title=" " alt="" coords="18,86,153,127"/>
+</map>
 </div>
 
 </div>
@@ -524,6 +572,12 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_ae7d94f5492bfd834ca6fc867f4afcca4_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_ae7d94f5492bfd834ca6fc867f4afcca4_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_ae7d94f5492bfd834ca6fc867f4afcca4_icgraph" id="aclass_loui_eriksson_1_1_texture_ae7d94f5492bfd834ca6fc867f4afcca4_icgraph">
+<area shape="rect" title="Get the Texture&#39;s ID." alt="" coords="216,78,399,105"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#ad46a6b7dea2c77dbd4ae0cee1899c8a1" title=" " alt="" coords="7,5,167,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_camera.html#afbce2008328772eb292e55855ee67208" title="Called after rendering." alt="" coords="5,71,168,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_camera.html#acb96e3b1e18dddebd14938b566552559" title="Renders each Renderer using the Camera." alt="" coords="5,136,168,177"/>
+</map>
 </div>
 
 </div>
@@ -556,6 +610,10 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_ad46a6b7dea2c77dbd4ae0cee1899c8a1_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_ad46a6b7dea2c77dbd4ae0cee1899c8a1_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_ad46a6b7dea2c77dbd4ae0cee1899c8a1_cgraph" id="aclass_loui_eriksson_1_1_texture_ad46a6b7dea2c77dbd4ae0cee1899c8a1_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,165,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#ae7d94f5492bfd834ca6fc867f4afcca4" title="Get the Texture&#39;s ID." alt="" coords="213,13,396,39"/>
+</map>
 </div>
 
 </div>
@@ -644,6 +702,10 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_texture_adb63e73e6812f543a351de989c177978_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_texture_adb63e73e6812f543a351de989c177978_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_texture_adb63e73e6812f543a351de989c177978_icgraph" id="aclass_loui_eriksson_1_1_texture_adb63e73e6812f543a351de989c177978_icgraph">
+<area shape="rect" title="Unbind the currently bound Texture." alt="" coords="188,5,348,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_file.html#a0032f04b0f4541c7b6e75e73005d55dd" title=" " alt="" coords="5,5,140,47"/>
+</map>
 </div>
 
 </div>
@@ -855,7 +917,7 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Samples Documentation</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a205a5bae57f52995e5add96fb0b45813"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a205a5bae57f52995e5add96fb0b45813">&#9670;&nbsp;</a></span>m_FilterMode</h2>
 
@@ -1007,13 +1069,17 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>scripts/<a class="el" href="_texture_8h_source.html">Texture.h</a></li>
-<li>scripts/<a class="el" href="_texture_8cpp_source.html">Texture.cpp</a></li>
+<li>src/engine/scripts/Graphics/Textures/<a class="el" href="_texture_8h_source.html">Texture.h</a></li>
+<li>src/engine/scripts/Graphics/Textures/<a class="el" href="_texture_8cpp_source.html">Texture.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_texture.html">Texture</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

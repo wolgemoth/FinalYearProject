@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/Light.h Source File</title>
+<title>Final Year Project: src/engine/scripts/Graphics/Light.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_light_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Light.h</div>  </div>
@@ -72,12 +88,12 @@ $(function() {
 <a href="_light_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_LIGHT_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_LIGHT_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="stdafx_8h.html">stdafx.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../stdafx.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_component_8h.html">Component.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_transform_8h.html">Transform.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../ECS/Component.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../Core/Transform.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_render_texture_8h.html">RenderTexture.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_render_texture_8h.html">Textures/RenderTexture.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GEP.</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
@@ -149,24 +165,21 @@ $(function() {
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">float</span> m_Intensity;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">float</span> m_Range;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">float</span> m_Angle;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">float</span> m_Length;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">float</span> m_Size;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        glm::vec3 m_Color;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    };</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_LIGHT_H</span></div>
-<div class="ttc" id="a_component_8h_html"><div class="ttname"><a href="_component_8h.html">Component.h</a></div></div>
 <div class="ttc" id="a_render_texture_8h_html"><div class="ttname"><a href="_render_texture_8h.html">RenderTexture.h</a></div></div>
-<div class="ttc" id="a_transform_8h_html"><div class="ttname"><a href="_transform_8h.html">Transform.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html">LouiEriksson::Camera</a></div><div class="ttdoc">Camera class for 3D rendering of a scene from a perspective.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8h_source.html#l00019">Camera.h:19</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00013">Component.h:13</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_light_html"><div class="ttname"><a href="class_loui_eriksson_1_1_light.html">LouiEriksson::Light</a></div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00017">Light.h:17</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_light_html_a01deb922918d97c9a21b38f5d0864dea"><div class="ttname"><a href="class_loui_eriksson_1_1_light.html#a01deb922918d97c9a21b38f5d0864dea">LouiEriksson::Light::Type</a></div><div class="ttdeci">Light::Parameters::Type Type()</div><div class="ttdef"><b>Definition:</b> <a href="_light_8cpp_source.html#l00078">Light.cpp:78</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_light_html_a401a6470d219040cd3a76d4eaaa6d2e8"><div class="ttname"><a href="class_loui_eriksson_1_1_light.html#a401a6470d219040cd3a76d4eaaa6d2e8">LouiEriksson::Light::Light</a></div><div class="ttdeci">Light(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_light_8cpp_source.html#l00009">Light.cpp:9</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_light_html_a5eb5adbd01d84f19e61d19bfeff965d9"><div class="ttname"><a href="class_loui_eriksson_1_1_light.html#a5eb5adbd01d84f19e61d19bfeff965d9">LouiEriksson::Light::~Light</a></div><div class="ttdeci">~Light() override</div><div class="ttdef"><b>Definition:</b> <a href="_light_8cpp_source.html#l00023">Light.cpp:23</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00007">Application.cpp:7</a></div></div>
-<div class="ttc" id="astdafx_8h_html"><div class="ttname"><a href="stdafx_8h.html">stdafx.h</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_light_1_1_parameters_html"><div class="ttname"><a href="struct_loui_eriksson_1_1_light_1_1_parameters.html">LouiEriksson::Light::Parameters</a></div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00023">Light.h:23</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_light_1_1_parameters_html_a3e51e665b0b326a71e7b0722a4cba3ab"><div class="ttname"><a href="struct_loui_eriksson_1_1_light_1_1_parameters.html#a3e51e665b0b326a71e7b0722a4cba3ab">LouiEriksson::Light::Parameters::Camera</a></div><div class="ttdeci">friend Camera</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00026">Light.h:26</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_light_1_1_parameters_html_a4bec57ed2e0feddadb0f5335ca0a98c7"><div class="ttname"><a href="struct_loui_eriksson_1_1_light_1_1_parameters.html#a4bec57ed2e0feddadb0f5335ca0a98c7">LouiEriksson::Light::Parameters::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Type of the Light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00031">Light.h:31</a></div></div>
@@ -175,9 +188,13 @@ $(function() {
 <div class="ttc" id="astruct_loui_eriksson_1_1_light_1_1_parameters_html_a4bec57ed2e0feddadb0f5335ca0a98c7a713633efeb5b306a37065ff26dfc8e58"><div class="ttname"><a href="struct_loui_eriksson_1_1_light_1_1_parameters.html#a4bec57ed2e0feddadb0f5335ca0a98c7a713633efeb5b306a37065ff26dfc8e58">LouiEriksson::Light::Parameters::Point</a></div><div class="ttdeci">@ Point</div><div class="ttdoc">Light is a Point Light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00033">Light.h:33</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_light_1_1_parameters_html_a63333114259bb000e4025c64646a6e14"><div class="ttname"><a href="struct_loui_eriksson_1_1_light_1_1_parameters.html#a63333114259bb000e4025c64646a6e14">LouiEriksson::Light::Parameters::Light</a></div><div class="ttdeci">friend Light</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00025">Light.h:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_4a4f39d2b219974aa2251c7e5fb6272e.html">Graphics</a></li><li class="navelem"><a class="el" href="_light_8h.html">Light.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

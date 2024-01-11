@@ -1,0 +1,6 @@
+<map id="LouiEriksson::FlyCam::GetCamera" name="LouiEriksson::FlyCam::GetCamera">
+<area shape="rect" id="node1" title="Get the Camera of the FlyCam." alt="" coords="429,51,592,92"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a2b098487f2f042ce49f8854560748f0c" title="Called at the beginning of the first frame." alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_fly_cam.html#aef3dce1cb877f9133df19dc235114bfa" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="216,51,381,92"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349" title="Called every frame." alt="" coords="5,84,168,125"/>
+</map>

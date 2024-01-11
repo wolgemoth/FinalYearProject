@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_rigidbody.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,13 +80,9 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html">Rigidbody</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_loui_eriksson_1_1_rigidbody-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -81,12 +98,20 @@ $(function() {
 Inheritance diagram for LouiEriksson::Rigidbody:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_rigidbody__inherit__graph.png" border="0" usemap="#a_loui_eriksson_1_1_rigidbody_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<map name="a_loui_eriksson_1_1_rigidbody_inherit__map" id="a_loui_eriksson_1_1_rigidbody_inherit__map">
+<area shape="rect" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour." alt="" coords="5,219,228,1308"/>
+<area shape="rect" href="class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="15,5,218,171"/>
+</map>
+</div>
 <div class="dynheader">
 Collaboration diagram for LouiEriksson::Rigidbody:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_rigidbody__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_rigidbody_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<map name="a_loui_eriksson_1_1_rigidbody_coll__map" id="a_loui_eriksson_1_1_rigidbody_coll__map">
+<area shape="rect" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour." alt="" coords="5,219,228,1308"/>
+<area shape="rect" href="class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="15,5,218,171"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -94,66 +119,99 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa6f7abb5ad94737fc366409540ec6df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a917abda59d74670473271a319c4a1a6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a917abda59d74670473271a319c4a1a6b">~Rigidbody</a> () override=default</td></tr>
 <tr class="separator:a917abda59d74670473271a319c4a1a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a928656c22200161feb0c0c4e3a9ad0cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf">Interpolate</a> ()</td></tr>
+<tr class="memdesc:a928656c22200161feb0c0c4e3a9ad0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every frame.  <a href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf">More...</a><br /></td></tr>
+<tr class="separator:a928656c22200161feb0c0c4e3a9ad0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c869e7724866baa4cecf2e4b578451"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">Sync</a> ()</td></tr>
+<tr class="memdesc:ab2c869e7724866baa4cecf2e4b578451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sync the transform with the physics engine.  <a href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451">More...</a><br /></td></tr>
+<tr class="separator:ab2c869e7724866baa4cecf2e4b578451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92394fd5a08a958a6c56dc1957e9ae7f"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="struct_loui_eriksson_1_1_collision.html">Collision</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a92394fd5a08a958a6c56dc1957e9ae7f">Collisions</a> () const</td></tr>
+<tr class="memdesc:a92394fd5a08a958a6c56dc1957e9ae7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of collisions for the current tick of the physics engine.  <a href="class_loui_eriksson_1_1_rigidbody.html#a92394fd5a08a958a6c56dc1957e9ae7f">More...</a><br /></td></tr>
+<tr class="separator:a92394fd5a08a958a6c56dc1957e9ae7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae922aee1a43d757f3b49ff0f197055bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">SetTransform</a> (const std::weak_ptr&lt; <a class="el" href="struct_loui_eriksson_1_1_transform.html">Transform</a> &gt; &amp;_transform)</td></tr>
 <tr class="memdesc:ae922aee1a43d757f3b49ff0f197055bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ae922aee1a43d757f3b49ff0f197055bb">More...</a><br /></td></tr>
 <tr class="separator:ae922aee1a43d757f3b49ff0f197055bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac933f8566ef8cceab3e9f86db893c117"><td class="memItemLeft" align="right" valign="top">std::weak_ptr&lt; <a class="el" href="struct_loui_eriksson_1_1_transform.html">Transform</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">GetTransform</a> ()</td></tr>
-<tr class="memdesc:ac933f8566ef8cceab3e9f86db893c117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">More...</a><br /></td></tr>
-<tr class="separator:ac933f8566ef8cceab3e9f86db893c117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a696692e8c2d42f854318813438ad9eba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">SetCollider</a> (const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; &amp;_transform)</td></tr>
-<tr class="memdesc:a696692e8c2d42f854318813438ad9eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a696692e8c2d42f854318813438ad9eba">More...</a><br /></td></tr>
-<tr class="separator:a696692e8c2d42f854318813438ad9eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af661fc2102f50b71ef8fc1ae7fcc5eaa"><td class="memItemLeft" align="right" valign="top">std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">GetCollider</a> ()</td></tr>
-<tr class="memdesc:af661fc2102f50b71ef8fc1ae7fcc5eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">More...</a><br /></td></tr>
-<tr class="separator:af661fc2102f50b71ef8fc1ae7fcc5eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766293410e25e1d2c24a0cba6254877d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a766293410e25e1d2c24a0cba6254877d">Velocity</a> (const glm::vec3 &amp;_velocity)</td></tr>
-<tr class="memdesc:a766293410e25e1d2c24a0cba6254877d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a766293410e25e1d2c24a0cba6254877d">More...</a><br /></td></tr>
-<tr class="separator:a766293410e25e1d2c24a0cba6254877d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac38ac970560e9d98c85754aa1af6f1d7"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">Velocity</a> ()</td></tr>
-<tr class="memdesc:ac38ac970560e9d98c85754aa1af6f1d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ac38ac970560e9d98c85754aa1af6f1d7">More...</a><br /></td></tr>
-<tr class="separator:ac38ac970560e9d98c85754aa1af6f1d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a020659a904591f00085464a84fbd7452"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a020659a904591f00085464a84fbd7452">AngularVelocity</a> (const glm::vec3 &amp;_angularVelocity)</td></tr>
-<tr class="memdesc:a020659a904591f00085464a84fbd7452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a020659a904591f00085464a84fbd7452">More...</a><br /></td></tr>
-<tr class="separator:a020659a904591f00085464a84fbd7452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac90f4888c127c7049e67ab32eeb51310"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">AngularVelocity</a> ()</td></tr>
-<tr class="memdesc:ac90f4888c127c7049e67ab32eeb51310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ac90f4888c127c7049e67ab32eeb51310">More...</a><br /></td></tr>
-<tr class="separator:ac90f4888c127c7049e67ab32eeb51310"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab07f106ad8406848895933c848a41781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab07f106ad8406848895933c848a41781">AddForce</a> (const glm::vec3 &amp;_force)</td></tr>
-<tr class="memdesc:ab07f106ad8406848895933c848a41781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a force to the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ab07f106ad8406848895933c848a41781">More...</a><br /></td></tr>
-<tr class="separator:ab07f106ad8406848895933c848a41781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2337c9f593a9463aa9125a2d7e3eb8f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a2337c9f593a9463aa9125a2d7e3eb8f0">ClearForce</a> ()</td></tr>
-<tr class="memdesc:a2337c9f593a9463aa9125a2d7e3eb8f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a2337c9f593a9463aa9125a2d7e3eb8f0">More...</a><br /></td></tr>
-<tr class="separator:a2337c9f593a9463aa9125a2d7e3eb8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8508970791cd49ecf20603999866c22a"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a">DragForce</a> (const float &amp;_radius)</td></tr>
-<tr class="memdesc:a8508970791cd49ecf20603999866c22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the drag force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a8508970791cd49ecf20603999866c22a">More...</a><br /></td></tr>
-<tr class="separator:a8508970791cd49ecf20603999866c22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a356233f221e19733815544de2ba69f86"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86">FrictionForce</a> (<a class="el" href="struct_loui_eriksson_1_1_collision.html">Collision</a> &amp;_collision)</td></tr>
-<tr class="memdesc:a356233f221e19733815544de2ba69f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the friction force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a> given <a class="el" href="struct_loui_eriksson_1_1_collision.html" title="Contains information describing a collision between a Rigidbody and a Collider.">Collision</a> information.  <a href="class_loui_eriksson_1_1_rigidbody.html#a356233f221e19733815544de2ba69f86">More...</a><br /></td></tr>
-<tr class="separator:a356233f221e19733815544de2ba69f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbf7168474a0538a6f6d11db964d1c01"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">GetForce</a> ()</td></tr>
-<tr class="memdesc:adbf7168474a0538a6f6d11db964d1c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">More...</a><br /></td></tr>
-<tr class="separator:adbf7168474a0538a6f6d11db964d1c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a073509aa441420457e062bf0faee6ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a073509aa441420457e062bf0faee6ca3">Euler</a> (const float &amp;_delta)</td></tr>
-<tr class="memdesc:a073509aa441420457e062bf0faee6ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the Euler integration.  <a href="class_loui_eriksson_1_1_rigidbody.html#a073509aa441420457e062bf0faee6ca3">More...</a><br /></td></tr>
-<tr class="separator:a073509aa441420457e062bf0faee6ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d6b5cac74ae02e9d9bde01752c3fc6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a3d6b5cac74ae02e9d9bde01752c3fc6a">Mass</a> (const float &amp;_mass)</td></tr>
-<tr class="memdesc:a3d6b5cac74ae02e9d9bde01752c3fc6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a3d6b5cac74ae02e9d9bde01752c3fc6a">More...</a><br /></td></tr>
-<tr class="separator:a3d6b5cac74ae02e9d9bde01752c3fc6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a560b97576cb737390c677e994f93aba4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">Mass</a> () const</td></tr>
-<tr class="memdesc:a560b97576cb737390c677e994f93aba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a560b97576cb737390c677e994f93aba4">More...</a><br /></td></tr>
-<tr class="separator:a560b97576cb737390c677e994f93aba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8f8b042778e04a83e62e0ca94bb3d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab8f8b042778e04a83e62e0ca94bb3d7b">Drag</a> (const float &amp;_drag)</td></tr>
-<tr class="memdesc:ab8f8b042778e04a83e62e0ca94bb3d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ab8f8b042778e04a83e62e0ca94bb3d7b">More...</a><br /></td></tr>
-<tr class="separator:ab8f8b042778e04a83e62e0ca94bb3d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cfafed8d1223482500db1b453183292"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">Drag</a> () const</td></tr>
-<tr class="memdesc:a6cfafed8d1223482500db1b453183292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a6cfafed8d1223482500db1b453183292">More...</a><br /></td></tr>
-<tr class="separator:a6cfafed8d1223482500db1b453183292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4ed2c41ff1176e4a0684e264297c06e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#aa4ed2c41ff1176e4a0684e264297c06e">AngularDrag</a> (const float &amp;_angularDrag)</td></tr>
-<tr class="memdesc:aa4ed2c41ff1176e4a0684e264297c06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#aa4ed2c41ff1176e4a0684e264297c06e">More...</a><br /></td></tr>
-<tr class="separator:aa4ed2c41ff1176e4a0684e264297c06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a658c6477e2d594aef842b071032863cd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">AngularDrag</a> () const</td></tr>
-<tr class="memdesc:a658c6477e2d594aef842b071032863cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a658c6477e2d594aef842b071032863cd">More...</a><br /></td></tr>
-<tr class="separator:a658c6477e2d594aef842b071032863cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bdf41cd5de6c15a3c6b9a5e275180ea"><td class="memItemLeft" align="right" valign="top">const std::weak_ptr&lt; <a class="el" href="struct_loui_eriksson_1_1_transform.html">Transform</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">GetTransform</a> () const</td></tr>
+<tr class="memdesc:a7bdf41cd5de6c15a3c6b9a5e275180ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">More...</a><br /></td></tr>
+<tr class="separator:a7bdf41cd5de6c15a3c6b9a5e275180ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a039b7aad836379683005489e1637a6eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">SetCollider</a> (const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; &amp;_collider)</td></tr>
+<tr class="memdesc:a039b7aad836379683005489e1637a6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a039b7aad836379683005489e1637a6eb">More...</a><br /></td></tr>
+<tr class="separator:a039b7aad836379683005489e1637a6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c78c3a1ecf280c5137e743ebdb0ffb5"><td class="memItemLeft" align="right" valign="top">const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">GetCollider</a> () const</td></tr>
+<tr class="memdesc:a9c78c3a1ecf280c5137e743ebdb0ffb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">More...</a><br /></td></tr>
+<tr class="separator:a9c78c3a1ecf280c5137e743ebdb0ffb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08a8420f38eae05c584e60466290eeb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a08a8420f38eae05c584e60466290eeb1">Position</a> (const glm::vec3 &amp;_value)</td></tr>
+<tr class="memdesc:a08a8420f38eae05c584e60466290eeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the position of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. You shouldn't normally need to do this. See <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0" title="Add a force to the Rigidbody.">AddForce()</a> instead.  <a href="class_loui_eriksson_1_1_rigidbody.html#a08a8420f38eae05c584e60466290eeb1">More...</a><br /></td></tr>
+<tr class="separator:a08a8420f38eae05c584e60466290eeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37e78ff6192da4e0628d4dec0eccece3"><td class="memItemLeft" align="right" valign="top">const glm::vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">Position</a> ()</td></tr>
+<tr class="memdesc:a37e78ff6192da4e0628d4dec0eccece3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the position of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3">More...</a><br /></td></tr>
+<tr class="separator:a37e78ff6192da4e0628d4dec0eccece3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da82bf000d903b4105c38273a45364f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a1da82bf000d903b4105c38273a45364f">Rotation</a> (const glm::quat &amp;_value)</td></tr>
+<tr class="memdesc:a1da82bf000d903b4105c38273a45364f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the rotation of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. You shouldn't normally need to do this. See <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0" title="Add a force to the Rigidbody.">AddForce()</a> Instead.  <a href="class_loui_eriksson_1_1_rigidbody.html#a1da82bf000d903b4105c38273a45364f">More...</a><br /></td></tr>
+<tr class="separator:a1da82bf000d903b4105c38273a45364f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae14a822f5fc5948efecebc9ff648d385"><td class="memItemLeft" align="right" valign="top">const glm::quat &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">Rotation</a> ()</td></tr>
+<tr class="memdesc:ae14a822f5fc5948efecebc9ff648d385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the rotation of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385">More...</a><br /></td></tr>
+<tr class="separator:ae14a822f5fc5948efecebc9ff648d385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a35c908be37316a1b3bd75227df9c97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a6a35c908be37316a1b3bd75227df9c97">Kinematic</a> (const bool &amp;_value)</td></tr>
+<tr class="memdesc:a6a35c908be37316a1b3bd75227df9c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a6a35c908be37316a1b3bd75227df9c97">More...</a><br /></td></tr>
+<tr class="separator:a6a35c908be37316a1b3bd75227df9c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a799f17a548e0b605778d085c0052a5f4"><td class="memItemLeft" align="right" valign="top">const bool &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">Kinematic</a> () const</td></tr>
+<tr class="memdesc:a799f17a548e0b605778d085c0052a5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a799f17a548e0b605778d085c0052a5f4">More...</a><br /></td></tr>
+<tr class="separator:a799f17a548e0b605778d085c0052a5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96dfb254f7a84ff397dd963c48a4b870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a96dfb254f7a84ff397dd963c48a4b870">Gravity</a> (const bool &amp;_value)</td></tr>
+<tr class="memdesc:a96dfb254f7a84ff397dd963c48a4b870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a96dfb254f7a84ff397dd963c48a4b870">More...</a><br /></td></tr>
+<tr class="separator:a96dfb254f7a84ff397dd963c48a4b870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5263a8069365ca22eacd64484b197a4"><td class="memItemLeft" align="right" valign="top">const bool &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">Gravity</a> () const</td></tr>
+<tr class="memdesc:ad5263a8069365ca22eacd64484b197a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ad5263a8069365ca22eacd64484b197a4">More...</a><br /></td></tr>
+<tr class="separator:ad5263a8069365ca22eacd64484b197a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c9c6a8766e4e1ceeb3b42f1dce35d0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a7c9c6a8766e4e1ceeb3b42f1dce35d0a">Velocity</a> (const glm::vec3 &amp;_value)</td></tr>
+<tr class="memdesc:a7c9c6a8766e4e1ceeb3b42f1dce35d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a7c9c6a8766e4e1ceeb3b42f1dce35d0a">More...</a><br /></td></tr>
+<tr class="separator:a7c9c6a8766e4e1ceeb3b42f1dce35d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af82f24eab5a0f2a76db0f83f290bc41a"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">Velocity</a> () const</td></tr>
+<tr class="memdesc:af82f24eab5a0f2a76db0f83f290bc41a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a">More...</a><br /></td></tr>
+<tr class="separator:af82f24eab5a0f2a76db0f83f290bc41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585aded25f0613104f1966c2403a723f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a585aded25f0613104f1966c2403a723f">AngularVelocity</a> (const glm::vec3 &amp;_value)</td></tr>
+<tr class="memdesc:a585aded25f0613104f1966c2403a723f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a585aded25f0613104f1966c2403a723f">More...</a><br /></td></tr>
+<tr class="separator:a585aded25f0613104f1966c2403a723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10038f3b7965568c95db3826285168b"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">AngularVelocity</a> () const</td></tr>
+<tr class="memdesc:aa10038f3b7965568c95db3826285168b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b">More...</a><br /></td></tr>
+<tr class="separator:aa10038f3b7965568c95db3826285168b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3febeee921fd2fd4496acda5d4a5dc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0">AddForce</a> (const glm::vec3 &amp;_value, const glm::vec3 &amp;_relativePosition=glm::vec3(0.0f))</td></tr>
+<tr class="memdesc:ab3febeee921fd2fd4496acda5d4a5dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a force to the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0">More...</a><br /></td></tr>
+<tr class="separator:ab3febeee921fd2fd4496acda5d4a5dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ecee28de45c86df47e55fc29f3de61b"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">GetForce</a> () const</td></tr>
+<tr class="memdesc:a6ecee28de45c86df47e55fc29f3de61b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">More...</a><br /></td></tr>
+<tr class="separator:a6ecee28de45c86df47e55fc29f3de61b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa3515d080d092d9c43957acbb3df3c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#afa3515d080d092d9c43957acbb3df3c1">Mass</a> (const float &amp;_value)</td></tr>
+<tr class="memdesc:afa3515d080d092d9c43957acbb3df3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#afa3515d080d092d9c43957acbb3df3c1">More...</a><br /></td></tr>
+<tr class="separator:afa3515d080d092d9c43957acbb3df3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad63ed50229c4672103c9d09f5bf1564d"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">Mass</a> () const</td></tr>
+<tr class="memdesc:ad63ed50229c4672103c9d09f5bf1564d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ad63ed50229c4672103c9d09f5bf1564d">More...</a><br /></td></tr>
+<tr class="separator:ad63ed50229c4672103c9d09f5bf1564d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a687724bbb6a9cc2950759a65bdec5792"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a687724bbb6a9cc2950759a65bdec5792">Drag</a> (const float &amp;_value)</td></tr>
+<tr class="memdesc:a687724bbb6a9cc2950759a65bdec5792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a687724bbb6a9cc2950759a65bdec5792">More...</a><br /></td></tr>
+<tr class="separator:a687724bbb6a9cc2950759a65bdec5792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31d43bd6294805b5b545642e37b62e6c"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">Drag</a> () const</td></tr>
+<tr class="memdesc:a31d43bd6294805b5b545642e37b62e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a31d43bd6294805b5b545642e37b62e6c">More...</a><br /></td></tr>
+<tr class="separator:a31d43bd6294805b5b545642e37b62e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a268a1d17f6d53fd13552f3983e343532"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a268a1d17f6d53fd13552f3983e343532">AngularDrag</a> (const float &amp;_value)</td></tr>
+<tr class="memdesc:a268a1d17f6d53fd13552f3983e343532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a268a1d17f6d53fd13552f3983e343532">More...</a><br /></td></tr>
+<tr class="separator:a268a1d17f6d53fd13552f3983e343532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a306d38721f2132bd289c4f63574c00b8"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">AngularDrag</a> () const</td></tr>
+<tr class="memdesc:a306d38721f2132bd289c4f63574c00b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a306d38721f2132bd289c4f63574c00b8">More...</a><br /></td></tr>
+<tr class="separator:a306d38721f2132bd289c4f63574c00b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbdae1f0269ff2f4ff34a10c990ad21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#aabbdae1f0269ff2f4ff34a10c990ad21">Friction</a> (const float &amp;_value)</td></tr>
+<tr class="memdesc:aabbdae1f0269ff2f4ff34a10c990ad21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the friction of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#aabbdae1f0269ff2f4ff34a10c990ad21">More...</a><br /></td></tr>
+<tr class="separator:aabbdae1f0269ff2f4ff34a10c990ad21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad72db833b56f9fc5145c573907c41a3b"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">Friction</a> () const</td></tr>
+<tr class="memdesc:ad72db833b56f9fc5145c573907c41a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the friction of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#ad72db833b56f9fc5145c573907c41a3b">More...</a><br /></td></tr>
+<tr class="separator:ad72db833b56f9fc5145c573907c41a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ea6a300f77bab9cb37806b91365a58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a46ea6a300f77bab9cb37806b91365a58">Bounciness</a> (const float &amp;_value)</td></tr>
+<tr class="memdesc:a46ea6a300f77bab9cb37806b91365a58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the bounciness of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a46ea6a300f77bab9cb37806b91365a58">More...</a><br /></td></tr>
+<tr class="separator:a46ea6a300f77bab9cb37806b91365a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af412118b2a88ba091a1644e8f4d062"><td class="memItemLeft" align="right" valign="top">const float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">Bounciness</a> () const</td></tr>
+<tr class="memdesc:a3af412118b2a88ba091a1644e8f4d062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the bounciness of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>.  <a href="class_loui_eriksson_1_1_rigidbody.html#a3af412118b2a88ba091a1644e8f4d062">More...</a><br /></td></tr>
+<tr class="separator:a3af412118b2a88ba091a1644e8f4d062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_loui_eriksson_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_loui_eriksson_1_1_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></td></tr>
 <tr class="memitem:a87b48c3303da952daec2db4c1b18f1a9 inherit pub_methods_class_loui_eriksson_1_1_component"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_game_object.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">Parent</a> () const</td></tr>
 <tr class="memdesc:a87b48c3303da952daec2db4c1b18f1a9 inherit pub_methods_class_loui_eriksson_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject.">Component</a>'s parent <a class="el" href="class_loui_eriksson_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>.  <a href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">More...</a><br /></td></tr>
@@ -196,7 +254,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00009">9</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00154">154</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
@@ -226,8 +284,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab07f106ad8406848895933c848a41781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab07f106ad8406848895933c848a41781">&#9670;&nbsp;</a></span>AddForce()</h2>
+<a id="ab3febeee921fd2fd4496acda5d4a5dc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3febeee921fd2fd4496acda5d4a5dc0">&#9670;&nbsp;</a></span>AddForce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,26 +294,36 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">void LouiEriksson::Rigidbody::AddForce </td>
           <td>(</td>
           <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>_force</em></td><td>)</td>
+          <td class="paramname"><em>_value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>_relativePosition</em> = <code>glm::vec3(0.0f)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Add a force to the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00051">51</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00392">392</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a658c6477e2d594aef842b071032863cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a658c6477e2d594aef842b071032863cd">&#9670;&nbsp;</a></span>AngularDrag() <span class="overload">[1/2]</span></h2>
+<a id="a306d38721f2132bd289c4f63574c00b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a306d38721f2132bd289c4f63574c00b8">&#9670;&nbsp;</a></span>AngularDrag() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float LouiEriksson::Rigidbody::AngularDrag </td>
+          <td class="memname">const float &amp; LouiEriksson::Rigidbody::AngularDrag </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -265,12 +333,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Get the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00141">141</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00429">429</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa4ed2c41ff1176e4a0684e264297c06e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4ed2c41ff1176e4a0684e264297c06e">&#9670;&nbsp;</a></span>AngularDrag() <span class="overload">[2/2]</span></h2>
+<a id="a268a1d17f6d53fd13552f3983e343532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a268a1d17f6d53fd13552f3983e343532">&#9670;&nbsp;</a></span>AngularDrag() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +347,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">void LouiEriksson::Rigidbody::AngularDrag </td>
           <td>(</td>
           <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>_angularDrag</em></td><td>)</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -287,12 +355,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the angular drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00138">138</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00424">424</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ac90f4888c127c7049e67ab32eeb51310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac90f4888c127c7049e67ab32eeb51310">&#9670;&nbsp;</a></span>AngularVelocity() <span class="overload">[1/2]</span></h2>
+<a id="aa10038f3b7965568c95db3826285168b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa10038f3b7965568c95db3826285168b">&#9670;&nbsp;</a></span>AngularVelocity() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,19 +369,28 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">glm::vec3 LouiEriksson::Rigidbody::AngularVelocity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00047">47</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00385">385</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_aa10038f3b7965568c95db3826285168b_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_aa10038f3b7965568c95db3826285168b_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_aa10038f3b7965568c95db3826285168b_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_aa10038f3b7965568c95db3826285168b_icgraph">
+<area shape="rect" title="Get the angular velocity of the Rigidbody." alt="" coords="231,5,408,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf" title="Called every frame." alt="" coords="5,5,183,47"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a020659a904591f00085464a84fbd7452"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a020659a904591f00085464a84fbd7452">&#9670;&nbsp;</a></span>AngularVelocity() <span class="overload">[2/2]</span></h2>
+<a id="a585aded25f0613104f1966c2403a723f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a585aded25f0613104f1966c2403a723f">&#9670;&nbsp;</a></span>AngularVelocity() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +399,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">void LouiEriksson::Rigidbody::AngularVelocity </td>
           <td>(</td>
           <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>_angularVelocity</em></td><td>)</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -330,39 +407,91 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Set the angular velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00044">44</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00379">379</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2337c9f593a9463aa9125a2d7e3eb8f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2337c9f593a9463aa9125a2d7e3eb8f0">&#9670;&nbsp;</a></span>ClearForce()</h2>
+<a id="a3af412118b2a88ba091a1644e8f4d062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af412118b2a88ba091a1644e8f4d062">&#9670;&nbsp;</a></span>Bounciness() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void LouiEriksson::Rigidbody::ClearForce </td>
+          <td class="memname">const float &amp; LouiEriksson::Rigidbody::Bounciness </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the bounciness of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00447">447</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a46ea6a300f77bab9cb37806b91365a58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ea6a300f77bab9cb37806b91365a58">&#9670;&nbsp;</a></span>Bounciness() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Bounciness </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clear the force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+<p>Set the bounciness of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00054">54</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00442">442</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6cfafed8d1223482500db1b453183292"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cfafed8d1223482500db1b453183292">&#9670;&nbsp;</a></span>Drag() <span class="overload">[1/2]</span></h2>
+<a id="a92394fd5a08a958a6c56dc1957e9ae7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92394fd5a08a958a6c56dc1957e9ae7f">&#9670;&nbsp;</a></span>Collisions()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float LouiEriksson::Rigidbody::Drag </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="struct_loui_eriksson_1_1_collision.html">Collision</a> &gt; &amp; LouiEriksson::Rigidbody::Collisions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve the list of collisions for the current tick of the physics engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00293">293</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a92394fd5a08a958a6c56dc1957e9ae7f_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a92394fd5a08a958a6c56dc1957e9ae7f_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_a92394fd5a08a958a6c56dc1957e9ae7f_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_a92394fd5a08a958a6c56dc1957e9ae7f_icgraph">
+<area shape="rect" title="Retrieve the list of collisions for the current tick of the physics engine." alt="" coords="204,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#aaa09a5daf8477644de07d1de9576af89" title="Called every physics update." alt="" coords="5,5,156,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a31d43bd6294805b5b545642e37b62e6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31d43bd6294805b5b545642e37b62e6c">&#9670;&nbsp;</a></span>Drag() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float &amp; LouiEriksson::Rigidbody::Drag </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -372,17 +501,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Get the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00085">85</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a6cfafed8d1223482500db1b453183292_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a6cfafed8d1223482500db1b453183292_icgraph" alt=""/></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00420">420</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab8f8b042778e04a83e62e0ca94bb3d7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8f8b042778e04a83e62e0ca94bb3d7b">&#9670;&nbsp;</a></span>Drag() <span class="overload">[2/2]</span></h2>
+<a id="a687724bbb6a9cc2950759a65bdec5792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a687724bbb6a9cc2950759a65bdec5792">&#9670;&nbsp;</a></span>Drag() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -391,7 +515,7 @@ Here is the caller graph for this function:</div>
           <td class="memname">void LouiEriksson::Rigidbody::Drag </td>
           <td>(</td>
           <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>_drag</em></td><td>)</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -399,109 +523,76 @@ Here is the caller graph for this function:</div>
 
 <p>Set the drag of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00082">82</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00415">415</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8508970791cd49ecf20603999866c22a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8508970791cd49ecf20603999866c22a">&#9670;&nbsp;</a></span>DragForce()</h2>
+<a id="ad72db833b56f9fc5145c573907c41a3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72db833b56f9fc5145c573907c41a3b">&#9670;&nbsp;</a></span>Friction() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 LouiEriksson::Rigidbody::DragForce </td>
-          <td>(</td>
-          <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>_radius</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the drag force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00089">89</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a8508970791cd49ecf20603999866c22a_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a8508970791cd49ecf20603999866c22a_cgraph" alt=""/></div>
-</div>
-
-</div>
-</div>
-<a id="a073509aa441420457e062bf0faee6ca3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a073509aa441420457e062bf0faee6ca3">&#9670;&nbsp;</a></span>Euler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void LouiEriksson::Rigidbody::Euler </td>
-          <td>(</td>
-          <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>_delta</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the Euler integration. </p>
-
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00062">62</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a356233f221e19733815544de2ba69f86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a356233f221e19733815544de2ba69f86">&#9670;&nbsp;</a></span>FrictionForce()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec3 LouiEriksson::Rigidbody::FrictionForce </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_loui_eriksson_1_1_collision.html">Collision</a> &amp;&#160;</td>
-          <td class="paramname"><em>_collision</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the friction force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a> given <a class="el" href="struct_loui_eriksson_1_1_collision.html" title="Contains information describing a collision between a Rigidbody and a Collider.">Collision</a> information. </p>
-
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00108">108</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a356233f221e19733815544de2ba69f86_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a356233f221e19733815544de2ba69f86_cgraph" alt=""/></div>
-</div>
-
-</div>
-</div>
-<a id="af661fc2102f50b71ef8fc1ae7fcc5eaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af661fc2102f50b71ef8fc1ae7fcc5eaa">&#9670;&nbsp;</a></span>GetCollider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; LouiEriksson::Rigidbody::GetCollider </td>
+          <td class="memname">const float &amp; LouiEriksson::Rigidbody::Friction </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the friction of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00438">438</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aabbdae1f0269ff2f4ff34a10c990ad21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabbdae1f0269ff2f4ff34a10c990ad21">&#9670;&nbsp;</a></span>Friction() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Friction </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the friction of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00433">433</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c78c3a1ecf280c5137e743ebdb0ffb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c78c3a1ecf280c5137e743ebdb0ffb5">&#9670;&nbsp;</a></span>GetCollider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; &amp; LouiEriksson::Rigidbody::GetCollider </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00033">33</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00318">318</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adbf7168474a0538a6f6d11db964d1c01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbf7168474a0538a6f6d11db964d1c01">&#9670;&nbsp;</a></span>GetForce()</h2>
+<a id="a6ecee28de45c86df47e55fc29f3de61b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ecee28de45c86df47e55fc29f3de61b">&#9670;&nbsp;</a></span>GetForce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -510,25 +601,89 @@ Here is the call graph for this function:</div>
           <td class="memname">glm::vec3 LouiEriksson::Rigidbody::GetForce </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the force of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00058">58</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00399">399</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ac933f8566ef8cceab3e9f86db893c117"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac933f8566ef8cceab3e9f86db893c117">&#9670;&nbsp;</a></span>GetTransform()</h2>
+<a id="a7bdf41cd5de6c15a3c6b9a5e275180ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bdf41cd5de6c15a3c6b9a5e275180ea">&#9670;&nbsp;</a></span>GetTransform()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::weak_ptr&lt; <a class="el" href="struct_loui_eriksson_1_1_transform.html">Transform</a> &gt; LouiEriksson::Rigidbody::GetTransform </td>
+          <td class="memname">const std::weak_ptr&lt; <a class="el" href="struct_loui_eriksson_1_1_transform.html">Transform</a> &gt; &amp; LouiEriksson::Rigidbody::GetTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00302">302</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad5263a8069365ca22eacd64484b197a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5263a8069365ca22eacd64484b197a4">&#9670;&nbsp;</a></span>Gravity() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool &amp; LouiEriksson::Rigidbody::Gravity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00362">362</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a96dfb254f7a84ff397dd963c48a4b870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96dfb254f7a84ff397dd963c48a4b870">&#9670;&nbsp;</a></span>Gravity() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Gravity </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00357">357</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a928656c22200161feb0c0c4e3a9ad0cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a928656c22200161feb0c0c4e3a9ad0cf">&#9670;&nbsp;</a></span>Interpolate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Interpolate </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -536,20 +691,74 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Get the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+<p>Called every frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00026">26</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00160">160</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a928656c22200161feb0c0c4e3a9ad0cf_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a928656c22200161feb0c0c4e3a9ad0cf_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_a928656c22200161feb0c0c4e3a9ad0cf_cgraph" id="aclass_loui_eriksson_1_1_rigidbody_a928656c22200161feb0c0c4e3a9ad0cf_cgraph">
+<area shape="rect" title="Called every frame." alt="" coords="5,71,183,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b" title="Get the angular velocity of the Rigidbody." alt="" coords="231,5,408,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca" title="Get the scaled fixed delta time. (Time between physics updates.)" alt="" coords="247,71,392,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a" title="Get the velocity of the Rigidbody." alt="" coords="231,136,408,177"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a560b97576cb737390c677e994f93aba4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a560b97576cb737390c677e994f93aba4">&#9670;&nbsp;</a></span>Mass() <span class="overload">[1/2]</span></h2>
+<a id="a799f17a548e0b605778d085c0052a5f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a799f17a548e0b605778d085c0052a5f4">&#9670;&nbsp;</a></span>Kinematic() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float LouiEriksson::Rigidbody::Mass </td>
+          <td class="memname">const bool &amp; LouiEriksson::Rigidbody::Kinematic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00353">353</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a35c908be37316a1b3bd75227df9c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a35c908be37316a1b3bd75227df9c97">&#9670;&nbsp;</a></span>Kinematic() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Kinematic </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the kinematic state of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00348">348</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad63ed50229c4672103c9d09f5bf1564d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63ed50229c4672103c9d09f5bf1564d">&#9670;&nbsp;</a></span>Mass() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float &amp; LouiEriksson::Rigidbody::Mass </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -559,17 +768,12 @@ Here is the call graph for this function:</div>
 
 <p>Get the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00078">78</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a560b97576cb737390c677e994f93aba4_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a560b97576cb737390c677e994f93aba4_icgraph" alt=""/></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00411">411</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3d6b5cac74ae02e9d9bde01752c3fc6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d6b5cac74ae02e9d9bde01752c3fc6a">&#9670;&nbsp;</a></span>Mass() <span class="overload">[2/2]</span></h2>
+<a id="afa3515d080d092d9c43957acbb3df3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa3515d080d092d9c43957acbb3df3c1">&#9670;&nbsp;</a></span>Mass() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -578,7 +782,7 @@ Here is the caller graph for this function:</div>
           <td class="memname">void LouiEriksson::Rigidbody::Mass </td>
           <td>(</td>
           <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>_mass</em></td><td>)</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -586,12 +790,134 @@ Here is the caller graph for this function:</div>
 
 <p>Set the mass of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00075">75</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00406">406</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_afa3515d080d092d9c43957acbb3df3c1_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_afa3515d080d092d9c43957acbb3df3c1_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_afa3515d080d092d9c43957acbb3df3c1_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_afa3515d080d092d9c43957acbb3df3c1_icgraph">
+<area shape="rect" title="Set the mass of the Rigidbody." alt="" coords="191,5,368,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_ball.html#a7245bbad3ebcf592b754d8e4ee3996ec" title="Called every time a collision event occurs." alt="" coords="5,5,143,47"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a696692e8c2d42f854318813438ad9eba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a696692e8c2d42f854318813438ad9eba">&#9670;&nbsp;</a></span>SetCollider()</h2>
+<a id="a37e78ff6192da4e0628d4dec0eccece3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37e78ff6192da4e0628d4dec0eccece3">&#9670;&nbsp;</a></span>Position() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec3 &amp; LouiEriksson::Rigidbody::Position </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the position of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00328">328</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a37e78ff6192da4e0628d4dec0eccece3_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a37e78ff6192da4e0628d4dec0eccece3_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_a37e78ff6192da4e0628d4dec0eccece3_cgraph" id="aclass_loui_eriksson_1_1_rigidbody_a37e78ff6192da4e0628d4dec0eccece3_cgraph">
+<area shape="rect" title="Get the position of the Rigidbody." alt="" coords="5,5,183,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451" title="Sync the transform with the physics engine." alt="" coords="231,5,408,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a08a8420f38eae05c584e60466290eeb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08a8420f38eae05c584e60466290eeb1">&#9670;&nbsp;</a></span>Position() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Position </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the position of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. You shouldn't normally need to do this. See <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0" title="Add a force to the Rigidbody.">AddForce()</a> instead. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00322">322</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_a08a8420f38eae05c584e60466290eeb1_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_a08a8420f38eae05c584e60466290eeb1_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_a08a8420f38eae05c584e60466290eeb1_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_a08a8420f38eae05c584e60466290eeb1_icgraph">
+<area shape="rect" title="Set the position of the Rigidbody. You shouldn&#39;t normally need to do this. See AddForce() instead." alt="" coords="191,5,368,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_ball.html#a8bd321a9b6704c769cae0abea6020461" title="Called every tick of the physics engine." alt="" coords="5,5,143,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae14a822f5fc5948efecebc9ff648d385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae14a822f5fc5948efecebc9ff648d385">&#9670;&nbsp;</a></span>Rotation() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::quat &amp; LouiEriksson::Rigidbody::Rotation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the rotation of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00341">341</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_ae14a822f5fc5948efecebc9ff648d385_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_ae14a822f5fc5948efecebc9ff648d385_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_ae14a822f5fc5948efecebc9ff648d385_cgraph" id="aclass_loui_eriksson_1_1_rigidbody_ae14a822f5fc5948efecebc9ff648d385_cgraph">
+<area shape="rect" title="Get the rotation of the Rigidbody." alt="" coords="5,5,183,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#ab2c869e7724866baa4cecf2e4b578451" title="Sync the transform with the physics engine." alt="" coords="231,5,408,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1da82bf000d903b4105c38273a45364f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da82bf000d903b4105c38273a45364f">&#9670;&nbsp;</a></span>Rotation() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Rotation </td>
+          <td>(</td>
+          <td class="paramtype">const glm::quat &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the rotation of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. You shouldn't normally need to do this. See <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ab3febeee921fd2fd4496acda5d4a5dc0" title="Add a force to the Rigidbody.">AddForce()</a> Instead. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00335">335</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a039b7aad836379683005489e1637a6eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a039b7aad836379683005489e1637a6eb">&#9670;&nbsp;</a></span>SetCollider()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,7 +926,7 @@ Here is the caller graph for this function:</div>
           <td class="memname">void LouiEriksson::Rigidbody::SetCollider </td>
           <td>(</td>
           <td class="paramtype">const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>_transform</em></td><td>)</td>
+          <td class="paramname"><em>_collider</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -608,7 +934,7 @@ Here is the caller graph for this function:</div>
 
 <p>Set the <a class="el" href="class_loui_eriksson_1_1_collider.html">Collider</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00030">30</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00306">306</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
@@ -630,17 +956,53 @@ Here is the caller graph for this function:</div>
 
 <p>Set the <a class="el" href="struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform.">Transform</a> of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00023">23</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00297">297</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_ae922aee1a43d757f3b49ff0f197055bb_icgraph">
+<area shape="rect" title="Set the Transform of the Rigidbody." alt="" coords="201,39,379,80"/>
+<area shape="rect" href="class_loui_eriksson_1_1_ball.html#af2d97dc0ee10bbbe699de756a29ddbd0" title="Called at the beginning of the first frame." alt="" coords="11,5,148,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda" title="Called at the beginning of the first frame." alt="" coords="5,71,153,112"/>
+</map>
 </div>
 
 </div>
 </div>
-<a id="ac38ac970560e9d98c85754aa1af6f1d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac38ac970560e9d98c85754aa1af6f1d7">&#9670;&nbsp;</a></span>Velocity() <span class="overload">[1/2]</span></h2>
+<a id="ab2c869e7724866baa4cecf2e4b578451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2c869e7724866baa4cecf2e4b578451">&#9670;&nbsp;</a></span>Sync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LouiEriksson::Rigidbody::Sync </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sync the transform with the physics engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00220">220</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_ab2c869e7724866baa4cecf2e4b578451_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_ab2c869e7724866baa4cecf2e4b578451_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_ab2c869e7724866baa4cecf2e4b578451_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_ab2c869e7724866baa4cecf2e4b578451_icgraph">
+<area shape="rect" title="Sync the transform with the physics engine." alt="" coords="231,39,408,80"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#a37e78ff6192da4e0628d4dec0eccece3" title="Get the position of the Rigidbody." alt="" coords="5,5,183,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#ae14a822f5fc5948efecebc9ff648d385" title="Get the rotation of the Rigidbody." alt="" coords="5,71,183,112"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af82f24eab5a0f2a76db0f83f290bc41a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af82f24eab5a0f2a76db0f83f290bc41a">&#9670;&nbsp;</a></span>Velocity() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -649,24 +1011,28 @@ Here is the caller graph for this function:</div>
           <td class="memname">glm::vec3 LouiEriksson::Rigidbody::Velocity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00040">40</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00372">372</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_ac38ac970560e9d98c85754aa1af6f1d7_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_ac38ac970560e9d98c85754aa1af6f1d7_icgraph" alt=""/></div>
+<div class="center"><img src="class_loui_eriksson_1_1_rigidbody_af82f24eab5a0f2a76db0f83f290bc41a_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_rigidbody_af82f24eab5a0f2a76db0f83f290bc41a_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_rigidbody_af82f24eab5a0f2a76db0f83f290bc41a_icgraph" id="aclass_loui_eriksson_1_1_rigidbody_af82f24eab5a0f2a76db0f83f290bc41a_icgraph">
+<area shape="rect" title="Get the velocity of the Rigidbody." alt="" coords="231,5,408,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_rigidbody.html#a928656c22200161feb0c0c4e3a9ad0cf" title="Called every frame." alt="" coords="5,5,183,47"/>
+</map>
 </div>
 
 </div>
 </div>
-<a id="a766293410e25e1d2c24a0cba6254877d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a766293410e25e1d2c24a0cba6254877d">&#9670;&nbsp;</a></span>Velocity() <span class="overload">[2/2]</span></h2>
+<a id="a7c9c6a8766e4e1ceeb3b42f1dce35d0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c9c6a8766e4e1ceeb3b42f1dce35d0a">&#9670;&nbsp;</a></span>Velocity() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -675,7 +1041,7 @@ Here is the caller graph for this function:</div>
           <td class="memname">void LouiEriksson::Rigidbody::Velocity </td>
           <td>(</td>
           <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>_velocity</em></td><td>)</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -683,18 +1049,22 @@ Here is the caller graph for this function:</div>
 
 <p>Set the velocity of the <a class="el" href="class_loui_eriksson_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.">Rigidbody</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00037">37</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_rigidbody_8cpp_source.html#l00366">366</a> of file <a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>scripts/<a class="el" href="_rigidbody_8h_source.html">Rigidbody.h</a></li>
-<li>scripts/<a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a></li>
+<li>src/engine/scripts/Physics/<a class="el" href="_rigidbody_8h_source.html">Rigidbody.h</a></li>
+<li>src/engine/scripts/Physics/<a class="el" href="_rigidbody_8cpp_source.html">Rigidbody.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_rigidbody.html">Rigidbody</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

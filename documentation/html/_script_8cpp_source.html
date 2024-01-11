@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/Script.cpp Source File</title>
+<title>Final Year Project: src/engine/scripts/Core/Script.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_script_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,17 +80,12 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Script.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_script_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="stdafx_8h.html">stdafx.h</a>&quot;</span></div>
+<a href="_script_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;../stdafx.h&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_script_8h.html">Script.h</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
@@ -81,18 +97,26 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_script.html#a1011c4a6f1e5ab6dd9ceb6e6ac795cdc">   11</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_script.html#a1011c4a6f1e5ab6dd9ceb6e6ac795cdc">Script::Begin</a>() {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_script.html#a58b79042ed55f86f7c93e4f748674bce">   12</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_script.html#a58b79042ed55f86f7c93e4f748674bce">Script::Tick</a>() {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_script.html#a3d36a46a3cca6ffc5cb2cd8535a529b1">   13</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_script.html#a3d36a46a3cca6ffc5cb2cd8535a529b1">Script::FixedTick</a>() {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_script.html#a94d15def12cb601bbaea1fa4607b3618">   14</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_script.html#a94d15def12cb601bbaea1fa4607b3618">Script::OnCollision</a>(<span class="keyword">const</span> <a class="code" href="struct_loui_eriksson_1_1_collision.html">Collision</a>&amp; _collision) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="ttc" id="a_script_8h_html"><div class="ttname"><a href="_script_8h.html">Script.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00013">Component.h:13</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_script_html_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html#a1011c4a6f1e5ab6dd9ceb6e6ac795cdc">LouiEriksson::Script::Begin</a></div><div class="ttdeci">virtual void Begin()</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00011">Script.cpp:11</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_script_html_a3d36a46a3cca6ffc5cb2cd8535a529b1"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html#a3d36a46a3cca6ffc5cb2cd8535a529b1">LouiEriksson::Script::FixedTick</a></div><div class="ttdeci">virtual void FixedTick()</div><div class="ttdoc">Called every tick of the physics engine.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00013">Script.cpp:13</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_script_html_a58b79042ed55f86f7c93e4f748674bce"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html#a58b79042ed55f86f7c93e4f748674bce">LouiEriksson::Script::Tick</a></div><div class="ttdeci">virtual void Tick()</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00012">Script.cpp:12</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_script_html_a5ec5d729084bb91ed0652cc953b587b5"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html#a5ec5d729084bb91ed0652cc953b587b5">LouiEriksson::Script::Script</a></div><div class="ttdeci">Script(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00009">Script.cpp:9</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00007">Application.cpp:7</a></div></div>
-<div class="ttc" id="astdafx_8h_html"><div class="ttname"><a href="stdafx_8h.html">stdafx.h</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_script_html_a94d15def12cb601bbaea1fa4607b3618"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html#a94d15def12cb601bbaea1fa4607b3618">LouiEriksson::Script::OnCollision</a></div><div class="ttdeci">virtual void OnCollision(const Collision &amp;_collision)</div><div class="ttdoc">Called every time a collision event occurs.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00014">Script.cpp:14</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
+<div class="ttc" id="astruct_loui_eriksson_1_1_collision_html"><div class="ttname"><a href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></div><div class="ttdoc">Contains information describing a collision between a Rigidbody and a Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collision_8h_source.html#l00011">Collision.h:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_e9b2a960a0214ceae8afe82a61a1747f.html">Core</a></li><li class="navelem"><a class="el" href="_script_8cpp.html">Script.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

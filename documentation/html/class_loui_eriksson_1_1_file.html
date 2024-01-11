@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_file.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_file.html">File</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -76,6 +92,14 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_file_8h_source.html">File.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for LouiEriksson::File:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_file__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_file_coll__map" alt="Collaboration graph"/></div>
+<map name="a_loui_eriksson_1_1_file_coll__map" id="a_loui_eriksson_1_1_file_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,311,537"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -97,6 +121,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a9664fa1dfaff7df7ed808c138159c2ea"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_file.html#a9664fa1dfaff7df7ed808c138159c2ea">ReadAllText</a> (const std::filesystem::path &amp;_path)</td></tr>
 <tr class="separator:a9664fa1dfaff7df7ed808c138159c2ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d74f6890ef4659fe408584ed8df0879"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_file.html#a0d74f6890ef4659fe408584ed8df0879">TryLoad</a> (const std::filesystem::path &amp;_path, std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_audio_clip.html">AudioClip</a> &gt; &amp;_output)</td></tr>
+<tr class="separator:a0d74f6890ef4659fe408584ed8df0879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0032f04b0f4541c7b6e75e73005d55dd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_file.html#a0032f04b0f4541c7b6e75e73005d55dd">TryLoad</a> (const std::filesystem::path &amp;_path, std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_texture.html">Texture</a> &gt; &amp;_output, GLenum _format, bool _generateMipmaps)</td></tr>
 <tr class="separator:a0032f04b0f4541c7b6e75e73005d55dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47e2b9adb3ca0c98a5c7d91ead83d340"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_file.html#a47e2b9adb3ca0c98a5c7d91ead83d340">TryLoad</a> (const std::filesystem::path &amp;_path, std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_mesh.html">Mesh</a> &gt; &amp;_output)</td></tr>
@@ -108,7 +134,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00013">13</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00014">14</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9875e456e4e189abfa63459f43f2ec95"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9875e456e4e189abfa63459f43f2ec95">&#9670;&nbsp;</a></span>File() <span class="overload">[1/2]</span></h2>
@@ -237,17 +263,21 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00015">15</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00016">16</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea_icgraph" id="aclass_loui_eriksson_1_1_file_a9664fa1dfaff7df7ed808c138159c2ea_icgraph">
+<area shape="rect" title=" " alt="" coords="204,5,339,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#ae044701560dc85364e77bc48bd5b5e2f" title="Save the Scene in xml format at a given path." alt="" coords="5,5,156,47"/>
+</map>
 </div>
 
 </div>
 </div>
 <a id="aa44bb4905a3c81c89c5d1283da6470cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa44bb4905a3c81c89c5d1283da6470cf">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44bb4905a3c81c89c5d1283da6470cf">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,17 +322,75 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00581">581</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00628">628</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf_cgraph" id="aclass_loui_eriksson_1_1_file_aa44bb4905a3c81c89c5d1283da6470cf_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,140,80"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#a71fb463b2be6a3d1c1dfca60ad0f6be0" title="Bind the provided Texture." alt="" coords="188,5,348,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#adb63e73e6812f543a351de989c177978" title="Unbind the currently bound Texture." alt="" coords="188,71,348,112"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0d74f6890ef4659fe408584ed8df0879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d74f6890ef4659fe408584ed8df0879">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool LouiEriksson::File::TryLoad </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_audio_clip.html">AudioClip</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00095">95</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879_icgraph" id="aclass_loui_eriksson_1_1_file_a0d74f6890ef4659fe408584ed8df0879_icgraph">
+<area shape="rect" title=" " alt="" coords="417,169,552,211"/>
+<area shape="rect" href="class_loui_eriksson_1_1_ball.html#af2d97dc0ee10bbbe699de756a29ddbd0" title="Called at the beginning of the first frame." alt="" coords="219,5,357,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda" title="Called at the beginning of the first frame." alt="" coords="214,71,362,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_camera.html#a08d31b3cf2fcd1434601b390bf739cf4" title=" " alt="" coords="207,136,369,177"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94" title=" " alt="" coords="211,201,365,243"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578" title=" " alt="" coords="211,267,365,308"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5" title=" " alt="" coords="211,332,365,373"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7" title="Called at the beginning of the first frame." alt="" coords="5,267,159,308"/>
+</map>
 </div>
 
 </div>
 </div>
 <a id="a7f37347379f5423bd8a0748fee370e4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f37347379f5423bd8a0748fee370e4d">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f37347379f5423bd8a0748fee370e4d">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,17 +423,22 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00440">440</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00487">487</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d_cgraph" id="aclass_loui_eriksson_1_1_file_a7f37347379f5423bd8a0748fee370e4d_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,140,80"/>
+<area shape="rect" href="class_loui_eriksson_1_1_utils.html#ae14fb185a0b930843c2e1a8fb38463e1" title="Split a string in a collection of substrings using a divider." alt="" coords="206,5,349,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_resources.html#aab1773038d82325276054399b2219d02" title=" " alt="" coords="188,71,367,112"/>
+</map>
 </div>
 
 </div>
 </div>
 <a id="a47e2b9adb3ca0c98a5c7d91ead83d340"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47e2b9adb3ca0c98a5c7d91ead83d340">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a47e2b9adb3ca0c98a5c7d91ead83d340">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,12 +471,12 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00186">186</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00233">233</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a0032f04b0f4541c7b6e75e73005d55dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0032f04b0f4541c7b6e75e73005d55dd">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0032f04b0f4541c7b6e75e73005d55dd">&#9670;&nbsp;</a></span>TryLoad() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,28 +521,34 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00094">94</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00117">117</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_cgraph" alt=""/></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_cgraph" id="aclass_loui_eriksson_1_1_file_a0032f04b0f4541c7b6e75e73005d55dd_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,140,145"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#a71fb463b2be6a3d1c1dfca60ad0f6be0" title="Bind the provided Texture." alt="" coords="188,5,348,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#a37357f5df389ba43413c64cbd895c995" title="Determine a Texture&#39;s format and number of channels using its pixel format." alt="" coords="188,71,348,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125" title="Dumps the latest OpenGL error to the console." alt="" coords="197,136,339,177"/>
+<area shape="rect" href="class_loui_eriksson_1_1_texture.html#adb63e73e6812f543a351de989c177978" title="Unbind the currently bound Texture." alt="" coords="188,201,348,243"/>
+</map>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>scripts/<a class="el" href="_file_8h_source.html">File.h</a></li>
-<li>scripts/<a class="el" href="_file_8cpp_source.html">File.cpp</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_file_8h_source.html">File.h</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_file_8cpp_source.html">File.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_file.html">File</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

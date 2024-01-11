@@ -1,0 +1,9 @@
+<map id="LouiEriksson::Script" name="LouiEriksson::Script">
+<area shape="rect" id="node1" title="Base class to be inherited by scriptable types." alt="" coords="516,219,719,428"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_ball.html" title="Ball object with Rigidbody physics." alt="" coords="5,579,232,773"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_fly_cam.html" title="Free&#45;fly camera." alt="" coords="256,476,485,876"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_orbit_cam.html" title="Camera that orbits a target." alt="" coords="510,535,725,817"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_plane.html" title="A Plane with Collision." alt="" coords="749,586,976,766"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_player.html" title=" " alt="" coords="1000,571,1187,781"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="516,5,719,171"/>
+</map>

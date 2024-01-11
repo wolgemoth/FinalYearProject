@@ -1,0 +1,6 @@
+<map id="LouiEriksson::Player::SpawnCamera" name="LouiEriksson::Player::SpawnCamera">
+<area shape="rect" id="node1" title=" " alt="" coords="5,64,159,105"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="207,5,401,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="207,71,401,98"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="211,123,397,164"/>
+</map>

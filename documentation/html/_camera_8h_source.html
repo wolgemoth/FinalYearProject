@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/Camera.h Source File</title>
+<title>Final Year Project: src/engine/scripts/Graphics/Camera.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_camera_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Camera.h</div>  </div>
@@ -72,13 +88,13 @@ $(function() {
 <a href="_camera_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_CAMERA_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_CAMERA_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="stdafx_8h.html">stdafx.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../stdafx.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_render_texture_8h.html">RenderTexture.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_render_texture_8h.html">Textures/RenderTexture.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_renderer_8h.html">Renderer.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_window_8h.html">Window.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../Core/Window.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_light_8h.html">Light.h</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_resources_8h.html">Resources.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../Core/Resources.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
@@ -119,12 +135,12 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="comment">/* G-BUFFER: */</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a>   m_Albedo_gBuffer; <span class="comment">// Albedo channel</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Emission_gBuffer; <span class="comment">// Emission channel</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Material_gBuffer; <span class="comment">// Material properties (Roughness, Metallic)</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Position_gBuffer; <span class="comment">// World-space surface positions</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a>   m_Normal_gBuffer; <span class="comment">// Surface normals</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_TexCoord_gBuffer; <span class="comment">// Texture coordinates</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a>   m_Albedo_gBuffer; <span class="comment">// Albedo channel.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Emission_gBuffer; <span class="comment">// Emission channel.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Material_gBuffer; <span class="comment">// Material properties (Roughness, Metallic).</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_Position_gBuffer; <span class="comment">// World-space surface positions.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a>   m_Normal_gBuffer; <span class="comment">// Surface normals.</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_render_texture.html">RenderTexture</a> m_TexCoord_gBuffer; <span class="comment">// Texture coordinates.</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">void</span> GeometryPass(<span class="keyword">const</span> std::vector&lt;std::shared_ptr&lt;Renderer&gt;&gt;&amp; _renderers);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        </div>
@@ -195,36 +211,37 @@ $(function() {
 <div class="ttc" id="a_light_8h_html"><div class="ttname"><a href="_light_8h.html">Light.h</a></div></div>
 <div class="ttc" id="a_render_texture_8h_html"><div class="ttname"><a href="_render_texture_8h.html">RenderTexture.h</a></div></div>
 <div class="ttc" id="a_renderer_8h_html"><div class="ttname"><a href="_renderer_8h.html">Renderer.h</a></div></div>
-<div class="ttc" id="a_resources_8h_html"><div class="ttname"><a href="_resources_8h.html">Resources.h</a></div></div>
-<div class="ttc" id="a_window_8h_html"><div class="ttname"><a href="_window_8h.html">Window.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html">LouiEriksson::Camera</a></div><div class="ttdoc">Camera class for 3D rendering of a scene from a perspective.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8h_source.html#l00019">Camera.h:19</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a0234789025a667c96a871a8133d901e8"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a0234789025a667c96a871a8133d901e8">LouiEriksson::Camera::SetDirty</a></div><div class="ttdeci">void SetDirty()</div><div class="ttdoc">Set the Camera dirty, so that it computes a new projection matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01339">Camera.cpp:1339</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a0234789025a667c96a871a8133d901e8"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a0234789025a667c96a871a8133d901e8">LouiEriksson::Camera::SetDirty</a></div><div class="ttdeci">void SetDirty()</div><div class="ttdoc">Set the Camera dirty, so that it computes a new projection matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01368">Camera.cpp:1368</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a08d31b3cf2fcd1434601b390bf739cf4"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a08d31b3cf2fcd1434601b390bf739cf4">LouiEriksson::Camera::Camera</a></div><div class="ttdeci">Camera(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00011">Camera.cpp:11</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a2018680ba6ce0bca2b1f567e7e314282"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a2018680ba6ce0bca2b1f567e7e314282">LouiEriksson::Camera::GetTransform</a></div><div class="ttdeci">std::shared_ptr&lt; Transform &gt; GetTransform() const</div><div class="ttdoc">Get the Camera's Transform.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01250">Camera.cpp:1250</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a7f44d1923aa12b896e644ce52d81ad9e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a7f44d1923aa12b896e644ce52d81ad9e">LouiEriksson::Camera::FarClip</a></div><div class="ttdeci">const float &amp; FarClip() const</div><div class="ttdoc">Get the Camera's far clip plane.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01296">Camera.cpp:1296</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a8b3c76cf1d79a12a72773777282a3d5e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a8b3c76cf1d79a12a72773777282a3d5e">LouiEriksson::Camera::View</a></div><div class="ttdeci">glm::mat4 View() const</div><div class="ttdoc">Get the Camera's view matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01328">Camera.cpp:1328</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a2018680ba6ce0bca2b1f567e7e314282"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a2018680ba6ce0bca2b1f567e7e314282">LouiEriksson::Camera::GetTransform</a></div><div class="ttdeci">std::shared_ptr&lt; Transform &gt; GetTransform() const</div><div class="ttdoc">Get the Camera's Transform.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01279">Camera.cpp:1279</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a7f44d1923aa12b896e644ce52d81ad9e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a7f44d1923aa12b896e644ce52d81ad9e">LouiEriksson::Camera::FarClip</a></div><div class="ttdeci">const float &amp; FarClip() const</div><div class="ttdoc">Get the Camera's far clip plane.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01325">Camera.cpp:1325</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a8b3c76cf1d79a12a72773777282a3d5e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a8b3c76cf1d79a12a72773777282a3d5e">LouiEriksson::Camera::View</a></div><div class="ttdeci">glm::mat4 View() const</div><div class="ttdoc">Get the Camera's view matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01357">Camera.cpp:1357</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_a9654c9ffa7d3f5f7f4360634e714ce62"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#a9654c9ffa7d3f5f7f4360634e714ce62">LouiEriksson::Camera::PreRender</a></div><div class="ttdeci">void PreRender()</div><div class="ttdoc">Called before rendering.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00064">Camera.cpp:64</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ab586a2cfa8b730ca892e709f246e05c9"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ab586a2cfa8b730ca892e709f246e05c9">LouiEriksson::Camera::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::shared_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Camera's Transform.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01246">Camera.cpp:1246</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ac077f1baa7eb105891745ebc1ffe3c02"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ac077f1baa7eb105891745ebc1ffe3c02">LouiEriksson::Camera::SetWindow</a></div><div class="ttdeci">void SetWindow(const std::shared_ptr&lt; Window &gt; &amp;_window)</div><div class="ttdoc">Set the Camera's Window.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01238">Camera.cpp:1238</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ac0a93389f6e9059e8c1641ca6b5b8ef6"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ac0a93389f6e9059e8c1641ca6b5b8ef6">LouiEriksson::Camera::ClearColor</a></div><div class="ttdeci">static glm::vec4 ClearColor()</div><div class="ttdoc">Get the Camera's clear color.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01306">Camera.cpp:1306</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_acb96e3b1e18dddebd14938b566552559"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#acb96e3b1e18dddebd14938b566552559">LouiEriksson::Camera::Render</a></div><div class="ttdeci">void Render(const std::vector&lt; std::shared_ptr&lt; Renderer &gt;&gt; &amp;_renderers, const std::vector&lt; std::shared_ptr&lt; Light &gt;&gt; &amp;_lights)</div><div class="ttdoc">Renders each Renderer using the Camera.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00530">Camera.cpp:530</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ad4d9cdf44de3748a1719ef4b65163db1"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ad4d9cdf44de3748a1719ef4b65163db1">LouiEriksson::Camera::FOV</a></div><div class="ttdeci">const float &amp; FOV() const</div><div class="ttdoc">Get the Camera's field of view.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01268">Camera.cpp:1268</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ae134d3e2f37cc8dde7cd635aacbad41e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ae134d3e2f37cc8dde7cd635aacbad41e">LouiEriksson::Camera::GetWindow</a></div><div class="ttdeci">std::shared_ptr&lt; Window &gt; GetWindow() const</div><div class="ttdoc">Get the Camera's Window.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01242">Camera.cpp:1242</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ab586a2cfa8b730ca892e709f246e05c9"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ab586a2cfa8b730ca892e709f246e05c9">LouiEriksson::Camera::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::shared_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Camera's Transform.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01275">Camera.cpp:1275</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ac077f1baa7eb105891745ebc1ffe3c02"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ac077f1baa7eb105891745ebc1ffe3c02">LouiEriksson::Camera::SetWindow</a></div><div class="ttdeci">void SetWindow(const std::shared_ptr&lt; Window &gt; &amp;_window)</div><div class="ttdoc">Set the Camera's Window.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01267">Camera.cpp:1267</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ac0a93389f6e9059e8c1641ca6b5b8ef6"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ac0a93389f6e9059e8c1641ca6b5b8ef6">LouiEriksson::Camera::ClearColor</a></div><div class="ttdeci">static glm::vec4 ClearColor()</div><div class="ttdoc">Get the Camera's clear color.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01335">Camera.cpp:1335</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_acb96e3b1e18dddebd14938b566552559"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#acb96e3b1e18dddebd14938b566552559">LouiEriksson::Camera::Render</a></div><div class="ttdeci">void Render(const std::vector&lt; std::shared_ptr&lt; Renderer &gt;&gt; &amp;_renderers, const std::vector&lt; std::shared_ptr&lt; Light &gt;&gt; &amp;_lights)</div><div class="ttdoc">Renders each Renderer using the Camera.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00557">Camera.cpp:557</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ad4d9cdf44de3748a1719ef4b65163db1"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ad4d9cdf44de3748a1719ef4b65163db1">LouiEriksson::Camera::FOV</a></div><div class="ttdeci">const float &amp; FOV() const</div><div class="ttdoc">Get the Camera's field of view.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01297">Camera.cpp:1297</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ae134d3e2f37cc8dde7cd635aacbad41e"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ae134d3e2f37cc8dde7cd635aacbad41e">LouiEriksson::Camera::GetWindow</a></div><div class="ttdeci">std::shared_ptr&lt; Window &gt; GetWindow() const</div><div class="ttdoc">Get the Camera's Window.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01271">Camera.cpp:1271</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ae329ae5b5b0cbfe50706b2a22117c7ea"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ae329ae5b5b0cbfe50706b2a22117c7ea">LouiEriksson::Camera::~Camera</a></div><div class="ttdeci">~Camera() override</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00045">Camera.cpp:45</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ae8377ce594e4352941706bcd98dea4b3"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ae8377ce594e4352941706bcd98dea4b3">LouiEriksson::Camera::NearClip</a></div><div class="ttdeci">const float &amp; NearClip() const</div><div class="ttdoc">Get the Camera's near clip plane.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01282">Camera.cpp:1282</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_ae8377ce594e4352941706bcd98dea4b3"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#ae8377ce594e4352941706bcd98dea4b3">LouiEriksson::Camera::NearClip</a></div><div class="ttdeci">const float &amp; NearClip() const</div><div class="ttdoc">Get the Camera's near clip plane.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01311">Camera.cpp:1311</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_aeae56184513e9ec1dc294dc0e99b25e8"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#aeae56184513e9ec1dc294dc0e99b25e8">LouiEriksson::Camera::Clear</a></div><div class="ttdeci">static void Clear()</div><div class="ttdoc">Render clear the m_Camera.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00058">Camera.cpp:58</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_af5a5f982ca65e5663e69ab0a70219e0c"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#af5a5f982ca65e5663e69ab0a70219e0c">LouiEriksson::Camera::Projection</a></div><div class="ttdeci">const glm::mat4 &amp; Projection()</div><div class="ttdoc">Get the Camera's projection matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01316">Camera.cpp:1316</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_afbce2008328772eb292e55855ee67208"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#afbce2008328772eb292e55855ee67208">LouiEriksson::Camera::PostRender</a></div><div class="ttdeci">void PostRender()</div><div class="ttdoc">Called after rendering.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00748">Camera.cpp:748</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_afe33df615ba9db2a4c4dfa49fe31e65f"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#afe33df615ba9db2a4c4dfa49fe31e65f">LouiEriksson::Camera::Aspect</a></div><div class="ttdeci">float Aspect() const</div><div class="ttdoc">Get the Camera's Aspect.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01254">Camera.cpp:1254</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_af5a5f982ca65e5663e69ab0a70219e0c"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#af5a5f982ca65e5663e69ab0a70219e0c">LouiEriksson::Camera::Projection</a></div><div class="ttdeci">const glm::mat4 &amp; Projection()</div><div class="ttdoc">Get the Camera's projection matrix.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01345">Camera.cpp:1345</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_afbce2008328772eb292e55855ee67208"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#afbce2008328772eb292e55855ee67208">LouiEriksson::Camera::PostRender</a></div><div class="ttdeci">void PostRender()</div><div class="ttdoc">Called after rendering.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00775">Camera.cpp:775</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_camera_html_afe33df615ba9db2a4c4dfa49fe31e65f"><div class="ttname"><a href="class_loui_eriksson_1_1_camera.html#afe33df615ba9db2a4c4dfa49fe31e65f">LouiEriksson::Camera::Aspect</a></div><div class="ttdeci">float Aspect() const</div><div class="ttdoc">Get the Camera's Aspect.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l01283">Camera.cpp:1283</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00013">Component.h:13</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_render_texture_html"><div class="ttname"><a href="class_loui_eriksson_1_1_render_texture.html">LouiEriksson::RenderTexture</a></div><div class="ttdef"><b>Definition:</b> <a href="_render_texture_8h_source.html#l00010">RenderTexture.h:10</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_window_html"><div class="ttname"><a href="class_loui_eriksson_1_1_window.html">LouiEriksson::Window</a></div><div class="ttdef"><b>Definition:</b> <a href="_window_8h_source.html#l00014">Window.h:14</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00007">Application.cpp:7</a></div></div>
-<div class="ttc" id="astdafx_8h_html"><div class="ttname"><a href="stdafx_8h.html">stdafx.h</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_window_html"><div class="ttname"><a href="class_loui_eriksson_1_1_window.html">LouiEriksson::Window</a></div><div class="ttdef"><b>Definition:</b> <a href="_window_8h_source.html#l00013">Window.h:13</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_4a4f39d2b219974aa2251c7e5fb6272e.html">Graphics</a></li><li class="navelem"><a class="el" href="_camera_8h.html">Camera.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

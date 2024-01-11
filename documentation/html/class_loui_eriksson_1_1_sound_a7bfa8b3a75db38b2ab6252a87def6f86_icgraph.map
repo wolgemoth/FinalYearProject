@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Sound::PlayGlobal" name="LouiEriksson::Sound::PlayGlobal">
+<area shape="rect" id="node1" title="Play the Clip without positional audio." alt="" coords="247,5,399,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_audio_source.html#ab5d3e9ed2af02335da0ea9addfd90ac5" title="Play this AudioSource." alt="" coords="5,5,199,47"/>
+</map>

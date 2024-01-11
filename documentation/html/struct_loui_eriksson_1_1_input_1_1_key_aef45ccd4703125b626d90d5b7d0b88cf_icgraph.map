@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Input::Key::Get" name="LouiEriksson::Input::Key::Get">
+<area shape="rect" id="node1" title="Returns true if the provided key (in the form of SDL_Scancode) is held." alt="" coords="216,39,361,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349" title="Called every frame." alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd" title="Called every frame." alt="" coords="10,71,163,112"/>
+</map>

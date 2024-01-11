@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: scripts/main.cpp File Reference</title>
+<title>Final Year Project: src/engine/scripts/main.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('main_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_53e6fa9553ac22a5646d2a2b2d7b97a1.html">scripts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
@@ -71,11 +87,86 @@ $(function() {
 <div class="title">main.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_application_8h_source.html">Application.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_application_8h_source.html">Core/Application.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#ascripts_2main_8cpp" alt=""/></div>
+<div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2main_8cpp" alt=""/></div>
+<map name="asrc_2engine_2scripts_2main_8cpp" id="asrc_2engine_2scripts_2main_8cpp">
+<area shape="rect" title=" " alt="" coords="1516,5,1652,47"/>
+<area shape="rect" href="_application_8h.html" title=" " alt="" coords="1513,95,1655,121"/>
+<area shape="rect" href="_time_8h.html" title=" " alt="" coords="2084,483,2151,509"/>
+<area shape="rect" href="_scene_8h.html" title=" " alt="" coords="923,169,1037,196"/>
+<area shape="rect" href="_components_8h.html" title=" " alt="" coords="1829,244,1957,271"/>
+<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="1892,647,2025,673"/>
+<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="1737,796,1852,823"/>
+<area shape="rect" href="_rigidbody_8h.html" title=" " alt="" coords="1733,565,1883,591"/>
+<area shape="rect" href="_sphere_collider_8h.html" title=" " alt="" coords="1919,319,2100,360"/>
+<area shape="rect" href="_plane_collider_8h.html" title=" " alt="" coords="1661,326,1894,353"/>
+<area shape="rect" href="_audio_listener_8h.html" title=" " alt="" coords="1407,483,1569,509"/>
+<area shape="rect" href="_audio_source_8h.html" title=" " alt="" coords="1424,647,1539,673"/>
+<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="2396,326,2543,353"/>
+<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="2825,483,2917,509"/>
+<area shape="rect" href="_mesh_8h.html" title=" " alt="" coords="2836,565,2905,591"/>
+<area shape="rect" href="_material_8h.html" title=" " alt="" coords="2980,565,3068,591"/>
+<area shape="rect" href="_light_8h.html" title=" " alt="" coords="2225,483,2292,509"/>
+<area shape="rect" href="_scripts_8h.html" title=" " alt="" coords="1322,326,1401,353"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="1719,721,1870,748"/>
+<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2182,871,2269,897"/>
+<area shape="rect" title=" " alt="" coords="5,953,64,979"/>
+<area shape="rect" title=" " alt="" coords="88,953,173,979"/>
+<area shape="rect" title=" " alt="" coords="198,953,269,979"/>
+<area shape="rect" title=" " alt="" coords="293,945,453,987"/>
+<area shape="rect" title=" " alt="" coords="477,945,637,987"/>
+<area shape="rect" title=" " alt="" coords="661,953,765,979"/>
+<area shape="rect" title=" " alt="" coords="790,953,890,979"/>
+<area shape="rect" title=" " alt="" coords="915,953,1053,979"/>
+<area shape="rect" title=" " alt="" coords="1078,953,1247,979"/>
+<area shape="rect" title=" " alt="" coords="1272,953,1339,979"/>
+<area shape="rect" title=" " alt="" coords="1363,953,1437,979"/>
+<area shape="rect" title=" " alt="" coords="1461,953,1547,979"/>
+<area shape="rect" title=" " alt="" coords="1571,953,1781,979"/>
+<area shape="rect" title=" " alt="" coords="1805,953,1984,979"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2109,953,2240,979"/>
+<area shape="rect" title=" " alt="" coords="1999,1035,2086,1061"/>
+<area shape="rect" title=" " alt="" coords="2121,1035,2207,1061"/>
+<area shape="rect" title=" " alt="" coords="2238,1035,2301,1061"/>
+<area shape="rect" title=" " alt="" coords="2315,953,2362,979"/>
+<area shape="rect" title=" " alt="" coords="2387,953,2445,979"/>
+<area shape="rect" title=" " alt="" coords="2470,953,2533,979"/>
+<area shape="rect" title=" " alt="" coords="2557,953,2613,979"/>
+<area shape="rect" title=" " alt="" coords="2637,953,2696,979"/>
+<area shape="rect" title=" " alt="" coords="2720,953,2787,979"/>
+<area shape="rect" title=" " alt="" coords="2811,953,2888,979"/>
+<area shape="rect" title=" " alt="" coords="2913,953,2973,979"/>
+<area shape="rect" title=" " alt="" coords="2997,953,3070,979"/>
+<area shape="rect" title=" " alt="" coords="3095,953,3169,979"/>
+<area shape="rect" title=" " alt="" coords="3193,953,3273,979"/>
+<area shape="rect" title=" " alt="" coords="3298,953,3385,979"/>
+<area shape="rect" title=" " alt="" coords="3409,953,3495,979"/>
+<area shape="rect" title=" " alt="" coords="3520,953,3605,979"/>
+<area shape="rect" title=" " alt="" coords="3629,953,3720,979"/>
+<area shape="rect" title=" " alt="" coords="3744,953,3859,979"/>
+<area shape="rect" href="_collision_8h.html" title=" " alt="" coords="1707,647,1797,673"/>
+<area shape="rect" href="_collider_8h.html" title=" " alt="" coords="1962,408,2057,435"/>
+<area shape="rect" href="_serialisation_8h.html" title=" " alt="" coords="1898,483,2059,509"/>
+<area shape="rect" href="_utils_8h.html" title=" " alt="" coords="2314,565,2425,591"/>
+<area shape="rect" href="_sound_8h.html" title=" " alt="" coords="1444,565,1519,591"/>
+<area shape="rect" href="_audio_clip_8h.html" title=" " alt="" coords="1433,721,1529,748"/>
+<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="2449,565,2636,591"/>
+<area shape="rect" href="_window_8h.html" title=" " alt="" coords="2276,408,2407,435"/>
+<area shape="rect" href="_resources_8h.html" title=" " alt="" coords="2584,408,2731,435"/>
+<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="2597,647,2680,673"/>
+<area shape="rect" href="_shader_8h.html" title=" " alt="" coords="2985,647,3063,673"/>
+<area shape="rect" href="_file_8h.html" title=" " alt="" coords="2651,483,2709,509"/>
+<area shape="rect" href="_cubemap_8h.html" title=" " alt="" coords="2661,557,2811,599"/>
+<area shape="rect" href="_script_8h.html" title=" " alt="" coords="1578,408,1683,435"/>
+<area shape="rect" href="_ball_8h.html" title=" " alt="" coords="1119,408,1260,435"/>
+<area shape="rect" href="_fly_cam_8h.html" title=" " alt="" coords="1285,408,1451,435"/>
+<area shape="rect" href="_orbit_cam_8h.html" title=" " alt="" coords="1708,408,1887,435"/>
+<area shape="rect" href="_plane_8h.html" title=" " alt="" coords="711,408,863,435"/>
+<area shape="rect" href="_player_8h.html" title=" " alt="" coords="887,408,1043,435"/>
+</map>
 </div>
 </div>
 <p><a href="main_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -120,14 +211,49 @@ Functions</h2></td></tr>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ada43c5bcc6e53f1ba4a4ae205e0f24c6_cgraph.png" border="0" usemap="#amain_8cpp_ada43c5bcc6e53f1ba4a4ae205e0f24c6_cgraph" alt=""/></div>
+<map name="amain_8cpp_ada43c5bcc6e53f1ba4a4ae205e0f24c6_cgraph" id="amain_8cpp_ada43c5bcc6e53f1ba4a4ae205e0f24c6_cgraph">
+<area shape="rect" title="Entry point for the program." alt="" coords="5,490,60,517"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="108,483,293,524"/>
+<area shape="rect" href="class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a" title="Dumps the latest OpenAL error to the console." alt="" coords="367,5,510,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a7b7d824da6668c14e0fbfe6e1c44189b" title=" " alt="" coords="357,71,521,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_input.html#a3c4d2188d0bcb2187bea4a4ea3218427" title="Finalise input." alt="" coords="366,136,511,177"/>
+<area shape="rect" href="class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca" title="Get the scaled fixed delta time. (Time between physics updates.)" alt="" coords="366,201,511,243"/>
+<area shape="rect" href="class_loui_eriksson_1_1_time.html#a3eaa4afc7ce81d0d5ecc078cefe7876d" title="Get the unscaled fixed delta time. (Time between physics updates.)" alt="" coords="343,267,535,308"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="341,333,536,359"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_input_1_1_event.html#a37d08ca8c252d727d9c677ad34c0ff88" title=" " alt="" coords="366,384,511,425"/>
+<area shape="rect" href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125" title="Dumps the latest OpenGL error to the console." alt="" coords="367,449,510,491"/>
+<area shape="rect" href="class_loui_eriksson_1_1_sound.html#a248eb6d68d277c25a5358e4512230707" title="Initialise the audio subsystems." alt="" coords="363,515,515,556"/>
+<area shape="rect" href="class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090" title="Intialise settings on application start." alt="" coords="356,580,521,621"/>
+<area shape="rect" href="class_loui_eriksson_1_1_scene.html#aefa6e8596c7a6b42d7b87b429312a764" title="TryLoad the Scene from xml format at a given path." alt="" coords="363,645,514,687"/>
+<area shape="rect" href="class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f" title=" " alt="" coords="349,711,528,752"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a527b4c4cae3f53b94cff4f8d5001710e" title="Quits the application." alt="" coords="346,776,531,817"/>
+<area shape="rect" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f" title="Set the pending state of the Cursor." alt="" coords="361,841,516,883"/>
+<area shape="rect" href="class_loui_eriksson_1_1_input.html#a1734500919da2c8bf58321e3fc624f05" title="Refresh the input." alt="" coords="366,907,511,948"/>
+<area shape="rect" href="class_loui_eriksson_1_1_time.html#a7609b5f13749d783d4f22cdcc897d5f8" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="359,972,518,1013"/>
+<area shape="rect" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="603,325,809,351"/>
+<area shape="rect" href="class_loui_eriksson_1_1_sound.html#a7aea15e4276dc4c9a679c986a64245fa" title="Get the distance model used by the audio engine." alt="" coords="630,376,782,417"/>
+<area shape="rect" href="class_loui_eriksson_1_1_sound.html#a9524f780bf3c9d891c792e1a7e2d5360" title="Get the doppler factor used by the audio engine." alt="" coords="630,441,782,483"/>
+<area shape="rect" href="class_loui_eriksson_1_1_sound.html#add6a35e251ff9b5b22bad3e7f1e2ebea" title="Get the speed of sound used by the audio engine." alt="" coords="630,507,782,548"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_material.html#a2dbd157a39ddbb149e951ecdc4d14d71" title=" " alt="" coords="623,573,789,629"/>
+<area shape="rect" href="struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox.html#aefe5367353ec24123a46bf1632afc8d8" title=" " alt="" coords="584,653,828,695"/>
+<area shape="rect" href="class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5" title=" " alt="" coords="876,580,1055,621"/>
+<area shape="rect" href="class_loui_eriksson_1_1_resources.html#a0d1a352395262f177f8e0bf9697f1198" title=" " alt="" coords="876,653,1055,695"/>
+<area shape="rect" href="class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="609,719,803,760"/>
+<area shape="rect" href="class_loui_eriksson_1_1_serialisation.html#a4a5faa1808910344e2cdf251d63c56ed" title="Placeholder for an actual custom exception." alt="" coords="604,784,808,825"/>
+<area shape="rect" href="class_loui_eriksson_1_1_serialisation.html#adeb428f5d6d87f3d36aa7fef13dd8f90" title=" " alt="" coords="609,849,803,891"/>
+</map>
 </div>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

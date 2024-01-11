@@ -1,0 +1,14 @@
+<map id="LouiEriksson::Player::Begin" name="LouiEriksson::Player::Begin">
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,123,159,164"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="412,57,599,99"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94" title=" " alt="" coords="207,188,360,229"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73" title=" " alt="" coords="207,5,360,47"/>
+<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578" title=" " alt="" coords="207,253,360,295"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5" title=" " alt="" coords="207,123,360,164"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="409,123,602,164"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_resources.html#a97e55f53dfdced6266ed6c92601ba8a2" title=" " alt="" coords="416,188,595,229"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5" title=" " alt="" coords="416,253,595,295"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_file.html#a0d74f6890ef4659fe408584ed8df0879" title=" " alt="" coords="438,319,573,360"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="408,6,603,33"/>
+<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_collider.html#abc385ed0098cc13cac308a2060a88f54" title="Set the Collider&#39;s Type." alt="" coords="424,384,587,425"/>
+</map>

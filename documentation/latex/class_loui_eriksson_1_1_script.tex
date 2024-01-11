@@ -12,11 +12,23 @@ Base class to be inherited by scriptable types.
 
 
 Inheritance diagram for Loui\+Eriksson\+::Script\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_script__inherit__graph}
+\end{center}
+\end{figure}
 
 
 Collaboration diagram for Loui\+Eriksson\+::Script\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{class_loui_eriksson_1_1_script__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,7 +39,11 @@ Collaboration diagram for Loui\+Eriksson\+::Script\+:
 virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}{Begin}} ()
 \begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}{Tick}} ()
-\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a3d36a46a3cca6ffc5cb2cd8535a529b1}{Fixed\+Tick}} ()
+\begin{DoxyCompactList}\small\item\em Called every tick of the physics engine. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_script_a94d15def12cb601bbaea1fa4607b3618}{On\+Collision}} (const \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} \&\+\_\+collision)
+\begin{DoxyCompactList}\small\item\em Called every time a collision event occurs. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,7 +57,7 @@ Base class to be inherited by scriptable types.
 
 
 
-Definition at line 17 of file Script.\+h.
+Definition at line 18 of file Script.\+h.
 
 
 
@@ -77,11 +93,47 @@ Called at the beginning of the first frame.
 
 
 
-Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_a0945c4a13eb0a62114ec460601a932d7}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_aaf2ccbbc234e6a74a6fe47fc47f48eda}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}{Loui\+Eriksson\+::\+Orbit\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_af2d97dc0ee10bbbe699de756a29ddbd0}{Loui\+Eriksson\+::\+Ball}}.
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_a0945c4a13eb0a62114ec460601a932d7}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_aaf2ccbbc234e6a74a6fe47fc47f48eda}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_ad6dbfba0cd449dbe2877905c9b66378e}{Loui\+Eriksson\+::\+Orbit\+Cam}}, \mbox{\hyperlink{class_loui_eriksson_1_1_fly_cam_a2b098487f2f042ce49f8854560748f0c}{Loui\+Eriksson\+::\+Fly\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_af2d97dc0ee10bbbe699de756a29ddbd0}{Loui\+Eriksson\+::\+Ball}}.
 
 
 
 Definition at line 11 of file Script.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a3d36a46a3cca6ffc5cb2cd8535a529b1}\label{class_loui_eriksson_1_1_script_a3d36a46a3cca6ffc5cb2cd8535a529b1}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!FixedTick@{FixedTick}}
+\index{FixedTick@{FixedTick}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{FixedTick()}{FixedTick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Script\+::\+Fixed\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every tick of the physics engine. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_ball_a8bd321a9b6704c769cae0abea6020461}{Loui\+Eriksson\+::\+Ball}}.
+
+
+
+Definition at line 13 of file Script.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_script_a94d15def12cb601bbaea1fa4607b3618}\label{class_loui_eriksson_1_1_script_a94d15def12cb601bbaea1fa4607b3618}} 
+\index{LouiEriksson::Script@{LouiEriksson::Script}!OnCollision@{OnCollision}}
+\index{OnCollision@{OnCollision}!LouiEriksson::Script@{LouiEriksson::Script}}
+\doxysubsubsection{\texorpdfstring{OnCollision()}{OnCollision()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Script\+::\+On\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_collision}{Collision}} \&}]{\+\_\+collision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every time a collision event occurs. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_ball_a7245bbad3ebcf592b754d8e4ee3996ec}{Loui\+Eriksson\+::\+Ball}}.
+
+
+
+Definition at line 14 of file Script.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}\label{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}} 
 \index{LouiEriksson::Script@{LouiEriksson::Script}!Tick@{Tick}}
@@ -95,7 +147,7 @@ Called every frame.
 
 
 
-Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_afc0ca3aa5a61bd359902d3ec3babc0fd}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_a52b9e97d4c0c14952c91ece79b9faf0e}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}{Loui\+Eriksson\+::\+Orbit\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_a3a863474d8fd08846718eae655a621c8}{Loui\+Eriksson\+::\+Ball}}.
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_player_afc0ca3aa5a61bd359902d3ec3babc0fd}{Loui\+Eriksson\+::\+Player}}, \mbox{\hyperlink{class_loui_eriksson_1_1_plane_a52b9e97d4c0c14952c91ece79b9faf0e}{Loui\+Eriksson\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_orbit_cam_a2e9421703bf6b4594f53bba6f1bce0c5}{Loui\+Eriksson\+::\+Orbit\+Cam}}, \mbox{\hyperlink{class_loui_eriksson_1_1_fly_cam_a183eb94f89b632a83e97a3038c4f5349}{Loui\+Eriksson\+::\+Fly\+Cam}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_ball_a3a863474d8fd08846718eae655a621c8}{Loui\+Eriksson\+::\+Ball}}.
 
 
 
@@ -112,11 +164,11 @@ Definition at line 12 of file Script.\+cpp.
 
 
 
-Definition at line 19 of file Script.\+h.
+Definition at line 20 of file Script.\+h.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-scripts/\mbox{\hyperlink{_script_8h}{Script.\+h}}\item 
-scripts/\mbox{\hyperlink{_script_8cpp}{Script.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/\+Core/\mbox{\hyperlink{_script_8h}{Script.\+h}}\item 
+src/engine/scripts/\+Core/\mbox{\hyperlink{_script_8cpp}{Script.\+cpp}}\end{DoxyCompactItemize}

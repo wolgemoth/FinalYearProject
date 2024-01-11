@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('struct_loui_eriksson_1_1_collision.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="struct_loui_eriksson_1_1_collision.html">Collision</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">LouiEriksson::Collision Member List</div>  </div>
@@ -72,18 +88,18 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a24045b11233438efa723c803c7c74c52">Collision</a>()</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a4ef439f3278320abb40cf6c372b29317">ContactPoint</a>(const glm::vec3 &amp;_contactPoint)</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a25a88244648cf25110da846ccda1361b">ContactPoint</a>()</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a93de6c661103e7ce27c8b0d067863370">Impulse</a>(const glm::vec3 &amp;_contactPoint)</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a324bf0f18274e95aa04546369df57864">Impulse</a>()</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a60e4776180f318ec993d1255894bea1d">Normal</a>(const glm::vec3 &amp;_normal)</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a58e5efb05d014be838b1b3e2f0900b53">Normal</a>()</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#aab05d77b672c74aeba164e355b6e4a6c">~Collision</a>()=default</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a43d094f862b140a05be9891412b9b3c4">Collision</a>(const btManifoldPoint &amp;_point, const int &amp;_body)</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a7fa915a02a7948b0c2c5f3f2e21ba164">ContactPoint</a>() const</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a6cc3d13f8e5cd029b7a186af6d53d8b6">Impulse</a>() const</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#a6e67ea389b805aa24448b013f085953d">Normal</a>() const</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html#aab05d77b672c74aeba164e355b6e4a6c">~Collision</a>()=default</td><td class="entry"><a class="el" href="struct_loui_eriksson_1_1_collision.html">LouiEriksson::Collision</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

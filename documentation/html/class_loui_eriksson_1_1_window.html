@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +49,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_loui_eriksson_1_1_window.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +80,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_window.html">Window</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,6 +92,14 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_window_8h_source.html">Window.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for LouiEriksson::Window:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_window__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_window_coll__map" alt="Collaboration graph"/></div>
+<map name="a_loui_eriksson_1_1_window_coll__map" id="a_loui_eriksson_1_1_window_coll__map">
+<area shape="rect" title=" " alt="" coords="5,5,207,567"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -96,6 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4cc2a891451e37bf38afc042e6da9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bf73ab2c6a67c6255d5fcecbc018fdc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#a2bf73ab2c6a67c6255d5fcecbc018fdc">Aspect</a> () const</td></tr>
 <tr class="separator:a2bf73ab2c6a67c6255d5fcecbc018fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f35fd9fe06d8a0cc8cf3fb1e00dce14"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#a5f35fd9fe06d8a0cc8cf3fb1e00dce14">Focused</a> () const</td></tr>
+<tr class="separator:a5f35fd9fe06d8a0cc8cf3fb1e00dce14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd696d29d16efd75eeffd7f54a2ad79a"><td class="memItemLeft" align="right" valign="top">const Uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#acd696d29d16efd75eeffd7f54a2ad79a">GetFlags</a> () const</td></tr>
+<tr class="separator:acd696d29d16efd75eeffd7f54a2ad79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7300733da4b0a5ce59a5e032f70bd23f"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#a7300733da4b0a5ce59a5e032f70bd23f">GetFlag</a> (const Uint32 &amp;_flag) const</td></tr>
+<tr class="separator:a7300733da4b0a5ce59a5e032f70bd23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa991dac09f9e3b4cfbb689d0b0417ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#aa991dac09f9e3b4cfbb689d0b0417ac9">SetDirty</a> ()</td></tr>
 <tr class="separator:aa991dac09f9e3b4cfbb689d0b0417ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81a6bc59847a1d83542d75e661f347d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_window.html#a81a6bc59847a1d83542d75e661f347d8">operator SDL_Window *</a> ()</td></tr>
@@ -119,7 +149,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00014">14</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00013">13</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adac911e8db29509eee927beb041f471c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adac911e8db29509eee927beb041f471c">&#9670;&nbsp;</a></span>Window()</h2>
@@ -168,6 +198,10 @@ Friends</h2></td></tr>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc_cgraph" id="aclass_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#ad4cc2a891451e37bf38afc042e6da9e8" title="Returns the window&#39;s x,y dimensions as a c&#45;style array." alt="" coords="217,5,381,47"/>
+</map>
 </div>
 
 </div>
@@ -236,6 +270,11 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b_icgraph" id="aclass_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b_icgraph">
+<area shape="rect" title=" " alt="" coords="341,5,505,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="108,5,293,47"/>
+<area shape="rect" href="main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,13,60,39"/>
+</map>
 </div>
 
 </div>
@@ -269,6 +308,10 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_a3f1ee278a27d5abf1880b342fd90610b_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a3f1ee278a27d5abf1880b342fd90610b_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a3f1ee278a27d5abf1880b342fd90610b_cgraph" id="aclass_loui_eriksson_1_1_window_a3f1ee278a27d5abf1880b342fd90610b_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="217,13,412,39"/>
+</map>
 </div>
 
 </div>
@@ -296,6 +339,12 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_ad4cc2a891451e37bf38afc042e6da9e8_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_ad4cc2a891451e37bf38afc042e6da9e8_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_ad4cc2a891451e37bf38afc042e6da9e8_icgraph" id="aclass_loui_eriksson_1_1_window_ad4cc2a891451e37bf38afc042e6da9e8_icgraph">
+<area shape="rect" title="Returns the window&#39;s x,y dimensions as a c&#45;style array." alt="" coords="429,39,593,80"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a2bf73ab2c6a67c6255d5fcecbc018fdc" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#aa991dac09f9e3b4cfbb689d0b0417ac9" title=" " alt="" coords="217,71,381,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a9720282c056c31cdac1ff44a16358494" title=" " alt="" coords="5,71,169,112"/>
+</map>
 </div>
 
 </div>
@@ -331,6 +380,40 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_a9720282c056c31cdac1ff44a16358494_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a9720282c056c31cdac1ff44a16358494_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a9720282c056c31cdac1ff44a16358494_cgraph" id="aclass_loui_eriksson_1_1_window_a9720282c056c31cdac1ff44a16358494_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#aa991dac09f9e3b4cfbb689d0b0417ac9" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#ad4cc2a891451e37bf38afc042e6da9e8" title="Returns the window&#39;s x,y dimensions as a c&#45;style array." alt="" coords="429,5,593,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5f35fd9fe06d8a0cc8cf3fb1e00dce14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f35fd9fe06d8a0cc8cf3fb1e00dce14">&#9670;&nbsp;</a></span>Focused()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool LouiEriksson::Window::Focused </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_window_8cpp_source.html#l00177">177</a> of file <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14_cgraph" id="aclass_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a7300733da4b0a5ce59a5e032f70bd23f" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#acd696d29d16efd75eeffd7f54a2ad79a" title=" " alt="" coords="429,5,593,47"/>
+</map>
 </div>
 
 </div>
@@ -364,6 +447,83 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph" id="aclass_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph">
+<area shape="rect" title=" " alt="" coords="440,143,635,170"/>
+<area shape="rect" href="class_loui_eriksson_1_1_fly_cam.html#a2b098487f2f042ce49f8854560748f0c" title="Called at the beginning of the first frame." alt="" coords="218,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_orbit_cam.html#ad6dbfba0cd449dbe2877905c9b66378e" title="Called at the beginning of the first frame." alt="" coords="212,71,387,112"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a3f1ee278a27d5abf1880b342fd90610b" title=" " alt="" coords="217,136,381,177"/>
+<area shape="rect" href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="207,201,392,243"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73" title=" " alt="" coords="223,267,376,308"/>
+<area shape="rect" href="main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="55,209,109,235"/>
+<area shape="rect" href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7" title="Called at the beginning of the first frame." alt="" coords="5,267,159,308"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7300733da4b0a5ce59a5e032f70bd23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7300733da4b0a5ce59a5e032f70bd23f">&#9670;&nbsp;</a></span>GetFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool LouiEriksson::Window::GetFlag </td>
+          <td>(</td>
+          <td class="paramtype">const Uint32 &amp;&#160;</td>
+          <td class="paramname"><em>_flag</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_window_8cpp_source.html#l00185">185</a> of file <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_cgraph" id="aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#acd696d29d16efd75eeffd7f54a2ad79a" title=" " alt="" coords="217,5,381,47"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_icgraph" id="aclass_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_icgraph">
+<area shape="rect" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a5f35fd9fe06d8a0cc8cf3fb1e00dce14" title=" " alt="" coords="5,5,169,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="acd696d29d16efd75eeffd7f54a2ad79a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd696d29d16efd75eeffd7f54a2ad79a">&#9670;&nbsp;</a></span>GetFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Uint32 LouiEriksson::Window::GetFlags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_window_8cpp_source.html#l00181">181</a> of file <a class="el" href="_window_8cpp_source.html">Window.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a_icgraph" id="aclass_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a_icgraph">
+<area shape="rect" title=" " alt="" coords="429,5,593,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a7300733da4b0a5ce59a5e032f70bd23f" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a5f35fd9fe06d8a0cc8cf3fb1e00dce14" title=" " alt="" coords="5,5,169,47"/>
+</map>
 </div>
 
 </div>
@@ -410,7 +570,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00059">59</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00064">64</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -460,11 +620,19 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_cgraph" id="aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#ad4cc2a891451e37bf38afc042e6da9e8" title="Returns the window&#39;s x,y dimensions as a c&#45;style array." alt="" coords="217,5,381,47"/>
+</map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_icgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_icgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_icgraph" id="aclass_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9_icgraph">
+<area shape="rect" title=" " alt="" coords="217,5,381,47"/>
+<area shape="rect" href="class_loui_eriksson_1_1_window.html#a9720282c056c31cdac1ff44a16358494" title=" " alt="" coords="5,5,169,47"/>
+</map>
 </div>
 
 </div>
@@ -509,7 +677,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00016">16</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00015">15</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
@@ -533,18 +701,22 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00017">17</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_window_8h_source.html#l00016">16</a> of file <a class="el" href="_window_8h_source.html">Window.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>scripts/<a class="el" href="_window_8h_source.html">Window.h</a></li>
-<li>scripts/<a class="el" href="_window_8cpp_source.html">Window.cpp</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_window_8h_source.html">Window.h</a></li>
+<li>src/engine/scripts/Core/<a class="el" href="_window_8cpp_source.html">Window.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></li><li class="navelem"><a class="el" href="class_loui_eriksson_1_1_window.html">Window</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

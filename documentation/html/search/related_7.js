@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window_876',['Window',['../class_loui_eriksson_1_1_camera.html#a553f958a25683445088050a69d3de8e9',1,'LouiEriksson::Camera']]]
+  ['orbitcam_1079',['OrbitCam',['../struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_perspective.html#a626f039089426d363090bc90a4c133d1',1,'LouiEriksson::Settings::Graphics::Perspective']]]
 ];

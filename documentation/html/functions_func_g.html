@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_func_g.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,8 +84,15 @@ $(function() {
 &#160;
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>Gain()
+: <a class="el" href="class_loui_eriksson_1_1_audio_listener.html#a18342e17016120b2d405b84d8524714f">LouiEriksson::AudioListener</a>
+, <a class="el" href="class_loui_eriksson_1_1_audio_source.html#a5c4839679783831d520af53f6734a25f">LouiEriksson::AudioSource</a>
+</li>
 <li>Get()
-: <a class="el" href="class_loui_eriksson_1_1_hashmap.html#a32eb3fbdd72971a138b979d3c2b72919">LouiEriksson::Hashmap&lt; Tk, Tv &gt;</a>
+: <a class="el" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">LouiEriksson::Hashmap&lt; Tk, Tv &gt;</a>
+, <a class="el" href="struct_loui_eriksson_1_1_input_1_1_event.html#a37d08ca8c252d727d9c677ad34c0ff88">LouiEriksson::Input::Event</a>
+, <a class="el" href="struct_loui_eriksson_1_1_input_1_1_key.html#aef45ccd4703125b626d90d5b7d0b88cf">LouiEriksson::Input::Key</a>
+, <a class="el" href="struct_loui_eriksson_1_1_input_1_1_mouse.html#a2d8050238f450f8ea554cd9be11de82c">LouiEriksson::Input::Mouse</a>
 , <a class="el" href="class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19">LouiEriksson::Window</a>
 </li>
 <li>GetAlbedo()
@@ -77,11 +104,15 @@ $(function() {
 <li>GetAO()
 : <a class="el" href="class_loui_eriksson_1_1_material.html#a30e3ef43f969577dd64d057fcf403a7e">LouiEriksson::Material</a>
 </li>
+<li>GetAudio()
+: <a class="el" href="class_loui_eriksson_1_1_resources.html#a9326226daea9ad778dff3adac2b7584e">LouiEriksson::Resources</a>
+</li>
 <li>GetCamera()
-: <a class="el" href="class_loui_eriksson_1_1_orbit_cam.html#a35bac8bba4585d586d845fc28ff6c4a8">LouiEriksson::OrbitCam</a>
+: <a class="el" href="class_loui_eriksson_1_1_fly_cam.html#a3892234d2b009d79f258efe683c322c5">LouiEriksson::FlyCam</a>
+, <a class="el" href="class_loui_eriksson_1_1_orbit_cam.html#a35bac8bba4585d586d845fc28ff6c4a8">LouiEriksson::OrbitCam</a>
 </li>
 <li>GetCollider()
-: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#af661fc2102f50b71ef8fc1ae7fcc5eaa">LouiEriksson::Rigidbody</a>
+: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a9c78c3a1ecf280c5137e743ebdb0ffb5">LouiEriksson::Rigidbody</a>
 </li>
 <li>GetComponent()
 : <a class="el" href="class_loui_eriksson_1_1_entity.html#a71c05376d7efbdd8e503b557a9f27695">LouiEriksson::Entity</a>
@@ -94,6 +125,10 @@ $(function() {
 <li>GetDisplacement()
 : <a class="el" href="class_loui_eriksson_1_1_material.html#aa6406c022db577a85d7fa0d20fb39c71">LouiEriksson::Material</a>
 </li>
+<li>GetDown()
+: <a class="el" href="struct_loui_eriksson_1_1_input_1_1_key.html#a96878930fcf8438e1c2effcf5235334f">LouiEriksson::Input::Key</a>
+, <a class="el" href="struct_loui_eriksson_1_1_input_1_1_mouse.html#ae895ba8c70b8be3a44beb52695205a41">LouiEriksson::Input::Mouse</a>
+</li>
 <li>GetEmission()
 : <a class="el" href="class_loui_eriksson_1_1_material.html#a1011984e1d3ac6e318ac6f2b08150a0d">LouiEriksson::Material</a>
 </li>
@@ -103,8 +138,14 @@ $(function() {
 <li>GetEntriesRecursive()
 : <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#a09a2848703f2660d80cd2504ea668438">LouiEriksson::File::Directory</a>
 </li>
+<li>GetFlag()
+: <a class="el" href="class_loui_eriksson_1_1_window.html#a7300733da4b0a5ce59a5e032f70bd23f">LouiEriksson::Window</a>
+</li>
+<li>GetFlags()
+: <a class="el" href="class_loui_eriksson_1_1_window.html#acd696d29d16efd75eeffd7f54a2ad79a">LouiEriksson::Window</a>
+</li>
 <li>GetForce()
-: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#adbf7168474a0538a6f6d11db964d1c01">LouiEriksson::Rigidbody</a>
+: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a6ecee28de45c86df47e55fc29f3de61b">LouiEriksson::Rigidbody</a>
 </li>
 <li>GetFormatData()
 : <a class="el" href="class_loui_eriksson_1_1_texture.html#a37357f5df389ba43413c64cbd895c995">LouiEriksson::Texture</a>
@@ -124,7 +165,7 @@ $(function() {
 : <a class="el" href="class_loui_eriksson_1_1_material.html#aed566c78fb7fdde6161de433c5a0272d">LouiEriksson::Material</a>
 </li>
 <li>GetRigidbody()
-: <a class="el" href="class_loui_eriksson_1_1_collider.html#a8273ae38d3a5a3eba2f4cbd571781c50">LouiEriksson::Collider</a>
+: <a class="el" href="class_loui_eriksson_1_1_collider.html#ae069c115a73f6f8fb90b94e0a99bd86a">LouiEriksson::Collider</a>
 </li>
 <li>GetRoughness()
 : <a class="el" href="class_loui_eriksson_1_1_material.html#a7fcbee53de0f8beb1e7af34e940c639e">LouiEriksson::Material</a>
@@ -137,27 +178,47 @@ $(function() {
 : <a class="el" href="class_loui_eriksson_1_1_material.html#ad9bd61833b9e6f409fff0b0853539d7a">LouiEriksson::Material</a>
 , <a class="el" href="class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5">LouiEriksson::Resources</a>
 </li>
+<li>GetState()
+: <a class="el" href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">LouiEriksson::Cursor</a>
+</li>
 <li>GetTexture()
 : <a class="el" href="class_loui_eriksson_1_1_resources.html#a0d1a352395262f177f8e0bf9697f1198">LouiEriksson::Resources</a>
 </li>
 <li>GetTransform()
 : <a class="el" href="class_loui_eriksson_1_1_camera.html#a2018680ba6ce0bca2b1f567e7e314282">LouiEriksson::Camera</a>
-, <a class="el" href="class_loui_eriksson_1_1_collider.html#adaeddb58c081cc993a880369314f3c7a">LouiEriksson::Collider</a>
+, <a class="el" href="class_loui_eriksson_1_1_collider.html#a621aef706e4e40ecd0b3fffda9cd6cdd">LouiEriksson::Collider</a>
+, <a class="el" href="class_loui_eriksson_1_1_fly_cam.html#a6be91b86e17dc0082cc46eafb464c29c">LouiEriksson::FlyCam</a>
 , <a class="el" href="class_loui_eriksson_1_1_orbit_cam.html#a34d24021b5dc604df0f3355711ae832d">LouiEriksson::OrbitCam</a>
 , <a class="el" href="class_loui_eriksson_1_1_renderer.html#abc3867fe1f504f85040fd3d5c463f4ac">LouiEriksson::Renderer</a>
-, <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#ac933f8566ef8cceab3e9f86db893c117">LouiEriksson::Rigidbody</a>
+, <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a7bdf41cd5de6c15a3c6b9a5e275180ea">LouiEriksson::Rigidbody</a>
 </li>
 <li>GetType()
 : <a class="el" href="class_loui_eriksson_1_1_collider.html#ab134daa0219b0898eae30734354ea118">LouiEriksson::Collider</a>
 </li>
+<li>GetUp()
+: <a class="el" href="struct_loui_eriksson_1_1_input_1_1_key.html#aaafec8b455c9bf62c5b54ca19cff57fa">LouiEriksson::Input::Key</a>
+, <a class="el" href="struct_loui_eriksson_1_1_input_1_1_mouse.html#a5ec4bd67222773699d414e7cbac75fd0">LouiEriksson::Input::Mouse</a>
+</li>
 <li>GetWindow()
 : <a class="el" href="class_loui_eriksson_1_1_camera.html#ae134d3e2f37cc8dde7cd635aacbad41e">LouiEriksson::Camera</a>
 </li>
+<li>GLDumpError()
+: <a class="el" href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125">LouiEriksson::Utils</a>
+</li>
+<li>Global()
+: <a class="el" href="class_loui_eriksson_1_1_audio_source.html#acdea7d7dbca58ad9d520800a3582c7d4">LouiEriksson::AudioSource</a>
+</li>
+<li>Gravity()
+: <a class="el" href="class_loui_eriksson_1_1_rigidbody.html#a96dfb254f7a84ff397dd963c48a4b870">LouiEriksson::Rigidbody</a>
+</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>

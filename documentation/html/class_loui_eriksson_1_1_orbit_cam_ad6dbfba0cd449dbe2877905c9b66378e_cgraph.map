@@ -1,0 +1,8 @@
+<map id="LouiEriksson::OrbitCam::Begin" name="LouiEriksson::OrbitCam::Begin">
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,123,180,164"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="229,5,422,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="228,71,423,98"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_orbit_cam.html#a35bac8bba4585d586d845fc28ff6c4a8" title="Get the Camera of the OrbitCam." alt="" coords="238,123,413,164"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_orbit_cam.html#a34d24021b5dc604df0f3355711ae832d" title="Get the Transform of the OrbitCam." alt="" coords="238,188,413,229"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="232,253,419,295"/>
+</map>
