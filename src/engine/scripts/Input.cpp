@@ -79,35 +79,12 @@ namespace LouiEriksson {
 	}
 	
 	const bool Input::Mouse::Get(const Uint8& _button) {
-		
-		bool result;
-		
-		std::vector<SDL_Event> events;
-		
-		if (Input::Event::Get(SDL_MOUSEBUTTONDOWN, events)) {
-			
-			for (auto item : events) {
-				
-				if (item.button.button == _button) {
-					
-					std::cout << item.button.button << '\n';
-					
-					result = true;
-					
-					break;
-				}
-			}
-		}
-		else {
-			result = false;
-		}
-		
-		return result;
+		return s_RelativeState & SDL_BUTTON(_button);
 	}
 	
 	const bool Input::Mouse::GetDown(const Uint8& _button) {
 		
-		bool result;
+		bool result = false;
 		
 		std::vector<SDL_Event> events;
 		
@@ -122,9 +99,6 @@ namespace LouiEriksson {
 					break;
 				}
 			}
-		}
-		else {
-			result = false;
 		}
 		
 		return result;
@@ -132,7 +106,7 @@ namespace LouiEriksson {
 	
 	const bool Input::Mouse::GetUp(const Uint8& _button) {
 		
-		bool result;
+		bool result = false;
 		
 		std::vector<SDL_Event> events;
 		
@@ -147,9 +121,6 @@ namespace LouiEriksson {
 					break;
 				}
 			}
-		}
-		else {
-			result = false;
 		}
 		
 		return result;
@@ -222,8 +193,7 @@ namespace LouiEriksson {
 			{
 				glm::ivec2 motion;
 				
-				SDL_GetRelativeMouseState(&motion.x, &motion.y);
-				
+				Input::Mouse::s_RelativeState = SDL_GetRelativeMouseState(&motion.x, &motion.y);
 				Input::Mouse::s_Motion = static_cast<glm::vec2>(motion);
 			}
 		}

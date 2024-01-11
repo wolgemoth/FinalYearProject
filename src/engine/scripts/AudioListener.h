@@ -7,7 +7,7 @@
 
 namespace LouiEriksson {
 	
-	class AudioListener: public Component {
+	class AudioListener : public Component {
 	
 	/*
 	 * Please refer to OpenAL-Soft spec:

@@ -92,6 +92,8 @@ namespace LouiEriksson {
 		
 		private:
 			
+			inline static Uint32 s_RelativeState = 0u;
+			
 			inline static glm::vec2 s_Motion = { 0.0f, 0.0f };
 			
 		public:
@@ -99,13 +101,13 @@ namespace LouiEriksson {
 			/// <summary> Returns the relative motion of the mouse. </summary>
 			static const glm::vec2& Motion();
 			
-			/// <summary> Returns true if the provided mouse button is held. </summary>
+			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) is held. </summary>
 			static const bool Get(const Uint8& _button);
 			
-			/// <summary> Returns true if the provided mouse button was pressed. </summary>
+			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed. </summary>
 			static const bool GetDown(const Uint8& _button);
 			
-			/// <summary> Returns true if the provided mouse button was released. </summary>
+			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released. </summary>
 			static const bool GetUp(const Uint8& _button);
 		};
 		

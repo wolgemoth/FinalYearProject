@@ -134,10 +134,13 @@ add_executable(FinalYearProject
 
         src/engine/scripts/Physics.cpp
         src/engine/scripts/Physics.h
+
         src/engine/scripts/AudioSource.cpp
         src/engine/scripts/AudioSource.h
+
         src/engine/scripts/AudioListener.cpp
         src/engine/scripts/AudioListener.h
+
         src/engine/scripts/AudioClip.cpp
         src/engine/scripts/AudioClip.h
 )

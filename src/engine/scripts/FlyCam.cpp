@@ -121,8 +121,7 @@ namespace LouiEriksson {
 					static_cast<float>(Input::Key::Get(SDL_SCANCODE_W     ) - Input::Key::Get(SDL_SCANCODE_S    ))
 				);
 				
-				// TODO: Add mouse button input.
-				if (Input::Mouse::Get(0)) {
+				if (Input::Mouse::GetDown(SDL_BUTTON_LEFT)) {
 					m_GunSound.lock()->Stop();
 					m_GunSound.lock()->Play();
 				}
