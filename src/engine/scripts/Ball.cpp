@@ -175,7 +175,6 @@ namespace LouiEriksson {
 					// Play the source.
 					as->Play();
 				}
-				
 			}
 		}
 	}

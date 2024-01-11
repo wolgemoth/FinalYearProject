@@ -1,3 +1,4 @@
+#include "SDL_mouse.h"
 #include "stdafx.h"
 
 #include "Input.h"
@@ -75,6 +76,83 @@ namespace LouiEriksson {
 	
 	const glm::vec2& Input::Mouse::Motion() {
 		return s_Motion;
+	}
+	
+	const bool Input::Mouse::Get(const Uint8& _button) {
+		
+		bool result;
+		
+		std::vector<SDL_Event> events;
+		
+		if (Input::Event::Get(SDL_MOUSEBUTTONDOWN, events)) {
+			
+			for (auto item : events) {
+				
+				if (item.button.button == _button) {
+					
+					std::cout << item.button.button << '\n';
+					
+					result = true;
+					
+					break;
+				}
+			}
+		}
+		else {
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	const bool Input::Mouse::GetDown(const Uint8& _button) {
+		
+		bool result;
+		
+		std::vector<SDL_Event> events;
+		
+		if (Input::Event::Get(SDL_MOUSEBUTTONDOWN, events)) {
+			
+			for (auto item : events) {
+				
+				if (item.button.button == _button) {
+					
+					result = true;
+					
+					break;
+				}
+			}
+		}
+		else {
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	const bool Input::Mouse::GetUp(const Uint8& _button) {
+		
+		bool result;
+		
+		std::vector<SDL_Event> events;
+		
+		if (Input::Event::Get(SDL_MOUSEBUTTONUP, events)) {
+			
+			for (auto item : events) {
+				
+				if (item.button.button == _button) {
+					
+					result = true;
+					
+					break;
+				}
+			}
+		}
+		else {
+			result = false;
+		}
+		
+		return result;
 	}
 	
 	void Input::Tick() {

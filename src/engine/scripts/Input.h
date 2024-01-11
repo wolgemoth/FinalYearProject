@@ -20,6 +20,7 @@ namespace LouiEriksson {
 		struct Event {
 		
 			friend Input;
+			friend class Mouse;
 		
 		private:
 		
@@ -66,16 +67,22 @@ namespace LouiEriksson {
 		
 		public:
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) is held. </summary>
 			static bool Get(const SDL_Scancode& _key);
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) is held. </summary>
 			static bool Get(const SDL_Keycode& _key);
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) was pressed. </summary>
 			static bool GetDown(const SDL_Scancode& _key);
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) was pressed. </summary>
 			static bool GetDown(const SDL_Keycode& _key);
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) was released. </summary>
 			static bool GetUp(const SDL_Scancode& _key);
 			
+			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) was released. </summary>
 			static bool GetUp(const SDL_Keycode& _key);
 		};
 		
@@ -85,12 +92,21 @@ namespace LouiEriksson {
 		
 		private:
 			
-			inline static glm::vec2 s_Motion = { 0, 0 };
+			inline static glm::vec2 s_Motion = { 0.0f, 0.0f };
 			
 		public:
 			
+			/// <summary> Returns the relative motion of the mouse. </summary>
 			static const glm::vec2& Motion();
 			
+			/// <summary> Returns true if the provided mouse button is held. </summary>
+			static const bool Get(const Uint8& _button);
+			
+			/// <summary> Returns true if the provided mouse button was pressed. </summary>
+			static const bool GetDown(const Uint8& _button);
+			
+			/// <summary> Returns true if the provided mouse button was released. </summary>
+			static const bool GetUp(const Uint8& _button);
 		};
 		
 		 Input()                    = delete;
@@ -100,8 +116,10 @@ namespace LouiEriksson {
 		Input& operator = (const Input&  _other) = delete;
 		Input& operator = (      Input&& _other) = delete;
 		
+		/// <summary> Refresh the input. </summary>
 		static void Tick();
 		
+		/// <summary> Finalise input. </summary>
 		static void Dispose();
 	};
 }
