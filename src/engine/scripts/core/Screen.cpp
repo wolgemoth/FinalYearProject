@@ -13,4 +13,5 @@ namespace LouiEriksson {
 		
 		return { screen.w, screen.h };
 	}
+	
 } // LouiEriksson

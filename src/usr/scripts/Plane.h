@@ -39,6 +39,7 @@ namespace LouiEriksson {
 		~Plane() override;
 	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_PLANE_H

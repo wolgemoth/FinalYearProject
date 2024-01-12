@@ -36,4 +36,5 @@ namespace LouiEriksson {
 	std::shared_ptr<Scene> GameObject::GetScene() {
 		return m_Scene.lock();
 	}
-}
+	
+} // LouiEriksson

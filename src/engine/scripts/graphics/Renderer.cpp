@@ -42,4 +42,5 @@ namespace LouiEriksson {
 	std::shared_ptr<Transform> Renderer::GetTransform() {
 		return m_Transform;
 	}
-}
+	
+} // LouiEriksson

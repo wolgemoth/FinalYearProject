@@ -312,6 +312,7 @@ add_library(Game
         src/usr/scripts/Player.h
 )
 
+# TODO: Find out why OpenAL doesnt' work unless added like this, and replace this method.
 add_subdirectory(${OPENAL_DIR})
 
 link_directories(FinalYearProject

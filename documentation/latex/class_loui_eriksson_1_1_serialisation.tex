@@ -11,13 +11,13 @@ Collaboration diagram for Loui\+Eriksson\+::Serialisation\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=261pt]{class_loui_eriksson_1_1_serialisation__coll__graph}
+\includegraphics[width=246pt]{class_loui_eriksson_1_1_serialisation__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \{ \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531da9cd9bddfffe72b7ddc9b16d52bdf8797}{XML}}
+enum \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \+: char \{ \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36a9cd9bddfffe72b7ddc9b16d52bdf8797}{XML}}
  \}
 \begin{DoxyCompactList}\small\item\em The type of serialisation format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
@@ -31,7 +31,7 @@ enum \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation}{Serialisation}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a22ca5569e719bdb908605c683412cdd8}{operator=}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation}{Serialisation}} \&\+\_\+other)=delete
 \item 
-template$<$$>$ float \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a71b0ff5b6a8d0a12d7db48317c7f6917}{Deserialise}} (const std\+::string \&\+\_\+str, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Serialisation\+::\+Format}} \&\+\_\+method)
+template$<$$>$ float \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a71b0ff5b6a8d0a12d7db48317c7f6917}{Deserialise}} (const std\+::string \&\+\_\+str, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Serialisation\+::\+Format}} \&\+\_\+method)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -40,41 +40,41 @@ static void \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4a5faa180891
 \begin{DoxyCompactList}\small\item\em Placeholder for an actual custom exception. \end{DoxyCompactList}\item 
 static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_adeb428f5d6d87f3d36aa7fef13dd8f90}{Parse\+Next}} (cereal\+::\+XMLInput\+Archive \&\+\_\+xml, int \+\_\+log=0)
 \item 
-static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0}{Serialise}} (const glm\+::vec3 \&\+\_\+value, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&\+\_\+method=Format\+::\+XML)
+static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0}{Serialise}} (const glm\+::vec3 \&\+\_\+value, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&\+\_\+method=Format\+::\+XML)
 \item 
-static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_aa24f584a5e3d0a1cdd2b16bc8fe939db}{Serialise}} (const glm\+::quat \&\+\_\+value, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&\+\_\+method=Format\+::\+XML)
+static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_aa24f584a5e3d0a1cdd2b16bc8fe939db}{Serialise}} (const glm\+::quat \&\+\_\+value, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&\+\_\+method=Format\+::\+XML)
 \item 
-{\footnotesize template$<$typename T $>$ }\\static T \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac}{Deserialise}} (const std\+::string \&\+\_\+str, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&\+\_\+method=Format\+::\+XML)
+{\footnotesize template$<$typename T $>$ }\\static T \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a0a876ee6a6a449ce00f8ab01c26e2bac}{Deserialise}} (const std\+::string \&\+\_\+str, const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&\+\_\+method=Format\+::\+XML)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line 14 of file Serialisation.\+h.
+Definition at line 16 of file Serialisation.\+h.
 
 
 
 \doxysubsection{Member Enumeration Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}\label{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}\label{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}} 
 \index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!Format@{Format}}
 \index{Format@{Format}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}
 \doxysubsubsection{\texorpdfstring{Format}{Format}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Loui\+Eriksson\+::\+Serialisation\+::\+Format}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Loui\+Eriksson\+::\+Serialisation\+::\+Format}} \+: char}
 
 
 
 The type of serialisation format. 
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{XML@{XML}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}\index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!XML@{XML}}}\mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531da9cd9bddfffe72b7ddc9b16d52bdf8797}\label{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531da9cd9bddfffe72b7ddc9b16d52bdf8797}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XML@{XML}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}\index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!XML@{XML}}}\mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36a9cd9bddfffe72b7ddc9b16d52bdf8797}\label{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36a9cd9bddfffe72b7ddc9b16d52bdf8797}} 
 XML&XML format \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 19 of file Serialisation.\+h.
+Definition at line 21 of file Serialisation.\+h.
 
 
 
@@ -105,11 +105,11 @@ Definition at line 19 of file Serialisation.\+h.
 \index{Deserialise@{Deserialise}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}
 \doxysubsubsection{\texorpdfstring{Deserialise()}{Deserialise()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
-static T Loui\+Eriksson\+::\+Serialisation\+::\+Deserialise (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+str,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+static T Loui\+Eriksson\+::\+Serialisation\+::\+Deserialise (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+str,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
-Definition at line 42 of file Serialisation.\+h.
+Definition at line 45 of file Serialisation.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -124,11 +124,11 @@ Here is the call graph for this function\+:
 \index{Deserialise@{Deserialise}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}
 \doxysubsubsection{\texorpdfstring{Deserialise()}{Deserialise()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$$>$ \\
-float Loui\+Eriksson\+::\+Serialisation\+::\+Deserialise (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+str,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Serialisation\+::\+Format}} \&}]{\+\_\+method }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+float Loui\+Eriksson\+::\+Serialisation\+::\+Deserialise (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+str,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Serialisation\+::\+Format}} \&}]{\+\_\+method }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 58 of file Serialisation.\+h.
+Definition at line 61 of file Serialisation.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed}\label{class_loui_eriksson_1_1_serialisation_a4a5faa1808910344e2cdf251d63c56ed}} 
 \index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!NotImplementedException@{NotImplementedException}}
@@ -142,7 +142,7 @@ Placeholder for an actual custom exception.
 
 
 
-Definition at line 9 of file Serialisation.\+cpp.
+Definition at line 13 of file Serialisation.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -166,7 +166,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 18 of file Serialisation.\+cpp.
+Definition at line 22 of file Serialisation.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -180,21 +180,21 @@ Here is the caller graph for this function\+:
 \index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!Serialise@{Serialise}}
 \index{Serialise@{Serialise}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}
 \doxysubsubsection{\texorpdfstring{Serialise()}{Serialise()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily std\+::string Loui\+Eriksson\+::\+Serialisation\+::\+Serialise (\begin{DoxyParamCaption}\item[{const glm\+::quat \&}]{\+\_\+value,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string Loui\+Eriksson\+::\+Serialisation\+::\+Serialise (\begin{DoxyParamCaption}\item[{const glm\+::quat \&}]{\+\_\+value,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 51 of file Serialisation.\+cpp.
+Definition at line 55 of file Serialisation.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0}\label{class_loui_eriksson_1_1_serialisation_ad14660bc460059bbb260c94e445892b0}} 
 \index{LouiEriksson::Serialisation@{LouiEriksson::Serialisation}!Serialise@{Serialise}}
 \index{Serialise@{Serialise}!LouiEriksson::Serialisation@{LouiEriksson::Serialisation}}
 \doxysubsubsection{\texorpdfstring{Serialise()}{Serialise()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily std\+::string Loui\+Eriksson\+::\+Serialisation\+::\+Serialise (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_afe970931d6665625e56073a8b72f531d}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string Loui\+Eriksson\+::\+Serialisation\+::\+Serialise (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_serialisation_a4b548f850354497db119f359e17f7b36}{Format}} \&}]{\+\_\+method = {\ttfamily Format\+:\+:XML} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 37 of file Serialisation.\+cpp.
+Definition at line 41 of file Serialisation.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -208,5 +208,5 @@ Here is the caller graph for this function\+:
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/engine/scripts/\+Core/\mbox{\hyperlink{_serialisation_8h}{Serialisation.\+h}}\item 
-src/engine/scripts/\+Core/\mbox{\hyperlink{_serialisation_8cpp}{Serialisation.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/core/\mbox{\hyperlink{_serialisation_8h}{Serialisation.\+h}}\item 
+src/engine/scripts/core/\mbox{\hyperlink{_serialisation_8cpp}{Serialisation.\+cpp}}\end{DoxyCompactItemize}

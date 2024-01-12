@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Input/Cursor.cpp File Reference</title>
+<title>Final Year Project: src/engine/scripts/input/Cursor.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,70 +87,22 @@ $(document).ready(function(){initNavTree('_cursor_8cpp.html',''); initResizable(
 <div class="title">Cursor.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="stdafx_8h_source.html">../stdafx.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_cursor_8h_source.html">Cursor.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_cursor_8h_source.html">Cursor.h</a>&quot;</code><br />
+<code>#include &lt;SDL_events.h&gt;</code><br />
+<code>#include &lt;SDL_hints.h&gt;</code><br />
+<code>#include &lt;SDL_mouse.h&gt;</code><br />
+<code>#include &lt;SDL_stdinc.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Cursor.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_cursor_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_input_2_cursor_8cpp" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_input_2_cursor_8cpp" id="asrc_2engine_2scripts_2_input_2_cursor_8cpp">
-<area shape="rect" title=" " alt="" coords="1417,5,1553,47"/>
-<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2182,781,2269,808"/>
-<area shape="rect" href="_cursor_8h.html" title=" " alt="" coords="1701,95,1776,121"/>
-<area shape="rect" title=" " alt="" coords="5,863,64,890"/>
-<area shape="rect" title=" " alt="" coords="88,863,173,890"/>
-<area shape="rect" title=" " alt="" coords="198,863,269,890"/>
-<area shape="rect" title=" " alt="" coords="293,856,453,897"/>
-<area shape="rect" title=" " alt="" coords="477,856,637,897"/>
-<area shape="rect" title=" " alt="" coords="661,863,765,890"/>
-<area shape="rect" title=" " alt="" coords="790,863,890,890"/>
-<area shape="rect" title=" " alt="" coords="915,863,1053,890"/>
-<area shape="rect" title=" " alt="" coords="1078,863,1247,890"/>
-<area shape="rect" title=" " alt="" coords="1272,863,1339,890"/>
-<area shape="rect" title=" " alt="" coords="1363,863,1437,890"/>
-<area shape="rect" title=" " alt="" coords="1461,863,1547,890"/>
-<area shape="rect" title=" " alt="" coords="1571,863,1781,890"/>
-<area shape="rect" title=" " alt="" coords="1805,863,1984,890"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2109,863,2240,890"/>
-<area shape="rect" title=" " alt="" coords="1999,945,2086,972"/>
-<area shape="rect" title=" " alt="" coords="2121,945,2207,972"/>
-<area shape="rect" title=" " alt="" coords="2238,945,2301,972"/>
-<area shape="rect" title=" " alt="" coords="2315,863,2362,890"/>
-<area shape="rect" title=" " alt="" coords="2387,863,2445,890"/>
-<area shape="rect" title=" " alt="" coords="2470,863,2533,890"/>
-<area shape="rect" title=" " alt="" coords="2557,863,2613,890"/>
-<area shape="rect" title=" " alt="" coords="2637,863,2696,890"/>
-<area shape="rect" title=" " alt="" coords="2720,863,2787,890"/>
-<area shape="rect" title=" " alt="" coords="2811,863,2888,890"/>
-<area shape="rect" title=" " alt="" coords="2913,863,2973,890"/>
-<area shape="rect" title=" " alt="" coords="2997,863,3070,890"/>
-<area shape="rect" title=" " alt="" coords="3095,863,3169,890"/>
-<area shape="rect" title=" " alt="" coords="3193,863,3273,890"/>
-<area shape="rect" title=" " alt="" coords="3298,863,3385,890"/>
-<area shape="rect" title=" " alt="" coords="3409,863,3495,890"/>
-<area shape="rect" title=" " alt="" coords="3520,863,3605,890"/>
-<area shape="rect" title=" " alt="" coords="3629,863,3720,890"/>
-<area shape="rect" title=" " alt="" coords="3744,863,3859,890"/>
-<area shape="rect" href="_window_8h.html" title=" " alt="" coords="2135,169,2265,196"/>
-<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="2190,244,2349,271"/>
-<area shape="rect" href="_time_8h.html" title=" " alt="" coords="2099,244,2165,271"/>
-<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="2323,475,2509,502"/>
-<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="2073,393,2165,420"/>
-<area shape="rect" href="_light_8h.html" title=" " alt="" coords="2383,393,2449,420"/>
-<area shape="rect" href="_resources_8h.html" title=" " alt="" coords="1967,319,2113,345"/>
-<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="1949,557,2032,584"/>
-<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="2153,475,2298,502"/>
-<area shape="rect" href="_mesh_8h.html" title=" " alt="" coords="2059,475,2128,502"/>
-<area shape="rect" href="_material_8h.html" title=" " alt="" coords="1947,475,2035,502"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2150,632,2301,659"/>
-<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="2168,707,2283,733"/>
-<area shape="rect" href="_shader_8h.html" title=" " alt="" coords="2057,557,2135,584"/>
-<area shape="rect" href="_file_8h.html" title=" " alt="" coords="1890,393,1947,420"/>
-<area shape="rect" href="_sound_8h.html" title=" " alt="" coords="1486,475,1613,502"/>
-<area shape="rect" href="_cubemap_8h.html" title=" " alt="" coords="1771,468,1922,509"/>
-<area shape="rect" href="_utils_8h.html" title=" " alt="" coords="1637,475,1747,502"/>
-<area shape="rect" href="_audio_source_8h.html" title=" " alt="" coords="1651,557,1765,584"/>
-<area shape="rect" href="_audio_clip_8h.html" title=" " alt="" coords="1660,632,1756,659"/>
+<div class="center"><img src="_cursor_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2input_2_cursor_8cpp" alt=""/></div>
+<map name="asrc_2engine_2scripts_2input_2_cursor_8cpp" id="asrc_2engine_2scripts_2input_2_cursor_8cpp">
+<area shape="rect" title=" " alt="" coords="221,5,357,47"/>
+<area shape="rect" href="_cursor_8h.html" title=" " alt="" coords="5,95,80,121"/>
+<area shape="rect" title=" " alt="" coords="105,95,215,121"/>
+<area shape="rect" title=" " alt="" coords="240,95,339,121"/>
+<area shape="rect" title=" " alt="" coords="363,95,474,121"/>
+<area shape="rect" title=" " alt="" coords="498,95,603,121"/>
 </map>
 </div>
 </div>
@@ -166,7 +118,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_752bce934b837316c80749146181c7ba.html">Input</a></li><li class="navelem"><a class="el" href="_cursor_8cpp.html">Cursor.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_5cfdad93403995834ac4304c0bc5ac60.html">input</a></li><li class="navelem"><a class="el" href="_cursor_8cpp.html">Cursor.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

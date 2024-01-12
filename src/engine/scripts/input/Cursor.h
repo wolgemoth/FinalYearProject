@@ -55,6 +55,7 @@ namespace LouiEriksson {
 			State();
 			
 			void Apply() const;
+			
 		};
 		
 		/// <summary>
@@ -89,6 +90,7 @@ namespace LouiEriksson {
 		
 		/// <summary> Reset the Cursor to its default state. </summary>
 		static void Reset();
+		
 	};
 	
 } // LouiEriksson

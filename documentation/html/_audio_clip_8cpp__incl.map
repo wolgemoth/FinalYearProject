@@ -1,4 +1,11 @@
-<map id="src/engine/scripts/Audio/AudioClip.cpp" name="src/engine/scripts/Audio/AudioClip.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,161,47"/>
-<area shape="rect" id="node2" href="$_audio_clip_8h.html" title=" " alt="" coords="35,95,131,121"/>
+<map id="src/engine/scripts/audio/AudioClip.cpp" name="src/engine/scripts/audio/AudioClip.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="328,5,483,47"/>
+<area shape="rect" id="node2" href="$_audio_clip_8h.html" title=" " alt="" coords="237,95,333,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,177,96,203"/>
+<area shape="rect" id="node5" title=" " alt="" coords="443,177,546,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="408,95,475,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="499,95,586,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="611,95,691,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="121,169,290,211"/>
+<area shape="rect" id="node6" title=" " alt="" coords="314,177,419,203"/>
 </map>

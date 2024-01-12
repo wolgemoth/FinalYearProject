@@ -41,4 +41,5 @@ namespace LouiEriksson {
 	const float& Collision::Impulse() const {
 		return m_Impulse;
 	}
-}
+	
+} // LouiEriksson

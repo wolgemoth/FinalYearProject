@@ -162,7 +162,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Set the Camera dirty, so that it computes a new projection matrix. </summary>
 		void SetDirty();
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_CAMERA_H

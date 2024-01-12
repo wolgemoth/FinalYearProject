@@ -9,9 +9,9 @@
 
 #include <exception>
 #include <filesystem>
-#include <stdexcept>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -343,4 +343,5 @@ namespace LouiEriksson {
 	GLint Shader::ID() const {
 		return this->m_ProgramID;
 	}
-}
+	
+} // LouiEriksson

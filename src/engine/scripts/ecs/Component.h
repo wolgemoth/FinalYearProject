@@ -38,7 +38,9 @@ namespace LouiEriksson {
 	
 		/// <summary> Get the Component's parent GameObject. </summary>
 		[[nodiscard]] virtual std::shared_ptr<GameObject> Parent() const;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_COMPONENT_H

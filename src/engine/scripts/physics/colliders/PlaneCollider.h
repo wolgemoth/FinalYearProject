@@ -19,7 +19,9 @@ namespace LouiEriksson {
 		~PlaneCollider() override;
 		
 		void SetTransform(const std::weak_ptr<Transform> &_transform) override;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_PLANECOLLIDER_H

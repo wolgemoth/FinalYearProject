@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/ECS/GameObject.h File Reference</title>
+<title>Final Year Project: src/engine/scripts/ecs/GameObject.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,121 +88,87 @@ $(document).ready(function(){initNavTree('_game_object_8h.html',''); initResizab
 <div class="title">GameObject.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="stdafx_8h_source.html">../stdafx.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_hashmap_8h_source.html">../utils/Hashmap.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_component_8h_source.html">Component.h</a>&quot;</code><br />
+<code>#include &lt;any&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for GameObject.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="_game_object_8h__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_e_c_s_2_game_object_8h" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_e_c_s_2_game_object_8h" id="asrc_2engine_2scripts_2_e_c_s_2_game_object_8h">
-<area shape="rect" title=" " alt="" coords="2301,5,2449,47"/>
-<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2209,95,2295,121"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2320,95,2429,121"/>
-<area shape="rect" title=" " alt="" coords="5,177,64,203"/>
-<area shape="rect" title=" " alt="" coords="88,177,173,203"/>
-<area shape="rect" title=" " alt="" coords="198,177,269,203"/>
-<area shape="rect" title=" " alt="" coords="293,169,453,211"/>
-<area shape="rect" title=" " alt="" coords="477,169,637,211"/>
-<area shape="rect" title=" " alt="" coords="661,177,765,203"/>
-<area shape="rect" title=" " alt="" coords="790,177,890,203"/>
-<area shape="rect" title=" " alt="" coords="915,177,1053,203"/>
-<area shape="rect" title=" " alt="" coords="1078,177,1247,203"/>
-<area shape="rect" title=" " alt="" coords="1272,177,1339,203"/>
-<area shape="rect" title=" " alt="" coords="1363,177,1437,203"/>
-<area shape="rect" title=" " alt="" coords="1461,177,1547,203"/>
-<area shape="rect" title=" " alt="" coords="1571,177,1781,203"/>
-<area shape="rect" title=" " alt="" coords="1805,177,1984,203"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2059,177,2189,203"/>
-<area shape="rect" title=" " alt="" coords="2001,259,2087,285"/>
-<area shape="rect" title=" " alt="" coords="2123,259,2210,285"/>
-<area shape="rect" title=" " alt="" coords="2239,259,2302,285"/>
-<area shape="rect" title=" " alt="" coords="2315,177,2362,203"/>
-<area shape="rect" title=" " alt="" coords="2387,177,2445,203"/>
-<area shape="rect" title=" " alt="" coords="2470,177,2533,203"/>
-<area shape="rect" title=" " alt="" coords="2557,177,2613,203"/>
-<area shape="rect" title=" " alt="" coords="2637,177,2696,203"/>
-<area shape="rect" title=" " alt="" coords="2720,177,2787,203"/>
-<area shape="rect" title=" " alt="" coords="2811,177,2888,203"/>
-<area shape="rect" title=" " alt="" coords="2913,177,2973,203"/>
-<area shape="rect" title=" " alt="" coords="2997,177,3070,203"/>
-<area shape="rect" title=" " alt="" coords="3095,177,3169,203"/>
-<area shape="rect" title=" " alt="" coords="3193,177,3273,203"/>
-<area shape="rect" title=" " alt="" coords="3298,177,3385,203"/>
-<area shape="rect" title=" " alt="" coords="3409,177,3495,203"/>
-<area shape="rect" title=" " alt="" coords="3520,177,3605,203"/>
-<area shape="rect" title=" " alt="" coords="3629,177,3720,203"/>
-<area shape="rect" title=" " alt="" coords="3744,177,3859,203"/>
+<div class="center"><img src="_game_object_8h__incl.png" border="0" usemap="#asrc_2engine_2scripts_2ecs_2_game_object_8h" alt=""/></div>
+<map name="asrc_2engine_2scripts_2ecs_2_game_object_8h" id="asrc_2engine_2scripts_2ecs_2_game_object_8h">
+<area shape="rect" title=" " alt="" coords="314,5,460,47"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="209,95,349,121"/>
+<area shape="rect" title=" " alt="" coords="12,169,82,196"/>
+<area shape="rect" title=" " alt="" coords="320,169,406,196"/>
+<area shape="rect" title=" " alt="" coords="430,169,493,196"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="24,95,134,121"/>
+<area shape="rect" title=" " alt="" coords="107,169,184,196"/>
+<area shape="rect" title=" " alt="" coords="476,95,522,121"/>
+<area shape="rect" title=" " alt="" coords="547,95,606,121"/>
+<area shape="rect" title=" " alt="" coords="630,95,722,121"/>
+<area shape="rect" title=" " alt="" coords="746,95,833,121"/>
+<area shape="rect" title=" " alt="" coords="209,169,296,196"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="_game_object_8h__dep__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_e_c_s_2_game_object_8hdep" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_e_c_s_2_game_object_8hdep" id="asrc_2engine_2scripts_2_e_c_s_2_game_object_8hdep">
-<area shape="rect" title=" " alt="" coords="1451,5,1599,47"/>
-<area shape="rect" href="_components_8h.html" title=" " alt="" coords="1285,631,1421,672"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="1454,95,1597,136"/>
-<area shape="rect" href="_game_object_8cpp.html" title=" " alt="" coords="1621,95,1784,136"/>
-<area shape="rect" href="_scene_8h.html" title=" " alt="" coords="1285,720,1421,761"/>
-<area shape="rect" href="_application_8h.html" title=" " alt="" coords="1653,809,1798,851"/>
-<area shape="rect" href="_scene_8cpp.html" title=" " alt="" coords="1823,809,1959,851"/>
-<area shape="rect" href="_ball_8h.html" title=" " alt="" coords="13,809,158,851"/>
-<area shape="rect" href="_fly_cam_8h.html" title=" " alt="" coords="1457,809,1628,851"/>
-<area shape="rect" href="_orbit_cam_8h.html" title=" " alt="" coords="886,809,1069,851"/>
-<area shape="rect" href="_plane_8h.html" title=" " alt="" coords="1093,809,1249,851"/>
-<area shape="rect" href="_player_8h.html" title=" " alt="" coords="1273,809,1433,851"/>
-<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="2395,899,2555,940"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="1657,899,1793,940"/>
-<area shape="rect" href="_player_8cpp.html" title=" " alt="" coords="1385,899,1559,940"/>
-<area shape="rect" href="_scripts_8h.html" title=" " alt="" coords="735,899,871,940"/>
-<area shape="rect" href="_ball_8cpp.html" title=" " alt="" coords="5,899,165,940"/>
-<area shape="rect" href="_fly_cam_8cpp.html" title=" " alt="" coords="1865,899,2050,940"/>
-<area shape="rect" href="_orbit_cam_8cpp.html" title=" " alt="" coords="895,899,1092,940"/>
-<area shape="rect" href="_plane_8cpp.html" title=" " alt="" coords="1116,899,1287,940"/>
-<area shape="rect" href="_audio_source_8h.html" title=" " alt="" coords="1945,184,2105,225"/>
-<area shape="rect" href="_script_8h.html" title=" " alt="" coords="492,184,628,225"/>
-<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="1334,184,1471,225"/>
-<area shape="rect" href="_light_8h.html" title=" " alt="" coords="1616,273,1752,315"/>
-<area shape="rect" href="_component_8cpp.html" title=" " alt="" coords="1563,184,1720,225"/>
-<area shape="rect" href="_entity_8h.html" title=" " alt="" coords="1777,184,1913,225"/>
-<area shape="rect" href="_audio_source_8cpp.html" title=" " alt="" coords="1963,363,2138,404"/>
-<area shape="rect" href="_sound_8h.html" title=" " alt="" coords="2299,273,2435,315"/>
-<area shape="rect" href="_audio_listener_8h.html" title=" " alt="" coords="2162,363,2329,404"/>
-<area shape="rect" href="_sound_8cpp.html" title=" " alt="" coords="2404,363,2540,404"/>
-<area shape="rect" href="_file_8h.html" title=" " alt="" coords="2564,363,2700,404"/>
-<area shape="rect" href="_audio_listener_8cpp.html" title=" " alt="" coords="1787,452,1970,493"/>
-<area shape="rect" href="_file_8cpp.html" title=" " alt="" coords="2756,541,2892,583"/>
-<area shape="rect" href="_resources_8h.html" title=" " alt="" coords="2228,452,2367,493"/>
-<area shape="rect" href="_shader_8cpp.html" title=" " alt="" coords="2553,452,2711,493"/>
-<area shape="rect" href="_resources_8cpp.html" title=" " alt="" coords="2220,541,2375,583"/>
-<area shape="rect" href="_settings_8cpp.html" title=" " alt="" coords="2399,541,2539,583"/>
-<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="1842,541,1993,583"/>
-<area shape="rect" href="_material_8cpp.html" title=" " alt="" coords="2564,541,2732,583"/>
-<area shape="rect" href="_window_8h.html" title=" " alt="" coords="2169,720,2305,761"/>
-<area shape="rect" href="_camera_8cpp.html" title=" " alt="" coords="1828,631,1993,672"/>
-<area shape="rect" href="_window_8cpp.html" title=" " alt="" coords="2033,809,2172,851"/>
-<area shape="rect" href="_cursor_8h.html" title=" " alt="" coords="2196,809,2332,851"/>
-<area shape="rect" href="_g_u_i_8h.html" title=" " alt="" coords="2356,809,2492,851"/>
-<area shape="rect" href="_cursor_8cpp.html" title=" " alt="" coords="2075,899,2211,940"/>
-<area shape="rect" href="_g_u_i_8cpp.html" title=" " alt="" coords="2235,899,2371,940"/>
-<area shape="rect" href="_input_8cpp.html" title=" " alt="" coords="2579,899,2715,940"/>
-<area shape="rect" href="_script_8cpp.html" title=" " alt="" coords="492,273,628,315"/>
-<area shape="rect" href="_serialisation_8h.html" title=" " alt="" coords="1262,363,1415,404"/>
-<area shape="rect" href="_collider_8h.html" title=" " alt="" coords="945,452,1085,493"/>
-<area shape="rect" href="_transform_8cpp.html" title=" " alt="" coords="1440,273,1592,315"/>
-<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="1453,452,1611,493"/>
-<area shape="rect" href="_rigidbody_8h.html" title=" " alt="" coords="1160,273,1315,315"/>
-<area shape="rect" href="_serialisation_8cpp.html" title=" " alt="" coords="1261,452,1429,493"/>
-<area shape="rect" href="_colliders_8h.html" title=" " alt="" coords="424,631,560,672"/>
-<area shape="rect" href="_collider_8cpp.html" title=" " alt="" coords="1060,541,1215,583"/>
-<area shape="rect" href="_plane_collider_8h.html" title=" " alt="" coords="529,541,767,583"/>
-<area shape="rect" href="_sphere_collider_8h.html" title=" " alt="" coords="790,541,1037,583"/>
-<area shape="rect" href="_rigidbody_8cpp.html" title=" " alt="" coords="285,541,454,583"/>
-<area shape="rect" href="_plane_collider_8cpp.html" title=" " alt="" coords="585,631,837,672"/>
-<area shape="rect" href="_sphere_collider_8cpp.html" title=" " alt="" coords="861,631,1123,672"/>
-<area shape="rect" href="_light_8cpp.html" title=" " alt="" coords="1611,363,1757,404"/>
-<area shape="rect" href="_renderer_8cpp.html" title=" " alt="" coords="1442,541,1614,583"/>
-<area shape="rect" href="_entity_8cpp.html" title=" " alt="" coords="1827,273,1963,315"/>
+<div class="center"><img src="_game_object_8h__dep__incl.png" border="0" usemap="#asrc_2engine_2scripts_2ecs_2_game_object_8hdep" alt=""/></div>
+<map name="asrc_2engine_2scripts_2ecs_2_game_object_8hdep" id="asrc_2engine_2scripts_2ecs_2_game_object_8hdep">
+<area shape="rect" title=" " alt="" coords="3902,5,4047,47"/>
+<area shape="rect" href="_audio_listener_8cpp.html" title=" " alt="" coords="992,363,1173,404"/>
+<area shape="rect" href="_audio_listener_8h.html" title=" " alt="" coords="750,273,917,315"/>
+<area shape="rect" href="_fly_cam_8cpp.html" title=" " alt="" coords="539,549,733,575"/>
+<area shape="rect" href="_audio_source_8cpp.html" title=" " alt="" coords="45,541,219,583"/>
+<area shape="rect" href="_script_8cpp.html" title=" " alt="" coords="3099,452,3235,493"/>
+<area shape="rect" href="_transform_8cpp.html" title=" " alt="" coords="3499,273,3650,315"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2865,95,3004,136"/>
+<area shape="rect" href="_ball_8h.html" title=" " alt="" coords="1326,459,1479,486"/>
+<area shape="rect" href="_orbit_cam_8cpp.html" title=" " alt="" coords="2705,549,2911,575"/>
+<area shape="rect" href="_plane_8cpp.html" title=" " alt="" coords="3183,549,3361,575"/>
+<area shape="rect" href="_player_8cpp.html" title=" " alt="" coords="3562,549,3745,575"/>
+<area shape="rect" href="_camera_8cpp.html" title=" " alt="" coords="1605,452,1768,493"/>
+<area shape="rect" href="_light_8cpp.html" title=" " alt="" coords="3987,363,4131,404"/>
+<area shape="rect" href="_renderer_8cpp.html" title=" " alt="" coords="1624,363,1795,404"/>
+<area shape="rect" href="_collider_8cpp.html" title=" " alt="" coords="3360,452,3515,493"/>
+<area shape="rect" href="_plane_collider_8cpp.html" title=" " alt="" coords="4503,541,4753,583"/>
+<area shape="rect" href="_plane_collider_8h.html" title=" " alt="" coords="4357,452,4592,493"/>
+<area shape="rect" href="_sphere_collider_8cpp.html" title=" " alt="" coords="3980,541,4239,583"/>
+<area shape="rect" href="_sphere_collider_8h.html" title=" " alt="" coords="3987,452,4231,493"/>
+<area shape="rect" href="_rigidbody_8cpp.html" title=" " alt="" coords="3742,452,3911,493"/>
+<area shape="rect" href="_game_object_8cpp.html" title=" " alt="" coords="4920,95,5080,136"/>
+<area shape="rect" href="_scene_8cpp.html" title=" " alt="" coords="1788,541,1924,583"/>
+<area shape="rect" href="_fly_cam_8h.html" title=" " alt="" coords="709,459,888,486"/>
+<area shape="rect" href="_audio_source_8h.html" title=" " alt="" coords="441,363,599,404"/>
+<area shape="rect" href="_script_8h.html" title=" " alt="" coords="2148,363,2284,404"/>
+<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="2613,184,2749,225"/>
+<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="1350,363,1498,404"/>
+<area shape="rect" href="_light_8h.html" title=" " alt="" coords="1557,273,1693,315"/>
+<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="1888,273,2043,315"/>
+<area shape="rect" href="_collider_8h.html" title=" " alt="" coords="3559,363,3699,404"/>
+<area shape="rect" href="_rigidbody_8h.html" title=" " alt="" coords="2915,273,3069,315"/>
+<area shape="rect" href="_component_8cpp.html" title=" " alt="" coords="2800,184,2955,225"/>
+<area shape="rect" href="_entity_8h.html" title=" " alt="" coords="3725,184,3861,225"/>
+<area shape="rect" href="_sound_8cpp.html" title=" " alt="" coords="368,541,504,583"/>
+<area shape="rect" href="_sound_8h.html" title=" " alt="" coords="245,452,381,493"/>
+<area shape="rect" href="_ball_8cpp.html" title=" " alt="" coords="2276,549,2444,575"/>
+<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="689,631,847,672"/>
+<area shape="rect" href="_orbit_cam_8h.html" title=" " alt="" coords="1945,459,2135,486"/>
+<area shape="rect" href="_plane_8h.html" title=" " alt="" coords="2262,459,2426,486"/>
+<area shape="rect" href="_player_8h.html" title=" " alt="" coords="2451,459,2619,486"/>
+<area shape="rect" href="_window_8h.html" title=" " alt="" coords="1013,452,1149,493"/>
+<area shape="rect" href="_window_8cpp.html" title=" " alt="" coords="1013,541,1149,583"/>
+<area shape="rect" href="_g_u_i_8cpp.html" title=" " alt="" coords="1084,631,1220,672"/>
+<area shape="rect" href="_g_u_i_8h.html" title=" " alt="" coords="853,541,989,583"/>
+<area shape="rect" href="_input_8cpp.html" title=" " alt="" coords="872,631,1008,672"/>
+<area shape="rect" href="_entity_8cpp.html" title=" " alt="" coords="3725,273,3861,315"/>
 </map>
 </div>
 </div>
@@ -224,7 +190,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_10a6ba010dc83a791be3aa664c4eec23.html">ECS</a></li><li class="navelem"><a class="el" href="_game_object_8h.html">GameObject.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_538984fc6165801c4346b0eb7b9ca114.html">ecs</a></li><li class="navelem"><a class="el" href="_game_object_8h.html">GameObject.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

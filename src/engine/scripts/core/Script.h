@@ -7,7 +7,6 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-
 namespace LouiEriksson {
 
 	class Collision;
@@ -36,7 +35,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Called every time a collision event occurs. </summary>
 		virtual void OnCollision(const Collision& _collision);
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SCRIPT_H

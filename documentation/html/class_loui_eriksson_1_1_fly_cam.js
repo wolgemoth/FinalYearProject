@@ -8,7 +8,6 @@ var class_loui_eriksson_1_1_fly_cam =
     [ "SyncCameraSettings", "class_loui_eriksson_1_1_fly_cam.html#aef3dce1cb877f9133df19dc235114bfa", null ],
     [ "Tick", "class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349", null ],
     [ "Scene", "class_loui_eriksson_1_1_fly_cam.html#a032858ae1fe02d2d1170981c2af2d67c", null ],
-    [ "m_AnimationProgress", "class_loui_eriksson_1_1_fly_cam.html#a75bb819d66f338e78c44facaf499a2ec", null ],
     [ "m_AudioListener", "class_loui_eriksson_1_1_fly_cam.html#a610639154545a9ac0754094f04577b47", null ],
     [ "m_Camera", "class_loui_eriksson_1_1_fly_cam.html#a277c98774c29cd6b520841c68818a0d2", null ],
     [ "m_GunSound", "class_loui_eriksson_1_1_fly_cam.html#af8781e5eeebee53054f64f478c5d0178", null ],

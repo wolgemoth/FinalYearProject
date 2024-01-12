@@ -9,8 +9,8 @@
 #include "../utils/Hashmap.h"
 
 #include <filesystem>
-#include <string>
 #include <memory>
+#include <string>
 
 // @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
 
@@ -82,6 +82,7 @@ namespace LouiEriksson {
 		static std::weak_ptr<Texture> GetTexture(const std::string& _name);
 		
 		static std::weak_ptr<Shader> GetShader(const std::string& _name);
+		
 	};
 	
 } // LouiEriksson

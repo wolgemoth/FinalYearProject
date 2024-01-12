@@ -64,6 +64,7 @@ namespace LouiEriksson {
 				static std::weak_ptr<Mesh> Instance();
 				
 			};
+			
 		};
 		
 		~Mesh();
@@ -82,7 +83,9 @@ namespace LouiEriksson {
 		[[nodiscard]] GLuint BitangentVBO_ID() const;
 		
 		[[nodiscard]] unsigned long VertexCount() const;
+		
 	};
-};
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_MODEL_H

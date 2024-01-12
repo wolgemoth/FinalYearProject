@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/User Scripts/Player.h Source File</title>
+<title>Final Year Project: src/usr/scripts/Player.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,80 +88,87 @@ $(document).ready(function(){initNavTree('_player_8h_source.html',''); initResiz
 <a href="_player_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_PLAYER_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_PLAYER_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../ECS/Scene.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html">   10</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_player.html">Player</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_script.html">Script</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html#a032858ae1fe02d2d1170981c2af2d67c">   12</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_scene.html">Scene</a>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_Player;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_Camera;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/core/Script.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/ecs/Scene.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;glm/ext/vector_float3.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html">   16</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_player.html">Player</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_script.html">Script</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html#a032858ae1fe02d2d1170981c2af2d67c">   18</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_scene.html">Scene</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        std::vector&lt;std::weak_ptr&lt;GameObject&gt;&gt; m_Planes;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_Player;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        std::vector&lt;std::weak_ptr&lt;GameObject&gt;&gt; m_Obstacles;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_Camera;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">int</span> m_NumObstacles;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">float</span> m_MinPlaneX;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">float</span> m_MaxPlaneX;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">float</span> m_PlayerSpeed;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">float</span> m_CameraSpeed;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">float</span> m_GameSpeed;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        std::vector&lt;std::weak_ptr&lt;GameObject&gt;&gt; m_Planes;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        std::vector&lt;std::weak_ptr&lt;GameObject&gt;&gt; m_Obstacles;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">int</span> m_NumObstacles;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">float</span> m_PlayerMoveFreedom;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        glm::vec3 m_TargetOffset;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        glm::vec3 m_CameraOffset;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7">Begin</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd">Tick</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">float</span> m_MinPlaneX;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">float</span> m_MaxPlaneX;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">float</span> m_PlayerSpeed;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">float</span> m_CameraSpeed;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">float</span> m_GameSpeed;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">float</span> m_PlayerMoveFreedom;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        glm::vec3 m_TargetOffset;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        glm::vec3 m_CameraOffset;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578">SpawnPlanes</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73">SpawnCamera</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5">SpawnPlayer</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7">Begin</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd">Tick</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94">SpawnBalls</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a4cf923b01f7d8ec0de505f094679043f">Player</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html#ae3789111c2f956b59b872cefe2966219">   60</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_player.html#ae3789111c2f956b59b872cefe2966219">~Player</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    };</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLAYER_H</span></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html">LouiEriksson::Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00010">Player.h:10</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a0945c4a13eb0a62114ec460601a932d7"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7">LouiEriksson::Player::Begin</a></div><div class="ttdeci">void Begin() override</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00177">Player.cpp:177</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a0c27cf6e706f2c11a9694519fc1bb578"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578">LouiEriksson::Player::SpawnPlanes</a></div><div class="ttdeci">void SpawnPlanes()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00030">Player.cpp:30</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a1e2104907e304c157e17ecfe4b3177c5"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5">LouiEriksson::Player::SpawnPlayer</a></div><div class="ttdeci">void SpawnPlayer()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00100">Player.cpp:100</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a4cf923b01f7d8ec0de505f094679043f"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a4cf923b01f7d8ec0de505f094679043f">LouiEriksson::Player::Player</a></div><div class="ttdeci">Player(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00011">Player.cpp:11</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a909ae30df9ae4cdd16d8688b5e67be94"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94">LouiEriksson::Player::SpawnBalls</a></div><div class="ttdeci">void SpawnBalls()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00130">Player.cpp:130</a></div></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578">SpawnPlanes</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73">SpawnCamera</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5">SpawnPlayer</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94">SpawnBalls</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_player.html#a4cf923b01f7d8ec0de505f094679043f">Player</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_player.html#ae3789111c2f956b59b872cefe2966219">   66</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_player.html#ae3789111c2f956b59b872cefe2966219">~Player</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    };</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLAYER_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html">LouiEriksson::Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00016">Player.h:16</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a0945c4a13eb0a62114ec460601a932d7"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7">LouiEriksson::Player::Begin</a></div><div class="ttdeci">void Begin() override</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00195">Player.cpp:195</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a0c27cf6e706f2c11a9694519fc1bb578"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578">LouiEriksson::Player::SpawnPlanes</a></div><div class="ttdeci">void SpawnPlanes()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00048">Player.cpp:48</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a1e2104907e304c157e17ecfe4b3177c5"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a1e2104907e304c157e17ecfe4b3177c5">LouiEriksson::Player::SpawnPlayer</a></div><div class="ttdeci">void SpawnPlayer()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00118">Player.cpp:118</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a4cf923b01f7d8ec0de505f094679043f"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a4cf923b01f7d8ec0de505f094679043f">LouiEriksson::Player::Player</a></div><div class="ttdeci">Player(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00035">Player.cpp:35</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_a909ae30df9ae4cdd16d8688b5e67be94"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#a909ae30df9ae4cdd16d8688b5e67be94">LouiEriksson::Player::SpawnBalls</a></div><div class="ttdeci">void SpawnBalls()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00148">Player.cpp:148</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_player_html_ae3789111c2f956b59b872cefe2966219"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#ae3789111c2f956b59b872cefe2966219">LouiEriksson::Player::~Player</a></div><div class="ttdeci">~Player() override</div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_af68a1e9b2b612b6169732986b4ebbf73"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73">LouiEriksson::Player::SpawnCamera</a></div><div class="ttdeci">void SpawnCamera()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00080">Player.cpp:80</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_afc0ca3aa5a61bd359902d3ec3babc0fd"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd">LouiEriksson::Player::Tick</a></div><div class="ttdeci">void Tick() override</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00187">Player.cpp:187</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_scene.html">LouiEriksson::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00013">Scene.h:13</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_af68a1e9b2b612b6169732986b4ebbf73"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#af68a1e9b2b612b6169732986b4ebbf73">LouiEriksson::Player::SpawnCamera</a></div><div class="ttdeci">void SpawnCamera()</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00098">Player.cpp:98</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_player_html_afc0ca3aa5a61bd359902d3ec3babc0fd"><div class="ttname"><a href="class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd">LouiEriksson::Player::Tick</a></div><div class="ttdeci">void Tick() override</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_player_8cpp_source.html#l00205">Player.cpp:205</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_scene.html">LouiEriksson::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00019">Scene.h:19</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_script_html"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html">LouiEriksson::Script</a></div><div class="ttdoc">Base class to be inherited by scriptable types.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00018">Script.h:18</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_b0edf597f7858e0933c1216c2d615a69.html">User Scripts</a></li><li class="navelem"><a class="el" href="_player_8h.html">Player.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2bf09157bc8f7a490de2c2dbc7ff4f26.html">usr</a></li><li class="navelem"><a class="el" href="dir_bbec129761a22a72f5ee92801be1ffaf.html">scripts</a></li><li class="navelem"><a class="el" href="_player_8h.html">Player.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

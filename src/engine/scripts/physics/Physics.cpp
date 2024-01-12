@@ -1,10 +1,10 @@
 #include "Physics.h"
 
 #include "../core/Time.h"
-#include "LinearMath/btVector3.h"
 
-#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include "LinearMath/btVector3.h"
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
@@ -126,7 +126,6 @@ namespace LouiEriksson {
 	void Physics::Gravity(const glm::vec3& _value) {
 		s_Gravity = _value;
 	}
-	
 	const glm::vec3& Physics::Gravity() {
 		return s_Gravity;
 	}

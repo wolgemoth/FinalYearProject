@@ -1,7 +1,7 @@
 <map id="LouiEriksson::Cubemap" name="LouiEriksson::Cubemap">
-<area shape="rect" id="node1" title=" " alt="" coords="272,1181,477,1332"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_texture.html" title=" " alt="" coords="256,424,493,1132"/>
-<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_filter_mode.html" title="Container specifying a Texture&#39;s filter mode." alt="" coords="5,27,229,339"/>
-<area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html" title="Container specifying a Texture&#39;s format." alt="" coords="253,5,496,361"/>
-<area shape="rect" id="node5" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_wrap_mode.html" title="Container specifying a Texture&#39;s wrap mode." alt="" coords="520,5,741,361"/>
+<area shape="rect" id="node1" title=" " alt="" coords="203,668,378,775"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_texture.html" title=" " alt="" coords="211,277,371,619"/>
+<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_filter_mode.html" title="Container specifying a Texture&#39;s filter mode." alt="" coords="5,20,187,200"/>
+<area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html" title="Container specifying a Texture&#39;s format." alt="" coords="211,5,371,215"/>
+<area shape="rect" id="node5" href="$struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_wrap_mode.html" title="Container specifying a Texture&#39;s wrap mode." alt="" coords="395,13,578,207"/>
 </map>

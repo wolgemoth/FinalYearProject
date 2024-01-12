@@ -83,7 +83,6 @@ namespace LouiEriksson {
 		
 		m_Type = _type;
 	}
-	
 	Light::Parameters::Type Light::Type() {
 		return m_Type;
 	}
@@ -226,4 +225,5 @@ namespace LouiEriksson {
 			}
 		}
 	}
-}
+
+} // LouiEriksson

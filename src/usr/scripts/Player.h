@@ -66,6 +66,7 @@ namespace LouiEriksson {
 		~Player() override;
 	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_PLAYER_H

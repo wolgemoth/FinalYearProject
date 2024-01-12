@@ -1,8 +1,9 @@
 #ifndef FINALYEARPROJECT_APPLICATION_H
 #define FINALYEARPROJECT_APPLICATION_H
 
-#include "Time.h"
 #include "../ecs/Scene.h"
+
+#include "Time.h"
 
 namespace LouiEriksson {
 	
@@ -30,6 +31,6 @@ namespace LouiEriksson {
 		static void Quit();
 	
 	};
-}
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_APPLICATION_H

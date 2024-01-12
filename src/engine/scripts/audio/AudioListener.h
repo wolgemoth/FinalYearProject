@@ -43,6 +43,7 @@ namespace LouiEriksson {
 		
 		/// <summary> Get the master gain of the AudioListener. </summary>
 		[[nodiscard]] const float& Gain() const;
+		
 	};
 	
 } // LouiEriksson

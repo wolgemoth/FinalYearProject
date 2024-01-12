@@ -43,6 +43,7 @@ namespace LouiEriksson {
 			
 			 BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters);
 			~BulletRigidbody();
+			
 		};
 		
 		/// <summary> Parameters of a Rigidbody. </summary>
@@ -207,7 +208,9 @@ namespace LouiEriksson {
 	
 		/// <summary> Get the bounciness of the Rigidbody. </summary>
 		[[nodiscard]] const float& Bounciness() const;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_RIGIDBODY_H

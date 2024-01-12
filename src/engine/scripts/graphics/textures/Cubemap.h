@@ -23,8 +23,9 @@ namespace LouiEriksson {
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;
+		
 	};
 	
-}
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_CUBEMAP_H

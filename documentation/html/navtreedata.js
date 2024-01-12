@@ -55,9 +55,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_application_8cpp.html",
-"class_loui_eriksson_1_1_ball.html#af09e2d3a3f012f3aa04d5e450240b2ce",
-"class_loui_eriksson_1_1_scene.html#a2caf1264c2ead49a2c77d4b1849ed4f6",
-"struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html"
+"class_loui_eriksson_1_1_camera.html#a553f958a25683445088050a69d3de8e9",
+"class_loui_eriksson_1_1_scene.html#ae044701560dc85364e77bc48bd5b5e2f",
+"struct_loui_eriksson_1_1_texture_1_1_parameters_1_1_format.html#ab661cca5f462fca36edaa0094604be4f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

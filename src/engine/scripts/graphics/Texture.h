@@ -11,13 +11,13 @@ namespace LouiEriksson {
 	
 	class Texture {
 	
-		friend class File;
-		friend class Cubemap;
-		friend class Resources;
-		friend class Light;
 		friend class Camera;
-		friend class Settings;
+		friend class Cubemap;
+		friend class File;
+		friend class Light;
 		friend class RenderTexture;
+		friend class Resources;
+		friend class Settings;
 		
 	public:
 	
@@ -93,6 +93,7 @@ namespace LouiEriksson {
 				[[nodiscard]] const GLenum& WrapT() const;
 				[[nodiscard]] const GLenum& WrapR() const;
 			};
+			
 		};
 		
 		~Texture();
@@ -149,8 +150,9 @@ namespace LouiEriksson {
 		Parameters::WrapMode m_WrapMode;
 		
 		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format _format, Texture::Parameters::FilterMode _filterMode, Texture::Parameters::WrapMode _wrapMode);
+	
 	};
 	
-}
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_TEXTURE_H

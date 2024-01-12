@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Graphics/Light.cpp File Reference</title>
+<title>Final Year Project: src/engine/scripts/graphics/Light.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,55 +87,43 @@ $(document).ready(function(){initNavTree('_light_8cpp.html',''); initResizable()
 <div class="title">Light.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="stdafx_8h_source.html">../stdafx.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_light_8h_source.html">Light.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_light_8h_source.html">Light.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_component_8h_source.html">../ecs/Component.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_game_object_8h_source.html">../ecs/GameObject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_texture_8h_source.html">Texture.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_render_texture_8h_source.html">textures/RenderTexture.h</a>&quot;</code><br />
+<code>#include &lt;glm/ext/matrix_clip_space.hpp&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Light.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_light_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_graphics_2_light_8cpp" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_graphics_2_light_8cpp" id="asrc_2engine_2scripts_2_graphics_2_light_8cpp">
-<area shape="rect" title=" " alt="" coords="2044,5,2191,47"/>
-<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2209,393,2295,420"/>
-<area shape="rect" href="_light_8h.html" title=" " alt="" coords="2165,95,2232,121"/>
-<area shape="rect" title=" " alt="" coords="5,475,64,502"/>
-<area shape="rect" title=" " alt="" coords="88,475,173,502"/>
-<area shape="rect" title=" " alt="" coords="198,475,269,502"/>
-<area shape="rect" title=" " alt="" coords="293,468,453,509"/>
-<area shape="rect" title=" " alt="" coords="477,468,637,509"/>
-<area shape="rect" title=" " alt="" coords="661,475,765,502"/>
-<area shape="rect" title=" " alt="" coords="790,475,890,502"/>
-<area shape="rect" title=" " alt="" coords="915,475,1053,502"/>
-<area shape="rect" title=" " alt="" coords="1078,475,1247,502"/>
-<area shape="rect" title=" " alt="" coords="1272,475,1339,502"/>
-<area shape="rect" title=" " alt="" coords="1363,475,1437,502"/>
-<area shape="rect" title=" " alt="" coords="1461,475,1547,502"/>
-<area shape="rect" title=" " alt="" coords="1571,475,1781,502"/>
-<area shape="rect" title=" " alt="" coords="1805,475,1984,502"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2059,475,2189,502"/>
-<area shape="rect" title=" " alt="" coords="2001,557,2087,584"/>
-<area shape="rect" title=" " alt="" coords="2123,557,2210,584"/>
-<area shape="rect" title=" " alt="" coords="2239,557,2302,584"/>
-<area shape="rect" title=" " alt="" coords="2315,475,2362,502"/>
-<area shape="rect" title=" " alt="" coords="2387,475,2445,502"/>
-<area shape="rect" title=" " alt="" coords="2470,475,2533,502"/>
-<area shape="rect" title=" " alt="" coords="2557,475,2613,502"/>
-<area shape="rect" title=" " alt="" coords="2637,475,2696,502"/>
-<area shape="rect" title=" " alt="" coords="2720,475,2787,502"/>
-<area shape="rect" title=" " alt="" coords="2811,475,2888,502"/>
-<area shape="rect" title=" " alt="" coords="2913,475,2973,502"/>
-<area shape="rect" title=" " alt="" coords="2997,475,3070,502"/>
-<area shape="rect" title=" " alt="" coords="3095,475,3169,502"/>
-<area shape="rect" title=" " alt="" coords="3193,475,3273,502"/>
-<area shape="rect" title=" " alt="" coords="3298,475,3385,502"/>
-<area shape="rect" title=" " alt="" coords="3409,475,3495,502"/>
-<area shape="rect" title=" " alt="" coords="3520,475,3605,502"/>
-<area shape="rect" title=" " alt="" coords="3629,475,3720,502"/>
-<area shape="rect" title=" " alt="" coords="3744,475,3859,502"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2121,244,2271,271"/>
-<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="2126,169,2271,196"/>
-<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="2347,169,2533,196"/>
-<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="2139,319,2253,345"/>
-<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="2360,319,2443,345"/>
+<div class="center"><img src="_light_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2graphics_2_light_8cpp" alt=""/></div>
+<map name="asrc_2engine_2scripts_2graphics_2_light_8cpp" id="asrc_2engine_2scripts_2graphics_2_light_8cpp">
+<area shape="rect" title=" " alt="" coords="1295,5,1439,47"/>
+<area shape="rect" href="_light_8h.html" title=" " alt="" coords="1135,102,1201,129"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="592,259,739,285"/>
+<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="453,333,568,360"/>
+<area shape="rect" title=" " alt="" coords="737,408,815,435"/>
+<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="1395,184,1477,211"/>
+<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="1429,102,1616,129"/>
+<area shape="rect" title=" " alt="" coords="1640,95,1789,136"/>
+<area shape="rect" title=" " alt="" coords="1814,102,1901,129"/>
+<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="962,184,1105,211"/>
+<area shape="rect" title=" " alt="" coords="939,259,1128,285"/>
+<area shape="rect" title=" " alt="" coords="1153,259,1255,285"/>
+<area shape="rect" title=" " alt="" coords="1393,259,1479,285"/>
+<area shape="rect" title=" " alt="" coords="731,184,938,211"/>
+<area shape="rect" title=" " alt="" coords="814,259,914,285"/>
+<area shape="rect" title=" " alt="" coords="617,483,687,509"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="409,408,549,435"/>
+<area shape="rect" title=" " alt="" coords="135,483,222,509"/>
+<area shape="rect" title=" " alt="" coords="530,483,593,509"/>
+<area shape="rect" title=" " alt="" coords="27,408,74,435"/>
+<area shape="rect" title=" " alt="" coords="99,408,157,435"/>
+<area shape="rect" title=" " alt="" coords="182,408,274,435"/>
+<area shape="rect" title=" " alt="" coords="298,408,385,435"/>
+<area shape="rect" title=" " alt="" coords="419,483,506,509"/>
 </map>
 </div>
 </div>
@@ -151,7 +139,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_4a4f39d2b219974aa2251c7e5fb6272e.html">Graphics</a></li><li class="navelem"><a class="el" href="_light_8cpp.html">Light.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_73f47f6a459150a0ab8b4fea3e78124c.html">graphics</a></li><li class="navelem"><a class="el" href="_light_8cpp.html">Light.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

@@ -10,17 +10,23 @@
 namespace LouiEriksson {
 	
 	class RenderTexture : public Texture {
-	
-		friend class Light;
+		
 		friend class Camera;
+		friend class Light;
 		
 	public:
 		
 		struct Parameters {
 		
 			enum DepthMode : char {
+				
+				/// <summary> No depth attachment will be generated. </summary>
 				NONE,
+				
+				/// <summary> A render buffer will be generated as a depth attachment. </summary>
 				RENDER_BUFFER,
+				
+				/// <summary> A frame buffer will be generated as a depth attachment. </summary>
 				 FRAME_BUFFER
 			};
 			
@@ -70,7 +76,9 @@ namespace LouiEriksson {
 				const Texture::Parameters::WrapMode&         _wrapMode,
 				const RenderTexture::Parameters::DepthMode& _depthMode
 		);
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_RENDER_TEXTURE_H

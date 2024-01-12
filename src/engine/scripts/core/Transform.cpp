@@ -33,4 +33,5 @@ namespace LouiEriksson {
 			m_Scale
 		);
 	}
-}
+	
+} // LouiEriksson

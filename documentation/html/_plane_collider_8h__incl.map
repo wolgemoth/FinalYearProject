@@ -1,47 +1,27 @@
-<map id="src/engine/scripts/Physics/Colliders/PlaneCollider.h" name="src/engine/scripts/Physics/Colliders/PlaneCollider.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2075,5,2312,47"/>
-<area shape="rect" id="node2" href="$_collider_8h.html" title=" " alt="" coords="2146,95,2241,121"/>
-<area shape="rect" id="node3" href="$_collision_8h.html" title=" " alt="" coords="1993,319,2084,345"/>
-<area shape="rect" id="node4" href="$_transform_8h.html" title=" " alt="" coords="2123,319,2269,345"/>
-<area shape="rect" id="node42" href="$_rigidbody_8h.html" title=" " alt="" coords="2061,244,2158,271"/>
-<area shape="rect" id="node43" href="$_time_8h.html" title=" " alt="" coords="2417,169,2530,196"/>
-<area shape="rect" id="node44" href="$_serialisation_8h.html" title=" " alt="" coords="2231,169,2393,196"/>
-<area shape="rect" id="node5" href="$_component_8h.html" title=" " alt="" coords="2121,393,2271,420"/>
-<area shape="rect" id="node6" href="$_game_object_8h.html" title=" " alt="" coords="2139,468,2253,495"/>
-<area shape="rect" id="node7" href="$stdafx_8h.html" title=" " alt="" coords="2209,543,2295,569"/>
-<area shape="rect" id="node8" title=" " alt="" coords="5,625,64,651"/>
-<area shape="rect" id="node9" title=" " alt="" coords="88,625,173,651"/>
-<area shape="rect" id="node10" title=" " alt="" coords="198,625,269,651"/>
-<area shape="rect" id="node11" title=" " alt="" coords="293,617,453,659"/>
-<area shape="rect" id="node12" title=" " alt="" coords="477,617,637,659"/>
-<area shape="rect" id="node13" title=" " alt="" coords="661,625,765,651"/>
-<area shape="rect" id="node14" title=" " alt="" coords="790,625,890,651"/>
-<area shape="rect" id="node15" title=" " alt="" coords="915,625,1053,651"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1078,625,1247,651"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1272,625,1339,651"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1363,625,1437,651"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1461,625,1547,651"/>
-<area shape="rect" id="node20" title=" " alt="" coords="1571,625,1781,651"/>
-<area shape="rect" id="node21" title=" " alt="" coords="1805,625,1984,651"/>
-<area shape="rect" id="node22" href="$_hashmap_8h.html" title=" " alt="" coords="2059,625,2189,651"/>
-<area shape="rect" id="node23" title=" " alt="" coords="2001,707,2087,733"/>
-<area shape="rect" id="node24" title=" " alt="" coords="2123,707,2210,733"/>
-<area shape="rect" id="node25" title=" " alt="" coords="2239,707,2302,733"/>
-<area shape="rect" id="node26" title=" " alt="" coords="2315,625,2362,651"/>
-<area shape="rect" id="node27" title=" " alt="" coords="2387,625,2445,651"/>
-<area shape="rect" id="node28" title=" " alt="" coords="2470,625,2533,651"/>
-<area shape="rect" id="node29" title=" " alt="" coords="2557,625,2613,651"/>
-<area shape="rect" id="node30" title=" " alt="" coords="2637,625,2696,651"/>
-<area shape="rect" id="node31" title=" " alt="" coords="2720,625,2787,651"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2811,625,2888,651"/>
-<area shape="rect" id="node33" title=" " alt="" coords="2913,625,2973,651"/>
-<area shape="rect" id="node34" title=" " alt="" coords="2997,625,3070,651"/>
-<area shape="rect" id="node35" title=" " alt="" coords="3095,625,3169,651"/>
-<area shape="rect" id="node36" title=" " alt="" coords="3193,625,3273,651"/>
-<area shape="rect" id="node37" title=" " alt="" coords="3298,625,3385,651"/>
-<area shape="rect" id="node38" title=" " alt="" coords="3409,625,3495,651"/>
-<area shape="rect" id="node39" title=" " alt="" coords="3520,625,3605,651"/>
-<area shape="rect" id="node40" title=" " alt="" coords="3629,625,3720,651"/>
-<area shape="rect" id="node41" title=" " alt="" coords="3744,625,3859,651"/>
-<area shape="rect" id="node45" href="$_utils_8h.html" title=" " alt="" coords="2347,244,2458,271"/>
+<map id="src/engine/scripts/physics/colliders/PlaneCollider.h" name="src/engine/scripts/physics/colliders/PlaneCollider.h">
+<area shape="rect" id="node1" title=" " alt="" coords="893,5,1127,47"/>
+<area shape="rect" id="node2" href="$_transform_8h.html" title=" " alt="" coords="1235,266,1390,293"/>
+<area shape="rect" id="node4" href="$_game_object_8h.html" title=" " alt="" coords="331,437,446,464"/>
+<area shape="rect" id="node11" title=" " alt="" coords="966,512,1043,539"/>
+<area shape="rect" id="node18" href="$_collider_8h.html" title=" " alt="" coords="785,95,880,121"/>
+<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="315,355,462,382"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1236,355,1336,382"/>
+<area shape="rect" id="node16" title=" " alt="" coords="739,355,929,382"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1360,355,1463,382"/>
+<area shape="rect" id="node6" title=" " alt="" coords="675,587,745,613"/>
+<area shape="rect" id="node5" href="$_hashmap_8h.html" title=" " alt="" coords="456,512,596,539"/>
+<area shape="rect" id="node8" title=" " alt="" coords="564,587,651,613"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,587,68,613"/>
+<area shape="rect" id="node10" title=" " alt="" coords="75,512,121,539"/>
+<area shape="rect" id="node12" title=" " alt="" coords="146,512,205,539"/>
+<area shape="rect" id="node13" title=" " alt="" coords="229,512,321,539"/>
+<area shape="rect" id="node14" title=" " alt="" coords="345,512,432,539"/>
+<area shape="rect" id="node7" title=" " alt="" coords="453,587,540,613"/>
+<area shape="rect" id="node19" href="$_rigidbody_8h.html" title=" " alt="" coords="699,177,796,203"/>
+<area shape="rect" id="node25" title=" " alt="" coords="821,169,1015,211"/>
+<area shape="rect" id="node20" href="$_collision_8h.html" title=" " alt="" coords="1070,266,1161,293"/>
+<area shape="rect" id="node22" title=" " alt="" coords="427,259,622,300"/>
+<area shape="rect" id="node23" title=" " alt="" coords="646,266,849,293"/>
+<area shape="rect" id="node24" title=" " alt="" coords="873,266,1046,293"/>
+<area shape="rect" id="node21" title=" " alt="" coords="953,348,1160,389"/>
 </map>

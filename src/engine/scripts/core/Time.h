@@ -60,7 +60,9 @@ namespace LouiEriksson {
 		
 		Time& operator = (const Time&  _other) = delete;
 		Time& operator =       (Time&& _other) = delete;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_TIME_H

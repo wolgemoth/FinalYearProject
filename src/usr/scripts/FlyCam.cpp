@@ -1,5 +1,7 @@
 #include "FlyCam.h"
 
+#include "../../engine/scripts/audio/AudioListener.h"
+#include "../../engine/scripts/audio/AudioSource.h"
 #include "../../engine/scripts/core/Resources.h"
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Settings.h"
@@ -12,9 +14,11 @@
 #include "../../engine/scripts/input/Input.h"
 #include "../../engine/scripts/utils/Utils.h"
 
+#include <glm/common.hpp>
 #include <glm/ext.hpp>
 #include <glm/ext/vector_float3.hpp>
-#include <glm/glm.hpp>              // GLM ...
+#include <glm/ext/vector_float4.hpp>
+#include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/projection.hpp>
 
@@ -29,17 +33,11 @@
 
 namespace LouiEriksson {
 	
-	FlyCam::FlyCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-	
-		m_Camera    = std::shared_ptr<Camera>   (nullptr);
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-	
-		m_Motion   = glm::vec3(0.0f);
-		m_Rotation = glm::vec3(0.0f);
-		
-		m_MoveSpeed =  5.0f;
-		m_LookSpeed = 30.0f;
-	}
+	FlyCam::FlyCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+		m_Motion(0.0f),
+		m_Rotation(0.0f),
+		m_MoveSpeed(5.0f),
+		m_LookSpeed(30.0f) {}
 	
 	FlyCam::~FlyCam() = default;
 	
@@ -191,4 +189,5 @@ namespace LouiEriksson {
 		GetCamera()->NearClip(Settings::Graphics::Perspective::s_NearClip);
 		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 	}
-}
+	
+} // LouiEriksson

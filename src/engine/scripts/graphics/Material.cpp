@@ -61,4 +61,5 @@ namespace LouiEriksson {
 	std::weak_ptr<Texture> Material::GetEmission() const {
 		return m_Emission;
 	}
-}
+	
+} // LouiEriksson

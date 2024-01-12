@@ -292,5 +292,4 @@ namespace LouiEriksson {
 	const GLenum& Texture::Parameters::WrapMode::WrapT() const { return m_WrapT; }
 	const GLenum& Texture::Parameters::WrapMode::WrapR() const { return m_WrapR; }
 	
-	
-}
+} // LouiEriksson

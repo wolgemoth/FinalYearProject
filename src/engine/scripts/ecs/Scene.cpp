@@ -478,4 +478,5 @@ namespace LouiEriksson {
 		
 		return result;
 	}
-}
+	
+} // LouiEriksson

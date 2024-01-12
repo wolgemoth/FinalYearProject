@@ -43,4 +43,5 @@ namespace LouiEriksson {
 	Collider::Type Collider::GetType() {
 		return m_Type;
 	}
-}
+	
+} // LouiEriksson

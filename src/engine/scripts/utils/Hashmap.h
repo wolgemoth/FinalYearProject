@@ -59,6 +59,7 @@ namespace LouiEriksson {
             KeyValuePair(const KeyValuePair& other) noexcept  :
 				 first(other.first),
 				second(other.second) {}
+				
 		};
 		
 	private:
@@ -409,6 +410,7 @@ namespace LouiEriksson {
 			m_Buckets.clear();
 			m_Buckets.resize(1);
 		}
+		
 	};
 	
 } // LouiEriksson

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Input/Cursor.cpp Source File</title>
+<title>Final Year Project: src/engine/scripts/input/Cursor.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,80 +85,82 @@ $(document).ready(function(){initNavTree('_cursor_8cpp_source.html',''); initRes
 <div class="title">Cursor.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_cursor_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;../stdafx.h&quot;</span></div>
+<a href="_cursor_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_cursor_8h.html">Cursor.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_cursor_8h.html">Cursor.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keywordtype">void</span> Cursor::State::Apply()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="comment">// Disable SDL influencing the mouse capture because when buttons are pressed.</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Absolute ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>);</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;SDL_events.h&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SDL_hints.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SDL_mouse.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SDL_stdinc.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordtype">void</span> Cursor::State::Apply()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">         * Make SDL&#39;s relative mode use warping, as the mouse seems</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">         * to escape the window for a brief period of time otherwise.</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, <span class="stringliteral">&quot;1&quot;</span>);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">         * If m_LockMode is LockMode::Centered, the cursor&#39;s position</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">         * must be re-centered to the window&#39;s midpoint each frame.</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">         * we can achieve this using an SDL hint.</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_CENTER, <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Centered ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="comment">// Determine whether or not the cursor should be relative to a window.</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        SDL_SetRelativeMouseMode(<a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Absolute ? SDL_FALSE : SDL_TRUE);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="comment">// Disable SDL influencing the mouse capture because when buttons are pressed.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Absolute ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">         * Make SDL&#39;s relative mode use warping, as the mouse seems</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">         * to escape the window for a brief period of time otherwise.</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, <span class="stringliteral">&quot;1&quot;</span>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">         * If m_LockMode is LockMode::Centered, the cursor&#39;s position</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">         * must be re-centered to the window&#39;s midpoint each frame.</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">         * we can achieve this using an SDL hint.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_CENTER, <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Centered ? <span class="stringliteral">&quot;1&quot;</span> : <span class="stringliteral">&quot;0&quot;</span>);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="comment">// Apply the visibility of the cursor.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        SDL_ShowCursor(<a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a145d8cfd0d1a063d3c2d6c17e5537f07">m_Visible</a> ? SDL_ENABLE : SDL_DISABLE);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2c7999836ba7aa8966b50702a9d5adef">   32</a></span>&#160;    Cursor::State::State(<span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#aeacd177c016c99f6bb5289df305dcd70">LockMode</a>&amp; _lockMode, <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _visible) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        m_LockMode = _lockMode;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        m_Visible  = _visible;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    Cursor::State::State() {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        m_LockMode = SDL_GetRelativeMouseMode() == SDL_ENABLE ? Cursor::State::LockMode::Relative : Cursor::State::LockMode::Absolute;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        m_Visible  = SDL_ShowCursor(SDL_QUERY) == SDL_ENABLE;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">   42</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">Cursor::SetState</a>(<span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html">Cursor::State</a>&amp; _state) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        s_Pending = _state;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">   46</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html">Cursor::State</a> <a class="code" href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">Cursor::GetState</a>() {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">return</span> s_Current;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> Cursor::Update() {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        s_Pending.Apply();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        s_Current = s_Pending;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> Cursor::Reset() {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">SetState</a>(s_Default);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="comment">// Determine whether or not the cursor should be relative to a window.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        SDL_SetRelativeMouseMode(<a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">m_LockMode</a> == LockMode::Absolute ? SDL_FALSE : SDL_TRUE);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="comment">// Apply the visibility of the cursor.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        SDL_ShowCursor(<a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a145d8cfd0d1a063d3c2d6c17e5537f07">m_Visible</a> ? SDL_ENABLE : SDL_DISABLE);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2c7999836ba7aa8966b50702a9d5adef">   35</a></span>&#160;    Cursor::State::State(<span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html#a3e3e9ab733b0f0da6c0d617c3568e7f2">LockMode</a>&amp; _lockMode, <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _visible) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        m_LockMode = _lockMode;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        m_Visible  = _visible;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Cursor::State::State() {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        m_LockMode = SDL_GetRelativeMouseMode() == SDL_ENABLE ? Cursor::State::LockMode::Relative : Cursor::State::LockMode::Absolute;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        m_Visible  = SDL_ShowCursor(SDL_QUERY) == SDL_ENABLE;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">   45</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">Cursor::SetState</a>(<span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html">Cursor::State</a>&amp; _state) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        s_Pending = _state;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">   48</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_cursor_1_1_state.html">Cursor::State</a> <a class="code" href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">Cursor::GetState</a>() {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> s_Current;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> Cursor::Update() {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        s_Pending.Apply();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        s_Current = s_Pending;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> Cursor::Reset() {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">SetState</a>(s_Default);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// LouiEriksson</span></div>
 <div class="ttc" id="a_cursor_8h_html"><div class="ttname"><a href="_cursor_8h.html">Cursor.h</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html">LouiEriksson::Cursor::State</a></div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00014">Cursor.h:14</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_a145d8cfd0d1a063d3c2d6c17e5537f07"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#a145d8cfd0d1a063d3c2d6c17e5537f07">LouiEriksson::Cursor::State::m_Visible</a></div><div class="ttdeci">bool m_Visible</div><div class="ttdoc">Whether or not to hide the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00051">Cursor.h:51</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_a2908a15ede1dd908951fdc2bfde3e563"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">LouiEriksson::Cursor::State::m_LockMode</a></div><div class="ttdeci">LockMode m_LockMode</div><div class="ttdoc">The lock mode of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00040">Cursor.h:40</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_aeacd177c016c99f6bb5289df305dcd70"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#aeacd177c016c99f6bb5289df305dcd70">LouiEriksson::Cursor::State::LockMode</a></div><div class="ttdeci">LockMode</div><div class="ttdoc">Enum representing different ways the Cursor's movement can be restricted.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00021">Cursor.h:21</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_html_a56d9a510b71b100874a4787116ddf257"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">LouiEriksson::Cursor::GetState</a></div><div class="ttdeci">static State GetState()</div><div class="ttdoc">Return the current state of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8cpp_source.html#l00046">Cursor.cpp:46</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_html_a7a38d790f392531e671a951bd49f4d7f"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">LouiEriksson::Cursor::SetState</a></div><div class="ttdeci">static void SetState(const State &amp;_state)</div><div class="ttdoc">Set the pending state of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8cpp_source.html#l00042">Cursor.cpp:42</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html">LouiEriksson::Cursor::State</a></div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00012">Cursor.h:12</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_a145d8cfd0d1a063d3c2d6c17e5537f07"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#a145d8cfd0d1a063d3c2d6c17e5537f07">LouiEriksson::Cursor::State::m_Visible</a></div><div class="ttdeci">bool m_Visible</div><div class="ttdoc">Whether or not to hide the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00049">Cursor.h:49</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_a2908a15ede1dd908951fdc2bfde3e563"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#a2908a15ede1dd908951fdc2bfde3e563">LouiEriksson::Cursor::State::m_LockMode</a></div><div class="ttdeci">LockMode m_LockMode</div><div class="ttdoc">The lock mode of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00038">Cursor.h:38</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_1_1_state_html_a3e3e9ab733b0f0da6c0d617c3568e7f2"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor_1_1_state.html#a3e3e9ab733b0f0da6c0d617c3568e7f2">LouiEriksson::Cursor::State::LockMode</a></div><div class="ttdeci">LockMode</div><div class="ttdoc">Enum representing different ways the Cursor's movement can be restricted.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8h_source.html#l00019">Cursor.h:19</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_html_a56d9a510b71b100874a4787116ddf257"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor.html#a56d9a510b71b100874a4787116ddf257">LouiEriksson::Cursor::GetState</a></div><div class="ttdeci">static State GetState()</div><div class="ttdoc">Return the current state of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8cpp_source.html#l00048">Cursor.cpp:48</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_cursor_html_a7a38d790f392531e671a951bd49f4d7f"><div class="ttname"><a href="class_loui_eriksson_1_1_cursor.html#a7a38d790f392531e671a951bd49f4d7f">LouiEriksson::Cursor::SetState</a></div><div class="ttdeci">static void SetState(const State &amp;_state)</div><div class="ttdoc">Set the pending state of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8cpp_source.html#l00045">Cursor.cpp:45</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_752bce934b837316c80749146181c7ba.html">Input</a></li><li class="navelem"><a class="el" href="_cursor_8cpp.html">Cursor.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_5cfdad93403995834ac4304c0bc5ac60.html">input</a></li><li class="navelem"><a class="el" href="_cursor_8cpp.html">Cursor.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

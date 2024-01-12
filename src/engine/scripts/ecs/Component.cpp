@@ -30,4 +30,5 @@ namespace LouiEriksson {
 	std::shared_ptr<GameObject> Component::Parent() const {
 		return m_GameObject.lock();
 	}
-}
+	
+} // LouiEriksson

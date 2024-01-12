@@ -45,6 +45,7 @@ namespace LouiEriksson {
 				};
 				
 				inline static int s_CurrentSelection { 0 };
+				
 			};
 			
 			/// <summary> Container for the settings of the OrbitCam script. </summary>
@@ -64,6 +65,7 @@ namespace LouiEriksson {
 					inline static glm::vec3 s_Amount {   0.0f,  4.0f,   5.0f };
 					inline static glm::vec3 s_Offset {   0.0f,  2.5f, -12.0f };
 				};
+				
 			};
 			
 			/// <summary> Container for the settings of the application's skybox. </summary>
@@ -160,7 +162,9 @@ namespace LouiEriksson {
 			    inline static     float s_LightRange      {  100.0f };                  // Range of light.
 			    inline static     float s_LightAngle      {  120.0f };                  // Cos of light's FOV (for spot lights).
 				inline static     float s_LightSize       {    0.2f };                  // Size of the light (PCSS only).
+			
 			};
+			
 		};
 		
 		/// <summary> Container for the settings of the application's post-processing effects. </summary>
@@ -182,6 +186,7 @@ namespace LouiEriksson {
 				inline static float s_Radius    { 0.2f };
 				
 				static bool IsActiveAndEnabled();
+				
 			};
 			
 			/// <summary> Container for the settings of the Bloom post-processing effect. </summary>
@@ -197,6 +202,7 @@ namespace LouiEriksson {
 				inline static float s_Diffusion   {  3.0f };
 			
 				static bool IsActiveAndEnabled();
+				
 			};
 			
 			/// <summary> Container for the settings of the "aces" post-processing effect. </summary>
@@ -222,6 +228,7 @@ namespace LouiEriksson {
 					
 					static bool IsActiveAndEnabled();
 				};
+				
 			};
 			
 			/// <summary> Container for the settings of the "fxaa" post-processing effect. </summary>
@@ -236,6 +243,7 @@ namespace LouiEriksson {
 				inline static float s_LocalContrastModifier { 0.5f    };
 				
 				static bool IsActiveAndEnabled();
+				
 			};
 			
 			/// <summary> Container for the settings of the "grain" post-processing effect. </summary>
@@ -246,6 +254,7 @@ namespace LouiEriksson {
 				inline static float s_Intensity { 0.001f };
 				
 				static bool IsActiveAndEnabled();
+				
 			};
 			
 			/// <summary> Container for the settings of the "vignette" post-processing effect. </summary>
@@ -257,9 +266,13 @@ namespace LouiEriksson {
 				inline static float s_Smoothness { 0.333f };
 				
 				static bool IsActiveAndEnabled();
+				
 			};
+			
 		};
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SETTINGS_H

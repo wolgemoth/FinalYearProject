@@ -1,19 +1,5 @@
-<map id="src/engine/scripts/User Scripts/FlyCam.h" name="src/engine/scripts/User Scripts/FlyCam.h">
-<area shape="rect" id="node1" title=" " alt="" coords="552,5,723,47"/>
-<area shape="rect" id="node2" href="$_scripts_8h.html" title=" " alt="" coords="569,95,705,136"/>
-<area shape="rect" id="node17" href="$_fly_cam_8cpp.html" title=" " alt="" coords="730,95,915,136"/>
-<area shape="rect" id="node3" href="$_components_8h.html" title=" " alt="" coords="517,184,653,225"/>
-<area shape="rect" id="node4" href="$_scene_8h.html" title=" " alt="" coords="517,273,653,315"/>
-<area shape="rect" id="node5" href="$_application_8h.html" title=" " alt="" coords="409,363,554,404"/>
-<area shape="rect" id="node9" href="$_scene_8cpp.html" title=" " alt="" coords="248,363,384,404"/>
-<area shape="rect" id="node10" href="$_ball_8h.html" title=" " alt="" coords="943,363,1089,404"/>
-<area shape="rect" id="node12" href="$_orbit_cam_8h.html" title=" " alt="" coords="41,363,223,404"/>
-<area shape="rect" id="node14" href="$_plane_8h.html" title=" " alt="" coords="763,363,919,404"/>
-<area shape="rect" id="node16" href="$_player_8h.html" title=" " alt="" coords="579,363,739,404"/>
-<area shape="rect" id="node6" href="$_application_8cpp.html" title=" " alt="" coords="227,452,387,493"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title=" " alt="" coords="411,452,547,493"/>
-<area shape="rect" id="node8" href="$_player_8cpp.html" title=" " alt="" coords="571,452,746,493"/>
-<area shape="rect" id="node11" href="$_ball_8cpp.html" title=" " alt="" coords="965,452,1125,493"/>
-<area shape="rect" id="node13" href="$_orbit_cam_8cpp.html" title=" " alt="" coords="5,452,203,493"/>
-<area shape="rect" id="node15" href="$_plane_8cpp.html" title=" " alt="" coords="771,452,941,493"/>
+<map id="src/usr/scripts/FlyCam.h" name="src/usr/scripts/FlyCam.h">
+<area shape="rect" id="node1" title=" " alt="" coords="79,5,257,32"/>
+<area shape="rect" id="node2" href="$_scene_8cpp.html" title=" " alt="" coords="5,80,141,121"/>
+<area shape="rect" id="node3" href="$_fly_cam_8cpp.html" title=" " alt="" coords="166,87,359,114"/>
 </map>

@@ -55,6 +55,7 @@ namespace LouiEriksson {
 		std::shared_ptr<Transform> GetTransform();
 	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_ORBITCAM_H

@@ -37,7 +37,9 @@ namespace LouiEriksson {
 	
 		/// <summary> Get the impulse of the Collision. </summary>
 		[[nodiscard]] const float& Impulse() const;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_COLLISION_H

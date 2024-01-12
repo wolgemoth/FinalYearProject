@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Physics/Colliders/PlaneCollider.cpp Source File</title>
+<title>Final Year Project: src/engine/scripts/physics/colliders/PlaneCollider.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,54 +85,59 @@ $(document).ready(function(){initNavTree('_plane_collider_8cpp_source.html','');
 <div class="title">PlaneCollider.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_plane_collider_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;../../stdafx.h&quot;</span></div>
+<a href="_plane_collider_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_plane_collider_8h.html">PlaneCollider.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_plane_collider_8h.html">PlaneCollider.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../../core/Transform.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../ecs/GameObject.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../Collider.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">    9</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">PlaneCollider::PlaneCollider</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent) : <a class="code" href="class_loui_eriksson_1_1_collider.html">Collider</a>(_parent) {}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">PlaneCollider::~PlaneCollider</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">   12</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">PlaneCollider::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">Collider::SetTransform</a>(_transform); <span class="comment">// Call base function to assign new transform.</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="comment">// Lock the transform and check it is valid.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> transform = <a class="code" href="class_loui_eriksson_1_1_collider.html#abe95338b55320dc95e34d576462e5bbc">m_Transform</a>.lock();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> s = transform-&gt;m_Scale;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="comment">/* Use box-shaped collision instead of a plane-shape so that</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">             * we can allow our plane to have edges, and not just be infinite. */</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <a class="code" href="class_loui_eriksson_1_1_collider.html#a580f1607725057795785d23d5b3896f6">m_CollisionShape</a>.reset(</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                <span class="keyword">new</span> btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            );</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BulletCollision/CollisionShapes/btBoxShape.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">   15</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">PlaneCollider::PlaneCollider</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent) : <a class="code" href="class_loui_eriksson_1_1_collider.html">Collider</a>(_parent) {}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">PlaneCollider::~PlaneCollider</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">   18</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">PlaneCollider::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">Collider::SetTransform</a>(_transform); <span class="comment">// Call base function to assign new transform.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="comment">// Lock the transform and check it is valid.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> transform = <a class="code" href="class_loui_eriksson_1_1_collider.html#abe95338b55320dc95e34d576462e5bbc">m_Transform</a>.lock();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> s = transform-&gt;m_Scale;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="comment">/* Use box-shaped collision instead of a plane-shape so that</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">             * we can allow our plane to have edges, and not just be infinite. */</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="class_loui_eriksson_1_1_collider.html#a580f1607725057795785d23d5b3896f6">m_CollisionShape</a>.reset(</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <span class="keyword">new</span> btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// LouiEriksson</span></div>
 <div class="ttc" id="a_plane_collider_8h_html"><div class="ttname"><a href="_plane_collider_8h.html">PlaneCollider.h</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00015">Collider.h:15</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_a580f1607725057795785d23d5b3896f6"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#a580f1607725057795785d23d5b3896f6">LouiEriksson::Collider::m_CollisionShape</a></div><div class="ttdeci">std::shared_ptr&lt; btCollisionShape &gt; m_CollisionShape</div><div class="ttdoc">(Bullet Physics Engine) Shape of collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00058">Collider.h:58</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_abe95338b55320dc95e34d576462e5bbc"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#abe95338b55320dc95e34d576462e5bbc">LouiEriksson::Collider::m_Transform</a></div><div class="ttdeci">std::weak_ptr&lt; Transform &gt; m_Transform</div><div class="ttdoc">Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00061">Collider.h:61</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_adba992328415288071e5cc314b6c4e2e"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">LouiEriksson::Collider::SetTransform</a></div><div class="ttdeci">virtual void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8cpp_source.html#l00019">Collider.cpp:19</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a13cf4188ba1f556b8a8fcbd118eab0cb"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">LouiEriksson::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00009">PlaneCollider.cpp:9</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a586a64921d73083c152214d5262bf7b0"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">LouiEriksson::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00012">PlaneCollider.cpp:12</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00017">Collider.h:17</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_a580f1607725057795785d23d5b3896f6"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#a580f1607725057795785d23d5b3896f6">LouiEriksson::Collider::m_CollisionShape</a></div><div class="ttdeci">std::shared_ptr&lt; btCollisionShape &gt; m_CollisionShape</div><div class="ttdoc">(Bullet Physics Engine) Shape of collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00062">Collider.h:62</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_abe95338b55320dc95e34d576462e5bbc"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#abe95338b55320dc95e34d576462e5bbc">LouiEriksson::Collider::m_Transform</a></div><div class="ttdeci">std::weak_ptr&lt; Transform &gt; m_Transform</div><div class="ttdoc">Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00065">Collider.h:65</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html_adba992328415288071e5cc314b6c4e2e"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html#adba992328415288071e5cc314b6c4e2e">LouiEriksson::Collider::SetTransform</a></div><div class="ttdeci">virtual void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform)</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8cpp_source.html#l00026">Collider.cpp:26</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a13cf4188ba1f556b8a8fcbd118eab0cb"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">LouiEriksson::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00015">PlaneCollider.cpp:15</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a586a64921d73083c152214d5262bf7b0"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">LouiEriksson::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00018">PlaneCollider.cpp:18</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_ad2ae7503bd59fb0cf9859e70dd5b64db"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">LouiEriksson::PlaneCollider::~PlaneCollider</a></div><div class="ttdeci">~PlaneCollider() override</div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_6e10289c43f02308ba756dcb7ce76a14.html">Physics</a></li><li class="navelem"><a class="el" href="dir_eb91b78ba1bfdb4ad83a61b2dd9a5db5.html">Colliders</a></li><li class="navelem"><a class="el" href="_plane_collider_8cpp.html">PlaneCollider.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_af559e6592a3df3c6b601ef841cb784a.html">physics</a></li><li class="navelem"><a class="el" href="dir_683cd2f079d605a8d2bfb64d8add20bf.html">colliders</a></li><li class="navelem"><a class="el" href="_plane_collider_8cpp.html">PlaneCollider.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

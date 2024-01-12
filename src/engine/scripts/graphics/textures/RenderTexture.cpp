@@ -137,4 +137,5 @@ namespace LouiEriksson {
 	GLuint RenderTexture::DepthID() const {
 		return m_Depth_ID;
 	}
-}
+	
+} // LouiEriksson

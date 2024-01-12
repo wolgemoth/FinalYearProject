@@ -63,6 +63,7 @@ namespace LouiEriksson {
 		/// Wraps an angle so that it remains within -180 to 180 degrees.
 		/// </summary>
 		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
+		
 	};
 	
 } // LouiEriksson

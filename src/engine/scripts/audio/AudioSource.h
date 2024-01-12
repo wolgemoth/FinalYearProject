@@ -7,6 +7,7 @@
 
 #include <AL/al.h>
 #include <glm/ext/vector_float3.hpp>
+
 #include <memory>
 
 namespace LouiEriksson {
@@ -101,6 +102,7 @@ namespace LouiEriksson {
 			
 			 Parameters();
 			~Parameters();
+			
 		};
 		
 		/// <summary>

@@ -3,9 +3,9 @@
 
 #include "../ecs/Component.h"
 
+#include <glm/ext.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/fwd.hpp>
-#include <glm/ext.hpp>
 
 #include <memory>
 
@@ -46,8 +46,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Get this Transform as a Transform, Rotation, Scale matrix.</summary>
 		[[nodiscard]] glm::mat4 TRS() const;
+		
 	};
 	
-}
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_TRANSFORM_H

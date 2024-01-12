@@ -79,4 +79,5 @@ namespace LouiEriksson {
 		
 		return s_Instance;
 	}
-}
+	
+} // LouiEriksson

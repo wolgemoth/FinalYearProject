@@ -53,7 +53,9 @@ namespace LouiEriksson {
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output);
 		
 		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Cubemap>& _output, GLenum _format, bool _generateMipmaps);
+	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_FILE_H

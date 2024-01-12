@@ -96,45 +96,45 @@ Collaboration diagram for LouiEriksson::File::Directory:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct_loui_eriksson_1_1_file_1_1_directory__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_file_1_1_directory_coll__map" alt="Collaboration graph"/></div>
 <map name="a_loui_eriksson_1_1_file_1_1_directory_coll__map" id="a_loui_eriksson_1_1_file_1_1_directory_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,281,347"/>
+<area shape="rect" title=" " alt="" coords="5,5,184,112"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af7d10584261d2e8bd47b5b1313bb8c5a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">EntryType</a> { <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5aa7de3f5c705c3e8a163cfe04084fb1773">FILE</a> = 1u &lt;&lt; 0u
-, <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5aa1ade7f9a4bd4bb1c2c0ec3b061cc5255">DIRECTORY</a> = 1u &lt;&lt; 1u
+<tr class="memitem:aa1504d324a54144ebde56944c184e335"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">EntryType</a> : char { <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335a7de3f5c705c3e8a163cfe04084fb1773">FILE</a> = 1u &lt;&lt; 0u
+, <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335a1ade7f9a4bd4bb1c2c0ec3b061cc5255">DIRECTORY</a> = 1u &lt;&lt; 1u
  }</td></tr>
-<tr class="separator:af7d10584261d2e8bd47b5b1313bb8c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa1504d324a54144ebde56944c184e335"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aefffb9de68eb30d1ea806dabd77d3dd7"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aefffb9de68eb30d1ea806dabd77d3dd7">GetEntries</a> (const std::filesystem::path &amp;_path, const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a> &amp;_type=(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE|File::Directory::EntryType::DIRECTORY))</td></tr>
+<tr class="memitem:aefffb9de68eb30d1ea806dabd77d3dd7"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aefffb9de68eb30d1ea806dabd77d3dd7">GetEntries</a> (const std::filesystem::path &amp;_path, const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a> &amp;_type=(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE|File::Directory::EntryType::DIRECTORY))</td></tr>
 <tr class="separator:aefffb9de68eb30d1ea806dabd77d3dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09a2848703f2660d80cd2504ea668438"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#a09a2848703f2660d80cd2504ea668438">GetEntriesRecursive</a> (const std::filesystem::path &amp;_path, const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a> &amp;_type=(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE|File::Directory::EntryType::DIRECTORY))</td></tr>
+<tr class="memitem:a09a2848703f2660d80cd2504ea668438"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#a09a2848703f2660d80cd2504ea668438">GetEntriesRecursive</a> (const std::filesystem::path &amp;_path, const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a> &amp;_type=(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE|File::Directory::EntryType::DIRECTORY))</td></tr>
 <tr class="separator:a09a2848703f2660d80cd2504ea668438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00018">18</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00026">26</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="af7d10584261d2e8bd47b5b1313bb8c5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7d10584261d2e8bd47b5b1313bb8c5a">&#9670;&nbsp;</a></span>EntryType</h2>
+<a id="aa1504d324a54144ebde56944c184e335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1504d324a54144ebde56944c184e335">&#9670;&nbsp;</a></span>EntryType</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">LouiEriksson::File::Directory::EntryType</a></td>
+          <td class="memname">enum <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">LouiEriksson::File::Directory::EntryType</a> : char</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af7d10584261d2e8bd47b5b1313bb8c5aa7de3f5c705c3e8a163cfe04084fb1773"></a>FILE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af7d10584261d2e8bd47b5b1313bb8c5aa1ade7f9a4bd4bb1c2c0ec3b061cc5255"></a>DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa1504d324a54144ebde56944c184e335a7de3f5c705c3e8a163cfe04084fb1773"></a>FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa1504d324a54144ebde56944c184e335a1ade7f9a4bd4bb1c2c0ec3b061cc5255"></a>DIRECTORY&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00020">20</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8h_source.html#l00028">28</a> of file <a class="el" href="_file_8h_source.html">File.h</a>.</p>
 
 </div>
 </div>
@@ -157,8 +157,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a> &amp;&#160;</td>
-          <td class="paramname"><em>_type</em> = <code>(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE&#160;|&#160;File::Directory::EntryType::DIRECTORY)</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a> &amp;&#160;</td>
+          <td class="paramname"><em>_type</em> = <code>(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE&#160;|&#160;File::Directory::EntryType::DIRECTORY)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -173,7 +173,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00036">36</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00048">48</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 
 </div>
 </div>
@@ -195,8 +195,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a> &amp;&#160;</td>
-          <td class="paramname"><em>_type</em> = <code>(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#af7d10584261d2e8bd47b5b1313bb8c5a">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE&#160;|&#160;File::Directory::EntryType::DIRECTORY)</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a> &amp;&#160;</td>
+          <td class="paramname"><em>_type</em> = <code>(<a class="el" href="struct_loui_eriksson_1_1_file_1_1_directory.html#aa1504d324a54144ebde56944c184e335">File::Directory::EntryType</a>)(File::Directory::EntryType::FILE&#160;|&#160;File::Directory::EntryType::DIRECTORY)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -211,13 +211,13 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00059">59</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_file_8cpp_source.html#l00071">71</a> of file <a class="el" href="_file_8cpp_source.html">File.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/engine/scripts/Core/<a class="el" href="_file_8h_source.html">File.h</a></li>
-<li>src/engine/scripts/Core/<a class="el" href="_file_8cpp_source.html">File.cpp</a></li>
+<li>src/engine/scripts/core/<a class="el" href="_file_8h_source.html">File.h</a></li>
+<li>src/engine/scripts/core/<a class="el" href="_file_8cpp_source.html">File.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

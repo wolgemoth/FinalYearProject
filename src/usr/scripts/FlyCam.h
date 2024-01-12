@@ -70,6 +70,7 @@ namespace LouiEriksson {
 		std::shared_ptr<Transform> GetTransform();
 	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_FLYCAM_H

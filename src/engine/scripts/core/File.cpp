@@ -1,7 +1,7 @@
 #include "File.h"
 
-#include "../utils/Utils.h"
 #include "../graphics/Shader.h"
+#include "../utils/Utils.h"
 
 #include "Resources.h"
 
@@ -778,4 +778,5 @@ namespace LouiEriksson {
 		
 		return result;
 	}
-}
+
+} // LouiEriksson

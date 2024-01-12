@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Core/Transform.cpp File Reference</title>
+<title>Final Year Project: src/engine/scripts/core/Transform.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,52 +87,35 @@ $(document).ready(function(){initNavTree('_transform_8cpp.html',''); initResizab
 <div class="title">Transform.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="stdafx_8h_source.html">../stdafx.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_transform_8h_source.html">Transform.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_transform_8h_source.html">Transform.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_component_8h_source.html">../ecs/Component.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_game_object_8h_source.html">../ecs/GameObject.h</a>&quot;</code><br />
+<code>#include &lt;glm/ext.hpp&gt;</code><br />
+<code>#include &lt;glm/gtc/quaternion.hpp&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Transform.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_transform_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_core_2_transform_8cpp" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_core_2_transform_8cpp" id="asrc_2engine_2scripts_2_core_2_transform_8cpp">
-<area shape="rect" title=" " alt="" coords="2163,5,2315,47"/>
-<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2209,319,2295,345"/>
-<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="2247,95,2345,121"/>
-<area shape="rect" title=" " alt="" coords="5,401,64,427"/>
-<area shape="rect" title=" " alt="" coords="88,401,173,427"/>
-<area shape="rect" title=" " alt="" coords="198,401,269,427"/>
-<area shape="rect" title=" " alt="" coords="293,393,453,435"/>
-<area shape="rect" title=" " alt="" coords="477,393,637,435"/>
-<area shape="rect" title=" " alt="" coords="661,401,765,427"/>
-<area shape="rect" title=" " alt="" coords="790,401,890,427"/>
-<area shape="rect" title=" " alt="" coords="915,401,1053,427"/>
-<area shape="rect" title=" " alt="" coords="1078,401,1247,427"/>
-<area shape="rect" title=" " alt="" coords="1272,401,1339,427"/>
-<area shape="rect" title=" " alt="" coords="1363,401,1437,427"/>
-<area shape="rect" title=" " alt="" coords="1461,401,1547,427"/>
-<area shape="rect" title=" " alt="" coords="1571,401,1781,427"/>
-<area shape="rect" title=" " alt="" coords="1805,401,1984,427"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2059,401,2189,427"/>
-<area shape="rect" title=" " alt="" coords="2001,483,2087,509"/>
-<area shape="rect" title=" " alt="" coords="2123,483,2210,509"/>
-<area shape="rect" title=" " alt="" coords="2239,483,2302,509"/>
-<area shape="rect" title=" " alt="" coords="2315,401,2362,427"/>
-<area shape="rect" title=" " alt="" coords="2387,401,2445,427"/>
-<area shape="rect" title=" " alt="" coords="2470,401,2533,427"/>
-<area shape="rect" title=" " alt="" coords="2557,401,2613,427"/>
-<area shape="rect" title=" " alt="" coords="2637,401,2696,427"/>
-<area shape="rect" title=" " alt="" coords="2720,401,2787,427"/>
-<area shape="rect" title=" " alt="" coords="2811,401,2888,427"/>
-<area shape="rect" title=" " alt="" coords="2913,401,2973,427"/>
-<area shape="rect" title=" " alt="" coords="2997,401,3070,427"/>
-<area shape="rect" title=" " alt="" coords="3095,401,3169,427"/>
-<area shape="rect" title=" " alt="" coords="3193,401,3273,427"/>
-<area shape="rect" title=" " alt="" coords="3298,401,3385,427"/>
-<area shape="rect" title=" " alt="" coords="3409,401,3495,427"/>
-<area shape="rect" title=" " alt="" coords="3520,401,3605,427"/>
-<area shape="rect" title=" " alt="" coords="3629,401,3720,427"/>
-<area shape="rect" title=" " alt="" coords="3744,401,3859,427"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2234,169,2385,196"/>
-<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="2252,244,2367,271"/>
+<div class="center"><img src="_transform_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2core_2_transform_8cpp" alt=""/></div>
+<map name="asrc_2engine_2scripts_2core_2_transform_8cpp" id="asrc_2engine_2scripts_2core_2_transform_8cpp">
+<area shape="rect" title=" " alt="" coords="933,5,1083,47"/>
+<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="808,95,907,121"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="508,169,655,196"/>
+<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="451,244,565,271"/>
+<area shape="rect" title=" " alt="" coords="769,319,847,345"/>
+<area shape="rect" title=" " alt="" coords="1071,169,1171,196"/>
+<area shape="rect" title=" " alt="" coords="1247,95,1420,121"/>
+<area shape="rect" title=" " alt="" coords="857,169,1047,196"/>
+<area shape="rect" title=" " alt="" coords="679,169,782,196"/>
+<area shape="rect" title=" " alt="" coords="593,393,663,420"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="367,319,507,345"/>
+<area shape="rect" title=" " alt="" coords="285,393,371,420"/>
+<area shape="rect" title=" " alt="" coords="506,393,569,420"/>
+<area shape="rect" title=" " alt="" coords="634,319,681,345"/>
+<area shape="rect" title=" " alt="" coords="5,319,64,345"/>
+<area shape="rect" title=" " alt="" coords="89,319,181,345"/>
+<area shape="rect" title=" " alt="" coords="205,319,291,345"/>
+<area shape="rect" title=" " alt="" coords="395,393,482,420"/>
 </map>
 </div>
 </div>
@@ -148,7 +131,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_e9b2a960a0214ceae8afe82a61a1747f.html">Core</a></li><li class="navelem"><a class="el" href="_transform_8cpp.html">Transform.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_acbc831a85cfa70446f7d8fe89c12409.html">core</a></li><li class="navelem"><a class="el" href="_transform_8cpp.html">Transform.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/Core/Transform.h File Reference</title>
+<title>Final Year Project: src/engine/scripts/core/Transform.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,103 +89,71 @@ $(document).ready(function(){initNavTree('_transform_8h.html',''); initResizable
 <div class="title">Transform.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_component_8h_source.html">../ECS/Component.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_component_8h_source.html">../ecs/Component.h</a>&quot;</code><br />
+<code>#include &lt;glm/ext.hpp&gt;</code><br />
+<code>#include &lt;glm/ext/vector_float3.hpp&gt;</code><br />
+<code>#include &lt;glm/fwd.hpp&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Transform.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="_transform_8h__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_core_2_transform_8h" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_core_2_transform_8h" id="asrc_2engine_2scripts_2_core_2_transform_8h">
-<area shape="rect" title=" " alt="" coords="2183,5,2321,47"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="2177,95,2327,121"/>
-<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="2195,169,2309,196"/>
-<area shape="rect" href="stdafx_8h.html" title=" " alt="" coords="2209,244,2295,271"/>
-<area shape="rect" title=" " alt="" coords="5,326,64,353"/>
-<area shape="rect" title=" " alt="" coords="88,326,173,353"/>
-<area shape="rect" title=" " alt="" coords="198,326,269,353"/>
-<area shape="rect" title=" " alt="" coords="293,319,453,360"/>
-<area shape="rect" title=" " alt="" coords="477,319,637,360"/>
-<area shape="rect" title=" " alt="" coords="661,326,765,353"/>
-<area shape="rect" title=" " alt="" coords="790,326,890,353"/>
-<area shape="rect" title=" " alt="" coords="915,326,1053,353"/>
-<area shape="rect" title=" " alt="" coords="1078,326,1247,353"/>
-<area shape="rect" title=" " alt="" coords="1272,326,1339,353"/>
-<area shape="rect" title=" " alt="" coords="1363,326,1437,353"/>
-<area shape="rect" title=" " alt="" coords="1461,326,1547,353"/>
-<area shape="rect" title=" " alt="" coords="1571,326,1781,353"/>
-<area shape="rect" title=" " alt="" coords="1805,326,1984,353"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="2059,326,2189,353"/>
-<area shape="rect" title=" " alt="" coords="2001,408,2087,435"/>
-<area shape="rect" title=" " alt="" coords="2123,408,2210,435"/>
-<area shape="rect" title=" " alt="" coords="2239,408,2302,435"/>
-<area shape="rect" title=" " alt="" coords="2315,326,2362,353"/>
-<area shape="rect" title=" " alt="" coords="2387,326,2445,353"/>
-<area shape="rect" title=" " alt="" coords="2470,326,2533,353"/>
-<area shape="rect" title=" " alt="" coords="2557,326,2613,353"/>
-<area shape="rect" title=" " alt="" coords="2637,326,2696,353"/>
-<area shape="rect" title=" " alt="" coords="2720,326,2787,353"/>
-<area shape="rect" title=" " alt="" coords="2811,326,2888,353"/>
-<area shape="rect" title=" " alt="" coords="2913,326,2973,353"/>
-<area shape="rect" title=" " alt="" coords="2997,326,3070,353"/>
-<area shape="rect" title=" " alt="" coords="3095,326,3169,353"/>
-<area shape="rect" title=" " alt="" coords="3193,326,3273,353"/>
-<area shape="rect" title=" " alt="" coords="3298,326,3385,353"/>
-<area shape="rect" title=" " alt="" coords="3409,326,3495,353"/>
-<area shape="rect" title=" " alt="" coords="3520,326,3605,353"/>
-<area shape="rect" title=" " alt="" coords="3629,326,3720,353"/>
-<area shape="rect" title=" " alt="" coords="3744,326,3859,353"/>
+<div class="center"><img src="_transform_8h__incl.png" border="0" usemap="#asrc_2engine_2scripts_2core_2_transform_8h" alt=""/></div>
+<map name="asrc_2engine_2scripts_2core_2_transform_8h" id="asrc_2engine_2scripts_2core_2_transform_8h">
+<area shape="rect" title=" " alt="" coords="762,5,898,47"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="391,95,538,121"/>
+<area shape="rect" title=" " alt="" coords="726,244,803,271"/>
+<area shape="rect" title=" " alt="" coords="780,95,880,121"/>
+<area shape="rect" title=" " alt="" coords="905,95,1094,121"/>
+<area shape="rect" title=" " alt="" coords="1119,95,1221,121"/>
+<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="407,169,522,196"/>
+<area shape="rect" title=" " alt="" coords="5,319,76,345"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="79,244,219,271"/>
+<area shape="rect" title=" " alt="" coords="559,319,645,345"/>
+<area shape="rect" title=" " alt="" coords="387,319,449,345"/>
+<area shape="rect" title=" " alt="" coords="243,244,289,271"/>
+<area shape="rect" title=" " alt="" coords="314,244,373,271"/>
+<area shape="rect" title=" " alt="" coords="397,244,489,271"/>
+<area shape="rect" title=" " alt="" coords="513,244,600,271"/>
+<area shape="rect" title=" " alt="" coords="105,319,192,345"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="_transform_8h__dep__incl.png" border="0" usemap="#asrc_2engine_2scripts_2_core_2_transform_8hdep" alt=""/></div>
-<map name="asrc_2engine_2scripts_2_core_2_transform_8hdep" id="asrc_2engine_2scripts_2_core_2_transform_8hdep">
-<area shape="rect" title=" " alt="" coords="1666,5,1803,47"/>
-<area shape="rect" href="_audio_listener_8h.html" title=" " alt="" coords="1559,95,1726,136"/>
-<area shape="rect" href="_components_8h.html" title=" " alt="" coords="1395,452,1531,493"/>
-<area shape="rect" href="_serialisation_8h.html" title=" " alt="" coords="2213,184,2366,225"/>
-<area shape="rect" href="_collider_8h.html" title=" " alt="" coords="2105,273,2245,315"/>
-<area shape="rect" href="_transform_8cpp.html" title=" " alt="" coords="2263,95,2415,136"/>
-<area shape="rect" href="_light_8h.html" title=" " alt="" coords="1040,273,1176,315"/>
-<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="1231,273,1388,315"/>
-<area shape="rect" href="_rigidbody_8h.html" title=" " alt="" coords="1773,95,1928,136"/>
-<area shape="rect" href="_audio_listener_8cpp.html" title=" " alt="" coords="1551,184,1734,225"/>
-<area shape="rect" href="_scene_8h.html" title=" " alt="" coords="1284,541,1420,583"/>
-<area shape="rect" href="_application_8h.html" title=" " alt="" coords="1685,631,1830,672"/>
-<area shape="rect" href="_scene_8cpp.html" title=" " alt="" coords="1855,631,1991,672"/>
-<area shape="rect" href="_ball_8h.html" title=" " alt="" coords="893,631,1038,672"/>
-<area shape="rect" href="_fly_cam_8h.html" title=" " alt="" coords="697,631,868,672"/>
-<area shape="rect" href="_orbit_cam_8h.html" title=" " alt="" coords="1062,631,1245,672"/>
-<area shape="rect" href="_plane_8h.html" title=" " alt="" coords="1269,631,1425,672"/>
-<area shape="rect" href="_player_8h.html" title=" " alt="" coords="1500,631,1660,672"/>
-<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="485,720,645,761"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="1840,720,1976,761"/>
-<area shape="rect" href="_player_8cpp.html" title=" " alt="" coords="1641,720,1815,761"/>
-<area shape="rect" href="_scripts_8h.html" title=" " alt="" coords="1285,720,1421,761"/>
-<area shape="rect" href="_ball_8cpp.html" title=" " alt="" coords="880,720,1040,761"/>
-<area shape="rect" href="_fly_cam_8cpp.html" title=" " alt="" coords="670,720,855,761"/>
-<area shape="rect" href="_orbit_cam_8cpp.html" title=" " alt="" coords="1064,720,1261,761"/>
-<area shape="rect" href="_plane_8cpp.html" title=" " alt="" coords="1445,720,1616,761"/>
-<area shape="rect" href="_serialisation_8cpp.html" title=" " alt="" coords="2269,273,2437,315"/>
-<area shape="rect" href="_colliders_8h.html" title=" " alt="" coords="2633,452,2769,493"/>
-<area shape="rect" href="_collider_8cpp.html" title=" " alt="" coords="2316,363,2471,404"/>
-<area shape="rect" href="_plane_collider_8h.html" title=" " alt="" coords="2055,363,2292,404"/>
-<area shape="rect" href="_sphere_collider_8h.html" title=" " alt="" coords="2495,363,2742,404"/>
-<area shape="rect" href="_rigidbody_8cpp.html" title=" " alt="" coords="1861,363,2030,404"/>
-<area shape="rect" href="_plane_collider_8cpp.html" title=" " alt="" coords="2047,452,2299,493"/>
-<area shape="rect" href="_sphere_collider_8cpp.html" title=" " alt="" coords="2348,452,2609,493"/>
-<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="975,363,1126,404"/>
-<area shape="rect" href="_light_8cpp.html" title=" " alt="" coords="804,363,951,404"/>
-<area shape="rect" href="_window_8h.html" title=" " alt="" coords="536,541,672,583"/>
-<area shape="rect" href="_camera_8cpp.html" title=" " alt="" coords="968,452,1133,493"/>
-<area shape="rect" href="_window_8cpp.html" title=" " alt="" coords="535,631,673,672"/>
-<area shape="rect" href="_cursor_8h.html" title=" " alt="" coords="375,631,511,672"/>
-<area shape="rect" href="_g_u_i_8h.html" title=" " alt="" coords="193,631,329,672"/>
-<area shape="rect" href="_cursor_8cpp.html" title=" " alt="" coords="325,720,461,761"/>
-<area shape="rect" href="_g_u_i_8cpp.html" title=" " alt="" coords="165,720,301,761"/>
-<area shape="rect" href="_input_8cpp.html" title=" " alt="" coords="5,720,141,761"/>
-<area shape="rect" href="_renderer_8cpp.html" title=" " alt="" coords="1253,363,1425,404"/>
-<area shape="rect" href="_audio_source_8cpp.html" title=" " alt="" coords="1911,184,2086,225"/>
+<div class="center"><img src="_transform_8h__dep__incl.png" border="0" usemap="#asrc_2engine_2scripts_2core_2_transform_8hdep" alt=""/></div>
+<map name="asrc_2engine_2scripts_2core_2_transform_8hdep" id="asrc_2engine_2scripts_2core_2_transform_8hdep">
+<area shape="rect" title=" " alt="" coords="1483,5,1619,47"/>
+<area shape="rect" href="_audio_listener_8cpp.html" title=" " alt="" coords="1588,184,1769,225"/>
+<area shape="rect" href="_audio_source_8cpp.html" title=" " alt="" coords="1794,184,1969,225"/>
+<area shape="rect" href="_transform_8cpp.html" title=" " alt="" coords="2974,95,3125,136"/>
+<area shape="rect" href="_camera_8cpp.html" title=" " alt="" coords="209,273,372,315"/>
+<area shape="rect" href="_camera_8h.html" title=" " alt="" coords="707,184,855,225"/>
+<area shape="rect" href="_fly_cam_8cpp.html" title=" " alt="" coords="334,370,527,397"/>
+<area shape="rect" href="_fly_cam_8h.html" title=" " alt="" coords="873,281,1052,307"/>
+<area shape="rect" href="_orbit_cam_8cpp.html" title=" " alt="" coords="5,370,211,397"/>
+<area shape="rect" href="_orbit_cam_8h.html" title=" " alt="" coords="397,281,587,307"/>
+<area shape="rect" href="_player_8cpp.html" title=" " alt="" coords="1279,281,1462,307"/>
+<area shape="rect" href="_light_8h.html" title=" " alt="" coords="364,95,500,136"/>
+<area shape="rect" href="_renderer_8cpp.html" title=" " alt="" coords="1241,184,1412,225"/>
+<area shape="rect" href="_renderer_8h.html" title=" " alt="" coords="1108,95,1263,136"/>
+<area shape="rect" href="_ball_8cpp.html" title=" " alt="" coords="1596,370,1764,397"/>
+<area shape="rect" href="_plane_8cpp.html" title=" " alt="" coords="2372,370,2551,397"/>
+<area shape="rect" href="_collider_8cpp.html" title=" " alt="" coords="2435,273,2589,315"/>
+<area shape="rect" href="_collider_8h.html" title=" " alt="" coords="2197,184,2337,225"/>
+<area shape="rect" href="_plane_collider_8cpp.html" title=" " alt="" coords="2656,363,2907,404"/>
+<area shape="rect" href="_plane_collider_8h.html" title=" " alt="" coords="2664,273,2899,315"/>
+<area shape="rect" href="_rigidbody_8cpp.html" title=" " alt="" coords="1718,273,1887,315"/>
+<area shape="rect" href="_rigidbody_8h.html" title=" " alt="" coords="1967,95,2121,136"/>
+<area shape="rect" href="_window_8h.html" title=" " alt="" coords="713,273,849,315"/>
+<area shape="rect" href="_scene_8cpp.html" title=" " alt="" coords="1072,363,1208,404"/>
+<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="471,452,630,493"/>
+<area shape="rect" href="_window_8cpp.html" title=" " alt="" coords="865,363,1001,404"/>
+<area shape="rect" href="_g_u_i_8cpp.html" title=" " alt="" coords="815,452,951,493"/>
+<area shape="rect" href="_g_u_i_8h.html" title=" " alt="" coords="655,363,791,404"/>
+<area shape="rect" href="_input_8cpp.html" title=" " alt="" coords="655,452,791,493"/>
+<area shape="rect" href="_light_8cpp.html" title=" " alt="" coords="360,184,504,225"/>
+<area shape="rect" href="_sphere_collider_8cpp.html" title=" " alt="" coords="2048,363,2307,404"/>
+<area shape="rect" href="_sphere_collider_8h.html" title=" " alt="" coords="2014,273,2258,315"/>
 </map>
 </div>
 </div>
@@ -236,7 +204,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00039">39</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00045">45</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +220,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00012">12</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00018">18</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -268,7 +236,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00037">37</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00043">43</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -284,7 +252,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00038">38</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00044">44</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -300,7 +268,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00010">10</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00016">16</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -316,7 +284,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00007">7</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00013">13</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -332,7 +300,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00008">8</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00014">14</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -348,7 +316,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00009">9</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00015">15</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -364,7 +332,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00006">6</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transform_8h_source.html#l00012">12</a> of file <a class="el" href="_transform_8h_source.html">Transform.h</a>.</p>
 
 </div>
 </div>
@@ -373,7 +341,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_e9b2a960a0214ceae8afe82a61a1747f.html">Core</a></li><li class="navelem"><a class="el" href="_transform_8h.html">Transform.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_acbc831a85cfa70446f7d8fe89c12409.html">core</a></li><li class="navelem"><a class="el" href="_transform_8h.html">Transform.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

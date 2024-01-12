@@ -25,17 +25,20 @@ namespace LouiEriksson {
 		
 		struct Parameters {
 			
-			friend Light;
 			friend Camera;
+			friend Light;
 			
 		public:
 			
 			/// <summary> Type of the Light. </summary>
 			enum Type : char {
+				
 				/// <summary> Light is a Point Light. </summary>
 				Point,
+				
 				/// <summary> Light is a Directional Light. </summary>
 				Directional,
+				
 				/// <summary> Light is a Spot Light. </summary>
 				Spot,
 			};
@@ -65,6 +68,7 @@ namespace LouiEriksson {
 				void UpdateShadowMap(const Light::Parameters::Type& _type);
 				
 			};
+			
 		};
 		
 		explicit Light(const std::shared_ptr<GameObject>& _parent);
@@ -88,7 +92,9 @@ namespace LouiEriksson {
 		float m_Size;
 		
 		glm::vec3 m_Color;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_LIGHT_H

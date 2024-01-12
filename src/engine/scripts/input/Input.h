@@ -28,8 +28,8 @@ namespace LouiEriksson {
 	
 		struct Event {
 		
-			friend Input;
 			friend class Mouse;
+			friend Input;
 		
 		private:
 		
@@ -69,6 +69,7 @@ namespace LouiEriksson {
 				
 				/// <summary> Returns the state of the keyboard at the provided SDL_Scancode. </summary>
 				[[nodiscard]]bool Get(const SDL_Scancode& _value) const;
+				
 			};
 			
 			inline static State s_PreviousKeyboardState{};
@@ -93,6 +94,7 @@ namespace LouiEriksson {
 			
 			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) was released. </summary>
 			static bool GetUp(const SDL_Keycode& _key);
+			
 		};
 		
 		struct Mouse {
@@ -118,6 +120,7 @@ namespace LouiEriksson {
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released. </summary>
 			static const bool GetUp(const Uint8& _button);
+			
 		};
 		
 		 Input()                    = delete;
@@ -132,7 +135,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Finalise input. </summary>
 		static void Dispose();
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_INPUT_H

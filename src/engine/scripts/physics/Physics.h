@@ -54,6 +54,7 @@ namespace LouiEriksson {
 			
 			/// <inheritdoc/>
 			[[nodiscard]] int getDebugMode() const override;
+			
 		};
 		
 		/// <summary> Instance of class used to visualise the state of the physics engine for debugging purposes. </summary>

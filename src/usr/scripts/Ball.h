@@ -8,6 +8,7 @@
 #include "../../engine/scripts/graphics/Mesh.h"
 
 #include <glm/ext/vector_float3.hpp>
+
 #include <memory>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
@@ -58,6 +59,7 @@ namespace LouiEriksson {
 		~Ball() override;
 	
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_BALL_H

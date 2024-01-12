@@ -33,4 +33,5 @@ namespace LouiEriksson {
 	const float& Time::FixedUnscaledDeltaTime() {
 		return s_FixedUnscaledDeltaTime;
 	}
-}
+	
+} // LouiEriksson

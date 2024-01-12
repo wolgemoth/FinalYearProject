@@ -48,7 +48,9 @@ namespace LouiEriksson {
 	
 		/// <summary> Get the Transform of the Renderer. </summary>
 		std::shared_ptr<Transform> GetTransform();
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_RENDERER_H

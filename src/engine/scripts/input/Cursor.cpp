@@ -45,7 +45,6 @@ namespace LouiEriksson {
 	void Cursor::SetState(const Cursor::State& _state) {
 		s_Pending = _state;
 	}
-	
 	Cursor::State Cursor::GetState() {
 		return s_Current;
 	}

@@ -22,9 +22,14 @@ namespace LouiEriksson {
 		struct Parameters {
 			
 			enum Style : char {
+				
+				/// <summary> Dark theme. </summary>
 				Dark,
+				
+				/// <summary> Light theme. </summary>
 				Light
 			};
+			
 		};
 		
 		class GUIWindows {
@@ -41,6 +46,7 @@ namespace LouiEriksson {
 			static void PostProcessingWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
 			
 			static void RenderSettingsWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
+		
 		};
 		
 		inline static bool s_DrawDebugWindows { false };
@@ -59,7 +65,9 @@ namespace LouiEriksson {
 		
 		/// <summary> Reset of the GUI. </summary>
 		static void Dispose();
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_GUI_H

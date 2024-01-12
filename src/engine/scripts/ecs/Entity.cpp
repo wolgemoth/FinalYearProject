@@ -17,4 +17,5 @@ namespace LouiEriksson {
 	std::shared_ptr<Scene> Entity::GetScene() {
 		return m_Scene;
 	}
-}
+	
+} // LouiEriksson

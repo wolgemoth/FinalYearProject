@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Final Year Project: src/engine/scripts/User Scripts/Plane.h Source File</title>
+<title>Final Year Project: src/usr/scripts/Plane.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,51 +88,57 @@ $(document).ready(function(){initNavTree('_plane_8h_source.html',''); initResiza
 <a href="_plane_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_PLANE_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_PLANE_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../ECS/Scene.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_plane.html">Plane</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_script.html">Script</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/core/Script.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/ecs/Scene.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/graphics/Material.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../../engine/scripts/graphics/Mesh.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a032858ae1fe02d2d1170981c2af2d67c">   15</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_scene.html">Scene</a>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">   20</a></span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::shared_ptr&lt;Mesh&gt; <a class="code" href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">m_Mesh</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">   23</a></span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::weak_ptr&lt;Material&gt; <a class="code" href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">m_Material</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda">Begin</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#a52b9e97d4c0c14952c91ece79b9faf0e">Tick</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html">   18</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_plane.html">Plane</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_script.html">Script</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a032858ae1fe02d2d1170981c2af2d67c">   20</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_scene.html">Scene</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">   25</a></span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::shared_ptr&lt;Mesh&gt; <a class="code" href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">m_Mesh</a> { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">   28</a></span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::weak_ptr&lt;Material&gt; <a class="code" href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">m_Material</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda">Begin</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#a33680b08920082a3f6769197df5e9ea7">Plane</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a0a1ecff25dda13c3c4ce34d7ba9f75c7">   34</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_plane.html#a0a1ecff25dda13c3c4ce34d7ba9f75c7">~Plane</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#a52b9e97d4c0c14952c91ece79b9faf0e">Tick</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLANE_H</span></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html">LouiEriksson::Plane</a></div><div class="ttdoc">A Plane with Collision.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00013">Plane.h:13</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a0740159e33b74f637cde5fe8fff6c687"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">LouiEriksson::Plane::m_Mesh</a></div><div class="ttdeci">static std::shared_ptr&lt; Mesh &gt; m_Mesh</div><div class="ttdoc">Mesh of the Plane.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00020">Plane.h:20</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_plane.html#a33680b08920082a3f6769197df5e9ea7">Plane</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane.html#a0a1ecff25dda13c3c4ce34d7ba9f75c7">   39</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_plane.html#a0a1ecff25dda13c3c4ce34d7ba9f75c7">~Plane</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLANE_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html">LouiEriksson::Plane</a></div><div class="ttdoc">A Plane with Collision.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00018">Plane.h:18</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a0740159e33b74f637cde5fe8fff6c687"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a0740159e33b74f637cde5fe8fff6c687">LouiEriksson::Plane::m_Mesh</a></div><div class="ttdeci">static std::shared_ptr&lt; Mesh &gt; m_Mesh</div><div class="ttdoc">Mesh of the Plane.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00025">Plane.h:25</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a0a1ecff25dda13c3c4ce34d7ba9f75c7"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a0a1ecff25dda13c3c4ce34d7ba9f75c7">LouiEriksson::Plane::~Plane</a></div><div class="ttdeci">~Plane() override</div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a33680b08920082a3f6769197df5e9ea7"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a33680b08920082a3f6769197df5e9ea7">LouiEriksson::Plane::Plane</a></div><div class="ttdeci">Plane(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00009">Plane.cpp:9</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a40ab2ca90385d05bf0232a0b9d54714d"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">LouiEriksson::Plane::m_Material</a></div><div class="ttdeci">static std::weak_ptr&lt; Material &gt; m_Material</div><div class="ttdoc">Material of the Plane.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00023">Plane.h:23</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a52b9e97d4c0c14952c91ece79b9faf0e"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a52b9e97d4c0c14952c91ece79b9faf0e">LouiEriksson::Plane::Tick</a></div><div class="ttdeci">void Tick() override</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00068">Plane.cpp:68</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_aaf2ccbbc234e6a74a6fe47fc47f48eda"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda">LouiEriksson::Plane::Begin</a></div><div class="ttdeci">void Begin() override</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00012">Plane.cpp:12</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_scene.html">LouiEriksson::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00013">Scene.h:13</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a33680b08920082a3f6769197df5e9ea7"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a33680b08920082a3f6769197df5e9ea7">LouiEriksson::Plane::Plane</a></div><div class="ttdeci">Plane(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00020">Plane.cpp:20</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a40ab2ca90385d05bf0232a0b9d54714d"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a40ab2ca90385d05bf0232a0b9d54714d">LouiEriksson::Plane::m_Material</a></div><div class="ttdeci">static std::weak_ptr&lt; Material &gt; m_Material</div><div class="ttdoc">Material of the Plane.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8h_source.html#l00028">Plane.h:28</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_a52b9e97d4c0c14952c91ece79b9faf0e"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#a52b9e97d4c0c14952c91ece79b9faf0e">LouiEriksson::Plane::Tick</a></div><div class="ttdeci">void Tick() override</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00079">Plane.cpp:79</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_plane_html_aaf2ccbbc234e6a74a6fe47fc47f48eda"><div class="ttname"><a href="class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda">LouiEriksson::Plane::Begin</a></div><div class="ttdeci">void Begin() override</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_8cpp_source.html#l00023">Plane.cpp:23</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_scene.html">LouiEriksson::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00019">Scene.h:19</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_script_html"><div class="ttname"><a href="class_loui_eriksson_1_1_script.html">LouiEriksson::Script</a></div><div class="ttdoc">Base class to be inherited by scriptable types.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00018">Script.h:18</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00003">AudioClip.cpp:3</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2052808828190f934b76e979ee65af8a.html">engine</a></li><li class="navelem"><a class="el" href="dir_e4fda42938673a20d7dcd52c622675ff.html">scripts</a></li><li class="navelem"><a class="el" href="dir_b0edf597f7858e0933c1216c2d615a69.html">User Scripts</a></li><li class="navelem"><a class="el" href="_plane_8h.html">Plane.h</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_2bf09157bc8f7a490de2c2dbc7ff4f26.html">usr</a></li><li class="navelem"><a class="el" href="dir_bbec129761a22a72f5ee92801be1ffaf.html">scripts</a></li><li class="navelem"><a class="el" href="_plane_8h.html">Plane.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

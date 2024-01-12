@@ -157,7 +157,9 @@ namespace LouiEriksson {
 				}
 			}
 		}
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_GAMEOBJECT_H

@@ -11,4 +11,5 @@ namespace LouiEriksson {
 	Cubemap::~Cubemap() {
 		Discard();
 	}
-}
+	
+} // LouiEriksson

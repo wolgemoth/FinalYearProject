@@ -1,19 +1,5 @@
-<map id="src/engine/scripts/User Scripts/Ball.h" name="src/engine/scripts/User Scripts/Ball.h">
-<area shape="rect" id="node1" title=" " alt="" coords="566,5,711,47"/>
-<area shape="rect" id="node2" href="$_scripts_8h.html" title=" " alt="" coords="571,95,707,136"/>
-<area shape="rect" id="node17" href="$_ball_8cpp.html" title=" " alt="" coords="731,95,891,136"/>
-<area shape="rect" id="node3" href="$_components_8h.html" title=" " alt="" coords="519,184,655,225"/>
-<area shape="rect" id="node4" href="$_scene_8h.html" title=" " alt="" coords="519,273,655,315"/>
-<area shape="rect" id="node5" href="$_application_8h.html" title=" " alt="" coords="409,363,554,404"/>
-<area shape="rect" id="node9" href="$_scene_8cpp.html" title=" " alt="" coords="248,363,384,404"/>
-<area shape="rect" id="node10" href="$_fly_cam_8h.html" title=" " alt="" coords="944,363,1115,404"/>
-<area shape="rect" id="node12" href="$_orbit_cam_8h.html" title=" " alt="" coords="41,363,223,404"/>
-<area shape="rect" id="node14" href="$_plane_8h.html" title=" " alt="" coords="763,363,919,404"/>
-<area shape="rect" id="node16" href="$_player_8h.html" title=" " alt="" coords="579,363,739,404"/>
-<area shape="rect" id="node6" href="$_application_8cpp.html" title=" " alt="" coords="227,452,387,493"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title=" " alt="" coords="411,452,547,493"/>
-<area shape="rect" id="node8" href="$_player_8cpp.html" title=" " alt="" coords="571,452,746,493"/>
-<area shape="rect" id="node11" href="$_fly_cam_8cpp.html" title=" " alt="" coords="966,452,1151,493"/>
-<area shape="rect" id="node13" href="$_orbit_cam_8cpp.html" title=" " alt="" coords="5,452,203,493"/>
-<area shape="rect" id="node15" href="$_plane_8cpp.html" title=" " alt="" coords="771,452,941,493"/>
+<map id="src/usr/scripts/Ball.h" name="src/usr/scripts/Ball.h">
+<area shape="rect" id="node1" title=" " alt="" coords="85,5,238,32"/>
+<area shape="rect" id="node2" href="$_scene_8cpp.html" title=" " alt="" coords="5,80,141,121"/>
+<area shape="rect" id="node3" href="$_ball_8cpp.html" title=" " alt="" coords="165,87,333,114"/>
 </map>

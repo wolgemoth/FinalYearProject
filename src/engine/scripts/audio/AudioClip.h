@@ -32,6 +32,7 @@ namespace LouiEriksson {
 			[[nodiscard]] ALenum OpenALFormat() const;
 			
 			explicit Format(const SDL_AudioSpec& _audioSpec);
+			
 		};
 		
 		/// <summary>
@@ -51,6 +52,7 @@ namespace LouiEriksson {
 			/// not be called manually unless you know what you are doing.
 			/// </summary>
 			void Free();
+			
 		};
 		
 		/// <summary> The format of the audio clip. </summary>
@@ -74,6 +76,7 @@ namespace LouiEriksson {
 		
 		/// <summary> Dispose the clip. </summary>
 		void Dispose();
+		
 	};
 	
 } // LouiEriksson

@@ -53,8 +53,7 @@ namespace LouiEriksson {
 		}
 	}
 	
-	
-void Utils::ALDumpError(const bool& _silent) {
+	void Utils::ALDumpError(const bool& _silent) {
 	
 	const auto error = alGetError();
     if (error != AL_NO_ERROR) {

@@ -34,4 +34,5 @@ namespace LouiEriksson {
 		// Return the collider's radius.
 		return sphereCollider->getRadius();
 	}
-}
+	
+} // LouiEriksson

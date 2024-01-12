@@ -15,9 +15,9 @@
 #include <LinearMath/btDefaultMotionState.h>
 
 #include <cmath>
-#include <memory>
-#include <iostream>
 #include <exception>
+#include <iostream>
+#include <memory>
 #include <stdexcept>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
@@ -462,4 +462,5 @@ namespace LouiEriksson {
 	const float& Rigidbody::Bounciness() const {
 		return m_Parameters.m_Bounciness;
 	}
-}
+	
+} // LouiEriksson

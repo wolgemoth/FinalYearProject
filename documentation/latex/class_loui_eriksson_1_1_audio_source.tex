@@ -35,9 +35,9 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a3adfc2f833d72bc9962a
 \begin{DoxyCompactList}\small\item\em Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}} every frame. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_ab5d3e9ed2af02335da0ea9addfd90ac5}{Play}} (const bool \&\+\_\+allow\+Fallback=true)
 \begin{DoxyCompactList}\small\item\em Play this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_abf517b107715e2e8bbe6674d1cc6b331}{Pause}} ()
+void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_aee145e48d880629d14bb983040357148}{Pause}} () const
 \begin{DoxyCompactList}\small\item\em Pause this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a78cee16e6c9b0f86a88dac1dca6c271e}{Stop}} ()
+void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_ae6b2d1b2e06a0151abd2de52488bc425}{Stop}} () const
 \begin{DoxyCompactList}\small\item\em Stop this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a92b7a5501414d139f776dc01e5d66379}{Clip}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}} $>$ \&\+\_\+value)
 \begin{DoxyCompactList}\small\item\em Set this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_audio_clip}{Audio\+Clip}}. \end{DoxyCompactList}\item 
@@ -89,11 +89,11 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a0123db27bd0700b466f3
 \begin{DoxyCompactList}\small\item\em Sets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
 const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a1d5c175766c72d6752c5c71b75eb2e9d}{Max\+Angle}} () const
 \begin{DoxyCompactList}\small\item\em Gets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a4bffe35d14d2130ade0efca469c8bd1d}{Playback\+Position}} (const float \&\+\_\+value)
+void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a9285cb43d5dca698436c8fc1aa5d9d6d}{Playback\+Position}} (const float \&\+\_\+value) const
 \begin{DoxyCompactList}\small\item\em Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}} in seconds. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a93cbeeec668aee1faf73098522e1387f}{Playback\+Position}} () const
 \begin{DoxyCompactList}\small\item\em Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}} expressed in seconds. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_ae0c6e5f498c89742f0e24b69c023f508}{Playback\+Position}} (const ALenum \&\+\_\+param, const int \&\+\_\+value)
+void \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a79026e22b3aa94afb7af30525ed11526}{Playback\+Position}} (const ALenum \&\+\_\+param, const int \&\+\_\+value) const
 \begin{DoxyCompactList}\small\item\em Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}} in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a537ef03303a6933ef1ba0f618ec0e9a2}{Playback\+Position}} (const ALenum \&\+\_\+param) const
 \begin{DoxyCompactList}\small\item\em Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}} expressed in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -103,7 +103,7 @@ int \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source_a537ef03303a6933ef1ba0
 \doxysubsection{Detailed Description}
 
 
-Definition at line 10 of file Audio\+Source.\+h.
+Definition at line 15 of file Audio\+Source.\+h.
 
 
 
@@ -116,7 +116,7 @@ Definition at line 10 of file Audio\+Source.\+h.
 
 
 
-Definition at line 134 of file Audio\+Source.\+cpp.
+Definition at line 141 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_aab512c82c60f25908c0a4fc5cf5ecff0}\label{class_loui_eriksson_1_1_audio_source_aab512c82c60f25908c0a4fc5cf5ecff0}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!````~AudioSource@{$\sim$AudioSource}}
@@ -126,7 +126,7 @@ Definition at line 134 of file Audio\+Source.\+cpp.
 
 
 
-Definition at line 142 of file Audio\+Source.\+cpp.
+Definition at line 149 of file Audio\+Source.\+cpp.
 
 
 
@@ -143,7 +143,7 @@ Get weak reference to the currently used \mbox{\hyperlink{class_loui_eriksson_1_
 
 
 
-Definition at line 243 of file Audio\+Source.\+cpp.
+Definition at line 250 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a92b7a5501414d139f776dc01e5d66379}\label{class_loui_eriksson_1_1_audio_source_a92b7a5501414d139f776dc01e5d66379}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Clip@{Clip}}
@@ -157,7 +157,7 @@ Set this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}\
 
 
 
-Definition at line 240 of file Audio\+Source.\+cpp.
+Definition at line 247 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a5c4839679783831d520af53f6734a25f}\label{class_loui_eriksson_1_1_audio_source_a5c4839679783831d520af53f6734a25f}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Gain@{Gain}}
@@ -171,7 +171,7 @@ Gets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 307 of file Audio\+Source.\+cpp.
+Definition at line 314 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_aa795523349b5f931b64e1db0d312a884}\label{class_loui_eriksson_1_1_audio_source_aa795523349b5f931b64e1db0d312a884}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Gain@{Gain}}
@@ -185,7 +185,7 @@ Sets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 302 of file Audio\+Source.\+cpp.
+Definition at line 309 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a24fce05719a08a9a8507300e5984544f}\label{class_loui_eriksson_1_1_audio_source_a24fce05719a08a9a8507300e5984544f}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Global@{Global}}
@@ -199,7 +199,7 @@ Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+
 
 
 
-Definition at line 261 of file Audio\+Source.\+cpp.
+Definition at line 268 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_acdea7d7dbca58ad9d520800a3582c7d4}\label{class_loui_eriksson_1_1_audio_source_acdea7d7dbca58ad9d520800a3582c7d4}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Global@{Global}}
@@ -213,7 +213,7 @@ Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+
 
 
 
-Definition at line 256 of file Audio\+Source.\+cpp.
+Definition at line 263 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a1cb1d31327aaaadcabb054235b72d912}\label{class_loui_eriksson_1_1_audio_source_a1cb1d31327aaaadcabb054235b72d912}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Loop@{Loop}}
@@ -227,7 +227,7 @@ Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+
 
 
 
-Definition at line 270 of file Audio\+Source.\+cpp.
+Definition at line 277 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a9477a89efd9efa9782881f31bb859acb}\label{class_loui_eriksson_1_1_audio_source_a9477a89efd9efa9782881f31bb859acb}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Loop@{Loop}}
@@ -241,7 +241,7 @@ Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+
 
 
 
-Definition at line 265 of file Audio\+Source.\+cpp.
+Definition at line 272 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a1d5c175766c72d6752c5c71b75eb2e9d}\label{class_loui_eriksson_1_1_audio_source_a1d5c175766c72d6752c5c71b75eb2e9d}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxAngle@{MaxAngle}}
@@ -255,7 +255,7 @@ Gets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 354 of file Audio\+Source.\+cpp.
+Definition at line 361 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a0123db27bd0700b466f3df3b4c62dd11}\label{class_loui_eriksson_1_1_audio_source_a0123db27bd0700b466f3df3b4c62dd11}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxAngle@{MaxAngle}}
@@ -269,7 +269,7 @@ Sets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 349 of file Audio\+Source.\+cpp.
+Definition at line 356 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a06d9c90528868c3f776a0006315fe68c}\label{class_loui_eriksson_1_1_audio_source_a06d9c90528868c3f776a0006315fe68c}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxDistance@{MaxDistance}}
@@ -283,7 +283,7 @@ Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_audi
 
 
 
-Definition at line 289 of file Audio\+Source.\+cpp.
+Definition at line 296 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a54a956c548b36f229ce297393dbb9d3d}\label{class_loui_eriksson_1_1_audio_source_a54a956c548b36f229ce297393dbb9d3d}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxDistance@{MaxDistance}}
@@ -297,7 +297,7 @@ Sets the maximum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_audi
 
 
 
-Definition at line 284 of file Audio\+Source.\+cpp.
+Definition at line 291 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_afc208e49dbb368e50dac66e3cd145d68}\label{class_loui_eriksson_1_1_audio_source_afc208e49dbb368e50dac66e3cd145d68}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxGain@{MaxGain}}
@@ -311,7 +311,7 @@ Gets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_sou
 
 
 
-Definition at line 326 of file Audio\+Source.\+cpp.
+Definition at line 333 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a64b7d13bb3b602be495c61a93577009b}\label{class_loui_eriksson_1_1_audio_source_a64b7d13bb3b602be495c61a93577009b}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MaxGain@{MaxGain}}
@@ -325,7 +325,7 @@ Sets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_sou
 
 
 
-Definition at line 321 of file Audio\+Source.\+cpp.
+Definition at line 328 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a26c2ac51812bd5babf70303f73202d08}\label{class_loui_eriksson_1_1_audio_source_a26c2ac51812bd5babf70303f73202d08}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinAngle@{MinAngle}}
@@ -339,7 +339,7 @@ Gets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 345 of file Audio\+Source.\+cpp.
+Definition at line 352 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a911598f1e9d2ddc32e5a8dfc05c6844a}\label{class_loui_eriksson_1_1_audio_source_a911598f1e9d2ddc32e5a8dfc05c6844a}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinAngle@{MinAngle}}
@@ -353,7 +353,7 @@ Sets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_so
 
 
 
-Definition at line 339 of file Audio\+Source.\+cpp.
+Definition at line 346 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a9ac9d04553a6b24891c2984158194c7e}\label{class_loui_eriksson_1_1_audio_source_a9ac9d04553a6b24891c2984158194c7e}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinDistance@{MinDistance}}
@@ -367,7 +367,7 @@ Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_audi
 
 
 
-Definition at line 280 of file Audio\+Source.\+cpp.
+Definition at line 287 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_accdf891e26a1d29076f23c611d0148e7}\label{class_loui_eriksson_1_1_audio_source_accdf891e26a1d29076f23c611d0148e7}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinDistance@{MinDistance}}
@@ -381,7 +381,7 @@ Sets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_audi
 
 
 
-Definition at line 274 of file Audio\+Source.\+cpp.
+Definition at line 281 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a8490a3ce24f833d8358c229dfbcbf1f4}\label{class_loui_eriksson_1_1_audio_source_a8490a3ce24f833d8358c229dfbcbf1f4}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinGain@{MinGain}}
@@ -395,7 +395,7 @@ Gets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_sou
 
 
 
-Definition at line 317 of file Audio\+Source.\+cpp.
+Definition at line 324 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a59664e9781a67695d9b40f3b150f7738}\label{class_loui_eriksson_1_1_audio_source_a59664e9781a67695d9b40f3b150f7738}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!MinGain@{MinGain}}
@@ -409,13 +409,13 @@ Sets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_sou
 
 
 
-Definition at line 311 of file Audio\+Source.\+cpp.
+Definition at line 318 of file Audio\+Source.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_abf517b107715e2e8bbe6674d1cc6b331}\label{class_loui_eriksson_1_1_audio_source_abf517b107715e2e8bbe6674d1cc6b331}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_aee145e48d880629d14bb983040357148}\label{class_loui_eriksson_1_1_audio_source_aee145e48d880629d14bb983040357148}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Pause@{Pause}}
 \index{Pause@{Pause}!LouiEriksson::AudioSource@{LouiEriksson::AudioSource}}
 \doxysubsubsection{\texorpdfstring{Pause()}{Pause()}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -423,7 +423,7 @@ Pause this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}
 
 
 
-Definition at line 232 of file Audio\+Source.\+cpp.
+Definition at line 239 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_ae0e985f6592b3cfea902bcd398064a88}\label{class_loui_eriksson_1_1_audio_source_ae0e985f6592b3cfea902bcd398064a88}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Pitch@{Pitch}}
@@ -437,7 +437,7 @@ Gets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 298 of file Audio\+Source.\+cpp.
+Definition at line 305 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a74185329f206bc068d306f18698dc9a3}\label{class_loui_eriksson_1_1_audio_source_a74185329f206bc068d306f18698dc9a3}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Pitch@{Pitch}}
@@ -451,7 +451,7 @@ Sets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 293 of file Audio\+Source.\+cpp.
+Definition at line 300 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_ab5d3e9ed2af02335da0ea9addfd90ac5}\label{class_loui_eriksson_1_1_audio_source_ab5d3e9ed2af02335da0ea9addfd90ac5}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Play@{Play}}
@@ -465,7 +465,7 @@ Play this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}
 
 
 
-Definition at line 176 of file Audio\+Source.\+cpp.
+Definition at line 183 of file Audio\+Source.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -487,7 +487,7 @@ Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 361 of file Audio\+Source.\+cpp.
+Definition at line 368 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a537ef03303a6933ef1ba0f618ec0e9a2}\label{class_loui_eriksson_1_1_audio_source_a537ef03303a6933ef1ba0f618ec0e9a2}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!PlaybackPosition@{PlaybackPosition}}
@@ -501,13 +501,13 @@ Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 373 of file Audio\+Source.\+cpp.
+Definition at line 380 of file Audio\+Source.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_ae0c6e5f498c89742f0e24b69c023f508}\label{class_loui_eriksson_1_1_audio_source_ae0c6e5f498c89742f0e24b69c023f508}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a79026e22b3aa94afb7af30525ed11526}\label{class_loui_eriksson_1_1_audio_source_a79026e22b3aa94afb7af30525ed11526}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!PlaybackPosition@{PlaybackPosition}}
 \index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::AudioSource@{LouiEriksson::AudioSource}}
 \doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const ALenum \&}]{\+\_\+param,  }\item[{const int \&}]{\+\_\+value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const ALenum \&}]{\+\_\+param,  }\item[{const int \&}]{\+\_\+value }\end{DoxyParamCaption}) const}
 
 
 
@@ -515,13 +515,13 @@ Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 370 of file Audio\+Source.\+cpp.
+Definition at line 377 of file Audio\+Source.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a4bffe35d14d2130ade0efca469c8bd1d}\label{class_loui_eriksson_1_1_audio_source_a4bffe35d14d2130ade0efca469c8bd1d}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a9285cb43d5dca698436c8fc1aa5d9d6d}\label{class_loui_eriksson_1_1_audio_source_a9285cb43d5dca698436c8fc1aa5d9d6d}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!PlaybackPosition@{PlaybackPosition}}
 \index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::AudioSource@{LouiEriksson::AudioSource}}
 \doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption}) const}
 
 
 
@@ -529,7 +529,7 @@ Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio
 
 
 
-Definition at line 358 of file Audio\+Source.\+cpp.
+Definition at line 365 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_aacabed3e6e78d550d094ed7c87f272e6}\label{class_loui_eriksson_1_1_audio_source_aacabed3e6e78d550d094ed7c87f272e6}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Rolloff@{Rolloff}}
@@ -543,7 +543,7 @@ Gets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_s
 
 
 
-Definition at line 335 of file Audio\+Source.\+cpp.
+Definition at line 342 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a0a1f6f4864b42df03dc1166a7e85711b}\label{class_loui_eriksson_1_1_audio_source_a0a1f6f4864b42df03dc1166a7e85711b}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Rolloff@{Rolloff}}
@@ -557,7 +557,7 @@ Sets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_s
 
 
 
-Definition at line 330 of file Audio\+Source.\+cpp.
+Definition at line 337 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a5c7e61625243c8fd93c4a5d1c3f57504}\label{class_loui_eriksson_1_1_audio_source_a5c7e61625243c8fd93c4a5d1c3f57504}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!State@{State}}
@@ -571,7 +571,7 @@ Get the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_sour
 
 
 
-Definition at line 247 of file Audio\+Source.\+cpp.
+Definition at line 254 of file Audio\+Source.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -581,11 +581,11 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_audio_source_a5c7e61625243c8fd93c4a5d1c3f57504_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a78cee16e6c9b0f86a88dac1dca6c271e}\label{class_loui_eriksson_1_1_audio_source_a78cee16e6c9b0f86a88dac1dca6c271e}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_ae6b2d1b2e06a0151abd2de52488bc425}\label{class_loui_eriksson_1_1_audio_source_ae6b2d1b2e06a0151abd2de52488bc425}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Stop@{Stop}}
 \index{Stop@{Stop}!LouiEriksson::AudioSource@{LouiEriksson::AudioSource}}
 \doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Audio\+Source\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -593,7 +593,7 @@ Stop this \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source}}
 
 
 
-Definition at line 236 of file Audio\+Source.\+cpp.
+Definition at line 243 of file Audio\+Source.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_audio_source_a3adfc2f833d72bc9962a6eb29ee29def}\label{class_loui_eriksson_1_1_audio_source_a3adfc2f833d72bc9962a6eb29ee29def}} 
 \index{LouiEriksson::AudioSource@{LouiEriksson::AudioSource}!Tick@{Tick}}
@@ -607,11 +607,11 @@ Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_audio_source}{Audio\+Source
 
 
 
-Definition at line 172 of file Audio\+Source.\+cpp.
+Definition at line 179 of file Audio\+Source.\+cpp.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/engine/scripts/\+Audio/\mbox{\hyperlink{_audio_source_8h}{Audio\+Source.\+h}}\item 
-src/engine/scripts/\+Audio/\mbox{\hyperlink{_audio_source_8cpp}{Audio\+Source.\+cpp}}\end{DoxyCompactItemize}
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_source_8h}{Audio\+Source.\+h}}\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_source_8cpp}{Audio\+Source.\+cpp}}\end{DoxyCompactItemize}

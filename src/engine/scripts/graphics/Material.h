@@ -45,7 +45,9 @@ namespace LouiEriksson {
 		[[nodiscard]] std::weak_ptr<Texture> GetDisplacement() const;
 		[[nodiscard]] std::weak_ptr<Texture> GetAO()           const;
 		[[nodiscard]] std::weak_ptr<Texture> GetEmission()     const;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_MATERIAL_H

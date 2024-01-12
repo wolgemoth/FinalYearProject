@@ -19,6 +19,7 @@ namespace LouiEriksson {
 		
 		/// <summary> The type of serialisation format. </summary>
 		enum Format : char {
+			
 			/// <summary> XML format </summary>
 			XML,
 		};
@@ -60,6 +61,7 @@ namespace LouiEriksson {
 	inline float Serialisation::Deserialise(const std::string& _str, const Serialisation::Format& _method) {
 		return std::stof(_str);
 	}
-}
+
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SERIALISATION_H

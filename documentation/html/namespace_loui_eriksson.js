@@ -24,9 +24,9 @@ var namespace_loui_eriksson =
     [ "Mesh", "class_loui_eriksson_1_1_mesh.html", "class_loui_eriksson_1_1_mesh" ],
     [ "Renderer", "class_loui_eriksson_1_1_renderer.html", "class_loui_eriksson_1_1_renderer" ],
     [ "Shader", "class_loui_eriksson_1_1_shader.html", "class_loui_eriksson_1_1_shader" ],
+    [ "Texture", "class_loui_eriksson_1_1_texture.html", "class_loui_eriksson_1_1_texture" ],
     [ "Cubemap", "class_loui_eriksson_1_1_cubemap.html", "class_loui_eriksson_1_1_cubemap" ],
     [ "RenderTexture", "class_loui_eriksson_1_1_render_texture.html", "class_loui_eriksson_1_1_render_texture" ],
-    [ "Texture", "class_loui_eriksson_1_1_texture.html", "class_loui_eriksson_1_1_texture" ],
     [ "Cursor", "class_loui_eriksson_1_1_cursor.html", "class_loui_eriksson_1_1_cursor" ],
     [ "Input", "class_loui_eriksson_1_1_input.html", "class_loui_eriksson_1_1_input" ],
     [ "Collider", "class_loui_eriksson_1_1_collider.html", "class_loui_eriksson_1_1_collider" ],
@@ -36,11 +36,11 @@ var namespace_loui_eriksson =
     [ "Physics", "class_loui_eriksson_1_1_physics.html", "class_loui_eriksson_1_1_physics" ],
     [ "Rigidbody", "class_loui_eriksson_1_1_rigidbody.html", "class_loui_eriksson_1_1_rigidbody" ],
     [ "GUI", "class_loui_eriksson_1_1_g_u_i.html", "class_loui_eriksson_1_1_g_u_i" ],
+    [ "Hashmap", "class_loui_eriksson_1_1_hashmap.html", "class_loui_eriksson_1_1_hashmap" ],
+    [ "Utils", "class_loui_eriksson_1_1_utils.html", null ],
     [ "Ball", "class_loui_eriksson_1_1_ball.html", "class_loui_eriksson_1_1_ball" ],
     [ "FlyCam", "class_loui_eriksson_1_1_fly_cam.html", "class_loui_eriksson_1_1_fly_cam" ],
     [ "OrbitCam", "class_loui_eriksson_1_1_orbit_cam.html", "class_loui_eriksson_1_1_orbit_cam" ],
     [ "Plane", "class_loui_eriksson_1_1_plane.html", "class_loui_eriksson_1_1_plane" ],
-    [ "Player", "class_loui_eriksson_1_1_player.html", "class_loui_eriksson_1_1_player" ],
-    [ "Hashmap", "class_loui_eriksson_1_1_hashmap.html", "class_loui_eriksson_1_1_hashmap" ],
-    [ "Utils", "class_loui_eriksson_1_1_utils.html", null ]
+    [ "Player", "class_loui_eriksson_1_1_player.html", "class_loui_eriksson_1_1_player" ]
 ];

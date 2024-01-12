@@ -11,8 +11,8 @@
 
 #include <glm/common.hpp>
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
@@ -236,4 +236,5 @@ namespace LouiEriksson {
 			Input::Key::s_PreviousKeyboardState.s_Data = nullptr;
 		}
 	}
-}
+	
+} // LouiEriksson

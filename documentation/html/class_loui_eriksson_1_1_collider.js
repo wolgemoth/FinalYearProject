@@ -1,8 +1,8 @@
 var class_loui_eriksson_1_1_collider =
 [
-    [ "Type", "class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33ad", [
-      [ "Sphere", "class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33adad1e6018fe699604344fdef93af62d030", null ],
-      [ "Plane", "class_loui_eriksson_1_1_collider.html#aef193a74e8472eb6049b0f26213f33adab5403b4ffd458fef488e100c46906035", null ]
+    [ "Type", "class_loui_eriksson_1_1_collider.html#ae144bdaa762f3c3be54b4369d2d50898", [
+      [ "Sphere", "class_loui_eriksson_1_1_collider.html#ae144bdaa762f3c3be54b4369d2d50898ad1e6018fe699604344fdef93af62d030", null ],
+      [ "Plane", "class_loui_eriksson_1_1_collider.html#ae144bdaa762f3c3be54b4369d2d50898ab5403b4ffd458fef488e100c46906035", null ]
     ] ],
     [ "Collider", "class_loui_eriksson_1_1_collider.html#a47259a059d0a12063db7c67145991232", null ],
     [ "~Collider", "class_loui_eriksson_1_1_collider.html#a95ffcd60d4e693f8d501fb9f1a98681a", null ],

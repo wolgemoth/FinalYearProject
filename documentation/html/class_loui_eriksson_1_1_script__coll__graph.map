@@ -1,4 +1,4 @@
 <map id="LouiEriksson::Script" name="LouiEriksson::Script">
-<area shape="rect" id="node1" title="Base class to be inherited by scriptable types." alt="" coords="5,219,208,428"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="5,5,208,171"/>
+<area shape="rect" id="node1" title="Base class to be inherited by scriptable types." alt="" coords="24,160,173,311"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="5,5,192,112"/>
 </map>

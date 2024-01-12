@@ -19,15 +19,9 @@
 
 namespace LouiEriksson {
 	
-	OrbitCam::OrbitCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-	
-		m_Camera    = std::shared_ptr<Camera>   (nullptr);
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-	
-		m_Target = glm::vec3(0.0f);
-		
-		m_AnimationProgress = 0.0f;
-	}
+	OrbitCam::OrbitCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+		m_Target(0.0f),
+		m_AnimationProgress(0.0f) {}
 	
 	OrbitCam::~OrbitCam() = default;
 	
@@ -104,4 +98,5 @@ namespace LouiEriksson {
 			m_AnimationProgress += Time::DeltaTime();
 		}
 	}
-}
+	
+} // LouiEriksson

@@ -22,8 +22,10 @@ namespace LouiEriksson {
 	
 		/// <summary> The type of the collider. </summary>
 		enum Type : char {
+			
 			/// <summary> Collider is a Sphere Collider. </summary>
 			Sphere,
+			
 			/// <summary> Collider is a Plane Collider. </summary>
 			Plane
 		};
@@ -64,7 +66,9 @@ namespace LouiEriksson {
 	
 		/// <summary> Rigidbody of the Collider. </summary>
 		std::weak_ptr<Rigidbody> m_Rigidbody;
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_COLLIDER_H

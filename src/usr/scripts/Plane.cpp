@@ -79,4 +79,5 @@ namespace LouiEriksson {
 	void Plane::Tick() {
 	
 	}
-}
+	
+} // LouiEriksson

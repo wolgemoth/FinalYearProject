@@ -14,10 +14,11 @@
 #include "../../engine/scripts/physics/Collider.h"
 
 #include <glm/common.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_common.hpp>
 #include <glm/fwd.hpp>
 #include <glm/gtx/norm.hpp>
 #include <glm/trigonometric.hpp>
-
 #include <SDL_scancode.h>
 
 #include <cstddef>
@@ -31,22 +32,16 @@
 
 namespace LouiEriksson {
 
-	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {
-		
-		m_NumObstacles = 15;
-		
-		m_MinPlaneX = -1.0f;
-		m_MaxPlaneX = -1.0f;
-		
-		m_PlayerSpeed = 6.0f;
-		m_CameraSpeed = 3.0f;
-		  m_GameSpeed = 5.0f;
-		
-		m_PlayerMoveFreedom = 0.0f;
-		
-		m_TargetOffset = glm::vec3(0.0f, 4.0f, 0.0f);
-		m_CameraOffset = glm::vec3(0.0f, 5.0f, 7.0f);
-	}
+	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+		m_NumObstacles(15),
+		m_MinPlaneX(-1.0f),
+		m_MaxPlaneX(-1.0f),
+		m_PlayerSpeed(6.0f),
+		m_CameraSpeed(3.0f),
+		m_GameSpeed(5.0f),
+		m_PlayerMoveFreedom(0.0f),
+		m_TargetOffset(0.0f),
+		m_CameraOffset(0.0f) {}
 	
 	Player::~Player() = default;
 	
@@ -279,4 +274,5 @@ namespace LouiEriksson {
 			obstacleTransform->m_Position.x = newPos;
 		}
 	}
-}
+	
+} // LouiEriksson

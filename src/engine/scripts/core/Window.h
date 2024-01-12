@@ -71,7 +71,9 @@ namespace LouiEriksson {
 		void SetDirty();
 	
 		explicit operator SDL_Window* () { return m_Window.get(); }
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_WINDOW_H

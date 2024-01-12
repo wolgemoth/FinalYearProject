@@ -1,10 +1,10 @@
 #include "AudioListener.h"
 
 #include "../core/Time.h"
+#include "../core/Transform.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
-#include "../core/Transform.h"
 
 #include <AL/al.h>
 #include <glm/common.hpp>
@@ -76,7 +76,6 @@ namespace LouiEriksson {
 	void AudioListener::Gain(const float& _value) {
 		m_Gain = glm::clamp(_value, 0.0f, 1.0f);
 	}
-	
 	const float& AudioListener::Gain() const {
 		return m_Gain;
 	}

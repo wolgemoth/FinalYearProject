@@ -13,16 +13,16 @@
 #include "../graphics/Texture.h"
 #include "../utils/Utils.h"
 
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/ext.hpp>
-#include <glm/common.hpp>
 #include <GL/glew.h>
+#include <glm/common.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <array>
 #include <exception>
 #include <iostream>
-#include <queue>
 #include <memory>
+#include <queue>
 
 // @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
@@ -1287,7 +1287,6 @@ namespace LouiEriksson {
 	void Camera::SetWindow(const std::shared_ptr<Window>& _window) {
 		_window->Link(*this);
 	}
-	
 	std::shared_ptr<Window> Camera::GetWindow() const {
 		return m_Window;
 	}
@@ -1295,7 +1294,6 @@ namespace LouiEriksson {
 	void Camera::SetTransform(const std::shared_ptr<Transform>& _transform) {
 		m_Transform = _transform;
 	}
-	
 	std::shared_ptr<Transform> Camera::GetTransform() const {
 		return m_Transform;
 	}
@@ -1313,7 +1311,6 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	
 	const float& Camera::FOV() const {
 		return m_FOV;
 	}
@@ -1327,7 +1324,6 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	
 	const float& Camera::NearClip() const {
 		return m_NearClip;
 	}
@@ -1341,7 +1337,6 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	
 	const float& Camera::FarClip() const {
 		return m_FarClip;
 	}
@@ -1388,4 +1383,5 @@ namespace LouiEriksson {
 	void Camera::SetDirty() {
 		m_IsDirty = true;
 	}
-}
+	
+} // LouiEriksson

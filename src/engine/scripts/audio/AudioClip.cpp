@@ -3,9 +3,9 @@
 #include <AL/al.h>
 #include <SDL_audio.h>
 
-#include <iostream>
 #include <exception>
 #include <filesystem>
+#include <iostream>
 
 namespace LouiEriksson {
 	

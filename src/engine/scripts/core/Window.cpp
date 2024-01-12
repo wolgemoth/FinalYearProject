@@ -134,8 +134,6 @@ namespace LouiEriksson {
 		SetDirty();
 	}
 	
-	#pragma warning(disable : 4172)
-	
 	/// <summary>
 	/// Returns the window's x,y dimensions as a c-style array.
 	/// <remarks>The size of the returned array is 2.</remarks>
@@ -148,8 +146,6 @@ namespace LouiEriksson {
 	
 		return result;
 	}
-	
-	#pragma warning(default : 4172)
 	
 	float Window::Aspect() const {
 		const auto dimensions = Dimensions();
@@ -194,4 +190,4 @@ namespace LouiEriksson {
 		return flags & _flag;
 	}
 	
-}
+} // LouiEriksson

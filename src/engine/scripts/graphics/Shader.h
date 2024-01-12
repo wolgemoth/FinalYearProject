@@ -30,6 +30,7 @@ namespace LouiEriksson {
 			GLint m_Type;
 			
 			SubShader(const char* _path, GLenum _type);
+			
 		};
 		
 		Hashmap<std::string, GLint> m_ParameterIDs;
@@ -118,7 +119,9 @@ namespace LouiEriksson {
 		[[nodiscard]] GLint ID() const;
 		
 		explicit operator GLint() const { return this->ID(); }
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SHADER_H

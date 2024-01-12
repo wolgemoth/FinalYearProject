@@ -87,7 +87,9 @@ namespace LouiEriksson {
 				}
 			}
 		}
+		
 	};
-}
+	
+} // LouiEriksson
 
 #endif //FINALYEARPROJECT_SCENE_H

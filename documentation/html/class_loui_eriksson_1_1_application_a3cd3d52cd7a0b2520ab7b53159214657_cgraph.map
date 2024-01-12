@@ -9,7 +9,7 @@
 <area shape="rect" id="node8" href="$struct_loui_eriksson_1_1_input_1_1_event.html#a37d08ca8c252d727d9c677ad34c0ff88" title=" " alt="" coords="263,384,409,425"/>
 <area shape="rect" id="node10" href="$class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125" title="Dumps the latest OpenGL error to the console." alt="" coords="265,449,407,491"/>
 <area shape="rect" id="node11" href="$class_loui_eriksson_1_1_sound.html#a248eb6d68d277c25a5358e4512230707" title="Initialise the audio subsystems." alt="" coords="260,515,412,556"/>
-<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090" title="Intialise settings on application start." alt="" coords="253,580,419,621"/>
+<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090" title="Initialise settings on application start." alt="" coords="253,580,419,621"/>
 <area shape="rect" id="node20" href="$class_loui_eriksson_1_1_scene.html#aefa6e8596c7a6b42d7b87b429312a764" title="TryLoad the Scene from xml format at a given path." alt="" coords="261,645,411,687"/>
 <area shape="rect" id="node24" href="$class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f" title=" " alt="" coords="247,711,425,752"/>
 <area shape="rect" id="node25" href="$class_loui_eriksson_1_1_application.html#a527b4c4cae3f53b94cff4f8d5001710e" title="Quits the application." alt="" coords="243,776,429,817"/>
