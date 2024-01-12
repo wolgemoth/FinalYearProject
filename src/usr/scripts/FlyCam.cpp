@@ -34,10 +34,10 @@
 namespace LouiEriksson {
 	
 	FlyCam::FlyCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
-		m_Motion(0.0f),
-		m_Rotation(0.0f),
-		m_MoveSpeed(5.0f),
-		m_LookSpeed(30.0f) {}
+			m_Motion(0.0f),
+			m_Rotation(0.0f),
+			m_MoveSpeed(5.0f),
+			m_LookSpeed(30.0f) {}
 	
 	FlyCam::~FlyCam() = default;
 	

@@ -33,15 +33,15 @@
 namespace LouiEriksson {
 
 	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
-		m_NumObstacles(15),
-		m_MinPlaneX(-1.0f),
-		m_MaxPlaneX(-1.0f),
-		m_PlayerSpeed(6.0f),
-		m_CameraSpeed(3.0f),
-		m_GameSpeed(5.0f),
-		m_PlayerMoveFreedom(0.0f),
-		m_TargetOffset(0.0f),
-		m_CameraOffset(0.0f) {}
+			m_NumObstacles     (15   ),
+			m_MinPlaneX        (-1.0f),
+			m_MaxPlaneX        (-1.0f),
+			m_PlayerSpeed      ( 6.0f),
+			m_CameraSpeed      ( 3.0f),
+			m_GameSpeed        ( 5.0f),
+			m_PlayerMoveFreedom( 0.0f),
+			m_TargetOffset     ( 0.0f),
+			m_CameraOffset     ( 0.0f) {}
 	
 	Player::~Player() = default;
 	

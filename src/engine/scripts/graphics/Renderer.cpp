@@ -13,12 +13,9 @@
 
 namespace LouiEriksson {
 	
-	Renderer::Renderer(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-	
-		     m_Mesh = std::shared_ptr<Mesh>     (nullptr);
-		 m_Material = std::shared_ptr<Material> (nullptr);
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-	}
+	Renderer::Renderer(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+			     m_Mesh(nullptr),
+			m_Transform(nullptr) {}
 	
 	Renderer::~Renderer() = default;
 	

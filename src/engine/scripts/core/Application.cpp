@@ -1,6 +1,8 @@
 #include "Application.h"
 
 #include "../audio/Sound.h"
+#include "../core/Time.h"
+#include "../ecs/Scene.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
 #include "../physics/Physics.h"
@@ -15,11 +17,14 @@
 #include <SDL.h>
 #include <SDL_events.h>
 #include <SDL_mouse.h>
+#include <SDL_stdinc.h>
+#include <SDL_video.h>
 
 #include <chrono>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 
 namespace LouiEriksson {

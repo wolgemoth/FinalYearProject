@@ -21,8 +21,8 @@
 namespace LouiEriksson {
 	
 	Ball::Ball(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
-		m_StartingPosition(0.0f),
-		m_Radius(0.0f) {}
+			m_StartingPosition(0.0f),
+			m_Radius(0.0f) {}
 	
 	Ball::~Ball() = default;
 	

@@ -19,7 +19,9 @@
 
 namespace LouiEriksson {
 	
-	Shader::SubShader::SubShader(const char* _path, GLenum _type) : m_Path(_path), m_Type(static_cast<GLint>(_type)) {}
+	Shader::SubShader::SubShader(const char* _path, GLenum _type) :
+			m_Path(_path),
+			m_Type(static_cast<GLint>(_type)) {}
 	
 	Shader::Shader(const std::filesystem::path& _path) {
 		

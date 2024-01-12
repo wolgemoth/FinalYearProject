@@ -8,17 +8,13 @@
 
 namespace LouiEriksson {
 	
-	Mesh::Mesh() {
-		
-		         m_VAO_ID = 0u;
-		 m_PositionVBO_ID = 0u;
-		 m_TexCoordVBO_ID = 0u;
-		   m_NormalVBO_ID = 0u;
-		  m_TangentVBO_ID = 0u;
-		m_BitangentVBO_ID = 0u;
-		
-		m_VertexCount = 0u;
-	}
+	Mesh::Mesh() : m_VAO_ID(0u),
+	       m_PositionVBO_ID(0u),
+	       m_TexCoordVBO_ID(0u),
+	         m_NormalVBO_ID(0u),
+	        m_TangentVBO_ID(0u),
+	      m_BitangentVBO_ID(0u),
+	          m_VertexCount(0u) {}
 	
 	Mesh::~Mesh() {
 		

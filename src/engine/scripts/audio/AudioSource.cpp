@@ -10,34 +10,35 @@
 #include "Sound.h"
 
 #include <AL/al.h>
+#include <glm/common.hpp>
 
 #include <exception>
 #include <iostream>
+#include <limits>
 #include <memory>
+#include <stdexcept>
 
 namespace LouiEriksson {
 	
-	AudioSource::Parameters::Parameters() {
-	
-		m_IsGlobal = false; // Do not start as global.
-		m_Loop     = false; // Do not loop.
-		
-		// Default panning value. (Will only apply if if the audio source is global.)
-		m_Panning = glm::vec3(0.0f);
-		
-		// Set default minimum and maximum distances.
-		m_MinDistance = 1.0f;
-		m_MaxDistance = 100.0f;
-		
-		// Set other defaults:
-		m_Pitch        = 1.0f;
-		m_GainModifier = 1.0f;
-		m_MinGain      = 0.0f;
-		m_MaxGain      = 1.0f;
-		m_Rolloff      = 1.0f;
-		m_MinAngle     = 360.0f;
-		m_MaxAngle     = 360.0f;
-	}
+	AudioSource::Parameters::Parameters() :
+			m_IsGlobal(false), // Do not start as global.
+			m_Loop    (false), // Do not loop.
+			
+			// Default panning value. (Will only apply if if the audio source is global.)
+			m_Panning( 0.0f),
+			 
+			// Set default minimum and maximum distances.
+			m_MinDistance(  1.0f),
+			m_MaxDistance(100.0f),
+			
+			// Set other defaults:
+			m_Pitch       (  1.0f),
+			m_GainModifier(  1.0f),
+			m_MinGain     (  0.0f),
+			m_MaxGain     (  1.0f),
+			m_Rolloff     (  1.0f),
+			m_MinAngle    (360.0f),
+			m_MaxAngle    (360.0f) {}
 	
 	AudioSource::Parameters::~Parameters() {}
 	
@@ -138,11 +139,11 @@ namespace LouiEriksson {
 		}
 	}
 	
-	AudioSource::AudioSource(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-		
-		m_Source = AL_NONE;
-		m_Parameters = {};
-		
+	AudioSource::AudioSource(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+			m_LastPosition(   0.0f),
+			m_Source      (AL_NONE),
+			m_Parameters  ()
+	{
 		Init();
 	}
 	

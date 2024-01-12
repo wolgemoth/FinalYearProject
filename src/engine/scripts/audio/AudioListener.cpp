@@ -13,12 +13,9 @@
 
 namespace LouiEriksson {
 	
-	AudioListener::AudioListener(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-		
-		m_Gain = 1.0f;
-		
-		m_LastPosition = glm::vec3(0.0f);
-	}
+	AudioListener::AudioListener(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+			m_Gain        (1.0f),
+			m_LastPosition(0.0f) {}
 	
 	AudioListener::~AudioListener() {}
 	

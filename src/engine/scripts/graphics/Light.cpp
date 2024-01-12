@@ -15,23 +15,20 @@
 
 namespace LouiEriksson {
 	
-	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-		
-		m_Intensity = 3.0f;
-		m_Range     = 200.0f;
-		m_Angle     = 120.0f;
-		m_Angle     = 120.0f;
-		m_Size      = 0.2f;
-		m_Color     = glm::vec3(1, 1, 1);
-		
+	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+		m_Intensity(  3.0f),
+		m_Range    (200.0f),
+		m_Angle    (120.0f),
+		m_Size     (  0.2f),
+		m_Color    (glm::vec3(1, 1, 1)),
+		m_Type     (Light::Parameters::Type::Point)
+	{
 		m_Transform = Parent()->GetComponent<Transform>();
 		
-		Type(Light::Parameters::Type::Point);
+		Type(m_Type);
 	}
 	
-	Light::~Light() {
-	
-	}
+	Light::~Light() = default;
 	
 	void Light::Type(Light::Parameters::Type _type) {
 		

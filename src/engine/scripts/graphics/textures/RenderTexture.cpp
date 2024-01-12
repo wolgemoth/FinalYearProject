@@ -11,13 +11,12 @@
 
 namespace LouiEriksson {
 	
-	RenderTexture::RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode) : Texture(_width, _height, 0, _format, _filterMode, _wrapMode) {
-		
-		m_FBO_ID    = GL_NONE;
-		m_RBO_ID    = GL_NONE;
-		m_Depth_ID  = GL_NONE;
-		m_DepthMode = RenderTexture::Parameters::DepthMode::NONE;
-		
+	RenderTexture::RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode) : Texture(_width, _height, 0, _format, _filterMode, _wrapMode),
+			m_FBO_ID   (GL_NONE),
+			m_RBO_ID   (GL_NONE),
+			m_Depth_ID (GL_NONE),
+			m_DepthMode(RenderTexture::Parameters::DepthMode::NONE)
+	{
 		Create(_width, _height, _format, _filterMode, _wrapMode, _depthMode);
 	}
 	

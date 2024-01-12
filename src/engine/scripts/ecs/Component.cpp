@@ -7,15 +7,13 @@
 
 namespace LouiEriksson {
 	
-	Component::Component(const std::shared_ptr<GameObject>& _parent) {
-		
+	Component::Component(const std::shared_ptr<GameObject>& _parent) :
+			m_GameObject(_parent),
+			m_Index(0)
+	{
 		if (_parent == nullptr) {
 			std::cout << "Warning: Component initialised with nullptr.\n";
 		}
-		
-		m_GameObject = _parent;
-		
-		m_Index = 0;
 	}
 	
 	Component::~Component() {

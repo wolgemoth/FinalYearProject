@@ -24,12 +24,11 @@
 
 namespace LouiEriksson {
 	
-	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) {
+	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) :
+			m_MotionState(new btDefaultMotionState())
+	{
 		
 		try {
-			
-			// Initialise the motion state.
-			m_MotionState.reset(new btDefaultMotionState());
 			
 			// Initialise the rigidbody.
 			m_Rigidbody.reset(
@@ -166,11 +165,7 @@ namespace LouiEriksson {
 		m_Inertia = { 1.0f, 1.0f, 1.0f };
 	}
 	
-	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-		
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-		m_Collider  = std::shared_ptr<Collider> (nullptr);
-	}
+	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {}
 	
 	void Rigidbody::Interpolate() {
 		

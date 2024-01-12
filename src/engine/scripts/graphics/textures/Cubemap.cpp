@@ -2,6 +2,8 @@
 
 #include "../Texture.h"
 
+#include <GL/glew.h>
+
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
 namespace LouiEriksson {

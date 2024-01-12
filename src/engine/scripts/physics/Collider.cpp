@@ -13,15 +13,9 @@
 
 namespace LouiEriksson {
 	
-	Collider::Collider(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {
-		
-		m_CollisionShape = std::shared_ptr<btCollisionShape>(nullptr);
-		
-		m_Transform = std::shared_ptr<Transform>(nullptr);
-		m_Rigidbody = std::shared_ptr<Rigidbody>(nullptr);
-		
-		m_Type = Type::Sphere;
-	}
+	Collider::Collider(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+			m_CollisionShape(nullptr),
+			m_Type() {}
 	
 	void Collider::SetTransform(const std::weak_ptr<Transform>& _transform) {
 		m_Transform = _transform;

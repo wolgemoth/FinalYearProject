@@ -20,8 +20,8 @@
 namespace LouiEriksson {
 	
 	OrbitCam::OrbitCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
-		m_Target(0.0f),
-		m_AnimationProgress(0.0f) {}
+			           m_Target(0.0f),
+			m_AnimationProgress(0.0f) {}
 	
 	OrbitCam::~OrbitCam() = default;
 	

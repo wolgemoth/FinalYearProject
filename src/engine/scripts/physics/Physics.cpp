@@ -17,16 +17,15 @@
 
 namespace LouiEriksson {
 	
-	Physics::Debugger::Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld) {
-		
+	Physics::Debugger::Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld) :
+			m_DynamicsWorld(_dynamicsWorld)
+	{
 		try {
 			
-			m_DynamicsWorld = _dynamicsWorld;
+			const auto dw = m_DynamicsWorld.lock();
 			
-			const auto dynamicsWorld = m_DynamicsWorld.lock();
-			
-			if (dynamicsWorld != nullptr) {
-				dynamicsWorld->setDebugDrawer(this);
+			if (dw != nullptr) {
+				dw->setDebugDrawer(this);
 			}
 		}
 		catch (const std::exception& e) {
@@ -38,10 +37,10 @@ namespace LouiEriksson {
 		
 		try {
 			
-			const auto dynamicsWorld = m_DynamicsWorld.lock();
+			const auto dw = m_DynamicsWorld.lock();
 			
-			if (dynamicsWorld != nullptr) {
-				dynamicsWorld->setDebugDrawer(nullptr);
+			if (dw != nullptr) {
+				dw->setDebugDrawer(nullptr);
 			}
 		}
 		catch (const std::exception& e) {
