@@ -4,146 +4,8 @@ project(FinalYearProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto -DNDEBUG")
 
-add_executable(FinalYearProject
-
-        src/engine/scripts/stdafx.h
-
-        src/engine/scripts/main.cpp
-
-        src/engine/scripts/Core/Application.cpp
-        src/engine/scripts/Core/Application.h
-
-        "src/engine/scripts/User Scripts/Ball.cpp"
-        "src/engine/scripts/User Scripts/Ball.h"
-
-        src/engine/scripts/Graphics/Camera.cpp
-        src/engine/scripts/Graphics/Camera.h
-
-        src/engine/scripts/Physics/Collider.cpp
-        src/engine/scripts/Physics/Collider.h
-
-        src/engine/scripts/Colliders.h
-
-        src/engine/scripts/Physics/Collision.cpp
-        src/engine/scripts/Physics/Collision.h
-
-        src/engine/scripts/ECS/Component.cpp
-        src/engine/scripts/ECS/Component.h
-
-        src/engine/scripts/Components.h
-
-        src/engine/scripts/ECS/Entity.cpp
-        src/engine/scripts/ECS/Entity.h
-
-        src/engine/scripts/Core/File.cpp
-        src/engine/scripts/Core/File.h
-
-        "src/engine/scripts/User Scripts/FlyCam.cpp"
-        "src/engine/scripts/User Scripts/FlyCam.h"
-
-        src/engine/scripts/ECS/GameObject.cpp
-        src/engine/scripts/ECS/GameObject.h
-
-        src/engine/scripts/Utils/Hashmap.h
-
-        src/engine/scripts/Input/Input.cpp
-        src/engine/scripts/Input/Input.h
-
-        src/engine/scripts/Graphics/Light.cpp
-        src/engine/scripts/Graphics/Light.h
-
-        src/engine/scripts/Graphics/Material.cpp
-        src/engine/scripts/Graphics/Material.h
-
-        src/engine/scripts/Graphics/Mesh.cpp
-        src/engine/scripts/Graphics/Mesh.h
-
-        "src/engine/scripts/User Scripts/OrbitCam.cpp"
-        "src/engine/scripts/User Scripts/OrbitCam.h"
-
-        "src/engine/scripts/User Scripts/Plane.cpp"
-        "src/engine/scripts/User Scripts/Plane.h"
-
-        src/engine/scripts/Physics/Colliders/PlaneCollider.cpp
-        src/engine/scripts/Physics/Colliders/PlaneCollider.h
-
-        "src/engine/scripts/User Scripts/Player.cpp"
-        "src/engine/scripts/User Scripts/Player.h"
-
-        src/engine/scripts/Graphics/Textures/RenderTexture.cpp
-        src/engine/scripts/Graphics/Textures/RenderTexture.h
-
-        src/engine/scripts/Graphics/Renderer.cpp
-        src/engine/scripts/Graphics/Renderer.h
-
-        src/engine/scripts/Physics/Rigidbody.cpp
-        src/engine/scripts/Physics/Rigidbody.h
-
-        src/engine/scripts/ECS/Scene.cpp
-        src/engine/scripts/ECS/Scene.h
-
-        src/engine/scripts/Core/Script.cpp
-        src/engine/scripts/Core/Script.h
-
-        src/engine/scripts/Scripts.h
-
-        src/engine/scripts/Core/Serialisation.cpp
-        src/engine/scripts/Core/Serialisation.h
-
-        src/engine/scripts/Graphics/Shader.cpp
-        src/engine/scripts/Graphics/Shader.h
-
-        src/engine/scripts/Physics/Colliders/SphereCollider.cpp
-        src/engine/scripts/Physics/Colliders/SphereCollider.h
-
-        src/engine/scripts/Core/Time.cpp
-        src/engine/scripts/Core/Time.h
-
-        src/engine/scripts/Core/Transform.cpp
-        src/engine/scripts/Core/Transform.h
-
-        src/engine/scripts/Core/Window.cpp
-        src/engine/scripts/Core/Window.h
-
-        src/engine/scripts/Graphics/Textures/Texture.cpp
-        src/engine/scripts/Graphics/Textures/Texture.h
-
-        src/engine/scripts/Graphics/Textures/Cubemap.cpp
-        src/engine/scripts/Graphics/Textures/Cubemap.h
-
-        src/engine/scripts/Core/Resources.cpp
-        src/engine/scripts/Core/Resources.h
-
-        src/engine/scripts/Utils/Utils.cpp
-        src/engine/scripts/Utils/Utils.h
-
-        src/engine/scripts/UI/GUI.cpp
-        src/engine/scripts/UI/GUI.h
-
-        src/engine/scripts/Core/Settings.cpp
-        src/engine/scripts/Core/Settings.h
-
-        src/engine/scripts/Input/Cursor.cpp
-        src/engine/scripts/Input/Cursor.h
-
-        src/engine/scripts/Core/Screen.cpp
-        src/engine/scripts/Core/Screen.h
-
-        src/engine/scripts/Audio/Sound.cpp
-        src/engine/scripts/Audio/Sound.h
-
-        src/engine/scripts/Physics/Physics.cpp
-        src/engine/scripts/Physics/Physics.h
-
-        src/engine/scripts/Audio/AudioSource.cpp
-        src/engine/scripts/Audio/AudioSource.h
-
-        src/engine/scripts/Audio/AudioListener.cpp
-        src/engine/scripts/Audio/AudioListener.h
-
-        src/engine/scripts/Audio/AudioClip.cpp
-        src/engine/scripts/Audio/AudioClip.h
-)
+set(     GAME_DIR ${PROJECT_SOURCE_DIR}/src/engine)
+set(   ENGINE_DIR ${PROJECT_SOURCE_DIR}/src/usr   )
 
 set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/external/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
@@ -163,26 +25,27 @@ set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/external/openal)
 set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
 
 include_directories(
-        ${PROJECT_SOURCE_DIR}/external/cereal/include
         ${GLEW_INCLUDE_DIR}
-        ${PROJECT_SOURCE_DIR}/external/glm
         ${IMGUI_DIR}
         ${PELLET_INCLUDE_DIR}
-        ${SDL2_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/external/cereal/include
+        ${PROJECT_SOURCE_DIR}/external/glm
         ${PROJECT_SOURCE_DIR}/external/stb/include/
         ${PROJECT_SOURCE_DIR}/external/wavefront/include/
+        ${SDL2_INCLUDE_DIR}
+        ${OPENAL_INCLUDE_DIR}
 )
 
 # ADD IMGUI:
 add_library(IMGUI STATIC
         ${IMGUI_DIR}/imgui.cpp                         # MAIN ...
-        ${IMGUI_DIR}/imgui_draw.cpp
         ${IMGUI_DIR}/imgui_demo.cpp
+        ${IMGUI_DIR}/imgui_draw.cpp
         ${IMGUI_DIR}/imgui_tables.cpp
         ${IMGUI_DIR}/imgui_widgets.cpp
 
-        ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl2.cpp      # BACKENDS ...
         ${IMGUI_BACKENDS_DIR}/imgui_impl_opengl3.cpp
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl2.cpp      # BACKENDS ...
 )
 
 # ADD PELLET:
@@ -192,21 +55,17 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3OverlappingPairCache.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3ConvexUtility.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3CpuNarrowPhase.cpp
-
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3AlignedAllocator.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Logging.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Vector3.cpp
-
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/b3CpuRigidBodyPipeline.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3FixedConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Generic6DofConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3PgsJacobiSolver.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Point2PointConstraint.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3TypedConstraint.cpp
-
         ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3ConvexHullComputer.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3GeometryUtil.cpp
-
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp
@@ -301,7 +160,6 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
         ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
-
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Character/btKinematicCharacterController.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btContactConstraint.cpp
@@ -338,12 +196,10 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletDynamics/MLCPSolvers/btMLCPSolver.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btRaycastVehicle.cpp
         ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btWheelInfo.cpp
-
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeImpl.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeInitCache.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/IDMath.cpp
         ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/MultiBodyTree.cpp
-
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btDefaultSoftBodySolver.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBody.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
@@ -353,7 +209,6 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidDynamicsWorld.cpp
         ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
-
         ${PELLET_INCLUDE_DIR}/LinearMath/btAlignedAllocator.cpp
         ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHull.cpp
         ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHullComputer.cpp
@@ -365,35 +220,129 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/LinearMath/btVector3.cpp
 )
 
+add_executable(FinalYearProject
+        src/main.cpp
+        src/engine/scripts/audio/AudioClip.cpp
+        src/engine/scripts/audio/AudioClip.h
+        src/engine/scripts/audio/AudioListener.cpp
+        src/engine/scripts/audio/AudioListener.h
+        src/engine/scripts/audio/AudioSource.cpp
+        src/engine/scripts/audio/AudioSource.h
+        src/engine/scripts/audio/Sound.cpp
+        src/engine/scripts/audio/Sound.h
+        src/engine/scripts/core/Application.cpp
+        src/engine/scripts/core/Application.h
+        src/engine/scripts/core/File.cpp
+        src/engine/scripts/core/File.h
+        src/engine/scripts/core/Resources.cpp
+        src/engine/scripts/core/Resources.h
+        src/engine/scripts/core/Screen.cpp
+        src/engine/scripts/core/Screen.h
+        src/engine/scripts/core/Script.cpp
+        src/engine/scripts/core/Script.h
+        src/engine/scripts/core/Serialisation.cpp
+        src/engine/scripts/core/Serialisation.h
+        src/engine/scripts/core/Settings.cpp
+        src/engine/scripts/core/Settings.h
+        src/engine/scripts/core/Time.cpp
+        src/engine/scripts/core/Time.h
+        src/engine/scripts/core/Transform.cpp
+        src/engine/scripts/core/Transform.h
+        src/engine/scripts/core/Window.cpp
+        src/engine/scripts/core/Window.h
+        src/engine/scripts/ecs/Component.cpp
+        src/engine/scripts/ecs/Component.h
+        src/engine/scripts/ecs/Entity.cpp
+        src/engine/scripts/ecs/Entity.h
+        src/engine/scripts/ecs/GameObject.cpp
+        src/engine/scripts/ecs/GameObject.h
+        src/engine/scripts/ecs/Scene.cpp
+        src/engine/scripts/ecs/Scene.h
+        src/engine/scripts/graphics/Camera.cpp
+        src/engine/scripts/graphics/Camera.h
+        src/engine/scripts/graphics/Light.cpp
+        src/engine/scripts/graphics/Light.h
+        src/engine/scripts/graphics/Material.cpp
+        src/engine/scripts/graphics/Material.h
+        src/engine/scripts/graphics/Mesh.cpp
+        src/engine/scripts/graphics/Mesh.h
+        src/engine/scripts/graphics/Renderer.cpp
+        src/engine/scripts/graphics/Renderer.h
+        src/engine/scripts/graphics/Shader.cpp
+        src/engine/scripts/graphics/Shader.h
+        src/engine/scripts/graphics/Texture.cpp
+        src/engine/scripts/graphics/Texture.h
+        src/engine/scripts/graphics/textures/Cubemap.cpp
+        src/engine/scripts/graphics/textures/Cubemap.h
+        src/engine/scripts/graphics/textures/RenderTexture.cpp
+        src/engine/scripts/graphics/textures/RenderTexture.h
+        src/engine/scripts/input/Cursor.cpp
+        src/engine/scripts/input/Cursor.h
+        src/engine/scripts/input/Input.cpp
+        src/engine/scripts/input/Input.h
+        src/engine/scripts/physics/Collider.cpp
+        src/engine/scripts/physics/Collider.h
+        src/engine/scripts/physics/colliders/PlaneCollider.cpp
+        src/engine/scripts/physics/colliders/PlaneCollider.h
+        src/engine/scripts/physics/colliders/SphereCollider.cpp
+        src/engine/scripts/physics/colliders/SphereCollider.h
+        src/engine/scripts/physics/Collision.cpp
+        src/engine/scripts/physics/Collision.h
+        src/engine/scripts/physics/Physics.cpp
+        src/engine/scripts/physics/Physics.h
+        src/engine/scripts/physics/Rigidbody.cpp
+        src/engine/scripts/physics/Rigidbody.h
+        src/engine/scripts/ui/GUI.cpp
+        src/engine/scripts/ui/GUI.h
+        src/engine/scripts/utils/Hashmap.h
+        src/engine/scripts/utils/Utils.cpp
+        src/engine/scripts/utils/Utils.h
+)
+
+add_library(Game
+        src/usr/scripts/Ball.cpp
+        src/usr/scripts/Ball.h
+        src/usr/scripts/FlyCam.cpp
+        src/usr/scripts/FlyCam.h
+        src/usr/scripts/OrbitCam.cpp
+        src/usr/scripts/OrbitCam.h
+        src/usr/scripts/Plane.cpp
+        src/usr/scripts/Plane.h
+        src/usr/scripts/Player.cpp
+        src/usr/scripts/Player.h
+)
+
+add_subdirectory(${OPENAL_DIR})
+
 link_directories(FinalYearProject
         ${GLEW_LIB_DIR}
         ${SDL2_LIB_DIR}
 )
 
-add_subdirectory(${OPENAL_DIR})
-
 target_link_libraries(FinalYearProject
-        GLEW
         GL
+        GLEW
         IMGUI
         OpenAL
         PELLET
-        SDL2main
         SDL2
+        SDL2main
+        Game
 )
 
 set(    AUDIO_DIR ${PROJECT_SOURCE_DIR}/src/engine/audio    )
 set(   LEVELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/levels   )
 set(   MODELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/models   )
-set(MATERIALS_DIR ${PROJECT_SOURCE_DIR}/src/engine/materials)
 set(  SHADERS_DIR ${PROJECT_SOURCE_DIR}/src/engine/shaders  )
 set( TEXTURES_DIR ${PROJECT_SOURCE_DIR}/src/engine/textures )
+set(MATERIALS_DIR ${PROJECT_SOURCE_DIR}/src/engine/materials)
 
 file(COPY     ${AUDIO_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY    ${LEVELS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY    ${MODELS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
-file(COPY ${MATERIALS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY   ${SHADERS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY  ${TEXTURES_DIR} DESTINATION ${PROJECT_BINARY_DIR})
+file(COPY ${MATERIALS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 
-target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
+target_precompile_headers(FinalYearProject PRIVATE src/stdafx.h)
+target_precompile_headers(Game PRIVATE src/stdafx.h)
