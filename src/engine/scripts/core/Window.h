@@ -52,8 +52,8 @@ namespace LouiEriksson {
 	
 		static void Destroy(const int& _id);
 	
-		[[nodiscard]] const int& ID() const;
-		[[nodiscard]] SDL_GLContext Context() const;
+		[[nodiscard]] const int& ID() const noexcept;
+		[[nodiscard]] SDL_GLContext Context() const noexcept;
 	
 		void Update() const;
 	

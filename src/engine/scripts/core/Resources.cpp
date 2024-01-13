@@ -217,23 +217,23 @@ namespace LouiEriksson {
 		PreloadMaterials();
 	}
 	
-	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) {
+	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) noexcept {
 		return m_Audio.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) {
+	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) noexcept {
 		return m_Meshes.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) {
+	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) noexcept {
 		return m_Materials.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) {
+	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) noexcept {
 		return m_Textures.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) {
+	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) noexcept {
 		return m_Shaders.Get(_name, _output);
 	}
 	

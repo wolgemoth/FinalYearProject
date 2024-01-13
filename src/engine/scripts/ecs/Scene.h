@@ -42,7 +42,6 @@ namespace LouiEriksson {
 	public:
 	
 		Scene() = default;
-	
 		virtual ~Scene();
 	
 		/// <summary> Get the entities within the Scene. </summary>

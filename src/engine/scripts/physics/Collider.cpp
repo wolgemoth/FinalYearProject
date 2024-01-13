@@ -11,28 +11,28 @@
 
 namespace LouiEriksson {
 	
-	Collider::Collider(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	Collider::Collider(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent),
 			m_CollisionShape(nullptr),
 			m_Type() {}
 	
-	void Collider::SetTransform(const std::weak_ptr<Transform>& _transform) {
+	void Collider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
 	}
-	const std::weak_ptr<Transform>& Collider::GetTransform() {
+	const std::weak_ptr<Transform>& Collider::GetTransform() const noexcept {
 		return m_Transform;
 	}
 	
-	void Collider::SetRigidbody(const std::weak_ptr<Rigidbody>& _transform) {
+	void Collider::SetRigidbody(const std::weak_ptr<Rigidbody>& _transform) noexcept {
 		m_Rigidbody = _transform;
 	}
-	const std::weak_ptr<Rigidbody>& Collider::GetRigidbody() {
+	const std::weak_ptr<Rigidbody>& Collider::GetRigidbody() const noexcept {
 		return m_Rigidbody;
 	}
 	
-	void Collider::SetType(const Type& _type) {
+	void Collider::SetType(const Type& _type) noexcept {
 		m_Type = _type;
 	}
-	Collider::Type Collider::GetType() {
+	const Collider::Type& Collider::GetType() const noexcept {
 		return m_Type;
 	}
 	

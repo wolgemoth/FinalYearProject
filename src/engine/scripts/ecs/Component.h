@@ -31,7 +31,7 @@ namespace LouiEriksson {
 		
 	protected:
 	
-		explicit Component(const std::shared_ptr<GameObject>& _parent);
+		explicit Component(const std::shared_ptr<GameObject>& _parent) noexcept;
 		virtual ~Component();
 	
 	public:

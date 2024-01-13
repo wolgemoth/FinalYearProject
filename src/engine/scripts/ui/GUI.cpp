@@ -202,7 +202,16 @@ namespace LouiEriksson {
 				
 				ImGui::PushStyleColor(ImGuiCol_PlotLines, plotLinesCol);
 				
-				ImGui::PlotLines("", s_Samples.data(), static_cast<int>(s_Samples.size()), 1, nullptr, min_fps, max_fps, plot_size);
+				ImGui::PlotLines(
+					"",
+					s_Samples.data(),
+					static_cast<int>(s_Samples.size() - 1),
+					1,
+					nullptr,
+					min_fps,
+					max_fps,
+					plot_size
+				);
 				
 				ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLines
 			}

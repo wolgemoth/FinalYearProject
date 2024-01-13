@@ -100,7 +100,7 @@ namespace LouiEriksson {
 			/// </summary>
 			float m_MaxAngle;
 			
-			 Parameters();
+			 Parameters() noexcept;
 			~Parameters();
 			
 		};
@@ -144,10 +144,10 @@ namespace LouiEriksson {
 		void Stop() const;
 		
 		/// <summary> Set this AudioSource's AudioClip. </summary>
-		void Clip(const std::weak_ptr<AudioClip>& _value);
+		void Clip(const std::weak_ptr<AudioClip>& _value) noexcept;
 		
 		/// <summary> Get weak reference to the currently used AudioClip. </summary>
-		[[nodiscard]] const std::weak_ptr<AudioClip>& Clip() const;
+		[[nodiscard]] const std::weak_ptr<AudioClip>& Clip() const noexcept;
 		
 		/// <summary> Get the current state of the AudioSource. </summary>
 		[[nodiscard]] ALenum State() const;
@@ -156,67 +156,67 @@ namespace LouiEriksson {
 		void Global(const bool& _value);
 		
 		/// <summary> Gets whether this AudioSource is global or not. </summary>
-		[[nodiscard]] const bool& Global() const;
+		[[nodiscard]] const bool& Global() const noexcept;
 		
 		/// <summary> Sets whether this AudioSource should loop or not. </summary>
 		void Loop(const bool& _value);
 		
 		/// <summary> Gets whether this AudioSource loops or not. </summary>
-		[[nodiscard]] const bool& Loop() const;
+		[[nodiscard]] const bool& Loop() const noexcept;
 		
 		/// <summary> Sets the minimum distance for this AudioSource. </summary>
 		void MinDistance(const float& _value);
 		
 		/// <summary> Gets the minimum distance for this AudioSource. </summary>
-		[[nodiscard]] const float& MinDistance() const;
+		[[nodiscard]] const float& MinDistance() const noexcept;
 		
 		/// <summary> Sets the maximum distance for this AudioSource. <summary>
 		void MaxDistance(const float& _value);
 		
 		/// <summary> Gets the minimum distance for this AudioSource. </summary>
-		[[nodiscard]] const float& MaxDistance() const;
+		[[nodiscard]] const float& MaxDistance() const noexcept;
 		
 		/// <summary> Sets the pitch multiplier of this AudioSource. <summary>
 		void Pitch(const float& _value);
 		
 		/// <summary> Gets the pitch multiplier of this AudioSource. </summary>
-		[[nodiscard]] const float& Pitch() const;
+		[[nodiscard]] const float& Pitch() const noexcept;
 		
 		/// <summary> Sets the gain modifier of this AudioSource. <summary>
 		void Gain(const float& _value);
 		
 		/// <summary> Gets the gain modifier of this AudioSource. </summary>
-		[[nodiscard]] const float& Gain() const;
+		[[nodiscard]] const float& Gain() const noexcept;
 		
 		/// <summary> Sets the minimum gain of this AudioSource. <summary>
 		void MinGain(const float& _value);
 		
 		/// <summary> Gets the minimum gain of this AudioSource. </summary>
-		[[nodiscard]] const float& MinGain() const;
+		[[nodiscard]] const float& MinGain() const noexcept;
 		
 		/// <summary> Sets the maximum gain of this AudioSource. <summary>
 		void MaxGain(const float& _value);
 		
 		/// <summary> Gets the maximum gain of this AudioSource. </summary>
-		[[nodiscard]] const float& MaxGain() const;
+		[[nodiscard]] const float& MaxGain() const noexcept;
 		
 		/// <summary> Sets the rolloff factor of this AudioSource. <summary>
 		void Rolloff(const float& _value);
 		
 		/// <summary> Gets the rolloff factor of this AudioSource. </summary>
-		[[nodiscard]] const float& Rolloff() const;
+		[[nodiscard]] const float& Rolloff() const noexcept;
 		
 		/// <summary> Sets the minimum angle of this AudioSource. <summary>
 		void MinAngle(const float& _value);
 		
 		/// <summary> Gets the minimum angle of this AudioSource. </summary>
-		[[nodiscard]] const float& MinAngle() const;
+		[[nodiscard]] const float& MinAngle() const noexcept;
 		
 		/// <summary> Sets the maximum angle of this AudioSource. <summary>
 		void MaxAngle(const float& _value);
 		
 		/// <summary> Gets the maximum angle of this AudioSource. </summary>
-		[[nodiscard]] const float& MaxAngle() const;
+		[[nodiscard]] const float& MaxAngle() const noexcept;
 		
 		/// <summary> Sets the playback position of the AudioSource in seconds. <summary>
 		void PlaybackPosition(const float& _value) const;

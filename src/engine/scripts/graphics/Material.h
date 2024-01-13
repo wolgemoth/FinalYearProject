@@ -36,15 +36,15 @@ namespace LouiEriksson {
 		~Material();
 		
 		/// <summary> Get the currently assigned Shader. </summary>
-		std::weak_ptr<Shader> GetShader();
+		std::weak_ptr<Shader> GetShader() const noexcept;
 		
-		[[nodiscard]] std::weak_ptr<Texture> GetAlbedo()       const;
-		[[nodiscard]] std::weak_ptr<Texture> GetRoughness()    const;
-		[[nodiscard]] std::weak_ptr<Texture> GetMetallic()     const;
-		[[nodiscard]] std::weak_ptr<Texture> GetNormals()      const;
-		[[nodiscard]] std::weak_ptr<Texture> GetDisplacement() const;
-		[[nodiscard]] std::weak_ptr<Texture> GetAO()           const;
-		[[nodiscard]] std::weak_ptr<Texture> GetEmission()     const;
+		[[nodiscard]] std::weak_ptr<Texture> GetAlbedo()       const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetRoughness()    const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetMetallic()     const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetNormals()      const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetDisplacement() const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetAO()           const noexcept;
+		[[nodiscard]] std::weak_ptr<Texture> GetEmission()     const noexcept;
 		
 	};
 	

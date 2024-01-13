@@ -86,7 +86,7 @@ namespace LouiEriksson {
 			
 		public:
 			
-			Parameters();
+			Parameters() noexcept;
 			
 		};
 		
@@ -106,7 +106,7 @@ namespace LouiEriksson {
 		
 	public:
 	
-		explicit Rigidbody(const std::shared_ptr<GameObject>& _parent);
+		explicit Rigidbody(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~Rigidbody() override = default;
 	
 		/// <summary> Called every frame. </summary>
@@ -116,19 +116,19 @@ namespace LouiEriksson {
 		void Sync();
 		
 		/// <summary> Retrieve the list of collisions for the current tick of the physics engine. </summary>
-		[[nodiscard]] const std::vector<Collision>& Collisions() const;
+		[[nodiscard]] const std::vector<Collision>& Collisions() const noexcept;
 		
 		/// <summary> Set the Transform of the Rigidbody. </summary>
 		void SetTransform(const std::weak_ptr<Transform>& _transform);
 	
 		/// <summary> Get the Transform of the Rigidbody. </summary>
-		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const;
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
 	
 		/// <summary> Set the Collider of the Rigidbody. </summary>
 		void SetCollider(const std::weak_ptr<Collider>& _collider);
 	
 		/// <summary> Get the Collider of the Rigidbody. </summary>
-		[[nodiscard]] const std::weak_ptr<Collider>& GetCollider() const ;
+		[[nodiscard]] const std::weak_ptr<Collider>& GetCollider() const noexcept;
 	
 		/// <summary>
 		/// Set the position of the Rigidbody.
@@ -154,13 +154,13 @@ namespace LouiEriksson {
 		void Kinematic(const bool& _value);
 		
 		/// <summary> Get the kinematic state of the Rigidbody. </summary>
-		[[nodiscard]] const bool& Kinematic() const;
+		[[nodiscard]] const bool& Kinematic() const noexcept;
 		
 		/// <summary> Set the kinematic state of the Rigidbody. </summary>
 		void Gravity(const bool& _value);
 		
 		/// <summary> Get the kinematic state of the Rigidbody. </summary>
-		[[nodiscard]] const bool& Gravity() const;
+		[[nodiscard]] const bool& Gravity() const noexcept;
 		
 		/// <summary> Set the velocity of the Rigidbody. </summary>
 		void Velocity(const glm::vec3& _value);
@@ -184,31 +184,31 @@ namespace LouiEriksson {
 		void Mass(const float& _value);
 		
 		/// <summary> Get the mass of the Rigidbody. </summary>
-		[[nodiscard]] const float& Mass() const;
+		[[nodiscard]] const float& Mass() const noexcept;
 	
 		/// <summary> Set the drag of the Rigidbody. </summary>
 		void Drag(const float& _value);
 	
 		/// <summary> Get the drag of the Rigidbody. </summary>
-		[[nodiscard]] const float& Drag() const;
+		[[nodiscard]] const float& Drag() const noexcept;
 	
 		/// <summary> Set the angular drag of the Rigidbody. </summary>
 		void AngularDrag(const float& _value);
 	
 		/// <summary> Get the angular drag of the Rigidbody. </summary>
-		[[nodiscard]] const float& AngularDrag() const;
+		[[nodiscard]] const float& AngularDrag() const noexcept;
 	
 		/// <summary> Set the friction of the Rigidbody. </summary>
 		void Friction(const float& _value);
 	
 		/// <summary> Get the friction of the Rigidbody. </summary>
-		[[nodiscard]] const float& Friction() const;
+		[[nodiscard]] const float& Friction() const noexcept;
 		
 		/// <summary> Set the bounciness of the Rigidbody. </summary>
 		void Bounciness(const float& _value);
 	
 		/// <summary> Get the bounciness of the Rigidbody. </summary>
-		[[nodiscard]] const float& Bounciness() const;
+		[[nodiscard]] const float& Bounciness() const noexcept;
 		
 	};
 	

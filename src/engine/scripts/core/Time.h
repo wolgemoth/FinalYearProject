@@ -35,32 +35,31 @@ namespace LouiEriksson {
 		/// Set the speed of time within the engine.
 		/// This should be between 0.0 and 1.0.
 		/// </summary>
-		static void Scale(const float& _value);
+		static void Scale(const float& _value) noexcept;
 		
 		/// <summary> Get the speed of time within the engine. </summary>
-		static const float& Scale();
+		static const float& Scale() noexcept;
 		
 		/// <summary> Get the total time elapsed since the engine was initialised. </summary>
-		static const float& Elapsed();
+		static const float& Elapsed() noexcept;
 		
 		/// <summary> Get the scaled delta time. (Duration of the previous frame.) </summary>
-		static float DeltaTime();
+		static float DeltaTime() noexcept;
 		
 		/// <summary> Get the unscaled delta time. (Duration of the previous frame.) </summary>
-		static const float& UnscaledDeltaTime();
+		static const float& UnscaledDeltaTime() noexcept;
 		
 		/// <summary> Set the unscaled fixed delta time. (Time between physics updates.) </summary>
-		static void FixedDeltaTime(const float& _value);
+		static void FixedDeltaTime(const float& _value) noexcept ;
 		
 		/// <summary> Get the scaled fixed delta time. (Time between physics updates.) </summary>
-		static float FixedDeltaTime();
+		static float FixedDeltaTime() noexcept;
 		
 		/// <summary> Get the unscaled fixed delta time. (Time between physics updates.) </summary>
-		static const float& FixedUnscaledDeltaTime();
+		static const float& FixedUnscaledDeltaTime() noexcept;
 		
 		Time& operator = (const Time&  _other) = delete;
 		Time& operator =       (Time&& _other) = delete;
-		
 	};
 	
 } // LouiEriksson

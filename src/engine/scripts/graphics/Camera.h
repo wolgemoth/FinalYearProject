@@ -119,34 +119,34 @@ namespace LouiEriksson {
 		void SetWindow(const std::shared_ptr<Window>& _window);
 		
 		/// <summary> Get the Camera's Window. </summary>
-		[[nodiscard]] std::shared_ptr<Window> GetWindow() const;
+		[[nodiscard]] std::shared_ptr<Window> GetWindow() const noexcept;
 		
 		/// <summary> Set the Camera's Transform. </summary>
 		void SetTransform(const std::shared_ptr<Transform>& _transform);
 		
 		/// <summary> Get the Camera's Transform. </summary>
-		[[nodiscard]] std::shared_ptr<Transform> GetTransform() const;
+		[[nodiscard]] std::shared_ptr<Transform> GetTransform() const noexcept;
 		
 		/// <summary> Get the Camera's Aspect. </summary>
 		[[nodiscard]] float Aspect() const;
 		
 		/// <summary> Set the Camera's field of view. </summary>
-		void FOV(const float& _fov);
+		void FOV(const float& _fov) noexcept;
 		
 		/// <summary> Get the Camera's field of view. </summary>
-		[[nodiscard]] const float& FOV() const;
+		[[nodiscard]] const float& FOV() const noexcept;
 		
 		/// <summary> Set the Camera's near clip plane. </summary>
-		void NearClip(const float& _nearClip);
+		void NearClip(const float& _nearClip) noexcept;
 		
 		/// <summary> Get the Camera's near clip plane. </summary>
-		[[nodiscard]] const float& NearClip() const;
+		[[nodiscard]] const float& NearClip() const noexcept;
 		
 		/// <summary> Set the Camera's far clip plane. </summary>
-		void FarClip(const float& _farClip);
+		void FarClip(const float& _farClip) noexcept;
 		
 		/// <summary> Get the Camera's far clip plane. </summary>
-		[[nodiscard]] const float& FarClip() const;
+		[[nodiscard]] const float& FarClip() const noexcept;
 		
 		/// <summary> Set the Camera's clear color. </summary>
 		static void ClearColor(glm::vec4 _color);
@@ -161,7 +161,7 @@ namespace LouiEriksson {
 		[[nodiscard]] glm::mat4 View() const;
 		
 		/// <summary> Set the Camera dirty, so that it computes a new projection matrix. </summary>
-		void SetDirty();
+		void SetDirty() noexcept;
 		
 	};
 	

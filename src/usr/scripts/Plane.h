@@ -35,7 +35,7 @@ namespace LouiEriksson::Game {
 	
 	public:
 	
-		explicit Plane(const std::shared_ptr<GameObject>& _parent);
+		explicit Plane(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~Plane() override;
 	
 	};

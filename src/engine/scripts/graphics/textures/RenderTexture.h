@@ -55,7 +55,7 @@ namespace LouiEriksson {
 		void Discard() const override;
 		
 		/// <summary> Get the ID of the depth attachment. </summary>
-		[[nodiscard]] GLuint DepthID() const;
+		[[nodiscard]] GLuint DepthID() const noexcept;
 	
 	private:
 		

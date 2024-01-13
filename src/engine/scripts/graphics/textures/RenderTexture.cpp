@@ -133,7 +133,7 @@ namespace LouiEriksson {
 		Texture::Discard();
 	}
 	
-	GLuint RenderTexture::DepthID() const {
+	GLuint RenderTexture::DepthID() const noexcept {
 		return m_Depth_ID;
 	}
 	

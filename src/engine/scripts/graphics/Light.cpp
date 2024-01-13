@@ -20,12 +20,12 @@
 namespace LouiEriksson {
 	
 	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
-		m_Intensity(  3.0f),
-		m_Range    (200.0f),
-		m_Angle    (120.0f),
-		m_Size     (  0.2f),
-		m_Color    (glm::vec3(1, 1, 1)),
-		m_Type     (Light::Parameters::Type::Point)
+			m_Intensity(  3.0f),
+			m_Range    (200.0f),
+			m_Angle    (120.0f),
+			m_Size     (  0.2f),
+			m_Color    (glm::vec3(1, 1, 1)),
+			m_Type     (Light::Parameters::Type::Point)
 	{
 		m_Transform = Parent()->GetComponent<Transform>();
 		
@@ -34,7 +34,7 @@ namespace LouiEriksson {
 	
 	Light::~Light() = default;
 	
-	void Light::Type(Light::Parameters::Type _type) {
+	void Light::Type(const Light::Parameters::Type& _type) {
 		
 		// Configure the light projection matrix.
 		switch (_type) {
@@ -84,11 +84,11 @@ namespace LouiEriksson {
 		
 		m_Type = _type;
 	}
-	Light::Parameters::Type Light::Type() {
+	const Light::Parameters::Type& Light::Type() const noexcept {
 		return m_Type;
 	}
 	
-	Light::Parameters::Shadow::Shadow() :
+	Light::Parameters::Shadow::Shadow() noexcept :
 			m_ShadowMap_Texture(  0    ),
 			m_ShadowMap_FBO    (  0    ),
 			m_Resolution       (128    ),

@@ -9,18 +9,18 @@
 
 namespace LouiEriksson {
 	
-	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) :
-		m_Format    (std::move(_format    )),
-		m_FilterMode(std::move(_filterMode)),
-		m_WrapMode  (std::move(_wrapMode  )),
-		m_TextureID (_textureID),
-		m_Width     (_width    ),
-		m_Height    (_height   ) {}
+	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept :
+			m_Format    (_format    ),
+			m_FilterMode(_filterMode),
+			m_WrapMode  (_wrapMode  ),
+			m_TextureID (_textureID),
+			m_Width     (_width    ),
+			m_Height    (_height   ) {}
 	
 	Texture::Texture(Texture&& _other) noexcept :
-		    m_Format(std::move(_other.m_Format    )),
-		m_FilterMode(std::move(_other.m_FilterMode)),
-		  m_WrapMode(std::move(_other.m_WrapMode  ))
+			    m_Format(std::move(_other.m_Format    )),
+			m_FilterMode(std::move(_other.m_FilterMode)),
+			  m_WrapMode(std::move(_other.m_WrapMode  ))
 	{
 		if (&_other != this) {
 			
@@ -62,9 +62,9 @@ namespace LouiEriksson {
 		Discard();
 	}
 	
-	const int& Texture::Width() const { return m_Width; }
+	const int& Texture::Width() const noexcept { return m_Width; }
 	
-	const int& Texture::Height() const { return m_Height; }
+	const int& Texture::Height() const noexcept { return m_Height; }
 	
 	void Texture::Bind(const Texture& _texture) {
 		
@@ -84,7 +84,7 @@ namespace LouiEriksson {
 		if (m_TextureID > 0) { glDeleteTextures(1, &m_TextureID); }
 	}
 	
-	const GLuint& Texture::ID() const {
+	const GLuint& Texture::ID() const noexcept {
 		return m_TextureID;
 	}
 	
@@ -129,25 +129,19 @@ namespace LouiEriksson {
 		}
 	}
 	
-	const Texture::Parameters::Format&     Texture::Format()     const { return m_Format;     }
-	const Texture::Parameters::FilterMode& Texture::FilterMode() const { return m_FilterMode; }
-	const Texture::Parameters::WrapMode&   Texture::WrapMode()   const { return m_WrapMode;   }
+	const Texture::Parameters::Format&     Texture::Format()     const noexcept { return m_Format;     }
+	const Texture::Parameters::FilterMode& Texture::FilterMode() const noexcept { return m_FilterMode; }
+	const Texture::Parameters::WrapMode&   Texture::WrapMode()   const noexcept { return m_WrapMode;   }
 	
-	Texture::Parameters::Format::Format(const GLenum& _pixelFormat, const bool& _mips) {
-		
-		m_Mips = _mips;
-		
+	Texture::Parameters::Format::Format(const GLenum& _pixelFormat, const bool& _mips) :
+			m_Mips(_mips)
+	{
 		Texture::GetFormatData(_pixelFormat, m_TextureFormat, m_Channels);
 		
 		m_PixelFormat = m_TextureFormat == GL_NONE ? GL_NONE : _pixelFormat;
 	}
 	
-	Texture::Parameters::Format::Format(const Texture::Parameters::Format& _other) {
-		m_PixelFormat   = _other.m_PixelFormat;
-		m_TextureFormat = _other.m_TextureFormat;
-		m_Channels      = _other.m_Channels;
-		m_Mips          = _other.m_Mips;
-	}
+	Texture::Parameters::Format::Format(const Texture::Parameters::Format& _other) = default;
 	
 	Texture::Parameters::Format& Texture::Parameters::Format::operator = (const Texture::Parameters::Format& _other) = default;
 	
@@ -185,21 +179,17 @@ namespace LouiEriksson {
 		return *this;
 	}
 	
-	const GLenum& Texture::Parameters::Format::PixelFormat()   const { return   m_PixelFormat; }
-	const GLenum& Texture::Parameters::Format::TextureFormat() const { return m_TextureFormat; }
-	const    int& Texture::Parameters::Format::Channels()      const { return      m_Channels; }
-	const   bool& Texture::Parameters::Format::Mips()          const { return          m_Mips; }
+	const GLenum& Texture::Parameters::Format::PixelFormat()   const noexcept { return   m_PixelFormat; }
+	const GLenum& Texture::Parameters::Format::TextureFormat() const noexcept { return m_TextureFormat; }
+	const    int& Texture::Parameters::Format::Channels()      const noexcept { return      m_Channels; }
+	const   bool& Texture::Parameters::Format::Mips()          const noexcept { return          m_Mips; }
 	
-	Texture::Parameters::FilterMode::FilterMode(const GLenum& _min, const GLenum& _mag) {
-		m_Min = _min;
-		m_Mag = _mag;
-	}
+	Texture::Parameters::FilterMode::FilterMode(const GLenum& _min, const GLenum& _mag) noexcept :
+			m_Min(_min),
+			m_Mag(_mag) {}
 	
-	Texture::Parameters::FilterMode::FilterMode(const Texture::Parameters::FilterMode& _other) {
-		m_Min = _other.m_Min;
-		m_Mag = _other.m_Mag;
-	}
-	
+	Texture::Parameters::FilterMode::FilterMode(const Texture::Parameters::FilterMode& _other) = default;
+			
 	Texture::Parameters::FilterMode& Texture::Parameters::FilterMode::operator = (const Texture::Parameters::FilterMode& _other) {
 		
 		if (&_other != this) {
@@ -236,21 +226,15 @@ namespace LouiEriksson {
 		return *this;
 	}
 	
-	const GLenum& Texture::Parameters::FilterMode::Min() const { return m_Min; }
-	const GLenum& Texture::Parameters::FilterMode::Mag() const { return m_Mag; }
+	const GLenum& Texture::Parameters::FilterMode::Min() const noexcept { return m_Min; }
+	const GLenum& Texture::Parameters::FilterMode::Mag() const noexcept { return m_Mag; }
 	
-	Texture::Parameters::WrapMode::WrapMode(const GLenum& _s, const GLenum& _t, const GLenum& _r) {
-		m_WrapS = _s;
-		m_WrapT = _t;
-		m_WrapR = _r;
-	}
+	Texture::Parameters::WrapMode::WrapMode(const GLenum& _s, const GLenum& _t, const GLenum& _r) noexcept :
+			m_WrapS(_s),
+			m_WrapT(_t),
+			m_WrapR(_r) {}
 	
-	Texture::Parameters::WrapMode::WrapMode(const Texture::Parameters::WrapMode& _other) {
-		
-		m_WrapS = _other.m_WrapS;
-		m_WrapT = _other.m_WrapT;
-		m_WrapR = _other.m_WrapR;
-	}
+	Texture::Parameters::WrapMode::WrapMode(const Texture::Parameters::WrapMode& _other) = default;
 	
 	Texture::Parameters::WrapMode& Texture::Parameters::WrapMode::operator = (const Texture::Parameters::WrapMode& _other) = default;
 	
@@ -284,8 +268,8 @@ namespace LouiEriksson {
 		return *this;
 	}
 	
-	const GLenum& Texture::Parameters::WrapMode::WrapS() const { return m_WrapS; }
-	const GLenum& Texture::Parameters::WrapMode::WrapT() const { return m_WrapT; }
-	const GLenum& Texture::Parameters::WrapMode::WrapR() const { return m_WrapR; }
+	const GLenum& Texture::Parameters::WrapMode::WrapS() const noexcept { return m_WrapS; }
+	const GLenum& Texture::Parameters::WrapMode::WrapT() const noexcept { return m_WrapT; }
+	const GLenum& Texture::Parameters::WrapMode::WrapR() const noexcept { return m_WrapR; }
 	
 } // LouiEriksson

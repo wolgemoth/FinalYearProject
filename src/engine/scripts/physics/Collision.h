@@ -30,13 +30,13 @@ namespace LouiEriksson {
 		~Collision() = default;
 	
 		/// <summary> Get the contact point of the Collision. </summary>
-		[[nodiscard]] const glm::vec3& ContactPoint() const;
+		[[nodiscard]] const glm::vec3& ContactPoint() const noexcept;
 	
 		/// <summary> Get the normal of the Collision. </summary>
-		[[nodiscard]] const glm::vec3& Normal() const;
+		[[nodiscard]] const glm::vec3& Normal() const noexcept;
 	
 		/// <summary> Get the impulse of the Collision. </summary>
-		[[nodiscard]] const float& Impulse() const;
+		[[nodiscard]] const float& Impulse() const noexcept;
 		
 	};
 	

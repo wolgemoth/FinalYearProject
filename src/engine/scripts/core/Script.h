@@ -21,7 +21,7 @@ namespace LouiEriksson {
 	
 	protected:
 	
-		explicit Script(const std::shared_ptr<GameObject>& _parent);
+		explicit Script(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~Script() override = default;
 	
 		/// <summary> Called at the beginning of the first frame. </summary>

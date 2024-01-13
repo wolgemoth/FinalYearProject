@@ -153,26 +153,23 @@ namespace LouiEriksson {
 		}
 	}
 	
-	Rigidbody::Parameters::Parameters() {
-		
-		m_BulletRigidbody = std::shared_ptr<BulletRigidbody>(nullptr);
-		
-		m_Kinematic  = false;
-		m_UseGravity = true;
-		m_Continuous = true;
-		
-		// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-		
-		m_Mass        = 1.0f;
-		m_Drag        = 0.2f;
-		m_AngularDrag = 0.005f;
-		m_Friction    = 0.5f;
-		m_Bounciness  = 0.5f;
-		
-		m_Inertia = { 1.0f, 1.0f, 1.0f };
-	}
+	Rigidbody::Parameters::Parameters() noexcept :
+			m_BulletRigidbody(nullptr),
+			
+			m_Kinematic (false),
+			m_UseGravity(true),
+			m_Continuous(true),
+			
+			// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
+			m_Mass       (1.0f),
+			m_Drag       (0.2f),
+			m_AngularDrag(0.005f),
+			m_Friction   (0.5f),
+			m_Bounciness (0.5f),
+			
+			m_Inertia(1.0f, 1.0f, 1.0f) {}
 	
-	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) : Component(_parent) {}
+	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent) {}
 	
 	void Rigidbody::Interpolate() {
 		
@@ -307,7 +304,7 @@ namespace LouiEriksson {
 		}
 	}
 	
-	const std::vector<Collision>& Rigidbody::Collisions() const {
+	const std::vector<Collision>& Rigidbody::Collisions() const noexcept {
 		return m_Collisions;
 	}
 	
@@ -316,7 +313,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const std::weak_ptr<Transform>& Rigidbody::GetTransform() const {
+	const std::weak_ptr<Transform>& Rigidbody::GetTransform() const noexcept {
 		return m_Transform;
 	}
 	
@@ -332,7 +329,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const std::weak_ptr<Collider>& Rigidbody::GetCollider() const {
+	const std::weak_ptr<Collider>& Rigidbody::GetCollider() const noexcept {
 		return m_Collider;
 	}
 	
@@ -367,7 +364,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const bool& Rigidbody::Kinematic() const {
+	const bool& Rigidbody::Kinematic() const noexcept {
 		return m_Parameters.m_Kinematic;
 	}
 	
@@ -376,7 +373,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const bool& Rigidbody::Gravity() const {
+	const bool& Rigidbody::Gravity() const noexcept {
 		return m_Parameters.m_UseGravity;
 	}
 	
@@ -425,7 +422,7 @@ namespace LouiEriksson {
 	
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Mass() const {
+	const float& Rigidbody::Mass() const noexcept {
 		return m_Parameters.m_Mass;
 	}
 	
@@ -434,7 +431,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Drag() const {
+	const float& Rigidbody::Drag() const noexcept {
 		return m_Parameters.m_Drag;
 	}
 	
@@ -443,7 +440,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::AngularDrag() const {
+	const float& Rigidbody::AngularDrag() const noexcept {
 		return m_Parameters.m_AngularDrag;
 	}
 	
@@ -452,7 +449,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Friction() const {
+	const float& Rigidbody::Friction() const noexcept {
 		return m_Parameters.m_Friction;
 	}
 	
@@ -461,7 +458,7 @@ namespace LouiEriksson {
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Bounciness() const {
+	const float& Rigidbody::Bounciness() const noexcept {
 		return m_Parameters.m_Bounciness;
 	}
 	

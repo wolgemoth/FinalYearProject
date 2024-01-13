@@ -124,11 +124,11 @@ namespace LouiEriksson {
 		}
 	}
 	
-	const int& Window::ID() const {
+	const int& Window::ID() const noexcept {
 		return m_ID;
 	}
 	
-	SDL_GLContext Window::Context() const {
+	SDL_GLContext Window::Context() const noexcept {
 		return m_Context;
 	}
 	

@@ -185,7 +185,7 @@ namespace LouiEriksson {
 				inline static float s_Intensity { 1.0f };
 				inline static float s_Radius    { 0.2f };
 				
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
@@ -201,7 +201,7 @@ namespace LouiEriksson {
 				inline static float s_Anamorphism {  0.0f };
 				inline static float s_Diffusion   {  3.0f };
 			
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
@@ -213,7 +213,7 @@ namespace LouiEriksson {
 				inline static float s_Gain     { 0.0f };
 				inline static float s_Exposure { 1.0f };
 				
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 				/// <summary> Container for the settings of the AutoExposure post-processing effect. </summary>
 				struct AutoExposure {
@@ -226,7 +226,7 @@ namespace LouiEriksson {
 					inline static float s_SpeedDown    {  1.0f };
 					inline static float s_SpeedUp      {  2.0f };
 					
-					static bool IsActiveAndEnabled();
+					static bool IsActiveAndEnabled() noexcept;
 				};
 				
 			};
@@ -242,7 +242,7 @@ namespace LouiEriksson {
 				inline static float s_EdgeBlending          { 1.0f    };
 				inline static float s_LocalContrastModifier { 0.5f    };
 				
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
@@ -253,7 +253,7 @@ namespace LouiEriksson {
 			
 				inline static float s_Intensity { 0.001f };
 				
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
@@ -265,7 +265,7 @@ namespace LouiEriksson {
 				inline static float s_Intensity  { 0.667f };
 				inline static float s_Smoothness { 0.333f };
 				
-				static bool IsActiveAndEnabled();
+				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			

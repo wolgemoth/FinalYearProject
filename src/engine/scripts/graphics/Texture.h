@@ -44,10 +44,10 @@ namespace LouiEriksson {
 				Format             (Format&& _other) noexcept;
 				Format& operator = (Format&& _other) noexcept;
 				
-				[[nodiscard]] const GLenum&   PixelFormat() const;
-				[[nodiscard]] const GLenum& TextureFormat() const;
-				[[nodiscard]] const    int&      Channels() const;
-				[[nodiscard]] const   bool&          Mips() const;
+				[[nodiscard]] const GLenum&   PixelFormat() const noexcept;
+				[[nodiscard]] const GLenum& TextureFormat() const noexcept;
+				[[nodiscard]] const    int&      Channels() const noexcept;
+				[[nodiscard]] const   bool&          Mips() const noexcept;
 			};
 			
 			/// <summary> Container specifying a Texture's filter mode. </summary>
@@ -59,7 +59,7 @@ namespace LouiEriksson {
 				
 			public:
 				
-				FilterMode(const GLenum& _min, const GLenum& _mag);
+				FilterMode(const GLenum& _min, const GLenum& _mag) noexcept;
 				
 				FilterMode             (const FilterMode& _other);
 				FilterMode& operator = (const FilterMode& _other);
@@ -67,8 +67,8 @@ namespace LouiEriksson {
 				FilterMode             (FilterMode&& _other) noexcept;
 				FilterMode& operator = (FilterMode&& _other) noexcept;
 				
-				[[nodiscard]] const GLenum& Min() const;
-				[[nodiscard]] const GLenum& Mag() const;
+				[[nodiscard]] const GLenum& Min() const noexcept;
+				[[nodiscard]] const GLenum& Mag() const noexcept;
 			};
 			
 			/// <summary> Container specifying a Texture's wrap mode. </summary>
@@ -81,7 +81,7 @@ namespace LouiEriksson {
 				
 			public:
 				
-				explicit WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE);
+				explicit WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE) noexcept;
 				
 				WrapMode             (const WrapMode& _other);
 				WrapMode& operator = (const WrapMode& _other);
@@ -89,9 +89,9 @@ namespace LouiEriksson {
 				WrapMode             (WrapMode&& _other) noexcept;
 				WrapMode& operator = (WrapMode&& _other) noexcept;
 				
-				[[nodiscard]] const GLenum& WrapS() const;
-				[[nodiscard]] const GLenum& WrapT() const;
-				[[nodiscard]] const GLenum& WrapR() const;
+				[[nodiscard]] const GLenum& WrapS() const noexcept;
+				[[nodiscard]] const GLenum& WrapT() const noexcept;
+				[[nodiscard]] const GLenum& WrapR() const noexcept;
 			};
 			
 		};
@@ -104,12 +104,12 @@ namespace LouiEriksson {
 		Texture             (Texture&& _other) noexcept;
 		Texture& operator = (Texture&& _other) noexcept;
 		
-		[[nodiscard]] const int&  Width() const;
-		[[nodiscard]] const int& Height() const;
+		[[nodiscard]] const int&  Width() const noexcept;
+		[[nodiscard]] const int& Height() const noexcept;
 		
-		[[nodiscard]] const Parameters::Format&         Format() const;
-		[[nodiscard]] const Parameters::FilterMode& FilterMode() const;
-		[[nodiscard]] const Parameters::WrapMode&     WrapMode() const;
+		[[nodiscard]] const Parameters::Format&         Format() const noexcept;
+		[[nodiscard]] const Parameters::FilterMode& FilterMode() const noexcept;
+		[[nodiscard]] const Parameters::WrapMode&     WrapMode() const noexcept;
 		
 		/// <summary> Determine a Texture's format and number of channels using its pixel format. </summary>
 		static void GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels);
@@ -124,9 +124,9 @@ namespace LouiEriksson {
 		virtual void Discard() const;
 		
 		/// <summary> Get the Texture's ID. </summary>
-		[[nodiscard]] const GLuint& ID() const;
+		[[nodiscard]] const GLuint& ID() const noexcept;
 		
-		explicit operator GLuint() const { return this->ID(); }
+		explicit operator GLuint() const noexcept { return this->ID(); }
 	
 	private:
 		
@@ -149,7 +149,7 @@ namespace LouiEriksson {
 		/// <summary> Texture's wrapping parameters. </sum  mary>
 		Parameters::WrapMode m_WrapMode;
 		
-		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format _format, Texture::Parameters::FilterMode _filterMode, Texture::Parameters::WrapMode _wrapMode);
+		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept;
 	
 	};
 	

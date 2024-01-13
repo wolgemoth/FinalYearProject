@@ -43,17 +43,14 @@ namespace LouiEriksson::Game {
 		/// <inheritdoc/>
 		void Tick() override;
 	
+		/// <summary> Synchronise the camera's parameters with the ones defined in Settings. </summary>
+		void SyncCameraSettings() noexcept;
+		
 	public:
 	
 		explicit OrbitCam(const std::shared_ptr<GameObject>& _parent);
 		~OrbitCam() override;
 		
-		/// <summary> Get the Camera of the OrbitCam. </summary>
-		std::shared_ptr<Camera> GetCamera();
-		
-		/// <summary> Get the Transform of the OrbitCam. </summary>
-		std::shared_ptr<Transform> GetTransform();
-	
 	};
 	
 } // LouiEriksson::Game

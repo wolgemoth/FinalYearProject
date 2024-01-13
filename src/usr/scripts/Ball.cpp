@@ -29,74 +29,75 @@ namespace LouiEriksson::Game {
 	
 	void Ball::Begin() {
 	
-		auto scene = Parent()->GetScene();
-	
-		// Load mesh.
-		if (s_Mesh == nullptr) {
-			File::TryLoad("models/sphere/sphere.obj", s_Mesh);
-		}
+		if (const auto s = Parent()->GetScene().lock()) {
 		
-		if (s_Material.expired()) {
+			// Load mesh.
+			if (s_Mesh == nullptr) {
+				File::TryLoad("models/sphere/sphere.obj", s_Mesh);
+			}
 			
-			// Create material from shader.
-			s_Material = Resources::GetMaterial("sphere");
-		}
-	
-		// Get or add component.
-		auto transform = Parent()->GetComponent<Transform>();
-		if (transform == nullptr) {
-			transform = Parent()->AddComponent<Transform>();
-		}
+			if (s_Material.expired()) {
+				
+				// Create material from shader.
+				s_Material = Resources::GetMaterial("sphere");
+			}
 		
-		// Get starting position.
-		m_StartingPosition = transform->m_Position;
-	
-		// Get radius.
-		m_Radius = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
-	
-		// Get or add renderer.
-		auto renderer = scene->Attach(Parent()->AddComponent<Renderer>());
-		if (renderer == nullptr) {
-			renderer = Parent()->AddComponent<Renderer>();
-		}
-	
-		renderer->SetMesh(s_Mesh);
-		renderer->SetMaterial(s_Material);
-		renderer->SetTransform(transform);
-	
-		// Get or add collider.
-		auto collider = scene->Attach<SphereCollider>(Parent()->AddComponent<SphereCollider>());
-		if (collider == nullptr) {
-			collider = Parent()->AddComponent<SphereCollider>();
-		}
-	
-		collider->SetTransform(transform);
-		collider->SetType(Collider::Type::Sphere);
-		collider->Radius(m_Radius);
-	
-		// Get or add rigidbody.
-		auto rigidbody = scene->Attach(Parent()->AddComponent<Rigidbody>());
-		if (rigidbody == nullptr) {
-			rigidbody = Parent()->AddComponent<Rigidbody>();
-		}
+			// Get or add component.
+			auto transform = Parent()->GetComponent<Transform>();
+			if (transform == nullptr) {
+				transform = Parent()->AddComponent<Transform>();
+			}
+			
+			// Get starting position.
+			m_StartingPosition = transform->m_Position;
 		
-		rigidbody->SetTransform(transform);
-		rigidbody->SetCollider(collider);
-		rigidbody->Mass(4.0f * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
-		rigidbody->Drag(0.005f); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-	
-		collider->SetRigidbody(rigidbody);
+			// Get radius.
+			m_Radius = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
 		
-		// Get or add AudioSource.
-		m_AudioSource = Parent()->AddComponent<AudioSource>();
-		if (m_AudioSource.expired()) {
+			// Get or add renderer.
+			auto renderer = s->Attach(Parent()->AddComponent<Renderer>());
+			if (renderer == nullptr) {
+				renderer = Parent()->AddComponent<Renderer>();
+			}
+		
+			renderer->SetMesh(s_Mesh);
+			renderer->SetMaterial(s_Material);
+			renderer->SetTransform(transform);
+		
+			// Get or add collider.
+			auto collider = s->Attach<SphereCollider>(Parent()->AddComponent<SphereCollider>());
+			if (collider == nullptr) {
+				collider = Parent()->AddComponent<SphereCollider>();
+			}
+		
+			collider->SetTransform(transform);
+			collider->SetType(Collider::Type::Sphere);
+			collider->Radius(m_Radius);
+		
+			// Get or add rigidbody.
+			auto rigidbody = s->Attach(Parent()->AddComponent<Rigidbody>());
+			if (rigidbody == nullptr) {
+				rigidbody = Parent()->AddComponent<Rigidbody>();
+			}
+			
+			rigidbody->SetTransform(transform);
+			rigidbody->SetCollider(collider);
+			rigidbody->Mass(4.0f * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
+			rigidbody->Drag(0.005f); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
+		
+			collider->SetRigidbody(rigidbody);
+			
+			// Get or add AudioSource.
 			m_AudioSource = Parent()->AddComponent<AudioSource>();
+			if (m_AudioSource.expired()) {
+				m_AudioSource = Parent()->AddComponent<AudioSource>();
+			}
+			
+			auto clip = Resources::GetAudio("Hollow_Bass");
+			
+			m_AudioSource.lock()->Clip(clip);
+			m_AudioSource.lock()->Global(true);
 		}
-		
-		auto clip = Resources::GetAudio("Hollow_Bass");
-		
-		m_AudioSource.lock()->Clip(clip);
-		m_AudioSource.lock()->Global(true);
 	}
 	
 	void Ball::Tick() {

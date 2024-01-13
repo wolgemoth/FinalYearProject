@@ -30,26 +30,26 @@ namespace LouiEriksson {
 			Plane
 		};
 	
-		explicit Collider(const std::shared_ptr<GameObject>& _parent);
+		explicit Collider(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~Collider() override = default;
 	
 		/// <summary> Set the Transform of the Collider. </summary>
-		virtual void SetTransform(const std::weak_ptr<Transform>& _transform);
+		virtual void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
 	
 		/// <summary> Get the Transform of the Collider. </summary>
-		const std::weak_ptr<Transform>& GetTransform();
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
 	
 		/// <summary> Set the Rigidbody of the Collider. </summary>
-		void SetRigidbody(const std::weak_ptr<Rigidbody>& _transform);
+		void SetRigidbody(const std::weak_ptr<Rigidbody>& _transform) noexcept;
 	
 		/// <summary> Get the Rigidbody of the Collider. </summary>
-		const std::weak_ptr<Rigidbody>& GetRigidbody();
+		[[nodiscard]] const std::weak_ptr<Rigidbody>& GetRigidbody() const noexcept;
 	
 		/// <summary> Set the Collider's Type. </summary>
-		void SetType(const Type& _type);
+		void SetType(const Type& _type) noexcept;
 		
 		/// <summary> Get the Collider's Type. </summary>
-		Type GetType();
+		[[nodiscard]] const Type& GetType() const noexcept;
 	
 	protected:
 		

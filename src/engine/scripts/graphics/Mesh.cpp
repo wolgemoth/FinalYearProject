@@ -8,7 +8,7 @@
 
 namespace LouiEriksson {
 	
-	Mesh::Mesh() : m_VAO_ID(0u),
+	Mesh::Mesh() noexcept : m_VAO_ID(0u),
 	       m_PositionVBO_ID(0u),
 	       m_TexCoordVBO_ID(0u),
 	         m_NormalVBO_ID(0u),
@@ -40,14 +40,14 @@ namespace LouiEriksson {
 		}
 	}
 	
-	GLuint Mesh::VAO_ID()           const { return          m_VAO_ID; }
-	GLuint Mesh::PositionVBO_ID()   const { return  m_PositionVBO_ID; }
-	GLuint Mesh::TexCoordVBO_ID()   const { return  m_TexCoordVBO_ID; }
-	GLuint Mesh::NormalVBO_ID()     const { return    m_NormalVBO_ID; }
-	GLuint Mesh::TangentVBO_ID()    const { return   m_TangentVBO_ID; }
-	GLuint Mesh::BitangentVBO_ID()  const { return m_BitangentVBO_ID; }
+	GLuint Mesh::VAO_ID()           const noexcept { return          m_VAO_ID; }
+	GLuint Mesh::PositionVBO_ID()   const noexcept { return  m_PositionVBO_ID; }
+	GLuint Mesh::TexCoordVBO_ID()   const noexcept { return  m_TexCoordVBO_ID; }
+	GLuint Mesh::NormalVBO_ID()     const noexcept { return    m_NormalVBO_ID; }
+	GLuint Mesh::TangentVBO_ID()    const noexcept { return   m_TangentVBO_ID; }
+	GLuint Mesh::BitangentVBO_ID()  const noexcept { return m_BitangentVBO_ID; }
 	
-	unsigned long Mesh::VertexCount() const { return m_VertexCount; }
+	unsigned long Mesh::VertexCount() const noexcept { return m_VertexCount; }
 	
 	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
 		

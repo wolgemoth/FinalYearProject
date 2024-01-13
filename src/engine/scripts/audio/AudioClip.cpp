@@ -9,7 +9,7 @@
 
 namespace LouiEriksson {
 	
-	AudioClip::Format::Format(const SDL_AudioSpec& _audioSpec) :
+	AudioClip::Format::Format(const SDL_AudioSpec& _audioSpec) noexcept :
 			m_Specification(_audioSpec) {}
 	
 	ALenum AudioClip::Format::OpenALFormat() const {
@@ -66,8 +66,11 @@ namespace LouiEriksson {
 		}
 	}
 	
-	AudioClip::AudioClip(const std::filesystem::path& _path) : m_Format({}), m_Samples(), m_ALBuffer(AL_NONE) {
-	
+	AudioClip::AudioClip(const std::filesystem::path& _path) :
+			m_Format({}),
+			m_Samples(),
+			m_ALBuffer(AL_NONE)
+	{
 		// Generate audio buffer.
 		alGenBuffers(1, &m_ALBuffer);
 	

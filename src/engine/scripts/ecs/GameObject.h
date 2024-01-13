@@ -39,19 +39,19 @@ namespace LouiEriksson {
 		/// <summary> Components attached to the GameObject. </summary>
 		Hashmap<std::type_index, std::vector<std::any>> m_Components;
 	
-		 GameObject() = default;
+		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept;
 		~GameObject() = default;
 	
 	public:
 	
 		/// <summary> Set the name of the GameObject. </summary>
-		void Name(const std::string& _name);
+		void Name(const std::string& _name) noexcept;
 	
 		/// <summary> Get the name of the GameObject. </summary>
-		const std::string& Name();
+		const std::string& Name() const noexcept;
 	
 		/// <summary> Get the Scene the GameObject belongs to. </summary>
-		std::shared_ptr<Scene> GetScene();
+		const std::weak_ptr<Scene>& GetScene() const noexcept;
 		
 		/// <summary> Factory function which creates a GameObject within a Scene. </summary>
 		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string& _name = "");
@@ -59,7 +59,7 @@ namespace LouiEriksson {
 		/// <summary>
 		/// Get the components attached to the GameObject.
 		/// </summary>
-		Hashmap<std::type_index, std::vector<std::any>>& Components();
+		const Hashmap<std::type_index, std::vector<std::any>>& Components() const noexcept;
 	
 		/// <summary>
 		/// Get components of type attached to GameObject.
@@ -67,7 +67,7 @@ namespace LouiEriksson {
 		/// <typeparam name="T">Type to be searched.</typeparam>
 		/// <returns>Vector of std::any wrapping a std::shared_ptr<T></returns>
 		template <typename T>
-		std::vector<std::any> GetComponents() {
+		std::vector<std::any> GetComponents() const {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
@@ -87,7 +87,7 @@ namespace LouiEriksson {
 		/// <param name="_index">Index of the component.</param>
 		/// <returns>std::shared_ptr<T> Referencing the component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
 		template<typename T>
-		std::shared_ptr<T> GetComponent(size_t _index = 0) {
+		std::shared_ptr<T> GetComponent(size_t _index = 0) const {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			

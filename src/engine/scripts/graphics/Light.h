@@ -61,7 +61,7 @@ namespace LouiEriksson {
 				glm::mat4 m_Projection;
 				glm::mat4 m_ViewProjection;
 				
-				 Shadow();
+				 Shadow() noexcept;
 				~Shadow();
 				
 				void UpdateShadowMap(const Light::Parameters::Type& _type);
@@ -71,12 +71,11 @@ namespace LouiEriksson {
 		};
 		
 		explicit Light(const std::shared_ptr<GameObject>& _parent);
-		
 		~Light() override;
 		
-		void Type(Light::Parameters::Type _type);
+		void Type(const Light::Parameters::Type& _type);
 		
-		Light::Parameters::Type Type();
+		[[nodiscard]] const Parameters::Type& Type() const noexcept;
 		
 	private:
 		

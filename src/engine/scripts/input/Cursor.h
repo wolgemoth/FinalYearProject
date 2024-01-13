@@ -77,7 +77,7 @@ namespace LouiEriksson {
 		/// of whatever state changes may be pending.
 		/// </remarks>
 		/// </summary>
-		static State GetState();
+		static const State& GetState();
 		
 	private:
 		

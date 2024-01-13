@@ -32,20 +32,18 @@ namespace LouiEriksson {
 		SDL_ShowCursor(m_Visible ? SDL_ENABLE : SDL_DISABLE);
 	}
 	
-	Cursor::State::State(const LockMode& _lockMode, const bool& _visible) {
-		m_LockMode = _lockMode;
-		m_Visible  = _visible;
-	}
+	Cursor::State::State(const LockMode& _lockMode, const bool& _visible) :
+			m_LockMode(_lockMode),
+			m_Visible (_visible) {}
 	
-	Cursor::State::State() {
-		m_LockMode = SDL_GetRelativeMouseMode() == SDL_ENABLE ? Cursor::State::LockMode::Relative : Cursor::State::LockMode::Absolute;
-		m_Visible  = SDL_ShowCursor(SDL_QUERY) == SDL_ENABLE;
-	}
+	Cursor::State::State() :
+			m_LockMode(SDL_GetRelativeMouseMode() == SDL_ENABLE ? Cursor::State::LockMode::Relative : Cursor::State::LockMode::Absolute),
+			m_Visible (SDL_ShowCursor(SDL_QUERY)  == SDL_ENABLE) {}
 	
 	void Cursor::SetState(const Cursor::State& _state) {
 		s_Pending = _state;
 	}
-	Cursor::State Cursor::GetState() {
+	const Cursor::State& Cursor::GetState() {
 		return s_Current;
 	}
 	

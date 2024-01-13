@@ -20,10 +20,9 @@
 
 namespace LouiEriksson {
 	
-	Input::Key::State::State() {
-		s_Data = nullptr;
-		s_Length = 0;
-	}
+	Input::Key::State::State() noexcept :
+			s_Data  (nullptr),
+			s_Length(0) {}
 	
 	Input::Key::State::~State() = default;
 	
@@ -37,11 +36,11 @@ namespace LouiEriksson {
 			   s_Data[static_cast<SDL_Scancode>(glm::min(static_cast<int>(_value), s_Length))] != 0u;
 	}
 	
-	bool Input::Event::Get(const Uint32& _event, std::vector<SDL_Event>& _results) {
+	bool Input::Event::Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept {
 		return s_Events.Get(_event, _results);
 	}
 	
-	bool Input::Event::Get(const Uint32& _event) {
+	bool Input::Event::Get(const Uint32& _event) noexcept {
 		return s_Events.ContainsKey(_event);
 	}
 	
@@ -85,11 +84,11 @@ namespace LouiEriksson {
 		return previousState && !currentState;
 	}
 	
-	const glm::vec2& Input::Mouse::Motion() {
+	const glm::vec2& Input::Mouse::Motion() noexcept {
 		return s_Motion;
 	}
 	
-	bool Input::Mouse::Get(const Uint8& _button) {
+	bool Input::Mouse::Get(const Uint8& _button) noexcept {
 		return (s_RelativeState & SDL_BUTTON(_button)) != 0u;
 	}
 	

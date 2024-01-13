@@ -1303,14 +1303,14 @@ namespace LouiEriksson {
 	void Camera::SetWindow(const std::shared_ptr<Window>& _window) {
 		_window->Link(*this);
 	}
-	std::shared_ptr<Window> Camera::GetWindow() const {
+	std::shared_ptr<Window> Camera::GetWindow() const noexcept {
 		return m_Window;
 	}
 	
 	void Camera::SetTransform(const std::shared_ptr<Transform>& _transform) {
 		m_Transform = _transform;
 	}
-	std::shared_ptr<Transform> Camera::GetTransform() const {
+	std::shared_ptr<Transform> Camera::GetTransform() const noexcept {
 		return m_Transform;
 	}
 	
@@ -1318,7 +1318,7 @@ namespace LouiEriksson {
 		return m_Window->Aspect();
 	}
 	
-	void Camera::FOV(const float& _fov) {
+	void Camera::FOV(const float& _fov) noexcept {
 		
 		// Check if the value differs from the current one.
 		if (m_FOV != _fov) {
@@ -1327,11 +1327,11 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	const float& Camera::FOV() const {
+	const float& Camera::FOV() const noexcept {
 		return m_FOV;
 	}
 	
-	void Camera::NearClip(const float& _nearClip) {
+	void Camera::NearClip(const float& _nearClip) noexcept {
 		
 		// Check if the value differs from the current one.
 		if (m_NearClip != _nearClip) {
@@ -1340,11 +1340,11 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	const float& Camera::NearClip() const {
+	const float& Camera::NearClip() const noexcept {
 		return m_NearClip;
 	}
 	
-	void Camera::FarClip(const float& _farClip) {
+	void Camera::FarClip(const float& _farClip) noexcept {
 		
 		// Check if the value differs from the current one.
 		if (m_FarClip != _farClip) {
@@ -1353,7 +1353,7 @@ namespace LouiEriksson {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	const float& Camera::FarClip() const {
+	const float& Camera::FarClip() const noexcept {
 		return m_FarClip;
 	}
 	
@@ -1396,7 +1396,7 @@ namespace LouiEriksson {
 		);
 	}
 	
-	void Camera::SetDirty() {
+	void Camera::SetDirty() noexcept {
 		m_IsDirty = true;
 	}
 	

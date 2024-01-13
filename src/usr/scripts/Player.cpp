@@ -47,148 +47,153 @@ namespace LouiEriksson::Game {
 	
 	void Player::SpawnPlanes() {
 		
-		auto scene = Parent()->GetScene();
-		
-		const float size = 15.0f;
-		
-		m_PlayerMoveFreedom = size / 2 - 1;
-		
-		const int noPlanes = 10;
-		const int offset = 1;
-		const int start = -noPlanes + offset;
-		const int end = offset;
-		
-		m_MinPlaneX = start * size;
-		m_MaxPlaneX = end * size;
-		
-		for (int count = 0, i = start; i < end; ++i, ++count) {
+		if (const auto s = Parent()->GetScene().lock()) {
 			
-			std::stringstream name;
-			name << "Floor_" << count;
+			const float size = 15.0f;
 			
-			auto plane = scene->Attach(GameObject::Create(scene, name.str()));
-			m_Planes.push_back(plane);
+			m_PlayerMoveFreedom = size / 2 - 1;
+			
+			const int noPlanes = 10;
+			const int offset = 1;
+			const int start = -noPlanes + offset;
+			const int end = offset;
+			
+			m_MinPlaneX = start * size;
+			m_MaxPlaneX = end * size;
+			
+			for (int count = 0, i = start; i < end; ++i, ++count) {
+				
+				std::stringstream name;
+				name << "Floor_" << count;
+				
+				auto plane = s->Attach(GameObject::Create(s, name.str()));
+				m_Planes.push_back(plane);
+				
+				// Compile shader.
+				auto surface = Resources::GetShader("pbr");
+				
+				// Load mesh.
+				std::shared_ptr<Mesh> mesh = nullptr;
+				File::TryLoad("models/woodfloor/woodfloor.obj", mesh);
+				
+				// Create material from shader.
+				auto material = Resources::GetMaterial("woodfloor");
+				
+				auto transform = plane->AddComponent<Transform>();
+				transform->m_Position = glm::vec3((float)i * size, -2.0f, 0.0f);
+				transform->m_Rotation = glm::radians(glm::vec3(0.0f, 180.0f, 0.0f));
+				transform->m_Scale = glm::vec3(1.5f);
+				
+				auto renderer = s->Attach(plane->AddComponent<Renderer>());
+				renderer->SetMesh(mesh);
+				renderer->SetMaterial(material);
+				renderer->SetTransform(transform);
+				
+				auto collider = plane->AddComponent<Collider>();
+				collider->SetType(Collider::Type::Plane);
+				collider->SetTransform(transform);
+			}
+		}
+	}
+	
+	void Player::SpawnCamera() {
+		
+		if (const auto s = Parent()->GetScene().lock()) {
+			
+			// Create and initialise camera object.
+			m_Camera = s->Attach(GameObject::Create(s, "Camera"));
+			
+			auto cam = s->Attach(m_Camera.lock()->AddComponent<Camera>());
+			
+			auto transform = m_Camera.lock()->AddComponent<Transform>();
+			transform->m_Position = glm::vec3(7.0f, 5.0f, 0.0f);
+			transform->m_Rotation = glm::quat(glm::radians(glm::vec3(0.0f, 90.0f, 0.0f)));
+			
+			cam->SetTransform(transform);
+			cam->SetWindow(Window::Get(2));
+			
+			const float skyIntensity = 0.0f;//1.2f;
+			cam->ClearColor(glm::vec4(0.34f, 0.764f, 1.2f, 0.0f) * skyIntensity);
+		}
+	}
+	
+	void Player::SpawnPlayer() {
+		
+		if (const auto s = Parent()->GetScene().lock()) {
+			
+			// Create an initialise curuthers object.
+			m_Player = s->Attach(GameObject::Create(s, "Curuthers"));
 			
 			// Compile shader.
 			auto surface = Resources::GetShader("pbr");
 			
 			// Load mesh.
 			std::shared_ptr<Mesh> mesh = nullptr;
-			File::TryLoad("models/woodfloor/woodfloor.obj", mesh);
+			File::TryLoad("models/curuthers/curuthers.obj", mesh);
 			
 			// Create material from shader.
-			auto material = Resources::GetMaterial("woodfloor");
+			auto material = Resources::GetMaterial("curuthers");
 			
-			auto transform = plane->AddComponent<Transform>();
-			transform->m_Position = glm::vec3((float)i * size, -2.0f, 0.0f);
-			transform->m_Rotation = glm::radians(glm::vec3(0.0f, 180.0f, 0.0f));
-			transform->m_Scale = glm::vec3(1.5f);
+			auto transform = m_Player.lock()->GetComponent<Transform>();
+			if (transform == nullptr) {
+				transform = m_Player.lock()->AddComponent<Transform>();
+			}
+			//transform->m_Position = glm::vec3(0, -1, 0);
+			transform->m_Rotation = glm::radians(glm::vec3(0.0f, 90.0f, 0.0f));
 			
-			auto renderer = scene->Attach(plane->AddComponent<Renderer>());
+			auto renderer = s->Attach(m_Player.lock()->AddComponent<Renderer>());
 			renderer->SetMesh(mesh);
 			renderer->SetMaterial(material);
 			renderer->SetTransform(transform);
-			
-			auto collider = plane->AddComponent<Collider>();
-			collider->SetType(Collider::Type::Plane);
-			collider->SetTransform(transform);
 		}
-	}
-	
-	void Player::SpawnCamera() {
 		
-		auto scene = Parent()->GetScene();
-		
-		// Create and initialise camera object.
-		m_Camera = scene->Attach(GameObject::Create(scene, "Camera"));
-		
-		auto cam = scene->Attach(m_Camera.lock()->AddComponent<Camera>());
-		
-		auto transform = m_Camera.lock()->AddComponent<Transform>();
-		transform->m_Position = glm::vec3(7.0f, 5.0f, 0.0f);
-		transform->m_Rotation = glm::quat(glm::radians(glm::vec3(0.0f, 90.0f, 0.0f)));
-		
-		cam->SetTransform(transform);
-		cam->SetWindow(Window::Get(2));
-		
-		const float skyIntensity = 0.0f;//1.2f;
-		cam->ClearColor(glm::vec4(0.34f, 0.764f, 1.2f, 0.0f) * skyIntensity);
-	}
-	
-	void Player::SpawnPlayer() {
-		
-		auto scene = Parent()->GetScene();
-		
-		// Create an initialise curuthers object.
-		m_Player = scene->Attach(GameObject::Create(scene, "Curuthers"));
-		
-		// Compile shader.
-		auto surface = Resources::GetShader("pbr");
-		
-		// Load mesh.
-		std::shared_ptr<Mesh> mesh = nullptr;
-		File::TryLoad("models/curuthers/curuthers.obj", mesh);
-		
-		// Create material from shader.
-		auto material = Resources::GetMaterial("curuthers");
-		
-		auto transform = m_Player.lock()->GetComponent<Transform>();
-		if (transform == nullptr) {
-			transform = m_Player.lock()->AddComponent<Transform>();
-		}
-		//transform->m_Position = glm::vec3(0, -1, 0);
-		transform->m_Rotation = glm::radians(glm::vec3(0.0f, 90.0f, 0.0f));
-		
-		auto renderer = scene->Attach(m_Player.lock()->AddComponent<Renderer>());
-		renderer->SetMesh(mesh);
-		renderer->SetMaterial(material);
-		renderer->SetTransform(transform);
 	}
 	
 	void Player::SpawnBalls() {
 		
-		auto scene = Parent()->GetScene();
-		
-		for (const auto& ball : m_Obstacles) {
-			scene->Detach(ball.lock());
-		}
-		m_Obstacles.clear();
-		
-		for (size_t i = 0; i < m_NumObstacles; ++i) {
+		if (const auto s = Parent()->GetScene().lock()) {
 			
-			std::stringstream name;
-			name << "Ball_" << i;
+			for (const auto& ball : m_Obstacles) {
+				s->Detach(ball.lock());
+			}
+			m_Obstacles.clear();
 			
-			auto obstacle = scene->Attach(GameObject::Create(scene, name.str()));
-			
-			std::shared_ptr<Mesh> mesh = nullptr;
-			File::TryLoad("models/sphere/sphere.obj", mesh);
-			
-			// Compile shader.
-			auto surface = Resources::GetShader("pbr");
-			
-			// Create material from shader.
-			auto material = Resources::GetMaterial("sphere");
-			
-			// Prevents objects spawning too close to the max limit.
-			const float obstacleMargin = 20.0f;
-			
-			// Get or add component.
-			auto transform = obstacle->AddComponent<Transform>();
-			transform->m_Position = glm::vec3(
-				((float)rand() / (float)RAND_MAX) * (m_MinPlaneX + obstacleMargin) - obstacleMargin,
-				0,
-				((((float)rand() / (float)RAND_MAX) - 0.5f) * 2.0f) * (m_PlayerMoveFreedom + 1.0f / 2.0f)
-			);
-			
-			// Get or add renderer.
-			auto renderer = scene->Attach(obstacle->AddComponent<Renderer>());
-			
-			renderer->SetMesh(mesh);
-			renderer->SetMaterial(material);
-			renderer->SetTransform(transform);
-			
-			m_Obstacles.push_back(obstacle);
+			for (size_t i = 0; i < m_NumObstacles; ++i) {
+				
+				std::stringstream name;
+				name << "Ball_" << i;
+				
+				auto obstacle = s->Attach(GameObject::Create(s, name.str()));
+				
+				std::shared_ptr<Mesh> mesh = nullptr;
+				File::TryLoad("models/sphere/sphere.obj", mesh);
+				
+				// Compile shader.
+				auto surface = Resources::GetShader("pbr");
+				
+				// Create material from shader.
+				auto material = Resources::GetMaterial("sphere");
+				
+				// Prevents objects spawning too close to the max limit.
+				const float obstacleMargin = 20.0f;
+				
+				// Get or add component.
+				auto transform = obstacle->AddComponent<Transform>();
+				transform->m_Position = glm::vec3(
+					((float)rand() / (float)RAND_MAX) * (m_MinPlaneX + obstacleMargin) - obstacleMargin,
+					0,
+					((((float)rand() / (float)RAND_MAX) - 0.5f) * 2.0f) * (m_PlayerMoveFreedom + 1.0f / 2.0f)
+				);
+				
+				// Get or add renderer.
+				auto renderer = s->Attach(obstacle->AddComponent<Renderer>());
+				
+				renderer->SetMesh(mesh);
+				renderer->SetMaterial(material);
+				renderer->SetTransform(transform);
+				
+				m_Obstacles.push_back(obstacle);
+			}
 		}
 	}
 	

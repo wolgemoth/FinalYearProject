@@ -89,10 +89,10 @@ namespace LouiEriksson {
 		static void Tick(const float& _step);
 		
 		/// <summary> Set the value of gravity within the simulation. </summary>
-		static void Gravity(const glm::vec3& _value);
+		static void Gravity(const glm::vec3& _value) noexcept;
 		
 		/// <summary> Get the value of gravity within the simulation. </summary>
-		static const glm::vec3& Gravity();
+		static const glm::vec3& Gravity() noexcept;
 		
 		/// <summary>
 		/// Render debugging information associated with the state of the physics engine.

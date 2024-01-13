@@ -13,30 +13,30 @@
 
 namespace LouiEriksson {
 	
-	Renderer::Renderer(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	Renderer::Renderer(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent),
 			     m_Mesh(nullptr),
 			m_Transform(nullptr) {}
 	
 	Renderer::~Renderer() = default;
 	
-	void Renderer::SetMesh(const std::shared_ptr<Mesh>& _mesh) {
+	void Renderer::SetMesh(const std::shared_ptr<Mesh>& _mesh) noexcept {
 		m_Mesh = _mesh;
 	}
-	std::shared_ptr<Mesh> Renderer::GetMesh() {
+	std::shared_ptr<Mesh> Renderer::GetMesh() noexcept {
 		return m_Mesh;
 	}
 	
-	void Renderer::SetMaterial(const std::weak_ptr<Material>& _material) {
+	void Renderer::SetMaterial(const std::weak_ptr<Material>& _material) noexcept {
 		m_Material = _material;
 	}
-	std::weak_ptr<Material> Renderer::GetMaterial() {
+	std::weak_ptr<Material> Renderer::GetMaterial() noexcept {
 		return m_Material;
 	}
 	
-	void Renderer::SetTransform(const std::shared_ptr<Transform>& _transform) {
+	void Renderer::SetTransform(const std::shared_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
 	}
-	std::shared_ptr<Transform> Renderer::GetTransform() {
+	std::shared_ptr<Transform> Renderer::GetTransform() noexcept {
 		return m_Transform;
 	}
 	

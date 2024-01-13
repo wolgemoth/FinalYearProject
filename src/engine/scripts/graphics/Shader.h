@@ -29,7 +29,7 @@ namespace LouiEriksson {
 			
 			GLint m_Type;
 			
-			SubShader(const char* _path, GLenum _type);
+			SubShader(const char* _path, GLenum _type) noexcept;
 			
 		};
 		
@@ -66,7 +66,7 @@ namespace LouiEriksson {
 		static void Unbind();
 		
 		/// <summary> Get the name of the Shader. </summary>
-		[[nodiscard]] const std::string& Name() const;
+		[[nodiscard]] const std::string& Name() const noexcept;
 		
 		void BindAttribute(const GLint& _pos, const char* _name) const;
 		
@@ -116,9 +116,9 @@ namespace LouiEriksson {
 		static void Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target);
 		
 		/// <summary> Get the ID of the Shader. </summary>
-		[[nodiscard]] GLint ID() const;
+		[[nodiscard]] GLint ID() const noexcept;
 		
-		explicit operator GLint() const { return this->ID(); }
+		explicit operator GLint() const noexcept { return ID(); }
 		
 	};
 	

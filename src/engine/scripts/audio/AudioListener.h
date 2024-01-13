@@ -29,7 +29,7 @@ namespace LouiEriksson {
 		
 	public:
 		
-		 explicit AudioListener(const std::shared_ptr<GameObject>& _parent);
+		 explicit AudioListener(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~AudioListener() override;
 		
 		/// <summary> Initialise the AudioListener. </summary>
@@ -39,10 +39,10 @@ namespace LouiEriksson {
 		void Tick();
 		
 		/// <summary> Set the master gain of the AudioListener. </summary>
-		void Gain(const float& _value);
+		void Gain(const float& _value) noexcept;
 		
 		/// <summary> Get the master gain of the AudioListener. </summary>
-		[[nodiscard]] const float& Gain() const;
+		[[nodiscard]] const float& Gain() const noexcept;
 		
 	};
 	

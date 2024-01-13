@@ -21,7 +21,7 @@
 
 namespace LouiEriksson {
 	
-	AudioSource::Parameters::Parameters() :
+	AudioSource::Parameters::Parameters() noexcept :
 			m_IsGlobal(false), // Do not start as global.
 			m_Loop    (false), // Do not loop.
 			
@@ -246,10 +246,10 @@ namespace LouiEriksson {
 		alSourceStop(m_Source);
 	}
 	
-	void AudioSource::Clip(const std::weak_ptr<AudioClip>& _value) {
+	void AudioSource::Clip(const std::weak_ptr<AudioClip>& _value) noexcept {
 		m_Clip = _value;
 	}
-	const std::weak_ptr<AudioClip>& AudioSource::Clip() const {
+	const std::weak_ptr<AudioClip>& AudioSource::Clip() const noexcept {
 		return m_Clip;
 	}
 	
@@ -267,7 +267,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const bool& AudioSource::Global() const {
+	const bool& AudioSource::Global() const noexcept {
 		return m_Parameters.m_IsGlobal;
 	}
 	
@@ -276,7 +276,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const bool& AudioSource::Loop() const {
+	const bool& AudioSource::Loop() const noexcept {
 		return m_Parameters.m_Loop;
 	}
 	
@@ -286,7 +286,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MinDistance() const {
+	const float& AudioSource::MinDistance() const noexcept {
 		return m_Parameters.m_MinDistance;
 	}
 	
@@ -295,7 +295,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MaxDistance() const {
+	const float& AudioSource::MaxDistance() const noexcept {
 		return m_Parameters.m_MaxDistance;
 	}
 	
@@ -304,7 +304,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::Pitch() const {
+	const float& AudioSource::Pitch() const noexcept {
 		return m_Parameters.m_Pitch;
 	}
 	
@@ -313,7 +313,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::Gain() const {
+	const float& AudioSource::Gain() const noexcept {
 		return m_Parameters.m_GainModifier;
 	}
 	
@@ -323,7 +323,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MinGain() const {
+	const float& AudioSource::MinGain() const noexcept {
 		return m_Parameters.m_MinGain;
 	}
 	
@@ -332,7 +332,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MaxGain() const {
+	const float& AudioSource::MaxGain() const noexcept {
 		return m_Parameters.m_MaxGain;
 	}
 	
@@ -341,7 +341,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::Rolloff() const {
+	const float& AudioSource::Rolloff() const noexcept {
 		return m_Parameters.m_Rolloff;
 	}
 	
@@ -351,7 +351,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MinAngle() const {
+	const float& AudioSource::MinAngle() const noexcept {
 		return m_Parameters.m_MinAngle;
 	}
 	
@@ -360,7 +360,7 @@ namespace LouiEriksson {
 		
 		Sync();
 	}
-	const float& AudioSource::MaxAngle() const {
+	const float& AudioSource::MaxAngle() const noexcept {
 		return m_Parameters.m_MaxAngle;
 	}
 	

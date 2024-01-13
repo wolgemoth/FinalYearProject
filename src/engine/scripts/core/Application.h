@@ -28,7 +28,7 @@ namespace LouiEriksson {
 		static int Main();
 		
 		/// <summary> Quits the application. </summary>
-		static void Quit();
+		static void Quit() noexcept;
 	
 	};
 } // LouiEriksson

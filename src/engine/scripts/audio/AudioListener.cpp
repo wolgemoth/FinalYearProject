@@ -13,7 +13,7 @@
 
 namespace LouiEriksson {
 	
-	AudioListener::AudioListener(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	AudioListener::AudioListener(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent),
 			m_Gain        (1.0f),
 			m_LastPosition(0.0f) {}
 	
@@ -70,10 +70,10 @@ namespace LouiEriksson {
 		m_LastPosition = transform->m_Position;
 	}
 	
-	void AudioListener::Gain(const float& _value) {
+	void AudioListener::Gain(const float& _value) noexcept {
 		m_Gain = glm::clamp(_value, 0.0f, 1.0f);
 	}
-	const float& AudioListener::Gain() const {
+	const float& AudioListener::Gain() const noexcept {
 		return m_Gain;
 	}
 	

@@ -25,7 +25,7 @@
 
 namespace LouiEriksson {
 	
-	Shader::SubShader::SubShader(const char* _path, GLenum _type) :
+	Shader::SubShader::SubShader(const char* _path, GLenum _type) noexcept :
 			m_Path(_path),
 			m_Type(static_cast<GLint>(_type)) {}
 	
@@ -268,7 +268,7 @@ namespace LouiEriksson {
 		Shader::Bind(GL_NONE);
 	}
 	
-	const std::string& Shader::Name() const {
+	const std::string& Shader::Name() const noexcept {
 		return m_Name;
 	}
 	
@@ -348,8 +348,8 @@ namespace LouiEriksson {
 		glBindTexture(_target, _textureID);
 	}
 	
-	GLint Shader::ID() const {
-		return this->m_ProgramID;
+	GLint Shader::ID() const noexcept {
+		return m_ProgramID;
 	}
 	
 } // LouiEriksson

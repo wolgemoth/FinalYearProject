@@ -6,35 +6,36 @@
 #include <memory>
 #include <string>
 #include <typeindex>
+#include <utility>
 #include <vector>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 namespace LouiEriksson {
 	
+	GameObject::GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
+			m_Scene(_scene),
+			m_Name (std::move(_name)) {}
+	
 	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene>& _scene, const std::string& _name) {
 		
 		// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
-		std::shared_ptr<GameObject> result(new GameObject(), [](GameObject* _ptr) { delete _ptr; });
-		result->m_Scene = _scene;
-		result->m_Name = _name;
-		
-		return result;
+		return { new GameObject(_scene, _name), [](GameObject* _ptr) { delete _ptr; } };
 	}
 	
-	Hashmap<std::type_index, std::vector<std::any>>& GameObject::Components() {
+	const Hashmap<std::type_index, std::vector<std::any>>& GameObject::Components() const noexcept {
 		return m_Components;
 	}
 	
-	void GameObject::Name(const std::string& _name) {
+	void GameObject::Name(const std::string& _name) noexcept {
 		m_Name = _name;
 	}
-	const std::string& GameObject::Name() {
+	const std::string& GameObject::Name() const noexcept {
 		return m_Name;
 	}
 	
-	std::shared_ptr<Scene> GameObject::GetScene() {
-		return m_Scene.lock();
+	const std::weak_ptr<Scene>& GameObject::GetScene() const noexcept {
+		return m_Scene;
 	}
 	
 } // LouiEriksson

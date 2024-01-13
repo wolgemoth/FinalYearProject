@@ -56,18 +56,12 @@ namespace LouiEriksson::Game {
 		void Tick() override;
 	
 		/// <summary> Synchronise the camera's parameters with the ones defined in Settings. </summary>
-		void SyncCameraSettings();
+		void SyncCameraSettings() noexcept;
 		
 	public:
 	
 		explicit FlyCam(const std::shared_ptr<GameObject>& _parent);
 		~FlyCam() override;
-		
-		/// <summary> Get the Camera of the FlyCam. </summary>
-		std::shared_ptr<Camera> GetCamera();
-		
-		/// <summary> Get the Transform of the FlyCam. </summary>
-		std::shared_ptr<Transform> GetTransform();
 	
 	};
 	

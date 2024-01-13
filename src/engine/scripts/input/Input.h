@@ -37,9 +37,9 @@ namespace LouiEriksson {
 
 		public:
 		
-			static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results);
+			static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept;
 			
-			static bool Get(const Uint32& _event);
+			static bool Get(const Uint32& _event) noexcept;
 			
 		};
 		
@@ -61,14 +61,14 @@ namespace LouiEriksson {
 				
 			public:
 				
-				 State();
+				 State() noexcept;
 				~State();
 				
 				/// <summary> Returns the state of the keyboard at the provided SDL_KeyCode. </summary>
-				[[nodiscard]]bool Get(const SDL_Keycode& _value) const;
+				[[nodiscard]] bool Get(const SDL_Keycode& _value) const;
 				
 				/// <summary> Returns the state of the keyboard at the provided SDL_Scancode. </summary>
-				[[nodiscard]]bool Get(const SDL_Scancode& _value) const;
+				[[nodiscard]] bool Get(const SDL_Scancode& _value) const;
 				
 			};
 			
@@ -110,10 +110,10 @@ namespace LouiEriksson {
 		public:
 			
 			/// <summary> Returns the relative motion of the mouse. </summary>
-			static const glm::vec2& Motion();
+			static const glm::vec2& Motion() noexcept;
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) is held. </summary>
-			static bool Get(const Uint8& _button);
+			static bool Get(const Uint8& _button) noexcept;
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed. </summary>
 			static bool GetDown(const Uint8& _button);

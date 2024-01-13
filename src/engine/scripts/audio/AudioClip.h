@@ -31,7 +31,7 @@ namespace LouiEriksson {
 			/// Get the OpenAL representation of the format.
 			[[nodiscard]] ALenum OpenALFormat() const;
 			
-			explicit Format(const SDL_AudioSpec& _audioSpec);
+			explicit Format(const SDL_AudioSpec& _audioSpec) noexcept;
 			
 		};
 		
@@ -52,7 +52,6 @@ namespace LouiEriksson {
 			/// not be called manually unless you know what you are doing.
 			/// </summary>
 			void Free();
-			
 		};
 		
 		/// <summary> The format of the audio clip. </summary>

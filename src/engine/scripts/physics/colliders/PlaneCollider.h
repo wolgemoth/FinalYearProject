@@ -15,10 +15,10 @@ namespace LouiEriksson {
 	
 	public:
 		
-		explicit PlaneCollider(const std::shared_ptr<GameObject>& _parent);
+		explicit PlaneCollider(const std::shared_ptr<GameObject>& _parent) noexcept;
 		~PlaneCollider() override;
 		
-		void SetTransform(const std::weak_ptr<Transform> &_transform) override;
+		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override;
 		
 	};
 	

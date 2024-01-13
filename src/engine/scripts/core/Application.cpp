@@ -200,13 +200,13 @@ NestedBreak:
 			SDL_Quit();
 		}
 		else {
-			throw(std::runtime_error("ERROR (Application.cpp [Main()]): Attempted to call Main() while it is already running!"));
+			std::cout << "Attempted to call Application::Main() while it is already running! Do you have multiple instances?\n";
 		}
 	
 		return 0;
 	}
 	
-	void Application::Quit() {
+	void Application::Quit() noexcept {
 		Application::s_Quit = true;
 	}
 	

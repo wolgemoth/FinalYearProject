@@ -12,10 +12,10 @@
 
 namespace LouiEriksson {
 	
-	PlaneCollider::PlaneCollider(const std::shared_ptr<GameObject>& _parent) : Collider(_parent) {}
+	PlaneCollider::PlaneCollider(const std::shared_ptr<GameObject>& _parent) noexcept : Collider(_parent) {}
 	PlaneCollider::~PlaneCollider() = default;
 	
-	void PlaneCollider::SetTransform(const std::weak_ptr<Transform>& _transform) {
+	void PlaneCollider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		
 		Collider::SetTransform(_transform); // Call base function to assign new transform.
 		

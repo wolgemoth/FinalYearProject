@@ -63,15 +63,15 @@ namespace LouiEriksson {
 	
 		static void Preload();
 	
-		static bool TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output);
+		static bool TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) noexcept;
 		
-		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output);
+		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) noexcept;
 		
-		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output);
+		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) noexcept;
 		
-		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output);
+		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) noexcept;
 		
-		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output);
+		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) noexcept;
 		
 		static std::weak_ptr<AudioClip> GetAudio(const std::string& _name);
 		

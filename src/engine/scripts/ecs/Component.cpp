@@ -7,7 +7,7 @@
 
 namespace LouiEriksson {
 	
-	Component::Component(const std::shared_ptr<GameObject>& _parent) :
+	Component::Component(const std::shared_ptr<GameObject>& _parent) noexcept :
 			m_GameObject(_parent),
 			m_Index(0)
 	{

@@ -30,7 +30,7 @@ namespace LouiEriksson {
 		
 		size_t m_VertexCount;
 		
-		Mesh();
+		Mesh() noexcept;
 		
 	public:
 		
@@ -42,7 +42,7 @@ namespace LouiEriksson {
 	
 			private:
 				
-				// Every screen and texture coordinate for every vertex in the mesh.
+				/// <summary> Every screen and texture coordinate for every vertex in the mesh. </summary>
 				static constexpr glm::vec4 s_VertexData[] {
 					glm::vec4(-1.0f, -1.0f, 0.0f, 0.0f),
 					glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
@@ -52,10 +52,10 @@ namespace LouiEriksson {
 					glm::vec4( 1.0f,  1.0f, 1.0f, 1.0f),
 				};
 		
-				// Number of vertices in the mesh.
+				/// <summary> Number of vertices in the mesh. </summary>
 				static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
 				
-				// Static Quad instance.
+				/// <summary> Static Quad instance. </summary>
 				inline static std::shared_ptr<Mesh> s_Instance { nullptr };
 				
 			public:
@@ -75,14 +75,14 @@ namespace LouiEriksson {
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
 		
-		[[nodiscard]] GLuint          VAO_ID() const;
-		[[nodiscard]] GLuint  PositionVBO_ID() const;
-		[[nodiscard]] GLuint  TexCoordVBO_ID() const;
-		[[nodiscard]] GLuint    NormalVBO_ID() const;
-		[[nodiscard]] GLuint   TangentVBO_ID() const;
-		[[nodiscard]] GLuint BitangentVBO_ID() const;
+		[[nodiscard]] GLuint          VAO_ID() const noexcept;
+		[[nodiscard]] GLuint  PositionVBO_ID() const noexcept;
+		[[nodiscard]] GLuint  TexCoordVBO_ID() const noexcept;
+		[[nodiscard]] GLuint    NormalVBO_ID() const noexcept;
+		[[nodiscard]] GLuint   TangentVBO_ID() const noexcept;
+		[[nodiscard]] GLuint BitangentVBO_ID() const noexcept;
 		
-		[[nodiscard]] unsigned long VertexCount() const;
+		[[nodiscard]] unsigned long VertexCount() const noexcept;
 		
 	};
 	
