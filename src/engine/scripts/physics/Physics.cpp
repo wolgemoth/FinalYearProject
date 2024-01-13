@@ -2,18 +2,21 @@
 
 #include "../core/Time.h"
 
+#include "LinearMath/btScalar.h"
 #include "LinearMath/btVector3.h"
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <glm/common.hpp>
+#include <glm/ext/vector_float3.hpp>
 
 #include <exception>
 #include <iostream>
-#include <limits>
 #include <memory>
+#include <stdexcept>
 
 namespace LouiEriksson {
 	
@@ -115,7 +118,7 @@ namespace LouiEriksson {
 	
 	void Physics::Tick(const float& _step) {
 		
-		s_DynamicsWorld->stepSimulation(_step, 1, glm::max(Time::FixedDeltaTime(), std::numeric_limits<float>().epsilon()));
+		s_DynamicsWorld->stepSimulation(_step, 1, glm::max(Time::FixedDeltaTime(), __FLT_EPSILON__));
 		
 		if (_step != 0.0f) {
 			s_LastTick = 0.0f;

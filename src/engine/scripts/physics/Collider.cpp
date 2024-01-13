@@ -5,8 +5,6 @@
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
-#include <BulletCollision/CollisionShapes/btCollisionShape.h>
-
 #include <memory>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.

@@ -2,16 +2,18 @@
 
 #include "../ui/GUI.h"
 
-#include <SDL.h>
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
 #include <SDL_keycode.h>
 #include <SDL_mouse.h>
 #include <SDL_scancode.h>
+#include <SDL_stdinc.h>
 
 #include <glm/common.hpp>
+#include <glm/ext/vector_int2.hpp>
+#include <glm/ext/vector_float2.hpp>
 
-#include <memory>
+#include <algorithm>
 #include <vector>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
@@ -23,7 +25,7 @@ namespace LouiEriksson {
 		s_Length = 0;
 	}
 	
-	Input::Key::State::~State() {}
+	Input::Key::State::~State() = default;
 	
 	bool Input::Key::State::Get(const SDL_Keycode& _value) const {
 		return Get(SDL_GetScancodeFromKey(_value));
@@ -87,11 +89,11 @@ namespace LouiEriksson {
 		return s_Motion;
 	}
 	
-	const bool Input::Mouse::Get(const Uint8& _button) {
-		return s_RelativeState & SDL_BUTTON(_button);
+	bool Input::Mouse::Get(const Uint8& _button) {
+		return (s_RelativeState & SDL_BUTTON(_button)) != 0u;
 	}
 	
-	const bool Input::Mouse::GetDown(const Uint8& _button) {
+	bool Input::Mouse::GetDown(const Uint8& _button) {
 		
 		bool result = false;
 		
@@ -113,7 +115,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	const bool Input::Mouse::GetUp(const Uint8& _button) {
+	bool Input::Mouse::GetUp(const Uint8& _button) {
 		
 		bool result = false;
 		

@@ -1,15 +1,19 @@
 #include "Light.h"
 
+#include "../core/Transform.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
 #include "Texture.h"
 #include "textures/RenderTexture.h"
 
+#include <GL/glew.h>
 #include <glm/ext/matrix_clip_space.hpp>
+#include <glm/trigonometric.hpp>
 
-#include <exception>
+#include <cmath>
 #include <memory>
+#include <stdexcept>
 
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
 
@@ -84,23 +88,16 @@ namespace LouiEriksson {
 		return m_Type;
 	}
 	
-	Light::Parameters::Shadow::Shadow() {
-		
-		m_ShadowMap_Texture = 0;
-		m_ShadowMap_FBO     = 0;
-		
-		m_Resolution = 128;
-		
-		m_Bias       = 0.01f;
-		m_NormalBias = 0.02f;
-		
-		m_NearPlane = 0.2f;
-		
-		m_TwoSided = true;
-		
-		m_Projection     = glm::mat4(1.0);
-		m_ViewProjection = glm::mat4(1.0);
-	}
+	Light::Parameters::Shadow::Shadow() :
+			m_ShadowMap_Texture(  0    ),
+			m_ShadowMap_FBO    (  0    ),
+			m_Resolution       (128    ),
+			m_Bias             (  0.01f),
+			m_NormalBias       (  0.02f),
+			m_NearPlane        (  0.2f ),
+			m_TwoSided         (  true ),
+			m_Projection       (  1.0f ),
+			m_ViewProjection   (  1.0f ) {}
 	
 	Light::Parameters::Shadow::~Shadow() {
 	

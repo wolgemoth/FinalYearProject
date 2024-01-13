@@ -1,6 +1,11 @@
 #include "File.h"
 
+#include "../audio/AudioClip.h"
+#include "../graphics/Material.h"
+#include "../graphics/Mesh.h"
 #include "../graphics/Shader.h"
+#include "../graphics/Texture.h"
+#include "../graphics/textures/Cubemap.h"
 #include "../utils/Utils.h"
 
 #include "Resources.h"
@@ -10,14 +15,21 @@
 #include "stb_image.h"
 #endif
 
+#include <GL/glew.h>
 #include <glm/common.hpp>
+#include <glm/ext/vector_int2.hpp>
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_float3.hpp>
 
+#include <array>
+#include <cstring>
 #include <exception>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -205,14 +217,14 @@ namespace LouiEriksson {
 							case GL_NEAREST_MIPMAP_LINEAR:
 							case GL_LINEAR_MIPMAP_NEAREST:
 							case GL_LINEAR_MIPMAP_LINEAR: {
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 								break;
 							}
 							default: {
 								
 								std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
 								
-								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 								break;
 							}
 						}
@@ -744,14 +756,14 @@ namespace LouiEriksson {
 						case GL_NEAREST_MIPMAP_LINEAR:
 						case GL_LINEAR_MIPMAP_NEAREST:
 						case GL_LINEAR_MIPMAP_LINEAR: {
-							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, min);
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 							break;
 						}
 						default: {
 							
 							std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
 							
-							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, min);
+							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 							break;
 						}
 					}

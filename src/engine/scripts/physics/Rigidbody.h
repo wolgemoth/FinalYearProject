@@ -7,6 +7,7 @@
 #include "Collision.h"
 
 #include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <glm/ext/quaternion_float.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <LinearMath/btMotionState.h>
 #include <LinearMath/btVector3.h>

@@ -11,7 +11,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	class Player final : public Script {
 	
@@ -67,6 +67,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Game
 
 #endif //FINALYEARPROJECT_PLAYER_H

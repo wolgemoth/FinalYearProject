@@ -4,11 +4,12 @@
 #include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Shader.h"
+#include "../graphics/Texture.h"
 #include "../utils/Hashmap.h"
 
 #include "File.h"
 
-#include <GL/gl.h>
+#include <GL/glew.h>
 
 #include <cstring>
 #include <exception>
@@ -16,6 +17,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 // @Assessor: This class was submitted for GEP. Please don't mark it for GACP.

@@ -15,7 +15,7 @@ namespace LouiEriksson {
 		return s_Elapsed;
 	}
 	
-	const float Time::DeltaTime() {
+	float Time::DeltaTime() {
 		return s_UnscaledDeltaTime * s_Scale;
 	}
 	
@@ -26,7 +26,7 @@ namespace LouiEriksson {
 	void Time::FixedDeltaTime(const float& _value) {
 		s_FixedUnscaledDeltaTime = _value;
 	}
-	const float Time::FixedDeltaTime() {
+	float Time::FixedDeltaTime() {
 		return s_FixedUnscaledDeltaTime * s_Scale;
 	}
 	

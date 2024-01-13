@@ -35,7 +35,7 @@ namespace LouiEriksson {
 		if (!s_Initialised) {
 			 s_Initialised = true;
 			
-			srand(0); // Use a constant seed (like '0') for deterministic behaviour.
+			srand(0u); // Use a constant seed (like '0') for deterministic behaviour.
 			
 			/* CREATE A MAIN WINDOW */
 			auto main_window = Window::Create(1280, 720, "FinalYearProject");

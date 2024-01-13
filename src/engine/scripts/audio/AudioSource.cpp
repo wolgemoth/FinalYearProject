@@ -12,6 +12,7 @@
 #include <AL/al.h>
 #include <glm/common.hpp>
 
+#include <cfloat>
 #include <exception>
 #include <iostream>
 #include <limits>
@@ -40,7 +41,7 @@ namespace LouiEriksson {
 			m_MinAngle    (360.0f),
 			m_MaxAngle    (360.0f) {}
 	
-	AudioSource::Parameters::~Parameters() {}
+	AudioSource::Parameters::~Parameters() = default;
 	
 	void AudioSource::Sync() {
 		
@@ -280,7 +281,7 @@ namespace LouiEriksson {
 	}
 	
 	void AudioSource::MinDistance(const float& _value) {
-		m_Parameters.m_MinDistance = glm::max(_value, std::numeric_limits<float>().epsilon());
+		m_Parameters.m_MinDistance = glm::max(_value, __FLT_EPSILON__);
 		m_Parameters.m_MaxDistance = glm::max(_value, m_Parameters.m_MaxDistance);
 		
 		Sync();

@@ -44,7 +44,7 @@ namespace LouiEriksson {
 		static const float& Elapsed();
 		
 		/// <summary> Get the scaled delta time. (Duration of the previous frame.) </summary>
-		static const float DeltaTime();
+		static float DeltaTime();
 		
 		/// <summary> Get the unscaled delta time. (Duration of the previous frame.) </summary>
 		static const float& UnscaledDeltaTime();
@@ -53,7 +53,7 @@ namespace LouiEriksson {
 		static void FixedDeltaTime(const float& _value);
 		
 		/// <summary> Get the scaled fixed delta time. (Time between physics updates.) </summary>
-		static const float FixedDeltaTime();
+		static float FixedDeltaTime();
 		
 		/// <summary> Get the unscaled fixed delta time. (Time between physics updates.) </summary>
 		static const float& FixedUnscaledDeltaTime();

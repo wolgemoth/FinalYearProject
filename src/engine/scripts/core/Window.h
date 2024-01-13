@@ -62,11 +62,11 @@ namespace LouiEriksson {
 	
 		[[nodiscard]] float Aspect() const;
 	
-		[[nodiscard]] const bool Focused() const;
+		[[nodiscard]] bool Focused() const;
 		
-		[[nodiscard]] const Uint32 GetFlags() const;
+		[[nodiscard]] Uint32 GetFlags() const;
 		
-		[[nodiscard]] const bool GetFlag(const Uint32& _flag) const;
+		[[nodiscard]] bool GetFlag(const Uint32& _flag) const;
 		
 		void SetDirty();
 	

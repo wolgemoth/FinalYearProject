@@ -4,21 +4,28 @@
 #include "../core/Transform.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
+#include "../physics/Collision.h"
 
 #include "Collider.h"
 #include "Physics.h"
 
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <glm/common.hpp>
-#include <glm/ext.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/quaternion_common.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
+#include <glm/geometric.hpp>
+#include <glm/trigonometric.hpp>
 #include <LinearMath/btDefaultMotionState.h>
 
+#include <algorithm>
 #include <cmath>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <vector>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
@@ -260,13 +267,13 @@ namespace LouiEriksson {
 				 */
 				
 				// Get and iterate through every contact manifold in the physics engine.
-			    int numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
+			    const auto numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
 			    for (int i = 0; i < numManifolds; i++) {
 					
 			        auto* contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			
 			        // Get and iterate through every contact in the manifold.
-			        int numContacts = contactManifold->getNumContacts();
+			        const auto numContacts = contactManifold->getNumContacts();
 			        for (int j = 0; j < numContacts; j++) {
 						
 						// Get a pointer to the btRigidbody associated with this rigidbody.

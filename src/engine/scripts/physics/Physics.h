@@ -1,6 +1,9 @@
 #ifndef FINALYEARPROJECT_PHYSICS_H
 #define FINALYEARPROJECT_PHYSICS_H
 
+#include "LinearMath/btScalar.h"
+#include <LinearMath/btIDebugDraw.h>
+#include <LinearMath/btVector3.h>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseInterface.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
@@ -8,8 +11,6 @@
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <glm/ext/vector_float3.hpp>
-#include <LinearMath/btIDebugDraw.h>
-#include <LinearMath/btVector3.h>
 
 #include <memory>
 

@@ -14,7 +14,7 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	/// <summary>
 	/// Free-fly camera.
@@ -71,6 +71,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Game
 
 #endif //FINALYEARPROJECT_FLYCAM_H

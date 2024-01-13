@@ -5,7 +5,6 @@
 #include "../ecs/Component.h"
 
 #include <GL/glew.h>
-#include <glm/detail/type_mat4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/fwd.hpp>
 

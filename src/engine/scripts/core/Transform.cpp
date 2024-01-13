@@ -3,7 +3,10 @@
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
-#include <glm/ext.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/quaternion_common.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 #include <memory>

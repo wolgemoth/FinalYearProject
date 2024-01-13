@@ -12,7 +12,7 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	/// <summary>
 	/// Camera that orbits a target.
@@ -56,6 +56,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Game
 
 #endif //FINALYEARPROJECT_ORBITCAM_H

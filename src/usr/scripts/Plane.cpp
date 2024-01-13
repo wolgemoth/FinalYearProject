@@ -15,7 +15,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	Plane::Plane(const std::shared_ptr<GameObject>& _parent) : Script(_parent) {}
 	Plane::~Plane() = default;
@@ -80,4 +80,4 @@ namespace LouiEriksson {
 	
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Game

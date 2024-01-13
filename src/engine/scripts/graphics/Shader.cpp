@@ -5,6 +5,12 @@
 #include "../utils/Utils.h"
 
 #include <GL/glew.h>
+#include <glm/ext/matrix_float2x2.hpp>
+#include <glm/ext/matrix_float3x3.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_float4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <exception>
@@ -68,7 +74,7 @@ namespace LouiEriksson {
 			for (const auto& shader: _subShaders) {
 				
 				std::cout << "Loading Shader Asset \"" << shader.m_Path << "\"... ";
-					std::string src = File::ReadAllText(shader.m_Path);
+					const auto src = File::ReadAllText(shader.m_Path);
 				std::cout << "Done.\n";
 				
 				Compile(src, shader.m_Type);
@@ -158,7 +164,10 @@ namespace LouiEriksson {
 		glCompileShader(m_SubShaders.back());
 		glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);
 		
-		if (success == 0) {
+		if (success != 0) {
+			std::cout << "Done.\n";
+		}
+		else {
 			
 			GLint maxLength = 0;
 			
@@ -175,11 +184,8 @@ namespace LouiEriksson {
 			}
 			
 			std::cout << "Failed.\n";
-		
+			
 			throw std::runtime_error(err.str());
-		}
-		else {
-			std::cout << "Done.\n";
 		}
 	}
 	

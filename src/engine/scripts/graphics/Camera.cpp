@@ -15,11 +15,25 @@
 
 #include <GL/glew.h>
 #include <glm/common.hpp>
-#include <glm/ext.hpp>
+#include <glm/exponential.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_float3x3.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_float.hpp>
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_float4.hpp>
+#include <glm/ext/vector_int2.hpp>
+#include <glm/ext/vector_int4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/trigonometric.hpp>
 
 #include <array>
+#include <cmath>
+#include <cstddef>
 #include <exception>
+#include <vector>
+#include <string>
 #include <iostream>
 #include <memory>
 #include <queue>

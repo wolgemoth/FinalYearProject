@@ -1,11 +1,19 @@
 #include "Window.h"
 
+#include <SDL_error.h>
 #include <SDL_pixels.h>
+#include <SDL_stdinc.h>
 #include <SDL_video.h>
 
+#include <GL/glew.h>
+#include <glm/ext/vector_int2.hpp>
+
+#include <cstddef>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
@@ -175,19 +183,19 @@ namespace LouiEriksson {
 		glViewport(0, 0, dimensions[0], dimensions[1]);
 	}
 	
-	const bool Window::Focused() const {
+	bool Window::Focused() const {
 		return GetFlag(SDL_WINDOW_INPUT_FOCUS);
 	}
 	
-	const Uint32 Window::GetFlags() const {
+	Uint32 Window::GetFlags() const {
 		return SDL_GetWindowFlags(m_Window.get());
 	}
 	
-	const bool Window::GetFlag(const Uint32& _flag) const {
+	bool Window::GetFlag(const Uint32& _flag) const {
 		
 		auto flags = GetFlags();
 		
-		return flags & _flag;
+		return (flags & _flag) != 0u;
 	}
 	
 } // LouiEriksson

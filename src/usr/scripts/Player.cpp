@@ -30,7 +30,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 
 	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
 			m_NumObstacles     (15   ),
@@ -275,4 +275,4 @@ namespace LouiEriksson {
 		}
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Game

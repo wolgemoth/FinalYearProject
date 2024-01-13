@@ -13,7 +13,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	/// <summary>
 	/// Ball object with Rigidbody physics.
@@ -60,6 +60,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Game
 
 #endif //FINALYEARPROJECT_BALL_H

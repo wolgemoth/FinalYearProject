@@ -31,7 +31,7 @@
 
 // @Assessor: Please mark this class for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	FlyCam::FlyCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
 			m_Motion(0.0f),
@@ -190,4 +190,4 @@ namespace LouiEriksson {
 		GetCamera()->FarClip (Settings::Graphics::Perspective::s_FarClip);
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Game

@@ -17,7 +17,7 @@ namespace LouiEriksson {
 			m_Gain        (1.0f),
 			m_LastPosition(0.0f) {}
 	
-	AudioListener::~AudioListener() {}
+	AudioListener::~AudioListener() = default;
 	
 	void AudioListener::Init() {
 		Sync();

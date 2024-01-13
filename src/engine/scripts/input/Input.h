@@ -113,13 +113,13 @@ namespace LouiEriksson {
 			static const glm::vec2& Motion();
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) is held. </summary>
-			static const bool Get(const Uint8& _button);
+			static bool Get(const Uint8& _button);
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed. </summary>
-			static const bool GetDown(const Uint8& _button);
+			static bool GetDown(const Uint8& _button);
 			
 			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released. </summary>
-			static const bool GetUp(const Uint8& _button);
+			static bool GetUp(const Uint8& _button);
 			
 		};
 		

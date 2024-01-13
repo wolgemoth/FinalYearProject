@@ -17,7 +17,7 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Game {
 	
 	OrbitCam::OrbitCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
 			           m_Target(0.0f),
@@ -99,4 +99,4 @@ namespace LouiEriksson {
 		}
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Game

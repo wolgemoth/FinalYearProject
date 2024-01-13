@@ -8,9 +8,9 @@
 
 #include "../audio/AudioListener.h"
 #include "../core/File.h"
-#include "../core/Resources.h"
 #include "../core/Script.h"
 #include "../core/Serialisation.h"
+#include "../core/Transform.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Light.h"
 #include "../graphics/Renderer.h"
@@ -18,18 +18,28 @@
 #include "../physics/Rigidbody.h"
 #include "../utils/Hashmap.h"
 
+#include <cereal/cereal.hpp>
+#include <cereal/archives/xml.hpp>
+
 #include <any>
+#include <cstddef>
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 namespace LouiEriksson {
+	
+	using LouiEriksson::Game::Ball;
+	using LouiEriksson::Game::FlyCam;
+	using LouiEriksson::Game::OrbitCam;
+	using LouiEriksson::Game::Plane;
+	using LouiEriksson::Game::Player;
 	
 	Scene::~Scene() {
 		m_Entities.Clear();

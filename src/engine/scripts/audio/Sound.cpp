@@ -1,5 +1,6 @@
 #include "Sound.h"
 
+#include "AudioClip.h"
 #include "AudioSource.h"
 
 #include <AL/al.h>
@@ -7,11 +8,12 @@
 #include <glm/common.hpp>
 #include <SDL.h>
 #include <SDL2/SDL.h>
+#include <SDL_audio.h>
 
 #include <exception>
 #include <iostream>
 #include <stdexcept>
-#include <vector>
+#include <memory>
 
 namespace LouiEriksson {
 	

@@ -1,6 +1,11 @@
 #include "Serialisation.h"
 
-#include <exception>
+#include <cereal/archives/xml.hpp>
+
+#include <glm/ext/quaternion_float.hpp>
+#include <glm/ext/vector_float3.hpp>
+
+#include <cstddef>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

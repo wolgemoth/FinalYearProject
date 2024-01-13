@@ -6,8 +6,8 @@
 #include "Component.h"
 
 #include <cstddef>
-#include <exception>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <typeindex>

@@ -11,13 +11,16 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <glm/common.hpp>
+#include <glm/ext/vector_float2.hpp>
 #include <SDL_scancode.h>
 #include <SDL_video.h>
 
-#include <exception>
+#include <iomanip>
+#include <ios>
 #include <limits>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <vector>
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
