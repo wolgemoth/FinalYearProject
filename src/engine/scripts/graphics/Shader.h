@@ -3,7 +3,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-#include "../utils/Hashmap.h"
+#include "../core/utils/Hashmap.h"
 
 #include <filesystem>
 #include <string>
@@ -13,11 +13,18 @@
 #include <glm/fwd.hpp>
 
 namespace LouiEriksson {
+	
+	class Application;
+	class Resources;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
 
 	class Shader {
 		
-		friend class Application;
-		friend class Resources;
+		friend LouiEriksson::Application;
+		friend LouiEriksson::Resources;
 		
 	private:
 		
@@ -122,6 +129,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_SHADER_H

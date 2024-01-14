@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_SERIALISATION_H
 #define FINALYEARPROJECT_SERIALISATION_H
 
-#include "../utils/Utils.h"
+#include "../core/utils/Utils.h"
 
 #include <cereal/archives/xml.hpp>
 #include <glm/ext/quaternion_float.hpp>

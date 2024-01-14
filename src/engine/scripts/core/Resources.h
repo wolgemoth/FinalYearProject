@@ -1,18 +1,28 @@
 #ifndef FINALYEARPROJECT_RESOURCES_H
 #define FINALYEARPROJECT_RESOURCES_H
 
-#include "../audio/AudioClip.h"
-#include "../graphics/Material.h"
-#include "../graphics/Mesh.h"
-#include "../graphics/Shader.h"
-#include "../graphics/Texture.h"
-#include "../utils/Hashmap.h"
+#include "../core/utils/Hashmap.h"
 
 #include <filesystem>
 #include <memory>
 #include <string>
 
 // @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
+
+namespace LouiEriksson::Audio {
+	
+	class AudioClip;
+	
+} // LouiEriksson::Audio
+
+namespace LouiEriksson::Graphics {
+	
+	class Material;
+	class Mesh;
+	class Shader;
+	class Texture;
+	
+} // LouiEriksson::Graphics
 
 namespace LouiEriksson {
 	
@@ -28,11 +38,11 @@ namespace LouiEriksson {
 		inline static std::filesystem::path  m_ShaderIncludeDirectory { "shaders/include"   };
 		inline static std::filesystem::path m_ShaderProgramsDirectory { "shaders/programs"  };
 		
-		inline static Hashmap<std::string, std::shared_ptr<AudioClip>> m_Audio;
-		inline static Hashmap<std::string, std::shared_ptr<Mesh     >> m_Meshes;
-		inline static Hashmap<std::string, std::shared_ptr<Material >> m_Materials;
-		inline static Hashmap<std::string, std::shared_ptr<Texture  >> m_Textures;
-		inline static Hashmap<std::string, std::shared_ptr<Shader   >> m_Shaders;
+		inline static Hashmap<std::string, std::shared_ptr<   Audio::AudioClip>> m_Audio;
+		inline static Hashmap<std::string, std::shared_ptr<Graphics::Mesh     >> m_Meshes;
+		inline static Hashmap<std::string, std::shared_ptr<Graphics::Material >> m_Materials;
+		inline static Hashmap<std::string, std::shared_ptr<Graphics::Texture  >> m_Textures;
+		inline static Hashmap<std::string, std::shared_ptr<Graphics::Shader   >> m_Shaders;
 		
 		/// <summary>
 		/// Preload meshes and add them to the cache.
@@ -63,25 +73,25 @@ namespace LouiEriksson {
 	
 		static void Preload();
 	
-		static bool TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) noexcept;
+		static bool TryGetAudio(const std::string& _name, std::shared_ptr<Audio::AudioClip>& _output) noexcept;
 		
-		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) noexcept;
+		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Graphics::Mesh>& _output) noexcept;
 		
-		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) noexcept;
+		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Graphics::Material>& _output) noexcept;
 		
-		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) noexcept;
+		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Graphics::Texture>& _output) noexcept;
 		
-		static bool TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) noexcept;
+		static bool TryGetShader(const std::string& _name, std::shared_ptr<Graphics::Shader>& _output) noexcept;
 		
-		static std::weak_ptr<AudioClip> GetAudio(const std::string& _name);
+		static std::weak_ptr<Audio::AudioClip> GetAudio(const std::string& _name);
 		
-		static std::weak_ptr<Mesh> GetMesh(const std::string& _name);
+		static std::weak_ptr<Graphics::Mesh> GetMesh(const std::string& _name);
 		
-		static std::weak_ptr<Material> GetMaterial(const std::string& _name);
+		static std::weak_ptr<Graphics::Material> GetMaterial(const std::string& _name);
 		
-		static std::weak_ptr<Texture> GetTexture(const std::string& _name);
+		static std::weak_ptr<Graphics::Texture> GetTexture(const std::string& _name);
 		
-		static std::weak_ptr<Shader> GetShader(const std::string& _name);
+		static std::weak_ptr<Graphics::Shader> GetShader(const std::string& _name);
 		
 	};
 	

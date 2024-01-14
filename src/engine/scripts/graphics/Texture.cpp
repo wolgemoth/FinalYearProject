@@ -7,7 +7,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
 	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept :
 			m_Format    (_format    ),
@@ -272,4 +272,4 @@ namespace LouiEriksson {
 	const GLenum& Texture::Parameters::WrapMode::WrapT() const noexcept { return m_WrapT; }
 	const GLenum& Texture::Parameters::WrapMode::WrapR() const noexcept { return m_WrapR; }
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics

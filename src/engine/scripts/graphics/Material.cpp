@@ -9,7 +9,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
 	Material::Material() :
 			m_Shader      (Resources::GetShader ("pbr"  )),
@@ -55,4 +55,4 @@ namespace LouiEriksson {
 		return m_Emission;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics

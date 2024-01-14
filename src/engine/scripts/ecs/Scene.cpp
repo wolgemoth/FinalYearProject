@@ -11,12 +11,12 @@
 #include "../core/Script.h"
 #include "../core/Serialisation.h"
 #include "../core/Transform.h"
+#include "../core/utils/Hashmap.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Light.h"
 #include "../graphics/Renderer.h"
 #include "../physics/Collider.h"
 #include "../physics/Rigidbody.h"
-#include "../utils/Hashmap.h"
 
 #include <cereal/cereal.hpp>
 #include <cereal/archives/xml.hpp>
@@ -33,13 +33,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
-	
-	using LouiEriksson::Game::Ball;
-	using LouiEriksson::Game::FlyCam;
-	using LouiEriksson::Game::OrbitCam;
-	using LouiEriksson::Game::Plane;
-	using LouiEriksson::Game::Player;
+namespace LouiEriksson::ECS {
 	
 	Scene::~Scene() {
 		m_Entities.Clear();
@@ -48,33 +42,33 @@ namespace LouiEriksson {
 	void Scene::Draw() {
 		
 		/* GET ALL RENDERERS */
-		std::vector<std::shared_ptr<Renderer>> casted_renderers;
+		std::vector<std::shared_ptr<Graphics::Renderer>> casted_renderers;
 		
 		std::vector<std::any> renderers;
-		if (m_Entities.Get(typeid(Renderer), renderers)) {
+		if (m_Entities.Get(typeid(Graphics::Renderer), renderers)) {
 			for (const auto& r: renderers) {
-				casted_renderers.push_back(std::any_cast<std::shared_ptr<Renderer>>(r));
+				casted_renderers.push_back(std::any_cast<std::shared_ptr<Graphics::Renderer>>(r));
 			}
 		}
 		
 		/* GET ALL LIGHTS */
-		std::vector<std::shared_ptr<Light>> casted_lights;
+		std::vector<std::shared_ptr<Graphics::Light>> casted_lights;
 		
 		std::vector<std::any> lights;
-		if (m_Entities.Get(typeid(Light), lights)) {
+		if (m_Entities.Get(typeid(Graphics::Light), lights)) {
 			for (const auto& l: lights) {
-				casted_lights.push_back(std::any_cast<std::shared_ptr<Light>>(l));
+				casted_lights.push_back(std::any_cast<std::shared_ptr<Graphics::Light>>(l));
 			}
 		}
 		
 		/* GET ALL CAMERAS */
 		std::vector<std::any> cameras;
-		if (m_Entities.Get(typeid(Camera), cameras)) {
+		if (m_Entities.Get(typeid(Graphics::Camera), cameras)) {
 			
 			/* RENDER */
 			for (const auto& c: cameras) {
 				
-				const auto camera = std::any_cast<std::shared_ptr<Camera>>(c);
+				const auto camera = std::any_cast<std::shared_ptr<Graphics::Camera>>(c);
 				camera->PreRender();
 				
 				camera->Clear();
@@ -99,22 +93,22 @@ namespace LouiEriksson {
 		
 		// Interpolate Rigidbodies:
 		std::vector<std::any> rigidbodies;
-		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
+		if (m_Entities.Get(typeid(Physics::Rigidbody), rigidbodies)) {
 	
 			for (const auto& r : rigidbodies) {
 				
-				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
+				auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(r);
 				rigidbody->Interpolate();
 			}
 		}
 		
 		// Update AudioListeners:
 		std::vector<std::any> audioListeners;
-		if (m_Entities.Get(typeid(AudioListener), audioListeners)) {
+		if (m_Entities.Get(typeid(Audio::AudioListener), audioListeners)) {
 	
 			for (const auto& al : audioListeners) {
 				
-				auto audioListener = std::any_cast<std::shared_ptr<AudioListener>>(al);
+				auto audioListener = std::any_cast<std::shared_ptr<Audio::AudioListener>>(al);
 				audioListener->Tick();
 			}
 		}
@@ -134,11 +128,11 @@ namespace LouiEriksson {
 	
 		// Update rigidbodies:
 		std::vector<std::any> rigidbodies;
-		if (m_Entities.Get(typeid(Rigidbody), rigidbodies)) {
+		if (m_Entities.Get(typeid(Physics::Rigidbody), rigidbodies)) {
 	
 			for (const auto& r : rigidbodies) {
 				
-				auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(r);
+				auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(r);
 				rigidbody->Sync();
 			}
 		}
@@ -157,7 +151,7 @@ namespace LouiEriksson {
 				 */
 				{
 					// Get rigidbody on Script's parent.
-					const auto rb = script->Parent()->GetComponent<Rigidbody>();
+					const auto rb = script->Parent()->GetComponent<Physics::Rigidbody>();
 					
 					// Check if the pointer is valid.
 					if (rb != nullptr) {
@@ -230,11 +224,11 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Rigidbody)) {	// Serialise Rigidbody.
+							else if (subCategory.first == typeid(Physics::Rigidbody)) {	// Serialise Rigidbody.
 	
 								for (const auto& component : components) {
 	
-									auto rigidbody = std::any_cast<std::shared_ptr<Rigidbody>>(component);
+									auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(component);
 	
 									xml.setNextName("Rigidbody");
 									xml.startNode();
@@ -248,11 +242,11 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Camera)) {		// Serialise Camera.
+							else if (subCategory.first == typeid(Graphics::Camera)) {		// Serialise Camera.
 	
 								for (const auto& component : components) {
 	
-									auto camera = std::any_cast<std::shared_ptr<Camera>>(component);
+									auto camera = std::any_cast<std::shared_ptr<Graphics::Camera>>(component);
 	
 									xml.setNextName("Camera");
 	
@@ -260,11 +254,11 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Collider)) {	// Serialise Collider.
+							else if (subCategory.first == typeid(Physics::Collider)) {	// Serialise Collider.
 	
 								for (const auto& component : components) {
 	
-									auto collider = std::any_cast<std::shared_ptr<Collider>>(component);
+									auto collider = std::any_cast<std::shared_ptr<Physics::Collider>>(component);
 	
 									xml.setNextName("Collider");
 	
@@ -273,11 +267,11 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Light)) {		// Serialise Light.
+							else if (subCategory.first == typeid(Graphics::Light)) {    // Serialise Light.
 	
 								for (const auto& component : components) {
 	
-									auto light = std::any_cast<std::shared_ptr<Light>>(component);
+									auto light = std::any_cast<std::shared_ptr<Graphics::Light>>(component);
 	
 									xml.setNextName("Light");
 	
@@ -285,11 +279,11 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Renderer)) {	// Serialise Renderer.
+							else if (subCategory.first == typeid(Graphics::Renderer)) {	// Serialise Renderer.
 	
 								for (const auto& component : components) {
 	
-									auto renderer = std::any_cast<std::shared_ptr<Renderer>>(component);
+									auto renderer = std::any_cast<std::shared_ptr<Graphics::Renderer>>(component);
 	
 									xml.setNextName("Renderer");
 	
@@ -297,7 +291,7 @@ namespace LouiEriksson {
 									xml.finishNode();
 								}
 							}
-							else if (subCategory.first == typeid(Script)) {		// Serialise Shader.
+							else if (subCategory.first == typeid(Script)) {		        // Serialise Shader.
 	
 								xml.setNextName("Script");
 								xml.startNode();
@@ -386,7 +380,7 @@ namespace LouiEriksson {
 					}
 					else if (componentName == "Rigidbody") {	// Deserialise Rigidbody.
 		
-						auto rigidbody = gameObject->AddComponent<Rigidbody>();
+						auto rigidbody = gameObject->AddComponent<Physics::Rigidbody>();
 		
 						xml.startNode();
 		
@@ -402,34 +396,34 @@ namespace LouiEriksson {
 					}
 					else if (componentName == "Camera") {		// Deserialise Camera.
 					
-						auto camera = gameObject->AddComponent<Camera>();
+						auto camera = gameObject->AddComponent<Graphics::Camera>();
 		
 						xml.startNode();
 						xml.finishNode();
 					}
 					else if (componentName == "Collider") {		// Deserialise Collider.
 		
-						auto collider = gameObject->AddComponent<Collider>();
+						auto collider = gameObject->AddComponent<Physics::Collider>();
 		
 						xml.startNode();
 		
 						std::string type;
 						xml(type);
 		
-						collider->SetType((Collider::Type)std::stoi(type));
+						collider->SetType((Physics::Collider::Type)std::stoi(type));
 		
 						xml.finishNode();
 					}
 					else if (componentName == "Light") {		// Deserialise Light
 						
-						auto light = gameObject->AddComponent<Light>();
+						auto light = gameObject->AddComponent<Graphics::Light>();
 		
 						xml.startNode();
 						xml.finishNode();
 					}
 					else if (componentName == "Renderer") {		// Deserialise Renderer.
 		
-						auto renderer = gameObject->AddComponent<Renderer>();
+						auto renderer = gameObject->AddComponent<Graphics::Renderer>();
 		
 						xml.startNode();
 						xml.finishNode();
@@ -448,19 +442,19 @@ namespace LouiEriksson {
 						}
 						
 						if (type == "class std::shared_ptr<class Player>") {		// Player
-							script = gameObject->AddComponent<Player>();
+							script = gameObject->AddComponent<LouiEriksson::Game::Player>();
 						}
 						else if (type == "class std::shared_ptr<class Ball>") {		// Ball
-							script = gameObject->AddComponent<Ball>();
+							script = gameObject->AddComponent<LouiEriksson::Game::Ball>();
 						}
 						else if (type == "class std::shared_ptr<class Plane>") {	// Plane
-							script = gameObject->AddComponent<Plane>();
+							script = gameObject->AddComponent<LouiEriksson::Game::Plane>();
 						}
 						else if (type == "class std::shared_ptr<class OrbitCam>") {	// OrbitCam
-							script = gameObject->AddComponent<OrbitCam>();
+							script = gameObject->AddComponent<LouiEriksson::Game::OrbitCam>();
 						}
 						else if (type == "class std::shared_ptr<class FlyCam>") {	// FlyCam
-							script = gameObject->AddComponent<FlyCam>();
+							script = gameObject->AddComponent<LouiEriksson::Game::FlyCam>();
 						}
 						else {
 							Serialisation::NotImplementedException(type);
@@ -489,4 +483,4 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::ECS

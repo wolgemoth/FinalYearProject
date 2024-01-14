@@ -1,7 +1,6 @@
 #ifndef FINALYEARPROJECT_RIGIDBODY_H
 #define FINALYEARPROJECT_RIGIDBODY_H
 
-#include "../core/Transform.h"
 #include "../ecs/Component.h"
 
 #include "Collision.h"
@@ -19,12 +18,18 @@
 
 namespace LouiEriksson {
 	
+	class Transform;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Physics {
+	
 	class Collider;
 	
 	/// <summary>
 	/// Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.
 	/// </summary>
-	class Rigidbody : public Component {
+	class Rigidbody : public ECS::Component {
 	
 	private:
 		
@@ -106,7 +111,7 @@ namespace LouiEriksson {
 		
 	public:
 	
-		explicit Rigidbody(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Rigidbody(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~Rigidbody() override = default;
 	
 		/// <summary> Called every frame. </summary>
@@ -212,6 +217,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Physics
 
 #endif //FINALYEARPROJECT_RIGIDBODY_H

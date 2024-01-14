@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 
 	class Sound {
 	
@@ -75,6 +75,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Audio
 
 #endif //FINALYEARPROJECT_SOUND_H

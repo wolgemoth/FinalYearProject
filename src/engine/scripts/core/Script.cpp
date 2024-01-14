@@ -8,11 +8,11 @@
 
 namespace LouiEriksson {
 	
-	Script::Script(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent) {}
+	Script::Script(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
 	void Script::Begin() {}
 	void Script::Tick() {}
 	void Script::FixedTick() {}
-	void Script::OnCollision(const Collision& _collision) {}
+	void Script::OnCollision(const Physics::Collision& _collision) {}
 	
 } // LouiEriksson

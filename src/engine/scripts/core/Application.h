@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_APPLICATION_H
 #define FINALYEARPROJECT_APPLICATION_H
 
-#include "../ecs/Scene.h"
-
 #include "Time.h"
 
 namespace LouiEriksson {

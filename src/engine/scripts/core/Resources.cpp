@@ -1,11 +1,11 @@
 #include "Resources.h"
 
 #include "../audio/AudioClip.h"
+#include "../core/utils/Hashmap.h"
 #include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Shader.h"
 #include "../graphics/Texture.h"
-#include "../utils/Hashmap.h"
 
 #include "File.h"
 
@@ -34,7 +34,7 @@ namespace LouiEriksson {
 		
 		for (const auto& kvp : files.GetAll()) {
 			
-			std::shared_ptr<AudioClip> clip;
+			std::shared_ptr<Audio::AudioClip> clip;
 			if (File::TryLoad(kvp.second, clip)) {
 				m_Audio.Add(kvp.first, clip);
 			}
@@ -59,7 +59,7 @@ namespace LouiEriksson {
 		
 		for (const auto& kvp : files.GetAll()) {
 			
-			std::shared_ptr<Material> material;
+			std::shared_ptr<Graphics::Material> material;
 			if (File::TryLoad(kvp.second, material)) {
 				m_Materials.Add(kvp.first, material);
 			}
@@ -78,7 +78,7 @@ namespace LouiEriksson {
 			
 			for (const auto& kvp : files.GetAll()) {
 				
-				std::shared_ptr<Texture> texture;
+				std::shared_ptr<Graphics::Texture> texture;
 				if (File::TryLoad(kvp.second, texture, GL_SRGB, true)) {
 					m_Textures.Add(kvp.first, texture);
 				}
@@ -95,7 +95,7 @@ namespace LouiEriksson {
 			
 			for (const auto& kvp : files.GetAll()) {
 				
-				std::shared_ptr<Texture> texture;
+				std::shared_ptr<Graphics::Texture> texture;
 				if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
 					m_Textures.Add(kvp.first, texture);
 				}
@@ -183,7 +183,7 @@ namespace LouiEriksson {
 			{
 				for (const auto& kvp : separated.GetAll()) {
 				
-					std::vector<Shader::SubShader> subShaders;
+					std::vector<Graphics::Shader::SubShader> subShaders;
 					subShaders.reserve(kvp.second.size());
 					
 					for (const auto& subshader : kvp.second) {
@@ -191,7 +191,7 @@ namespace LouiEriksson {
 					}
 					
 					// Compile shader and add to cache.
-					auto compiled = std::shared_ptr<Shader>(new Shader(subShaders), [](Shader* _ptr) { delete _ptr; });
+					auto compiled = std::shared_ptr<Graphics::Shader>(new Graphics::Shader(subShaders), [](Graphics::Shader* _ptr) { delete _ptr; });
 					m_Shaders.Add(compiled->Name(), compiled);
 				}
 			}
@@ -202,7 +202,7 @@ namespace LouiEriksson {
 				for (const auto& item : combined) {
 				
 					// Compile shader and add to cache.
-					auto compiled = std::shared_ptr<Shader>(new Shader(item), [](Shader* _ptr) { delete _ptr; });
+					auto compiled = std::shared_ptr<Graphics::Shader>(new Graphics::Shader(item), [](Graphics::Shader* _ptr) { delete _ptr; });
 					m_Shaders.Add(compiled->Name(), compiled);
 				}
 			}
@@ -217,43 +217,43 @@ namespace LouiEriksson {
 		PreloadMaterials();
 	}
 	
-	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<AudioClip>& _output) noexcept {
+	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<Audio::AudioClip>& _output) noexcept {
 		return m_Audio.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Mesh>& _output) noexcept {
+	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Graphics::Mesh>& _output) noexcept {
 		return m_Meshes.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Material>& _output) noexcept {
+	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Graphics::Material>& _output) noexcept {
 		return m_Materials.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Texture>& _output) noexcept {
+	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Graphics::Texture>& _output) noexcept {
 		return m_Textures.Get(_name, _output);
 	}
 	
-	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Shader>& _output) noexcept {
+	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Graphics::Shader>& _output) noexcept {
 		return m_Shaders.Get(_name, _output);
 	}
 	
-	std::weak_ptr<AudioClip> Resources::GetAudio(const std::string& _name) {
+	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name) {
 		return m_Audio.Return(_name);
 	}
 	
-	std::weak_ptr<Mesh> Resources::GetMesh(const std::string& _name) {
+	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name) {
 		return m_Meshes.Return(_name);
 	}
 	
-	std::weak_ptr<Material> Resources::GetMaterial(const std::string& _name) {
+	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name) {
 		return m_Materials.Return(_name);
 	}
 	
-	std::weak_ptr<Texture> Resources::GetTexture(const std::string& _name) {
+	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name) {
 		return m_Textures.Return(_name);
 	}
 	
-	std::weak_ptr<Shader> Resources::GetShader(const std::string& _name) {
+	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name) {
 		return m_Shaders.Return(_name);
 	}
 	

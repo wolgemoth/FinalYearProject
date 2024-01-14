@@ -1,21 +1,19 @@
 #ifndef FINALYEARPROJECT_COMPONENT_H
 #define FINALYEARPROJECT_COMPONENT_H
 
-#include "GameObject.h"
-
 #include <cstddef>
 #include <memory>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::ECS {
 	
 	class GameObject;
-
+	
 	/// <summary> Represents a Component which can be attached to a GameObject. </summary>
 	class Component {
 		
-		friend class GameObject;
+		friend GameObject;
 	
 	private:
 	
@@ -41,6 +39,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::ECS
 
 #endif //FINALYEARPROJECT_COMPONENT_H

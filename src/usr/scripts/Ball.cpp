@@ -21,7 +21,7 @@
 
 namespace LouiEriksson::Game {
 	
-	Ball::Ball(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+	Ball::Ball(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_StartingPosition(0.0f),
 			m_Radius(0.0f) {}
 	
@@ -55,9 +55,9 @@ namespace LouiEriksson::Game {
 			m_Radius = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
 		
 			// Get or add renderer.
-			auto renderer = s->Attach(Parent()->AddComponent<Renderer>());
+			auto renderer = s->Attach(Parent()->AddComponent<Graphics::Renderer>());
 			if (renderer == nullptr) {
-				renderer = Parent()->AddComponent<Renderer>();
+				renderer = Parent()->AddComponent<Graphics::Renderer>();
 			}
 		
 			renderer->SetMesh(s_Mesh);
@@ -65,19 +65,19 @@ namespace LouiEriksson::Game {
 			renderer->SetTransform(transform);
 		
 			// Get or add collider.
-			auto collider = s->Attach<SphereCollider>(Parent()->AddComponent<SphereCollider>());
+			auto collider = s->Attach<Physics::SphereCollider>(Parent()->AddComponent<Physics::SphereCollider>());
 			if (collider == nullptr) {
-				collider = Parent()->AddComponent<SphereCollider>();
+				collider = Parent()->AddComponent<Physics::SphereCollider>();
 			}
 		
 			collider->SetTransform(transform);
-			collider->SetType(Collider::Type::Sphere);
+			collider->SetType(Physics::Collider::Type::Sphere);
 			collider->Radius(m_Radius);
 		
 			// Get or add rigidbody.
-			auto rigidbody = s->Attach(Parent()->AddComponent<Rigidbody>());
+			auto rigidbody = s->Attach(Parent()->AddComponent<Physics::Rigidbody>());
 			if (rigidbody == nullptr) {
-				rigidbody = Parent()->AddComponent<Rigidbody>();
+				rigidbody = Parent()->AddComponent<Physics::Rigidbody>();
 			}
 			
 			rigidbody->SetTransform(transform);
@@ -88,9 +88,9 @@ namespace LouiEriksson::Game {
 			collider->SetRigidbody(rigidbody);
 			
 			// Get or add AudioSource.
-			m_AudioSource = Parent()->AddComponent<AudioSource>();
+			m_AudioSource = Parent()->AddComponent<Audio::AudioSource>();
 			if (m_AudioSource.expired()) {
-				m_AudioSource = Parent()->AddComponent<AudioSource>();
+				m_AudioSource = Parent()->AddComponent<Audio::AudioSource>();
 			}
 			
 			auto clip = Resources::GetAudio("Hollow_Bass");
@@ -113,7 +113,7 @@ namespace LouiEriksson::Game {
 			// 'Reset' balls which fall beneath a certain height.
 			if (transform->m_Position.y <= -100.0f) {
 				
-				const auto rb = Parent()->GetComponent<Rigidbody>();
+				const auto rb = Parent()->GetComponent<Physics::Rigidbody>();
 		
 				// Reset position.
 				rb->Position(m_StartingPosition);
@@ -125,9 +125,9 @@ namespace LouiEriksson::Game {
 		}
 	}
 	
-	void Ball::OnCollision(const Collision& _collision) {
+	void Ball::OnCollision(const Physics::Collision& _collision) {
 		
-		const auto rb = Parent()->GetComponent<Rigidbody>();
+		const auto rb = Parent()->GetComponent<Physics::Rigidbody>();
 		
 		if (rb != nullptr) {
 			

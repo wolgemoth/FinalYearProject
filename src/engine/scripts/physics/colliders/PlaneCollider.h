@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_PLANECOLLIDER_H
 #define FINALYEARPROJECT_PLANECOLLIDER_H
 
-#include "../../core/Transform.h"
-#include "../../ecs/GameObject.h"
 #include "../Collider.h"
 
 #include <memory>
@@ -11,17 +9,29 @@
 
 namespace LouiEriksson {
 	
+	class Transform;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::ECS {
+	
+	class GameObject;
+	
+} // LouiEriksson::ECS
+
+namespace LouiEriksson::Physics {
+	
 	class PlaneCollider final : public Collider {
 	
 	public:
 		
-		explicit PlaneCollider(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit PlaneCollider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~PlaneCollider() override;
 		
 		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override;
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Physics
 
 #endif //FINALYEARPROJECT_PLANECOLLIDER_H

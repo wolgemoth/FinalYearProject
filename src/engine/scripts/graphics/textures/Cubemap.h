@@ -2,16 +2,24 @@
 #define FINALYEARPROJECT_CUBEMAP_H
 
 #include "../Texture.h"
-#include "GL/glew.h"
+
+#include <GL/glew.h>
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
 namespace LouiEriksson {
 	
+	class File;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
 	class Cubemap : public Texture {
 	
+		friend LouiEriksson::File;
+		
 		friend class Camera;
-		friend class File;
 		
 	private:
 		
@@ -26,6 +34,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_CUBEMAP_H

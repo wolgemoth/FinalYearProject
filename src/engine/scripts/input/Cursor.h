@@ -3,15 +3,21 @@
 
 namespace LouiEriksson {
 	
+	class Application;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Input {
+	
 	class Cursor {
 		
-		friend class Application;
+		friend LouiEriksson::Application;
 		
 	public:
 		
 		class State {
 		
-			friend class Cursor;
+			friend Cursor;
 			
 		public:
 			
@@ -93,6 +99,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Input
 
 #endif //FINALYEARPROJECT_CURSOR_H

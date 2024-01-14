@@ -1,12 +1,12 @@
 #include "File.h"
 
 #include "../audio/AudioClip.h"
+#include "../core/utils/Utils.h"
 #include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Shader.h"
 #include "../graphics/Texture.h"
 #include "../graphics/textures/Cubemap.h"
-#include "../utils/Utils.h"
 
 #include "Resources.h"
 
@@ -116,14 +116,14 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<AudioClip>& _output) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output) {
 		
 		bool result = false;
 		
 		std::cout << "Loading AudioClip \"" << _path.c_str() << "\"... ";
 		
 		try {
-			_output.reset(new AudioClip(_path));
+			_output.reset(new Audio::AudioClip(_path));
 			
 			std::cout << "Done.\n";
 			
@@ -138,7 +138,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;
 		
@@ -146,7 +146,13 @@ namespace LouiEriksson {
 		
 		try {
 			
-			_output.reset(new Texture(-1, -1, 0, Texture::Parameters::Format(_format, _generateMipmaps), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)));
+			_output.reset(
+				new Graphics::Texture(-1, -1, 0,
+					Graphics::Texture::Parameters::Format    (         _format, _generateMipmaps),
+					Graphics::Texture::Parameters::FilterMode(       GL_LINEAR, GL_LINEAR       ),
+					Graphics::Texture::Parameters::WrapMode  (GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
+				)
+			);
 			
 			glGenTextures(1, &_output->m_TextureID);
 			
@@ -155,7 +161,7 @@ namespace LouiEriksson {
 				int channels;
 				GLenum texture_format;
 				
-				Texture::GetFormatData(_format, texture_format, channels);
+				Graphics::Texture::GetFormatData(_format, texture_format, channels);
 				
 				void* data;
 				GLenum data_format;
@@ -183,7 +189,7 @@ namespace LouiEriksson {
 				
 				if (data != nullptr) {
 				
-					Texture::Bind(*_output);
+					Graphics::Texture::Bind(*_output);
 					
 					glTexImage2D(
 						GL_TEXTURE_2D,
@@ -234,7 +240,7 @@ namespace LouiEriksson {
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 					
-					Texture::Unbind();
+					Graphics::Texture::Unbind();
 					
 					Utils::GLDumpError();
 					
@@ -254,11 +260,11 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Mesh>& _output) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Mesh>& _output) {
 		
 		bool result = false;
 		
-		_output.reset(new Mesh());
+		_output.reset(new Graphics::Mesh());
 		
 		/*
 		 * @Assessor:
@@ -508,7 +514,7 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Material>& _output) {
 		
 		bool result = false;
 		
@@ -516,7 +522,7 @@ namespace LouiEriksson {
 		
 		try {
 			
-			_output.reset(new Material());
+			_output.reset(new Graphics::Material());
 			
 			std::fstream fs;
 			fs.open(_path, std::ios::in);
@@ -539,7 +545,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Albedo = texture;
 								}
@@ -560,7 +566,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Displacement = texture;
 								}
@@ -572,7 +578,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Roughness = texture;
 								}
@@ -584,7 +590,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Metallic = texture;
 								}
@@ -596,7 +602,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Emission = texture;
 								}
@@ -608,7 +614,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_Normals = texture;
 								}
@@ -620,7 +626,7 @@ namespace LouiEriksson {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Texture> texture;
+								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
 									_output->m_AO = texture;
 								}
@@ -649,16 +655,16 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
 		
 		bool result = false;
 		
 		_output.reset(
-			new Cubemap(
+			new Graphics::Cubemap(
 				-1, -1, 0,
-				Texture::Parameters::Format(_format, _generateMipmaps),
-				Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
-				Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
+				Graphics::Texture::Parameters::Format(_format, _generateMipmaps),
+				Graphics::Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
+				Graphics::Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
 			)
 		);
 		
@@ -671,7 +677,7 @@ namespace LouiEriksson {
 			
 			if (_output->m_TextureID > 0) {
 				
-				Cubemap::Bind(*_output);
+				Graphics::Cubemap::Bind(*_output);
 				
 				int cubemap_resolution = -1;
 				
@@ -779,7 +785,7 @@ namespace LouiEriksson {
 				_output->m_Width  = cubemap_resolution;
 				_output->m_Height = cubemap_resolution;
 				
-				Cubemap::Unbind();
+				Graphics::Cubemap::Unbind();
 			}
 			
 			result = true;

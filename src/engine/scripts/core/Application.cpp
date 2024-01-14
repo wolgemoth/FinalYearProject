@@ -2,12 +2,12 @@
 
 #include "../audio/Sound.h"
 #include "../core/Time.h"
+#include "../core/utils/Utils.h"
 #include "../ecs/Scene.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
-#include "../utils/Utils.h"
 
 #include "Resources.h"
 #include "Settings.h"
@@ -43,7 +43,7 @@ namespace LouiEriksson {
 			/* INIT CURSOR STATE */
 			
 			// Init the cursor's state.
-			Cursor::SetState({ Cursor::State::LockMode::Absolute, true });
+			Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
 			
 			// Capture the mouse on startup.
 			SDL_CaptureMouse(SDL_TRUE);
@@ -56,7 +56,7 @@ namespace LouiEriksson {
 			}
 			
 			/* INIT SOUND */
-			Sound::Init();
+			Audio::Sound::Init();
 			
 			/* PRELOAD RESOURCES */
 			Resources::Preload();
@@ -65,14 +65,14 @@ namespace LouiEriksson {
 			Settings::Init();
 			
 			/* INIT PHYSICS */
-			Physics::Init();
+			Physics::Physics::Init();
 			
 			/* INIT GUI */
-			GUI::Init(main_window, "#version 330");
-			GUI::Style(GUI::Parameters::Style::Dark);
+			UI::GUI::Init(main_window, "#version 330");
+			UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = Scene::Load("levels/gep.scene");
+			auto scene = ECS::Scene::Load("levels/gep.scene");
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.
@@ -95,7 +95,7 @@ namespace LouiEriksson {
 					Utils::GLDumpError(true);
 					
 					// Update (apply) the cursor's state.
-					Cursor::Update();
+					Input::Cursor::Update();
 					
 					// Configure V-sync:
 					// -1 = Adaptive
@@ -108,14 +108,14 @@ namespace LouiEriksson {
 					}
 					
 					/* INPUT */
-					Input::Tick();
+					Input::Input::Tick();
 					
 					// Handle events:
 					{
 						std::vector<SDL_Event> items;
 						
 						// Process window resize event:
-						if (Input::Event::Get(SDL_WINDOWEVENT, items)) {
+						if (Input::Input::Event::Get(SDL_WINDOWEVENT, items)) {
 							
 							for (auto item : items) {
 								
@@ -128,7 +128,7 @@ namespace LouiEriksson {
 						}
 						
 						// Process quit event:
-						if (Input::Event::Get(SDL_QUIT)) {
+						if (Input::Input::Event::Get(SDL_QUIT)) {
 							
 							Application::Quit();
 	
@@ -137,7 +137,7 @@ namespace LouiEriksson {
 					}
 					
 					/* UPDATE CURSOR STATE */
-					Cursor::Update();
+					Input::Cursor::Update();
 					
 					/* FIXED UPDATE */
 					
@@ -145,7 +145,7 @@ namespace LouiEriksson {
 					while (physics_step >= 0.0f) {
 						
 						// Tick the physics engine.
-						Physics::Tick(Time::FixedDeltaTime());
+						Physics::Physics::Tick(Time::FixedDeltaTime());
 						
 						// Tick the scene's fixed update.
 						scene->FixedTick();
@@ -158,7 +158,7 @@ namespace LouiEriksson {
 					scene->Tick();
 		
 					/* GUI UPDATE */
-					GUI::OnGUI(main_window);
+					UI::GUI::OnGUI(main_window);
 					
 					/* UPDATE WINDOWS */
 					auto windows = Window::m_Windows.Values();
@@ -179,9 +179,9 @@ namespace LouiEriksson {
 							frame_start
 						).count()) / 1000000.0f; // Calculate delta time.
 		
-					   Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
-					Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.
-					       physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
+					            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
+					Physics::Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.
+					                physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 				}
 				catch (const std::exception& e) {
 					std::cout << e.what()<< '\n';
@@ -191,11 +191,11 @@ namespace LouiEriksson {
 NestedBreak:
 			
 			/* FINALISE */
-			Cursor::Reset();
+			Input::Cursor::Reset();
 			
-			    GUI::Dispose();
-			Physics::Dispose();
-			  Input::Dispose();
+			     UI::    GUI::Dispose();
+			Physics::Physics::Dispose();
+			  Input::  Input::Dispose();
 			
 			SDL_Quit();
 		}

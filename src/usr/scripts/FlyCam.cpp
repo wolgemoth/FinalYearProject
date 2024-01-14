@@ -1,18 +1,19 @@
 #include "FlyCam.h"
 
-#include "../../engine/scripts/audio/AudioListener.h"
 #include "../../engine/scripts/audio/AudioSource.h"
 #include "../../engine/scripts/core/Resources.h"
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Settings.h"
 #include "../../engine/scripts/core/Time.h"
 #include "../../engine/scripts/core/Transform.h"
+#include "../../engine/scripts/core/utils/Utils.h"
+#include "../../engine/scripts/core/Window.h"
 #include "../../engine/scripts/ecs/GameObject.h"
+#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
 #include "../../engine/scripts/graphics/Light.h"
 #include "../../engine/scripts/input/Cursor.h"
 #include "../../engine/scripts/input/Input.h"
-#include "../../engine/scripts/utils/Utils.h"
 
 #include <glm/common.hpp>
 #include <glm/ext.hpp>
@@ -33,7 +34,7 @@
 
 namespace LouiEriksson::Game {
 	
-	FlyCam::FlyCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+	FlyCam::FlyCam(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_Motion(0.0f),
 			m_Rotation(0.0f),
 			m_MoveSpeed(5.0f),
@@ -54,24 +55,24 @@ namespace LouiEriksson::Game {
 			
 			// Get or add Camera.
 			// TODO: Do this better:
-			m_Camera = s->Attach(Parent()->AddComponent<Camera>());
+			m_Camera = s->Attach(Parent()->AddComponent<Graphics::Camera>());
 			if (m_Camera.expired()) {
-				m_Camera = Parent()->AddComponent<Camera>();
+				m_Camera = Parent()->AddComponent<Graphics::Camera>();
 			}
 			
 			// Get or add AudioListener.
 			// TODO: Do this better:
-			m_AudioListener = Parent()->GetComponent<AudioListener>();
+			m_AudioListener = Parent()->GetComponent<Audio::AudioListener>();
 			if (m_AudioListener.expired()) {
-				m_AudioListener = Parent()->AddComponent<AudioListener>();
+				m_AudioListener = Parent()->AddComponent<Audio::AudioListener>();
 			}
 			m_AudioListener.lock()->Init();
 			
 			// Get or add AudioListener.
 			// TODO: Do this better:
-			m_GunSound = Parent()->GetComponent<AudioSource>();
+			m_GunSound = Parent()->GetComponent<Audio::AudioSource>();
 			if (m_GunSound.expired()) {
-				m_GunSound = Parent()->AddComponent<AudioSource>();
+				m_GunSound = Parent()->AddComponent<Audio::AudioSource>();
 			}
 			
 			m_GunSound.lock()->Clip(Resources::GetAudio("machineGun").lock());
@@ -91,12 +92,12 @@ namespace LouiEriksson::Game {
 			// Add a light to the scene for testing purposes.
 			// TODO: Add a light to the scene through the scene's file, not code.
 			{
-				auto light_gameObject = GameObject::Create(s->shared_from_this(), "Light");
+				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
 				s->Attach(light_gameObject);
 			
 				light_gameObject->AddComponent<Transform>();
 				
-				s->Attach(light_gameObject->AddComponent<Light>());
+				s->Attach(light_gameObject->AddComponent<Graphics::Light>());
 			}
 		}
 		
@@ -114,7 +115,7 @@ namespace LouiEriksson::Game {
 		
 			// Lock the cursor to the center of the screen if the window is in focus:
 			if (c->GetWindow()->Focused()) {
-				Cursor::SetState({ Cursor::State::LockMode::Centered, false });
+				Input::Cursor::SetState({ Input::Cursor::State::LockMode::Centered, false });
 			}
 			
 			/* LOOK & MOVE */
@@ -123,21 +124,21 @@ namespace LouiEriksson::Game {
 				glm::vec3    mouse_input;
 				
 				// Handle look, move, and shoot input. Disable if cursor is not centered.
-				if (Cursor::GetState().m_LockMode == Cursor::State::LockMode::Centered) {
+				if (Input::Cursor::GetState().m_LockMode == Input::Cursor::State::LockMode::Centered) {
 					
 					mouse_input = glm::vec3(
-						 Input::Mouse::Motion().y,
-						 Input::Mouse::Motion().x,
+						 Input::Input::Mouse::Motion().y,
+						 Input::Input::Mouse::Motion().x,
 						 0.0f
 					);
 					
 					movement_input = glm::vec3(
-						static_cast<float>(Input::Key::Get(SDL_SCANCODE_A     ) - Input::Key::Get(SDL_SCANCODE_D    )),
-						static_cast<float>(Input::Key::Get(SDL_SCANCODE_LSHIFT) - Input::Key::Get(SDL_SCANCODE_LCTRL)),
-						static_cast<float>(Input::Key::Get(SDL_SCANCODE_W     ) - Input::Key::Get(SDL_SCANCODE_S    ))
+						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_A     ) - Input::Input::Key::Get(SDL_SCANCODE_D    )),
+						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_LSHIFT) - Input::Input::Key::Get(SDL_SCANCODE_LCTRL)),
+						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_W     ) - Input::Input::Key::Get(SDL_SCANCODE_S    ))
 					);
 					
-					if (Input::Mouse::GetDown(SDL_BUTTON_LEFT)) {
+					if (Input::Input::Mouse::GetDown(SDL_BUTTON_LEFT)) {
 						m_GunSound.lock()->Stop();
 						m_GunSound.lock()->Play();
 					}
@@ -175,7 +176,7 @@ namespace LouiEriksson::Game {
 			
 			// Cool slow motion effect when 'P' is held:
 			{
-				const auto targetScale = Input::Key::Get(SDL_SCANCODE_P) ? 0.0f : 1.0f;
+				const auto targetScale = Input::Input::Key::Get(SDL_SCANCODE_P) ? 0.0f : 1.0f;
 				const auto effectSpeed = 3.0f;
 				
 				Time::Scale(glm::mix(Time::Scale(), targetScale, Time::UnscaledDeltaTime() * effectSpeed));

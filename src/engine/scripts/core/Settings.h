@@ -1,9 +1,6 @@
 #ifndef FINALYEARPROJECT_SETTINGS_H
 #define FINALYEARPROJECT_SETTINGS_H
 
-#include "../graphics/Shader.h"
-#include "../graphics/Texture.h"
-
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float4.hpp>
 
@@ -12,12 +9,26 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
+namespace LouiEriksson::Graphics {
+	
+	class Texture;
+	class Shader;
+	
+} // LouiEriksson::Graphics
+
+namespace LouiEriksson::UI {
+	
+	class GUI;
+	
+} // LouiEriksson::UI
+
 namespace LouiEriksson {
 	
 	class Settings {
 	
 		friend class Application;
-		friend class GUI;
+		
+		friend UI::GUI;
 		
 	public:
 		
@@ -26,8 +37,6 @@ namespace LouiEriksson {
 		
 		/// <summary> Container for the application's graphics settings. </summary>
 		struct Graphics {
-			
-			friend class Camera;
 			
 			inline static bool s_GammaCorrection { true };
 			
@@ -51,8 +60,6 @@ namespace LouiEriksson {
 			/// <summary> Container for the settings of the OrbitCam script. </summary>
 			struct Perspective {
 				
-				friend class OrbitCam;
-			
 				inline static float      s_FOV { 60.0f };
 				inline static float s_NearClip { 0.01f };
 				inline static float  s_FarClip { 60.0f };
@@ -80,7 +87,7 @@ namespace LouiEriksson {
 				
 				inline static int s_CurrentSkyboxSelection { 0 };
 				
-				inline static std::weak_ptr<Texture> s_Skybox;
+				inline static std::weak_ptr<LouiEriksson::Graphics::Texture> s_Skybox;
 				
 				static void UpdateSkybox(const int& _index);
 				
@@ -101,7 +108,7 @@ namespace LouiEriksson {
 				
 				inline static int s_CurrentShaderSelection { 0 };
 				
-				inline static std::weak_ptr<Shader> s_Shader;
+				inline static std::weak_ptr<LouiEriksson::Graphics::Shader> s_Shader;
 				
 				static void UpdateShader(const int& _index);
 				
@@ -169,8 +176,6 @@ namespace LouiEriksson {
 		
 		/// <summary> Container for the settings of the application's post-processing effects. </summary>
 		struct PostProcessing {
-			
-			friend class Camera;
 			
 			inline static bool s_Enabled { true };
 			

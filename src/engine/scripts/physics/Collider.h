@@ -1,10 +1,7 @@
 #ifndef FINALYEARPROJECT_COLLIDER_H
 #define FINALYEARPROJECT_COLLIDER_H
 
-#include "../core/Transform.h"
 #include "../ecs/Component.h"
-
-#include "Rigidbody.h"
 
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
@@ -14,7 +11,15 @@
 
 namespace LouiEriksson {
 	
-	class Collider : public Component {
+	class Transform;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Physics {
+	
+	class Rigidbody;
+	
+	class Collider : public ECS::Component {
 	
 		friend Rigidbody;
 		
@@ -30,7 +35,7 @@ namespace LouiEriksson {
 			Plane
 		};
 	
-		explicit Collider(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Collider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~Collider() override = default;
 	
 		/// <summary> Set the Transform of the Collider. </summary>
@@ -69,6 +74,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Physics
 
 #endif //FINALYEARPROJECT_COLLIDER_H

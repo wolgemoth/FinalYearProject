@@ -10,9 +10,9 @@
 
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 	
-	class AudioSource : public Component {
+	class AudioSource : public ECS::Component {
 	
 		/*
 		 * Please refer to OpenAL-Soft spec:
@@ -128,7 +128,7 @@ namespace LouiEriksson {
 		
 	public:
 		
-		 explicit AudioSource(const std::shared_ptr<GameObject>& _parent);
+		 explicit AudioSource(const std::shared_ptr<ECS::GameObject>& _parent);
 		~AudioSource() override;
 		
 		/// <summary> Updates the AudioSource every frame.</summary>
@@ -236,6 +236,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Audio
 
 #endif //FINALYEARPROJECT_AUDIOSOURCE_H

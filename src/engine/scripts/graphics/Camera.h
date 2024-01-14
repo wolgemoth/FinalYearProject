@@ -1,15 +1,7 @@
 #ifndef FINALYEARPROJECT_CAMERA_H
 #define FINALYEARPROJECT_CAMERA_H
 
-#include "../core/Transform.h"
-#include "../core/Window.h"
 #include "../ecs/Component.h"
-#include "../graphics/Shader.h"
-#include "../graphics/Texture.h"
-
-#include "Light.h"
-#include "Mesh.h"
-#include "Renderer.h"
 
 #include "textures/RenderTexture.h"
 
@@ -23,12 +15,23 @@
 
 namespace LouiEriksson {
 	
+	class Transform;
 	class Window;
 	
-	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
-	class Camera : public Component {
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
 	
-		friend class Window;
+	class Light;
+	class Mesh;
+	class Renderer;
+	class Shader;
+	class Texture;
+	
+	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
+	class Camera : public ECS::Component {
+	
+		friend LouiEriksson::Window;
 	
 	private:
 		
@@ -100,7 +103,7 @@ namespace LouiEriksson {
 		
 	public:
 	
-		 explicit Camera(const std::shared_ptr<GameObject>& _parent);
+		 explicit Camera(const std::shared_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
 		/// <summary> Render clear the m_Camera. </summary>
@@ -165,6 +168,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_CAMERA_H

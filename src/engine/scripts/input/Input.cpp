@@ -18,7 +18,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Input {
 	
 	Input::Key::State::State() noexcept :
 			s_Data  (nullptr),
@@ -184,7 +184,7 @@ namespace LouiEriksson {
 		while (SDL_PollEvent(&event) != 0) {
 			
 			// Send event to GUI for processing.
-			GUI::ProcessEvent(event);
+			UI::GUI::ProcessEvent(event);
 			
 			// Get list of events of the same type, if they exist.
 			std::vector<SDL_Event> bucket;
@@ -238,4 +238,4 @@ namespace LouiEriksson {
 		}
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Input

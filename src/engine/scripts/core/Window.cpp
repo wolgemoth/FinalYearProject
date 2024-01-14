@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "../graphics/Camera.h"
+
 #include <SDL_error.h>
 #include <SDL_pixels.h>
 #include <SDL_stdinc.h>
@@ -161,12 +163,12 @@ namespace LouiEriksson {
 		return static_cast<float>(dimensions[0]) / static_cast<float>(dimensions[1]);
 	}
 	
-	void Window::Link(Camera& _camera) {
+	void Window::Link(Graphics::Camera& _camera) {
 		_camera.m_Window = Window::Get(ID());
 		m_Cameras.Add((int)(size_t)&_camera, std::reference_wrapper(_camera));
 	}
 	
-	void Window::Unlink(Camera& _camera) {
+	void Window::Unlink(Graphics::Camera& _camera) {
 		_camera.m_Window = std::shared_ptr<Window>(nullptr);
 		m_Cameras.Remove((int)(size_t)&_camera);
 	}

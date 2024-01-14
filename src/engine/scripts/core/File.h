@@ -44,15 +44,15 @@ namespace LouiEriksson {
 		
 		static std::string ReadAllText(const std::filesystem::path& _path);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<AudioClip>& _output);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Texture>& _output, GLenum _format, bool _generateMipmaps);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output, GLenum _format, bool _generateMipmaps);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Mesh>& _output);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Mesh>& _output);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Material>& _output);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Material>& _output);
 		
-		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Cubemap>& _output, GLenum _format, bool _generateMipmaps);
+		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format, bool _generateMipmaps);
 	
 	};
 	

@@ -23,7 +23,7 @@ namespace LouiEriksson {
 	/// <summary>
 	/// Component representing a Transform.
 	/// </summary>
-	struct Transform : public Component {
+struct Transform : public ECS::Component {
 		
 		/// <summary> Position of the Transform. </summary>
 		glm::vec3 m_Position;
@@ -34,7 +34,7 @@ namespace LouiEriksson {
 		/// <summary> Scale of the Transform. </summary>
 		glm::vec3 m_Scale;
 		
-		explicit Transform(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Transform(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		
 		/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
 		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const;

@@ -10,9 +10,9 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Physics {
 	
-	PlaneCollider::PlaneCollider(const std::shared_ptr<GameObject>& _parent) noexcept : Collider(_parent) {}
+	PlaneCollider::PlaneCollider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Collider(_parent) {}
 	PlaneCollider::~PlaneCollider() = default;
 	
 	void PlaneCollider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
@@ -35,4 +35,4 @@ namespace LouiEriksson {
 		
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Physics

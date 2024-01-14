@@ -19,7 +19,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 	
 	AudioSource::Parameters::Parameters() noexcept :
 			m_IsGlobal(false), // Do not start as global.
@@ -123,7 +123,7 @@ namespace LouiEriksson {
 				{
 					glm::vec3 velocity;
 					
-					const auto rigidbody = parent->GetComponent<Rigidbody>();
+					const auto rigidbody = parent->GetComponent<Physics::Rigidbody>();
 					
 					if (rigidbody != nullptr) {
 						velocity = rigidbody->Velocity();
@@ -140,7 +140,7 @@ namespace LouiEriksson {
 		}
 	}
 	
-	AudioSource::AudioSource(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	AudioSource::AudioSource(const std::shared_ptr<ECS::GameObject>& _parent) : Component(_parent),
 			m_LastPosition(   0.0f),
 			m_Source      (AL_NONE),
 			m_Parameters  ()
@@ -388,4 +388,4 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Audio

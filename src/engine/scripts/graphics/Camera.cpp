@@ -5,13 +5,14 @@
 #include "../core/Settings.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
+#include "../core/utils/Utils.h"
+#include "../core/Window.h"
 #include "../ecs/GameObject.h"
 #include "../graphics/Light.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Renderer.h"
 #include "../graphics/Shader.h"
 #include "../graphics/Texture.h"
-#include "../utils/Utils.h"
 
 #include <GL/glew.h>
 #include <glm/common.hpp>
@@ -41,9 +42,9 @@
 
 // @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 
-	Camera::Camera(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	Camera::Camera(const std::shared_ptr<ECS::GameObject>& _parent) : Component(_parent),
 		
 			m_Window   (nullptr),
 			m_Transform(nullptr),
@@ -1400,4 +1401,4 @@ namespace LouiEriksson {
 		m_IsDirty = true;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics

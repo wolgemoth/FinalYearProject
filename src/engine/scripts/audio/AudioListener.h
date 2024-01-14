@@ -1,15 +1,16 @@
 #ifndef FINALYEARPROJECT_AUDIOLISTENER_H
 #define FINALYEARPROJECT_AUDIOLISTENER_H
 
+#include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 	
-	class AudioListener : public Component {
+	class AudioListener : public ECS::Component {
 	
 	/*
 	 * Please refer to OpenAL-Soft spec:
@@ -29,7 +30,7 @@ namespace LouiEriksson {
 		
 	public:
 		
-		 explicit AudioListener(const std::shared_ptr<GameObject>& _parent) noexcept;
+		 explicit AudioListener(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~AudioListener() override;
 		
 		/// <summary> Initialise the AudioListener. </summary>
@@ -46,6 +47,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Audio
 
 #endif //FINALYEARPROJECT_AUDIOLISTENER_H

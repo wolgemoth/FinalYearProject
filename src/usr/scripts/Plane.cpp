@@ -5,6 +5,7 @@
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Transform.h"
 #include "../../engine/scripts/ecs/GameObject.h"
+#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Renderer.h"
 #include "../../engine/scripts/physics/colliders/PlaneCollider.h"
 #include "../../engine/scripts/physics/Rigidbody.h"
@@ -17,7 +18,7 @@
 
 namespace LouiEriksson::Game {
 	
-	Plane::Plane(const std::shared_ptr<GameObject>& _parent) noexcept : Script(_parent) {}
+	Plane::Plane(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent) {}
 	Plane::~Plane() = default;
 	
 	void Plane::Begin() {
@@ -44,9 +45,9 @@ namespace LouiEriksson::Game {
 			transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
 			
 			// Get or add Renderer.
-			auto renderer = s->Attach(Parent()->AddComponent<Renderer>());
+			auto renderer = s->Attach(Parent()->AddComponent<Graphics::Renderer>());
 			if (renderer == nullptr) {
-				renderer = Parent()->AddComponent<Renderer>();
+				renderer = Parent()->AddComponent<Graphics::Renderer>();
 			}
 			
 			renderer->SetMesh(m_Mesh);
@@ -54,18 +55,18 @@ namespace LouiEriksson::Game {
 			renderer->SetTransform(transform);
 			
 			// Get or add Collider.
-			auto collider = s->Attach(Parent()->AddComponent<PlaneCollider>());
+			auto collider = s->Attach(Parent()->AddComponent<Physics::PlaneCollider>());
 			if (collider == nullptr) {
-				collider = Parent()->AddComponent<PlaneCollider>();
+				collider = Parent()->AddComponent<Physics::PlaneCollider>();
 			}
 			
 			collider->SetTransform(transform);
-			collider->SetType(Collider::Type::Plane);
+			collider->SetType(Physics::Collider::Type::Plane);
 			
 			// Get or add rigidbody.
-			auto rigidbody = s->Attach(Parent()->AddComponent<Rigidbody>());
+			auto rigidbody = s->Attach(Parent()->AddComponent<Physics::Rigidbody>());
 			if (rigidbody == nullptr) {
-				rigidbody = Parent()->AddComponent<Rigidbody>();
+				rigidbody = Parent()->AddComponent<Physics::Rigidbody>();
 			}
 			
 			rigidbody->SetTransform(transform);

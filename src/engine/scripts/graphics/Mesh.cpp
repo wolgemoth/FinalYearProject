@@ -6,7 +6,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
 	Mesh::Mesh() noexcept : m_VAO_ID(0u),
 	       m_PositionVBO_ID(0u),
@@ -76,4 +76,4 @@ namespace LouiEriksson {
 		return s_Instance;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics

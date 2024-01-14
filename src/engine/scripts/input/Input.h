@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_INPUT_H
 #define FINALYEARPROJECT_INPUT_H
 
-#include "../utils/Hashmap.h"
+#include "../core/utils/Hashmap.h"
 
 #include <glm/ext/vector_float2.hpp>
 
@@ -12,15 +12,19 @@
 
 #include <vector>
 
-class Application;
-
 // @Assessor: This class was originally submitted for 3DGP and modified for GEP.
 
 namespace LouiEriksson {
 	
+	class Application;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Input {
+	
 	class Input {
 	
-	friend class Application;
+		friend LouiEriksson::Application;
 	
 	private:
 	
@@ -28,7 +32,6 @@ namespace LouiEriksson {
 	
 		struct Event {
 		
-			friend class Mouse;
 			friend Input;
 		
 		private:
@@ -138,6 +141,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Input
 
 #endif //FINALYEARPROJECT_INPUT_H

@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_SCENE_H
 #define FINALYEARPROJECT_SCENE_H
 
-#include "../utils/Hashmap.h"
+#include "../core/utils/Hashmap.h"
 
 #include <any>
 #include <filesystem>
@@ -14,11 +14,16 @@
 namespace LouiEriksson {
 	
 	class Application;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::ECS {
+	
 	class GameObject;
 	
 	class Scene : public std::enable_shared_from_this<Scene> {
 	
-		friend class Application;
+		friend LouiEriksson::Application;
 	
 	private:
 	
@@ -89,6 +94,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::ECS
 
 #endif //FINALYEARPROJECT_SCENE_H

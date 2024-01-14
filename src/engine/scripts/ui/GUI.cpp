@@ -5,7 +5,7 @@
 #include "../core/Window.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
-#include "../utils/Utils.h"
+#include "../core/utils/Utils.h"
 
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -25,7 +25,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::UI {
 	
 	void GUI::Init(const std::weak_ptr<Window>& _window, const char* _glsl_version) {
 		
@@ -64,7 +64,7 @@ namespace LouiEriksson {
 		/* DEBUG MODE */
 		{
 			// Use the '~' key (on ANSI keyboard layouts or '`' key on UK layout) to enter debug mode.
-			if (Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
+			if (Input::Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
 				s_DrawDebugWindows = !s_DrawDebugWindows;
 			}
 			
@@ -75,7 +75,7 @@ namespace LouiEriksson {
 			if (s_DrawDebugWindows) {
 				
 				// Make cursor visible.
-				Cursor::SetState({ Cursor::State::LockMode::Absolute, true });
+				Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
 			}
 			
 			// Update (and optionally, draw) debugging windows:
@@ -720,4 +720,4 @@ namespace LouiEriksson {
 		}
 	}
 
-} // LouiEriksson
+} // LouiEriksson::UI

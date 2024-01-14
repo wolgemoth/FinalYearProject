@@ -20,18 +20,16 @@ namespace LouiEriksson::Game {
 	/// </summary>
 	class Ball final : public Script {
 	
-		friend class Scene;
-	
 	private:
 		
 		/// <summary> Mesh of the Ball. </summary>
-		inline static std::shared_ptr<Mesh> s_Mesh { nullptr };
+		inline static std::shared_ptr<Graphics::Mesh> s_Mesh { nullptr };
 		
 		/// <summary> Material of the Ball. </summary>
-		inline static std::weak_ptr<Material> s_Material;
+		inline static std::weak_ptr<Graphics::Material> s_Material;
 	
 		/// <summary> AudioSource component. </summary>
-		std::weak_ptr<AudioSource> m_AudioSource;
+		std::weak_ptr<Audio::AudioSource> m_AudioSource;
 		
 		/// <summary> Position of the ball when it spawned. </summary>
 		glm::vec3 m_StartingPosition;
@@ -51,11 +49,11 @@ namespace LouiEriksson::Game {
 		void FixedTick() override;
 		
 		/// <inheritdoc/>
-		void OnCollision(const Collision& _collision) override;
+		void OnCollision(const Physics::Collision& _collision) override;
 		
 	public:
 	
-		explicit Ball(const std::shared_ptr<GameObject>& _parent);
+		explicit Ball(const std::shared_ptr<ECS::GameObject>& _parent);
 		~Ball() override;
 	
 	};

@@ -5,7 +5,6 @@
 #include "../../engine/scripts/audio/AudioSource.h"
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Transform.h"
-#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
 
 #include <glm/ext/vector_float3.hpp>
@@ -21,21 +20,19 @@ namespace LouiEriksson::Game {
 	/// </summary>
 	class FlyCam final : public Script {
 	
-		friend class Scene;
-	
 	protected:
 	
 		/// <summary> Camera of the FlyCam. </summary>
-		std::weak_ptr<Camera> m_Camera;
+		std::weak_ptr<Graphics::Camera> m_Camera;
 	
 		/// <summary> Transform of the FlyCam. </summary>
 		std::weak_ptr<Transform> m_Transform;
 		
 		/// <summary> AudioListener component. </summary>
-		std::weak_ptr<AudioListener> m_AudioListener;
+		std::weak_ptr<Audio::AudioListener> m_AudioListener;
 		
 		/// <summary> AudioSource component for gun sounds. </summary>
-		std::weak_ptr<AudioSource> m_GunSound;
+		std::weak_ptr<Audio::AudioSource> m_GunSound;
 		
 		/// <summary> Current motion vector of the FlyCam. </summary>
 		glm::vec3 m_Motion;
@@ -60,7 +57,7 @@ namespace LouiEriksson::Game {
 		
 	public:
 	
-		explicit FlyCam(const std::shared_ptr<GameObject>& _parent);
+		explicit FlyCam(const std::shared_ptr<ECS::GameObject>& _parent);
 		~FlyCam() override;
 	
 	};

@@ -7,7 +7,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
 	class RenderTexture : public Texture {
 		
@@ -79,6 +79,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_RENDER_TEXTURE_H

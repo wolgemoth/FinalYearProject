@@ -5,8 +5,6 @@
 
 namespace LouiEriksson {
 	
-	class Application;
-	
 	class Time {
 	
 		friend class Application;

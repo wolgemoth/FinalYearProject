@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_PLANE_H
 
 #include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Material.h"
 #include "../../engine/scripts/graphics/Mesh.h"
 
@@ -17,15 +16,13 @@ namespace LouiEriksson::Game {
 	/// </summary>
 	class Plane final : public Script {
 	
-		friend class Scene;
-	
 	protected:
 	
 		/// <summary> Mesh of the Plane. </summary>
-		inline static std::shared_ptr<Mesh> m_Mesh { nullptr };
+		inline static std::shared_ptr<Graphics::Mesh> m_Mesh { nullptr };
 		
 		/// <summary> Material of the Plane. </summary>
-		inline static std::weak_ptr<Material> m_Material;
+		inline static std::weak_ptr<Graphics::Material> m_Material;
 	
 		/// <inheritdoc/>
 		void Begin() override;
@@ -35,7 +32,7 @@ namespace LouiEriksson::Game {
 	
 	public:
 	
-		explicit Plane(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Plane(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~Plane() override;
 	
 	};

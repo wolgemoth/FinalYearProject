@@ -1,20 +1,28 @@
 #ifndef FINALYEARPROJECT_MATERIAL_H
 #define FINALYEARPROJECT_MATERIAL_H
 
-#include "Shader.h"
-#include "Texture.h"
-
 #include <memory>
-
-class File;
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
 namespace LouiEriksson {
 	
+	class File;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
+	class Shader;
+	class Texture;
+	
+} // LouiEriksson::Graphics
+
+namespace LouiEriksson::Graphics {
+	
 	class Material {
 	
-		friend class File;
+		friend LouiEriksson::File;
 		
 	private:
 	
@@ -48,6 +56,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_MATERIAL_H

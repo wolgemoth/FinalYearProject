@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-#include "../utils/Hashmap.h"
+#include "../core/utils/Hashmap.h"
 
 #include <any>
 #include <memory>
@@ -11,7 +11,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::ECS {
 	
 	GameObject::GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
 			m_Scene(_scene),
@@ -38,4 +38,4 @@ namespace LouiEriksson {
 		return m_Scene;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::ECS

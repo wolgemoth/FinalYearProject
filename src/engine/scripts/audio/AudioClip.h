@@ -8,7 +8,7 @@
 #include <SDL_audio.h>
 #include <SDL_stdinc.h>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 	
 	class AudioClip {
 	
@@ -78,6 +78,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Audio
 
 #endif //FINALYEARPROJECT_AUDIOCLIP_H

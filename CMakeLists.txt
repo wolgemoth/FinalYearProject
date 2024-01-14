@@ -294,9 +294,9 @@ add_executable(FinalYearProject
         src/engine/scripts/physics/Rigidbody.h
         src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
-        src/engine/scripts/utils/Hashmap.h
-        src/engine/scripts/utils/Utils.cpp
-        src/engine/scripts/utils/Utils.h
+        src/engine/scripts/core/utils/Hashmap.h
+        src/engine/scripts/core/utils/Utils.cpp
+        src/engine/scripts/core/utils/Utils.h
 )
 
 add_library(Game

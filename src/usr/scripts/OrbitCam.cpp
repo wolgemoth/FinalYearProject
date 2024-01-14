@@ -5,6 +5,7 @@
 #include "../../engine/scripts/core/Time.h"
 #include "../../engine/scripts/core/Transform.h"
 #include "../../engine/scripts/ecs/GameObject.h"
+#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
 #include "../../engine/scripts/graphics/Light.h"
 
@@ -19,7 +20,7 @@
 
 namespace LouiEriksson::Game {
 	
-	OrbitCam::OrbitCam(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+	OrbitCam::OrbitCam(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			           m_Target(0.0f),
 			m_AnimationProgress(0.0f) {}
 	
@@ -48,9 +49,9 @@ namespace LouiEriksson::Game {
 			}
 			
 			// Get or add Camera.
-			m_Camera = s->Attach(Parent()->AddComponent<Camera>());
+			m_Camera = s->Attach(Parent()->AddComponent<Graphics::Camera>());
 			if (m_Camera.expired()) {
-				m_Camera = Parent()->AddComponent<Camera>();
+				m_Camera = Parent()->AddComponent<Graphics::Camera>();
 			}
 			
 			// Update the camera's parameters to match the ones in Settings.
@@ -65,12 +66,12 @@ namespace LouiEriksson::Game {
 			// Add a light to the scene for testing purposes.
 			// TODO: Add a light to the scene through the scene's file, not code.
 			{
-				auto light_gameObject = GameObject::Create(s->shared_from_this(), "Light");
+				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
 				s->Attach(light_gameObject);
 			
 				light_gameObject->AddComponent<Transform>();
 				
-				s->Attach(light_gameObject->AddComponent<Light>());
+				s->Attach(light_gameObject->AddComponent<Graphics::Light>());
 			}
 		}
 	}

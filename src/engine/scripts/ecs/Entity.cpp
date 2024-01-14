@@ -5,7 +5,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::ECS {
 	
 	void Entity::Name(const std::string& _name) {
 		m_Name = _name;
@@ -18,4 +18,4 @@ namespace LouiEriksson {
 		return m_Scene;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::ECS

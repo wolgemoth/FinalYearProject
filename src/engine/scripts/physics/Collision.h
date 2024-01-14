@@ -6,7 +6,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Physics {
 	
 	/// <summary>
 	/// Contains information describing a collision between a Rigidbody and a Collider.
@@ -40,6 +40,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Physics
 
 #endif //FINALYEARPROJECT_COLLISION_H

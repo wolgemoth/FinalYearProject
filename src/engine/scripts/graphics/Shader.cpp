@@ -1,8 +1,8 @@
 #include "Shader.h"
 
 #include "../core/File.h"
-#include "../utils/Hashmap.h"
-#include "../utils/Utils.h"
+#include "../core/utils/Hashmap.h"
+#include "../core/utils/Utils.h"
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_float2x2.hpp>
@@ -23,7 +23,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) noexcept :
 			m_Path(_path),
@@ -352,4 +352,4 @@ namespace LouiEriksson {
 		return m_ProgramID;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics

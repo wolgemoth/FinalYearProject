@@ -5,8 +5,10 @@
 #include "../../engine/scripts/core/Resources.h"
 #include "../../engine/scripts/core/Time.h"
 #include "../../engine/scripts/core/Transform.h"
+#include "../../engine/scripts/core/Window.h"
 #include "../../engine/scripts/ecs/Component.h"
 #include "../../engine/scripts/ecs/GameObject.h"
+#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
 #include "../../engine/scripts/graphics/Mesh.h"
 #include "../../engine/scripts/graphics/Renderer.h"
@@ -32,7 +34,7 @@
 
 namespace LouiEriksson::Game {
 
-	Player::Player(const std::shared_ptr<GameObject>& _parent) : Script(_parent),
+	Player::Player(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_NumObstacles     (15   ),
 			m_MinPlaneX        (-1.0f),
 			m_MaxPlaneX        (-1.0f),
@@ -66,14 +68,14 @@ namespace LouiEriksson::Game {
 				std::stringstream name;
 				name << "Floor_" << count;
 				
-				auto plane = s->Attach(GameObject::Create(s, name.str()));
+				auto plane = s->Attach(ECS::GameObject::Create(s, name.str()));
 				m_Planes.push_back(plane);
 				
 				// Compile shader.
 				auto surface = Resources::GetShader("pbr");
 				
 				// Load mesh.
-				std::shared_ptr<Mesh> mesh = nullptr;
+				std::shared_ptr<Graphics::Mesh> mesh = nullptr;
 				File::TryLoad("models/woodfloor/woodfloor.obj", mesh);
 				
 				// Create material from shader.
@@ -84,13 +86,13 @@ namespace LouiEriksson::Game {
 				transform->m_Rotation = glm::radians(glm::vec3(0.0f, 180.0f, 0.0f));
 				transform->m_Scale = glm::vec3(1.5f);
 				
-				auto renderer = s->Attach(plane->AddComponent<Renderer>());
+				auto renderer = s->Attach(plane->AddComponent<Graphics::Renderer>());
 				renderer->SetMesh(mesh);
 				renderer->SetMaterial(material);
 				renderer->SetTransform(transform);
 				
-				auto collider = plane->AddComponent<Collider>();
-				collider->SetType(Collider::Type::Plane);
+				auto collider = plane->AddComponent<Physics::Collider>();
+				collider->SetType(Physics::Collider::Type::Plane);
 				collider->SetTransform(transform);
 			}
 		}
@@ -101,9 +103,9 @@ namespace LouiEriksson::Game {
 		if (const auto s = Parent()->GetScene().lock()) {
 			
 			// Create and initialise camera object.
-			m_Camera = s->Attach(GameObject::Create(s, "Camera"));
+			m_Camera = s->Attach(ECS::GameObject::Create(s, "Camera"));
 			
-			auto cam = s->Attach(m_Camera.lock()->AddComponent<Camera>());
+			auto cam = s->Attach(m_Camera.lock()->AddComponent<Graphics::Camera>());
 			
 			auto transform = m_Camera.lock()->AddComponent<Transform>();
 			transform->m_Position = glm::vec3(7.0f, 5.0f, 0.0f);
@@ -122,13 +124,13 @@ namespace LouiEriksson::Game {
 		if (const auto s = Parent()->GetScene().lock()) {
 			
 			// Create an initialise curuthers object.
-			m_Player = s->Attach(GameObject::Create(s, "Curuthers"));
+			m_Player = s->Attach(ECS::GameObject::Create(s, "Curuthers"));
 			
 			// Compile shader.
 			auto surface = Resources::GetShader("pbr");
 			
 			// Load mesh.
-			std::shared_ptr<Mesh> mesh = nullptr;
+			std::shared_ptr<Graphics::Mesh> mesh = nullptr;
 			File::TryLoad("models/curuthers/curuthers.obj", mesh);
 			
 			// Create material from shader.
@@ -141,7 +143,7 @@ namespace LouiEriksson::Game {
 			//transform->m_Position = glm::vec3(0, -1, 0);
 			transform->m_Rotation = glm::radians(glm::vec3(0.0f, 90.0f, 0.0f));
 			
-			auto renderer = s->Attach(m_Player.lock()->AddComponent<Renderer>());
+			auto renderer = s->Attach(m_Player.lock()->AddComponent<Graphics::Renderer>());
 			renderer->SetMesh(mesh);
 			renderer->SetMaterial(material);
 			renderer->SetTransform(transform);
@@ -163,9 +165,9 @@ namespace LouiEriksson::Game {
 				std::stringstream name;
 				name << "Ball_" << i;
 				
-				auto obstacle = s->Attach(GameObject::Create(s, name.str()));
+				auto obstacle = s->Attach(ECS::GameObject::Create(s, name.str()));
 				
-				std::shared_ptr<Mesh> mesh = nullptr;
+				std::shared_ptr<Graphics::Mesh> mesh = nullptr;
 				File::TryLoad("models/sphere/sphere.obj", mesh);
 				
 				// Compile shader.
@@ -186,7 +188,7 @@ namespace LouiEriksson::Game {
 				);
 				
 				// Get or add renderer.
-				auto renderer = s->Attach(obstacle->AddComponent<Renderer>());
+				auto renderer = s->Attach(obstacle->AddComponent<Graphics::Renderer>());
 				
 				renderer->SetMesh(mesh);
 				renderer->SetMaterial(material);
@@ -228,7 +230,7 @@ namespace LouiEriksson::Game {
 		cam->m_Rotation = glm::slerp(cam->m_Rotation, targetRot, Time::DeltaTime() * m_CameraSpeed);
 		
 		/* MOVE PLAYER */
-		auto direction = static_cast<float>(Input::Key::Get(SDL_SCANCODE_A) - Input::Key::Get(SDL_SCANCODE_D));
+		auto direction = static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_A) - Input::Input::Key::Get(SDL_SCANCODE_D));
 		
 		auto l = player->ToWorld(glm::vec3(1, 0, 0));
 		auto t = player->m_Position + (player->RIGHT * direction * Time::DeltaTime() * m_PlayerSpeed);

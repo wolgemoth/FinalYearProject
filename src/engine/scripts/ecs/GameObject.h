@@ -1,9 +1,7 @@
 #ifndef FINALYEARPROJECT_GAMEOBJECT_H
 #define FINALYEARPROJECT_GAMEOBJECT_H
 
-#include "../utils/Hashmap.h"
-
-#include "Component.h"
+#include "../core/utils/Hashmap.h"
 
 #include <any>
 #include <cstddef>
@@ -18,15 +16,20 @@
 
 namespace LouiEriksson {
 	
-	class Scene;
 	class Script;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::ECS {
+	
 	class Component;
+	class Scene;
 	
 	/// <summary> An Entity which exists in a Scene and can contain Components. </summary>
 	class GameObject final : public std::enable_shared_from_this<GameObject> {
 		
-		friend class Component;
-		friend class Scene;
+		friend Component;
+		friend Scene;
 	
 	private:
 	
@@ -160,6 +163,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::ECS
 
 #endif //FINALYEARPROJECT_GAMEOBJECT_H

@@ -11,9 +11,9 @@
 
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Audio {
 	
-	AudioListener::AudioListener(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent),
+	AudioListener::AudioListener(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
 			m_Gain        (1.0f),
 			m_LastPosition(0.0f) {}
 	
@@ -49,7 +49,7 @@ namespace LouiEriksson {
 			{
 				glm::vec3 velocity;
 				
-				const auto rigidbody = Parent()->GetComponent<Rigidbody>();
+				const auto rigidbody = Parent()->GetComponent<Physics::Rigidbody>();
 				
 				if (rigidbody != nullptr) {
 					velocity = rigidbody->Velocity();
@@ -77,4 +77,4 @@ namespace LouiEriksson {
 		return m_Gain;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Audio

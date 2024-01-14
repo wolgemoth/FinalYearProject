@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_PLAYER_H
 
 #include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/ecs/Scene.h"
 
 #include <glm/ext/vector_float3.hpp>
 
@@ -15,21 +14,19 @@ namespace LouiEriksson::Game {
 	
 	class Player final : public Script {
 	
-		friend class Scene;
-	
 	private:
 		
 		/// <summary> Test model curuthers. </summary>
-		std::weak_ptr<GameObject> m_Player;
+		std::weak_ptr<ECS::GameObject> m_Player;
 		
 		/// <summary> Player Camera. </summary>
-		std::weak_ptr<GameObject> m_Camera;
+		std::weak_ptr<ECS::GameObject> m_Camera;
 		
 		/// <summary> Floor planes. </summary>
-		std::vector<std::weak_ptr<GameObject>> m_Planes;
+		std::vector<std::weak_ptr<ECS::GameObject>> m_Planes;
 		
 		/// <summary> Obstacles. </summary>
-		std::vector<std::weak_ptr<GameObject>> m_Obstacles;
+		std::vector<std::weak_ptr<ECS::GameObject>> m_Obstacles;
 		
 		int m_NumObstacles;
 		
@@ -62,7 +59,7 @@ namespace LouiEriksson::Game {
 	
 	public:
 	
-		 explicit Player(const std::shared_ptr<GameObject>& _parent);
+		 explicit Player(const std::shared_ptr<ECS::GameObject>& _parent);
 		~Player() override;
 	
 	};

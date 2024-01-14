@@ -24,7 +24,7 @@
 #include <SDL.h>                    // SDL2
 
 /* INTERNAL */
-#include "engine/scripts/utils/Hashmap.h"
+#include "engine/scripts/core//utils/Hashmap.h"
 
 /* STL */
 #include <algorithm>

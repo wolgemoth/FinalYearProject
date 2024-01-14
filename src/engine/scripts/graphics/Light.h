@@ -1,7 +1,6 @@
 #ifndef FINALYEARPROJECT_LIGHT_H
 #define FINALYEARPROJECT_LIGHT_H
 
-#include "../core/Transform.h"
 #include "../ecs/Component.h"
 
 #include <GL/glew.h>
@@ -12,11 +11,17 @@
 
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GEP.
 
-class Camera;
-
 namespace LouiEriksson {
 	
-	class Light : public Component {
+	class Transform;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
+	class Camera;
+	
+	class Light : public ECS::Component {
 	
 		friend Camera;
 		
@@ -70,7 +75,7 @@ namespace LouiEriksson {
 			
 		};
 		
-		explicit Light(const std::shared_ptr<GameObject>& _parent);
+		explicit Light(const std::shared_ptr<ECS::GameObject>& _parent);
 		~Light() override;
 		
 		void Type(const Light::Parameters::Type& _type);
@@ -93,6 +98,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_LIGHT_H

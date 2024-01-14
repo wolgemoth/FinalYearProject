@@ -16,9 +16,16 @@
 
 namespace LouiEriksson {
 	
+	class Application;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Physics {
+	
 	class Physics {
 	
-		friend class Application;
+		friend LouiEriksson::Application;
+		
 		friend class Rigidbody;
 		
 	private:
@@ -108,6 +115,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Physics
 
 #endif //FINALYEARPROJECT_PHYSICS_H

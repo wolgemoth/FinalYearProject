@@ -11,9 +11,15 @@
 
 namespace LouiEriksson {
 	
+	class File;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
 	class Mesh {
 	
-		friend class File;
+		friend LouiEriksson::File;
 		
 	private:
 		
@@ -86,6 +92,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_MODEL_H

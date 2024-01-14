@@ -17,9 +17,9 @@
 
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Graphics {
 	
-	Light::Light(const std::shared_ptr<GameObject>& _parent) : Component(_parent),
+	Light::Light(const std::shared_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
 			m_Intensity(  3.0f),
 			m_Range    (200.0f),
 			m_Angle    (120.0f),
@@ -220,4 +220,4 @@ namespace LouiEriksson {
 		}
 	}
 
-} // LouiEriksson
+} // LouiEriksson::Graphics

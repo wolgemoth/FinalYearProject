@@ -3,21 +3,28 @@
 
 #include "GL/glew.h"
 
-class Cubemap;
-
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
 namespace LouiEriksson {
 	
+	class File;
+	class Resources;
+	class Settings;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
 	class Texture {
+		
+		friend LouiEriksson::File;
+		friend LouiEriksson::Resources;
+		friend LouiEriksson::Settings;
 	
 		friend class Camera;
 		friend class Cubemap;
-		friend class File;
 		friend class Light;
 		friend class RenderTexture;
-		friend class Resources;
-		friend class Settings;
 		
 	public:
 	
@@ -153,6 +160,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_TEXTURE_H

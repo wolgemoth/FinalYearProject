@@ -9,9 +9,9 @@
 
 // @Assessor: This class was originally created for PFG but has since been modified. Please mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Physics {
 	
-	SphereCollider::SphereCollider(const std::shared_ptr<GameObject>& _parent) : Collider(_parent) {
+	SphereCollider::SphereCollider(const std::shared_ptr<ECS::GameObject>& _parent) : Collider(_parent) {
 		
 		// Initialise the collision shape as a sphere.
 		m_CollisionShape.reset(new btSphereShape(0.5f));
@@ -35,4 +35,4 @@ namespace LouiEriksson {
 		return sphereCollider->getRadius();
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Physics

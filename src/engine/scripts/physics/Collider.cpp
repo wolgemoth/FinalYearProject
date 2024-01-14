@@ -9,9 +9,9 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Physics {
 	
-	Collider::Collider(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent),
+	Collider::Collider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
 			m_CollisionShape(nullptr),
 			m_Type() {}
 	
@@ -36,4 +36,4 @@ namespace LouiEriksson {
 		return m_Type;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Physics

@@ -1,11 +1,7 @@
 #ifndef FINALYEARPROJECT_RENDERER_H
 #define FINALYEARPROJECT_RENDERER_H
 
-#include "../core/Transform.h"
 #include "../ecs/Component.h"
-
-#include "Material.h"
-#include "Mesh.h"
 
 #include <memory>
 
@@ -13,7 +9,20 @@
 
 namespace LouiEriksson {
 	
-	class Renderer : public Component {
+	class Transform;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
+	class Material;
+	class Mesh;
+	
+} // LouiEriksson::Graphics
+
+namespace LouiEriksson::Graphics {
+	
+	class Renderer : public ECS::Component {
 	
 	private:
 	
@@ -28,7 +37,7 @@ namespace LouiEriksson {
 	
 	public:
 	
-		explicit Renderer(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Renderer(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~Renderer() override;
 	
 		/// <summary> Set the Mesh of the Renderer. </summary>
@@ -51,6 +60,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Graphics
 
 #endif //FINALYEARPROJECT_RENDERER_H

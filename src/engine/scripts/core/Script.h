@@ -7,21 +7,31 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
-
-	class Collision;
+namespace LouiEriksson::ECS {
+	
 	class Scene;
 	
+} // LouiEriksson::ECS
+
+namespace LouiEriksson::Physics {
+	
+	class Camera;
+	class Collision;
+	
+} // LouiEriksson::Physics
+
+namespace LouiEriksson {
+
 	/// <summary>
 	/// Base class to be inherited by scriptable types.
 	/// </summary>
-	class Script : public Component {
+	class Script : public ECS::Component {
 	
-		friend class Scene;
+		friend ECS::Scene;
 	
 	protected:
 	
-		explicit Script(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Script(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
 		~Script() override = default;
 	
 		/// <summary> Called at the beginning of the first frame. </summary>
@@ -34,7 +44,7 @@ namespace LouiEriksson {
 		virtual void FixedTick();
 		
 		/// <summary> Called every time a collision event occurs. </summary>
-		virtual void OnCollision(const Collision& _collision);
+		virtual void OnCollision(const Physics::Collision& _collision);
 		
 	};
 	

@@ -29,7 +29,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Physics {
 	
 	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) :
 			m_MotionState(new btDefaultMotionState())
@@ -169,7 +169,7 @@ namespace LouiEriksson {
 			
 			m_Inertia(1.0f, 1.0f, 1.0f) {}
 	
-	Rigidbody::Rigidbody(const std::shared_ptr<GameObject>& _parent) noexcept : Component(_parent) {}
+	Rigidbody::Rigidbody(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
 	void Rigidbody::Interpolate() {
 		
@@ -462,4 +462,4 @@ namespace LouiEriksson {
 		return m_Parameters.m_Bounciness;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Physics

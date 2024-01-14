@@ -3,8 +3,8 @@
 
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Transform.h"
-#include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
+#include "../../engine/scripts/core/Window.h"
 
 #include <glm/ext/vector_float3.hpp>
 
@@ -19,12 +19,10 @@ namespace LouiEriksson::Game {
 	/// </summary>
 	class OrbitCam final : public Script {
 	
-		friend class Scene;
-	
 	protected:
 	
 		/// <summary> Camera of the OrbitCam. </summary>
-		std::weak_ptr<Camera> m_Camera;
+		std::weak_ptr<Graphics::Camera> m_Camera;
 	
 		/// <summary>
 		/// Transform of the OrbitCam.
@@ -48,7 +46,7 @@ namespace LouiEriksson::Game {
 		
 	public:
 	
-		explicit OrbitCam(const std::shared_ptr<GameObject>& _parent);
+		explicit OrbitCam(const std::shared_ptr<ECS::GameObject>& _parent);
 		~OrbitCam() override;
 		
 	};

@@ -1,10 +1,7 @@
 #ifndef FINALYEARPROJECT_WINDOW_H
 #define FINALYEARPROJECT_WINDOW_H
 
-#include "../graphics/Camera.h"
-#include "../utils/Hashmap.h"
-
-#include "Time.h"
+#include "../core/utils/Hashmap.h"
 
 #include <glm/ext/vector_int2.hpp>
 #include <SDL_stdinc.h>
@@ -15,14 +12,19 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
-
+namespace LouiEriksson::Graphics {
+	
 	class Camera;
 	
+} // LouiEriksson::Graphics
+
+namespace LouiEriksson {
+
 	class Window {
 	
 		friend class Application;
-		friend class Camera;
+		
+		friend Graphics::Camera;
 	
 	private:
 		
@@ -33,10 +35,10 @@ namespace LouiEriksson {
 	
 		std::shared_ptr<SDL_Window> m_Window;
 	
-		Hashmap<int, std::reference_wrapper<Camera>> m_Cameras;
+		Hashmap<int, std::reference_wrapper<Graphics::Camera>> m_Cameras;
 	
-		void   Link(Camera& _camera);
-		void Unlink(Camera& _camera);
+		void   Link(Graphics::Camera& _camera);
+		void Unlink(Graphics::Camera& _camera);
 	
 		 Window(const int& _width, const int& _height, const char* _name, bool _fullscreen = false, bool _hdr10 = true);
 		~Window() = default;

@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_GUI_H
 #define FINALYEARPROJECT_GUI_H
 
-#include "../core/Window.h"
-
 #include <imgui.h>
 #include <SDL_events.h>
 
@@ -12,10 +10,23 @@
 
 namespace LouiEriksson {
 	
-	class GUI {
+	class Application;
+	class Window;
 	
-		friend class Application;
-		friend class Input;
+} // LouiEriksson
+
+namespace LouiEriksson::Input {
+	
+	class Input;
+	
+} // LouiEriksson::Input
+
+namespace LouiEriksson::UI {
+	
+	class GUI {
+		
+		friend LouiEriksson::Application;
+		friend LouiEriksson::Input::Input;
 		
 	private:
 	
@@ -68,6 +79,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::UI
 
 #endif //FINALYEARPROJECT_GUI_H

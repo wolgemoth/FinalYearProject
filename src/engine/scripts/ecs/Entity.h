@@ -1,9 +1,7 @@
 #ifndef FINALYEARPROJECT_GAMEOBJECT_H
 #define FINALYEARPROJECT_GAMEOBJECT_H
 
-#include "../utils/Hashmap.h"
-
-#include "Component.h"
+#include "../core/utils/Hashmap.h"
 
 #include <cstddef>
 #include <memory>
@@ -16,14 +14,15 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::ECS {
 	
+	class Component;
 	class Scene;
 	
 	class Entity final {
 	
-		friend class Component;
-		friend class Scene;
+		friend Component;
+		friend Scene;
 	
 	private:
 	
@@ -128,6 +127,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::ECS
 
 #endif //FINALYEARPROJECT_GAMEOBJECT_H
