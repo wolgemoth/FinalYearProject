@@ -31,6 +31,9 @@
 *.out
 *.app
 
+# Doxygen File
+Doxyfile
+
 /cmake-build-debug
 /cmake-build-debug/**
 
