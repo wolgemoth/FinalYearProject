@@ -2,7 +2,7 @@
 \label{class_loui_eriksson_1_1_e_c_s_1_1_game_object}\index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}}
 
 
-An \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_entity}{Entity}} which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} and can contain Components.  
+An Entity which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} and can contain Components.  
 
 
 
@@ -16,7 +16,7 @@ Inheritance diagram for Loui\+Eriksson\+::ECS\+::Game\+Object\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=244pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object__inherit__graph}
+\includegraphics[width=248pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -26,7 +26,7 @@ Collaboration diagram for Loui\+Eriksson\+::ECS\+::Game\+Object\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=244pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object__coll__graph}
+\includegraphics[width=248pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -38,10 +38,10 @@ const std\+::string \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_o
 \begin{DoxyCompactList}\small\item\em Get the name of the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
 const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_aa144649bb5d3c77a275dac699287062b}{Get\+Scene}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} belongs to. \end{DoxyCompactList}\item 
-const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::any $>$ $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ae0bb43e95e24eed4cdeeb8a83c51539b}{Components}} () const noexcept
-\begin{DoxyCompactList}\small\item\em Get the components attached to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ std\+::any $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c}{Get\+Components}} () const
-\begin{DoxyCompactList}\small\item\em Get components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a28b3935eccb03f349ae9323ea1f85e79}{Components}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the Components attached to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ std\+::shared\+\_\+ptr$<$ T $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25}{Get\+Components}} () const
+\begin{DoxyCompactList}\small\item\em Get Components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3110e09c96e9e75d2234780106342caa}{Get\+Component}} (size\+\_\+t \+\_\+index=0) const
 \begin{DoxyCompactList}\small\item\em Get a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} of type in the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} by index. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab56bd34cae2a10dbcf68e09e4c0839a2}{Add\+Component}} ()
@@ -56,11 +56,11 @@ static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_
 
 
 \doxysubsection{Detailed Description}
-An \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_entity}{Entity}} which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} and can contain Components. 
+An Entity which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} and can contain Components. 
 
 
 
-Definition at line 29 of file Game\+Object.\+h.
+Definition at line 28 of file Game\+Object.\+h.
 
 
 
@@ -86,7 +86,7 @@ std\+::shared\+\_\+ptr$<$\+T$>$ referencing the created type.
 \end{DoxyReturn}
 
 
-Definition at line 113 of file Game\+Object.\+h.
+Definition at line 112 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -96,19 +96,19 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab56bd34cae2a10dbcf68e09e4c0839a2_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ae0bb43e95e24eed4cdeeb8a83c51539b}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ae0bb43e95e24eed4cdeeb8a83c51539b}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a28b3935eccb03f349ae9323ea1f85e79}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a28b3935eccb03f349ae9323ea1f85e79}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Components@{Components}}
 \index{Components@{Components}!LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}}
 \doxysubsubsection{\texorpdfstring{Components()}{Components()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::any $>$ $>$ \& Loui\+Eriksson\+::\+ECS\+::\+Game\+Object\+::\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& Loui\+Eriksson\+::\+ECS\+::\+Game\+Object\+::\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
-Get the components attached to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. 
+Get the Components attached to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. 
 
 
 
-Definition at line 26 of file Game\+Object.\+cpp.
+Definition at line 29 of file Game\+Object.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a7e07424f76cf318be4156f06ce4a4b97}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a7e07424f76cf318be4156f06ce4a4b97}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Create@{Create}}
@@ -122,7 +122,7 @@ Factory function which creates a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_
 
 
 
-Definition at line 20 of file Game\+Object.\+cpp.
+Definition at line 21 of file Game\+Object.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -150,15 +150,15 @@ Get a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} 
 \end{DoxyTemplParams}
 
 \begin{DoxyParams}{Parameters}
-{\em \+\_\+index} & Index of the component.\\
+{\em \+\_\+index} & Index of the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-std\+::shared\+\_\+ptr$<$\+T$>$ Referencing the component if successful. std\+::weak\+\_\+ptr$<$\+T$>$ referencing a nullptr if unsuccessful.
+std\+::shared\+\_\+ptr$<$\+T$>$ Referencing the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} if successful. std\+::weak\+\_\+ptr$<$\+T$>$ referencing a nullptr if unsuccessful.
 \end{DoxyReturn}
 
 
-Definition at line 93 of file Game\+Object.\+h.
+Definition at line 92 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -168,16 +168,16 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3110e09c96e9e75d2234780106342caa_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!GetComponents@{GetComponents}}
 \index{GetComponents@{GetComponents}!LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}}
 \doxysubsubsection{\texorpdfstring{GetComponents()}{GetComponents()}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
-std\+::vector$<$std\+::any$>$ Loui\+Eriksson\+::\+ECS\+::\+Game\+Object\+::\+Get\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::vector$<$std\+::shared\+\_\+ptr$<$T$>$ $>$ Loui\+Eriksson\+::\+ECS\+::\+Game\+Object\+::\+Get\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Get components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. 
+Get Components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
@@ -185,18 +185,18 @@ Get components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-Vector of std\+::any wrapping a std\+::shared\+\_\+ptr$<$\+T$>$
+Vector of std\+::shared\+\_\+ptr$<$\+T$>$ wrapping a std\+::shared\+\_\+ptr$<$\+T$>$
 \end{DoxyReturn}
 
 
-Definition at line 73 of file Game\+Object.\+h.
+Definition at line 72 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c_cgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_aa144649bb5d3c77a275dac699287062b}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_aa144649bb5d3c77a275dac699287062b}} 
@@ -211,7 +211,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} the \m
 
 
 
-Definition at line 37 of file Game\+Object.\+cpp.
+Definition at line 40 of file Game\+Object.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab1068c29cb3e2a9e3d1f43d347c2f52b}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab1068c29cb3e2a9e3d1f43d347c2f52b}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Name@{Name}}
@@ -225,7 +225,7 @@ Get the name of the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_obje
 
 
 
-Definition at line 33 of file Game\+Object.\+cpp.
+Definition at line 36 of file Game\+Object.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ac47d7fe5c08856564af31faba532b3f2}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ac47d7fe5c08856564af31faba532b3f2}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Name@{Name}}
@@ -239,7 +239,7 @@ Set the name of the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_obje
 
 
 
-Definition at line 30 of file Game\+Object.\+cpp.
+Definition at line 33 of file Game\+Object.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a2ad1a152085209e278adda62227a996c}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a2ad1a152085209e278adda62227a996c}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!RemoveComponent@{RemoveComponent}}
@@ -264,7 +264,7 @@ Remove a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component
 \end{DoxyParams}
 
 
-Definition at line 150 of file Game\+Object.\+h.
+Definition at line 149 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak

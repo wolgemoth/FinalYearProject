@@ -1,10 +1,8 @@
 <map id="LouiEriksson::Hashmap::size" name="LouiEriksson::Hashmap::size">
-<area shape="rect" id="node1" title="Returns the number of items stored within the Hashmap." alt="" coords="519,136,693,177"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="264,78,471,105"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_hashmap.html#a5e4fdb966120278c87601959c51124af" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="280,136,455,177"/>
-<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_hashmap.html#a2dd66e3c1416274673c6325dcefd8e54" title="Trims unused entries from the end of the Hashmap." alt="" coords="280,201,455,243"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#aaa68174dc61e8ed2c0a13ba071b52240" title=" " alt="" coords="27,5,194,47"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2" title="Add a Component of type to the GameObject." alt="" coords="5,71,216,112"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a5f5e1b7c7232fba6039db8de30a44939" title="Attach an instance of a type to the Scene." alt="" coords="38,136,183,177"/>
-<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="26,201,195,243"/>
+<area shape="rect" id="node1" title="Returns the number of items stored within the Hashmap." alt="" coords="519,69,693,111"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="264,15,471,42"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_hashmap.html#a5e4fdb966120278c87601959c51124af" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="280,69,455,111"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_hashmap.html#a2dd66e3c1416274673c6325dcefd8e54" title="Trims unused entries from the end of the Hashmap." alt="" coords="280,135,455,176"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2" title="Add a Component of type to the GameObject." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="26,71,195,112"/>
 </map>

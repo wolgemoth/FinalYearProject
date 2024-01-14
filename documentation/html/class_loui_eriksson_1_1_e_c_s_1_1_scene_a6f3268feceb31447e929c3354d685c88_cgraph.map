@@ -1,5 +1,4 @@
 <map id="LouiEriksson::ECS::Scene::FixedTick" name="LouiEriksson::ECS::Scene::FixedTick">
-<area shape="rect" id="node1" title="Called every physics update." alt="" coords="5,35,151,76"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a7f1b7c65abcd9394de70b34a9c6fb8d8" title="Retrieve the list of collisions for the current tick of the physics engine." alt="" coords="219,5,384,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="199,71,404,98"/>
+<area shape="rect" id="node1" title="Called every physics update." alt="" coords="5,5,151,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a7f1b7c65abcd9394de70b34a9c6fb8d8" title="Retrieve the list of collisions for the current tick of the physics engine." alt="" coords="199,5,364,47"/>
 </map>

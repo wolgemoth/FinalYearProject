@@ -30,22 +30,27 @@ namespace LouiEriksson::Input {
 	
 	public:
 	
+		/// <summary> Provides an interface for detecting SDL_Events. </summary>
 		struct Event {
 		
 			friend Input;
 		
 		private:
 		
+			/// <summary> Hashmap of all SDL_Events for this frame. </summary>
 			inline static Hashmap<Uint32, std::vector<SDL_Event>> s_Events;
 
 		public:
 		
+			/// <summary> Get all events of a certain type which occurred this frame. </summary>
 			static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept;
 			
+			/// <summary> Check if an event occurred this frame. </summary>
 			static bool Get(const Uint32& _event) noexcept;
 			
 		};
-		
+	
+		/// <summary> Provides an interface for detecting key presses. </summary>
 		struct Key {
 		
 			friend Input;
@@ -75,8 +80,8 @@ namespace LouiEriksson::Input {
 				
 			};
 			
-			inline static State s_PreviousKeyboardState{};
-			inline static State  s_CurrentKeyboardState{};
+			inline static State s_PreviousKeyboardState{}; // Keyboard state previous tick.
+			inline static State  s_CurrentKeyboardState{}; // Keyboard state current tick.
 		
 		public:
 			
@@ -100,14 +105,17 @@ namespace LouiEriksson::Input {
 			
 		};
 		
+		/// <summary> Provides an interface for detecting mouse input. </summary>
 		struct Mouse {
 		
 			friend Input;
 		
 		private:
 			
+			/// <summary> SDL mouse relative state. </summary>
 			inline static Uint32 s_RelativeState { 0u };
 			
+			/// <summary> Pixels the mouse has moved since previous tick. </summary>
 			inline static glm::vec2 s_Motion { 0.0f, 0.0f };
 			
 		public:

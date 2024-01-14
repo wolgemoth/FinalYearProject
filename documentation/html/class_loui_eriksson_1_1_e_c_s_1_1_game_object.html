@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('class_loui_eriksson_1_1_e_c_s_1_1_game
 </div><!--header-->
 <div class="contents">
 
-<p>An <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_entity.html">Entity</a> which exists in a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> and can contain Components.  
+<p>An Entity which exists in a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> and can contain Components.  
  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_game_object_8h_source.html">GameObject.h</a>&gt;</code></p>
@@ -99,8 +99,8 @@ Inheritance diagram for LouiEriksson::ECS::GameObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_e_c_s_1_1_game_object__inherit__graph.png" border="0" usemap="#a_loui_eriksson_1_1_e_c_s_1_1_game_object_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_loui_eriksson_1_1_e_c_s_1_1_game_object_inherit__map" id="a_loui_eriksson_1_1_e_c_s_1_1_game_object_inherit__map">
-<area shape="rect" title="An Entity which exists in a Scene and can contain Components." alt="" coords="5,145,224,589"/>
-<area shape="rect" title=" " alt="" coords="13,5,216,97"/>
+<area shape="rect" title="An Entity which exists in a Scene and can contain Components." alt="" coords="5,145,229,619"/>
+<area shape="rect" title=" " alt="" coords="16,5,219,97"/>
 </map>
 </div>
 <div class="dynheader">
@@ -108,8 +108,8 @@ Collaboration diagram for LouiEriksson::ECS::GameObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_loui_eriksson_1_1_e_c_s_1_1_game_object__coll__graph.png" border="0" usemap="#a_loui_eriksson_1_1_e_c_s_1_1_game_object_coll__map" alt="Collaboration graph"/></div>
 <map name="a_loui_eriksson_1_1_e_c_s_1_1_game_object_coll__map" id="a_loui_eriksson_1_1_e_c_s_1_1_game_object_coll__map">
-<area shape="rect" title="An Entity which exists in a Scene and can contain Components." alt="" coords="5,145,224,589"/>
-<area shape="rect" title=" " alt="" coords="13,5,216,97"/>
+<area shape="rect" title="An Entity which exists in a Scene and can contain Components." alt="" coords="5,145,229,619"/>
+<area shape="rect" title=" " alt="" coords="16,5,219,97"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -124,13 +124,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa144649bb5d3c77a275dac699287062b"><td class="memItemLeft" align="right" valign="top">const std::weak_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">GetScene</a> () const noexcept</td></tr>
 <tr class="memdesc:aa144649bb5d3c77a275dac699287062b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a> belongs to.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">More...</a><br /></td></tr>
 <tr class="separator:aa144649bb5d3c77a275dac699287062b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0bb43e95e24eed4cdeeb8a83c51539b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_loui_eriksson_1_1_hashmap.html">Hashmap</a>&lt; std::type_index, std::vector&lt; std::any &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ae0bb43e95e24eed4cdeeb8a83c51539b">Components</a> () const noexcept</td></tr>
-<tr class="memdesc:ae0bb43e95e24eed4cdeeb8a83c51539b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the components attached to the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ae0bb43e95e24eed4cdeeb8a83c51539b">More...</a><br /></td></tr>
-<tr class="separator:ae0bb43e95e24eed4cdeeb8a83c51539b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf5785a0ec40121c28338a6a6fcef84c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:acf5785a0ec40121c28338a6a6fcef84c"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::any &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c">GetComponents</a> () const</td></tr>
-<tr class="memdesc:acf5785a0ec40121c28338a6a6fcef84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get components of type attached to <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c">More...</a><br /></td></tr>
-<tr class="separator:acf5785a0ec40121c28338a6a6fcef84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b3935eccb03f349ae9323ea1f85e79"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_loui_eriksson_1_1_hashmap.html">Hashmap</a>&lt; std::type_index, std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">Component</a> &gt; &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a28b3935eccb03f349ae9323ea1f85e79">Components</a> () const noexcept</td></tr>
+<tr class="memdesc:a28b3935eccb03f349ae9323ea1f85e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Components attached to the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a28b3935eccb03f349ae9323ea1f85e79">More...</a><br /></td></tr>
+<tr class="separator:a28b3935eccb03f349ae9323ea1f85e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e5bfc3af5540b457ee3dfd8f01d9a25"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a3e5bfc3af5540b457ee3dfd8f01d9a25"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25">GetComponents</a> () const</td></tr>
+<tr class="memdesc:a3e5bfc3af5540b457ee3dfd8f01d9a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Components of type attached to <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25">More...</a><br /></td></tr>
+<tr class="separator:a3e5bfc3af5540b457ee3dfd8f01d9a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3110e09c96e9e75d2234780106342caa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3110e09c96e9e75d2234780106342caa"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">GetComponent</a> (size_t _index=0) const</td></tr>
 <tr class="memdesc:a3110e09c96e9e75d2234780106342caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject.">Component</a> of type in the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a> by index.  <a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">More...</a><br /></td></tr>
@@ -151,9 +151,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7e07424f76cf318be4156f06ce4a4b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_entity.html">Entity</a> which exists in a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> and can contain Components. </p>
+<div class="textblock"><p>An Entity which exists in a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> and can contain Components. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00029">29</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00028">28</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab56bd34cae2a10dbcf68e09e4c0839a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab56bd34cae2a10dbcf68e09e4c0839a2">&#9670;&nbsp;</a></span>AddComponent()</h2>
@@ -189,7 +189,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;T&gt; referencing the created type.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00113">113</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00112">112</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -204,8 +204,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ae0bb43e95e24eed4cdeeb8a83c51539b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0bb43e95e24eed4cdeeb8a83c51539b">&#9670;&nbsp;</a></span>Components()</h2>
+<a id="a28b3935eccb03f349ae9323ea1f85e79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b3935eccb03f349ae9323ea1f85e79">&#9670;&nbsp;</a></span>Components()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +214,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="class_loui_eriksson_1_1_hashmap.html">Hashmap</a>&lt; std::type_index, std::vector&lt; std::any &gt; &gt; &amp; LouiEriksson::ECS::GameObject::Components </td>
+          <td class="memname">const <a class="el" href="class_loui_eriksson_1_1_hashmap.html">Hashmap</a>&lt; std::type_index, std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">Component</a> &gt; &gt; &gt; &amp; LouiEriksson::ECS::GameObject::Components </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -227,9 +227,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the components attached to the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
+<p>Get the Components attached to the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00026">26</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00029">29</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -269,7 +269,7 @@ Here is the call graph for this function:</div>
 
 <p>Factory function which creates a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a> within a <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00020">20</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00021">21</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -326,13 +326,13 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_index</td><td>Index of the component.</td></tr>
+    <tr><td class="paramname">_index</td><td>Index of the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject.">Component</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;T&gt; Referencing the component if successful. std::weak_ptr&lt;T&gt; referencing a nullptr if unsuccessful.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;T&gt; Referencing the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject.">Component</a> if successful. std::weak_ptr&lt;T&gt; referencing a nullptr if unsuccessful.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00093">93</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00092">92</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -345,8 +345,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="acf5785a0ec40121c28338a6a6fcef84c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf5785a0ec40121c28338a6a6fcef84c">&#9670;&nbsp;</a></span>GetComponents()</h2>
+<a id="a3e5bfc3af5540b457ee3dfd8f01d9a25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5bfc3af5540b457ee3dfd8f01d9a25">&#9670;&nbsp;</a></span>GetComponents()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +357,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::any&gt; LouiEriksson::ECS::GameObject::GetComponents </td>
+          <td class="memname">std::vector&lt;std::shared_ptr&lt;T&gt; &gt; LouiEriksson::ECS::GameObject::GetComponents </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -370,22 +370,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get components of type attached to <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
+<p>Get Components of type attached to <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Type to be searched.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Vector of std::any wrapping a std::shared_ptr&lt;T&gt;</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of std::shared_ptr&lt;T&gt; wrapping a std::shared_ptr&lt;T&gt;</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00073">73</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00072">72</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c_cgraph" alt=""/></div>
-<map name="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c_cgraph" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_acf5785a0ec40121c28338a6a6fcef84c_cgraph">
-<area shape="rect" title="Get components of type attached to GameObject." alt="" coords="5,5,221,47"/>
+<div class="center"><img src="class_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25_cgraph.png" border="0" usemap="#aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25_cgraph" alt=""/></div>
+<map name="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25_cgraph" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_a3e5bfc3af5540b457ee3dfd8f01d9a25_cgraph">
+<area shape="rect" title="Get Components of type attached to GameObject." alt="" coords="5,5,221,47"/>
 <area shape="rect" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="269,13,475,39"/>
 </map>
 </div>
@@ -417,7 +417,7 @@ Here is the call graph for this function:</div>
 
 <p>Get the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a> the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a> belongs to. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00037">37</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00040">40</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -446,7 +446,7 @@ Here is the call graph for this function:</div>
 
 <p>Get the name of the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00033">33</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00036">36</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -476,7 +476,7 @@ Here is the call graph for this function:</div>
 
 <p>Set the name of the <a class="el" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html" title="An Entity which exists in a Scene and can contain Components.">GameObject</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00030">30</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8cpp_source.html#l00033">33</a> of file <a class="el" href="_game_object_8cpp_source.html">GameObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -520,7 +520,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00150">150</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_game_object_8h_source.html#l00149">149</a> of file <a class="el" href="_game_object_8h_source.html">GameObject.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

@@ -195,8 +195,8 @@ $(document).ready(function(){initNavTree('_g_u_i_8cpp_source.html',''); initResi
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span>  s_FPS_SamplingWindowSize =  0.5f;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        </div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="comment">// Append the current frame.</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        s_Timestamps.push_back(<a class="code" href="class_loui_eriksson_1_1_time.html#a76aeaef8f3308ba9a93cab815c0246da">Time::Elapsed</a>());</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;           s_Samples.push_back(1.0f / <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>());</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        s_Timestamps.emplace_back(<a class="code" href="class_loui_eriksson_1_1_time.html#a76aeaef8f3308ba9a93cab815c0246da">Time::Elapsed</a>());</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;           s_Samples.emplace_back(1.0f / <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>());</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;           </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="comment">// Extract various values from the sampling window:</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordtype">float</span> oldest_avg_timestamp  = std::numeric_limits&lt;float&gt;::infinity(),</div>

@@ -161,7 +161,7 @@ $(document).ready(function(){initNavTree('_file_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                append = (((<span class="keywordtype">unsigned</span> int)_type &amp; (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)File::Directory::EntryType::FILE) != 0);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> (append) { result.push_back(item); }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> (append) { result.emplace_back(item); }</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> result;</div>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('_file_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">if</span> (is_directory(item)) {</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="comment">// Append all subdirectories to a vector.</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                subDirectories.push_back(item);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                subDirectories.emplace_back(item);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                append = (((<span class="keywordtype">unsigned</span> int)_type &amp; (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)File::Directory::EntryType::DIRECTORY) != 0);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            }</div>
@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('_file_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            }</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="comment">// Append entries of requested type to result.</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> (append) { result.push_back(item); }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> (append) { result.emplace_back(item); }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        }</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="comment">// Iterate through all subdirectories recursively and append output to result.</span></div>
@@ -444,13 +444,13 @@ $(document).ready(function(){initNavTree('_file_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                                }</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                                </div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                                <span class="keywordflow">if</span> (posID &gt; 0) {</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                                    vertices.push_back(rawVertices[posID - 1]);</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                                    vertices.emplace_back(rawVertices[posID - 1]);</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                                }</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                                <span class="keywordflow">if</span> (uvID &gt; 0) {</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                                    UVs.push_back(rawUVs[uvID - 1]);</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                                    UVs.emplace_back(rawUVs[uvID - 1]);</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                                }</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                                <span class="keywordflow">if</span> (normID &gt; 0) {</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                                    normals.push_back(rawNormals[normID - 1]);</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                                    normals.emplace_back(rawNormals[normID - 1]);</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                                }</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                            }</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                        }</div>
@@ -553,14 +553,14 @@ $(document).ready(function(){initNavTree('_file_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                            </div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                            <span class="comment">// Set the same tangent for all three vertices of the triangle.</span></div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                            <span class="comment">// They will be merged later, in vboindexer.cpp</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                            tangents.push_back(tangent);</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                            tangents.push_back(tangent);</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                            tangents.push_back(tangent);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                            tangents.emplace_back(tangent);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                            tangents.emplace_back(tangent);</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                            tangents.emplace_back(tangent);</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                    </div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                            <span class="comment">// Same thing for bitangents</span></div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                            bitangents.push_back(bitangent);</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                            bitangents.push_back(bitangent);</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                            bitangents.push_back(bitangent);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                            bitangents.emplace_back(bitangent);</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                            bitangents.emplace_back(bitangent);</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                            bitangents.emplace_back(bitangent);</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                        }</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                        </div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                        <span class="comment">// TODO: Perform tangent averaging / smoothing.</span></div>

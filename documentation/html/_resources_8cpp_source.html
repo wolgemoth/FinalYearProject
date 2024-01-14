@@ -199,7 +199,7 @@ $(document).ready(function(){initNavTree('_resources_8cpp_source.html',''); init
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; item : <a class="code" href="struct_loui_eriksson_1_1_file_1_1_directory.html#a09a2848703f2660d80cd2504ea668438">File::Directory::GetEntriesRecursive</a>(m_ShaderIncludeDirectory, File::Directory::EntryType::FILE)) {</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">if</span> (strcmp(item.extension().string().c_str(), <span class="stringliteral">&quot;.glsl&quot;</span>) == 0) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    dependencies.push_back(item);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    dependencies.emplace_back(item);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            </div>
@@ -252,7 +252,7 @@ $(document).ready(function(){initNavTree('_resources_8cpp_source.html',''); init
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                }</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                </div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                <span class="keywordflow">if</span> (shaderType == GL_SHADER) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    combined.push_back(item);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    combined.emplace_back(item);</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                }</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (shaderType != GL_NONE) {</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    </div>

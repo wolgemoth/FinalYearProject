@@ -33,7 +33,6 @@ var hierarchy =
       [ "LouiEriksson::ECS::GameObject", "class_loui_eriksson_1_1_e_c_s_1_1_game_object.html", null ],
       [ "LouiEriksson::ECS::Scene", "class_loui_eriksson_1_1_e_c_s_1_1_scene.html", null ]
     ] ],
-    [ "LouiEriksson::ECS::Entity", "class_loui_eriksson_1_1_e_c_s_1_1_entity.html", null ],
     [ "LouiEriksson::Input::Input::Event", "struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html", null ],
     [ "LouiEriksson::File", "class_loui_eriksson_1_1_file.html", null ],
     [ "LouiEriksson::Graphics::Texture::Parameters::FilterMode", "struct_loui_eriksson_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode.html", null ],
@@ -51,7 +50,6 @@ var hierarchy =
     [ "LouiEriksson::Hashmap< std::string, std::shared_ptr< LouiEriksson::Graphics::Mesh > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::string, std::shared_ptr< LouiEriksson::Graphics::Shader > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::string, std::shared_ptr< LouiEriksson::Graphics::Texture > >", "class_loui_eriksson_1_1_hashmap.html", null ],
-    [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::any > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::shared_ptr< LouiEriksson::ECS::Component > > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< Uint32, std::vector< SDL_Event > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Input::Input", "class_loui_eriksson_1_1_input_1_1_input.html", null ],

@@ -1,5 +1,4 @@
 <map id="LouiEriksson::Hashmap::Assign" name="LouiEriksson::Hashmap::Assign">
-<area shape="rect" id="node1" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="223,39,397,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a5f5e1b7c7232fba6039db8de30a44939" title="Attach an instance of a type to the Scene." alt="" coords="17,5,163,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="5,71,175,112"/>
+<area shape="rect" id="node1" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="223,5,397,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="5,5,175,47"/>
 </map>

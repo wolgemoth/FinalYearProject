@@ -1,17 +1,8 @@
 <map id="LouiEriksson::Hashmap::Get" name="LouiEriksson::Hashmap::Get">
-<area shape="rect" id="node1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="293,438,499,465"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#aaa68174dc61e8ed2c0a13ba071b52240" title=" " alt="" coords="42,5,209,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2" title="Add a Component of type to the GameObject." alt="" coords="20,71,231,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a5f5e1b7c7232fba6039db8de30a44939" title="Attach an instance of a type to the Scene." alt="" coords="53,136,198,177"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="41,201,210,243"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a180348578ccee5e167f2be4871344688" title="Called at the beginning of the first frame." alt="" coords="53,267,198,308"/>
-<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a933dd648cd1ff3a67dc55e29ed945ec0" title="Detach an instance of a type from the Scene." alt="" coords="53,332,198,373"/>
-<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a6f3268feceb31447e929c3354d685c88" title="Called every physics update." alt="" coords="53,397,198,439"/>
-<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#aba208607d2900630c22d41d8519e7b3c" title=" " alt="" coords="43,463,208,504"/>
-<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa" title="Get a Component of type in the GameObject by index." alt="" coords="21,528,230,569"/>
-<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#a38abe58da97f7d6eacda34e6e3ea9188" title=" " alt="" coords="39,593,211,635"/>
-<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c" title="Get components of type attached to GameObject." alt="" coords="17,659,233,700"/>
-<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#a8d49831a51dea916cc4652761e34a359" title=" " alt="" coords="27,724,223,765"/>
-<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,789,245,831"/>
-<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a7314c995a940e85fcb28cb17c3b9434b" title="Called every frame." alt="" coords="53,855,198,896"/>
+<area shape="rect" id="node1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="293,143,499,170"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2" title="Add a Component of type to the GameObject." alt="" coords="20,5,231,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="41,71,210,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa" title="Get a Component of type in the GameObject by index." alt="" coords="21,136,230,177"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25" title="Get Components of type attached to GameObject." alt="" coords="17,201,233,243"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,267,245,308"/>
 </map>

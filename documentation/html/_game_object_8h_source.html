@@ -90,148 +90,149 @@ $(document).ready(function(){initNavTree('_game_object_8h_source.html',''); init
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../core/utils/Hashmap.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;any&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">class </span>Script;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// LouiEriksson</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">class </span>Component;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a> final : <span class="keyword">public</span> std::enable_shared_from_this&lt;GameObject&gt; {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">Component</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::weak_ptr&lt;Scene&gt; m_Scene;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::string m_Name;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_hashmap.html">Hashmap&lt;std::type_index, std::vector&lt;std::any&gt;</a>&gt; m_Components;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;         <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>(<span class="keyword">const</span> std::weak_ptr&lt;Scene&gt;&amp; _scene, std::string _name) noexcept;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        ~<a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">Name</a>(<span class="keyword">const</span> std::string&amp; _name) noexcept;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">const</span> std::string&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">Name</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">const</span> std::weak_ptr&lt;Scene&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">GetScene</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;GameObject&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97">Create</a>(<span class="keyword">const</span> std::shared_ptr&lt;Scene&gt;&amp; _scene, <span class="keyword">const</span> std::string&amp; _name = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_hashmap.html">Hashmap&lt;std::type_index, std::vector&lt;std::any&gt;</a>&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ae0bb43e95e24eed4cdeeb8a83c51539b">Components</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c">   73</a></span>&#160;        std::vector&lt;std::any&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c">GetComponents</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            std::vector&lt;std::any&gt; result, category;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), category)) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                result = <span class="keyword">static_cast&lt;</span>std::vector&lt;std::any&gt;<span class="keyword">&gt;</span>(result);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">   93</a></span>&#160;        std::shared_ptr&lt;T&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">GetComponent</a>(<span class="keywordtype">size_t</span> _index = 0)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            std::shared_ptr&lt;T&gt; result(<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            std::vector&lt;std::any&gt; category;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), category)) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                result = std::any_cast&lt;std::shared_ptr&lt;T&gt;&gt;(category.at(_index));</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">  113</a></span>&#160;        std::shared_ptr&lt;T&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">AddComponent</a>() {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="comment">// Create a new instance of the component, taking a pointer to this gameobject.</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keyword">auto</span> result = std::shared_ptr&lt;T&gt;(<span class="keyword">new</span> T(shared_from_this()));</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            std::type_index category = <span class="keyword">typeid</span>(T);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="comment">// If the provided type is of &quot;Script&quot;, change the category to &quot;Script&quot;.</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">if</span> (std::is_base_of&lt;Script, T&gt;::value) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                category = <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_script.html">Script</a>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            std::vector&lt;std::any&gt; entries;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> exists = m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(category, entries);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            entries.push_back(result);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordflow">if</span> (exists) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                result-&gt;m_Index = entries.size() - 1;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0">Add</a>(category, entries)) {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                result.reset();</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR (GameObject.cpp [AddComponent&lt;T&gt;()]): Failed adding new Component to hashmap!&quot;</span>);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">  150</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">RemoveComponent</a>(<span class="keywordtype">size_t</span> _index = 0) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            std::vector&lt;std::any&gt; entries;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), entries)) {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                <span class="comment">// Bounds check.</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                <span class="keywordflow">if</span> (_index &lt; entries.size()) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    <span class="comment">// Remove component from category.</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    entries.erase(entries.begin() + (std::vector&lt;std::shared_ptr&lt;Component&gt;&gt;::difference_type)_index);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    };</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// LouiEriksson::ECS</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_GAMEOBJECT_H</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">class </span>Script;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">class </span>Component;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">class </span>Scene;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">   28</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a> final : <span class="keyword">public</span> std::enable_shared_from_this&lt;GameObject&gt; {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">Component</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">Scene</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        std::weak_ptr&lt;Scene&gt; m_Scene;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::string m_Name;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_hashmap.html">Hashmap&lt;std::type_index, std::vector&lt;std::shared_ptr&lt;Component&gt;</a>&gt;&gt; m_Components;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;         <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>(<span class="keyword">const</span> std::weak_ptr&lt;Scene&gt;&amp; _scene, std::string _name) noexcept;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ~<a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">Name</a>(<span class="keyword">const</span> std::string&amp; _name) noexcept;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">const</span> std::string&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">Name</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">const</span> std::weak_ptr&lt;Scene&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">GetScene</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;GameObject&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97">Create</a>(<span class="keyword">const</span> std::shared_ptr&lt;Scene&gt;&amp; _scene, <span class="keyword">const</span> std::string&amp; _name = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_hashmap.html">Hashmap&lt;std::type_index, std::vector&lt;std::shared_ptr&lt;Component&gt;</a>&gt;&gt;&amp; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a28b3935eccb03f349ae9323ea1f85e79">Components</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25">   72</a></span>&#160;        std::vector&lt;std::shared_ptr&lt;T&gt;&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25">GetComponents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            std::vector&lt;std::shared_ptr&lt;T&gt;&gt; result, category;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), category)) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                result = <span class="keyword">dynamic_cast&lt;</span>std::vector&lt;std::shared_ptr&lt;T&gt;<span class="keyword">&gt;</span>&gt;(result);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">   92</a></span>&#160;        std::shared_ptr&lt;T&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">GetComponent</a>(<span class="keywordtype">size_t</span> _index = 0)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            std::shared_ptr&lt;T&gt; result(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            std::vector&lt;std::shared_ptr&lt;Component&gt;&gt; category;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), category)) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                result = std::dynamic_pointer_cast&lt;T&gt;(category.at(_index));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">  112</a></span>&#160;        std::shared_ptr&lt;T&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">AddComponent</a>() {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="comment">// Create a new instance of the component, taking a pointer to this gameobject.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keyword">auto</span> result = std::shared_ptr&lt;T&gt;(<span class="keyword">new</span> T(shared_from_this()));</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            std::type_index category = <span class="keyword">typeid</span>(T);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="comment">// If the provided type is of &quot;Script&quot;, change the category to &quot;Script&quot;.</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> (std::is_base_of&lt;Script, T&gt;::value) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                category = <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_script.html">Script</a>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            std::vector&lt;std::shared_ptr&lt;Component&gt;&gt; entries;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> exists = m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(category, entries);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            entries.emplace_back(result);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordflow">if</span> (exists) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                result-&gt;m_Index = entries.size() - 1;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0">Add</a>(category, entries)) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                result.reset();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR (GameObject.cpp [AddComponent&lt;T&gt;()]): Failed adding new Component to hashmap!&quot;</span>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">  149</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">RemoveComponent</a>(<span class="keywordtype">size_t</span> _index = 0) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            static_assert(std::is_base_of&lt;Component, T&gt;::value, <span class="stringliteral">&quot;Provided type must derive from \&quot;Component\&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            std::vector&lt;std::shared_ptr&lt;Component&gt;&gt; entries;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">if</span> (m_Components.<a class="code" href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">Get</a>(<span class="keyword">typeid</span>(T), entries)) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                <span class="comment">// Bounds check.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <span class="keywordflow">if</span> (_index &lt; entries.size()) {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    <span class="comment">// Remove component from category.</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    entries.erase(entries.begin() + (std::vector&lt;std::shared_ptr&lt;Component&gt;&gt;::difference_type)_index);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    };</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;} <span class="comment">// LouiEriksson::ECS</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_GAMEOBJECT_H</span></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">LouiEriksson::ECS::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00014">Component.h:14</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">LouiEriksson::ECS::GameObject</a></div><div class="ttdoc">An Entity which exists in a Scene and can contain Components.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00029">GameObject.h:29</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a2ad1a152085209e278adda62227a996c"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">LouiEriksson::ECS::GameObject::RemoveComponent</a></div><div class="ttdeci">void RemoveComponent(size_t _index=0)</div><div class="ttdoc">Remove a Component of type from the GameObject, using an index.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00150">GameObject.h:150</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a3110e09c96e9e75d2234780106342caa"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">LouiEriksson::ECS::GameObject::GetComponent</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; GetComponent(size_t _index=0) const</div><div class="ttdoc">Get a Component of type in the GameObject by index.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00093">GameObject.h:93</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a7e07424f76cf318be4156f06ce4a4b97"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97">LouiEriksson::ECS::GameObject::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; GameObject &gt; Create(const std::shared_ptr&lt; Scene &gt; &amp;_scene, const std::string &amp;_name=&quot;&quot;)</div><div class="ttdoc">Factory function which creates a GameObject within a Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00020">GameObject.cpp:20</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_aa144649bb5d3c77a275dac699287062b"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">LouiEriksson::ECS::GameObject::GetScene</a></div><div class="ttdeci">const std::weak_ptr&lt; Scene &gt; &amp; GetScene() const noexcept</div><div class="ttdoc">Get the Scene the GameObject belongs to.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00037">GameObject.cpp:37</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_ab1068c29cb3e2a9e3d1f43d347c2f52b"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">LouiEriksson::ECS::GameObject::Name</a></div><div class="ttdeci">const std::string &amp; Name() const noexcept</div><div class="ttdoc">Get the name of the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00033">GameObject.cpp:33</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_ab56bd34cae2a10dbcf68e09e4c0839a2"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">LouiEriksson::ECS::GameObject::AddComponent</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; AddComponent()</div><div class="ttdoc">Add a Component of type to the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00113">GameObject.h:113</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_acf5785a0ec40121c28338a6a6fcef84c"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#acf5785a0ec40121c28338a6a6fcef84c">LouiEriksson::ECS::GameObject::GetComponents</a></div><div class="ttdeci">std::vector&lt; std::any &gt; GetComponents() const</div><div class="ttdoc">Get components of type attached to GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00073">GameObject.h:73</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_ae0bb43e95e24eed4cdeeb8a83c51539b"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ae0bb43e95e24eed4cdeeb8a83c51539b">LouiEriksson::ECS::GameObject::Components</a></div><div class="ttdeci">const Hashmap&lt; std::type_index, std::vector&lt; std::any &gt; &gt; &amp; Components() const noexcept</div><div class="ttdoc">Get the components attached to the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00026">GameObject.cpp:26</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">LouiEriksson::ECS::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00024">Scene.h:24</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">LouiEriksson::ECS::GameObject</a></div><div class="ttdoc">An Entity which exists in a Scene and can contain Components.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00028">GameObject.h:28</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a28b3935eccb03f349ae9323ea1f85e79"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a28b3935eccb03f349ae9323ea1f85e79">LouiEriksson::ECS::GameObject::Components</a></div><div class="ttdeci">const Hashmap&lt; std::type_index, std::vector&lt; std::shared_ptr&lt; Component &gt; &gt; &gt; &amp; Components() const noexcept</div><div class="ttdoc">Get the Components attached to the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00029">GameObject.cpp:29</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a2ad1a152085209e278adda62227a996c"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c">LouiEriksson::ECS::GameObject::RemoveComponent</a></div><div class="ttdeci">void RemoveComponent(size_t _index=0)</div><div class="ttdoc">Remove a Component of type from the GameObject, using an index.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00149">GameObject.h:149</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a3110e09c96e9e75d2234780106342caa"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3110e09c96e9e75d2234780106342caa">LouiEriksson::ECS::GameObject::GetComponent</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; GetComponent(size_t _index=0) const</div><div class="ttdoc">Get a Component of type in the GameObject by index.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00092">GameObject.h:92</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a3e5bfc3af5540b457ee3dfd8f01d9a25"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a3e5bfc3af5540b457ee3dfd8f01d9a25">LouiEriksson::ECS::GameObject::GetComponents</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; T &gt; &gt; GetComponents() const</div><div class="ttdoc">Get Components of type attached to GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00072">GameObject.h:72</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_a7e07424f76cf318be4156f06ce4a4b97"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97">LouiEriksson::ECS::GameObject::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; GameObject &gt; Create(const std::shared_ptr&lt; Scene &gt; &amp;_scene, const std::string &amp;_name=&quot;&quot;)</div><div class="ttdoc">Factory function which creates a GameObject within a Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00021">GameObject.cpp:21</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_aa144649bb5d3c77a275dac699287062b"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#aa144649bb5d3c77a275dac699287062b">LouiEriksson::ECS::GameObject::GetScene</a></div><div class="ttdeci">const std::weak_ptr&lt; Scene &gt; &amp; GetScene() const noexcept</div><div class="ttdoc">Get the Scene the GameObject belongs to.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00040">GameObject.cpp:40</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_ab1068c29cb3e2a9e3d1f43d347c2f52b"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab1068c29cb3e2a9e3d1f43d347c2f52b">LouiEriksson::ECS::GameObject::Name</a></div><div class="ttdeci">const std::string &amp; Name() const noexcept</div><div class="ttdoc">Get the name of the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00036">GameObject.cpp:36</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html_ab56bd34cae2a10dbcf68e09e4c0839a2"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2">LouiEriksson::ECS::GameObject::AddComponent</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; AddComponent()</div><div class="ttdoc">Add a Component of type to the GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00112">GameObject.h:112</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html">LouiEriksson::ECS::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00025">Scene.h:25</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_hashmap_html"><div class="ttname"><a href="class_loui_eriksson_1_1_hashmap.html">LouiEriksson::Hashmap</a></div><div class="ttdef"><b>Definition:</b> <a href="_hashmap_8h_source.html#l00046">Hashmap.h:46</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_hashmap_html_a281ae3f7badf3085784380fd2e1990b0"><div class="ttname"><a href="class_loui_eriksson_1_1_hashmap.html#a281ae3f7badf3085784380fd2e1990b0">LouiEriksson::Hashmap::Add</a></div><div class="ttdeci">bool Add(const Tk &amp;_key, const Tv &amp;_value)</div><div class="ttdoc">Inserts a new entry into the Hashmap with given key and value, if one does not already exist.</div><div class="ttdef"><b>Definition:</b> <a href="_hashmap_8h_source.html#l00172">Hashmap.h:172</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_hashmap_html_a64cb17698ce2f128a7cc103d4b6831b1"><div class="ttname"><a href="class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1">LouiEriksson::Hashmap::Get</a></div><div class="ttdeci">bool Get(const Tk &amp;_key, Tv &amp;_out) const noexcept</div><div class="ttdoc">Retrieves a reference to the entry within the Hashmap with the given key, if one exists.</div><div class="ttdef"><b>Definition:</b> <a href="_hashmap_8h_source.html#l00280">Hashmap.h:280</a></div></div>

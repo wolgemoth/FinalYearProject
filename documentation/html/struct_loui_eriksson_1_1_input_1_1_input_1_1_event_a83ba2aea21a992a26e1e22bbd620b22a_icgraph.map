@@ -1,5 +1,5 @@
 <map id="LouiEriksson::Input::Input::Event::Get" name="LouiEriksson::Input::Input::Event::Get">
-<area shape="rect" id="node1" title=" " alt="" coords="437,71,583,112"/>
+<area shape="rect" id="node1" title="Get all events of a certain type which occurred this frame." alt="" coords="437,71,583,112"/>
 <area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a80882ed0ff27006b83c2d3dda9f5cc88" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="205,5,388,47"/>
 <area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a5796261718d35169d953135498eb7d3c" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released." alt="" coords="215,71,378,112"/>
 <area shape="rect" id="node5" href="$class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="204,136,389,177"/>

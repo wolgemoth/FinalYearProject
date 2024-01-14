@@ -11,7 +11,7 @@ Inheritance diagram for Loui\+Eriksson\+::ECS\+::Scene\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=224pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene__inherit__graph}
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -31,14 +31,18 @@ Collaboration diagram for Loui\+Eriksson\+::ECS\+::Scene\+:
 \item 
 virtual \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_ad9f530ba0c24f6d565fcfab88367262a}{$\sim$\+Scene}} ()
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::any $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_aa95b718aa5a3c3376c05231b2b78cba1}{Entities}} ()
-\begin{DoxyCompactList}\small\item\em Get the entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3530afce3b3e8d915af7e8dfb6257722}{Components}} () noexcept
+\begin{DoxyCompactList}\small\item\em Get the components within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a70fc911c6634376220bda07b88369770}{Save}} (const std\+::filesystem\+::path \&\+\_\+path)
 \begin{DoxyCompactList}\small\item\em Save the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} in xml format at a given path. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a5f5e1b7c7232fba6039db8de30a44939}{Attach}} (std\+::shared\+\_\+ptr$<$ T $>$ \+\_\+entity)
 \begin{DoxyCompactList}\small\item\em Attach an instance of a type to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0}{Detach}} (std\+::shared\+\_\+ptr$<$ T $>$ \+\_\+entity)
-\begin{DoxyCompactList}\small\item\em Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+template$<$$>$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_ae84432ce619a5cfd3183fe8192728e95}{Attach}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \+\_\+entity)
+\item 
+template$<$$>$ void \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3762ac8646a59f29cd45c8b640edbd4d}{Detach}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \+\_\+entity)
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,14 +60,16 @@ virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a6f3268fec
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::any $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_aee6200ad8967e74f811a307a6edc843d}{m\+\_\+\+Entities}}
-\begin{DoxyCompactList}\small\item\em Entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a9a1a958d4ad47d11058ed103af4a1c0d}{m\+\_\+\+Entities}}
+\begin{DoxyCompactList}\small\item\em Entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene_a23dd8a9bb5604aa59df5445db8dec354}{m\+\_\+\+Components}}
+\begin{DoxyCompactList}\small\item\em Components (linked to entities) within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line 24 of file Scene.\+h.
+Definition at line 25 of file Scene.\+h.
 
 
 
@@ -82,23 +88,26 @@ Definition at line 24 of file Scene.\+h.
 
 
 
-Definition at line 39 of file Scene.\+cpp.
+Definition at line 41 of file Scene.\+cpp.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_ad9f530ba0c24f6d565fcfab88367262a_cgraph}
-\end{center}
-\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_ae84432ce619a5cfd3183fe8192728e95}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_ae84432ce619a5cfd3183fe8192728e95}} 
+\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Attach@{Attach}}
+\index{Attach@{Attach}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Attach()}{Attach()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}$>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Attach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 102 of file Scene.\+h.
+
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a5f5e1b7c7232fba6039db8de30a44939}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a5f5e1b7c7232fba6039db8de30a44939}} 
 \index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Attach@{Attach}}
 \index{Attach@{Attach}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
-\doxysubsubsection{\texorpdfstring{Attach()}{Attach()}}
+\doxysubsubsection{\texorpdfstring{Attach()}{Attach()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 std\+::shared\+\_\+ptr$<$T$>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Attach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ T $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
@@ -108,16 +117,8 @@ Attach an instance of a type to the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c
 
 
 
-Definition at line 63 of file Scene.\+h.
+Definition at line 67 of file Scene.\+h.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a5f5e1b7c7232fba6039db8de30a44939_cgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a180348578ccee5e167f2be4871344688}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a180348578ccee5e167f2be4871344688}} 
 \index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Begin@{Begin}}
 \index{Begin@{Begin}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
@@ -130,48 +131,17 @@ Called at the beginning of the first frame.
 
 
 
-Definition at line 83 of file Scene.\+cpp.
+Definition at line 84 of file Scene.\+cpp.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a180348578ccee5e167f2be4871344688_cgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0}} 
-\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Detach@{Detach}}
-\index{Detach@{Detach}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
-\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}}
-{\footnotesize\ttfamily template$<$typename T $>$ \\
-void Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ T $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3530afce3b3e8d915af7e8dfb6257722}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3530afce3b3e8d915af7e8dfb6257722}} 
+\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Components@{Components}}
+\index{Components@{Components}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Components()}{Components()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
-Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. 
-
-
-
-Definition at line 76 of file Scene.\+h.
-
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0_cgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_aa95b718aa5a3c3376c05231b2b78cba1}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_aa95b718aa5a3c3376c05231b2b78cba1}} 
-\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Entities@{Entities}}
-\index{Entities@{Entities}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
-\doxysubsubsection{\texorpdfstring{Entities()}{Entities()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::any $>$ $>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Entities (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Get the entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. 
+Get the components within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. 
 
 
 
@@ -182,9 +152,35 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=334pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_aa95b718aa5a3c3376c05231b2b78cba1_icgraph}
+\includegraphics[width=338pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3530afce3b3e8d915af7e8dfb6257722_icgraph}
 \end{center}
 \end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3762ac8646a59f29cd45c8b640edbd4d}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a3762ac8646a59f29cd45c8b640edbd4d}} 
+\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Detach@{Detach}}
+\index{Detach@{Detach}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$$>$ \\
+void Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 109 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a933dd648cd1ff3a67dc55e29ed945ec0}} 
+\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!Detach@{Detach}}
+\index{Detach@{Detach}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Loui\+Eriksson\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ T $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 82 of file Scene.\+h.
+
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a6f3268feceb31447e929c3354d685c88}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a6f3268feceb31447e929c3354d685c88}} 
 \index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!FixedTick@{FixedTick}}
 \index{FixedTick@{FixedTick}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
@@ -204,7 +200,7 @@ Here is the call graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a6f3268feceb31447e929c3354d685c88_cgraph}
+\includegraphics[width=349pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a6f3268feceb31447e929c3354d685c88_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a89a3bc15fb9cb0a6b5f64b6d773590f3}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a89a3bc15fb9cb0a6b5f64b6d773590f3}} 
@@ -219,7 +215,7 @@ Try\+Load the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} 
 
 
 
-Definition at line 318 of file Scene.\+cpp.
+Definition at line 316 of file Scene.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -271,24 +267,30 @@ Called every frame.
 
 
 
-Definition at line 93 of file Scene.\+cpp.
+Definition at line 94 of file Scene.\+cpp.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_scene_a7314c995a940e85fcb28cb17c3b9434b_cgraph}
-\end{center}
-\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_aee6200ad8967e74f811a307a6edc843d}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_aee6200ad8967e74f811a307a6edc843d}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a23dd8a9bb5604aa59df5445db8dec354}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a23dd8a9bb5604aa59df5445db8dec354}} 
+\index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!m\_Components@{m\_Components}}
+\index{m\_Components@{m\_Components}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{m\_Components}{m\_Components}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$std\+::type\+\_\+index, std\+::vector$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}$>$ $>$ $>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::m\+\_\+\+Components\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Components (linked to entities) within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 40 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_scene_a9a1a958d4ad47d11058ed103af4a1c0d}\label{class_loui_eriksson_1_1_e_c_s_1_1_scene_a9a1a958d4ad47d11058ed103af4a1c0d}} 
 \index{LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}!m\_Entities@{m\_Entities}}
 \index{m\_Entities@{m\_Entities}!LouiEriksson::ECS::Scene@{LouiEriksson::ECS::Scene}}
 \doxysubsubsection{\texorpdfstring{m\_Entities}{m\_Entities}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_hashmap}{Hashmap}}$<$std\+::type\+\_\+index, std\+::vector$<$std\+::any$>$ $>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::m\+\_\+\+Entities\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}$>$ $>$ Loui\+Eriksson\+::\+ECS\+::\+Scene\+::m\+\_\+\+Entities\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
@@ -296,7 +298,7 @@ Entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Sc
 
 
 
-Definition at line 36 of file Scene.\+h.
+Definition at line 37 of file Scene.\+h.
 
 
 

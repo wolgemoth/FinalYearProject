@@ -1,7 +1,7 @@
 <map id="src/engine/scripts/physics" name="src/engine/scripts/physics">
 <area shape="rect" id="node1" href="dir_538984fc6165801c4346b0eb7b9ca114.html" title="ecs" alt="" coords="27,89,99,137"/>
 <area shape="rect" id="node2" href="dir_acbc831a85cfa70446f7d8fe89c12409.html" title="core" alt="" coords="76,185,148,233"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000006_000004.html" title="9" alt="" coords="85,158,95,173"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000006_000004.html" title="8" alt="" coords="85,158,95,173"/>
 <area shape="rect" id="edge2-headlabel" href="dir_000006_000010.html" title="3" alt="" coords="249,62,258,77"/>
 <area shape="rect" id="edge3-headlabel" href="dir_000004_000006.html" title="6" alt="" coords="80,150,90,165"/>
 <area shape="rect" id="edge4-headlabel" href="dir_000004_000010.html" title="1" alt="" coords="203,133,213,148"/>
