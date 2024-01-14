@@ -41,7 +41,7 @@ namespace LouiEriksson::ECS {
 		m_Components.Clear();
 	}
 	
-	void Scene::Draw() {
+	void Scene::Draw(const Graphics::Camera::RenderFlags& _flags) {
 		
 		std::vector<std::weak_ptr<Component>> items;
 		
@@ -78,10 +78,7 @@ namespace LouiEriksson::ECS {
 				if (const auto l = item.lock()) {
 					
 					const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(l);
-					camera->PreRender();
-					
-					camera->Clear();
-					
+					camera->PreRender(_flags);
 					camera->Render(casted_renderers, casted_lights);
 					camera->PostRender();
 				}
@@ -103,7 +100,7 @@ namespace LouiEriksson::ECS {
 		}
 	}
 	
-	void Scene::Tick() {
+	void Scene::Tick(const Graphics::Camera::RenderFlags& _flags) {
 		
 		std::vector<std::weak_ptr<Component>> items;
 		
@@ -140,8 +137,8 @@ namespace LouiEriksson::ECS {
 				}
 			}
 		}
-	
-		Draw();
+		
+		Draw(_flags);
 	}
 	
 	void Scene::FixedTick() {

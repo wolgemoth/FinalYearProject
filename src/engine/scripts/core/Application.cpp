@@ -40,9 +40,10 @@ namespace LouiEriksson {
 			/* CREATE A MAIN WINDOW */
 			auto main_window = Window::Create(1280, 720, "FinalYearProject");
 			
-			/* INIT CURSOR STATE */
+			/* INIT RENDER FLAGS */
+			auto renderFlags = Graphics::Camera::RenderFlags::REINITIALISE;
 			
-			// Init the cursor's state.
+			/* INIT CURSOR STATE */
 			Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
 			
 			// Capture the mouse on startup.
@@ -81,6 +82,7 @@ namespace LouiEriksson {
 			Time::FixedDeltaTime(1.0f / 60.0f);
 	
 			float physics_step = 0.0f;
+			
 			
 			/* LOOP */
 			while (!Application::s_Quit) {
@@ -124,7 +126,13 @@ namespace LouiEriksson {
 								if (const auto w = Window::Get(static_cast<int>(item.window.windowID)).lock()) {
 								
 									if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
+										
+										// Dirty the window.
 										w->SetDirty();
+										
+										// Raise the reinitialisation flag.
+										renderFlags = static_cast<Graphics::Camera::RenderFlags>(
+												renderFlags | Graphics::Camera::RenderFlags::REINITIALISE);
 									}
 								}
 							}
@@ -158,8 +166,11 @@ namespace LouiEriksson {
 					}
 					
 					/* UPDATE */
-					scene->Tick();
+					scene->Tick(renderFlags);
 		
+					// Reset render flags after rendering.
+					renderFlags = Graphics::Camera::RenderFlags::NONE;
+					
 					/* GUI UPDATE */
 					UI::GUI::OnGUI(main_window);
 					

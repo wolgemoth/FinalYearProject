@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_SCENE_H
 
 #include "../core/utils/Hashmap.h"
+#include "../graphics/Camera.h"
 
 #include <filesystem>
 #include <memory>
@@ -29,7 +30,7 @@ namespace LouiEriksson::ECS {
 	private:
 	
 		/// <summary> Render the Scene. </summary>
-		void Draw();
+		void Draw(const LouiEriksson::Graphics::Camera::RenderFlags& _flags);
 		
 	protected:
 	
@@ -43,7 +44,7 @@ namespace LouiEriksson::ECS {
 		virtual void Begin();
 	
 		/// <summary> Called every frame. </summary>
-		virtual void Tick();
+		virtual void Tick(const Graphics::Camera::RenderFlags& _flags);
 	
 		/// <summary> Called every physics update. </summary>
 		virtual void FixedTick();

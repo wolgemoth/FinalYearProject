@@ -103,14 +103,21 @@ namespace LouiEriksson::Graphics {
 		
 	public:
 	
+		/// <summary> Represents different actions that can taken during the rendering process. </summary>
+		enum RenderFlags : char {
+			
+			/// <summary> No special action to be taken. </summary>
+			NONE,
+			
+			/// <summary> Reinitialise the g-buffer. </summary>
+			REINITIALISE
+		};
+		
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
-		/// <summary> Render clear the m_Camera. </summary>
-		static void Clear();
-		
 		/// <summary> Called before rendering. </summary>
-		void PreRender();
+		void PreRender(const RenderFlags& _flags);
 		
 		/// <summary> Renders each Renderer using the Camera. </summary>
 		void Render(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights);

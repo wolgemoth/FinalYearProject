@@ -90,27 +90,23 @@ namespace LouiEriksson::Graphics {
 		}
 	}
 	
-	void Camera::Clear() {
-	
-		// Clear the camera.
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-	
-	void Camera::PreRender() {
+	void Camera::PreRender(const RenderFlags& _flags) {
 		
 		if (const auto w = GetWindow().lock()) {
 		
-			// Resize the frame buffers.
-			// TODO: Set up enum flags for dirtying instead of just m_IsDirty so that this doesn't happen every frame.
-			auto dimensions = w->Dimensions();
-			
-			              m_RT.Reinitialise(dimensions[0], dimensions[1]);
-			  m_Albedo_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-			m_Emission_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-			m_Material_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-			m_Position_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-			  m_Normal_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-			m_TexCoord_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+			if ((_flags & RenderFlags::REINITIALISE) != 0u) {
+				
+				// Reinitialise the g-buffer:
+				auto dimensions = w->Dimensions();
+				
+				              m_RT.Reinitialise(dimensions[0], dimensions[1]);
+				  m_Albedo_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				m_Emission_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				m_Material_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				m_Position_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				  m_Normal_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				m_TexCoord_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+			}
 		}
 		else {
 			std::cout << "Camera is not bound to a valid Window!\n";
@@ -147,6 +143,7 @@ namespace LouiEriksson::Graphics {
 			}
 			
 			RenderTexture::Bind(m_TexCoord_gBuffer);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -182,6 +179,7 @@ namespace LouiEriksson::Graphics {
 			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
 			
 			RenderTexture::Bind(m_Position_gBuffer);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -228,6 +226,7 @@ namespace LouiEriksson::Graphics {
 			);
 			
 			RenderTexture::Bind(m_Albedo_gBuffer);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -282,7 +281,7 @@ namespace LouiEriksson::Graphics {
 			p->Assign(p->AttributeID("u_EmissionAmount"), Settings::Graphics::Material::s_EmissionAmount);
 			
 			RenderTexture::Bind(m_Emission_gBuffer);
-			glClear(GL_DEPTH_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
@@ -392,6 +391,7 @@ namespace LouiEriksson::Graphics {
 			}
 			
 			RenderTexture::Bind(m_Material_gBuffer);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			for (const auto& renderer : _renderers) {
 				
@@ -458,6 +458,7 @@ namespace LouiEriksson::Graphics {
 			}
 			
 			RenderTexture::Bind(m_Normal_gBuffer);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			for (const auto& renderer : _renderers) {
 				
