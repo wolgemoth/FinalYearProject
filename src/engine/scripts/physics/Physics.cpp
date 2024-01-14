@@ -25,9 +25,7 @@ namespace LouiEriksson::Physics {
 	{
 		try {
 			
-			const auto dw = m_DynamicsWorld.lock();
-			
-			if (dw != nullptr) {
+			if (const auto dw = m_DynamicsWorld.lock()) {
 				dw->setDebugDrawer(this);
 			}
 		}
@@ -40,9 +38,7 @@ namespace LouiEriksson::Physics {
 		
 		try {
 			
-			const auto dw = m_DynamicsWorld.lock();
-			
-			if (dw != nullptr) {
+			if (const auto dw = m_DynamicsWorld.lock()) {
 				dw->setDebugDrawer(nullptr);
 			}
 		}

@@ -21,15 +21,16 @@
 
 namespace LouiEriksson::Game {
 	
-	Ball::Ball(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
+	Ball::Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_StartingPosition(0.0f),
 			m_Radius(0.0f) {}
 	
 	Ball::~Ball() = default;
 	
 	void Ball::Begin() {
-	
-		if (const auto s = Parent()->GetScene().lock()) {
+		
+		if (const auto p = Parent().lock()) {
+		if (const auto s = p->GetScene().lock()) {
 		
 			// Load mesh.
 			if (s_Mesh == nullptr) {
@@ -43,9 +44,9 @@ namespace LouiEriksson::Game {
 			}
 		
 			// Get or add component.
-			auto transform = Parent()->GetComponent<Transform>();
+			auto transform = p->GetComponent<Transform>().lock();
 			if (transform == nullptr) {
-				transform = Parent()->AddComponent<Transform>();
+				transform = p->AddComponent<Transform>().lock();
 			}
 			
 			// Get starting position.
@@ -55,9 +56,9 @@ namespace LouiEriksson::Game {
 			m_Radius = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
 		
 			// Get or add renderer.
-			auto renderer = s->Attach(Parent()->AddComponent<Graphics::Renderer>());
+			auto renderer = s->Attach(p->AddComponent<Graphics::Renderer>().lock());
 			if (renderer == nullptr) {
-				renderer = Parent()->AddComponent<Graphics::Renderer>();
+				renderer = p->AddComponent<Graphics::Renderer>().lock();
 			}
 		
 			renderer->SetMesh(s_Mesh);
@@ -65,9 +66,9 @@ namespace LouiEriksson::Game {
 			renderer->SetTransform(transform);
 		
 			// Get or add collider.
-			auto collider = s->Attach<Physics::SphereCollider>(Parent()->AddComponent<Physics::SphereCollider>());
+			auto collider = s->Attach<Physics::SphereCollider>(p->AddComponent<Physics::SphereCollider>().lock());
 			if (collider == nullptr) {
-				collider = Parent()->AddComponent<Physics::SphereCollider>();
+				collider = p->AddComponent<Physics::SphereCollider>().lock();
 			}
 		
 			collider->SetTransform(transform);
@@ -75,9 +76,9 @@ namespace LouiEriksson::Game {
 			collider->Radius(m_Radius);
 		
 			// Get or add rigidbody.
-			auto rigidbody = s->Attach(Parent()->AddComponent<Physics::Rigidbody>());
+			auto rigidbody = s->Attach(p->AddComponent<Physics::Rigidbody>().lock());
 			if (rigidbody == nullptr) {
-				rigidbody = Parent()->AddComponent<Physics::Rigidbody>();
+				rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
 			}
 			
 			rigidbody->SetTransform(transform);
@@ -88,16 +89,16 @@ namespace LouiEriksson::Game {
 			collider->SetRigidbody(rigidbody);
 			
 			// Get or add AudioSource.
-			m_AudioSource = Parent()->AddComponent<Audio::AudioSource>();
+			m_AudioSource = p->AddComponent<Audio::AudioSource>();
 			if (m_AudioSource.expired()) {
-				m_AudioSource = Parent()->AddComponent<Audio::AudioSource>();
+				m_AudioSource = p->AddComponent<Audio::AudioSource>();
 			}
 			
 			auto clip = Resources::GetAudio("Hollow_Bass");
 			
 			m_AudioSource.lock()->Clip(clip);
 			m_AudioSource.lock()->Global(true);
-		}
+		}}
 	}
 	
 	void Ball::Tick() {
@@ -106,30 +107,32 @@ namespace LouiEriksson::Game {
 	
 	void Ball::FixedTick() {
 	
-		const auto transform = Parent()->GetComponent<Transform>();
-		
-		if (transform != nullptr) {
+		if (const auto p = Parent().lock()) {
+		if (const auto t = p->GetComponent<Transform>().lock()) {
 			
-			// 'Reset' balls which fall beneath a certain height.
-			if (transform->m_Position.y <= -100.0f) {
+			if (t != nullptr) {
 				
-				const auto rb = Parent()->GetComponent<Physics::Rigidbody>();
-		
-				// Reset position.
-				rb->Position(m_StartingPosition);
+				// 'Reset' balls which fall beneath a certain height.
+				if (t->m_Position.y <= -100.0f) {
+					
+					if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
 				
-				// Reset motion.
-				rb->Velocity       (glm::vec3(0.0f));
-				rb->AngularVelocity(glm::vec3(0.0f));
+						// Reset position.
+						rb->Position(m_StartingPosition);
+						
+						// Reset motion.
+						rb->Velocity       (glm::vec3(0.0f));
+						rb->AngularVelocity(glm::vec3(0.0f));
+					}
+				}
 			}
-		}
+		}}
 	}
 	
 	void Ball::OnCollision(const Physics::Collision& _collision) {
 		
-		const auto rb = Parent()->GetComponent<Physics::Rigidbody>();
-		
-		if (rb != nullptr) {
+		if (const auto p = Parent().lock()) {
+		if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
 			
 			// Threshold impulse to play a sound.
 			const auto impulse_threshold = rb->Mass() * 3.0f;
@@ -191,7 +194,7 @@ namespace LouiEriksson::Game {
 					as->Play();
 				}
 			}
-		}
+		}}
 	}
 	
 } // LouiEriksson::Game

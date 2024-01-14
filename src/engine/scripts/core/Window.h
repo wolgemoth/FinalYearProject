@@ -38,19 +38,20 @@ namespace LouiEriksson {
 		Hashmap<int, std::reference_wrapper<Graphics::Camera>> m_Cameras;
 	
 		void   Link(Graphics::Camera& _camera);
-		void Unlink(Graphics::Camera& _camera);
+		void Unlink(Graphics::Camera& _camera) noexcept;
 	
 		 Window(const int& _width, const int& _height, const char* _name, bool _fullscreen = false, bool _hdr10 = true);
-		~Window() = default;
 	
 	public:
 	
+		~Window() = default;
+		
 		Window             (const Window& _other) = delete;
 		Window& operator = (const Window& _other) = delete;
 	
 		static std::shared_ptr<Window> Create(const int& _width, const int& _height, const char* _name);
 	
-		static std::shared_ptr<Window> Get(const int& _id);
+		static const std::weak_ptr<Window> Get(const int& _id);
 	
 		static void Destroy(const int& _id);
 	

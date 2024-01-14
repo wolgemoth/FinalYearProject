@@ -18,7 +18,7 @@ namespace LouiEriksson::Audio {
 		 * Please refer to OpenAL-Soft spec:
 		 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
 		 */
-	
+		
 	private:
 		
 		struct Parameters {
@@ -128,7 +128,7 @@ namespace LouiEriksson::Audio {
 		
 	public:
 		
-		 explicit AudioSource(const std::shared_ptr<ECS::GameObject>& _parent);
+		 explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
 		~AudioSource() override;
 		
 		/// <summary> Updates the AudioSource every frame.</summary>
@@ -233,7 +233,6 @@ namespace LouiEriksson::Audio {
 		/// Gets the playback position of the AudioSource expressed in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
 		/// </summary>
 		[[nodiscard]] int PlaybackPosition(const ALenum& _param) const;
-		
 	};
 	
 } // LouiEriksson::Audio

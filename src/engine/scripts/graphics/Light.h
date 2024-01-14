@@ -75,7 +75,7 @@ namespace LouiEriksson::Graphics {
 			
 		};
 		
-		explicit Light(const std::shared_ptr<ECS::GameObject>& _parent);
+		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Light() override;
 		
 		void Type(const Light::Parameters::Type& _type);

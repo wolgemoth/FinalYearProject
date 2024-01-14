@@ -1,9 +1,8 @@
 <map id="src/engine/scripts/graphics/Renderer.h" name="src/engine/scripts/graphics/Renderer.h">
-<area shape="rect" id="node1" title=" " alt="" coords="456,5,611,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="360,5,515,47"/>
 <area shape="rect" id="node2" href="$_scene_8cpp.html" title=" " alt="" coords="5,95,141,136"/>
 <area shape="rect" id="node3" href="$_camera_8cpp.html" title=" " alt="" coords="165,95,328,136"/>
 <area shape="rect" id="node4" href="$_renderer_8cpp.html" title=" " alt="" coords="352,95,523,136"/>
 <area shape="rect" id="node5" href="$_ball_8cpp.html" title=" " alt="" coords="547,102,715,129"/>
 <area shape="rect" id="node6" href="$_plane_8cpp.html" title=" " alt="" coords="739,102,917,129"/>
-<area shape="rect" id="node7" href="$_player_8cpp.html" title=" " alt="" coords="942,102,1125,129"/>
 </map>

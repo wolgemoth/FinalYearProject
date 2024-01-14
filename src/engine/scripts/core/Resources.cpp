@@ -237,23 +237,23 @@ namespace LouiEriksson {
 		return m_Shaders.Get(_name, _output);
 	}
 	
-	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name) {
+	const std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name) {
 		return m_Audio.Return(_name);
 	}
 	
-	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name) {
+	const std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name) {
 		return m_Meshes.Return(_name);
 	}
 	
-	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name) {
+	const std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name) {
 		return m_Materials.Return(_name);
 	}
 	
-	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name) {
+	const std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name) {
 		return m_Textures.Return(_name);
 	}
 	
-	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name) {
+	const std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name) {
 		return m_Shaders.Return(_name);
 	}
 	

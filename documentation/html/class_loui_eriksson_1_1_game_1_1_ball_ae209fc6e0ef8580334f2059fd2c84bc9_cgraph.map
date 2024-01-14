@@ -1,5 +1,4 @@
 <map id="LouiEriksson::Game::Ball::FixedTick" name="LouiEriksson::Game::Ball::FixedTick">
-<area shape="rect" id="node1" title="Called every tick of the physics engine." alt="" coords="5,39,156,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a" title="Get the Component&#39;s parent GameObject." alt="" coords="211,5,358,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_physics_1_1_rigidbody.html#ace944d67f452a2a7628ac7961b4501fa" title="Set the position of the Rigidbody. You shouldn&#39;t normally need to do this. See AddForce() instead." alt="" coords="204,71,365,112"/>
+<area shape="rect" id="node1" title="Called every tick of the physics engine." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="204,5,351,47"/>
 </map>

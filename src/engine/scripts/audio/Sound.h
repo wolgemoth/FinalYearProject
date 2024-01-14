@@ -33,8 +33,7 @@ namespace LouiEriksson::Audio {
 		/// <summary>
 		inline static unsigned int s_SDL_Device { 0u };
 		
-		/// <summary> Global audio source. TODO: Implement this better. </summary>
-		inline static std::shared_ptr<AudioSource> s_GlobalSource { nullptr };
+		inline static std::shared_ptr<AudioSource> s_GlobalSource;
 		
 	public:
 	

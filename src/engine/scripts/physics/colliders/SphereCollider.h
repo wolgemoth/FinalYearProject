@@ -19,7 +19,7 @@ namespace LouiEriksson::Physics {
 	
 	public:
 		
-		explicit SphereCollider(const std::shared_ptr<ECS::GameObject>& _parent);
+		explicit SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent);
 		~SphereCollider() override;
 		
 		/// <summary> Set the radius of the SphereCollider. </summary>

@@ -32,7 +32,7 @@ namespace LouiEriksson::Game {
 	
 	public:
 	
-		explicit Plane(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Plane() override;
 	
 	};

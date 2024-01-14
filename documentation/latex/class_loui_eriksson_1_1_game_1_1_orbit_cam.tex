@@ -32,7 +32,7 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Orbit\+Cam\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_aee9129727eea383d4ec14522af113fd4}{Orbit\+Cam}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a91ed28d1ba90a6aa4ebd1a4b03be17ec}{Orbit\+Cam}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a96aadbc26d428996ff6f3fd8f00c7564}{$\sim$\+Orbit\+Cam}} () override
 \end{DoxyCompactItemize}
@@ -68,11 +68,11 @@ Definition at line 30 of file Orbit\+Cam.\+h.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_aee9129727eea383d4ec14522af113fd4}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_aee9129727eea383d4ec14522af113fd4}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_a91ed28d1ba90a6aa4ebd1a4b03be17ec}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_a91ed28d1ba90a6aa4ebd1a4b03be17ec}} 
 \index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!OrbitCam@{OrbitCam}}
 \index{OrbitCam@{OrbitCam}!LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}}
 \doxysubsubsection{\texorpdfstring{OrbitCam()}{OrbitCam()}}
-{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Orbit\+Cam\+::\+Orbit\+Cam (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Orbit\+Cam\+::\+Orbit\+Cam (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
 
 
 
@@ -125,7 +125,7 @@ Synchronise the camera\textquotesingle{}s parameters with the ones defined in \m
 
 
 
-Definition at line 104 of file Orbit\+Cam.\+cpp.
+Definition at line 103 of file Orbit\+Cam.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -151,7 +151,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 79 of file Orbit\+Cam.\+cpp.
+Definition at line 78 of file Orbit\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak

@@ -17,6 +17,8 @@ Collaboration diagram for Loui\+Eriksson\+::Window\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_window_a2ad34f1ba4ba8b9df48eab09128992a8}{$\sim$\+Window}} ()=default
+\item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_window_adac911e8db29509eee927beb041f471c}{Window}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} \&\+\_\+other)=delete
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}{operator=}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} \&\+\_\+other)=delete
@@ -48,7 +50,7 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0
 \item 
 static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b}{Create}} (const int \&\+\_\+width, const int \&\+\_\+height, const char $\ast$\+\_\+name)
 \item 
-static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19}{Get}} (const int \&\+\_\+id)
+static const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_window_a7ead0d85d1637f7cdacfd741cd7684f8}{Get}} (const int \&\+\_\+id)
 \item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_window_a3f1ee278a27d5abf1880b342fd90610b}{Destroy}} (const int \&\+\_\+id)
 \end{DoxyCompactItemize}
@@ -67,6 +69,12 @@ Definition at line 23 of file Window.\+h.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a2ad34f1ba4ba8b9df48eab09128992a8}\label{class_loui_eriksson_1_1_window_a2ad34f1ba4ba8b9df48eab09128992a8}} 
+\index{LouiEriksson::Window@{LouiEriksson::Window}!````~Window@{$\sim$Window}}
+\index{````~Window@{$\sim$Window}!LouiEriksson::Window@{LouiEriksson::Window}}
+\doxysubsubsection{\texorpdfstring{$\sim$Window()}{~Window()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Window\+::$\sim$\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_adac911e8db29509eee927beb041f471c}\label{class_loui_eriksson_1_1_window_adac911e8db29509eee927beb041f471c}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Window@{Window}}
 \index{Window@{Window}!LouiEriksson::Window@{LouiEriksson::Window}}
@@ -84,7 +92,7 @@ Definition at line 23 of file Window.\+h.
 
 
 
-Definition at line 160 of file Window.\+cpp.
+Definition at line 157 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -102,7 +110,7 @@ Here is the call graph for this function\+:
 
 
 
-Definition at line 133 of file Window.\+cpp.
+Definition at line 130 of file Window.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b}\label{class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Create@{Create}}
@@ -130,7 +138,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 100 of file Window.\+cpp.
+Definition at line 99 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -152,7 +160,7 @@ Returns the window\textquotesingle{}s x,y dimensions as a c-\/style array.
 
 The size of the returned array is 2.
 
-Definition at line 151 of file Window.\+cpp.
+Definition at line 148 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -170,7 +178,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 141 of file Window.\+cpp.
+Definition at line 138 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -188,7 +196,7 @@ Here is the call graph for this function\+:
 
 
 
-Definition at line 188 of file Window.\+cpp.
+Definition at line 185 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -198,11 +206,11 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_window_abc858d49c3b0a9d9693af5264ef4a6fc_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19}\label{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a7ead0d85d1637f7cdacfd741cd7684f8}\label{class_loui_eriksson_1_1_window_a7ead0d85d1637f7cdacfd741cd7684f8}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Get@{Get}}
 \index{Get@{Get}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{Get()}{Get()}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ Loui\+Eriksson\+::\+Window\+::\+Get (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} $>$ Loui\+Eriksson\+::\+Window\+::\+Get (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -213,7 +221,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a7ead0d85d1637f7cdacfd741cd7684f8_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d}\label{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d}} 
@@ -224,7 +232,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 196 of file Window.\+cpp.
+Definition at line 193 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -250,7 +258,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 192 of file Window.\+cpp.
+Definition at line 189 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -268,7 +276,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 129 of file Window.\+cpp.
+Definition at line 126 of file Window.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a81a6bc59847a1d83542d75e661f347d8}\label{class_loui_eriksson_1_1_window_a81a6bc59847a1d83542d75e661f347d8}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!operator SDL\_Window $\ast$@{operator SDL\_Window $\ast$}}
@@ -278,7 +286,7 @@ Definition at line 129 of file Window.\+cpp.
 
 
 
-Definition at line 75 of file Window.\+h.
+Definition at line 76 of file Window.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}\label{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!operator=@{operator=}}
@@ -294,7 +302,7 @@ Definition at line 75 of file Window.\+h.
 
 
 
-Definition at line 176 of file Window.\+cpp.
+Definition at line 173 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -320,7 +328,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 137 of file Window.\+cpp.
+Definition at line 134 of file Window.\+cpp.
 
 
 

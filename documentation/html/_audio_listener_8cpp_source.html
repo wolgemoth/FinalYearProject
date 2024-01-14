@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('_audio_listener_8cpp_source.html','');
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a> {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9c121685dcefd43e09d83d1d655bfaaa">   16</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9c121685dcefd43e09d83d1d655bfaaa">AudioListener::AudioListener</a>(<span class="keyword">const</span> std::shared_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept : Component(_parent),</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a1bb52c3c0686b37520d1cc47db24219d">   16</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a1bb52c3c0686b37520d1cc47db24219d">AudioListener::AudioListener</a>(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept : Component(_parent),</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            m_Gain        (1.0f),</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            m_LastPosition(0.0f) {}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
@@ -116,62 +116,59 @@ $(document).ready(function(){initNavTree('_audio_listener_8cpp_source.html','');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> AudioListener::Sync() {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">auto</span> transform = <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a">Parent</a>()-&gt;GetComponent&lt;<a class="code" href="struct_loui_eriksson_1_1_transform.html">Transform</a>&gt;();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (transform != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="comment">// Set position of listener:</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            alListenerfv(AL_POSITION, <span class="keyword">static_cast&lt;</span>ALfloat*<span class="keyword">&gt;</span>(&amp;transform-&gt;m_Position[0]));</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="comment">// Set orientation (forward, up):</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> f = transform-&gt;FORWARD;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> u = transform-&gt;UP;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                <span class="keyword">const</span> ALfloat orientation[] = { f.x, f.y, f.z, u.x, u.y, u.z };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                alListenerfv(AL_ORIENTATION, orientation);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="comment">// Set velocity (using rigidbody, if available):</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                glm::vec3 velocity;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> rigidbody = <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a">Parent</a>()-&gt;GetComponent&lt;Physics::Rigidbody&gt;();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="keywordflow">if</span> (rigidbody != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    velocity = rigidbody-&gt;Velocity();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> p = <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344">Parent</a>().lock()) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> t = p-&gt;GetComponent&lt;<a class="code" href="struct_loui_eriksson_1_1_transform.html">Transform</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">// Set position of listener:</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            alListenerfv(AL_POSITION, <span class="keyword">static_cast&lt;</span>ALfloat*<span class="keyword">&gt;</span>(&amp;t-&gt;m_Position[0]));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="comment">// Set orientation (forward, up):</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> f = t-&gt;FORWARD;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> u = t-&gt;UP;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keyword">const</span> ALfloat orientation[] = { f.x, f.y, f.z, u.x, u.y, u.z };</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                alListenerfv(AL_ORIENTATION, orientation);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="comment">// Set velocity (using rigidbody, if available):</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                glm::vec3 velocity;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> r = p-&gt;GetComponent&lt;Physics::Rigidbody&gt;().lock()) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    velocity = r-&gt;Velocity();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    velocity = (t-&gt;m_Position - m_LastPosition) * <a class="code" href="class_loui_eriksson_1_1_time.html#a8eb3211503eee9a9727e078a63006b78">Time::DeltaTime</a>();</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    velocity = (transform-&gt;m_Position - m_LastPosition) * <a class="code" href="class_loui_eriksson_1_1_time.html#a8eb3211503eee9a9727e078a63006b78">Time::DeltaTime</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                alListenerfv(AL_VELOCITY, <span class="keyword">static_cast&lt;</span>ALfloat*<span class="keyword">&gt;</span>(&amp;velocity[0]));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="comment">// Assign gain value:</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        alListenerf(AL_GAIN, m_Gain);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="comment">// Update &quot;last position&quot; (used for transform-based doppler effect).</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        m_LastPosition = transform-&gt;m_Position;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a49fc505f312551298c6295cf11f561ab">   73</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">AudioListener::Gain</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) noexcept {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        m_Gain = glm::clamp(_value, 0.0f, 1.0f);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                alListenerfv(AL_VELOCITY, <span class="keyword">static_cast&lt;</span>ALfloat*<span class="keyword">&gt;</span>(&amp;velocity[0]));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="comment">// Assign gain value:</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            alListenerf(AL_GAIN, m_Gain);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="comment">// Update &quot;last position&quot; (used for transform-based doppler effect).</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            m_LastPosition = t-&gt;m_Position;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a49fc505f312551298c6295cf11f561ab">   70</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">AudioListener::Gain</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) noexcept {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        m_Gain = glm::clamp(_value, 0.0f, 1.0f);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">   73</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">AudioListener::Gain</a>() const noexcept {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> m_Gain;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">   76</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">AudioListener::Gain</a>() const noexcept {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">return</span> m_Gain;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// LouiEriksson::Audio</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// LouiEriksson::Audio</span></div>
 <div class="ttc" id="a_audio_listener_8h_html"><div class="ttname"><a href="_audio_listener_8h.html">AudioListener.h</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a1bb52c3c0686b37520d1cc47db24219d"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a1bb52c3c0686b37520d1cc47db24219d">LouiEriksson::Audio::AudioListener::AudioListener</a></div><div class="ttdeci">AudioListener(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00016">AudioListener.cpp:16</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a278a41469e73705c5d47d78627171b95"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a278a41469e73705c5d47d78627171b95">LouiEriksson::Audio::AudioListener::Tick</a></div><div class="ttdeci">void Tick()</div><div class="ttdoc">Updates the AudioListener every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00026">AudioListener.cpp:26</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a9711f687a3d50e3aaa4dd30973091654"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9711f687a3d50e3aaa4dd30973091654">LouiEriksson::Audio::AudioListener::~AudioListener</a></div><div class="ttdeci">~AudioListener() override</div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a9c121685dcefd43e09d83d1d655bfaaa"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9c121685dcefd43e09d83d1d655bfaaa">LouiEriksson::Audio::AudioListener::AudioListener</a></div><div class="ttdeci">AudioListener(const std::shared_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00016">AudioListener.cpp:16</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_aaae200f8ff4f2ca5f4b5a858943cb373"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">LouiEriksson::Audio::AudioListener::Gain</a></div><div class="ttdeci">const float &amp; Gain() const noexcept</div><div class="ttdoc">Get the master gain of the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00076">AudioListener.cpp:76</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_aaae200f8ff4f2ca5f4b5a858943cb373"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">LouiEriksson::Audio::AudioListener::Gain</a></div><div class="ttdeci">const float &amp; Gain() const noexcept</div><div class="ttdoc">Get the master gain of the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00073">AudioListener.cpp:73</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_af9bfb1f47eb697c5e13407153b449c32"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#af9bfb1f47eb697c5e13407153b449c32">LouiEriksson::Audio::AudioListener::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialise the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00022">AudioListener.cpp:22</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html_a8862e7bbd6c51d0fd7db31d13825a67a"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a">LouiEriksson::ECS::Component::Parent</a></div><div class="ttdeci">virtual std::shared_ptr&lt; GameObject &gt; Parent() const</div><div class="ttdoc">Get the Component's parent GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00030">Component.cpp:30</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html_ae0703b1da49cd5d4218e1bfd701b5344"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344">LouiEriksson::ECS::Component::Parent</a></div><div class="ttdeci">virtual const std::weak_ptr&lt; GameObject &gt; &amp; Parent() const noexcept</div><div class="ttdoc">Get the Component's parent GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00028">Component.cpp:28</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_time_html_a8eb3211503eee9a9727e078a63006b78"><div class="ttname"><a href="class_loui_eriksson_1_1_time.html#a8eb3211503eee9a9727e078a63006b78">LouiEriksson::Time::DeltaTime</a></div><div class="ttdeci">static float DeltaTime() noexcept</div><div class="ttdoc">Get the scaled delta time. (Duration of the previous frame.)</div><div class="ttdef"><b>Definition:</b> <a href="_time_8cpp_source.html#l00018">Time.cpp:18</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_audio_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_transform_html"><div class="ttname"><a href="struct_loui_eriksson_1_1_transform.html">LouiEriksson::Transform</a></div><div class="ttdoc">Component representing a Transform.</div><div class="ttdef"><b>Definition:</b> <a href="_transform_8h_source.html#l00026">Transform.h:26</a></div></div>

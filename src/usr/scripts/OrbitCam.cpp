@@ -22,7 +22,7 @@
 
 namespace LouiEriksson::Game {
 	
-	OrbitCam::OrbitCam(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
+	OrbitCam::OrbitCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			           m_Target(0.0f),
 			m_AnimationProgress(0.0f) {}
 	
@@ -30,17 +30,16 @@ namespace LouiEriksson::Game {
 	
 	void OrbitCam::Begin() {
 		
-		if (const auto s = Parent()->GetScene().lock()) {
+		if (const auto p = Parent().lock()) {
+		if (const auto s = p->GetScene().lock()) {
 			
 			// Get or add Transform.
-			m_Transform = Parent()->GetComponent<Transform>();
+			m_Transform = p->GetComponent<Transform>();
 			if (m_Transform.expired()) {
-				m_Transform = Parent()->AddComponent<Transform>();
+				m_Transform = p->AddComponent<Transform>();
 			}
 			
-			const auto t = m_Transform.lock();
-			
-			if (t) {
+			if (const auto t = m_Transform.lock()) {
 				
 				t->m_Position = glm::vec3(0.0f, 2.5f, -7.0f);
 				t->m_Rotation = glm::quat(
@@ -48,32 +47,32 @@ namespace LouiEriksson::Game {
 						glm::vec3(-35.0f, 0.0f, 0.0f)
 					)
 				);
-			}
-			
-			// Get or add Camera.
-			m_Camera = s->Attach(Parent()->AddComponent<Graphics::Camera>());
-			if (m_Camera.expired()) {
-				m_Camera = Parent()->AddComponent<Graphics::Camera>();
-			}
-			
-			// Update the camera's parameters to match the ones in Settings.
-			SyncCameraSettings();
-			
-			if (const auto c = m_Camera.lock()) {
-				c->SetWindow(Window::Get(2));
-				c->SetTransform(t);
-				c->ClearColor(glm::vec4(0.0f));
-			}
-			
-			// Add a light to the scene for testing purposes.
-			// TODO: Add a light to the scene through the scene's file, not code.
-			{
-				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
-				light_gameObject->AddComponent<Transform>();
 				
-				s->Attach(light_gameObject->AddComponent<Graphics::Light>());
+				// Get or add Camera.
+				m_Camera = s->Attach(p->AddComponent<Graphics::Camera>().lock());
+				if (m_Camera.expired()) {
+					m_Camera = p->AddComponent<Graphics::Camera>();
+				}
+				
+				// Update the camera's parameters to match the ones in Settings.
+				SyncCameraSettings();
+				
+				if (const auto c = m_Camera.lock()) {
+					c->SetWindow(Window::Get(2));
+					c->SetTransform(t);
+					c->ClearColor(glm::vec4(0.0f));
+				}
+				
+				// Add a light to the scene for testing purposes.
+				// TODO: Add a light to the scene through the scene's file, not code.
+				{
+					auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
+					light_gameObject->AddComponent<Transform>();
+					
+					s->Attach(light_gameObject->AddComponent<Graphics::Light>().lock());
+				}
 			}
-		}
+		}}
 	}
 	
 	void OrbitCam::Tick() {

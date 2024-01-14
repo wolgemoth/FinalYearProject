@@ -35,7 +35,7 @@ namespace LouiEriksson::Audio {
 		
 	public:
 		
-		 explicit AudioListener(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		 explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~AudioListener() override;
 		
 		/// <summary> Initialise the AudioListener. </summary>

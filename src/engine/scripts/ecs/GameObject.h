@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_GAMEOBJECT_H
 #define FINALYEARPROJECT_GAMEOBJECT_H
 
+#include "../core/Script.h"
 #include "../core/utils/Hashmap.h"
 
 #include <cstddef>
@@ -12,12 +13,6 @@
 #include <vector>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
-
-namespace LouiEriksson {
-	
-	class Script;
-	
-} // LouiEriksson
 
 namespace LouiEriksson::ECS {
 	
@@ -33,7 +28,7 @@ namespace LouiEriksson::ECS {
 	private:
 	
 		/// <summary> Scene the GameObject belongs to. </summary>
-		std::weak_ptr<Scene> m_Scene;
+		const std::weak_ptr<Scene> m_Scene;
 	
 		/// <summary> Name of the GameObject. </summary>
 		std::string m_Name;
@@ -69,7 +64,7 @@ namespace LouiEriksson::ECS {
 		/// <typeparam name="T">Type to be searched.</typeparam>
 		/// <returns>Vector of std::shared_ptr<T> wrapping a std::shared_ptr<T></returns>
 		template <typename T>
-		std::vector<std::shared_ptr<T>> GetComponents() const {
+		std::vector<const std::weak_ptr<T>> GetComponents() const {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
@@ -87,13 +82,13 @@ namespace LouiEriksson::ECS {
 		/// </summary>
 		/// <typeparam name="T">Type to be searched.</typeparam>
 		/// <param name="_index">Index of the Component.</param>
-		/// <returns>std::shared_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
+		/// <returns>const std::weak_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
 		template<typename T>
-		std::shared_ptr<T> GetComponent(size_t _index = 0) const {
+		std::weak_ptr<T> GetComponent(size_t _index = 0) const {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
-			std::shared_ptr<T> result(nullptr);
+			std::shared_ptr<T> result;
 			
 			std::vector<std::shared_ptr<Component>> category;
 			if (m_Components.Get(typeid(T), category)) {
@@ -107,9 +102,9 @@ namespace LouiEriksson::ECS {
 		/// Add a Component of type to the GameObject.
 		/// </summary>
 		/// <typeparam name="T">Type to be added.</typeparam>
-		/// <returns>std::shared_ptr<T> referencing the created type.</returns>
+		/// <returns>const::weak_ptr<T>& referencing the created type.</returns>
 		template <typename T>
-		std::shared_ptr<T> AddComponent() {
+		const std::weak_ptr<T> AddComponent() {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			

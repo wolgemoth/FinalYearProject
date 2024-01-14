@@ -16,8 +16,7 @@ var annotated_dup =
         [ "Ball", "class_loui_eriksson_1_1_game_1_1_ball.html", "class_loui_eriksson_1_1_game_1_1_ball" ],
         [ "FlyCam", "class_loui_eriksson_1_1_game_1_1_fly_cam.html", "class_loui_eriksson_1_1_game_1_1_fly_cam" ],
         [ "OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html", "class_loui_eriksson_1_1_game_1_1_orbit_cam" ],
-        [ "Plane", "class_loui_eriksson_1_1_game_1_1_plane.html", "class_loui_eriksson_1_1_game_1_1_plane" ],
-        [ "Player", "class_loui_eriksson_1_1_game_1_1_player.html", "class_loui_eriksson_1_1_game_1_1_player" ]
+        [ "Plane", "class_loui_eriksson_1_1_game_1_1_plane.html", "class_loui_eriksson_1_1_game_1_1_plane" ]
       ] ],
       [ "Graphics", "namespace_loui_eriksson_1_1_graphics.html", [
         [ "Camera", "class_loui_eriksson_1_1_graphics_1_1_camera.html", "class_loui_eriksson_1_1_graphics_1_1_camera" ],

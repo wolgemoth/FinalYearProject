@@ -26,18 +26,18 @@ Collaboration diagram for Loui\+Eriksson\+::ECS\+::Component\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=232pt]{class_loui_eriksson_1_1_e_c_s_1_1_component__coll__graph}
+\includegraphics[width=237pt]{class_loui_eriksson_1_1_e_c_s_1_1_component__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_a8862e7bbd6c51d0fd7db31d13825a67a}{Parent}} () const
+virtual const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344}{Parent}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}\textquotesingle{}s parent \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_ab13d7d9ec215b0eb8211dc6ecfe005d3}{Component}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_a8dee564fb8afd26683085a2a279d68ab}{Component}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 virtual \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_ac1cf928d584ed5ba7757e802f0ddb8fc}{$\sim$\+Component}} ()
 \end{DoxyCompactItemize}
@@ -53,11 +53,11 @@ Definition at line 14 of file Component.\+h.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_component_ab13d7d9ec215b0eb8211dc6ecfe005d3}\label{class_loui_eriksson_1_1_e_c_s_1_1_component_ab13d7d9ec215b0eb8211dc6ecfe005d3}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_component_a8dee564fb8afd26683085a2a279d68ab}\label{class_loui_eriksson_1_1_e_c_s_1_1_component_a8dee564fb8afd26683085a2a279d68ab}} 
 \index{LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}!Component@{Component}}
 \index{Component@{Component}!LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}}
 \doxysubsubsection{\texorpdfstring{Component()}{Component()}}
-{\footnotesize\ttfamily Loui\+Eriksson\+::\+ECS\+::\+Component\+::\+Component (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+ECS\+::\+Component\+::\+Component (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [protected]}, {\ttfamily [noexcept]}}
 
 
 
@@ -76,11 +76,11 @@ Definition at line 21 of file Component.\+cpp.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_component_a8862e7bbd6c51d0fd7db31d13825a67a}\label{class_loui_eriksson_1_1_e_c_s_1_1_component_a8862e7bbd6c51d0fd7db31d13825a67a}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344}\label{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344}} 
 \index{LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}!Parent@{Parent}}
 \index{Parent@{Parent}!LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}}
 \doxysubsubsection{\texorpdfstring{Parent()}{Parent()}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ Loui\+Eriksson\+::\+ECS\+::\+Component\+::\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \& Loui\+Eriksson\+::\+ECS\+::\+Component\+::\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -88,14 +88,14 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}
 
 
 
-Definition at line 30 of file Component.\+cpp.
+Definition at line 28 of file Component.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_component_a8862e7bbd6c51d0fd7db31d13825a67a_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344_icgraph}
 \end{center}
 \end{figure}
 

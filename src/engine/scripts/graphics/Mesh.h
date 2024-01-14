@@ -62,12 +62,12 @@ namespace LouiEriksson::Graphics {
 				static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
 				
 				/// <summary> Static Quad instance. </summary>
-				inline static std::shared_ptr<Mesh> s_Instance { nullptr };
+				inline static std::shared_ptr<Mesh> s_Instance;
 				
 			public:
 				
 				/// <summary> Returns a pointer to the static instance of the mesh. </summary>
-				static std::weak_ptr<Mesh> Instance();
+				static const std::weak_ptr<Mesh> Instance();
 				
 			};
 			
@@ -81,14 +81,14 @@ namespace LouiEriksson::Graphics {
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
 		
-		[[nodiscard]] GLuint          VAO_ID() const noexcept;
-		[[nodiscard]] GLuint  PositionVBO_ID() const noexcept;
-		[[nodiscard]] GLuint  TexCoordVBO_ID() const noexcept;
-		[[nodiscard]] GLuint    NormalVBO_ID() const noexcept;
-		[[nodiscard]] GLuint   TangentVBO_ID() const noexcept;
-		[[nodiscard]] GLuint BitangentVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint&          VAO_ID() const noexcept;
+		[[nodiscard]] const GLuint&  PositionVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint&  TexCoordVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint&    NormalVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint&   TangentVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint& BitangentVBO_ID() const noexcept;
 		
-		[[nodiscard]] unsigned long VertexCount() const noexcept;
+		[[nodiscard]] const unsigned long& VertexCount() const noexcept;
 		
 	};
 	

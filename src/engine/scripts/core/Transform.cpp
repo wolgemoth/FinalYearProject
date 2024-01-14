@@ -15,7 +15,7 @@
 
 namespace LouiEriksson {
 	
-	Transform::Transform(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
+	Transform::Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
 			m_Position(VEC_ZERO     ),
 			m_Rotation(QUAT_IDENTITY),
 			m_Scale   (VEC_ONE      ) { }

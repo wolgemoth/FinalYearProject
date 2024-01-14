@@ -15,9 +15,5 @@ var dir_bbec129761a22a72f5ee92801be1ffaf =
     [ "Plane.cpp", "_plane_8cpp.html", null ],
     [ "Plane.h", "_plane_8h.html", [
       [ "Plane", "class_loui_eriksson_1_1_game_1_1_plane.html", "class_loui_eriksson_1_1_game_1_1_plane" ]
-    ] ],
-    [ "Player.cpp", "_player_8cpp.html", null ],
-    [ "Player.h", "_player_8h.html", [
-      [ "Player", "class_loui_eriksson_1_1_game_1_1_player.html", "class_loui_eriksson_1_1_game_1_1_player" ]
     ] ]
 ];

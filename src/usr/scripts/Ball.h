@@ -53,7 +53,7 @@ namespace LouiEriksson::Game {
 		
 	public:
 	
-		explicit Ball(const std::shared_ptr<ECS::GameObject>& _parent);
+		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Ball() override;
 	
 	};

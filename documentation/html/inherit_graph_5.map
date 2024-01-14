@@ -8,12 +8,11 @@
 <area shape="rect" id="node7" href="$class_loui_eriksson_1_1_physics_1_1_collider.html" title=" " alt="" coords="207,332,368,373"/>
 <area shape="rect" id="node10" href="$class_loui_eriksson_1_1_physics_1_1_rigidbody.html" title="Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour." alt="" coords="207,397,368,439"/>
 <area shape="rect" id="node11" href="$class_loui_eriksson_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="213,466,362,493"/>
-<area shape="rect" id="node17" href="$struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform." alt="" coords="199,517,376,543"/>
-<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html" title=" " alt="" coords="424,263,585,304"/>
-<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_physics_1_1_sphere_collider.html" title=" " alt="" coords="424,328,585,369"/>
-<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_game_1_1_ball.html" title="Ball object with Rigidbody physics." alt="" coords="429,393,580,435"/>
-<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html" title="Free&#45;fly camera." alt="" coords="429,459,580,500"/>
-<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_game_1_1_orbit_cam.html" title="Camera that orbits a target." alt="" coords="429,524,580,565"/>
-<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_game_1_1_plane.html" title="A Plane with Collision." alt="" coords="429,589,580,631"/>
-<area shape="rect" id="node16" href="$class_loui_eriksson_1_1_game_1_1_player.html" title=" " alt="" coords="429,655,580,696"/>
+<area shape="rect" id="node16" href="$struct_loui_eriksson_1_1_transform.html" title="Component representing a Transform." alt="" coords="199,517,376,543"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html" title=" " alt="" coords="424,264,585,305"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_physics_1_1_sphere_collider.html" title=" " alt="" coords="424,329,585,371"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_game_1_1_ball.html" title="Ball object with Rigidbody physics." alt="" coords="429,395,580,436"/>
+<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html" title="Free&#45;fly camera." alt="" coords="429,460,580,501"/>
+<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_game_1_1_orbit_cam.html" title="Camera that orbits a target." alt="" coords="429,525,580,567"/>
+<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_game_1_1_plane.html" title="A Plane with Collision." alt="" coords="429,591,580,632"/>
 </map>

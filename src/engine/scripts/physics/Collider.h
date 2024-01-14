@@ -35,7 +35,7 @@ namespace LouiEriksson::Physics {
 			Plane
 		};
 	
-		explicit Collider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Collider() override = default;
 	
 		/// <summary> Set the Transform of the Collider. </summary>

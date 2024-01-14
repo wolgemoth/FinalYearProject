@@ -1,8 +1,8 @@
 <map id="LouiEriksson::Game::FlyCam::Begin" name="LouiEriksson::Game::FlyCam::Begin">
 <area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,123,156,164"/>
 <area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97" title="Factory function which creates a GameObject within a Scene." alt="" coords="238,5,393,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19" title=" " alt="" coords="218,71,413,98"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_resources.html#abdb823979b716c70e2759009d766958e" title=" " alt="" coords="226,123,405,164"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a" title="Get the Component&#39;s parent GameObject." alt="" coords="242,188,389,229"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_window.html#a7ead0d85d1637f7cdacfd741cd7684f8" title=" " alt="" coords="218,71,413,98"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_resources.html#a119f887124154cd6d1022b15317fa533" title=" " alt="" coords="226,123,405,164"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="242,188,389,229"/>
 <area shape="rect" id="node6" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#a4ad4c8a179c31ea310deeca14b125b93" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="204,253,427,295"/>
 </map>

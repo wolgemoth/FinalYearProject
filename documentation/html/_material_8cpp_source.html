@@ -110,39 +110,17 @@ $(document).ready(function(){initNavTree('_material_8cpp_source.html',''); initR
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    Material::~Material() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a2b1fce890b34d6a1d746b88037fae9fb">   26</a></span>&#160;    std::weak_ptr&lt;Shader&gt; Material::GetShader() const noexcept {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> m_Shader;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a486d5c0f664949ee3e891328e865b6e4">   30</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetAlbedo() const noexcept {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> m_Albedo;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a8e4f8774a9b738724068d6701a1abb34">   34</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetRoughness() const noexcept {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> m_Roughness;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#aeb84d3823ef1bb7565f85073f44e7004">   38</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetMetallic() const noexcept {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> m_Metallic;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a8b4625cf1150939d3e9374b01805362d">   42</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetNormals() const noexcept{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> m_Normals;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a1ede0690d13e3ab0e7fd4fedfdab71fc">   46</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetDisplacement() const noexcept {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">return</span> m_Displacement;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a454b25c361c0515dfc31a55a16b25013">   50</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetAO() const noexcept {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> m_AO;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a263a04b767a0d68474d782b523d08268">   54</a></span>&#160;    std::weak_ptr&lt;Texture&gt; Material::GetEmission() const noexcept {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> m_Emission;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// LouiEriksson::Graphics</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a656c1a29640a49c5028223f12cd7c429">   26</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Shader&gt;&amp; Material::GetShader() const noexcept { <span class="keywordflow">return</span> m_Shader; }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a616f4f7b03fefac6c42a3432273115bc">   28</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetAlbedo()       const noexcept { <span class="keywordflow">return</span> m_Albedo;       }</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a4453d73262045a80987ff67b195d91b7">   29</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetRoughness()    const noexcept { <span class="keywordflow">return</span> m_Roughness;    }</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#ad53aab8fb1466c9d764d71f2e4019e19">   30</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetMetallic()     const noexcept { <span class="keywordflow">return</span> m_Metallic;     }</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#ac2bc4f617807e47c5e298b6d5a28b1b0">   31</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetNormals()      const noexcept { <span class="keywordflow">return</span> m_Normals;      }</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a17f2fb23b937e157831a30e3e89fa95f">   32</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetDisplacement() const noexcept { <span class="keywordflow">return</span> m_Displacement; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#a7794c699a5e68044db004c0d0fc564e8">   33</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetAO()           const noexcept { <span class="keywordflow">return</span> m_AO;           }</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_graphics_1_1_material.html#ab83bbc2b47567a7d6b87cccd212496fd">   34</a></span>&#160;    <span class="keyword">const</span> std::weak_ptr&lt;Texture&gt;&amp; Material::GetEmission()     const noexcept { <span class="keywordflow">return</span> m_Emission;     }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// LouiEriksson::Graphics</span></div>
 <div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
 <div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
 <div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>

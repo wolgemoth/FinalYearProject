@@ -25,7 +25,7 @@ namespace LouiEriksson::Physics {
 	
 	public:
 		
-		explicit PlaneCollider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~PlaneCollider() override;
 		
 		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override;

@@ -33,7 +33,10 @@ namespace LouiEriksson::UI {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		
-		ImGui_ImplSDL2_InitForOpenGL(_window.lock()->operator SDL_Window *(), _window.lock()->Context());
+		if (const auto w = _window.lock()) {
+			ImGui_ImplSDL2_InitForOpenGL(w->operator SDL_Window *(), w->Context());
+		}
+		
 		ImGui_ImplOpenGL3_Init(_glsl_version);
 	}
 	
@@ -155,9 +158,10 @@ namespace LouiEriksson::UI {
 		if (_draw) {
 			
 			// Set default values (on first run):
-			{
-	            auto screenSize   = glm::vec2(_window.lock()->Dimensions());
-				auto windowSize   = ImVec2(300, 200);
+			if (const auto w = _window.lock()) {
+				
+	            const auto screenSize   = glm::vec2(w->Dimensions());
+				const auto windowSize   = ImVec2(300, 200);
 				
 				ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
 				ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - s_WindowMargin.x, s_WindowMargin.y), ImGuiCond_Once);

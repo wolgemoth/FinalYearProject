@@ -1,6 +1,4 @@
 <map id="LouiEriksson::Physics::Collider::SetTransform" name="LouiEriksson::Physics::Collider::SetTransform">
-<area shape="rect" id="node1" title="Set the Transform of the Collider." alt="" coords="463,39,637,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd" title="Called at the beginning of the first frame." alt="" coords="234,5,385,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a85009a893cd70b1d2fd1dbfcd590dc80" title="Set the Transform of the Collider." alt="" coords="204,71,415,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_plane.html#a57dbf3fab9cc21faf805c03e053faa92" title="Called at the beginning of the first frame." alt="" coords="5,71,156,112"/>
+<area shape="rect" id="node1" title="Set the Transform of the Collider." alt="" coords="264,5,439,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a85009a893cd70b1d2fd1dbfcd590dc80" title="Set the Transform of the Collider." alt="" coords="5,5,216,47"/>
 </map>

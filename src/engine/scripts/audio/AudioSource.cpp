@@ -98,49 +98,39 @@ namespace LouiEriksson::Audio {
 			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MinAngle);
 			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MaxAngle);
 			
-			// Get reference to parent (may be null).
-			const auto parent = Parent();
-			
-			if (parent != nullptr) {
+			if (const auto p = Parent().lock()) {
+			if (const auto t = p->GetComponent<Transform>().lock()) {
 				
-				// Get reference to transform (may be null).
-				const auto transform = parent->GetComponent<Transform>();
+				// Set world position to that of the current transform.
+				alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&t->m_Position[0]));
 				
-				if (transform != nullptr) {
+				// Set the direction of the audio source using the current transform.
+				{
+					const auto dir = t->FORWARD;
 					
-					// Set world position to that of the current transform.
-					alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
-					
-					// Set the direction of the audio source using the current transform.
-					{
-						const auto dir = transform->FORWARD;
-						
-						alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
-					}
+					alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
 				}
-				
+			
 				// Set velocity (using rigidbody, if available):
 				{
 					glm::vec3 velocity;
 					
-					const auto rigidbody = parent->GetComponent<Physics::Rigidbody>();
-					
-					if (rigidbody != nullptr) {
-						velocity = rigidbody->Velocity();
+					if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+						velocity = r->Velocity();
 					}
 					else {
-						velocity = (transform->m_Position - m_LastPosition) * Time::DeltaTime();
+						velocity = (t->m_Position - m_LastPosition) * Time::DeltaTime();
 					}
 					
 					alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
 				}
 				
-				m_LastPosition = transform->m_Position;
-			}
+				m_LastPosition = t->m_Position;
+			}}
 		}
 	}
 	
-	AudioSource::AudioSource(const std::shared_ptr<ECS::GameObject>& _parent) : Component(_parent),
+	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
 			m_LastPosition(   0.0f),
 			m_Source      (AL_NONE),
 			m_Parameters  ()
@@ -187,9 +177,7 @@ namespace LouiEriksson::Audio {
 		try {
 			
 			// Try and get current clip.
-			const auto c = m_Clip.lock();
-			
-			if (c != nullptr) {
+			if (const auto c = m_Clip.lock()) {
 				
 				// Only play if the clip actually contains data.
 				if (c->m_Samples.m_Length > 0) {

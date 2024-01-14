@@ -11,6 +11,7 @@ var searchData=
   ['hashmap_3c_20std_3a_3astring_2c_20std_3a_3ashared_5fptr_3c_20louieriksson_3a_3agraphics_3a_3ashader_20_3e_20_3e_156',['Hashmap&lt; std::string, std::shared_ptr&lt; LouiEriksson::Graphics::Shader &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
   ['hashmap_3c_20std_3a_3astring_2c_20std_3a_3ashared_5fptr_3c_20louieriksson_3a_3agraphics_3a_3atexture_20_3e_20_3e_157',['Hashmap&lt; std::string, std::shared_ptr&lt; LouiEriksson::Graphics::Texture &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
   ['hashmap_3c_20std_3a_3atype_5findex_2c_20std_3a_3avector_3c_20std_3a_3ashared_5fptr_3c_20louieriksson_3a_3aecs_3a_3acomponent_20_3e_20_3e_20_3e_158',['Hashmap&lt; std::type_index, std::vector&lt; std::shared_ptr&lt; LouiEriksson::ECS::Component &gt; &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
-  ['hashmap_3c_20uint32_2c_20std_3a_3avector_3c_20sdl_5fevent_20_3e_20_3e_159',['Hashmap&lt; Uint32, std::vector&lt; SDL_Event &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
-  ['height_160',['Height',['../class_loui_eriksson_1_1_graphics_1_1_texture.html#af36a985af507ccb72a914ace0b96a62f',1,'LouiEriksson::Graphics::Texture']]]
+  ['hashmap_3c_20std_3a_3atype_5findex_2c_20std_3a_3avector_3c_20std_3a_3aweak_5fptr_3c_20louieriksson_3a_3aecs_3a_3acomponent_20_3e_20_3e_20_3e_159',['Hashmap&lt; std::type_index, std::vector&lt; std::weak_ptr&lt; LouiEriksson::ECS::Component &gt; &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
+  ['hashmap_3c_20uint32_2c_20std_3a_3avector_3c_20sdl_5fevent_20_3e_20_3e_160',['Hashmap&lt; Uint32, std::vector&lt; SDL_Event &gt; &gt;',['../class_loui_eriksson_1_1_hashmap.html',1,'LouiEriksson']]],
+  ['height_161',['Height',['../class_loui_eriksson_1_1_graphics_1_1_texture.html#af36a985af507ccb72a914ace0b96a62f',1,'LouiEriksson::Graphics::Texture']]]
 ];

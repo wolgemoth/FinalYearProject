@@ -208,109 +208,110 @@ $(document).ready(function(){initNavTree('_application_8cpp_source.html',''); in
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                            </div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                            <span class="keywordflow">for</span> (<span class="keyword">auto</span> item : items) {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                                </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                <span class="keyword">const</span> <span class="keyword">auto</span> window = <a class="code" href="class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19">Window::Get</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(item.window.windowID));</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> w = <a class="code" href="class_loui_eriksson_1_1_window.html#a7ead0d85d1637f7cdacfd741cd7684f8">Window::Get</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(item.window.windowID)).lock()) {</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                                <span class="keywordflow">if</span> (item.window.event == SDL_WINDOWEVENT_RESIZED) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                    window-&gt;SetDirty();</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                                }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                            }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                        }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        <span class="comment">// Process quit event:</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                        <span class="keywordflow">if</span> (<a class="code" href="struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a">Input::Input::Event::Get</a>(SDL_QUIT)) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                            </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                            <a class="code" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">Application::Quit</a>();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                            <span class="keywordflow">goto</span> NestedBreak;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                        }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                    <span class="comment">/* UPDATE CURSOR STATE */</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                    Input::Cursor::Update();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                    </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    <span class="comment">/* FIXED UPDATE */</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                    </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    <span class="comment">// Runs as many times as needed to restore the physics step below zero.</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    <span class="keywordflow">while</span> (physics_step &gt;= 0.0f) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                        </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                        <span class="comment">// Tick the physics engine.</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                        Physics::Physics::Tick(<a class="code" href="class_loui_eriksson_1_1_time.html#afaa1bb533215062f7900a9afd1bf1ee8">Time::FixedDeltaTime</a>());</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                        </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                        <span class="comment">// Tick the scene&#39;s fixed update.</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        scene-&gt;FixedTick();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                        </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                        <span class="comment">// Subtract delta time from the physics step.</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                        physics_step -= <a class="code" href="class_loui_eriksson_1_1_time.html#a2a298b9fdcb68bf49848ecdc3d6462fe">Time::FixedUnscaledDeltaTime</a>();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    <span class="comment">/* UPDATE */</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    scene-&gt;Tick();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                    <span class="comment">/* GUI UPDATE */</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    UI::GUI::OnGUI(main_window);</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                    </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    <span class="comment">/* UPDATE WINDOWS */</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    <span class="keyword">auto</span> windows = Window::m_Windows.Values();</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; window : windows) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                        window-&gt;Update();</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                    }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    <span class="comment">// Dump latest AL error log to the console.</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    <a class="code" href="class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a">Utils::ALDumpError</a>();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    <span class="comment">// Dump latest GL error log to the console.</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    <a class="code" href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125">Utils::GLDumpError</a>();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    <span class="comment">/* UPDATE TIMERS */</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    Time::s_UnscaledDeltaTime =</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                            std::chrono::high_resolution_clock::now() -</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                            frame_start</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                        ).count()) / 1000000.0f; <span class="comment">// Calculate delta time.</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                Time::s_Elapsed  += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment total elapsed time.</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    Physics::Physics::s_LastTick += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment time since last physics update.</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                    physics_step += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment the physics step (used for computing number of fixed updates per frame).</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    std::cout &lt;&lt; e.what()&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;NestedBreak:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="comment">/* FINALISE */</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            Input::Cursor::Reset();</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                 UI::    GUI::Dispose();</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            Physics::Physics::Dispose();</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;              <a class="code" href="class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb">Input::  Input::Dispose</a>();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            SDL_Quit();</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Attempted to call Application::Main() while it is already running! Do you have multiple instances?\n&quot;</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        }</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    </div>
-<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">  211</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">Application::Quit</a>() noexcept {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        Application::s_Quit = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    }</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                                    <span class="keywordflow">if</span> (item.window.event == SDL_WINDOWEVENT_RESIZED) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                        w-&gt;SetDirty();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                                    }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                                }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                            }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                        <span class="comment">// Process quit event:</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                        <span class="keywordflow">if</span> (<a class="code" href="struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a">Input::Input::Event::Get</a>(SDL_QUIT)) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                            </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                            <a class="code" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">Application::Quit</a>();</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                            <span class="keywordflow">goto</span> NestedBreak;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                        }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                    </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                    <span class="comment">/* UPDATE CURSOR STATE */</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                    Input::Cursor::Update();</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                    <span class="comment">/* FIXED UPDATE */</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    <span class="comment">// Runs as many times as needed to restore the physics step below zero.</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                    <span class="keywordflow">while</span> (physics_step &gt;= 0.0f) {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                        </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                        <span class="comment">// Tick the physics engine.</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                        Physics::Physics::Tick(<a class="code" href="class_loui_eriksson_1_1_time.html#afaa1bb533215062f7900a9afd1bf1ee8">Time::FixedDeltaTime</a>());</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                        </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        <span class="comment">// Tick the scene&#39;s fixed update.</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                        scene-&gt;FixedTick();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                        </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                        <span class="comment">// Subtract delta time from the physics step.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                        physics_step -= <a class="code" href="class_loui_eriksson_1_1_time.html#a2a298b9fdcb68bf49848ecdc3d6462fe">Time::FixedUnscaledDeltaTime</a>();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="comment">/* UPDATE */</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    scene-&gt;Tick();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    <span class="comment">/* GUI UPDATE */</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                    UI::GUI::OnGUI(main_window);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    <span class="comment">/* UPDATE WINDOWS */</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    <span class="keyword">auto</span> windows = Window::m_Windows.Values();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; window : windows) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                        window-&gt;Update();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    <span class="comment">// Dump latest AL error log to the console.</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    <a class="code" href="class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a">Utils::ALDumpError</a>();</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    <span class="comment">// Dump latest GL error log to the console.</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    <a class="code" href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125">Utils::GLDumpError</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    <span class="comment">/* UPDATE TIMERS */</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                    Time::s_UnscaledDeltaTime =</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                            std::chrono::high_resolution_clock::now() -</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                            frame_start</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                        ).count()) / 1000000.0f; <span class="comment">// Calculate delta time.</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                Time::s_Elapsed  += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment total elapsed time.</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                    Physics::Physics::s_LastTick += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment time since last physics update.</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                    physics_step += <a class="code" href="class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e">Time::UnscaledDeltaTime</a>(); <span class="comment">// Increment the physics step (used for computing number of fixed updates per frame).</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    std::cout &lt;&lt; e.what()&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                }</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;NestedBreak:</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            <span class="comment">/* FINALISE */</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            Input::Cursor::Reset();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                 UI::    GUI::Dispose();</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            Physics::Physics::Dispose();</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;              <a class="code" href="class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb">Input::  Input::Dispose</a>();</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            SDL_Quit();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Attempted to call Application::Main() while it is already running! Do you have multiple instances?\n&quot;</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    </div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">  212</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">Application::Quit</a>() noexcept {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        Application::s_Quit = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;} <span class="comment">// LouiEriksson</span></div>
 <div class="ttc" id="a_application_8h_html"><div class="ttname"><a href="_application_8h.html">Application.h</a></div></div>
 <div class="ttc" id="a_resources_8h_html"><div class="ttname"><a href="_resources_8h.html">Resources.h</a></div></div>
 <div class="ttc" id="a_settings_8h_html"><div class="ttname"><a href="_settings_8h.html">Settings.h</a></div></div>
 <div class="ttc" id="a_window_8h_html"><div class="ttname"><a href="_window_8h.html">Window.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_application_html_a3cd3d52cd7a0b2520ab7b53159214657"><div class="ttname"><a href="class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657">LouiEriksson::Application::Main</a></div><div class="ttdeci">static int Main()</div><div class="ttdoc">Main function of the application.</div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00032">Application.cpp:32</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_application_html_abb14284e05d703293822f8cc16269b1a"><div class="ttname"><a href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">LouiEriksson::Application::Quit</a></div><div class="ttdeci">static void Quit() noexcept</div><div class="ttdoc">Quits the application.</div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00211">Application.cpp:211</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_ad0b45140de5e2fed60af25e8ee71fe79"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79">LouiEriksson::Audio::Sound::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdoc">Initialise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00020">Sound.cpp:20</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_scene_html_a89a3bc15fb9cb0a6b5f64b6d773590f3"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a89a3bc15fb9cb0a6b5f64b6d773590f3">LouiEriksson::ECS::Scene::Load</a></div><div class="ttdeci">static std::shared_ptr&lt; Scene &gt; Load(const std::filesystem::path &amp;_path)</div><div class="ttdoc">TryLoad the Scene from xml format at a given path.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00316">Scene.cpp:316</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_application_html_abb14284e05d703293822f8cc16269b1a"><div class="ttname"><a href="class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a">LouiEriksson::Application::Quit</a></div><div class="ttdeci">static void Quit() noexcept</div><div class="ttdoc">Quits the application.</div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00212">Application.cpp:212</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_ad0b45140de5e2fed60af25e8ee71fe79"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79">LouiEriksson::Audio::Sound::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdoc">Initialise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00021">Sound.cpp:21</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_scene_html_a89a3bc15fb9cb0a6b5f64b6d773590f3"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a89a3bc15fb9cb0a6b5f64b6d773590f3">LouiEriksson::ECS::Scene::Load</a></div><div class="ttdeci">static std::shared_ptr&lt; Scene &gt; Load(const std::filesystem::path &amp;_path)</div><div class="ttdoc">TryLoad the Scene from xml format at a given path.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00340">Scene.cpp:340</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_input_1_1_cursor_html_a08e5deafd6edab5c8923a8d4a5a3eee8"><div class="ttname"><a href="class_loui_eriksson_1_1_input_1_1_cursor.html#a08e5deafd6edab5c8923a8d4a5a3eee8">LouiEriksson::Input::Cursor::SetState</a></div><div class="ttdeci">static void SetState(const State &amp;_state)</div><div class="ttdoc">Set the pending state of the Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="_cursor_8cpp_source.html#l00043">Cursor.cpp:43</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_input_1_1_input_html_a69e17cf85d09f93104a4e57a3220e0bb"><div class="ttname"><a href="class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb">LouiEriksson::Input::Input::Dispose</a></div><div class="ttdeci">static void Dispose()</div><div class="ttdoc">Finalise input.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00231">Input.cpp:231</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_input_1_1_input_html_af7bc632ef89f648d2b8ff2ff3a027108"><div class="ttname"><a href="class_loui_eriksson_1_1_input_1_1_input.html#af7bc632ef89f648d2b8ff2ff3a027108">LouiEriksson::Input::Input::Tick</a></div><div class="ttdeci">static void Tick()</div><div class="ttdoc">Refresh the input.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00139">Input.cpp:139</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_input_1_1_input_html_a69e17cf85d09f93104a4e57a3220e0bb"><div class="ttname"><a href="class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb">LouiEriksson::Input::Input::Dispose</a></div><div class="ttdeci">static void Dispose()</div><div class="ttdoc">Finalise input.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00230">Input.cpp:230</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_input_1_1_input_html_af7bc632ef89f648d2b8ff2ff3a027108"><div class="ttname"><a href="class_loui_eriksson_1_1_input_1_1_input.html#af7bc632ef89f648d2b8ff2ff3a027108">LouiEriksson::Input::Input::Tick</a></div><div class="ttdeci">static void Tick()</div><div class="ttdoc">Refresh the input.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00138">Input.cpp:138</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_resources_html_a7b99796ee90be12e77eba2bbe4022e2f"><div class="ttname"><a href="class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f">LouiEriksson::Resources::Preload</a></div><div class="ttdeci">static void Preload()</div><div class="ttdef"><b>Definition:</b> <a href="_resources_8cpp_source.html#l00212">Resources.cpp:212</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_settings_html_a99f22abc6c114e19c20a05806daa8090"><div class="ttname"><a href="class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090">LouiEriksson::Settings::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdoc">Initialise settings on application start.</div><div class="ttdef"><b>Definition:</b> <a href="_settings_8cpp_source.html#l00012">Settings.cpp:12</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_time_html_a2a298b9fdcb68bf49848ecdc3d6462fe"><div class="ttname"><a href="class_loui_eriksson_1_1_time.html#a2a298b9fdcb68bf49848ecdc3d6462fe">LouiEriksson::Time::FixedUnscaledDeltaTime</a></div><div class="ttdeci">static const float &amp; FixedUnscaledDeltaTime() noexcept</div><div class="ttdoc">Get the unscaled fixed delta time. (Time between physics updates.)</div><div class="ttdef"><b>Definition:</b> <a href="_time_8cpp_source.html#l00033">Time.cpp:33</a></div></div>
@@ -319,9 +320,9 @@ $(document).ready(function(){initNavTree('_application_8cpp_source.html',''); in
 <div class="ttc" id="aclass_loui_eriksson_1_1_utils_html_a8f224f7d3b75e3e26ec0aebad333935a"><div class="ttname"><a href="class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a">LouiEriksson::Utils::ALDumpError</a></div><div class="ttdeci">static void ALDumpError(const bool &amp;_silent=false)</div><div class="ttdoc">Dumps the latest OpenAL error to the console.</div><div class="ttdef"><b>Definition:</b> <a href="_utils_8cpp_source.html#l00056">Utils.cpp:56</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_utils_html_ae89b9431315af52dcc8aa1b038c94125"><div class="ttname"><a href="class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125">LouiEriksson::Utils::GLDumpError</a></div><div class="ttdeci">static void GLDumpError(const bool &amp;_silent=false)</div><div class="ttdoc">Dumps the latest OpenGL error to the console.</div><div class="ttdef"><b>Definition:</b> <a href="_utils_8cpp_source.html#l00076">Utils.cpp:76</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_window_html_a7b7d824da6668c14e0fbfe6e1c44189b"><div class="ttname"><a href="class_loui_eriksson_1_1_window.html#a7b7d824da6668c14e0fbfe6e1c44189b">LouiEriksson::Window::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; Window &gt; Create(const int &amp;_width, const int &amp;_height, const char *_name)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00075">Window.cpp:75</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_window_html_af814b0a014982fd2ef4d4a788490eb19"><div class="ttname"><a href="class_loui_eriksson_1_1_window.html#af814b0a014982fd2ef4d4a788490eb19">LouiEriksson::Window::Get</a></div><div class="ttdeci">static std::shared_ptr&lt; Window &gt; Get(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00084">Window.cpp:84</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_window_html_a7ead0d85d1637f7cdacfd741cd7684f8"><div class="ttname"><a href="class_loui_eriksson_1_1_window.html#a7ead0d85d1637f7cdacfd741cd7684f8">LouiEriksson::Window::Get</a></div><div class="ttdeci">static const std::weak_ptr&lt; Window &gt; Get(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00084">Window.cpp:84</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
-<div class="ttc" id="astruct_loui_eriksson_1_1_input_1_1_input_1_1_event_html_a83ba2aea21a992a26e1e22bbd620b22a"><div class="ttname"><a href="struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a">LouiEriksson::Input::Input::Event::Get</a></div><div class="ttdeci">static bool Get(const Uint32 &amp;_event, std::vector&lt; SDL_Event &gt; &amp;_results) noexcept</div><div class="ttdoc">Get all events of a certain type which occurred this frame.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00039">Input.cpp:39</a></div></div>
+<div class="ttc" id="astruct_loui_eriksson_1_1_input_1_1_input_1_1_event_html_a83ba2aea21a992a26e1e22bbd620b22a"><div class="ttname"><a href="struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a">LouiEriksson::Input::Input::Event::Get</a></div><div class="ttdeci">static bool Get(const Uint32 &amp;_event, std::vector&lt; SDL_Event &gt; &amp;_results) noexcept</div><div class="ttdoc">Get all events of a certain type which occurred this frame.</div><div class="ttdef"><b>Definition:</b> <a href="_input_8cpp_source.html#l00038">Input.cpp:38</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_settings_1_1_graphics_1_1_v_sync_html_a1b931c725bc8c65fc2fcff086b603111"><div class="ttname"><a href="struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_v_sync.html#a1b931c725bc8c65fc2fcff086b603111">LouiEriksson::Settings::Graphics::VSync::s_CurrentSelection</a></div><div class="ttdeci">static int s_CurrentSelection</div><div class="ttdef"><b>Definition:</b> <a href="_settings_8h_source.html#l00056">Settings.h:56</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

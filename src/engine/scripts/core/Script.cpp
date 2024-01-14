@@ -8,7 +8,7 @@
 
 namespace LouiEriksson {
 	
-	Script::Script(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
+	Script::Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
 	void Script::Begin() {}
 	void Script::Tick() {}

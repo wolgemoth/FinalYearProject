@@ -32,7 +32,7 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Fly\+Cam\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}{Fly\+Cam}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ac902c41cf88f09da10c40bcffd552e7c}{Fly\+Cam}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}{$\sim$\+Fly\+Cam}} () override
 \end{DoxyCompactItemize}
@@ -76,11 +76,11 @@ Definition at line 21 of file Fly\+Cam.\+h.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ac902c41cf88f09da10c40bcffd552e7c}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ac902c41cf88f09da10c40bcffd552e7c}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!FlyCam@{FlyCam}}
 \index{FlyCam@{FlyCam}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
 \doxysubsubsection{\texorpdfstring{FlyCam()}{FlyCam()}}
-{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Fly\+Cam (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Fly\+Cam (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
 
 
 
@@ -133,7 +133,7 @@ Synchronise the camera\textquotesingle{}s parameters with the ones defined in \m
 
 
 
-Definition at line 188 of file Fly\+Cam.\+cpp.
+Definition at line 192 of file Fly\+Cam.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -159,7 +159,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 104 of file Fly\+Cam.\+cpp.
+Definition at line 105 of file Fly\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak

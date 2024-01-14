@@ -34,7 +34,7 @@ enum \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider_a3e472db321a6
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider_a17fdc5557203dfd0e26094bef5f510eb}{Collider}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider_a56107a219016435e99bc80ce7fa97f71}{Collider}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider_a7fbcebf17b2711adc4a467920f90ec78}{$\sim$\+Collider}} () override=default
 \item 
@@ -99,11 +99,11 @@ Definition at line 29 of file Collider.\+h.
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_a17fdc5557203dfd0e26094bef5f510eb}\label{class_loui_eriksson_1_1_physics_1_1_collider_a17fdc5557203dfd0e26094bef5f510eb}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_a56107a219016435e99bc80ce7fa97f71}\label{class_loui_eriksson_1_1_physics_1_1_collider_a56107a219016435e99bc80ce7fa97f71}} 
 \index{LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}!Collider@{Collider}}
 \index{Collider@{Collider}!LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}}
 \doxysubsubsection{\texorpdfstring{Collider()}{Collider()}}
-{\footnotesize\ttfamily Loui\+Eriksson\+::\+Physics\+::\+Collider\+::\+Collider (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Physics\+::\+Collider\+::\+Collider (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
 
 
 
@@ -130,7 +130,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_rigidbody}{Rigidbod
 
 
 
-Definition at line 28 of file Collider.\+cpp.
+Definition at line 27 of file Collider.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_ab5646266e5b928254535f2eb04287d30}\label{class_loui_eriksson_1_1_physics_1_1_collider_ab5646266e5b928254535f2eb04287d30}} 
 \index{LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}!GetTransform@{GetTransform}}
@@ -144,7 +144,7 @@ Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the 
 
 
 
-Definition at line 21 of file Collider.\+cpp.
+Definition at line 20 of file Collider.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_acb1a07582fc48acf3ec577d82753059c}\label{class_loui_eriksson_1_1_physics_1_1_collider_acb1a07582fc48acf3ec577d82753059c}} 
 \index{LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}!GetType@{GetType}}
@@ -158,7 +158,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider}{Collider}
 
 
 
-Definition at line 35 of file Collider.\+cpp.
+Definition at line 34 of file Collider.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_aa286defe34467c62b753de0e3fc04846}\label{class_loui_eriksson_1_1_physics_1_1_collider_aa286defe34467c62b753de0e3fc04846}} 
 \index{LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}!SetRigidbody@{SetRigidbody}}
@@ -172,7 +172,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_rigidbody}{Rigidbod
 
 
 
-Definition at line 25 of file Collider.\+cpp.
+Definition at line 24 of file Collider.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_physics_1_1_collider_a53eb1dc2fd14c98fd642015dd29f9807}\label{class_loui_eriksson_1_1_physics_1_1_collider_a53eb1dc2fd14c98fd642015dd29f9807}} 
 \index{LouiEriksson::Physics::Collider@{LouiEriksson::Physics::Collider}!SetTransform@{SetTransform}}
@@ -190,7 +190,7 @@ Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_plane_coll
 
 
 
-Definition at line 18 of file Collider.\+cpp.
+Definition at line 17 of file Collider.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -212,16 +212,8 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_collider}{Collider}
 
 
 
-Definition at line 32 of file Collider.\+cpp.
+Definition at line 31 of file Collider.\+cpp.
 
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_physics_1_1_collider_a55f40fda96c943eaae8c1b44f4da05b6_icgraph}
-\end{center}
-\end{figure}
 
 
 \doxysubsection{Member Data Documentation}

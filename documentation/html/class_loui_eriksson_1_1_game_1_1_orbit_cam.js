@@ -1,6 +1,6 @@
 var class_loui_eriksson_1_1_game_1_1_orbit_cam =
 [
-    [ "OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html#aee9129727eea383d4ec14522af113fd4", null ],
+    [ "OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html#a91ed28d1ba90a6aa4ebd1a4b03be17ec", null ],
     [ "~OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html#a96aadbc26d428996ff6f3fd8f00c7564", null ],
     [ "Begin", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html#a2bd94e674fae5d0e9cb4f9167c4f5229", null ],
     [ "SyncCameraSettings", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html#ab35ad12f1a5c59b10067da7dc01601ff", null ],

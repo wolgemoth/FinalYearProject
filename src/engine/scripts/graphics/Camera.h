@@ -39,16 +39,16 @@ namespace LouiEriksson::Graphics {
 		RenderTexture m_RT;
 		
 		/// <summary> Skybox cube Mesh. </summary>.
-		inline static std::shared_ptr<Mesh> s_Cube { nullptr };
+		inline static std::shared_ptr<Mesh> s_Cube;
 		
 		/// <summary> Lens-dirt Texture. </summary>
 		std::weak_ptr<Texture> m_LensDirt;
 		
 		/// <summary> Window of the Camera. </summary>
-		std::shared_ptr<Window> m_Window;
+		std::weak_ptr<Window> m_Window;
 	
 		/// <summary> Transform of the Camera. </summary>
-		std::shared_ptr<Transform> m_Transform;
+		std::weak_ptr<Transform> m_Transform;
 		
 		/* PERSPECTIVE */
 		
@@ -76,10 +76,10 @@ namespace LouiEriksson::Graphics {
 		RenderTexture m_TexCoord_gBuffer; // Texture coordinates.
 		
 		/// <summary> Deferred rendering geometry pass. </summary>
-		void GeometryPass(const std::vector<std::shared_ptr<Renderer>>& _renderers);
+		void GeometryPass(const std::vector<std::weak_ptr<Renderer>>& _renderers);
 		
 		/// <summary> Deferred rendering shadow pass. </summary>
-		void ShadowPass(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights) const;
+		void ShadowPass(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights) const;
 		
 		/// <summary> Copies one RenderTexture into another. </summary>
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
@@ -103,7 +103,7 @@ namespace LouiEriksson::Graphics {
 		
 	public:
 	
-		 explicit Camera(const std::shared_ptr<ECS::GameObject>& _parent);
+		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
 		/// <summary> Render clear the m_Camera. </summary>
@@ -113,22 +113,22 @@ namespace LouiEriksson::Graphics {
 		void PreRender();
 		
 		/// <summary> Renders each Renderer using the Camera. </summary>
-		void Render(const std::vector<std::shared_ptr<Renderer>>& _renderers, const std::vector<std::shared_ptr<Light>>& _lights);
+		void Render(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights);
 		
 		/// <summary> Called after rendering. </summary>
 		void PostRender();
 		
 		/// <summary> Set the Camera's Window. </summary>
-		void SetWindow(const std::shared_ptr<Window>& _window);
+		void SetWindow(const std::weak_ptr<Window>& _window);
 		
 		/// <summary> Get the Camera's Window. </summary>
-		[[nodiscard]] std::shared_ptr<Window> GetWindow() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Window> GetWindow() const noexcept;
 		
 		/// <summary> Set the Camera's Transform. </summary>
-		void SetTransform(const std::shared_ptr<Transform>& _transform);
+		void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
 		
 		/// <summary> Get the Camera's Transform. </summary>
-		[[nodiscard]] std::shared_ptr<Transform> GetTransform() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Transform> GetTransform() const noexcept;
 		
 		/// <summary> Get the Camera's Aspect. </summary>
 		[[nodiscard]] float Aspect() const;

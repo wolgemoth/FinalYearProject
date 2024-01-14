@@ -12,6 +12,7 @@
 
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <memory>
 
@@ -77,7 +78,7 @@ namespace LouiEriksson::Audio {
 				 * Generate the global audio source.
 				 * This will be responsible for on-demand playback of non-positional sound.
 				 */
-				s_GlobalSource.reset(new AudioSource(nullptr));
+				s_GlobalSource.reset(new AudioSource({}));
 				s_GlobalSource->Global(true);
 				
 				std::cout << "Done.\n";
@@ -97,9 +98,7 @@ namespace LouiEriksson::Audio {
 	
 		try {
 			
-			auto c = _clip.lock();
-			
-			if (c != nullptr) {
+			if (const auto c = _clip.lock()) {
 			
 				// Only play if the clip actually contains data.
 				if (c->m_Samples.m_Length > 0) {

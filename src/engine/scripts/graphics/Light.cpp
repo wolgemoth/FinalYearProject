@@ -12,6 +12,7 @@
 #include <glm/trigonometric.hpp>
 
 #include <cmath>
+#include <iostream>
 #include <memory>
 #include <stdexcept>
 
@@ -19,7 +20,7 @@
 
 namespace LouiEriksson::Graphics {
 	
-	Light::Light(const std::shared_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
+	Light::Light(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
 			m_Intensity(  3.0f),
 			m_Range    (200.0f),
 			m_Angle    (120.0f),
@@ -27,7 +28,12 @@ namespace LouiEriksson::Graphics {
 			m_Color    (glm::vec3(1, 1, 1)),
 			m_Type     (Light::Parameters::Type::Point)
 	{
-		m_Transform = Parent()->GetComponent<Transform>();
+		if (const auto p = Parent().lock()) {
+			m_Transform = p->GetComponent<Transform>();
+		}
+		else {
+			std::cout << "Light has no Transform!\n";
+		}
 		
 		Type(m_Type);
 	}

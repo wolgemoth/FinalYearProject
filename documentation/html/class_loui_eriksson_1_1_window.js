@@ -1,5 +1,6 @@
 var class_loui_eriksson_1_1_window =
 [
+    [ "~Window", "class_loui_eriksson_1_1_window.html#a2ad34f1ba4ba8b9df48eab09128992a8", null ],
     [ "Window", "class_loui_eriksson_1_1_window.html#adac911e8db29509eee927beb041f471c", null ],
     [ "Aspect", "class_loui_eriksson_1_1_window.html#a2bf73ab2c6a67c6255d5fcecbc018fdc", null ],
     [ "Context", "class_loui_eriksson_1_1_window.html#ae9781970f255195c5fd19f0345156872", null ],

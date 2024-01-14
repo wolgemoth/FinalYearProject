@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Physics::Rigidbody::Mass" name="LouiEriksson::Physics::Rigidbody::Mass">
-<area shape="rect" id="node1" title="Set the mass of the Rigidbody." alt="" coords="204,5,365,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a7329538af873f2351d81a65cd95895c1" title="Called every time a collision event occurs." alt="" coords="5,5,156,47"/>
-</map>

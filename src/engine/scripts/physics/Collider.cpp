@@ -11,8 +11,7 @@
 
 namespace LouiEriksson::Physics {
 	
-	Collider::Collider(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
-			m_CollisionShape(nullptr),
+	Collider::Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
 			m_Type() {}
 	
 	void Collider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {

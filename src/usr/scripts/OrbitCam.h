@@ -56,7 +56,7 @@ namespace LouiEriksson::Game {
 		
 	public:
 	
-		explicit OrbitCam(const std::shared_ptr<ECS::GameObject>& _parent);
+		explicit OrbitCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~OrbitCam() override;
 		
 	};

@@ -121,10 +121,11 @@ namespace LouiEriksson {
 							
 							for (auto item : items) {
 								
-								const auto window = Window::Get(static_cast<int>(item.window.windowID));
+								if (const auto w = Window::Get(static_cast<int>(item.window.windowID)).lock()) {
 								
-								if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
-									window->SetDirty();
+									if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
+										w->SetDirty();
+									}
 								}
 							}
 						}

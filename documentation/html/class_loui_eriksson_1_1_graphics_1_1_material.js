@@ -1,12 +1,12 @@
 var class_loui_eriksson_1_1_graphics_1_1_material =
 [
     [ "~Material", "class_loui_eriksson_1_1_graphics_1_1_material.html#a08476f879f45a928ded73e8da016e9b5", null ],
-    [ "GetAlbedo", "class_loui_eriksson_1_1_graphics_1_1_material.html#a486d5c0f664949ee3e891328e865b6e4", null ],
-    [ "GetAO", "class_loui_eriksson_1_1_graphics_1_1_material.html#a454b25c361c0515dfc31a55a16b25013", null ],
-    [ "GetDisplacement", "class_loui_eriksson_1_1_graphics_1_1_material.html#a1ede0690d13e3ab0e7fd4fedfdab71fc", null ],
-    [ "GetEmission", "class_loui_eriksson_1_1_graphics_1_1_material.html#a263a04b767a0d68474d782b523d08268", null ],
-    [ "GetMetallic", "class_loui_eriksson_1_1_graphics_1_1_material.html#aeb84d3823ef1bb7565f85073f44e7004", null ],
-    [ "GetNormals", "class_loui_eriksson_1_1_graphics_1_1_material.html#a8b4625cf1150939d3e9374b01805362d", null ],
-    [ "GetRoughness", "class_loui_eriksson_1_1_graphics_1_1_material.html#a8e4f8774a9b738724068d6701a1abb34", null ],
-    [ "GetShader", "class_loui_eriksson_1_1_graphics_1_1_material.html#a2b1fce890b34d6a1d746b88037fae9fb", null ]
+    [ "GetAlbedo", "class_loui_eriksson_1_1_graphics_1_1_material.html#a616f4f7b03fefac6c42a3432273115bc", null ],
+    [ "GetAO", "class_loui_eriksson_1_1_graphics_1_1_material.html#a7794c699a5e68044db004c0d0fc564e8", null ],
+    [ "GetDisplacement", "class_loui_eriksson_1_1_graphics_1_1_material.html#a17f2fb23b937e157831a30e3e89fa95f", null ],
+    [ "GetEmission", "class_loui_eriksson_1_1_graphics_1_1_material.html#ab83bbc2b47567a7d6b87cccd212496fd", null ],
+    [ "GetMetallic", "class_loui_eriksson_1_1_graphics_1_1_material.html#ad53aab8fb1466c9d764d71f2e4019e19", null ],
+    [ "GetNormals", "class_loui_eriksson_1_1_graphics_1_1_material.html#ac2bc4f617807e47c5e298b6d5a28b1b0", null ],
+    [ "GetRoughness", "class_loui_eriksson_1_1_graphics_1_1_material.html#a4453d73262045a80987ff67b195d91b7", null ],
+    [ "GetShader", "class_loui_eriksson_1_1_graphics_1_1_material.html#a656c1a29640a49c5028223f12cd7c429", null ]
 ];

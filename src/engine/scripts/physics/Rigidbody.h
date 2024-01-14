@@ -110,7 +110,7 @@ namespace LouiEriksson::Physics {
 		
 	public:
 	
-		explicit Rigidbody(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Rigidbody() override = default;
 	
 		/// <summary> Called every frame. </summary>

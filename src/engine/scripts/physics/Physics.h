@@ -66,22 +66,22 @@ namespace LouiEriksson::Physics {
 		};
 		
 		/// <summary> Instance of class used to visualise the state of the physics engine for debugging purposes. </summary>
-		inline static std::shared_ptr<Debugger> s_Debugger { nullptr };
+		inline static std::shared_ptr<Debugger> s_Debugger;
 		
 		/// <summary> (Bullet Physics) Configuration of the simulation. </summary>
-		inline static std::shared_ptr<btDefaultCollisionConfiguration> s_Configuration { nullptr };
+		inline static std::shared_ptr<btDefaultCollisionConfiguration> s_Configuration;
 		
 		/// <summary> (Bullet Physics) Collision dispatcher instance. </summary>
-		inline static std::shared_ptr<btCollisionDispatcher> s_Dispatcher { nullptr };
+		inline static std::shared_ptr<btCollisionDispatcher> s_Dispatcher;
 		
 		/// <summary> (Bullet Physics) Broadphase instance. </summary>
-		inline static std::shared_ptr<btBroadphaseInterface> s_Broadphase { nullptr };
+		inline static std::shared_ptr<btBroadphaseInterface> s_Broadphase;
 		
 		/// <summary> (Bullet Physics) Solver instance. </summary>
-		inline static std::shared_ptr<btSequentialImpulseConstraintSolver> s_Solver { nullptr };
+		inline static std::shared_ptr<btSequentialImpulseConstraintSolver> s_Solver;
 		
 		/// <summary> (Bullet Physics) Dynamics world instance. </summary>
-		inline static std::shared_ptr<btDiscreteDynamicsWorld> s_DynamicsWorld { nullptr };
+		inline static std::shared_ptr<btDiscreteDynamicsWorld> s_DynamicsWorld;
 		
 		/// <summary> Value of gravity. </summary>
 		inline static glm::vec3 s_Gravity { 0.0f, -9.82f, 0.0f };

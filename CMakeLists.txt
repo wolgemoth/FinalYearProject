@@ -306,8 +306,6 @@ add_library(Game
         src/usr/scripts/OrbitCam.h
         src/usr/scripts/Plane.cpp
         src/usr/scripts/Plane.h
-        src/usr/scripts/Player.cpp
-        src/usr/scripts/Player.h
 )
 
 # TODO: Find out why OpenAL doesnt' work unless added like this, and replace this method.

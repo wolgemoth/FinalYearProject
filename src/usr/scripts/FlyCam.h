@@ -57,7 +57,7 @@ namespace LouiEriksson::Game {
 		
 	public:
 	
-		explicit FlyCam(const std::shared_ptr<ECS::GameObject>& _parent);
+		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~FlyCam() override;
 	
 	};

@@ -9,26 +9,24 @@
 
 namespace LouiEriksson::ECS {
 	
-	Component::Component(const std::shared_ptr<GameObject>& _parent) noexcept :
+	Component::Component(const std::weak_ptr<GameObject>& _parent) noexcept :
 			m_GameObject(_parent),
 			m_Index(0)
 	{
-		if (_parent == nullptr) {
-			std::cout << "Warning: Component initialised with nullptr.\n";
+		if (_parent.expired()) {
+			std::cout << "Warning: Component initialised with no valid parent!\n";
 		}
 	}
 	
 	Component::~Component() {
 		
-		auto go = m_GameObject.lock();
-		
-		if (go != nullptr) {
+		if (const auto go = m_GameObject.lock()) {
 			go->RemoveComponent<Component>(m_Index);
 		}
 	}
 	
-	std::shared_ptr<GameObject> Component::Parent() const {
-		return m_GameObject.lock();
+	const std::weak_ptr<GameObject>& Component::Parent() const noexcept {
+		return m_GameObject;
 	}
 	
 } // LouiEriksson::ECS

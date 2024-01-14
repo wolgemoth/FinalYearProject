@@ -22,8 +22,7 @@ var hierarchy =
         [ "LouiEriksson::Game::Ball", "class_loui_eriksson_1_1_game_1_1_ball.html", null ],
         [ "LouiEriksson::Game::FlyCam", "class_loui_eriksson_1_1_game_1_1_fly_cam.html", null ],
         [ "LouiEriksson::Game::OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html", null ],
-        [ "LouiEriksson::Game::Plane", "class_loui_eriksson_1_1_game_1_1_plane.html", null ],
-        [ "LouiEriksson::Game::Player", "class_loui_eriksson_1_1_game_1_1_player.html", null ]
+        [ "LouiEriksson::Game::Plane", "class_loui_eriksson_1_1_game_1_1_plane.html", null ]
       ] ],
       [ "LouiEriksson::Transform", "struct_loui_eriksson_1_1_transform.html", null ]
     ] ],
@@ -51,6 +50,7 @@ var hierarchy =
     [ "LouiEriksson::Hashmap< std::string, std::shared_ptr< LouiEriksson::Graphics::Shader > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::string, std::shared_ptr< LouiEriksson::Graphics::Texture > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::shared_ptr< LouiEriksson::ECS::Component > > >", "class_loui_eriksson_1_1_hashmap.html", null ],
+    [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::weak_ptr< LouiEriksson::ECS::Component > > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< Uint32, std::vector< SDL_Event > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Input::Input", "class_loui_eriksson_1_1_input_1_1_input.html", null ],
     [ "LouiEriksson::Input::Input::Key", "struct_loui_eriksson_1_1_input_1_1_input_1_1_key.html", null ],

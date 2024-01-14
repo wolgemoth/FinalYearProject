@@ -34,7 +34,7 @@
 
 namespace LouiEriksson::Game {
 	
-	FlyCam::FlyCam(const std::shared_ptr<ECS::GameObject>& _parent) : Script(_parent),
+	FlyCam::FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_Motion(0.0f),
 			m_Rotation(0.0f),
 			m_MoveSpeed(5.0f),
@@ -44,35 +44,36 @@ namespace LouiEriksson::Game {
 	
 	void FlyCam::Begin() {
 		
-		if (const auto s = Parent()->GetScene().lock()) {
+		if (const auto p = Parent().lock()) {
+		if (const auto s = p->GetScene().lock()) {
 		
 			// Get or add Transform.
 			// TODO: Do this better:
-			m_Transform = Parent()->GetComponent<Transform>();
+			m_Transform = p->GetComponent<Transform>();
 			if (m_Transform.expired()) {
-				m_Transform = Parent()->AddComponent<Transform>();
+				m_Transform = p->AddComponent<Transform>();
 			}
 			
 			// Get or add Camera.
 			// TODO: Do this better:
-			m_Camera = s->Attach(Parent()->AddComponent<Graphics::Camera>());
+			m_Camera = s->Attach(p->AddComponent<Graphics::Camera>().lock());
 			if (m_Camera.expired()) {
-				m_Camera = Parent()->AddComponent<Graphics::Camera>();
+				m_Camera = p->AddComponent<Graphics::Camera>();
 			}
 			
 			// Get or add AudioListener.
 			// TODO: Do this better:
-			m_AudioListener = Parent()->GetComponent<Audio::AudioListener>();
+			m_AudioListener = p->GetComponent<Audio::AudioListener>();
 			if (m_AudioListener.expired()) {
-				m_AudioListener = Parent()->AddComponent<Audio::AudioListener>();
+				m_AudioListener = p->AddComponent<Audio::AudioListener>();
 			}
 			m_AudioListener.lock()->Init();
 			
 			// Get or add AudioListener.
 			// TODO: Do this better:
-			m_GunSound = Parent()->GetComponent<Audio::AudioSource>();
+			m_GunSound = p->GetComponent<Audio::AudioSource>();
 			if (m_GunSound.expired()) {
-				m_GunSound = Parent()->AddComponent<Audio::AudioSource>();
+				m_GunSound = p->AddComponent<Audio::AudioSource>();
 			}
 			
 			m_GunSound.lock()->Clip(Resources::GetAudio("machineGun").lock());
@@ -95,9 +96,9 @@ namespace LouiEriksson::Game {
 				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
 				light_gameObject->AddComponent<Transform>();
 				
-				s->Attach(light_gameObject->AddComponent<Graphics::Light>());
+				s->Attach(light_gameObject->AddComponent<Graphics::Light>().lock());
 			}
-		}
+		}}
 		
 	}
 	
@@ -112,8 +113,11 @@ namespace LouiEriksson::Game {
 		if (const auto t = m_Transform.lock()) {
 		
 			// Lock the cursor to the center of the screen if the window is in focus:
-			if (c->GetWindow()->Focused()) {
-				Input::Cursor::SetState({ Input::Cursor::State::LockMode::Centered, false });
+			if (const auto w = c->GetWindow().lock()) {
+				
+				if (w->Focused()) {
+					Input::Cursor::SetState({ Input::Cursor::State::LockMode::Centered, false });
+				}
 			}
 			
 			/* LOOK & MOVE */

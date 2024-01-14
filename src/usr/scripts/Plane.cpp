@@ -19,12 +19,13 @@
 
 namespace LouiEriksson::Game {
 	
-	Plane::Plane(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent) {}
+	Plane::Plane(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent) {}
 	Plane::~Plane() = default;
 	
 	void Plane::Begin() {
 		
-		if (const auto s = Parent()->GetScene().lock()) {
+		if (const auto p = Parent().lock()) {
+		if (const auto s = p->GetScene().lock()) {
 		
 			// Load mesh.
 			if (m_Mesh == nullptr) {
@@ -38,17 +39,17 @@ namespace LouiEriksson::Game {
 			}
 			
 			// Get or add Transform.
-			auto transform = Parent()->GetComponent<Transform>();
+			auto transform = p->GetComponent<Transform>().lock();
 			if (transform == nullptr) {
-				transform = Parent()->AddComponent<Transform>();
+				transform = p->AddComponent<Transform>().lock();
 			}
 			
 			transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
 			
 			// Get or add Renderer.
-			auto renderer = s->Attach(Parent()->AddComponent<Graphics::Renderer>());
+			auto renderer = s->Attach(p->AddComponent<Graphics::Renderer>().lock());
 			if (renderer == nullptr) {
-				renderer = Parent()->AddComponent<Graphics::Renderer>();
+				renderer = p->AddComponent<Graphics::Renderer>().lock();
 			}
 			
 			renderer->SetMesh(m_Mesh);
@@ -56,18 +57,18 @@ namespace LouiEriksson::Game {
 			renderer->SetTransform(transform);
 			
 			// Get or add Collider.
-			auto collider = s->Attach(Parent()->AddComponent<Physics::PlaneCollider>());
+			auto collider = s->Attach(p->AddComponent<Physics::PlaneCollider>().lock());
 			if (collider == nullptr) {
-				collider = Parent()->AddComponent<Physics::PlaneCollider>();
+				collider = p->AddComponent<Physics::PlaneCollider>().lock();
 			}
 			
 			collider->SetTransform(transform);
 			collider->SetType(Physics::Collider::Type::Plane);
 			
 			// Get or add rigidbody.
-			auto rigidbody = s->Attach(Parent()->AddComponent<Physics::Rigidbody>());
+			auto rigidbody = s->Attach(p->AddComponent<Physics::Rigidbody>().lock());
 			if (rigidbody == nullptr) {
-				rigidbody = Parent()->AddComponent<Physics::Rigidbody>();
+				rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
 			}
 			
 			rigidbody->SetTransform(transform);
@@ -76,7 +77,7 @@ namespace LouiEriksson::Game {
 			rigidbody->Gravity(false);
 			
 			collider->SetRigidbody(rigidbody);
-		}
+		}}
 	}
 	
 	void Plane::Tick() {

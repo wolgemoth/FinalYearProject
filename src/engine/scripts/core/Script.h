@@ -31,7 +31,7 @@ namespace LouiEriksson {
 	
 	protected:
 	
-		explicit Script(const std::shared_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Script() override = default;
 	
 		/// <summary> Called at the beginning of the first frame. </summary>

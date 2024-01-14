@@ -40,16 +40,16 @@ namespace LouiEriksson::Graphics {
 		}
 	}
 	
-	GLuint Mesh::VAO_ID()           const noexcept { return          m_VAO_ID; }
-	GLuint Mesh::PositionVBO_ID()   const noexcept { return  m_PositionVBO_ID; }
-	GLuint Mesh::TexCoordVBO_ID()   const noexcept { return  m_TexCoordVBO_ID; }
-	GLuint Mesh::NormalVBO_ID()     const noexcept { return    m_NormalVBO_ID; }
-	GLuint Mesh::TangentVBO_ID()    const noexcept { return   m_TangentVBO_ID; }
-	GLuint Mesh::BitangentVBO_ID()  const noexcept { return m_BitangentVBO_ID; }
+	const GLuint& Mesh::VAO_ID()           const noexcept { return          m_VAO_ID; }
+	const GLuint& Mesh::PositionVBO_ID()   const noexcept { return  m_PositionVBO_ID; }
+	const GLuint& Mesh::TexCoordVBO_ID()   const noexcept { return  m_TexCoordVBO_ID; }
+	const GLuint& Mesh::NormalVBO_ID()     const noexcept { return    m_NormalVBO_ID; }
+	const GLuint& Mesh::TangentVBO_ID()    const noexcept { return   m_TangentVBO_ID; }
+	const GLuint& Mesh::BitangentVBO_ID()  const noexcept { return m_BitangentVBO_ID; }
 	
-	unsigned long Mesh::VertexCount() const noexcept { return m_VertexCount; }
+	const unsigned long& Mesh::VertexCount() const noexcept { return m_VertexCount; }
 	
-	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
+	const std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
 		
 		if (s_Instance == nullptr) {
 			s_Instance = std::make_shared<Mesh>(Mesh());

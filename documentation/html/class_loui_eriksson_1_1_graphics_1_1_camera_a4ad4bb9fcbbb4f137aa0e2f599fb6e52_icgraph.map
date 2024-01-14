@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Graphics::Camera::GetWindow" name="LouiEriksson::Graphics::Camera::GetWindow">
-<area shape="rect" id="node1" title="Get the Camera&#39;s Window." alt="" coords="223,39,392,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a6a806c91f4b3379331e0c69f1fea499f" title="Called before rendering." alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a68f9106c0694367936255cee78bf6cac" title="Renders each Renderer using the Camera." alt="" coords="5,71,175,112"/>
-</map>

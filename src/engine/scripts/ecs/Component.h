@@ -25,17 +25,17 @@ namespace LouiEriksson::ECS {
 		/// <summary>
 		/// Parent GameObject which contains the component.
 		/// </summary>
-		std::weak_ptr<GameObject> m_GameObject;
+		const std::weak_ptr<GameObject> m_GameObject;
 		
 	protected:
 	
-		explicit Component(const std::shared_ptr<GameObject>& _parent) noexcept;
+		explicit Component(const std::weak_ptr<GameObject>& _parent) noexcept;
 		virtual ~Component();
 	
 	public:
 	
 		/// <summary> Get the Component's parent GameObject. </summary>
-		[[nodiscard]] virtual std::shared_ptr<GameObject> Parent() const;
+		[[nodiscard]] virtual const std::weak_ptr<GameObject>& Parent() const noexcept;
 		
 	};
 	

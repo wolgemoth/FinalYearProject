@@ -23,36 +23,14 @@ namespace LouiEriksson::Graphics {
 	
 	Material::~Material() = default;
 	
-	std::weak_ptr<Shader> Material::GetShader() const noexcept {
-		return m_Shader;
-	}
+	const std::weak_ptr<Shader>& Material::GetShader() const noexcept { return m_Shader; }
 	
-	std::weak_ptr<Texture> Material::GetAlbedo() const noexcept {
-		return m_Albedo;
-	}
-	
-	std::weak_ptr<Texture> Material::GetRoughness() const noexcept {
-		return m_Roughness;
-	}
-	
-	std::weak_ptr<Texture> Material::GetMetallic() const noexcept {
-		return m_Metallic;
-	}
-	
-	std::weak_ptr<Texture> Material::GetNormals() const noexcept{
-		return m_Normals;
-	}
-	
-	std::weak_ptr<Texture> Material::GetDisplacement() const noexcept {
-		return m_Displacement;
-	}
-	
-	std::weak_ptr<Texture> Material::GetAO() const noexcept {
-		return m_AO;
-	}
-	
-	std::weak_ptr<Texture> Material::GetEmission() const noexcept {
-		return m_Emission;
-	}
+	const std::weak_ptr<Texture>& Material::GetAlbedo()       const noexcept { return m_Albedo;       }
+	const std::weak_ptr<Texture>& Material::GetRoughness()    const noexcept { return m_Roughness;    }
+	const std::weak_ptr<Texture>& Material::GetMetallic()     const noexcept { return m_Metallic;     }
+	const std::weak_ptr<Texture>& Material::GetNormals()      const noexcept { return m_Normals;      }
+	const std::weak_ptr<Texture>& Material::GetDisplacement() const noexcept { return m_Displacement; }
+	const std::weak_ptr<Texture>& Material::GetAO()           const noexcept { return m_AO;           }
+	const std::weak_ptr<Texture>& Material::GetEmission()     const noexcept { return m_Emission;     }
 	
 } // LouiEriksson::Graphics

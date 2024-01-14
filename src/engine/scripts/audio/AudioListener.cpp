@@ -13,7 +13,7 @@
 
 namespace LouiEriksson::Audio {
 	
-	AudioListener::AudioListener(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
+	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
 			m_Gain        (1.0f),
 			m_LastPosition(0.0f) {}
 	
@@ -29,17 +29,16 @@ namespace LouiEriksson::Audio {
 	
 	void AudioListener::Sync() {
 	
-		auto transform = Parent()->GetComponent<Transform>();
-		
-		if (transform != nullptr) {
+		if (const auto p = Parent().lock()) {
+		if (const auto t = p->GetComponent<Transform>().lock()) {
 			
 			// Set position of listener:
-			alListenerfv(AL_POSITION, static_cast<ALfloat*>(&transform->m_Position[0]));
+			alListenerfv(AL_POSITION, static_cast<ALfloat*>(&t->m_Position[0]));
 			
 			// Set orientation (forward, up):
 			{
-				const auto f = transform->FORWARD;
-				const auto u = transform->UP;
+				const auto f = t->FORWARD;
+				const auto u = t->UP;
 				
 				const ALfloat orientation[] = { f.x, f.y, f.z, u.x, u.y, u.z };
 				alListenerfv(AL_ORIENTATION, orientation);
@@ -49,25 +48,23 @@ namespace LouiEriksson::Audio {
 			{
 				glm::vec3 velocity;
 				
-				const auto rigidbody = Parent()->GetComponent<Physics::Rigidbody>();
-				
-				if (rigidbody != nullptr) {
-					velocity = rigidbody->Velocity();
+				if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+					velocity = r->Velocity();
 				}
 				else {
-					velocity = (transform->m_Position - m_LastPosition) * Time::DeltaTime();
+					velocity = (t->m_Position - m_LastPosition) * Time::DeltaTime();
 				}
 				
 				alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
 			}
 			
-		}
-		
-		// Assign gain value:
-		alListenerf(AL_GAIN, m_Gain);
-		
-		// Update "last position" (used for transform-based doppler effect).
-		m_LastPosition = transform->m_Position;
+			
+			// Assign gain value:
+			alListenerf(AL_GAIN, m_Gain);
+			
+			// Update "last position" (used for transform-based doppler effect).
+			m_LastPosition = t->m_Position;
+		}}
 	}
 	
 	void AudioListener::Gain(const float& _value) noexcept {

@@ -55,8 +55,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_application_8cpp.html",
-"class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ac47d7fe5c08856564af31faba532b3f2",
-"class_loui_eriksson_1_1_physics_1_1_rigidbody.html#afa14df69872eec7ea0ff3a4fe5fe0f12"
+"class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a3a331c56935bd9ec43df0163645ff2fe",
+"class_loui_eriksson_1_1_script.html#a8cdd901be0977e4f2f26af42556fbf4c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -154,8 +154,6 @@ namespace LouiEriksson::Physics {
 	}
 	
 	Rigidbody::Parameters::Parameters() noexcept :
-			m_BulletRigidbody(nullptr),
-			
 			m_Kinematic (false),
 			m_UseGravity(true),
 			m_Continuous(true),
@@ -169,15 +167,13 @@ namespace LouiEriksson::Physics {
 			
 			m_Inertia(1.0f, 1.0f, 1.0f) {}
 	
-	Rigidbody::Rigidbody(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
+	Rigidbody::Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
 	void Rigidbody::Interpolate() {
 		
 		if (Physics::s_LastTick > 0.0f) {
 			
-			const auto transform = m_Transform.lock();
-			
-			if (transform != nullptr) {
+			if (const auto transform = m_Transform.lock()) {
 				
 				// Get the transform from the bullet physics engine.
 				auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
@@ -211,11 +207,8 @@ namespace LouiEriksson::Physics {
 	void Rigidbody::BulletReinitialise() {
 		
 		try {
-			const auto transform = m_Transform.lock();
-			const auto collider  =  m_Collider.lock();
-			
-			if (transform != nullptr &&
-			    collider != nullptr) {
+			if (const auto transform = m_Transform.lock()) {
+			if (const auto  collider =  m_Collider.lock()) {
 				
 				m_Parameters.m_BulletRigidbody.reset(
 					new BulletRigidbody(
@@ -224,7 +217,7 @@ namespace LouiEriksson::Physics {
 						m_Parameters
 					)
 				);
-			}
+			}}
 		}
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
@@ -237,9 +230,7 @@ namespace LouiEriksson::Physics {
 			
 			/* SYNCHRONISE POSITION AND ORIENTATION */
 			{
-				const auto transform = m_Transform.lock();
-				
-				if (transform != nullptr) {
+				if (const auto transform = m_Transform.lock()) {
 					
 					// Get the transform from the bullet physics engine.
 					auto t = m_Parameters.m_BulletRigidbody->m_Rigidbody->getWorldTransform();
@@ -319,11 +310,9 @@ namespace LouiEriksson::Physics {
 	
 	void Rigidbody::SetCollider(const std::weak_ptr<Collider>& _collider) {
 		
-		const auto col = _collider.lock();
+		m_Collider = _collider;
 		
-		m_Collider = col;
-		
-		if (col != nullptr) {
+		if (const auto col = m_Collider.lock()) {
 			col->m_CollisionShape->calculateLocalInertia(m_Parameters.m_Mass, m_Parameters.m_Inertia);
 		}
 		

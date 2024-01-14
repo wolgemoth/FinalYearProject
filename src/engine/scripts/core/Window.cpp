@@ -81,10 +81,9 @@ namespace LouiEriksson {
 		return result;
 	}
 	
-	std::shared_ptr<Window> Window::Get(const int& _id) {
+	const std::weak_ptr<Window> Window::Get(const int& _id) {
 	
-		std::shared_ptr<Window> result(nullptr);
-	
+		std::shared_ptr<Window> result;
 		if (!m_Windows.Get(_id, result)) {
 	
 			std::stringstream err;
@@ -99,15 +98,13 @@ namespace LouiEriksson {
 	
 	void Window::Destroy(const int& _id) {
 	
-		std::shared_ptr<Window> window(Get(_id));
-	
-		if (window != nullptr) {
+		if (auto window = Get(_id).lock()) {
 	
 			if (m_Windows.Remove(window->ID())) {
 	
 				// Unlink window from cameras.
 				for (auto camera : window->m_Cameras.Values()) {
-					camera.get().m_Window = std::shared_ptr<Window>(nullptr);
+					camera.get().m_Window.reset();
 				}
 	
 				// Unlink cameras from window.
@@ -164,12 +161,12 @@ namespace LouiEriksson {
 	}
 	
 	void Window::Link(Graphics::Camera& _camera) {
-		_camera.m_Window = Window::Get(ID());
+		_camera.m_Window = Get(ID());
 		m_Cameras.Add((int)(size_t)&_camera, std::reference_wrapper(_camera));
 	}
 	
-	void Window::Unlink(Graphics::Camera& _camera) {
-		_camera.m_Window = std::shared_ptr<Window>(nullptr);
+	void Window::Unlink(Graphics::Camera& _camera) noexcept {
+		_camera.m_Window.reset();
 		m_Cameras.Remove((int)(size_t)&_camera);
 	}
 	

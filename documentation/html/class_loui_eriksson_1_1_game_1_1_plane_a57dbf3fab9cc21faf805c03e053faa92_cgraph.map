@@ -1,10 +1,6 @@
 <map id="LouiEriksson::Game::Plane::Begin" name="LouiEriksson::Game::Plane::Begin">
-<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,169,156,211"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_resources.html#a2fbd8652c91db6a4d96b528616b78424" title=" " alt="" coords="220,5,399,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a" title="Get the Component&#39;s parent GameObject." alt="" coords="236,71,383,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_renderer.html#ac35ff1ff6c9e1a8d9dcaa340142c746e" title="Set the Mesh of the Renderer." alt="" coords="225,136,394,177"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a864358d2f0bda68b0967aa748bb8c532" title="Set the Transform of the Rigidbody." alt="" coords="215,201,403,243"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a85009a893cd70b1d2fd1dbfcd590dc80" title="Set the Transform of the Collider." alt="" coords="204,267,415,308"/>
-<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_file.html#a714a8efecd50d71509b4033fe9fcbf78" title=" " alt="" coords="242,332,377,373"/>
-<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_physics_1_1_collider.html#a53eb1dc2fd14c98fd642015dd29f9807" title="Set the Transform of the Collider." alt="" coords="463,267,637,308"/>
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,71,156,112"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_resources.html#a0174d528d0ac2cbf7e86462c22a3c158" title=" " alt="" coords="204,5,383,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="220,71,367,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_file.html#a714a8efecd50d71509b4033fe9fcbf78" title=" " alt="" coords="226,136,361,177"/>
 </map>

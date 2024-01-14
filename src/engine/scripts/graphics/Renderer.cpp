@@ -13,30 +13,27 @@
 
 namespace LouiEriksson::Graphics {
 	
-	Renderer::Renderer(const std::shared_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
-			     m_Mesh(nullptr),
-			m_Transform(nullptr) {}
-	
+	Renderer::Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	Renderer::~Renderer() = default;
 	
-	void Renderer::SetMesh(const std::shared_ptr<Mesh>& _mesh) noexcept {
+	void Renderer::SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept {
 		m_Mesh = _mesh;
 	}
-	std::shared_ptr<Mesh> Renderer::GetMesh() noexcept {
+	const std::weak_ptr<Mesh> Renderer::GetMesh() noexcept {
 		return m_Mesh;
 	}
 	
 	void Renderer::SetMaterial(const std::weak_ptr<Material>& _material) noexcept {
 		m_Material = _material;
 	}
-	std::weak_ptr<Material> Renderer::GetMaterial() noexcept {
+	const std::weak_ptr<Material> Renderer::GetMaterial() noexcept {
 		return m_Material;
 	}
 	
-	void Renderer::SetTransform(const std::shared_ptr<Transform>& _transform) noexcept {
+	void Renderer::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
 	}
-	std::shared_ptr<Transform> Renderer::GetTransform() noexcept {
+	const std::weak_ptr<Transform> Renderer::GetTransform() noexcept {
 		return m_Transform;
 	}
 	
