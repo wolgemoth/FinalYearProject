@@ -1,17 +1,16 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
-#include "../../../../external/openal/include/AL/alc.h"
-
-#include "AudioClip.h"
-#include "AudioSource.h"
-
 #include <AL/al.h>
+#include <AL/alc.h>
 
 #include <memory>
 
 namespace LouiEriksson::Audio {
 
+	class AudioClip;
+	class AudioSource;
+	
 	class Sound {
 	
 		/*

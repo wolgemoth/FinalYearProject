@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Entire Engine" pattern="file:CMakeLists.txt||file[FinalYearProject]:src//*" />
+</component>

@@ -88,48 +88,45 @@ $(document).ready(function(){initNavTree('_component_8h_source.html',''); initRe
 <a href="_component_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_COMPONENT_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_COMPONENT_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_object_8h.html">GameObject.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>GameObject;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>GameObject;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_component.html">   16</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_component.html">Component</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_component.html#a00df87c957d8f7ee0fc51f07a0542f4a">   18</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_game_object.html">GameObject</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">Component</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">size_t</span> m_Index;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_GameObject;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_component.html#ac39d6b1bbeca2f053ff6279b3c73e385">Component</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="class_loui_eriksson_1_1_component.html#a20003b7735dba8ab493812c37a580b6c">~Component</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">size_t</span> m_Index;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::weak_ptr&lt;GameObject&gt; m_GameObject;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ab13d7d9ec215b0eb8211dc6ecfe005d3">Component</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent) noexcept;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ac1cf928d584ed5ba7757e802f0ddb8fc">~Component</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        [[nodiscard]] <span class="keyword">virtual</span> std::shared_ptr&lt;GameObject&gt; <a class="code" href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">Parent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// LouiEriksson</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_COMPONENT_H</span></div>
-<div class="ttc" id="a_game_object_8h_html"><div class="ttname"><a href="_game_object_8h.html">GameObject.h</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00016">Component.h:16</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_component_html_a20003b7735dba8ab493812c37a580b6c"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html#a20003b7735dba8ab493812c37a580b6c">LouiEriksson::Component::~Component</a></div><div class="ttdeci">virtual ~Component()</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00021">Component.cpp:21</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_component_html_a87b48c3303da952daec2db4c1b18f1a9"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9">LouiEriksson::Component::Parent</a></div><div class="ttdeci">virtual std::shared_ptr&lt; GameObject &gt; Parent() const</div><div class="ttdoc">Get the Component's parent GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00030">Component.cpp:30</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_component_html_ac39d6b1bbeca2f053ff6279b3c73e385"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html#ac39d6b1bbeca2f053ff6279b3c73e385">LouiEriksson::Component::Component</a></div><div class="ttdeci">Component(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00010">Component.cpp:10</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_game_object_html"><div class="ttname"><a href="class_loui_eriksson_1_1_game_object.html">LouiEriksson::GameObject</a></div><div class="ttdoc">An Entity which exists in a Scene and can contain Components.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00026">GameObject.h:26</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        [[nodiscard]] <span class="keyword">virtual</span> std::shared_ptr&lt;GameObject&gt; <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a">Parent</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// LouiEriksson::ECS</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_COMPONENT_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">LouiEriksson::ECS::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00014">Component.h:14</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html_a8862e7bbd6c51d0fd7db31d13825a67a"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a">LouiEriksson::ECS::Component::Parent</a></div><div class="ttdeci">virtual std::shared_ptr&lt; GameObject &gt; Parent() const</div><div class="ttdoc">Get the Component's parent GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00030">Component.cpp:30</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html_ab13d7d9ec215b0eb8211dc6ecfe005d3"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ab13d7d9ec215b0eb8211dc6ecfe005d3">LouiEriksson::ECS::Component::Component</a></div><div class="ttdeci">Component(const std::shared_ptr&lt; GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00012">Component.cpp:12</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html_ac1cf928d584ed5ba7757e802f0ddb8fc"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html#ac1cf928d584ed5ba7757e802f0ddb8fc">LouiEriksson::ECS::Component::~Component</a></div><div class="ttdeci">virtual ~Component()</div><div class="ttdef"><b>Definition:</b> <a href="_component_8cpp_source.html#l00021">Component.cpp:21</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">LouiEriksson::ECS::GameObject</a></div><div class="ttdoc">An Entity which exists in a Scene and can contain Components.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00029">GameObject.h:29</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_e_c_s_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00010">AudioListener.h:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,17 +1,29 @@
 \hypertarget{_file_8cpp}{}\doxysection{src/engine/scripts/core/\+File.cpp File Reference}
 \label{_file_8cpp}\index{src/engine/scripts/core/File.cpp@{src/engine/scripts/core/File.cpp}}
 {\ttfamily \#include \char`\"{}File.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../audio/\+Audio\+Clip.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../core/utils/\+Utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../graphics/\+Material.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../graphics/\+Mesh.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../graphics/\+Shader.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../utils/\+Utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../graphics/\+Texture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../graphics/textures/\+Cubemap.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Resources.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}stb\+\_\+image.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$GL/glew.\+h$>$}\newline
 {\ttfamily \#include $<$glm/common.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/ext/vector\+\_\+int2.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/ext/vector\+\_\+float2.\+hpp$>$}\newline
+{\ttfamily \#include $<$glm/ext/vector\+\_\+float3.\+hpp$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
 {\ttfamily \#include $<$exception$>$}\newline
 {\ttfamily \#include $<$filesystem$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
 {\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 Include dependency graph for File.\+cpp\+:
@@ -43,5 +55,5 @@ Include dependency graph for File.\+cpp\+:
 
 
 
-Definition at line 9 of file File.\+cpp.
+Definition at line 14 of file File.\+cpp.
 

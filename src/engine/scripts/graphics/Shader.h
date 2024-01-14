@@ -1,16 +1,16 @@
 #ifndef FINALYEARPROJECT_SHADER_H
 #define FINALYEARPROJECT_SHADER_H
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
-
 #include "../core/utils/Hashmap.h"
+
+#include <GL/glew.h>
+#include <glm/fwd.hpp>
 
 #include <filesystem>
 #include <string>
 #include <vector>
 
-#include <GL/glew.h>
-#include <glm/fwd.hpp>
+// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
 namespace LouiEriksson {
 	

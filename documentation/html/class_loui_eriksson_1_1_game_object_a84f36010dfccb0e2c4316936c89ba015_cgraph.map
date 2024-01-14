@@ -1,4 +1,0 @@
-<map id="LouiEriksson::GameObject::RemoveComponent" name="LouiEriksson::GameObject::RemoveComponent">
-<area shape="rect" id="node1" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,5,199,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="247,13,452,39"/>
-</map>

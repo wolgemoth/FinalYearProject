@@ -10,6 +10,7 @@
 #include "../../engine/scripts/physics/colliders/PlaneCollider.h"
 #include "../../engine/scripts/physics/Rigidbody.h"
 #include "../../src/engine/scripts/physics/Collider.h"
+#include "../../src/engine/scripts/physics/Collision.h"
 
 #include <memory>
 #include <string>

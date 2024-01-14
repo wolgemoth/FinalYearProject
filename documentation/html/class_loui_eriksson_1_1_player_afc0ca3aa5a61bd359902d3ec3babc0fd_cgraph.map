@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Player::Tick" name="LouiEriksson::Player::Tick">
-<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,71,159,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_time.html#aadeb2fc8178c31a73eb41e43ae5fd5b1" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="227,5,372,47"/>
-<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_input_1_1_key.html#aef45ccd4703125b626d90d5b7d0b88cf" title="Returns true if the provided key (in the form of SDL_Scancode) is held." alt="" coords="227,71,372,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_application.html#a527b4c4cae3f53b94cff4f8d5001710e" title="Quits the application." alt="" coords="207,136,392,177"/>
-</map>

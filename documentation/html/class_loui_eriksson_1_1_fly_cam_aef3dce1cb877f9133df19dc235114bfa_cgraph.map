@@ -1,4 +1,0 @@
-<map id="LouiEriksson::FlyCam::SyncCameraSettings" name="LouiEriksson::FlyCam::SyncCameraSettings">
-<area shape="rect" id="node1" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="5,5,171,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a3892234d2b009d79f258efe683c322c5" title="Get the Camera of the FlyCam." alt="" coords="219,5,381,47"/>
-</map>

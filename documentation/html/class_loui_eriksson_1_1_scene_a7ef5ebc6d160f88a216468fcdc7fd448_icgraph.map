@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Scene::Entities" name="LouiEriksson::Scene::Entities">
-<area shape="rect" id="node1" title="Get the entities within the Scene." alt="" coords="204,5,355,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_scene.html#ae044701560dc85364e77bc48bd5b5e2f" title="Save the Scene in xml format at a given path." alt="" coords="5,5,156,47"/>
-</map>

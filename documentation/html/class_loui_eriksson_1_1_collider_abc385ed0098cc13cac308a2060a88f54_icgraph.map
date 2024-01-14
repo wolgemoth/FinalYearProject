@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Collider::SetType" name="LouiEriksson::Collider::SetType">
-<area shape="rect" id="node1" title="Set the Collider&#39;s Type." alt="" coords="408,5,571,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_player.html#a0c27cf6e706f2c11a9694519fc1bb578" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_player.html#a0945c4a13eb0a62114ec460601a932d7" title="Called at the beginning of the first frame." alt="" coords="5,5,159,47"/>
-</map>

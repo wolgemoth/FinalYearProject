@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Rigidbody::SetTransform" name="LouiEriksson::Rigidbody::SetTransform">
-<area shape="rect" id="node1" title="Set the Transform of the Rigidbody." alt="" coords="201,39,379,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_ball.html#af2d97dc0ee10bbbe699de756a29ddbd0" title="Called at the beginning of the first frame." alt="" coords="11,5,148,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_plane.html#aaf2ccbbc234e6a74a6fe47fc47f48eda" title="Called at the beginning of the first frame." alt="" coords="5,71,153,112"/>
-</map>

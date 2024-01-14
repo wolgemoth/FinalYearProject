@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Ball::OnCollision" name="LouiEriksson::Ball::OnCollision">
-<area shape="rect" id="node1" title="Called every time a collision event occurs." alt="" coords="5,71,143,112"/>
-<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_collision.html#a6cc3d13f8e5cd029b7a186af6d53d8b6" title="Get the impulse of the Collision." alt="" coords="200,5,368,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_rigidbody.html#afa3515d080d092d9c43957acbb3df3c1" title="Set the mass of the Rigidbody." alt="" coords="195,71,373,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="191,136,377,177"/>
-</map>

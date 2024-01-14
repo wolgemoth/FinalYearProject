@@ -88,35 +88,47 @@ $(document).ready(function(){initNavTree('_plane_collider_8h_source.html',''); i
 <a href="_plane_collider_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_PLANECOLLIDER_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_PLANECOLLIDER_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../core/Transform.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../../ecs/GameObject.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../Collider.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../Collider.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>Transform;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_plane_collider.html">PlaneCollider</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_collider.html">Collider</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">PlaneCollider</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">   19</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">~PlaneCollider</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt; &amp;_transform) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    };</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// LouiEriksson</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLANECOLLIDER_H</span></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_collider.html">LouiEriksson::Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00017">Collider.h:17</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html">LouiEriksson::PlaneCollider</a></div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8h_source.html#l00014">PlaneCollider.h:14</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a13cf4188ba1f556b8a8fcbd118eab0cb"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a13cf4188ba1f556b8a8fcbd118eab0cb">LouiEriksson::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00015">PlaneCollider.cpp:15</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_a586a64921d73083c152214d5262bf7b0"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#a586a64921d73083c152214d5262bf7b0">LouiEriksson::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00018">PlaneCollider.cpp:18</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_plane_collider_html_ad2ae7503bd59fb0cf9859e70dd5b64db"><div class="ttname"><a href="class_loui_eriksson_1_1_plane_collider.html#ad2ae7503bd59fb0cf9859e70dd5b64db">LouiEriksson::PlaneCollider::~PlaneCollider</a></div><div class="ttdeci">~PlaneCollider() override</div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// LouiEriksson</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">class </span>GameObject;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// LouiEriksson::ECS</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_physics.html">LouiEriksson::Physics</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html">   24</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html">PlaneCollider</a> final : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_physics_1_1_collider.html">Collider</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a7967d84c4c922e8271163068c0cfb8e6">PlaneCollider</a>(<span class="keyword">const</span> std::shared_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a1ccd39b0720c772d58492f39704dc2ce">   29</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a1ccd39b0720c772d58492f39704dc2ce">~PlaneCollider</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a85009a893cd70b1d2fd1dbfcd590dc80">SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt; &amp;_transform) noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    };</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// LouiEriksson::Physics</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_PLANECOLLIDER_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_physics_1_1_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_physics_1_1_collider.html">LouiEriksson::Physics::Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00022">Collider.h:22</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_physics_1_1_plane_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html">LouiEriksson::Physics::PlaneCollider</a></div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8h_source.html#l00024">PlaneCollider.h:24</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_physics_1_1_plane_collider_html_a1ccd39b0720c772d58492f39704dc2ce"><div class="ttname"><a href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a1ccd39b0720c772d58492f39704dc2ce">LouiEriksson::Physics::PlaneCollider::~PlaneCollider</a></div><div class="ttdeci">~PlaneCollider() override</div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_physics_1_1_plane_collider_html_a7967d84c4c922e8271163068c0cfb8e6"><div class="ttname"><a href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a7967d84c4c922e8271163068c0cfb8e6">LouiEriksson::Physics::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::shared_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00015">PlaneCollider.cpp:15</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_physics_1_1_plane_collider_html_a85009a893cd70b1d2fd1dbfcd590dc80"><div class="ttname"><a href="class_loui_eriksson_1_1_physics_1_1_plane_collider.html#a85009a893cd70b1d2fd1dbfcd590dc80">LouiEriksson::Physics::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) noexcept override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00018">PlaneCollider.cpp:18</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_e_c_s_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00010">AudioListener.h:10</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_physics_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_physics.html">LouiEriksson::Physics</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00016">Script.h:16</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

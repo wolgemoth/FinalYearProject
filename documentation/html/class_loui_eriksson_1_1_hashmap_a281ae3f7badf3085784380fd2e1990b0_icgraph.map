@@ -1,5 +1,5 @@
 <map id="LouiEriksson::Hashmap::Add" name="LouiEriksson::Hashmap::Add">
-<area shape="rect" id="node1" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="247,46,453,73"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_entity.html#a1d7e1f07753b0c1c163e3ae13db34b7d" title=" " alt="" coords="27,5,177,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_object.html#a3caf7ef5f79e0b6f7fa2fa01799fc88a" title="Add a Component of type to the GameObject." alt="" coords="5,71,199,112"/>
+<area shape="rect" id="node1" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="264,46,471,73"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_entity.html#aaa68174dc61e8ed2c0a13ba071b52240" title=" " alt="" coords="27,5,194,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#ab56bd34cae2a10dbcf68e09e4c0839a2" title="Add a Component of type to the GameObject." alt="" coords="5,71,216,112"/>
 </map>

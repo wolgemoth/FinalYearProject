@@ -88,69 +88,66 @@ $(document).ready(function(){initNavTree('_sound_8h_source.html',''); initResiza
 <a href="_sound_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_SOUND_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_SOUND_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../../../external/openal/include/AL/alc.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_audio_clip_8h.html">AudioClip.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_audio_source_8h.html">AudioSource.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;AL/al.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;AL/alc.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;AL/al.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_sound.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_sound.html">Sound</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">         * Please refer to OpenAL-Soft spec:</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">         * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> ALCdevice*  s_Device { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> ALCcontext* s_Context { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s_SDL_Device { 0u };</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::shared_ptr&lt;AudioSource&gt; s_GlobalSource { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#a248eb6d68d277c25a5358e4512230707">Init</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#a7bfa8b3a75db38b2ab6252a87def6f86">PlayGlobal</a>(<span class="keyword">const</span> std::weak_ptr&lt;AudioClip&gt;&amp; _clip);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#a7aea15e4276dc4c9a679c986a64245fa">DistanceModel</a>(<span class="keyword">const</span> ALenum&amp; _value);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[nodiscard]] ALenum <a class="code" href="class_loui_eriksson_1_1_sound.html#a7aea15e4276dc4c9a679c986a64245fa">DistanceModel</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#a9524f780bf3c9d891c792e1a7e2d5360">DopplerFactor</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        [[nodiscard]] <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#a9524f780bf3c9d891c792e1a7e2d5360">DopplerFactor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#add6a35e251ff9b5b22bad3e7f1e2ebea">SpeedOfSound</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        [[nodiscard]] <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#add6a35e251ff9b5b22bad3e7f1e2ebea">SpeedOfSound</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_sound.html#ac378ccf85d2458b10ac57ddc6f49526a">Dispose</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    };</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// LouiEriksson</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_SOUND_H</span></div>
-<div class="ttc" id="a_audio_clip_8h_html"><div class="ttname"><a href="_audio_clip_8h.html">AudioClip.h</a></div></div>
-<div class="ttc" id="a_audio_source_8h_html"><div class="ttname"><a href="_audio_source_8h.html">AudioSource.h</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html">LouiEriksson::Sound</a></div><div class="ttdef"><b>Definition:</b> <a href="_sound_8h_source.html#l00015">Sound.h:15</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_a248eb6d68d277c25a5358e4512230707"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#a248eb6d68d277c25a5358e4512230707">LouiEriksson::Sound::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdoc">Initialise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00018">Sound.cpp:18</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_a7aea15e4276dc4c9a679c986a64245fa"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#a7aea15e4276dc4c9a679c986a64245fa">LouiEriksson::Sound::DistanceModel</a></div><div class="ttdeci">ALenum DistanceModel() const</div><div class="ttdoc">Get the distance model used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00146">Sound.cpp:146</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_a7bfa8b3a75db38b2ab6252a87def6f86"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#a7bfa8b3a75db38b2ab6252a87def6f86">LouiEriksson::Sound::PlayGlobal</a></div><div class="ttdeci">static void PlayGlobal(const std::weak_ptr&lt; AudioClip &gt; &amp;_clip)</div><div class="ttdoc">Play the Clip without positional audio.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00094">Sound.cpp:94</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_a9524f780bf3c9d891c792e1a7e2d5360"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#a9524f780bf3c9d891c792e1a7e2d5360">LouiEriksson::Sound::DopplerFactor</a></div><div class="ttdeci">float DopplerFactor() const</div><div class="ttdoc">Get the doppler factor used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00153">Sound.cpp:153</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_ac378ccf85d2458b10ac57ddc6f49526a"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#ac378ccf85d2458b10ac57ddc6f49526a">LouiEriksson::Sound::Dispose</a></div><div class="ttdeci">static void Dispose()</div><div class="ttdoc">Finalise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00164">Sound.cpp:164</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_sound_html_add6a35e251ff9b5b22bad3e7f1e2ebea"><div class="ttname"><a href="class_loui_eriksson_1_1_sound.html#add6a35e251ff9b5b22bad3e7f1e2ebea">LouiEriksson::Sound::SpeedOfSound</a></div><div class="ttdeci">float SpeedOfSound() const</div><div class="ttdoc">Get the speed of sound used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00160">Sound.cpp:160</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>AudioClip;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>AudioSource;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_sound.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html">Sound</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">         * Please refer to OpenAL-Soft spec:</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">         * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> ALCdevice*  s_Device { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> ALCcontext* s_Context { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s_SDL_Device { 0u };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">inline</span> <span class="keyword">static</span> std::shared_ptr&lt;AudioSource&gt; s_GlobalSource { <span class="keyword">nullptr</span> };</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79">Init</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#a43f4d75a079bb1c3ab2846d3f81a4e03">PlayGlobal</a>(<span class="keyword">const</span> std::weak_ptr&lt;AudioClip&gt;&amp; _clip);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#aa6fdf76fa41fba102532e9d6fb16df9c">DistanceModel</a>(<span class="keyword">const</span> ALenum&amp; _value);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[nodiscard]] ALenum <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#aa6fdf76fa41fba102532e9d6fb16df9c">DistanceModel</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#af77da215e8759b338d7126eb8ab715b6">DopplerFactor</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        [[nodiscard]] <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#af77da215e8759b338d7126eb8ab715b6">DopplerFactor</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#afa8a3c6e6459d625a65862c93bebb60b">SpeedOfSound</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        [[nodiscard]] <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#afa8a3c6e6459d625a65862c93bebb60b">SpeedOfSound</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_sound.html#a3092af3935dc9f9b63be3b6276a724b5">Dispose</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    };</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// LouiEriksson::Audio</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_SOUND_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html">LouiEriksson::Audio::Sound</a></div><div class="ttdef"><b>Definition:</b> <a href="_sound_8h_source.html#l00014">Sound.h:14</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_a3092af3935dc9f9b63be3b6276a724b5"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#a3092af3935dc9f9b63be3b6276a724b5">LouiEriksson::Audio::Sound::Dispose</a></div><div class="ttdeci">static void Dispose()</div><div class="ttdoc">Finalise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00166">Sound.cpp:166</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_a43f4d75a079bb1c3ab2846d3f81a4e03"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#a43f4d75a079bb1c3ab2846d3f81a4e03">LouiEriksson::Audio::Sound::PlayGlobal</a></div><div class="ttdeci">static void PlayGlobal(const std::weak_ptr&lt; AudioClip &gt; &amp;_clip)</div><div class="ttdoc">Play the Clip without positional audio.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00096">Sound.cpp:96</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_aa6fdf76fa41fba102532e9d6fb16df9c"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#aa6fdf76fa41fba102532e9d6fb16df9c">LouiEriksson::Audio::Sound::DistanceModel</a></div><div class="ttdeci">ALenum DistanceModel() const</div><div class="ttdoc">Get the distance model used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00148">Sound.cpp:148</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_ad0b45140de5e2fed60af25e8ee71fe79"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79">LouiEriksson::Audio::Sound::Init</a></div><div class="ttdeci">static void Init()</div><div class="ttdoc">Initialise the audio subsystems.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00020">Sound.cpp:20</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_af77da215e8759b338d7126eb8ab715b6"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#af77da215e8759b338d7126eb8ab715b6">LouiEriksson::Audio::Sound::DopplerFactor</a></div><div class="ttdeci">float DopplerFactor() const</div><div class="ttdoc">Get the doppler factor used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00155">Sound.cpp:155</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_sound_html_afa8a3c6e6459d625a65862c93bebb60b"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_sound.html#afa8a3c6e6459d625a65862c93bebb60b">LouiEriksson::Audio::Sound::SpeedOfSound</a></div><div class="ttdeci">float SpeedOfSound() const</div><div class="ttdoc">Get the speed of sound used by the audio engine.</div><div class="ttdef"><b>Definition:</b> <a href="_sound_8cpp_source.html#l00162">Sound.cpp:162</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_audio_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

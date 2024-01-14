@@ -1,12 +1,11 @@
 #ifndef FINALYEARPROJECT_AUDIOCLIP_H
 #define FINALYEARPROJECT_AUDIOCLIP_H
 
-#include "../../../../external/openal/include/AL/al.h"
-
-#include <filesystem>
-
+#include <AL/al.h>
 #include <SDL_audio.h>
 #include <SDL_stdinc.h>
+
+#include <filesystem>
 
 namespace LouiEriksson::Audio {
 	

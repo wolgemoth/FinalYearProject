@@ -1,12 +1,10 @@
 <map id="src/engine/scripts/audio/AudioSource.h" name="src/engine/scripts/audio/AudioSource.h">
-<area shape="rect" id="node1" title=" " alt="" coords="437,5,596,47"/>
-<area shape="rect" id="node2" href="$_audio_source_8cpp.html" title=" " alt="" coords="5,184,180,225"/>
-<area shape="rect" id="node3" href="$_sound_8cpp.html" title=" " alt="" coords="387,184,523,225"/>
-<area shape="rect" id="node4" href="$_sound_8h.html" title=" " alt="" coords="254,95,390,136"/>
-<area shape="rect" id="node6" href="$_ball_8cpp.html" title=" " alt="" coords="547,191,715,218"/>
-<area shape="rect" id="node7" href="$_ball_8h.html" title=" " alt="" coords="555,102,708,129"/>
-<area shape="rect" id="node9" href="$_fly_cam_8cpp.html" title=" " alt="" coords="900,191,1093,218"/>
-<area shape="rect" id="node10" href="$_fly_cam_8h.html" title=" " alt="" coords="733,102,911,129"/>
-<area shape="rect" id="node5" href="$_application_8cpp.html" title=" " alt="" coords="204,184,363,225"/>
-<area shape="rect" id="node8" href="$_scene_8cpp.html" title=" " alt="" coords="739,184,875,225"/>
+<area shape="rect" id="node1" title=" " alt="" coords="356,5,515,47"/>
+<area shape="rect" id="node2" href="$_audio_source_8cpp.html" title=" " alt="" coords="5,95,180,136"/>
+<area shape="rect" id="node3" href="$_sound_8cpp.html" title=" " alt="" coords="205,95,341,136"/>
+<area shape="rect" id="node4" href="$_ball_8cpp.html" title=" " alt="" coords="327,191,495,218"/>
+<area shape="rect" id="node5" href="$_ball_8h.html" title=" " alt="" coords="416,102,569,129"/>
+<area shape="rect" id="node7" href="$_fly_cam_8cpp.html" title=" " alt="" coords="704,191,897,218"/>
+<area shape="rect" id="node8" href="$_fly_cam_8h.html" title=" " alt="" coords="594,102,773,129"/>
+<area shape="rect" id="node6" href="$_scene_8cpp.html" title=" " alt="" coords="535,184,671,225"/>
 </map>

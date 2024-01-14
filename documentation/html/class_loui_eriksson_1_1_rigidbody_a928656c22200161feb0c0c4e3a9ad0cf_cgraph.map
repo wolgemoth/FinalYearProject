@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Rigidbody::Interpolate" name="LouiEriksson::Rigidbody::Interpolate">
-<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,71,183,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_rigidbody.html#aa10038f3b7965568c95db3826285168b" title="Get the angular velocity of the Rigidbody." alt="" coords="231,5,408,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_time.html#af757a37d73ad39440574bc0b7e6f44ca" title="Get the scaled fixed delta time. (Time between physics updates.)" alt="" coords="247,71,392,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_rigidbody.html#af82f24eab5a0f2a76db0f83f290bc41a" title="Get the velocity of the Rigidbody." alt="" coords="231,136,408,177"/>
-</map>

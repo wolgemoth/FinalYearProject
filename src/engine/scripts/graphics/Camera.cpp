@@ -9,6 +9,7 @@
 #include "../core/Window.h"
 #include "../ecs/GameObject.h"
 #include "../graphics/Light.h"
+#include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Renderer.h"
 #include "../graphics/Shader.h"

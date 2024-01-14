@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Time::DeltaTime" name="LouiEriksson::Time::DeltaTime">
-<area shape="rect" id="node1" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="228,71,373,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_fly_cam.html#a183eb94f89b632a83e97a3038c4f5349" title="Called every frame." alt="" coords="11,5,174,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_orbit_cam.html#a2e9421703bf6b4594f53bba6f1bce0c5" title="Called every frame." alt="" coords="5,71,180,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_player.html#afc0ca3aa5a61bd359902d3ec3babc0fd" title="Called every frame." alt="" coords="16,136,169,177"/>
-</map>

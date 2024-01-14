@@ -2,15 +2,25 @@
 #define FINALYEARPROJECT_ORBITCAM_H
 
 #include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/core/Transform.h"
-#include "../../engine/scripts/graphics/Camera.h"
-#include "../../engine/scripts/core/Window.h"
 
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
+
+namespace LouiEriksson {
+	
+	class Transform;
+	class Window;
+	
+} // LouiEriksson
+
+namespace LouiEriksson::Graphics {
+	
+	class Camera;
+	
+} // LouiEriksson::Graphics
 
 namespace LouiEriksson::Game {
 	

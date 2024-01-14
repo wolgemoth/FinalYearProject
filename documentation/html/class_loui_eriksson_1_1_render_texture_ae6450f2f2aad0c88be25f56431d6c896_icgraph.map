@@ -1,6 +1,0 @@
-<map id="LouiEriksson::RenderTexture::Discard" name="LouiEriksson::RenderTexture::Discard">
-<area shape="rect" id="node1" title="Discard the RenderTexture." alt="" coords="471,39,677,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_render_texture.html#a9f3f2b225b717755b562b33e9178a65b" title="Reinitialise the texture with a given width and height." alt="" coords="216,5,423,47"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_render_texture.html#a1042c45e7cfb54df913c9649c8d0be3b" title=" " alt="" coords="216,71,423,112"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_camera.html#a9654c9ffa7d3f5f7f4360634e714ce62" title="Called before rendering." alt="" coords="5,5,168,47"/>
-</map>

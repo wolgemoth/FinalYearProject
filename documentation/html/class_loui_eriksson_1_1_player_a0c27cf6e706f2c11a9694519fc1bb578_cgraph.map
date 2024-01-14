@@ -1,9 +1,0 @@
-<map id="LouiEriksson::Player::SpawnPlanes" name="LouiEriksson::Player::SpawnPlanes">
-<area shape="rect" id="node1" title=" " alt="" coords="5,169,159,211"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_object.html#a71bcfebaad6ca5aaef171e03ea86b859" title="Factory function which creates a GameObject within a Scene." alt="" coords="207,5,400,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_resources.html#a97e55f53dfdced6266ed6c92601ba8a2" title=" " alt="" coords="214,71,393,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_resources.html#a7c2062c2bfb5d5a3675a1bbc2e0771e5" title=" " alt="" coords="214,136,393,177"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_component.html#a87b48c3303da952daec2db4c1b18f1a9" title="Get the Component&#39;s parent GameObject." alt="" coords="210,201,397,243"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_collider.html#abc385ed0098cc13cac308a2060a88f54" title="Set the Collider&#39;s Type." alt="" coords="222,267,385,308"/>
-<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_file.html#a0d74f6890ef4659fe408584ed8df0879" title=" " alt="" coords="236,332,371,373"/>
-</map>

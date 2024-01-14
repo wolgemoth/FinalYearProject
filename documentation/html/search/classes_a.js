@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['light_557',['Light',['../class_loui_eriksson_1_1_light.html',1,'LouiEriksson']]]
+  ['light_563',['Light',['../class_loui_eriksson_1_1_graphics_1_1_light.html',1,'LouiEriksson::Graphics']]]
 ];

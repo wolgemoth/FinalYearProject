@@ -7,31 +7,31 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto 
 set(     GAME_DIR ${PROJECT_SOURCE_DIR}/src/engine)
 set(   ENGINE_DIR ${PROJECT_SOURCE_DIR}/src/usr   )
 
-set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/external/glew)
+set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/contrib/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
 set(GLEW_LIB_DIR     ${GLEW_DIR}/lib)
 
-set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/external/imgui)
-set(IMGUI_BACKENDS_DIR ${PROJECT_SOURCE_DIR}/external/imgui/backends)
+set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/contrib/imgui)
+set(IMGUI_BACKENDS_DIR ${PROJECT_SOURCE_DIR}/contrib/imgui/backends)
 
-set(PELLET_DIR         ${PROJECT_SOURCE_DIR}/external/pellet/src/)
-set(PELLET_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/pellet/src/pellet)
+set(PELLET_DIR         ${PROJECT_SOURCE_DIR}/contrib/pellet/src/)
+set(PELLET_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/pellet/src/pellet)
 
-set(SDL2_DIR         ${PROJECT_SOURCE_DIR}/external/SDL2)
+set(SDL2_DIR         ${PROJECT_SOURCE_DIR}/contrib/SDL2)
 set(SDL2_INCLUDE_DIR ${SDL2_DIR}/include)
 set(SDL2_LIB_DIR     ${SDL2_DIR}/lib/x86/)
 
-set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/external/openal)
+set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/contrib/openal)
 set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
 
 include_directories(
         ${GLEW_INCLUDE_DIR}
         ${IMGUI_DIR}
         ${PELLET_INCLUDE_DIR}
-        ${PROJECT_SOURCE_DIR}/external/cereal/include
-        ${PROJECT_SOURCE_DIR}/external/glm
-        ${PROJECT_SOURCE_DIR}/external/stb/include/
-        ${PROJECT_SOURCE_DIR}/external/wavefront/include/
+        ${PROJECT_SOURCE_DIR}/contrib/cereal/include
+        ${PROJECT_SOURCE_DIR}/contrib/glm
+        ${PROJECT_SOURCE_DIR}/contrib/stb/include/
+        ${PROJECT_SOURCE_DIR}/contrib/wavefront/include/
         ${SDL2_INCLUDE_DIR}
         ${OPENAL_INCLUDE_DIR}
 )

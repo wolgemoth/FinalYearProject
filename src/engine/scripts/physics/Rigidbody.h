@@ -3,8 +3,6 @@
 
 #include "../ecs/Component.h"
 
-#include "Collision.h"
-
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <glm/ext/quaternion_float.hpp>
 #include <glm/ext/vector_float3.hpp>
@@ -25,6 +23,7 @@ namespace LouiEriksson {
 namespace LouiEriksson::Physics {
 	
 	class Collider;
+	class Collision;
 	
 	/// <summary>
 	/// Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.

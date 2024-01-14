@@ -1,13 +1,17 @@
 \hypertarget{_light_8cpp}{}\doxysection{src/engine/scripts/graphics/\+Light.cpp File Reference}
 \label{_light_8cpp}\index{src/engine/scripts/graphics/Light.cpp@{src/engine/scripts/graphics/Light.cpp}}
 {\ttfamily \#include \char`\"{}Light.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../core/\+Transform.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../ecs/\+Component.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../ecs/\+Game\+Object.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Texture.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}textures/\+Render\+Texture.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$GL/glew.\+h$>$}\newline
 {\ttfamily \#include $<$glm/ext/matrix\+\_\+clip\+\_\+space.\+hpp$>$}\newline
-{\ttfamily \#include $<$exception$>$}\newline
+{\ttfamily \#include $<$glm/trigonometric.\+hpp$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
 Include dependency graph for Light.\+cpp\+:
 \nopagebreak
 \begin{figure}[H]
@@ -20,4 +24,6 @@ Include dependency graph for Light.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespace_loui_eriksson}{Loui\+Eriksson}}
+\item 
+ \mbox{\hyperlink{namespace_loui_eriksson_1_1_graphics}{Loui\+Eriksson\+::\+Graphics}}
 \end{DoxyCompactItemize}

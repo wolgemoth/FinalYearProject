@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Input::Mouse::GetDown" name="LouiEriksson::Input::Mouse::GetDown">
-<area shape="rect" id="node1" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="5,5,151,47"/>
-<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_input_1_1_event.html#a37d08ca8c252d727d9c677ad34c0ff88" title=" " alt="" coords="199,5,344,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_hashmap.html#a64cb17698ce2f128a7cc103d4b6831b1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="392,13,597,39"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="LouiEriksson::OrbitCam::Tick" name="LouiEriksson::OrbitCam::Tick">
-<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,71,180,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_time.html#aadeb2fc8178c31a73eb41e43ae5fd5b1" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="243,5,388,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_orbit_cam.html#a35bac8bba4585d586d845fc28ff6c4a8" title="Get the Camera of the OrbitCam." alt="" coords="228,71,403,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_orbit_cam.html#a34d24021b5dc604df0f3355711ae832d" title="Get the Transform of the OrbitCam." alt="" coords="228,136,403,177"/>
-</map>

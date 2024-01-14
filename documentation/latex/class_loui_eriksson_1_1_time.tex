@@ -11,7 +11,7 @@ Collaboration diagram for Loui\+Eriksson\+::Time\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=237pt]{class_loui_eriksson_1_1_time__coll__graph}
+\includegraphics[width=246pt]{class_loui_eriksson_1_1_time__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -30,21 +30,21 @@ Collaboration diagram for Loui\+Eriksson\+::Time\+:
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{class_loui_eriksson_1_1_time_aa26ac718ffeb5b5a470f194f54f16f6e}{Scale}} (const float \&\+\_\+value)
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_time_af2571d563f3aa9c440376fcdefc29e47}{Scale}} (const float \&\+\_\+value) noexcept
 \begin{DoxyCompactList}\small\item\em Set the speed of time within the engine. This should be between 0.\+0 and 1.\+0. \end{DoxyCompactList}\item 
-static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a877cc3c41f69bab2aec1207a2fbac997}{Scale}} ()
+static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a76610b969199967c8a456cae8abf585c}{Scale}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the speed of time within the engine. \end{DoxyCompactList}\item 
-static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a35acc0566e992fb780cf3ef014e45bbb}{Elapsed}} ()
+static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a76aeaef8f3308ba9a93cab815c0246da}{Elapsed}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the total time elapsed since the engine was initialised. \end{DoxyCompactList}\item 
-static const float \mbox{\hyperlink{class_loui_eriksson_1_1_time_aadeb2fc8178c31a73eb41e43ae5fd5b1}{Delta\+Time}} ()
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_time_a8eb3211503eee9a9727e078a63006b78}{Delta\+Time}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the scaled delta time. (Duration of the previous frame.) \end{DoxyCompactList}\item 
-static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a7609b5f13749d783d4f22cdcc897d5f8}{Unscaled\+Delta\+Time}} ()
+static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a8de363510d6f0decb85de230560aba8e}{Unscaled\+Delta\+Time}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the unscaled delta time. (Duration of the previous frame.) \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{class_loui_eriksson_1_1_time_a320a3f92ab022b38a810db62dfb56316}{Fixed\+Delta\+Time}} (const float \&\+\_\+value)
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_time_a9744bae89c8c87db9ca2a9d76874765a}{Fixed\+Delta\+Time}} (const float \&\+\_\+value) noexcept
 \begin{DoxyCompactList}\small\item\em Set the unscaled fixed delta time. (\mbox{\hyperlink{class_loui_eriksson_1_1_time}{Time}} between physics updates.) \end{DoxyCompactList}\item 
-static const float \mbox{\hyperlink{class_loui_eriksson_1_1_time_af757a37d73ad39440574bc0b7e6f44ca}{Fixed\+Delta\+Time}} ()
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_time_afaa1bb533215062f7900a9afd1bf1ee8}{Fixed\+Delta\+Time}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the scaled fixed delta time. (\mbox{\hyperlink{class_loui_eriksson_1_1_time}{Time}} between physics updates.) \end{DoxyCompactList}\item 
-static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a3eaa4afc7ce81d0d5ecc078cefe7876d}{Fixed\+Unscaled\+Delta\+Time}} ()
+static const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_time_a2a298b9fdcb68bf49848ecdc3d6462fe}{Fixed\+Unscaled\+Delta\+Time}} () noexcept
 \begin{DoxyCompactList}\small\item\em Get the unscaled fixed delta time. (\mbox{\hyperlink{class_loui_eriksson_1_1_time}{Time}} between physics updates.) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -56,7 +56,7 @@ class \mbox{\hyperlink{class_loui_eriksson_1_1_time_a23f25bcc02a0e94c2f5a4188496
 \doxysubsection{Detailed Description}
 
 
-Definition at line 10 of file Time.\+h.
+Definition at line 8 of file Time.\+h.
 
 
 
@@ -82,11 +82,11 @@ Definition at line 10 of file Time.\+h.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_aadeb2fc8178c31a73eb41e43ae5fd5b1}\label{class_loui_eriksson_1_1_time_aadeb2fc8178c31a73eb41e43ae5fd5b1}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a8eb3211503eee9a9727e078a63006b78}\label{class_loui_eriksson_1_1_time_a8eb3211503eee9a9727e078a63006b78}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!DeltaTime@{DeltaTime}}
 \index{DeltaTime@{DeltaTime}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{DeltaTime()}{DeltaTime()}}
-{\footnotesize\ttfamily const float Loui\+Eriksson\+::\+Time\+::\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Time\+::\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -101,14 +101,14 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_aadeb2fc8178c31a73eb41e43ae5fd5b1_icgraph}
+\includegraphics[width=338pt]{class_loui_eriksson_1_1_time_a8eb3211503eee9a9727e078a63006b78_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a35acc0566e992fb780cf3ef014e45bbb}\label{class_loui_eriksson_1_1_time_a35acc0566e992fb780cf3ef014e45bbb}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a76aeaef8f3308ba9a93cab815c0246da}\label{class_loui_eriksson_1_1_time_a76aeaef8f3308ba9a93cab815c0246da}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!Elapsed@{Elapsed}}
 \index{Elapsed@{Elapsed}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{Elapsed()}{Elapsed()}}
-{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Elapsed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Elapsed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -123,14 +123,14 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=347pt]{class_loui_eriksson_1_1_time_a35acc0566e992fb780cf3ef014e45bbb_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_a76aeaef8f3308ba9a93cab815c0246da_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_af757a37d73ad39440574bc0b7e6f44ca}\label{class_loui_eriksson_1_1_time_af757a37d73ad39440574bc0b7e6f44ca}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_afaa1bb533215062f7900a9afd1bf1ee8}\label{class_loui_eriksson_1_1_time_afaa1bb533215062f7900a9afd1bf1ee8}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!FixedDeltaTime@{FixedDeltaTime}}
 \index{FixedDeltaTime@{FixedDeltaTime}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{FixedDeltaTime()}{FixedDeltaTime()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const float Loui\+Eriksson\+::\+Time\+::\+Fixed\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Time\+::\+Fixed\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -145,14 +145,14 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_af757a37d73ad39440574bc0b7e6f44ca_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_afaa1bb533215062f7900a9afd1bf1ee8_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a320a3f92ab022b38a810db62dfb56316}\label{class_loui_eriksson_1_1_time_a320a3f92ab022b38a810db62dfb56316}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a9744bae89c8c87db9ca2a9d76874765a}\label{class_loui_eriksson_1_1_time_a9744bae89c8c87db9ca2a9d76874765a}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!FixedDeltaTime@{FixedDeltaTime}}
 \index{FixedDeltaTime@{FixedDeltaTime}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{FixedDeltaTime()}{FixedDeltaTime()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Time\+::\+Fixed\+Delta\+Time (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Time\+::\+Fixed\+Delta\+Time (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -162,11 +162,11 @@ Set the unscaled fixed delta time. (\mbox{\hyperlink{class_loui_eriksson_1_1_tim
 
 Definition at line 26 of file Time.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a3eaa4afc7ce81d0d5ecc078cefe7876d}\label{class_loui_eriksson_1_1_time_a3eaa4afc7ce81d0d5ecc078cefe7876d}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a2a298b9fdcb68bf49848ecdc3d6462fe}\label{class_loui_eriksson_1_1_time_a2a298b9fdcb68bf49848ecdc3d6462fe}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!FixedUnscaledDeltaTime@{FixedUnscaledDeltaTime}}
 \index{FixedUnscaledDeltaTime@{FixedUnscaledDeltaTime}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{FixedUnscaledDeltaTime()}{FixedUnscaledDeltaTime()}}
-{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Fixed\+Unscaled\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Fixed\+Unscaled\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -181,7 +181,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_a3eaa4afc7ce81d0d5ecc078cefe7876d_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_a2a298b9fdcb68bf49848ecdc3d6462fe_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_time_a92a501e6704dbb761e8a26130fb64054}\label{class_loui_eriksson_1_1_time_a92a501e6704dbb761e8a26130fb64054}} 
@@ -196,11 +196,11 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_time}{Time}}\& Loui\+Eriksson\+::\+Time\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_loui_eriksson_1_1_time}{Time}} \&\&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a877cc3c41f69bab2aec1207a2fbac997}\label{class_loui_eriksson_1_1_time_a877cc3c41f69bab2aec1207a2fbac997}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a76610b969199967c8a456cae8abf585c}\label{class_loui_eriksson_1_1_time_a76610b969199967c8a456cae8abf585c}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!Scale@{Scale}}
 \index{Scale@{Scale}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{Scale()}{Scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -215,14 +215,14 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=347pt]{class_loui_eriksson_1_1_time_a877cc3c41f69bab2aec1207a2fbac997_icgraph}
+\includegraphics[width=338pt]{class_loui_eriksson_1_1_time_a76610b969199967c8a456cae8abf585c_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_aa26ac718ffeb5b5a470f194f54f16f6e}\label{class_loui_eriksson_1_1_time_aa26ac718ffeb5b5a470f194f54f16f6e}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_af2571d563f3aa9c440376fcdefc29e47}\label{class_loui_eriksson_1_1_time_af2571d563f3aa9c440376fcdefc29e47}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!Scale@{Scale}}
 \index{Scale@{Scale}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{Scale()}{Scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Time\+::\+Scale (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Time\+::\+Scale (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -232,11 +232,11 @@ Set the speed of time within the engine. This should be between 0.\+0 and 1.\+0.
 
 Definition at line 7 of file Time.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a7609b5f13749d783d4f22cdcc897d5f8}\label{class_loui_eriksson_1_1_time_a7609b5f13749d783d4f22cdcc897d5f8}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_time_a8de363510d6f0decb85de230560aba8e}\label{class_loui_eriksson_1_1_time_a8de363510d6f0decb85de230560aba8e}} 
 \index{LouiEriksson::Time@{LouiEriksson::Time}!UnscaledDeltaTime@{UnscaledDeltaTime}}
 \index{UnscaledDeltaTime@{UnscaledDeltaTime}!LouiEriksson::Time@{LouiEriksson::Time}}
 \doxysubsubsection{\texorpdfstring{UnscaledDeltaTime()}{UnscaledDeltaTime()}}
-{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Unscaled\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Time\+::\+Unscaled\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [noexcept]}}
 
 
 
@@ -251,7 +251,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_a7609b5f13749d783d4f22cdcc897d5f8_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_time_a8de363510d6f0decb85de230560aba8e_icgraph}
 \end{center}
 \end{figure}
 
@@ -265,7 +265,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 12 of file Time.\+h.
+Definition at line 10 of file Time.\+h.
 
 
 

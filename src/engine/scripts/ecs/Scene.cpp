@@ -16,6 +16,7 @@
 #include "../graphics/Light.h"
 #include "../graphics/Renderer.h"
 #include "../physics/Collider.h"
+#include "../physics/Collision.h"
 #include "../physics/Rigidbody.h"
 
 #include <cereal/cereal.hpp>

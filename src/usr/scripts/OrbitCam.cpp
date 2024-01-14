@@ -4,6 +4,7 @@
 #include "../../engine/scripts/core/Settings.h"
 #include "../../engine/scripts/core/Time.h"
 #include "../../engine/scripts/core/Transform.h"
+#include "../../engine/scripts/core/Window.h"
 #include "../../engine/scripts/ecs/GameObject.h"
 #include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"

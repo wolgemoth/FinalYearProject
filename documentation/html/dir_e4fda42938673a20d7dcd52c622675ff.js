@@ -6,6 +6,5 @@ var dir_e4fda42938673a20d7dcd52c622675ff =
     [ "graphics", "dir_73f47f6a459150a0ab8b4fea3e78124c.html", "dir_73f47f6a459150a0ab8b4fea3e78124c" ],
     [ "input", "dir_5cfdad93403995834ac4304c0bc5ac60.html", "dir_5cfdad93403995834ac4304c0bc5ac60" ],
     [ "physics", "dir_af559e6592a3df3c6b601ef841cb784a.html", "dir_af559e6592a3df3c6b601ef841cb784a" ],
-    [ "ui", "dir_abc66932495dee08624278a85098b715.html", "dir_abc66932495dee08624278a85098b715" ],
-    [ "utils", "dir_c67e9eb59726f837315b01f038e75bcb.html", "dir_c67e9eb59726f837315b01f038e75bcb" ]
+    [ "ui", "dir_abc66932495dee08624278a85098b715.html", "dir_abc66932495dee08624278a85098b715" ]
 ];

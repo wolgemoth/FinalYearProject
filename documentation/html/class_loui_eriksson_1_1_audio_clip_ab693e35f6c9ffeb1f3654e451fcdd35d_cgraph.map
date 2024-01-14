@@ -1,4 +1,0 @@
-<map id="LouiEriksson::AudioClip::Dispose" name="LouiEriksson::AudioClip::Dispose">
-<area shape="rect" id="node1" title="Dispose the clip." alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_audio_clip_1_1_samples.html#a426d00ff013f79a1cbea7ce1c1fe2a61" title="Releases the underlying samples of the sound file. This happens automatically when the clip is dispos..." alt="" coords="228,5,403,47"/>
-</map>

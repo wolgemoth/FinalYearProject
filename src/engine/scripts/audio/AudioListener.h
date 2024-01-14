@@ -2,11 +2,16 @@
 #define FINALYEARPROJECT_AUDIOLISTENER_H
 
 #include "../ecs/Component.h"
-#include "../ecs/GameObject.h"
 
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>
+
+namespace LouiEriksson::ECS {
+	
+	class GameObject;
+	
+} // LouiEriksson::ECS
 
 namespace LouiEriksson::Audio {
 	

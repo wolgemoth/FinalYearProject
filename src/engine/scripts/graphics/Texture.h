@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_TEXTURE_H
 #define FINALYEARPROJECT_TEXTURE_H
 
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 

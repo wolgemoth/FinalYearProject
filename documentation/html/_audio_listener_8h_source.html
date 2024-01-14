@@ -88,55 +88,63 @@ $(document).ready(function(){initNavTree('_audio_listener_8h_source.html',''); i
 <a href="_audio_listener_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FINALYEARPROJECT_AUDIOLISTENER_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FINALYEARPROJECT_AUDIOLISTENER_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../ecs/GameObject.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../ecs/Component.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/ext/vector_float3.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson.html">LouiEriksson</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespace_loui_eriksson_1_1_e_c_s.html">   10</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a> {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_listener.html">   12</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_audio_listener.html">AudioListener</a> : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_component.html">Component</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">GameObject</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">     * Please refer to OpenAL-Soft spec:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">     * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">float</span> m_Gain;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        glm::vec3 m_LastPosition;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// LouiEriksson::ECS</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html">   18</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html">AudioListener</a> : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">ECS::Component</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">     * Please refer to OpenAL-Soft spec:</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">     * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> Sync();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">float</span> m_Gain;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;         <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#aedb70e191e9f02a3e999ea8f352bf84e">AudioListener</a>(<span class="keyword">const</span> std::shared_ptr&lt;GameObject&gt;&amp; _parent);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#a59892cd6da76261cd7af3e8cc1846c81">~AudioListener</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#a92cd3ce316f827ed0b0f8c69bf1e911e">Init</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#a846e475aa2ba215ad970ccb3f1debdb4">Tick</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        glm::vec3 m_LastPosition;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span> Sync();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;         <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9c121685dcefd43e09d83d1d655bfaaa">AudioListener</a>(<span class="keyword">const</span> std::shared_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9711f687a3d50e3aaa4dd30973091654">   39</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9711f687a3d50e3aaa4dd30973091654">~AudioListener</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#a18342e17016120b2d405b84d8524714f">Gain</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        [[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_audio_listener.html#a18342e17016120b2d405b84d8524714f">Gain</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#af9bfb1f47eb697c5e13407153b449c32">Init</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a278a41469e73705c5d47d78627171b95">Tick</a>();</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// LouiEriksson</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_AUDIOLISTENER_H</span></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html">LouiEriksson::AudioListener</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00012">AudioListener.h:12</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html_a18342e17016120b2d405b84d8524714f"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html#a18342e17016120b2d405b84d8524714f">LouiEriksson::AudioListener::Gain</a></div><div class="ttdeci">const float &amp; Gain() const</div><div class="ttdoc">Get the master gain of the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00079">AudioListener.cpp:79</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html_a59892cd6da76261cd7af3e8cc1846c81"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html#a59892cd6da76261cd7af3e8cc1846c81">LouiEriksson::AudioListener::~AudioListener</a></div><div class="ttdeci">~AudioListener() override</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00023">AudioListener.cpp:23</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html_a846e475aa2ba215ad970ccb3f1debdb4"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html#a846e475aa2ba215ad970ccb3f1debdb4">LouiEriksson::AudioListener::Tick</a></div><div class="ttdeci">void Tick()</div><div class="ttdoc">Updates the AudioListener every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00029">AudioListener.cpp:29</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html_a92cd3ce316f827ed0b0f8c69bf1e911e"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html#a92cd3ce316f827ed0b0f8c69bf1e911e">LouiEriksson::AudioListener::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialise the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00025">AudioListener.cpp:25</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_audio_listener_html_aedb70e191e9f02a3e999ea8f352bf84e"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_listener.html#aedb70e191e9f02a3e999ea8f352bf84e">LouiEriksson::AudioListener::AudioListener</a></div><div class="ttdeci">AudioListener(const std::shared_ptr&lt; GameObject &gt; &amp;_parent)</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00016">AudioListener.cpp:16</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_component.html">LouiEriksson::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00016">Component.h:16</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_html"><div class="ttname"><a href="namespace_loui_eriksson.html">LouiEriksson</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">Gain</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; _value) noexcept;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; <a class="code" href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">Gain</a>() const noexcept;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    };</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// LouiEriksson::Audio</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_AUDIOLISTENER_H</span></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html">LouiEriksson::Audio::AudioListener</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00018">AudioListener.h:18</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a278a41469e73705c5d47d78627171b95"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a278a41469e73705c5d47d78627171b95">LouiEriksson::Audio::AudioListener::Tick</a></div><div class="ttdeci">void Tick()</div><div class="ttdoc">Updates the AudioListener every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00026">AudioListener.cpp:26</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a9711f687a3d50e3aaa4dd30973091654"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9711f687a3d50e3aaa4dd30973091654">LouiEriksson::Audio::AudioListener::~AudioListener</a></div><div class="ttdeci">~AudioListener() override</div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_a9c121685dcefd43e09d83d1d655bfaaa"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#a9c121685dcefd43e09d83d1d655bfaaa">LouiEriksson::Audio::AudioListener::AudioListener</a></div><div class="ttdeci">AudioListener(const std::shared_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00016">AudioListener.cpp:16</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_aaae200f8ff4f2ca5f4b5a858943cb373"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#aaae200f8ff4f2ca5f4b5a858943cb373">LouiEriksson::Audio::AudioListener::Gain</a></div><div class="ttdeci">const float &amp; Gain() const noexcept</div><div class="ttdoc">Get the master gain of the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00076">AudioListener.cpp:76</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_audio_1_1_audio_listener_html_af9bfb1f47eb697c5e13407153b449c32"><div class="ttname"><a href="class_loui_eriksson_1_1_audio_1_1_audio_listener.html#af9bfb1f47eb697c5e13407153b449c32">LouiEriksson::Audio::AudioListener::Init</a></div><div class="ttdeci">void Init()</div><div class="ttdoc">Initialise the AudioListener.</div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8cpp_source.html#l00022">AudioListener.cpp:22</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_component.html">LouiEriksson::ECS::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00014">Component.h:14</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_e_c_s_1_1_game_object_html"><div class="ttname"><a href="class_loui_eriksson_1_1_e_c_s_1_1_game_object.html">LouiEriksson::ECS::GameObject</a></div><div class="ttdoc">An Entity which exists in a Scene and can contain Components.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8h_source.html#l00029">GameObject.h:29</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_audio_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_audio.html">LouiEriksson::Audio</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_e_c_s_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_e_c_s.html">LouiEriksson::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00010">AudioListener.h:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

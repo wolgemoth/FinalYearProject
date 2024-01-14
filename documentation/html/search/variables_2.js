@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['input_946',['Input',['../struct_loui_eriksson_1_1_input_1_1_event.html#a3b523248625e86de9ef3b72b308a8035',1,'LouiEriksson::Input::Event::Input()'],['../struct_loui_eriksson_1_1_input_1_1_key.html#aef15560e707269a4e418e57d31777453',1,'LouiEriksson::Input::Key::Input()'],['../struct_loui_eriksson_1_1_input_1_1_mouse.html#a2e9b5665b739987ea7792b700c32a1b0',1,'LouiEriksson::Input::Mouse::Input()']]]
+  ['input_958',['Input',['../struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a60e398f6b6921c262d561f0b4b5040ee',1,'LouiEriksson::Input::Input::Event::Input()'],['../struct_loui_eriksson_1_1_input_1_1_input_1_1_key.html#a70c1cb0ee35d50196ead500ebe08aaa6',1,'LouiEriksson::Input::Input::Key::Input()'],['../struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a2db3fa29d5ea154669e9d228ddd16d4c',1,'LouiEriksson::Input::Input::Mouse::Input()']]]
 ];

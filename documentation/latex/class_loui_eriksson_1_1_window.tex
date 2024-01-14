@@ -21,9 +21,9 @@ Collaboration diagram for Loui\+Eriksson\+::Window\+:
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}{operator=}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_window}{Window}} \&\+\_\+other)=delete
 \item 
-const int \& \mbox{\hyperlink{class_loui_eriksson_1_1_window_ac05f7647888da07019f8b6d21506a7c7}{ID}} () const
+const int \& \mbox{\hyperlink{class_loui_eriksson_1_1_window_a3f8c8c764395d40c9375cea8e241e8a6}{ID}} () const noexcept
 \item 
-SDL\+\_\+\+GLContext \mbox{\hyperlink{class_loui_eriksson_1_1_window_ad5dd30952f06320014508a3c413b5123}{Context}} () const
+SDL\+\_\+\+GLContext \mbox{\hyperlink{class_loui_eriksson_1_1_window_ae9781970f255195c5fd19f0345156872}{Context}} () const noexcept
 \item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_window_a9ea7b2d04c66578147d6ec9dfc2468d4}{Update}} () const
 \item 
@@ -33,11 +33,11 @@ glm\+::ivec2 \mbox{\hyperlink{class_loui_eriksson_1_1_window_ad4cc2a891451e37bf3
 \begin{DoxyCompactList}\small\item\em Returns the window\textquotesingle{}s x,y dimensions as a c-\/style array. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc}{Aspect}} () const
 \item 
-const bool \mbox{\hyperlink{class_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14}{Focused}} () const
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_window_abc858d49c3b0a9d9693af5264ef4a6fc}{Focused}} () const
 \item 
-const Uint32 \mbox{\hyperlink{class_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a}{Get\+Flags}} () const
+Uint32 \mbox{\hyperlink{class_loui_eriksson_1_1_window_aea63b1b881c5577b4c96bb00885ce463}{Get\+Flags}} () const
 \item 
-const bool \mbox{\hyperlink{class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f}{Get\+Flag}} (const Uint32 \&\+\_\+flag) const
+bool \mbox{\hyperlink{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d}{Get\+Flag}} (const Uint32 \&\+\_\+flag) const
 \item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_window_aa991dac09f9e3b4cfbb689d0b0417ac9}{Set\+Dirty}} ()
 \item 
@@ -56,15 +56,13 @@ static void \mbox{\hyperlink{class_loui_eriksson_1_1_window_a3f1ee278a27d5abf188
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_loui_eriksson_1_1_window_a23f25bcc02a0e94c2f5a4188496b04d0}{Application}}
-\item 
-class \mbox{\hyperlink{class_loui_eriksson_1_1_window_ad8bd9afbbd7af19d996da80e9d25890d}{Camera}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line 22 of file Window.\+h.
+Definition at line 23 of file Window.\+h.
 
 
 
@@ -86,7 +84,7 @@ Definition at line 22 of file Window.\+h.
 
 
 
-Definition at line 150 of file Window.\+cpp.
+Definition at line 160 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -96,15 +94,15 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a2bf73ab2c6a67c6255d5fcecbc018fdc_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_ad5dd30952f06320014508a3c413b5123}\label{class_loui_eriksson_1_1_window_ad5dd30952f06320014508a3c413b5123}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_ae9781970f255195c5fd19f0345156872}\label{class_loui_eriksson_1_1_window_ae9781970f255195c5fd19f0345156872}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Context@{Context}}
 \index{Context@{Context}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{Context()}{Context()}}
-{\footnotesize\ttfamily SDL\+\_\+\+GLContext Loui\+Eriksson\+::\+Window\+::\+Context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily SDL\+\_\+\+GLContext Loui\+Eriksson\+::\+Window\+::\+Context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
-Definition at line 123 of file Window.\+cpp.
+Definition at line 133 of file Window.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b}\label{class_loui_eriksson_1_1_window_a7b7d824da6668c14e0fbfe6e1c44189b}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Create@{Create}}
@@ -114,7 +112,7 @@ Definition at line 123 of file Window.\+cpp.
 
 
 
-Definition at line 65 of file Window.\+cpp.
+Definition at line 75 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -132,7 +130,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 90 of file Window.\+cpp.
+Definition at line 100 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -154,7 +152,7 @@ Returns the window\textquotesingle{}s x,y dimensions as a c-\/style array.
 
 The size of the returned array is 2.
 
-Definition at line 141 of file Window.\+cpp.
+Definition at line 151 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -172,7 +170,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 131 of file Window.\+cpp.
+Definition at line 141 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -182,22 +180,22 @@ Here is the call graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a9720282c056c31cdac1ff44a16358494_cgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14}\label{class_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_abc858d49c3b0a9d9693af5264ef4a6fc}\label{class_loui_eriksson_1_1_window_abc858d49c3b0a9d9693af5264ef4a6fc}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!Focused@{Focused}}
 \index{Focused@{Focused}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{Focused()}{Focused()}}
-{\footnotesize\ttfamily const bool Loui\+Eriksson\+::\+Window\+::\+Focused (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Window\+::\+Focused (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 178 of file Window.\+cpp.
+Definition at line 188 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a5f35fd9fe06d8a0cc8cf3fb1e00dce14_cgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_abc858d49c3b0a9d9693af5264ef4a6fc_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19}\label{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19}} 
@@ -208,7 +206,7 @@ Here is the call graph for this function\+:
 
 
 
-Definition at line 74 of file Window.\+cpp.
+Definition at line 84 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -218,22 +216,22 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_window_af814b0a014982fd2ef4d4a788490eb19_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f}\label{class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d}\label{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!GetFlag@{GetFlag}}
 \index{GetFlag@{GetFlag}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{GetFlag()}{GetFlag()}}
-{\footnotesize\ttfamily const bool Loui\+Eriksson\+::\+Window\+::\+Get\+Flag (\begin{DoxyParamCaption}\item[{const Uint32 \&}]{\+\_\+flag }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Window\+::\+Get\+Flag (\begin{DoxyParamCaption}\item[{const Uint32 \&}]{\+\_\+flag }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 186 of file Window.\+cpp.
+Definition at line 196 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_cgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:
@@ -241,36 +239,36 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a7300733da4b0a5ce59a5e032f70bd23f_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_a518a6aa96f9bd447a92efb9528b9fd0d_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a}\label{class_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_aea63b1b881c5577b4c96bb00885ce463}\label{class_loui_eriksson_1_1_window_aea63b1b881c5577b4c96bb00885ce463}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!GetFlags@{GetFlags}}
 \index{GetFlags@{GetFlags}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{GetFlags()}{GetFlags()}}
-{\footnotesize\ttfamily const Uint32 Loui\+Eriksson\+::\+Window\+::\+Get\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily Uint32 Loui\+Eriksson\+::\+Window\+::\+Get\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 182 of file Window.\+cpp.
+Definition at line 192 of file Window.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_acd696d29d16efd75eeffd7f54a2ad79a_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_window_aea63b1b881c5577b4c96bb00885ce463_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_ac05f7647888da07019f8b6d21506a7c7}\label{class_loui_eriksson_1_1_window_ac05f7647888da07019f8b6d21506a7c7}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_window_a3f8c8c764395d40c9375cea8e241e8a6}\label{class_loui_eriksson_1_1_window_a3f8c8c764395d40c9375cea8e241e8a6}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!ID@{ID}}
 \index{ID@{ID}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{ID()}{ID()}}
-{\footnotesize\ttfamily const int \& Loui\+Eriksson\+::\+Window\+::\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily const int \& Loui\+Eriksson\+::\+Window\+::\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
-Definition at line 119 of file Window.\+cpp.
+Definition at line 129 of file Window.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a81a6bc59847a1d83542d75e661f347d8}\label{class_loui_eriksson_1_1_window_a81a6bc59847a1d83542d75e661f347d8}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!operator SDL\_Window $\ast$@{operator SDL\_Window $\ast$}}
@@ -280,7 +278,7 @@ Definition at line 119 of file Window.\+cpp.
 
 
 
-Definition at line 73 of file Window.\+h.
+Definition at line 75 of file Window.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}\label{class_loui_eriksson_1_1_window_a8d91eb7b7cb0894830f1e79bfce372fd}} 
 \index{LouiEriksson::Window@{LouiEriksson::Window}!operator=@{operator=}}
@@ -296,7 +294,7 @@ Definition at line 73 of file Window.\+h.
 
 
 
-Definition at line 166 of file Window.\+cpp.
+Definition at line 176 of file Window.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -322,7 +320,7 @@ Here is the caller graph for this function\+:
 
 
 
-Definition at line 127 of file Window.\+cpp.
+Definition at line 137 of file Window.\+cpp.
 
 
 
@@ -332,16 +330,6 @@ Definition at line 127 of file Window.\+cpp.
 \index{Application@{Application}!LouiEriksson::Window@{LouiEriksson::Window}}
 \doxysubsubsection{\texorpdfstring{Application}{Application}}
 {\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_application}{Application}}\hspace{0.3cm}{\ttfamily [friend]}}
-
-
-
-Definition at line 24 of file Window.\+h.
-
-\mbox{\Hypertarget{class_loui_eriksson_1_1_window_ad8bd9afbbd7af19d996da80e9d25890d}\label{class_loui_eriksson_1_1_window_ad8bd9afbbd7af19d996da80e9d25890d}} 
-\index{LouiEriksson::Window@{LouiEriksson::Window}!Camera@{Camera}}
-\index{Camera@{Camera}!LouiEriksson::Window@{LouiEriksson::Window}}
-\doxysubsubsection{\texorpdfstring{Camera}{Camera}}
-{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_camera}{Camera}}\hspace{0.3cm}{\ttfamily [friend]}}
 
 
 

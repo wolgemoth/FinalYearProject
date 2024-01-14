@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_APPLICATION_H
 #define FINALYEARPROJECT_APPLICATION_H
 
-#include "Time.h"
-
 namespace LouiEriksson {
 	
 	/// <summary> Main class for the application. </summary>

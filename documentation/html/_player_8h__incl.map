@@ -1,19 +1,9 @@
 <map id="src/usr/scripts/Player.h" name="src/usr/scripts/Player.h">
-<area shape="rect" id="node1" title=" " alt="" coords="36,5,204,32"/>
-<area shape="rect" id="node2" href="$_script_8h.html" title=" " alt="" coords="158,80,296,121"/>
-<area shape="rect" id="node9" title=" " alt="" coords="362,408,425,435"/>
-<area shape="rect" id="node11" title=" " alt="" coords="44,333,122,360"/>
-<area shape="rect" id="node15" href="$_scene_8h.html" title=" " alt="" coords="260,244,397,285"/>
-<area shape="rect" id="node17" title=" " alt="" coords="320,87,510,114"/>
-<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="487,169,634,196"/>
-<area shape="rect" id="node4" href="$_game_object_8h.html" title=" " alt="" coords="503,251,618,278"/>
-<area shape="rect" id="node6" title=" " alt="" coords="764,408,834,435"/>
-<area shape="rect" id="node5" href="$_hashmap_8h.html" title=" " alt="" coords="545,333,685,360"/>
-<area shape="rect" id="node8" title=" " alt="" coords="653,408,740,435"/>
-<area shape="rect" id="node10" title=" " alt="" coords="422,333,469,360"/>
-<area shape="rect" id="node12" title=" " alt="" coords="811,333,870,360"/>
-<area shape="rect" id="node13" title=" " alt="" coords="894,333,986,360"/>
-<area shape="rect" id="node14" title=" " alt="" coords="312,333,398,360"/>
-<area shape="rect" id="node7" title=" " alt="" coords="542,408,629,435"/>
-<area shape="rect" id="node16" title=" " alt="" coords="146,333,236,360"/>
+<area shape="rect" id="node1" title=" " alt="" coords="221,5,389,32"/>
+<area shape="rect" id="node2" href="$_script_8h.html" title=" " alt="" coords="65,80,202,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="151,244,228,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="277,87,467,114"/>
+<area shape="rect" id="node7" title=" " alt="" coords="491,87,554,114"/>
+<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="5,169,152,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="43,244,114,271"/>
 </map>

@@ -1,12 +1,6 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
-#include "../audio/AudioClip.h"
-#include "../graphics/Material.h"
-#include "../graphics/Mesh.h"
-#include "../graphics/Texture.h"
-#include "../graphics/textures/Cubemap.h"
-
 #include <GL/glew.h>
 
 #include <array>
@@ -16,6 +10,21 @@
 #include <vector>
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GEP.
+
+namespace LouiEriksson::Audio {
+
+	class AudioClip;
+	
+} // LouiEriksson::Audio
+
+namespace LouiEriksson::Graphics {
+	
+	class Cubemap;
+	class Material;
+	class Mesh;
+	class Texture;
+	
+} // LouiEriksson::Graphics
 
 namespace LouiEriksson {
 	

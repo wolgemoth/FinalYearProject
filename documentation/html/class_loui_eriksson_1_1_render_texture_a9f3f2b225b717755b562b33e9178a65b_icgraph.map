@@ -1,4 +1,0 @@
-<map id="LouiEriksson::RenderTexture::Reinitialise" name="LouiEriksson::RenderTexture::Reinitialise">
-<area shape="rect" id="node1" title="Reinitialise the texture with a given width and height." alt="" coords="216,5,423,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_camera.html#a9654c9ffa7d3f5f7f4360634e714ce62" title="Called before rendering." alt="" coords="5,5,168,47"/>
-</map>

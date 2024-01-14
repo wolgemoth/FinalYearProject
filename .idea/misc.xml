@@ -5,7 +5,7 @@
   </component>
   <component name="CidrRootsConfiguration">
     <sourceRoots>
-      <file path="$PROJECT_DIR$/external/wavefront" />
+      <file path="$PROJECT_DIR$/contrib/wavefront" />
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <libraryRoots>
@@ -14,7 +14,7 @@
     </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/cmake_build_debug" />
-      <file path="$PROJECT_DIR$/external" />
+      <file path="$PROJECT_DIR$/contrib" />
     </excludeRoots>
   </component>
   <component name="ExtraIconsSettingsProject">

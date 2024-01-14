@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['plane_1055',['Plane',['../class_loui_eriksson_1_1_collider.html#ae144bdaa762f3c3be54b4369d2d50898ab5403b4ffd458fef488e100c46906035',1,'LouiEriksson::Collider']]],
-  ['point_1056',['Point',['../struct_loui_eriksson_1_1_light_1_1_parameters.html#aa376fff80acbab31f3bba39047ad5234a713633efeb5b306a37065ff26dfc8e58',1,'LouiEriksson::Light::Parameters']]]
+  ['plane_1067',['Plane',['../class_loui_eriksson_1_1_physics_1_1_collider.html#a3e472db321a63e21ed39f164fa3da222a3d815a8f28fd09d6c8751a16cd035534',1,'LouiEriksson::Physics::Collider']]],
+  ['point_1068',['Point',['../struct_loui_eriksson_1_1_graphics_1_1_light_1_1_parameters.html#aee4b8b44f941d179cbb43ce355ecb9c5a3a199a1f19bfd67e46364915739fcbd4',1,'LouiEriksson::Graphics::Light::Parameters']]]
 ];

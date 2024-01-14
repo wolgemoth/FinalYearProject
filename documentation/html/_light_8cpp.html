@@ -88,42 +88,45 @@ $(document).ready(function(){initNavTree('_light_8cpp.html',''); initResizable()
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_light_8h_source.html">Light.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_transform_8h_source.html">../core/Transform.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_component_8h_source.html">../ecs/Component.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_game_object_8h_source.html">../ecs/GameObject.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_texture_8h_source.html">Texture.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_render_texture_8h_source.html">textures/RenderTexture.h</a>&quot;</code><br />
+<code>#include &lt;GL/glew.h&gt;</code><br />
 <code>#include &lt;glm/ext/matrix_clip_space.hpp&gt;</code><br />
-<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;glm/trigonometric.hpp&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Light.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_light_8cpp__incl.png" border="0" usemap="#asrc_2engine_2scripts_2graphics_2_light_8cpp" alt=""/></div>
 <map name="asrc_2engine_2scripts_2graphics_2_light_8cpp" id="asrc_2engine_2scripts_2graphics_2_light_8cpp">
-<area shape="rect" title=" " alt="" coords="1295,5,1439,47"/>
-<area shape="rect" href="_light_8h.html" title=" " alt="" coords="1135,102,1201,129"/>
-<area shape="rect" href="_component_8h.html" title=" " alt="" coords="592,259,739,285"/>
-<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="453,333,568,360"/>
-<area shape="rect" title=" " alt="" coords="737,408,815,435"/>
-<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="1395,184,1477,211"/>
-<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="1429,102,1616,129"/>
-<area shape="rect" title=" " alt="" coords="1640,95,1789,136"/>
-<area shape="rect" title=" " alt="" coords="1814,102,1901,129"/>
-<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="962,184,1105,211"/>
-<area shape="rect" title=" " alt="" coords="939,259,1128,285"/>
-<area shape="rect" title=" " alt="" coords="1153,259,1255,285"/>
-<area shape="rect" title=" " alt="" coords="1393,259,1479,285"/>
-<area shape="rect" title=" " alt="" coords="731,184,938,211"/>
-<area shape="rect" title=" " alt="" coords="814,259,914,285"/>
-<area shape="rect" title=" " alt="" coords="617,483,687,509"/>
-<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="409,408,549,435"/>
-<area shape="rect" title=" " alt="" coords="135,483,222,509"/>
-<area shape="rect" title=" " alt="" coords="530,483,593,509"/>
-<area shape="rect" title=" " alt="" coords="27,408,74,435"/>
-<area shape="rect" title=" " alt="" coords="99,408,157,435"/>
-<area shape="rect" title=" " alt="" coords="182,408,274,435"/>
-<area shape="rect" title=" " alt="" coords="298,408,385,435"/>
-<area shape="rect" title=" " alt="" coords="419,483,506,509"/>
+<area shape="rect" title=" " alt="" coords="1444,5,1588,47"/>
+<area shape="rect" href="_light_8h.html" title=" " alt="" coords="408,102,475,129"/>
+<area shape="rect" href="_component_8h.html" title=" " alt="" coords="423,184,569,211"/>
+<area shape="rect" title=" " alt="" coords="457,259,535,285"/>
+<area shape="rect" title=" " alt="" coords="1537,259,1623,285"/>
+<area shape="rect" href="_transform_8h.html" title=" " alt="" coords="225,102,367,129"/>
+<area shape="rect" href="_game_object_8h.html" title=" " alt="" coords="1011,102,1165,129"/>
+<area shape="rect" title=" " alt="" coords="1014,259,1101,285"/>
+<area shape="rect" href="_texture_8h.html" title=" " alt="" coords="1579,184,1661,211"/>
+<area shape="rect" href="_render_texture_8h.html" title=" " alt="" coords="1629,102,1816,129"/>
+<area shape="rect" title=" " alt="" coords="1840,95,1989,136"/>
+<area shape="rect" title=" " alt="" coords="2014,102,2181,129"/>
+<area shape="rect" title=" " alt="" coords="2205,102,2267,129"/>
+<area shape="rect" title=" " alt="" coords="31,184,220,211"/>
+<area shape="rect" title=" " alt="" coords="245,184,347,211"/>
+<area shape="rect" title=" " alt="" coords="673,259,743,285"/>
+<area shape="rect" href="_hashmap_8h.html" title=" " alt="" coords="746,184,918,211"/>
+<area shape="rect" title=" " alt="" coords="913,259,975,285"/>
+<area shape="rect" title=" " alt="" coords="1095,184,1142,211"/>
+<area shape="rect" title=" " alt="" coords="1167,184,1225,211"/>
+<area shape="rect" title=" " alt="" coords="1250,184,1342,211"/>
+<area shape="rect" title=" " alt="" coords="1366,184,1453,211"/>
+<area shape="rect" title=" " alt="" coords="789,259,875,285"/>
 </map>
 </div>
 </div>
@@ -132,6 +135,8 @@ Include dependency graph for Light.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespace_loui_eriksson"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_loui_eriksson.html">LouiEriksson</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespace_loui_eriksson_1_1_graphics"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_loui_eriksson_1_1_graphics.html">LouiEriksson::Graphics</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

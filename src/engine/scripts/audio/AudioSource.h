@@ -3,14 +3,14 @@
 
 #include "../ecs/Component.h"
 
-#include "AudioClip.h"
-
 #include <AL/al.h>
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>
 
 namespace LouiEriksson::Audio {
+	
+	class AudioClip;
 	
 	class AudioSource : public ECS::Component {
 	

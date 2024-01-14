@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Ball" name="LouiEriksson::Ball">
-<area shape="rect" id="node1" title="Ball object with Rigidbody physics." alt="" coords="30,359,167,509"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="24,160,173,311"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="5,5,192,112"/>
-</map>

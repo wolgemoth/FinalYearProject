@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Rigidbody::Collisions" name="LouiEriksson::Rigidbody::Collisions">
-<area shape="rect" id="node1" title="Retrieve the list of collisions for the current tick of the physics engine." alt="" coords="204,5,381,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_scene.html#aaa09a5daf8477644de07d1de9576af89" title="Called every physics update." alt="" coords="5,5,156,47"/>
-</map>
