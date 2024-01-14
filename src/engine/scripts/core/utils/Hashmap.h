@@ -34,7 +34,7 @@ namespace LouiEriksson {
 	
 	/// <summary>
 	/// <para>
-	/// Version 1.0.1
+	/// Version 1.0.4
 	/// </para>
 	/// Custom Hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial.
 	/// <para><remarks>This implementation requires that your "key" type is compatible with std::hash and that the stored data types are copyable.</remarks></para>
