@@ -37,109 +37,116 @@ namespace LouiEriksson::Physics {
 		
 		try {
 			
-			// Initialise the rigidbody.
-			m_Rigidbody.reset(
-				new btRigidBody(
-					_parameters.m_Mass,
-					m_MotionState.get(),
-					_collider.lock()->m_CollisionShape.get(),
-					_parameters.m_Inertia
-				)
-			);
-			
-			// Assign the drag and angular drag coefficients.
-			m_Rigidbody->setDamping(_parameters.m_Drag, _parameters.m_AngularDrag);
-			
-			// Assign the friction coefficient.
-			m_Rigidbody->setFriction(_parameters.m_Friction);
-			
-			// Assign the restitution (bounciness) of the rigidbody.
-			m_Rigidbody->setRestitution(_parameters.m_Bounciness);
-			
-			// Set the transform of the rigidbody.
-			{
-				const auto pos  = _transform.lock()->m_Position;
-				const auto quat = _transform.lock()->m_Rotation;
+			if (const auto c = _collider.lock()) {
 				
-				// Get the rigidbody's transform and assign the current position and rotation.
-				auto t = m_Rigidbody->getWorldTransform();
-				t.setOrigin  ({ pos.x, pos.y, pos.z });
-				t.setRotation({ quat.x, quat.y, quat.z, quat.w });
-				
-				// Update the rigidbody's transform with the new values.
-				m_Rigidbody->setWorldTransform(t);
-			}
-			
-			if (_parameters.m_Kinematic) {
-				
-				// Set the collision flags to kinematic, if specified.
-				m_Rigidbody->setCollisionFlags(
-					m_Rigidbody->getCollisionFlags() |
-					btCollisionObject::CF_KINEMATIC_OBJECT
+				// Initialise the rigidbody.
+				m_Rigidbody.reset(
+					new btRigidBody(
+						_parameters.m_Mass,
+						m_MotionState.get(),
+						c->m_CollisionShape.get(),
+						_parameters.m_Inertia
+					)
 				);
 				
-				// Restrict all motion.
-				m_Rigidbody-> setLinearFactor({ 0.0f, 0.0f, 0.0f });
-				m_Rigidbody->setAngularFactor({ 0.0f, 0.0f, 0.0f });
-			}
-			else {
+				// Assign the drag and angular drag coefficients.
+				m_Rigidbody->setDamping(_parameters.m_Drag, _parameters.m_AngularDrag);
 				
-				// Ensure motion is permitted along all axes.
-				m_Rigidbody-> setLinearFactor({ 1.0f, 1.0f, 1.0f });
-				m_Rigidbody->setAngularFactor({ 1.0f, 1.0f, 1.0f });
-			}
-			
-			// Set up how the rigidbody interacts with gravity:
-			{
-				const auto g = Physics::Gravity();
+				// Assign the friction coefficient.
+				m_Rigidbody->setFriction(_parameters.m_Friction);
 				
-				m_Rigidbody->setGravity(
-					_parameters.m_UseGravity ?
-						btVector3( g.x,  g.y,  g.z) :
-						btVector3(0.0f, 0.0f, 0.0f)
-				);
-			}
-			
-			// See: https://docs.panda3d.org/1.10/python/programming/physics/bullet/ccd
-			if (_parameters.m_Continuous) {
+				// Assign the restitution (bounciness) of the rigidbody.
+				m_Rigidbody->setRestitution(_parameters.m_Bounciness);
 				
-				// Compute the continuous sphere radius using the collider's AABB.
-				float sweep_sphere_radius = 0.01f;
+				// Set the transform of the rigidbody.
 				{
-					const auto* col = m_Rigidbody->getCollisionShape();
+					const auto pos  = _transform.lock()->m_Position;
+					const auto quat = _transform.lock()->m_Rotation;
+					
+					// Get the rigidbody's transform and assign the current position and rotation.
+					auto t = m_Rigidbody->getWorldTransform();
+					t.setOrigin  ({ pos.x, pos.y, pos.z });
+					t.setRotation({ quat.x, quat.y, quat.z, quat.w });
+					
+					// Update the rigidbody's transform with the new values.
+					m_Rigidbody->setWorldTransform(t);
+				}
 				
-					btTransform t;
-					btVector3 min;
-					btVector3 max;
+				if (_parameters.m_Kinematic) {
 					
-					col->getAabb(t, min, max);
+					// Set the collision flags to kinematic, if specified.
+					m_Rigidbody->setCollisionFlags(
+						m_Rigidbody->getCollisionFlags() |
+						btCollisionObject::CF_KINEMATIC_OBJECT
+					);
 					
-					const auto delta = max - min;
+					// Restrict all motion.
+					m_Rigidbody-> setLinearFactor({ 0.0f, 0.0f, 0.0f });
+					m_Rigidbody->setAngularFactor({ 0.0f, 0.0f, 0.0f });
+				}
+				else {
 					
-					// Get largest axis:
-					const auto multiplier = 0.707f;
+					// Ensure motion is permitted along all axes.
+					m_Rigidbody-> setLinearFactor({ 1.0f, 1.0f, 1.0f });
+					m_Rigidbody->setAngularFactor({ 1.0f, 1.0f, 1.0f });
+				}
 				
-					sweep_sphere_radius = glm::max(
-						sweep_sphere_radius,
-						glm::max(
-							delta.x(),
-							glm::max(
-								delta.y(),
-								delta.z()
-							)
-						) * multiplier
+				// Set up how the rigidbody interacts with gravity:
+				{
+					const auto g = Physics::Gravity();
+					
+					m_Rigidbody->setGravity(
+						_parameters.m_UseGravity ?
+							btVector3( g.x,  g.y,  g.z) :
+							btVector3(0.0f, 0.0f, 0.0f)
 					);
 				}
 				
-				// Threshold to activate CCD in units per second.
-				const float threshold_Ms = sweep_sphere_radius;
+				// See: https://docs.panda3d.org/1.10/python/programming/physics/bullet/ccd
+				if (_parameters.m_Continuous) {
+					
+					// Compute the continuous sphere radius using the collider's AABB.
+					float sweep_sphere_radius = 0.01f;
+					{
+						const auto* col = m_Rigidbody->getCollisionShape();
+					
+						btTransform t;
+						btVector3 min;
+						btVector3 max;
+						
+						col->getAabb(t, min, max);
+						
+						const auto delta = max - min;
+						
+						// Get largest axis:
+						const auto multiplier = 0.707f;
+					
+						sweep_sphere_radius = glm::max(
+							sweep_sphere_radius,
+							glm::max(
+								delta.x(),
+								glm::max(
+									delta.y(),
+									delta.z()
+								)
+							) * multiplier
+						);
+					}
+					
+					// Threshold to activate CCD in units per second.
+					const float threshold_Ms = sweep_sphere_radius;
+					
+					m_Rigidbody->setCcdMotionThreshold(Time::FixedDeltaTime() * threshold_Ms);
+					m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
+				}
 				
-				m_Rigidbody->setCcdMotionThreshold(Time::FixedDeltaTime() * threshold_Ms);
-				m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
+				// Finally, add the rigidbody to the dynamics world.
+				Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
+				
 			}
-			
-			// Finally, add the rigidbody to the dynamics world.
-			Physics::s_DynamicsWorld->addRigidBody(m_Rigidbody.get());
+			else {
+				std::cout << "Couldn't lock _collider!\n";
+			}
 		}
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';

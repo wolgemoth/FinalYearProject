@@ -61,7 +61,11 @@ namespace LouiEriksson::UI {
 		
 		/* INIT GUI FRAME */
 		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplSDL2_NewFrame(_window.lock()->operator SDL_Window *());
+		
+		if (const auto w = _window.lock()) {
+			ImGui_ImplSDL2_NewFrame(w->operator SDL_Window *());
+		}
+		
 		ImGui::NewFrame();
 		
 		/* DEBUG MODE */
