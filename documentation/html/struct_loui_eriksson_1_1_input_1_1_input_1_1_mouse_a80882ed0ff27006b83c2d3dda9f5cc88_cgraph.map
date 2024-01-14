@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Input::Input::Mouse::GetDown" name="LouiEriksson::Input::Input::Mouse::GetDown">
+<area shape="rect" id="node1" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="5,5,188,47"/>
+<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a" title=" " alt="" coords="236,5,381,47"/>
+</map>

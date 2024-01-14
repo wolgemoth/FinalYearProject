@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Physics::PlaneCollider::SetTransform" name="LouiEriksson::Physics::PlaneCollider::SetTransform">
+<area shape="rect" id="node1" title="Set the Transform of the Collider." alt="" coords="204,5,415,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_plane.html#a57dbf3fab9cc21faf805c03e053faa92" title="Called at the beginning of the first frame." alt="" coords="5,5,156,47"/>
+</map>

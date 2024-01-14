@@ -1,0 +1,9 @@
+<map id="LouiEriksson::Resources::GetMaterial" name="LouiEriksson::Resources::GetMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="417,136,596,177"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd" title="Called at the beginning of the first frame." alt="" coords="211,5,362,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_plane.html#a57dbf3fab9cc21faf805c03e053faa92" title="Called at the beginning of the first frame." alt="" coords="211,71,362,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_player.html#ae7cfcd98a7005cf5d25af951fc1babbd" title=" " alt="" coords="209,136,364,177"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_game_1_1_player.html#a268e697633e067cc7be9f1a00699352f" title=" " alt="" coords="204,201,369,243"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_game_1_1_player.html#a55d1dc5bd56c7ac288917759dd3cba22" title=" " alt="" coords="205,267,368,308"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_game_1_1_player.html#abdb6e8f841dffb11ebc1ea8642290634" title="Called at the beginning of the first frame." alt="" coords="5,201,156,243"/>
+</map>

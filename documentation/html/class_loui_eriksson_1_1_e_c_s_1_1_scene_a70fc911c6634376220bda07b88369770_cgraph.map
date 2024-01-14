@@ -1,0 +1,7 @@
+<map id="LouiEriksson::ECS::Scene::Save" name="LouiEriksson::ECS::Scene::Save">
+<area shape="rect" id="node1" title="Save the Scene in xml format at a given path." alt="" coords="5,104,151,145"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#aa95b718aa5a3c3376c05231b2b78cba1" title="Get the entities within the Scene." alt="" coords="223,5,368,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_hashmap.html#a47ab566955ae605e99ce7efb2dff5b0c" title="Returns all entries stored within the Hashmap." alt="" coords="208,71,383,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_file.html#a9664fa1dfaff7df7ed808c138159c2ea" title=" " alt="" coords="228,136,363,177"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_serialisation.html#ad14660bc460059bbb260c94e445892b0" title=" " alt="" coords="199,201,392,243"/>
+</map>

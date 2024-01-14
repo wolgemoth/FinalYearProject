@@ -1,0 +1,422 @@
+\hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader}{}\doxysection{Loui\+Eriksson\+::Graphics\+::Shader Class Reference}
+\label{class_loui_eriksson_1_1_graphics_1_1_shader}\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+
+
+{\ttfamily \#include $<$Shader.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Graphics\+::Shader\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_graphics_1_1_shader__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \& \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a0f48e9bb84e979655ece4b9372f564f6}{Name}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the name of the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_af9ef190cada4ea23de22c6f0d14fe7d8}{Bind\+Attribute}} (const GLint \&\+\_\+pos, const char $\ast$\+\_\+name) const
+\item 
+GLint \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_aafd1f9717fc3f5835b46f6b0681907a3}{Attribute\+ID}} (const char $\ast$\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Get the ID of an attribute by name. Returns -\/1 if none found. \end{DoxyCompactList}\item 
+GLint \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_ada2f497809ebfbba93d0bad81dca1669}{ID}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the ID of the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a139a5607a8a251c3cc1692e259ea66ba}{operator GLint}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a84bac02f1d183f855e35f7a3d9e8c137}{Bind}} (const GLint \&\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Bind the provided \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a7a26b0fa0c47e0715fccb52ea062e371}{Unbind}} ()
+\begin{DoxyCompactList}\small\item\em Unbind the currently bound \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_abd602875d76944e2bc1a813f97dbfa11}{Assign}} (const GLint \&\+\_\+id, const bool \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign a boolean to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a0c201f645216f0a8ceb0a63cdaaf797e}{Assign}} (const GLint \&\+\_\+id, const GLint \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign an integer to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a77d0d025af5d0a1f137802c02d82b62b}{Assign}} (const GLint \&\+\_\+id, const GLuint \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign an unsigned integer to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a48f35d60c9622db91284ef32ad73dadd}{Assign}} (const GLint \&\+\_\+id, const GLfloat \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign a float to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a3bc34164e85437f693b9a22b05154813}{Assign}} (const GLint \&\+\_\+id, const GLfloat \&\+\_\+x, const GLfloat \&\+\_\+y)
+\begin{DoxyCompactList}\small\item\em Assign a 2-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a965f3859115cfd08535e558c3e80eec0}{Assign}} (const GLint \&\+\_\+id, const GLfloat \&\+\_\+x, const GLfloat \&\+\_\+y, const GLfloat \&\+\_\+z)
+\begin{DoxyCompactList}\small\item\em Assign a 3-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_ab28db72bcc897bb39bb052c38ae33a28}{Assign}} (const GLint \&\+\_\+id, const GLfloat \&\+\_\+x, const GLfloat \&\+\_\+y, const GLfloat \&\+\_\+z, const GLfloat \&\+\_\+w)
+\begin{DoxyCompactList}\small\item\em Assign a 4-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_ac8f2321acad3d22379ae182c319b9a8b}{Assign}} (const GLint \&\+\_\+id, const glm\+::vec2 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign a 2-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_adf59d4c2eb9537e59dc44c19e93c268e}{Assign}} (const GLint \&\+\_\+id, const glm\+::vec3 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign a 3-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a6b2efd28f05be0e0ef52dc57337d3d0c}{Assign}} (const GLint \&\+\_\+id, const glm\+::vec4 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Assign a 4-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a5e4798f794ba671b4a130ac8d91f73a9}{Assign}} (const GLint \&\+\_\+id, const glm\+::mat2 \&\+\_\+mat)
+\begin{DoxyCompactList}\small\item\em Assign a 2-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_aa015348eccdabbfbcbdc4272a7ad6972}{Assign}} (const GLint \&\+\_\+id, const glm\+::mat3 \&\+\_\+mat)
+\begin{DoxyCompactList}\small\item\em Assign a 3-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_af3b51935c9aa6431721fb10a2e01b8f2}{Assign}} (const GLint \&\+\_\+id, const glm\+::mat4 \&\+\_\+mat)
+\begin{DoxyCompactList}\small\item\em Assign a 4-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader_a38226079feab30f49ec6582b8d5f0c98}{Assign}} (const GLint \&\+\_\+id, const GLuint \&\+\_\+texture\+ID, const GLint \&\+\_\+image\+Unit, const GLenum \&\+\_\+target)
+\begin{DoxyCompactList}\small\item\em Assign a texture to the shader. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 24 of file Shader.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_abd602875d76944e2bc1a813f97dbfa11}\label{class_loui_eriksson_1_1_graphics_1_1_shader_abd602875d76944e2bc1a813f97dbfa11}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [1/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const bool \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a boolean to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 318 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a48f35d60c9622db91284ef32ad73dadd}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a48f35d60c9622db91284ef32ad73dadd}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [2/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLfloat \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a float to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 321 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a3bc34164e85437f693b9a22b05154813}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a3bc34164e85437f693b9a22b05154813}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [3/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLfloat \&}]{\+\_\+x,  }\item[{const GLfloat \&}]{\+\_\+y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 2-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 323 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a965f3859115cfd08535e558c3e80eec0}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a965f3859115cfd08535e558c3e80eec0}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [4/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLfloat \&}]{\+\_\+x,  }\item[{const GLfloat \&}]{\+\_\+y,  }\item[{const GLfloat \&}]{\+\_\+z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 3-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 327 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_ab28db72bcc897bb39bb052c38ae33a28}\label{class_loui_eriksson_1_1_graphics_1_1_shader_ab28db72bcc897bb39bb052c38ae33a28}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [5/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLfloat \&}]{\+\_\+x,  }\item[{const GLfloat \&}]{\+\_\+y,  }\item[{const GLfloat \&}]{\+\_\+z,  }\item[{const GLfloat \&}]{\+\_\+w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 4-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 331 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a0c201f645216f0a8ceb0a63cdaaf797e}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a0c201f645216f0a8ceb0a63cdaaf797e}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [6/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLint \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign an integer to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 319 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a5e4798f794ba671b4a130ac8d91f73a9}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a5e4798f794ba671b4a130ac8d91f73a9}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [7/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::mat2 \&}]{\+\_\+mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 2-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 339 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_aa015348eccdabbfbcbdc4272a7ad6972}\label{class_loui_eriksson_1_1_graphics_1_1_shader_aa015348eccdabbfbcbdc4272a7ad6972}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [8/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::mat3 \&}]{\+\_\+mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 3-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 340 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_af3b51935c9aa6431721fb10a2e01b8f2}\label{class_loui_eriksson_1_1_graphics_1_1_shader_af3b51935c9aa6431721fb10a2e01b8f2}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [9/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::mat4 \&}]{\+\_\+mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 4-\/dimensional matrix to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 341 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_ac8f2321acad3d22379ae182c319b9a8b}\label{class_loui_eriksson_1_1_graphics_1_1_shader_ac8f2321acad3d22379ae182c319b9a8b}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [10/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::vec2 \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 2-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 335 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_adf59d4c2eb9537e59dc44c19e93c268e}\label{class_loui_eriksson_1_1_graphics_1_1_shader_adf59d4c2eb9537e59dc44c19e93c268e}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [11/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::vec3 \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 3-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 336 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a6b2efd28f05be0e0ef52dc57337d3d0c}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a6b2efd28f05be0e0ef52dc57337d3d0c}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [12/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const glm\+::vec4 \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a 4-\/dimensional vector to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 337 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a38226079feab30f49ec6582b8d5f0c98}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a38226079feab30f49ec6582b8d5f0c98}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [13/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLuint \&}]{\+\_\+texture\+ID,  }\item[{const GLint \&}]{\+\_\+image\+Unit,  }\item[{const GLenum \&}]{\+\_\+target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign a texture to the shader. 
+
+
+
+Definition at line 343 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a77d0d025af5d0a1f137802c02d82b62b}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a77d0d025af5d0a1f137802c02d82b62b}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Assign@{Assign}}
+\index{Assign@{Assign}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Assign()}{Assign()}\hspace{0.1cm}{\footnotesize\ttfamily [14/14]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Assign (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id,  }\item[{const GLuint \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Assign an unsigned integer to the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 320 of file Shader.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_aafd1f9717fc3f5835b46f6b0681907a3}\label{class_loui_eriksson_1_1_graphics_1_1_shader_aafd1f9717fc3f5835b46f6b0681907a3}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!AttributeID@{AttributeID}}
+\index{AttributeID@{AttributeID}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{AttributeID()}{AttributeID()}}
+{\footnotesize\ttfamily GLint Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Attribute\+ID (\begin{DoxyParamCaption}\item[{const char $\ast$}]{\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Get the ID of an attribute by name. Returns -\/1 if none found. 
+
+
+
+Definition at line 293 of file Shader.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_aafd1f9717fc3f5835b46f6b0681907a3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a84bac02f1d183f855e35f7a3d9e8c137}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a84bac02f1d183f855e35f7a3d9e8c137}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Bind@{Bind}}
+\index{Bind@{Bind}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Bind (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Bind the provided \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 258 of file Shader.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_a84bac02f1d183f855e35f7a3d9e8c137_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_af9ef190cada4ea23de22c6f0d14fe7d8}\label{class_loui_eriksson_1_1_graphics_1_1_shader_af9ef190cada4ea23de22c6f0d14fe7d8}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!BindAttribute@{BindAttribute}}
+\index{BindAttribute@{BindAttribute}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{BindAttribute()}{BindAttribute()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Bind\+Attribute (\begin{DoxyParamCaption}\item[{const GLint \&}]{\+\_\+pos,  }\item[{const char $\ast$}]{\+\_\+name }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 275 of file Shader.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_af9ef190cada4ea23de22c6f0d14fe7d8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_ada2f497809ebfbba93d0bad81dca1669}\label{class_loui_eriksson_1_1_graphics_1_1_shader_ada2f497809ebfbba93d0bad81dca1669}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!ID@{ID}}
+\index{ID@{ID}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{ID()}{ID()}}
+{\footnotesize\ttfamily GLint Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the ID of the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 351 of file Shader.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_ada2f497809ebfbba93d0bad81dca1669_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a0f48e9bb84e979655ece4b9372f564f6}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a0f48e9bb84e979655ece4b9372f564f6}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Name@{Name}}
+\index{Name@{Name}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Name()}{Name()}}
+{\footnotesize\ttfamily const std\+::string \& Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the name of the \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 271 of file Shader.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_a0f48e9bb84e979655ece4b9372f564f6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a139a5607a8a251c3cc1692e259ea66ba}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a139a5607a8a251c3cc1692e259ea66ba}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!operator GLint@{operator GLint}}
+\index{operator GLint@{operator GLint}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{operator GLint()}{operator GLint()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::operator GLint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 128 of file Shader.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_a139a5607a8a251c3cc1692e259ea66ba_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_graphics_1_1_shader_a7a26b0fa0c47e0715fccb52ea062e371}\label{class_loui_eriksson_1_1_graphics_1_1_shader_a7a26b0fa0c47e0715fccb52ea062e371}} 
+\index{LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!LouiEriksson::Graphics::Shader@{LouiEriksson::Graphics::Shader}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Graphics\+::\+Shader\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Unbind the currently bound \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_shader}{Shader}}. 
+
+
+
+Definition at line 267 of file Shader.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_graphics_1_1_shader_a7a26b0fa0c47e0715fccb52ea062e371_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/graphics/\mbox{\hyperlink{_shader_8h}{Shader.\+h}}\item 
+src/engine/scripts/graphics/\mbox{\hyperlink{_shader_8cpp}{Shader.\+cpp}}\end{DoxyCompactItemize}

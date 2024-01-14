@@ -1,0 +1,6 @@
+<map id="LouiEriksson::Physics::Collider" name="LouiEriksson::Physics::Collider">
+<area shape="rect" id="node1" title=" " alt="" coords="100,233,335,707"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_physics_1_1_plane_collider.html" title=" " alt="" coords="5,755,208,964"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_physics_1_1_sphere_collider.html" title=" " alt="" coords="232,762,427,957"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="116,5,319,185"/>
+</map>

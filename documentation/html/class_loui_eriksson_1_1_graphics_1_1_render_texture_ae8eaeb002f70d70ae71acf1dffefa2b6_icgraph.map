@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Graphics::RenderTexture::Bind" name="LouiEriksson::Graphics::RenderTexture::Bind">
+<area shape="rect" id="node1" title="Bind the provided RenderTexture." alt="" coords="223,5,392,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a68f9106c0694367936255cee78bf6cac" title="Renders each Renderer using the Camera." alt="" coords="5,5,175,47"/>
+</map>

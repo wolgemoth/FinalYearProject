@@ -1,0 +1,288 @@
+\hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam}{}\doxysection{Loui\+Eriksson\+::Game\+::Fly\+Cam Class Reference}
+\label{class_loui_eriksson_1_1_game_1_1_fly_cam}\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+
+
+Free-\/fly camera.  
+
+
+
+
+{\ttfamily \#include $<$Fly\+Cam.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Game\+::Fly\+Cam\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_fly_cam__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Game\+::Fly\+Cam\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_fly_cam__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}{Fly\+Cam}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}{$\sim$\+Fly\+Cam}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a7148e36ef442bc1783d1bad79e1aa854}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ae805f0970bc97dafa6a5bdbb4c48ed27}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a4ad4c8a179c31ea310deeca14b125b93}{Sync\+Camera\+Settings}} () noexcept
+\begin{DoxyCompactList}\small\item\em Synchronise the camera\textquotesingle{}s parameters with the ones defined in \mbox{\hyperlink{class_loui_eriksson_1_1_settings}{Settings}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_camera}{Graphics\+::\+Camera}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a9296a4dac738299bfc83242556a35418}{m\+\_\+\+Camera}}
+\begin{DoxyCompactList}\small\item\em Camera of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ae455e9ba565001272fe8078315f8e895}{m\+\_\+\+Transform}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_listener}{Audio\+::\+Audio\+Listener}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a1989deb54c7576c4920adb41c7f88a14}{m\+\_\+\+Audio\+Listener}}
+\begin{DoxyCompactList}\small\item\em Audio\+Listener component. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_source}{Audio\+::\+Audio\+Source}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a1a289a8d1e2f1e2bf53a3a35f74023dc}{m\+\_\+\+Gun\+Sound}}
+\begin{DoxyCompactList}\small\item\em Audio\+Source component for gun sounds. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a423e6b543a289937aaee963718911459}{m\+\_\+\+Motion}}
+\begin{DoxyCompactList}\small\item\em Current motion vector of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a4317d6815846166d0b5d2fadf2407f42}{m\+\_\+\+Move\+Speed}}
+\begin{DoxyCompactList}\small\item\em Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} along each axis. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a52a85d55eabbb8dd34d54910979cc965}{m\+\_\+\+Look\+Speed}}
+\begin{DoxyCompactList}\small\item\em Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} rotation. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a5f2f56c9567d5676e97b8c055515e73f}{m\+\_\+\+Rotation}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Free-\/fly camera. 
+
+
+
+Definition at line 21 of file Fly\+Cam.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_af5e0fe0031553d701c999b728ef5e8f5}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!FlyCam@{FlyCam}}
+\index{FlyCam@{FlyCam}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{FlyCam()}{FlyCam()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Fly\+Cam (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 37 of file Fly\+Cam.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!````~FlyCam@{$\sim$FlyCam}}
+\index{````~FlyCam@{$\sim$FlyCam}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{$\sim$FlyCam()}{~FlyCam()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::$\sim$\+Fly\+Cam (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a7148e36ef442bc1783d1bad79e1aa854}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a7148e36ef442bc1783d1bad79e1aa854}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5ab6dd9ceb6e6ac795cdc}{Loui\+Eriksson\+::\+Script}}.
+
+
+
+Definition at line 45 of file Fly\+Cam.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_a7148e36ef442bc1783d1bad79e1aa854_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a4ad4c8a179c31ea310deeca14b125b93}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a4ad4c8a179c31ea310deeca14b125b93}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!SyncCameraSettings@{SyncCameraSettings}}
+\index{SyncCameraSettings@{SyncCameraSettings}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{SyncCameraSettings()}{SyncCameraSettings()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Sync\+Camera\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [noexcept]}}
+
+
+
+Synchronise the camera\textquotesingle{}s parameters with the ones defined in \mbox{\hyperlink{class_loui_eriksson_1_1_settings}{Settings}}. 
+
+
+
+Definition at line 190 of file Fly\+Cam.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_a4ad4c8a179c31ea310deeca14b125b93_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ae805f0970bc97dafa6a5bdbb4c48ed27}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ae805f0970bc97dafa6a5bdbb4c48ed27}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55f86f7c93e4f748674bce}{Loui\+Eriksson\+::\+Script}}.
+
+
+
+Definition at line 106 of file Fly\+Cam.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_ae805f0970bc97dafa6a5bdbb4c48ed27_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a1989deb54c7576c4920adb41c7f88a14}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a1989deb54c7576c4920adb41c7f88a14}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_AudioListener@{m\_AudioListener}}
+\index{m\_AudioListener@{m\_AudioListener}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_AudioListener}{m\_AudioListener}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_listener}{Audio\+::\+Audio\+Listener}}$>$ Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Audio\+Listener\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Audio\+Listener component. 
+
+
+
+Definition at line 32 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a9296a4dac738299bfc83242556a35418}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a9296a4dac738299bfc83242556a35418}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Camera@{m\_Camera}}
+\index{m\_Camera@{m\_Camera}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_Camera}{m\_Camera}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_camera}{Graphics\+::\+Camera}}$>$ Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Camera\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Camera of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. 
+
+
+
+Definition at line 26 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a1a289a8d1e2f1e2bf53a3a35f74023dc}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a1a289a8d1e2f1e2bf53a3a35f74023dc}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_GunSound@{m\_GunSound}}
+\index{m\_GunSound@{m\_GunSound}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_GunSound}{m\_GunSound}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_source}{Audio\+::\+Audio\+Source}}$>$ Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Gun\+Sound\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Audio\+Source component for gun sounds. 
+
+
+
+Definition at line 35 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a52a85d55eabbb8dd34d54910979cc965}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a52a85d55eabbb8dd34d54910979cc965}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_LookSpeed@{m\_LookSpeed}}
+\index{m\_LookSpeed@{m\_LookSpeed}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_LookSpeed}{m\_LookSpeed}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Look\+Speed\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} rotation. 
+
+
+
+Definition at line 44 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a423e6b543a289937aaee963718911459}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a423e6b543a289937aaee963718911459}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Motion@{m\_Motion}}
+\index{m\_Motion@{m\_Motion}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_Motion}{m\_Motion}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Motion\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Current motion vector of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. 
+
+
+
+Definition at line 38 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a4317d6815846166d0b5d2fadf2407f42}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a4317d6815846166d0b5d2fadf2407f42}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_MoveSpeed@{m\_MoveSpeed}}
+\index{m\_MoveSpeed@{m\_MoveSpeed}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_MoveSpeed}{m\_MoveSpeed}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Move\+Speed\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} along each axis. 
+
+
+
+Definition at line 41 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a5f2f56c9567d5676e97b8c055515e73f}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a5f2f56c9567d5676e97b8c055515e73f}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Rotation@{m\_Rotation}}
+\index{m\_Rotation@{m\_Rotation}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_Rotation}{m\_Rotation}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Rotation\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 47 of file Fly\+Cam.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ae455e9ba565001272fe8078315f8e895}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ae455e9ba565001272fe8078315f8e895}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Transform@{m\_Transform}}
+\index{m\_Transform@{m\_Transform}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{m\_Transform}{m\_Transform}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}}$>$ Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::m\+\_\+\+Transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}}. 
+
+
+
+Definition at line 29 of file Fly\+Cam.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/usr/scripts/\mbox{\hyperlink{_fly_cam_8h}{Fly\+Cam.\+h}}\item 
+src/usr/scripts/\mbox{\hyperlink{_fly_cam_8cpp}{Fly\+Cam.\+cpp}}\end{DoxyCompactItemize}

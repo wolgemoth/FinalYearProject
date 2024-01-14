@@ -1,0 +1,15 @@
+<map id="LouiEriksson::ECS::Component::Parent" name="LouiEriksson::ECS::Component::Parent">
+<area shape="rect" id="node1" title="Get the Component&#39;s parent GameObject." alt="" coords="425,352,572,393"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd" title="Called at the beginning of the first frame." alt="" coords="215,5,366,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#a7148e36ef442bc1783d1bad79e1aa854" title="Called at the beginning of the first frame." alt="" coords="215,71,366,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_orbit_cam.html#a2bd94e674fae5d0e9cb4f9167c4f5229" title="Called at the beginning of the first frame." alt="" coords="215,136,366,177"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_game_1_1_plane.html#a57dbf3fab9cc21faf805c03e053faa92" title="Called at the beginning of the first frame." alt="" coords="215,201,366,243"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_game_1_1_player.html#abdb6e8f841dffb11ebc1ea8642290634" title="Called at the beginning of the first frame." alt="" coords="5,580,156,621"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_game_1_1_ball.html#ae209fc6e0ef8580334f2059fd2c84bc9" title="Called every tick of the physics engine." alt="" coords="215,319,366,360"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_graphics_1_1_light.html#a6d6b2a4fd45cbdda558072e9df666586" title=" " alt="" coords="206,384,375,425"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a7329538af873f2351d81a65cd95895c1" title="Called every time a collision event occurs." alt="" coords="215,449,366,491"/>
+<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_game_1_1_player.html#ae7cfcd98a7005cf5d25af951fc1babbd" title=" " alt="" coords="213,515,368,556"/>
+<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_game_1_1_player.html#a7fd1c999bf1f861d640779fb273aef11" title=" " alt="" coords="204,580,377,621"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_game_1_1_player.html#a268e697633e067cc7be9f1a00699352f" title=" " alt="" coords="208,645,373,687"/>
+<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_game_1_1_player.html#a55d1dc5bd56c7ac288917759dd3cba22" title=" " alt="" coords="209,711,372,752"/>
+</map>

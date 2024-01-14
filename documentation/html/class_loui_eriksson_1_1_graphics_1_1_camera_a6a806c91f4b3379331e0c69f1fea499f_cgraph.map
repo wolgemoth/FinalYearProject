@@ -1,0 +1,7 @@
+<map id="LouiEriksson::Graphics::Camera::PreRender" name="LouiEriksson::Graphics::Camera::PreRender">
+<area shape="rect" id="node1" title="Called before rendering." alt="" coords="5,39,175,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a4ad4bb9fcbbb4f137aa0e2f599fb6e52" title="Get the Camera&#39;s Window." alt="" coords="241,5,410,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_render_texture.html#a0fa8d8b759f6c04d7666be231780e4c9" title="Reinitialise the texture with a given width and height." alt="" coords="223,71,428,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_render_texture.html#ab1569963e9e263f67d913d922039d11b" title="Discard the RenderTexture." alt="" coords="476,71,657,112"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_graphics_1_1_texture.html#a5301b67f54295246833bf35349ce608f" title="Discard the Texture." alt="" coords="705,71,875,112"/>
+</map>

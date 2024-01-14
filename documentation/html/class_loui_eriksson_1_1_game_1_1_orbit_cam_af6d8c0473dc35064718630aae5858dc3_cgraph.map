@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Game::OrbitCam::Tick" name="LouiEriksson::Game::OrbitCam::Tick">
+<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,39,156,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_time.html#a8eb3211503eee9a9727e078a63006b78" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="249,5,394,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_orbit_cam.html#ab35ad12f1a5c59b10067da7dc01601ff" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="204,71,439,112"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="LouiEriksson::Game::FlyCam::Tick" name="LouiEriksson::Game::FlyCam::Tick">
+<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,300,156,341"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_time.html#a8eb3211503eee9a9727e078a63006b78" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="243,5,388,47"/>
+<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_key.html#afe7d0b6d50e0cb8370dd40cea59a5a47" title="Returns true if the provided key (in the form of SDL_Scancode) is held." alt="" coords="243,71,388,112"/>
+<area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a80882ed0ff27006b83c2d3dda9f5cc88" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed." alt="" coords="224,136,407,177"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_input_1_1_cursor.html#a7b860a33166d92d504881934124fa59e" title="Return the current state of the Cursor." alt="" coords="243,201,388,243"/>
+<area shape="rect" id="node7" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a51016f38c53ac53d5a37c5f6bc886846" title="Returns the relative motion of the mouse." alt="" coords="232,267,399,308"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_time.html#a76610b969199967c8a456cae8abf585c" title="Get the speed of time within the engine." alt="" coords="243,332,388,373"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_input_1_1_cursor.html#a08e5deafd6edab5c8923a8d4a5a3eee8" title="Set the pending state of the Cursor." alt="" coords="243,397,388,439"/>
+<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#a4ad4c8a179c31ea310deeca14b125b93" title="Synchronise the camera&#39;s parameters with the ones defined in Settings." alt="" coords="204,463,427,504"/>
+<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="236,528,395,569"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_utils.html#a3a1c7df699b49379a71dee5b018208fb" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="244,593,387,635"/>
+<area shape="rect" id="node5" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a" title=" " alt="" coords="475,136,620,177"/>
+<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_utils.html#adf29cc2033b68c8c3f0c1706b2b0f512" title="Repeats a value within the range 0 &#45;&gt; _max." alt="" coords="476,593,619,635"/>
+</map>

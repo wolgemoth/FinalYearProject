@@ -1,0 +1,8 @@
+<map id="LouiEriksson::Game::Player::SpawnBalls" name="LouiEriksson::Game::Player::SpawnBalls">
+<area shape="rect" id="node1" title=" " alt="" coords="5,136,160,177"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97" title="Factory function which creates a GameObject within a Scene." alt="" coords="220,5,375,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_resources.html#a2fbd8652c91db6a4d96b528616b78424" title=" " alt="" coords="208,71,387,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_resources.html#a7207e3f08625f051930c974d658dfbb9" title=" " alt="" coords="208,136,387,177"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#a8862e7bbd6c51d0fd7db31d13825a67a" title="Get the Component&#39;s parent GameObject." alt="" coords="224,201,371,243"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_file.html#a714a8efecd50d71509b4033fe9fcbf78" title=" " alt="" coords="230,267,365,308"/>
+</map>
