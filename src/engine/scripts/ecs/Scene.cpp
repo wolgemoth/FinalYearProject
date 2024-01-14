@@ -12,6 +12,7 @@
 #include "../core/Serialisation.h"
 #include "../core/Transform.h"
 #include "../core/utils/Hashmap.h"
+#include "../ecs/Component.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Light.h"
 #include "../graphics/Renderer.h"
@@ -22,13 +23,14 @@
 #include <cereal/cereal.hpp>
 #include <cereal/archives/xml.hpp>
 
-#include <any>
 #include <cstddef>
 #include <exception>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -37,39 +39,38 @@
 namespace LouiEriksson::ECS {
 	
 	Scene::~Scene() {
-		m_Entities.Clear();
+		m_Components.Clear();
 	}
 	
 	void Scene::Draw() {
 		
+		std::vector<std::shared_ptr<Component>> items;
+		
 		/* GET ALL RENDERERS */
 		std::vector<std::shared_ptr<Graphics::Renderer>> casted_renderers;
 		
-		std::vector<std::any> renderers;
-		if (m_Entities.Get(typeid(Graphics::Renderer), renderers)) {
-			for (const auto& r: renderers) {
-				casted_renderers.push_back(std::any_cast<std::shared_ptr<Graphics::Renderer>>(r));
+		if (m_Components.Get(typeid(Graphics::Renderer), items)) {
+			for (const auto& item: items) {
+				casted_renderers.emplace_back(std::dynamic_pointer_cast<Graphics::Renderer>(item));
 			}
 		}
 		
 		/* GET ALL LIGHTS */
 		std::vector<std::shared_ptr<Graphics::Light>> casted_lights;
 		
-		std::vector<std::any> lights;
-		if (m_Entities.Get(typeid(Graphics::Light), lights)) {
-			for (const auto& l: lights) {
-				casted_lights.push_back(std::any_cast<std::shared_ptr<Graphics::Light>>(l));
+		if (m_Components.Get(typeid(Graphics::Light), items)) {
+			for (const auto& item: items) {
+				casted_lights.emplace_back(std::dynamic_pointer_cast<Graphics::Light>(item));
 			}
 		}
 		
 		/* GET ALL CAMERAS */
-		std::vector<std::any> cameras;
-		if (m_Entities.Get(typeid(Graphics::Camera), cameras)) {
+		if (m_Components.Get(typeid(Graphics::Camera), items)) {
 			
 			/* RENDER */
-			for (const auto& c: cameras) {
+			for (const auto& item: items) {
 				
-				const auto camera = std::any_cast<std::shared_ptr<Graphics::Camera>>(c);
+				const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(item);
 				camera->PreRender();
 				
 				camera->Clear();
@@ -82,43 +83,42 @@ namespace LouiEriksson::ECS {
 	
 	void Scene::Begin() {
 	
-		std::vector<std::any> scripts;
-		if (m_Entities.Get(typeid(Script), scripts)) {
-			for (const auto& s : scripts) {
-				std::any_cast<std::shared_ptr<Script>>(s)->Begin();
+		std::vector<std::shared_ptr<Component>> items;
+		if (m_Components.Get(typeid(Script), items)) {
+			for (const auto& item : items) {
+				std::dynamic_pointer_cast<Script>(item)->Begin();
 			}
 		}
 	}
 	
 	void Scene::Tick() {
 		
+		std::vector<std::shared_ptr<Component>> items;
+		
 		// Interpolate Rigidbodies:
-		std::vector<std::any> rigidbodies;
-		if (m_Entities.Get(typeid(Physics::Rigidbody), rigidbodies)) {
+		if (m_Components.Get(typeid(Physics::Rigidbody), items)) {
 	
-			for (const auto& r : rigidbodies) {
+			for (const auto& item : items) {
 				
-				auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(r);
+				auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
 				rigidbody->Interpolate();
 			}
 		}
 		
 		// Update AudioListeners:
-		std::vector<std::any> audioListeners;
-		if (m_Entities.Get(typeid(Audio::AudioListener), audioListeners)) {
+		if (m_Components.Get(typeid(Audio::AudioListener), items)) {
 	
-			for (const auto& al : audioListeners) {
+			for (const auto& item : items) {
 				
-				auto audioListener = std::any_cast<std::shared_ptr<Audio::AudioListener>>(al);
+				auto audioListener = std::dynamic_pointer_cast<Audio::AudioListener>(item);
 				audioListener->Tick();
 			}
 		}
 		
 		// Update scripts:
-		std::vector<std::any> scripts;
-		if (m_Entities.Get(typeid(Script), scripts)) {
-			for (const auto& s : scripts) {
-				std::any_cast<std::shared_ptr<Script>>(s)->Tick();
+		if (m_Components.Get(typeid(Script), items)) {
+			for (const auto& item : items) {
+				std::dynamic_pointer_cast<Script>(item)->Tick();
 			}
 		}
 	
@@ -127,24 +127,24 @@ namespace LouiEriksson::ECS {
 	
 	void Scene::FixedTick() {
 	
+		std::vector<std::shared_ptr<Component>> items;
+		
 		// Update rigidbodies:
-		std::vector<std::any> rigidbodies;
-		if (m_Entities.Get(typeid(Physics::Rigidbody), rigidbodies)) {
+		if (m_Components.Get(typeid(Physics::Rigidbody), items)) {
 	
-			for (const auto& r : rigidbodies) {
+			for (const auto& item : items) {
 				
-				auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(r);
+				auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
 				rigidbody->Sync();
 			}
 		}
 		
 		// Handle physics-based operations on Scripts.
-		std::vector<std::any> scripts;
-		if (m_Entities.Get(typeid(Script), scripts)) {
+		if (m_Components.Get(typeid(Script), items)) {
 	
-			for (const auto& s : scripts) {
+			for (const auto& item : items) {
 				
-				auto script = std::any_cast<std::shared_ptr<Script>>(s);
+				auto script = std::dynamic_pointer_cast<Script>(item);
 				
 				/*
 				 * Invoke collision event for every collision that the attached
@@ -172,8 +172,8 @@ namespace LouiEriksson::ECS {
 		}
 	}
 	
-	Hashmap<std::type_index, std::vector<std::any>> Scene::Entities() {
-		return m_Entities;
+	const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Scene::Components() noexcept {
+		return m_Components;
 	}
 	
 	void Scene::Save(const std::filesystem::path& _path) {
@@ -185,7 +185,7 @@ namespace LouiEriksson::ECS {
 	
 			auto xml = cereal::XMLOutputArchive(ofStream);
 	
-			auto map = Entities().GetAll();
+			auto map = Components().GetAll();
 	
 			xml.setNextName("Entities"); // Start "Entities"
 			xml.startNode();
@@ -198,7 +198,7 @@ namespace LouiEriksson::ECS {
 	
 					if (category.first == typeid(GameObject)) { // Only serialise things attached to GameObject.
 	
-						auto entity = std::any_cast<std::shared_ptr<GameObject>>(entry);
+						auto entity = std::dynamic_pointer_cast<GameObject>(entry);
 	
 						auto subCategories = entity->Components().GetAll();
 	
@@ -213,7 +213,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto transform = std::any_cast<std::shared_ptr<Transform>>(component);
+									auto transform = std::dynamic_pointer_cast<Transform>(component);
 	
 									xml.setNextName("Transform");
 									xml.startNode();
@@ -229,7 +229,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto rigidbody = std::any_cast<std::shared_ptr<Physics::Rigidbody>>(component);
+									auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(component);
 	
 									xml.setNextName("Rigidbody");
 									xml.startNode();
@@ -247,7 +247,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto camera = std::any_cast<std::shared_ptr<Graphics::Camera>>(component);
+									auto camera = std::dynamic_pointer_cast<Graphics::Camera>(component);
 	
 									xml.setNextName("Camera");
 	
@@ -259,7 +259,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto collider = std::any_cast<std::shared_ptr<Physics::Collider>>(component);
+									auto collider = std::dynamic_pointer_cast<Physics::Collider>(component);
 	
 									xml.setNextName("Collider");
 	
@@ -272,7 +272,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto light = std::any_cast<std::shared_ptr<Graphics::Light>>(component);
+									auto light = std::dynamic_pointer_cast<Graphics::Light>(component);
 	
 									xml.setNextName("Light");
 	
@@ -284,9 +284,7 @@ namespace LouiEriksson::ECS {
 	
 								for (const auto& component : components) {
 	
-									auto renderer = std::any_cast<std::shared_ptr<Graphics::Renderer>>(component);
-	
-									xml.setNextName("Renderer");
+									xml.setNextName(subCategory.first.name());
 	
 									xml.startNode();
 									xml.finishNode();
@@ -298,7 +296,7 @@ namespace LouiEriksson::ECS {
 								xml.startNode();
 	
 								for (const auto& component : components) {
-									xml(cereal::make_nvp("Type", std::string(component.type().name())));
+									xml(cereal::make_nvp("Type", std::string(subCategory.first.name())));
 								}
 	
 								xml.finishNode();
@@ -348,7 +346,6 @@ namespace LouiEriksson::ECS {
 				
 				// Create GameObject to populate.
 				auto gameObject = GameObject::Create(result->shared_from_this(), gameObjectName);
-				result->Attach(gameObject);
 		
 				xml.startNode();
 		
@@ -458,7 +455,11 @@ namespace LouiEriksson::ECS {
 							script = gameObject->AddComponent<LouiEriksson::Game::FlyCam>();
 						}
 						else {
-							Serialisation::NotImplementedException(type);
+							std::stringstream err;
+							err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<
+								type << "\" Has not been implemented.";
+						
+							throw std::runtime_error(err.str());
 						}
 		
 						result->Attach(script);

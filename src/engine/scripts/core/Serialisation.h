@@ -30,11 +30,6 @@ namespace LouiEriksson {
 		
 		Serialisation& operator = (const Serialisation& _other) = delete;
 		
-		/// <summary>
-		/// Placeholder for an actual custom exception.
-		/// </summary>
-		static void NotImplementedException(const std::string& _type);
-	
 		static std::string ParseNext(cereal::XMLInputArchive& _xml, int _log = 0);
 	
 		static std::string Serialise(const glm::vec3& _value, const Format& _method = Format::XML);

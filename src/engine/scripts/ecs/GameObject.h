@@ -3,7 +3,6 @@
 
 #include "../core/utils/Hashmap.h"
 
-#include <any>
 #include <cstddef>
 #include <memory>
 #include <stdexcept>
@@ -40,7 +39,7 @@ namespace LouiEriksson::ECS {
 		std::string m_Name;
 	
 		/// <summary> Components attached to the GameObject. </summary>
-		Hashmap<std::type_index, std::vector<std::any>> m_Components;
+		Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>> m_Components;
 	
 		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept;
 		~GameObject() = default;
@@ -60,24 +59,24 @@ namespace LouiEriksson::ECS {
 		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string& _name = "");
 		
 		/// <summary>
-		/// Get the components attached to the GameObject.
+		/// Get the Components attached to the GameObject.
 		/// </summary>
-		const Hashmap<std::type_index, std::vector<std::any>>& Components() const noexcept;
+		const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Components() const noexcept;
 	
 		/// <summary>
-		/// Get components of type attached to GameObject.
+		/// Get Components of type attached to GameObject.
 		/// </summary>
 		/// <typeparam name="T">Type to be searched.</typeparam>
-		/// <returns>Vector of std::any wrapping a std::shared_ptr<T></returns>
+		/// <returns>Vector of std::shared_ptr<T> wrapping a std::shared_ptr<T></returns>
 		template <typename T>
-		std::vector<std::any> GetComponents() const {
+		std::vector<std::shared_ptr<T>> GetComponents() const {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-			std::vector<std::any> result, category;
+			std::vector<std::shared_ptr<T>> result, category;
 	
 			if (m_Components.Get(typeid(T), category)) {
-				result = static_cast<std::vector<std::any>>(result);
+				result = dynamic_cast<std::vector<std::shared_ptr<T>>>(result);
 			}
 	
 			return result;
@@ -87,8 +86,8 @@ namespace LouiEriksson::ECS {
 		/// Get a Component of type in the GameObject by index.
 		/// </summary>
 		/// <typeparam name="T">Type to be searched.</typeparam>
-		/// <param name="_index">Index of the component.</param>
-		/// <returns>std::shared_ptr<T> Referencing the component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
+		/// <param name="_index">Index of the Component.</param>
+		/// <returns>std::shared_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
 		template<typename T>
 		std::shared_ptr<T> GetComponent(size_t _index = 0) const {
 			
@@ -96,9 +95,9 @@ namespace LouiEriksson::ECS {
 			
 			std::shared_ptr<T> result(nullptr);
 			
-			std::vector<std::any> category;
+			std::vector<std::shared_ptr<Component>> category;
 			if (m_Components.Get(typeid(T), category)) {
-				result = std::any_cast<std::shared_ptr<T>>(category.at(_index));
+				result = std::dynamic_pointer_cast<T>(category.at(_index));
 			}
 			
 			return result;
@@ -124,10 +123,10 @@ namespace LouiEriksson::ECS {
 				category = typeid(Script);
 			}
 			
-			std::vector<std::any> entries;
+			std::vector<std::shared_ptr<Component>> entries;
 			const bool exists = m_Components.Get(category, entries);
 			
-			entries.push_back(result);
+			entries.emplace_back(result);
 			
 			if (exists) {
 				result->m_Index = entries.size() - 1;
@@ -149,7 +148,9 @@ namespace LouiEriksson::ECS {
 		template <typename T>
 		void RemoveComponent(size_t _index = 0) {
 	
-			std::vector<std::any> entries;
+			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
+			
+			std::vector<std::shared_ptr<Component>> entries;
 			if (m_Components.Get(typeid(T), entries)) {
 	
 				// Bounds check.

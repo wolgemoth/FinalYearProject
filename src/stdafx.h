@@ -24,11 +24,10 @@
 #include <SDL.h>                    // SDL2
 
 /* INTERNAL */
-#include "engine/scripts/core//utils/Hashmap.h"
+#include "engine/scripts/core/utils/Hashmap.h"
 
 /* STL */
 #include <algorithm>
-#include <any>
 #include <array>
 #include <chrono>
 #include <cmath>

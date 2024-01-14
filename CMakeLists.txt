@@ -252,8 +252,6 @@ add_executable(FinalYearProject
         src/engine/scripts/core/Window.h
         src/engine/scripts/ecs/Component.cpp
         src/engine/scripts/ecs/Component.h
-        src/engine/scripts/ecs/Entity.cpp
-        src/engine/scripts/ecs/Entity.h
         src/engine/scripts/ecs/GameObject.cpp
         src/engine/scripts/ecs/GameObject.h
         src/engine/scripts/ecs/Scene.cpp

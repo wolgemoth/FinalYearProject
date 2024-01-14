@@ -25,7 +25,7 @@ namespace LouiEriksson {
 		
 		// Split string stream using divider and push into result.
 		while (std::getline(iss, substring, _divider)) {
-			result.push_back(substring);
+			result.emplace_back(substring);
 		}
 		
 		return result;

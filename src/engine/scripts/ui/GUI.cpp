@@ -108,8 +108,8 @@ namespace LouiEriksson::UI {
 		static const auto  s_FPS_SamplingWindowSize =  0.5f;
 		
 		// Append the current frame.
-		s_Timestamps.push_back(Time::Elapsed());
-		   s_Samples.push_back(1.0f / Time::UnscaledDeltaTime());
+		s_Timestamps.emplace_back(Time::Elapsed());
+		   s_Samples.emplace_back(1.0f / Time::UnscaledDeltaTime());
 		   
 		// Extract various values from the sampling window:
 		float oldest_avg_timestamp  = std::numeric_limits<float>::infinity(),

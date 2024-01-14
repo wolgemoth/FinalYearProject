@@ -93,8 +93,6 @@ namespace LouiEriksson::Game {
 			// TODO: Add a light to the scene through the scene's file, not code.
 			{
 				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
-				s->Attach(light_gameObject);
-			
 				light_gameObject->AddComponent<Transform>();
 				
 				s->Attach(light_gameObject->AddComponent<Graphics::Light>());

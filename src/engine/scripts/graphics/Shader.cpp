@@ -159,7 +159,7 @@ namespace LouiEriksson::Graphics {
 		
 		const auto* const src = _src.c_str();
 
-		m_SubShaders.push_back(glCreateShader(_type));
+		m_SubShaders.emplace_back(glCreateShader(_type));
 		glShaderSource(m_SubShaders.back(), 1, &src, nullptr);
 		glCompileShader(m_SubShaders.back());
 		glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);

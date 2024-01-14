@@ -68,7 +68,7 @@ namespace LouiEriksson::Game {
 				std::stringstream name;
 				name << "Floor_" << count;
 				
-				auto plane = s->Attach(ECS::GameObject::Create(s, name.str()));
+				auto plane = ECS::GameObject::Create(s, name.str());
 				m_Planes.push_back(plane);
 				
 				// Compile shader.
@@ -124,7 +124,7 @@ namespace LouiEriksson::Game {
 		if (const auto s = Parent()->GetScene().lock()) {
 			
 			// Create an initialise curuthers object.
-			m_Player = s->Attach(ECS::GameObject::Create(s, "Curuthers"));
+			m_Player = ECS::GameObject::Create(s, "Curuthers");
 			
 			// Compile shader.
 			auto surface = Resources::GetShader("pbr");
@@ -165,7 +165,7 @@ namespace LouiEriksson::Game {
 				std::stringstream name;
 				name << "Ball_" << i;
 				
-				auto obstacle = s->Attach(ECS::GameObject::Create(s, name.str()));
+				auto obstacle = ECS::GameObject::Create(s, name.str());
 				
 				std::shared_ptr<Graphics::Mesh> mesh = nullptr;
 				File::TryLoad("models/sphere/sphere.obj", mesh);

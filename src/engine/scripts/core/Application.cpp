@@ -74,6 +74,8 @@ namespace LouiEriksson {
 			// Load a scene and run:
 			auto scene = ECS::Scene::Load("levels/gep.scene");
 			scene->Begin();
+			
+			//scene->Save("levels/TEST.scene");
 	
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(1.0f / 60.0f);

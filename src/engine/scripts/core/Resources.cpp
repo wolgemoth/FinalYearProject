@@ -112,7 +112,7 @@ namespace LouiEriksson {
 			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderIncludeDirectory, File::Directory::EntryType::FILE)) {
 				
 				if (strcmp(item.extension().string().c_str(), ".glsl") == 0) {
-					dependencies.push_back(item);
+					dependencies.emplace_back(item);
 				}
 			}
 			
@@ -165,7 +165,7 @@ namespace LouiEriksson {
 				}
 				
 				if (shaderType == GL_SHADER) {
-					combined.push_back(item);
+					combined.emplace_back(item);
 				}
 				else if (shaderType != GL_NONE) {
 					

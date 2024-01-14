@@ -3,9 +3,9 @@
 
 #include "../core/utils/Hashmap.h"
 
-#include <any>
 #include <filesystem>
 #include <memory>
+#include <type_traits>
 #include <typeindex>
 #include <vector>
 
@@ -19,6 +19,7 @@ namespace LouiEriksson {
 
 namespace LouiEriksson::ECS {
 	
+	class Component;
 	class GameObject;
 	
 	class Scene : public std::enable_shared_from_this<Scene> {
@@ -33,7 +34,10 @@ namespace LouiEriksson::ECS {
 	protected:
 	
 		/// <summary> Entities within the Scene. </summary>
-		Hashmap<std::type_index, std::vector<std::any>> m_Entities;
+		std::vector<std::shared_ptr<GameObject>> m_Entities;
+		
+		/// <summary> Components (linked to entities) within the Scene. </summary>
+		Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>> m_Components;
 	
 		/// <summary> Called at the beginning of the first frame. </summary>
 		virtual void Begin();
@@ -49,8 +53,8 @@ namespace LouiEriksson::ECS {
 		Scene() = default;
 		virtual ~Scene();
 	
-		/// <summary> Get the entities within the Scene. </summary>
-		Hashmap<std::type_index, std::vector<std::any>> Entities();
+		/// <summary> Get the components within the Scene. </summary>
+		const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Components() noexcept;
 	
 		/// <summary> Save the Scene in xml format at a given path. </summary>
 		void Save(const std::filesystem::path& _path);
@@ -62,29 +66,29 @@ namespace LouiEriksson::ECS {
 		template<class T>
 		std::shared_ptr<T> Attach(std::shared_ptr<T> _entity) {
 	
-			std::vector<std::any> category;
-			m_Entities.Get(typeid(T), category);
+			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-			category.push_back(std::make_any<std::shared_ptr<T>>(_entity));
-			m_Entities.Assign(typeid(T), category);
+			std::vector<std::shared_ptr<Component>> category;
+			m_Components.Get(typeid(T), category);
+	
+			category.emplace_back(std::dynamic_pointer_cast<T>(_entity));
+			m_Components.Assign(typeid(T), category);
 	
 			return _entity;
 		}
-	
+		
 		/// <summary> Detach an instance of a type from the Scene. </summary>
 		template<typename T>
 		void Detach(std::shared_ptr<T> _entity) {
 			
-			std::vector<std::any> category;
-			if (m_Entities.Get(typeid(T), category)) {
+			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-				T* ptr1 = _entity.get();
+			std::vector<std::shared_ptr<Component>> category;
+			if (m_Components.Get(typeid(T), category)) {
 	
 				for (auto itr = category.begin(); itr < category.end(); ++itr) {
 	
-					T* ptr2 = std::any_cast<std::shared_ptr<T>>(*itr).get();
-	
-					if (ptr1 == ptr2) {
+					if (std::dynamic_pointer_cast<T>(*itr).get() == _entity.get()) {
 						category.erase(itr);
 						break;
 					}
@@ -93,6 +97,27 @@ namespace LouiEriksson::ECS {
 		}
 		
 	};
+	
+	template<>
+	inline std::shared_ptr<GameObject> Scene::Attach(std::shared_ptr<GameObject> _entity) {
+		m_Entities.emplace_back(_entity);
+		
+		return _entity;
+	}
+	
+	template<>
+	inline void Scene::Detach(std::shared_ptr<GameObject> _entity) {
+		
+		auto* ptr1 = _entity.get();
+		
+		for (auto itr = m_Entities.begin(); itr < m_Entities.end(); ++itr) {
+			
+			if ((*itr).get() == _entity.get()) {
+				m_Entities.erase(itr);
+				break;
+			}
+		}
+	}
 	
 } // LouiEriksson::ECS
 

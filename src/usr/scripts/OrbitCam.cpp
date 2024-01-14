@@ -5,6 +5,7 @@
 #include "../../engine/scripts/core/Time.h"
 #include "../../engine/scripts/core/Transform.h"
 #include "../../engine/scripts/core/Window.h"
+#include "../../engine/scripts/ecs/Component.h"
 #include "../../engine/scripts/ecs/GameObject.h"
 #include "../../engine/scripts/ecs/Scene.h"
 #include "../../engine/scripts/graphics/Camera.h"
@@ -68,8 +69,6 @@ namespace LouiEriksson::Game {
 			// TODO: Add a light to the scene through the scene's file, not code.
 			{
 				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
-				s->Attach(light_gameObject);
-			
 				light_gameObject->AddComponent<Transform>();
 				
 				s->Attach(light_gameObject->AddComponent<Graphics::Light>());

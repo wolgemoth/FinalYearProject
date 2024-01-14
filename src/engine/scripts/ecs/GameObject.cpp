@@ -2,7 +2,8 @@
 
 #include "../core/utils/Hashmap.h"
 
-#include <any>
+#include "Scene.h"
+
 #include <memory>
 #include <string>
 #include <typeindex>
@@ -20,10 +21,12 @@ namespace LouiEriksson::ECS {
 	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene>& _scene, const std::string& _name) {
 		
 		// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
-		return { new GameObject(_scene, _name), [](GameObject* _ptr) { delete _ptr; } };
+		const std::shared_ptr<GameObject> result(new GameObject(_scene, _name), [](GameObject* _ptr) { delete _ptr; });
+		
+		return _scene->Attach(result);
 	}
 	
-	const Hashmap<std::type_index, std::vector<std::any>>& GameObject::Components() const noexcept {
+	const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& GameObject::Components() const noexcept {
 		return m_Components;
 	}
 	

@@ -74,7 +74,7 @@ namespace LouiEriksson {
 				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::FILE) != 0);
 			}
 			
-			if (append) { result.push_back(item); }
+			if (append) { result.emplace_back(item); }
 		}
 		
 		return result;
@@ -93,7 +93,7 @@ namespace LouiEriksson {
 			if (is_directory(item)) {
 			
 				// Append all subdirectories to a vector.
-				subDirectories.push_back(item);
+				subDirectories.emplace_back(item);
 				
 				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::DIRECTORY) != 0);
 			}
@@ -102,7 +102,7 @@ namespace LouiEriksson {
 			}
 			
 			// Append entries of requested type to result.
-			if (append) { result.push_back(item); }
+			if (append) { result.emplace_back(item); }
 		}
 		
 		// Iterate through all subdirectories recursively and append output to result.
@@ -357,13 +357,13 @@ namespace LouiEriksson {
 								}
 								
 								if (posID > 0) {
-									vertices.push_back(rawVertices[posID - 1]);
+									vertices.emplace_back(rawVertices[posID - 1]);
 								}
 								if (uvID > 0) {
-									UVs.push_back(rawUVs[uvID - 1]);
+									UVs.emplace_back(rawUVs[uvID - 1]);
 								}
 								if (normID > 0) {
-									normals.push_back(rawNormals[normID - 1]);
+									normals.emplace_back(rawNormals[normID - 1]);
 								}
 							}
 						}
@@ -466,14 +466,14 @@ namespace LouiEriksson {
 							
 							// Set the same tangent for all three vertices of the triangle.
 					        // They will be merged later, in vboindexer.cpp
-					        tangents.push_back(tangent);
-					        tangents.push_back(tangent);
-					        tangents.push_back(tangent);
+					        tangents.emplace_back(tangent);
+					        tangents.emplace_back(tangent);
+					        tangents.emplace_back(tangent);
 					
 					        // Same thing for bitangents
-					        bitangents.push_back(bitangent);
-					        bitangents.push_back(bitangent);
-					        bitangents.push_back(bitangent);
+					        bitangents.emplace_back(bitangent);
+					        bitangents.emplace_back(bitangent);
+					        bitangents.emplace_back(bitangent);
 						}
 						
 						// TODO: Perform tangent averaging / smoothing.
