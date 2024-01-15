@@ -1,8 +1,8 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
-#include <AL/al.h>
-#include <AL/alc.h>
+#include <al.h>
+#include <alc.h>
 
 #include <memory>
 

@@ -2,9 +2,9 @@
 #define FINALYEARPROJECT_STDAFX_H
 
 /* EXTERNAL */
-#include <AL/al.h>                  // AL ...
-#include <AL/alc.h>
-#include <AL/alext.h>
+#include <al.h>                  // AL ...
+#include <alc.h>
+#include <alext.h>
 
 #include <btBulletDynamicsCommon.h> // BULLET
 

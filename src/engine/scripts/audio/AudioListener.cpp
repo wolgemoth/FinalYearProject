@@ -6,7 +6,7 @@
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
-#include <AL/al.h>
+#include <al.h>
 #include <glm/common.hpp>
 
 #include <memory>

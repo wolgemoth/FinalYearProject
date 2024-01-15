@@ -1,6 +1,6 @@
 #include "AudioClip.h"
 
-#include <AL/al.h>
+#include <al.h>
 #include <SDL_audio.h>
 
 #include <exception>

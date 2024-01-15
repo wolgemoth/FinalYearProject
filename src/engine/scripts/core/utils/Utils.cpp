@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-#include <AL/al.h>
+#include <al.h>
 #include <GL/glew.h>
 #include <glm/ext/vector_float3.hpp>
 

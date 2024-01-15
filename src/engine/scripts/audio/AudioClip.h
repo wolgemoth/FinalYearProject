@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_AUDIOCLIP_H
 #define FINALYEARPROJECT_AUDIOCLIP_H
 
-#include <AL/al.h>
+#include <al.h>
 #include <SDL_audio.h>
 #include <SDL_stdinc.h>
 

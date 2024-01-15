@@ -21,8 +21,8 @@ namespace LouiEriksson {
 	
 	private:
 	
-		inline static bool  s_Quit        { false };
-		inline static bool  s_Initialised { false };
+		inline static bool  s_Quit        { false }; // Is Application scheduled to quit?
+		inline static bool  s_Initialised { false }; // Is Application initialised?
 	
 	public:
 	

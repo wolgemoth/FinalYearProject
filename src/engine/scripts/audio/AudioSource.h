@@ -4,7 +4,7 @@
 #include "../ecs/Component.h"
 #include "../core/Script.h"
 
-#include <AL/al.h>
+#include <al.h>
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>

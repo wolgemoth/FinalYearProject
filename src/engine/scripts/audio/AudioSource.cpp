@@ -9,7 +9,7 @@
 
 #include "Sound.h"
 
-#include <AL/al.h>
+#include <al.h>
 #include <glm/common.hpp>
 
 #include <exception>

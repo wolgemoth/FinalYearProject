@@ -23,11 +23,11 @@ If you are assessing this project, please search for instances of `"@Assessor"` 
 
 #### Linux
 
-The SDL2 and GLEW development packages are necessary for this project. If they are not already installed on your system, you may need to install them:
+The SDL2, GLEW, and OpenAL-Soft development packages are necessary for this project. If they are not already installed on your system, you may need to install them:
 
 ##### Debian-Based
 
-```sudo apt-get install libsdl2-dev libglew-dev```
+```sudo apt-get install libsdl2-dev libglew-dev libopenal-dev```
 
 #### Windows
 

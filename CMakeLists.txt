@@ -208,11 +208,7 @@ add_library(PELLET STATIC
 )
 
 # ADD OPENAL:
-set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/contrib/openal)
-set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
-
-# TODO: Find out why OpenAL doesnt' work unless added like this, and replace this method.
-add_subdirectory(${OPENAL_DIR})
+find_package(OpenAL REQUIRED)
 
 # LINK:
 include_directories(
@@ -313,7 +309,7 @@ target_link_libraries(FinalYearProject
         GL
         GLEW
         IMGUI
-        OpenAL
+        OpenAL::OpenAL
         PELLET
         SDL2
         SDL2main
