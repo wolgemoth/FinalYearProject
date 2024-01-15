@@ -31,7 +31,7 @@ The SDL2 and GLEW development packages are necessary for this project. If they a
 
 #### Windows
 
-Building for Windows is not yet supported as I have yet to implement and test a build system for the Windows platform.
+Building for Windows is not yet supported. This will be added in the future.
 
 ### Dependencies
 
