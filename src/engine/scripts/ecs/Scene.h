@@ -126,6 +126,32 @@ namespace LouiEriksson::ECS {
 		}
 	}
 	
+	template<>
+	inline void Scene::Detach(const std::weak_ptr<Component>& _entity) {
+		
+		if (const auto e = _entity.lock()) {
+			
+			for (auto& bucket : m_Components.Values()) {
+				
+				for (auto itr = bucket.begin(); itr < bucket.end(); ++itr) {
+					
+					auto item = *itr;
+					
+					if (const auto locked = item.lock()) {
+						
+						if (locked.get() == e.get()) {
+							bucket.erase(itr);
+							break;
+						}
+					}
+					else {
+						bucket.erase(itr);
+					}
+				}
+			}
+		}
+	}
+	
 } // LouiEriksson::ECS
 
 #endif //FINALYEARPROJECT_SCENE_H

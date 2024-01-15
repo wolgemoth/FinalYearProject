@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_AUDIOLISTENER_H
 
 #include "../ecs/Component.h"
+#include "../core/Script.h"
 
 #include <glm/ext/vector_float3.hpp>
 
@@ -15,7 +16,7 @@ namespace LouiEriksson::ECS {
 
 namespace LouiEriksson::Audio {
 	
-	class AudioListener : public ECS::Component {
+	class AudioListener final : public Script {
 	
 	/*
 	 * Please refer to OpenAL-Soft spec:
@@ -39,10 +40,10 @@ namespace LouiEriksson::Audio {
 		~AudioListener() override;
 		
 		/// <summary> Initialise the AudioListener. </summary>
-		void Init();
+		void Begin() override;
 	
 		/// <summary> Updates the AudioListener every frame.</summary>
-		void Tick();
+		void Tick() override;
 		
 		/// <summary> Set the master gain of the AudioListener. </summary>
 		void Gain(const float& _value) noexcept;

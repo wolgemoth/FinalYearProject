@@ -116,7 +116,9 @@ namespace LouiEriksson::ECS {
 			std::type_index category = typeid(T);
 			
 			// If the provided type is of "Script", change the category to "Script".
-			if (std::is_base_of<Script, T>::value) {
+			const bool isScript = std::is_base_of<Script, T>::value;
+			
+			if (isScript) {
 				category = typeid(Script);
 			}
 			
@@ -125,29 +127,27 @@ namespace LouiEriksson::ECS {
 			
 			entries.emplace_back(result);
 			
+			m_Components.Assign(category, entries);
+			
 			if (exists) {
 				result->m_Index = entries.size() - 1;
 			}
-			else if (m_Components.Add(category, entries)) {
+			else {
 				
 				// Attach to scene:
 				if (const auto s = GetScene().lock()) {
 					
-					// If type derives from script, add it as a script.
-					if (std::is_base_of<Script, T>::value) {
+					/*
+					 * If type derives from script, attach it as a script.
+					 * Otherwise, attach it as current type.
+					 */
+					if (isScript) {
 						s->Attach<Script>(std::dynamic_pointer_cast<Script>(result));
 					}
 					else {
-						
-						// Otherwise, add it as its current type.
 						s->Attach(result);
 					}
 				}
-			}
-			else {
-				result.reset();
-				
-				throw std::runtime_error("ERROR (GameObject.cpp [AddComponent<T>()]): Failed adding new Component to hashmap!");
 			}
 			
 			return result;
@@ -161,8 +161,6 @@ namespace LouiEriksson::ECS {
 		template <typename T>
 		void RemoveComponent(size_t _index = 0) {
 	
-			std::cout << "TODO: call Detach!\n";
-			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
 			std::vector<std::shared_ptr<Component>> entries;
@@ -171,8 +169,15 @@ namespace LouiEriksson::ECS {
 				// Bounds check.
 				if (_index < entries.size()) {
 					
+					auto itr = entries.begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
+					
+					// Detach from scene.
+					if (const auto s = GetScene().lock()) {
+						s->Detach<Component>(*itr);
+					}
+					
 					// Remove component from collection.
-					entries.erase(entries.begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index);
+					entries.erase(itr);
 				}
 			}
 		}

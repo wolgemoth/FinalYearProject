@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_AUDIOSOURCE_H
 
 #include "../ecs/Component.h"
+#include "../core/Script.h"
 
 #include <AL/al.h>
 #include <glm/ext/vector_float3.hpp>
@@ -12,7 +13,7 @@ namespace LouiEriksson::Audio {
 	
 	class AudioClip;
 	
-	class AudioSource : public ECS::Component {
+	class AudioSource final : public Script {
 	
 		/*
 		 * Please refer to OpenAL-Soft spec:
@@ -120,9 +121,6 @@ namespace LouiEriksson::Audio {
 		/// <summary> Last position of the AudioSource (for computing transform-based velocity). </summary>
 		glm::vec3 m_LastPosition;
 		
-		/// <summary> Initialise the AudioSource.</summary>
-		void Init();
-	
 		/// <summary> Synchronise the AudioSource with the internal audio engine. </summary>
 		void Sync();
 		
@@ -131,8 +129,11 @@ namespace LouiEriksson::Audio {
 		 explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
 		~AudioSource() override;
 		
+		/// <summary> Initialise the AudioSource.</summary>
+		void Begin() override;
+		
 		/// <summary> Updates the AudioSource every frame.</summary>
-		void Tick();
+		void Tick() override;
 		
 		/// <summary> Play this AudioSource.</summary>
 		void Play(const bool& _allowFallback = true);

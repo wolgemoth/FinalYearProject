@@ -1,6 +1,7 @@
 #include "AudioSource.h"
 
 #include "../audio/AudioClip.h"
+#include "../core/Script.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
 #include "../ecs/GameObject.h"
@@ -128,23 +129,11 @@ namespace LouiEriksson::Audio {
 		}
 	}
 	
-	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
+	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_LastPosition(   0.0f),
 			m_Source      (AL_NONE),
 			m_Parameters  ()
 	{
-		Init();
-	}
-	
-	AudioSource::~AudioSource() {
-		
-		if (m_Source != AL_NONE) {
-			alDeleteSources(1, &m_Source);
-		}
-	}
-	
-	void AudioSource::Init() {
-		
 		try {
 			
 			if (m_Source == AL_NONE) {
@@ -164,6 +153,17 @@ namespace LouiEriksson::Audio {
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
 		}
+	}
+	
+	AudioSource::~AudioSource() {
+		
+		if (m_Source != AL_NONE) {
+			alDeleteSources(1, &m_Source);
+		}
+	}
+	
+	void AudioSource::Begin() {
+		Sync();
 	}
 	
 	void AudioSource::Tick() {

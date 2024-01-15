@@ -48,17 +48,14 @@ namespace LouiEriksson::Game {
 			m_Transform = p->GetComponent<Transform>();
 			
 			// Get or add Camera.
-			m_Camera = p->AddComponent<Graphics::Camera>().lock();
+			m_Camera = p->AddComponent<Graphics::Camera>();
 			
 			// Add AudioListener.
 			// TODO: Do this better:
 			m_AudioListener = p->AddComponent<Audio::AudioListener>();
-			if (const auto al = m_AudioListener.lock()) {
-				al->Init();
-			}
 			
 			// Add AudioSource.
-			m_GunSound = p->AddComponent<Audio::AudioSource>();
+			m_GunSound = p->AddComponent<Audio::AudioSource>().lock();
 			if (const auto as = m_GunSound.lock()) {
 				as->Clip(Resources::GetAudio("machineGun").lock());
 			}
@@ -87,8 +84,6 @@ namespace LouiEriksson::Game {
 	}
 	
 	void FlyCam::Tick() {
-		
-		m_GunSound.lock()->Tick();
 		
 		// Update the camera's parameters to match the ones in Settings.
 		SyncCameraSettings();
@@ -167,9 +162,6 @@ namespace LouiEriksson::Game {
 				
 				Time::Scale(glm::mix(Time::Scale(), targetScale, Time::UnscaledDeltaTime() * effectSpeed));
 			}
-			
-			m_AudioListener.lock()->Tick();
-			m_GunSound.lock()->Tick();
 		}}
 	}
 	

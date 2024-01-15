@@ -1,5 +1,6 @@
 #include "AudioListener.h"
 
+#include "../core/Script.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
 #include "../ecs/GameObject.h"
@@ -12,13 +13,13 @@
 
 namespace LouiEriksson::Audio {
 	
-	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
+	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_Gain        (1.0f),
 			m_LastPosition(0.0f) {}
 	
 	AudioListener::~AudioListener() = default;
 	
-	void AudioListener::Init() {
+	void AudioListener::Begin() {
 		Sync();
 	}
 	

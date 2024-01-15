@@ -62,10 +62,13 @@ namespace LouiEriksson::Game {
 			
 				collider->SetRigidbody(rigidbody);
 				
-				// Add AudioSource.
-				m_AudioSource = p->AddComponent<Audio::AudioSource>();
-				m_AudioSource.lock()->Clip(Resources::GetAudio("Hollow_Bass"));
-				m_AudioSource.lock()->Global(true);
+				// Add AudioSource and Clip.
+				if (const auto as = p->AddComponent<Audio::AudioSource>().lock()) {
+					as->Clip(Resources::GetAudio("Hollow_Bass"));
+					as->Global(true);
+					
+					m_AudioSource = as;
+				}
 			}
 		}}
 	}
