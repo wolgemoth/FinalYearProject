@@ -83,7 +83,6 @@ namespace LouiEriksson {
 	
 			float physics_step = 0.0f;
 			
-			
 			/* LOOP */
 			while (!Application::s_Quit) {
 				

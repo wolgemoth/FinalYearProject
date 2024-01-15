@@ -1,11 +1,7 @@
 #ifndef FINALYEARPROJECT_PLANE_H
 #define FINALYEARPROJECT_PLANE_H
 
-#include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/ecs/Component.h"
-#include "../../engine/scripts/graphics/Material.h"
-
-#include <memory>
+#include "../include/engine_core.h"
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 

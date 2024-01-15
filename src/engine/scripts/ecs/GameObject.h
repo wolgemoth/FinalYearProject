@@ -115,13 +115,6 @@ namespace LouiEriksson::ECS {
 			
 			std::type_index category = typeid(T);
 			
-			// If the provided type is of "Script", change the category to "Script".
-			const bool isScript = std::is_base_of<Script, T>::value;
-			
-			if (isScript) {
-				category = typeid(Script);
-			}
-			
 			std::vector<std::shared_ptr<Component>> entries;
 			const bool exists = m_Components.Get(category, entries);
 			
@@ -141,7 +134,7 @@ namespace LouiEriksson::ECS {
 					 * If type derives from script, attach it as a script.
 					 * Otherwise, attach it as current type.
 					 */
-					if (isScript) {
+					if (std::is_base_of<Script, T>::value) {
 						s->Attach<Script>(std::dynamic_pointer_cast<Script>(result));
 					}
 					else {

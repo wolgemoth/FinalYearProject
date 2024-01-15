@@ -1,32 +1,5 @@
 #include "FlyCam.h"
 
-#include "../../engine/scripts/audio/AudioSource.h"
-#include "../../engine/scripts/audio/AudioListener.h"
-#include "../../engine/scripts/core/Resources.h"
-#include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/core/Settings.h"
-#include "../../engine/scripts/core/Time.h"
-#include "../../engine/scripts/core/Transform.h"
-#include "../../engine/scripts/core/utils/Utils.h"
-#include "../../engine/scripts/core/Window.h"
-#include "../../engine/scripts/ecs/GameObject.h"
-#include "../../engine/scripts/ecs/Scene.h"
-#include "../../engine/scripts/graphics/Camera.h"
-#include "../../engine/scripts/graphics/Light.h"
-#include "../../engine/scripts/input/Cursor.h"
-#include "../../engine/scripts/input/Input.h"
-
-#include <glm/common.hpp>
-#include <glm/ext/matrix_transform.hpp>
-#include <glm/trigonometric.hpp>
-#include <glm/ext/vector_float4.hpp>
-
-#include <SDL_mouse.h>
-#include <SDL_scancode.h>
-
-#include <memory>
-#include <string>
-
 // @Assessor: Please mark this class for GEP.
 
 namespace LouiEriksson::Game {
@@ -51,13 +24,12 @@ namespace LouiEriksson::Game {
 			m_Camera = p->AddComponent<Graphics::Camera>();
 			
 			// Add AudioListener.
-			// TODO: Do this better:
 			m_AudioListener = p->AddComponent<Audio::AudioListener>();
 			
 			// Add AudioSource.
-			m_GunSound = p->AddComponent<Audio::AudioSource>().lock();
+			m_GunSound = p->AddComponent<Audio::AudioSource>();
 			if (const auto as = m_GunSound.lock()) {
-				as->Clip(Resources::GetAudio("machineGun").lock());
+				as->Clip(Resources::GetAudio("machineGun"));
 			}
 			
 			// Update the camera's parameters to match the ones in Settings.
