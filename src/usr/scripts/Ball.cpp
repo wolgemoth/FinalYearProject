@@ -65,7 +65,6 @@ namespace LouiEriksson::Game {
 				// Add AudioSource and Clip.
 				if (const auto as = p->AddComponent<Audio::AudioSource>().lock()) {
 					as->Clip(Resources::GetAudio("Hollow_Bass"));
-					as->Global(true);
 					
 					m_AudioSource = as;
 				}
