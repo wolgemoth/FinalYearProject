@@ -24,20 +24,9 @@ namespace LouiEriksson::Game {
 	
 	void Plane::Begin() {
 		
-		if (const auto p = Parent().lock()) {
+		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
 		
-			// Load mesh.
-			if (m_Mesh == nullptr) {
-				File::TryLoad("models/woodfloor/woodfloor.obj", m_Mesh);
-			}
-			
-			if (m_Material.expired()) {
-				
-				// Create material from shader.
-				m_Material = Resources::GetMaterial("woodfloor");
-			}
-			
 			// Get or add Transform.
 			auto transform = p->GetComponent<Transform>().lock();
 			if (transform == nullptr) {
@@ -52,8 +41,8 @@ namespace LouiEriksson::Game {
 				renderer = p->AddComponent<Graphics::Renderer>().lock();
 			}
 			
-			renderer->SetMesh(m_Mesh);
-			renderer->SetMaterial(m_Material);
+			renderer->SetMesh(Resources::GetMesh("woodfloor"));
+			renderer->SetMaterial(Resources::GetMaterial("woodfloor"));
 			renderer->SetTransform(transform);
 			
 			// Get or add Collider.

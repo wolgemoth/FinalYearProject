@@ -66,16 +66,7 @@ namespace LouiEriksson::Graphics {
 			m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 			m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
 			  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER)
-	{
-		// Load the skybox cube mesh (if it isn't already).
-		if (s_Cube == nullptr) {
-			File::TryLoad("models/cube/cube.obj", s_Cube);
-		}
-	
-		// Load the lens-dirt texture.
-		m_LensDirt = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock();
-	}
+			m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {}
 	
 	Camera::~Camera() {
 	
@@ -335,11 +326,14 @@ namespace LouiEriksson::Graphics {
 				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
-				Mesh::Bind(*s_Cube);
-	
-				/* DRAW */
-				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-					glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+				if (const auto c = Resources::GetMesh("cube").lock()) {
+					
+					Mesh::Bind(*c);
+		
+					/* DRAW */
+					if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+						glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+					}
 				}
 				
 				// Restore culling and depth options.
@@ -1343,7 +1337,7 @@ namespace LouiEriksson::Graphics {
 				/* LENS DIRT */
 				if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0f) {
 					
-					if (const auto t = m_LensDirt.lock()) {
+					if (const auto t = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock()) {
 						
 						Shader::Bind(lens_dirt_shader->ID());
 						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);

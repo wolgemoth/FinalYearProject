@@ -19,7 +19,6 @@
 #include <glm/common.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <glm/ext/vector_float2.hpp>
-#include <glm/ext/vector_float3.hpp>
 
 #include <array>
 #include <cstring>
@@ -264,7 +263,7 @@ namespace LouiEriksson {
 		
 		bool result = false;
 		
-		_output.reset(new Graphics::Mesh());
+		std::cout << "Loading Mesh \"" << _path.c_str() << "\"... ";
 		
 		/*
 		 * @Assessor:
@@ -276,6 +275,7 @@ namespace LouiEriksson {
 		 */
 		
 		try {
+			_output.reset(new Graphics::Mesh());
 			
 			// Find file
 			std::ifstream inputFile(_path);
@@ -348,12 +348,12 @@ namespace LouiEriksson {
 								}
 								else if (verts[i].find("//") != std::string::npos) {
 									// No texcoords
-									char junk;
-									currentSection >> posID >> junk >> junk >> normID;
+									char junk2;
+									currentSection >> posID >> junk2 >> junk2 >> normID;
 								}
 								else {
-									char junk;
-									currentSection >> posID >> junk >> uvID >> junk >> normID;
+									char junk2;
+									currentSection >> posID >> junk2 >> uvID >> junk2 >> normID;
 								}
 								
 								if (posID > 0) {
@@ -497,6 +497,8 @@ namespace LouiEriksson {
 	                glBindBuffer(GL_ARRAY_BUFFER, 0);
 				}
 				
+				std::cout << "Done.\n";
+				
 				result = true;
 			}
 			else {
@@ -508,6 +510,8 @@ namespace LouiEriksson {
 			}
 		}
 		catch (const std::exception& e) {
+			std::cout << "Failed.\n\n";
+			
 			std::cout << e.what()<< '\n';
 		}
 		

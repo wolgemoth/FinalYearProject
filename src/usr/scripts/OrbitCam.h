@@ -2,8 +2,7 @@
 #define FINALYEARPROJECT_ORBITCAM_H
 
 #include "../../engine/scripts/core/Script.h"
-
-#include "Component.h"
+#include "../../engine/scripts/ecs/Component.h"
 
 #include <glm/ext/vector_float3.hpp>
 

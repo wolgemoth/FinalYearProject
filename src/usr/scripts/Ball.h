@@ -5,7 +5,6 @@
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/ecs/GameObject.h"
 #include "../../engine/scripts/graphics/Material.h"
-#include "../../engine/scripts/graphics/Mesh.h"
 
 #include <glm/ext/vector_float3.hpp>
 
@@ -22,12 +21,6 @@ namespace LouiEriksson::Game {
 	
 	private:
 		
-		/// <summary> Mesh of the Ball. </summary>
-		inline static std::shared_ptr<Graphics::Mesh> s_Mesh { nullptr };
-		
-		/// <summary> Material of the Ball. </summary>
-		inline static std::weak_ptr<Graphics::Material> s_Material;
-	
 		/// <summary> AudioSource component. </summary>
 		std::weak_ptr<Audio::AudioSource> m_AudioSource;
 		

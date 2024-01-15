@@ -29,19 +29,8 @@ namespace LouiEriksson::Game {
 	
 	void Ball::Begin() {
 		
-		if (const auto p = Parent().lock()) {
+		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
-		
-			// Load mesh.
-			if (s_Mesh == nullptr) {
-				File::TryLoad("models/sphere/sphere.obj", s_Mesh);
-			}
-			
-			if (s_Material.expired()) {
-				
-				// Create material from shader.
-				s_Material = Resources::GetMaterial("sphere");
-			}
 		
 			// Get or add component.
 			auto transform = p->GetComponent<Transform>().lock();
@@ -61,8 +50,8 @@ namespace LouiEriksson::Game {
 				renderer = p->AddComponent<Graphics::Renderer>().lock();
 			}
 		
-			renderer->SetMesh(s_Mesh);
-			renderer->SetMaterial(s_Material);
+			renderer->SetMesh(Resources::GetMesh("sphere"));
+			renderer->SetMaterial(Resources::GetMaterial("sphere"));
 			renderer->SetTransform(transform);
 		
 			// Get or add collider.

@@ -38,12 +38,6 @@ namespace LouiEriksson::Graphics {
 		// Main render target:
 		RenderTexture m_RT;
 		
-		/// <summary> Skybox cube Mesh. </summary>.
-		inline static std::shared_ptr<Mesh> s_Cube;
-		
-		/// <summary> Lens-dirt Texture. </summary>
-		std::weak_ptr<Texture> m_LensDirt;
-		
 		/// <summary> Window of the Camera. </summary>
 		std::weak_ptr<Window> m_Window;
 	

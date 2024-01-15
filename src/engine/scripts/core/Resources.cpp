@@ -39,11 +39,26 @@ namespace LouiEriksson {
 				m_Audio.Add(kvp.first, clip);
 			}
 		}
-		
 	}
 	
 	void Resources::PreloadMeshes() {
-		std::cout << "Please implement PreloadMeshes() function!\n";
+		
+		Hashmap<std::string, std::filesystem::path> files;
+		
+		for (const auto& item : File::Directory::GetEntriesRecursive(m_MeshesDirectory, File::Directory::EntryType::FILE)) {
+			
+			if (strcmp(item.extension().string().c_str(), ".obj") == 0) {
+				files.Add(item.stem().string(), item);
+			}
+		}
+		
+		for (const auto& kvp : files.GetAll()) {
+			
+			std::shared_ptr<Graphics::Mesh> mesh;
+			if (File::TryLoad(kvp.second, mesh)) {
+				m_Meshes.Add(kvp.first, mesh);
+			}
+		}
 	}
 	
 	void Resources::PreloadMaterials() {

@@ -2,10 +2,8 @@
 #define FINALYEARPROJECT_PLANE_H
 
 #include "../../engine/scripts/core/Script.h"
+#include "../../engine/scripts/ecs/Component.h"
 #include "../../engine/scripts/graphics/Material.h"
-#include "../../engine/scripts/graphics/Mesh.h"
-
-#include "Component.h"
 
 #include <memory>
 
@@ -20,9 +18,6 @@ namespace LouiEriksson::Game {
 	
 	protected:
 	
-		/// <summary> Mesh of the Plane. </summary>
-		inline static std::shared_ptr<Graphics::Mesh> m_Mesh { nullptr };
-		
 		/// <summary> Material of the Plane. </summary>
 		inline static std::weak_ptr<Graphics::Material> m_Material;
 	
