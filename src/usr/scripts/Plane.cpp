@@ -27,45 +27,31 @@ namespace LouiEriksson::Game {
 		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
 		
-			// Get or add Transform.
-			auto transform = p->GetComponent<Transform>().lock();
-			if (transform == nullptr) {
-				transform = p->AddComponent<Transform>().lock();
+			// Get Transform.
+			if (const auto transform = p->GetComponent<Transform>().lock()) {
+			
+				transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
+			
+				// Add Renderer.
+				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				renderer->SetMesh(Resources::GetMesh("woodfloor"));
+				renderer->SetMaterial(Resources::GetMaterial("woodfloor"));
+				renderer->SetTransform(transform);
+				
+				// Add Collider.
+				const auto collider = p->AddComponent<Physics::PlaneCollider>().lock();
+				collider->SetTransform(transform);
+				collider->SetType(Physics::Collider::Type::Plane);
+				
+				// Add Rigidbody.
+				const auto rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
+				rigidbody->SetTransform(transform);
+				rigidbody->SetCollider(collider);
+				rigidbody->Kinematic(true);
+				rigidbody->Gravity(false);
+				
+				collider->SetRigidbody(rigidbody);
 			}
-			
-			transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
-			
-			// Get or add Renderer.
-			auto renderer = s->Attach(p->AddComponent<Graphics::Renderer>().lock());
-			if (renderer == nullptr) {
-				renderer = p->AddComponent<Graphics::Renderer>().lock();
-			}
-			
-			renderer->SetMesh(Resources::GetMesh("woodfloor"));
-			renderer->SetMaterial(Resources::GetMaterial("woodfloor"));
-			renderer->SetTransform(transform);
-			
-			// Get or add Collider.
-			auto collider = s->Attach(p->AddComponent<Physics::PlaneCollider>().lock());
-			if (collider == nullptr) {
-				collider = p->AddComponent<Physics::PlaneCollider>().lock();
-			}
-			
-			collider->SetTransform(transform);
-			collider->SetType(Physics::Collider::Type::Plane);
-			
-			// Get or add rigidbody.
-			auto rigidbody = s->Attach(p->AddComponent<Physics::Rigidbody>().lock());
-			if (rigidbody == nullptr) {
-				rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
-			}
-			
-			rigidbody->SetTransform(transform);
-			rigidbody->SetCollider(collider);
-			rigidbody->Kinematic(true);
-			rigidbody->Gravity(false);
-			
-			collider->SetRigidbody(rigidbody);
 		}}
 	}
 	

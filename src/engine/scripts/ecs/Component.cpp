@@ -11,7 +11,7 @@ namespace LouiEriksson::ECS {
 	
 	Component::Component(const std::weak_ptr<GameObject>& _parent) noexcept :
 			m_GameObject(_parent),
-			m_Index(0)
+			m_Index(0u)
 	{
 		if (_parent.expired()) {
 			std::cout << "Warning: Component initialised with no valid parent!\n";

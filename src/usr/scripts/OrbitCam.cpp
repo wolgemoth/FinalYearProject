@@ -30,14 +30,11 @@ namespace LouiEriksson::Game {
 	
 	void OrbitCam::Begin() {
 		
-		if (const auto p = Parent().lock()) {
+		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
 			
-			// Get or add Transform.
+			// Get Transform.
 			m_Transform = p->GetComponent<Transform>();
-			if (m_Transform.expired()) {
-				m_Transform = p->AddComponent<Transform>();
-			}
 			
 			if (const auto t = m_Transform.lock()) {
 				
@@ -48,11 +45,8 @@ namespace LouiEriksson::Game {
 					)
 				);
 				
-				// Get or add Camera.
-				m_Camera = s->Attach(p->AddComponent<Graphics::Camera>().lock());
-				if (m_Camera.expired()) {
-					m_Camera = p->AddComponent<Graphics::Camera>();
-				}
+				// Add Camera.
+				m_Camera = p->AddComponent<Graphics::Camera>();
 				
 				// Update the camera's parameters to match the ones in Settings.
 				SyncCameraSettings();
@@ -66,10 +60,9 @@ namespace LouiEriksson::Game {
 				// Add a light to the scene for testing purposes.
 				// TODO: Add a light to the scene through the scene's file, not code.
 				{
-					auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
+					const auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
 					light_gameObject->AddComponent<Transform>();
-					
-					s->Attach(light_gameObject->AddComponent<Graphics::Light>().lock());
+					light_gameObject->AddComponent<Graphics::Light>();
 				}
 			}
 		}}

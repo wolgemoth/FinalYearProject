@@ -411,8 +411,6 @@ namespace LouiEriksson::ECS {
 							r->    AngularDrag(Serialisation::Deserialise<float>    (Serialisation::ParseNext(xml, log ? 3 : -1)));
 							
 							xml.finishNode();
-							
-							result->Attach(std::dynamic_pointer_cast<Script>(r));
 						}
 					}
 					else if (name == "Camera") {		// Deserialise Camera.
@@ -455,8 +453,6 @@ namespace LouiEriksson::ECS {
 					}
 					else if (name == "Script") {		// Deserialise Scripts...
 		
-						std::weak_ptr<Script> script;
-		
 						xml.startNode();
 		
 						std::string type;
@@ -466,17 +462,17 @@ namespace LouiEriksson::ECS {
 							std::cout << "\t\t\t\"" << type << "\"\n";
 						}
 						
-						     if (type == "class std::shared_ptr<class Ball>") {		// Ball
-							script = go->AddComponent<LouiEriksson::Game::Ball>();
+						if (type == "class std::shared_ptr<class Ball>") {		    // Ball
+							go->AddComponent<LouiEriksson::Game::Ball>();
 						}
 						else if (type == "class std::shared_ptr<class Plane>") {	// Plane
-							script = go->AddComponent<LouiEriksson::Game::Plane>();
+							go->AddComponent<LouiEriksson::Game::Plane>();
 						}
 						else if (type == "class std::shared_ptr<class OrbitCam>") {	// OrbitCam
-							script = go->AddComponent<LouiEriksson::Game::OrbitCam>();
+							go->AddComponent<LouiEriksson::Game::OrbitCam>();
 						}
 						else if (type == "class std::shared_ptr<class FlyCam>") {	// FlyCam
-							script = go->AddComponent<LouiEriksson::Game::FlyCam>();
+							go->AddComponent<LouiEriksson::Game::FlyCam>();
 						}
 						else {
 							std::stringstream err;
@@ -485,8 +481,6 @@ namespace LouiEriksson::ECS {
 						
 							throw std::runtime_error(err.str());
 						}
-		
-						result->Attach(script.lock());
 		
 						xml.finishNode();
 					}

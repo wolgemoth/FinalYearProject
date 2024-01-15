@@ -19,6 +19,7 @@
 #include <glm/common.hpp>
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
+#include <glm/ext/vector_float4.hpp>
 
 #include <SDL_mouse.h>
 #include <SDL_scancode.h>
@@ -40,39 +41,27 @@ namespace LouiEriksson::Game {
 	
 	void FlyCam::Begin() {
 		
-		if (const auto p = Parent().lock()) {
+		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
 		
-			// Get or add Transform.
-			// TODO: Do this better:
+			// Get Transform.
 			m_Transform = p->GetComponent<Transform>();
-			if (m_Transform.expired()) {
-				m_Transform = p->AddComponent<Transform>();
-			}
 			
 			// Get or add Camera.
+			m_Camera = p->AddComponent<Graphics::Camera>().lock();
+			
+			// Add AudioListener.
 			// TODO: Do this better:
-			m_Camera = s->Attach(p->AddComponent<Graphics::Camera>().lock());
-			if (m_Camera.expired()) {
-				m_Camera = p->AddComponent<Graphics::Camera>();
+			m_AudioListener = p->AddComponent<Audio::AudioListener>();
+			if (const auto al = m_AudioListener.lock()) {
+				al->Init();
 			}
 			
-			// Get or add AudioListener.
-			// TODO: Do this better:
-			m_AudioListener = p->GetComponent<Audio::AudioListener>();
-			if (m_AudioListener.expired()) {
-				m_AudioListener = p->AddComponent<Audio::AudioListener>();
+			// Add AudioSource.
+			m_GunSound = p->AddComponent<Audio::AudioSource>();
+			if (const auto as = m_GunSound.lock()) {
+				as->Clip(Resources::GetAudio("machineGun").lock());
 			}
-			m_AudioListener.lock()->Init();
-			
-			// Get or add AudioListener.
-			// TODO: Do this better:
-			m_GunSound = p->GetComponent<Audio::AudioSource>();
-			if (m_GunSound.expired()) {
-				m_GunSound = p->AddComponent<Audio::AudioSource>();
-			}
-			
-			m_GunSound.lock()->Clip(Resources::GetAudio("machineGun").lock());
 			
 			// Update the camera's parameters to match the ones in Settings.
 			SyncCameraSettings();
@@ -89,10 +78,9 @@ namespace LouiEriksson::Game {
 			// Add a light to the scene for testing purposes.
 			// TODO: Add a light to the scene through the scene's file, not code.
 			{
-				auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
+				const auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
 				light_gameObject->AddComponent<Transform>();
-				
-				s->Attach(light_gameObject->AddComponent<Graphics::Light>().lock());
+				light_gameObject->AddComponent<Graphics::Light>();
 			}
 		}}
 		

@@ -26,6 +26,7 @@ namespace LouiEriksson::ECS {
 	class Scene : public std::enable_shared_from_this<Scene> {
 	
 		friend LouiEriksson::Application;
+		friend GameObject;
 	
 	private:
 	

@@ -32,61 +32,41 @@ namespace LouiEriksson::Game {
 		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
 		
-			// Get or add component.
-			auto transform = p->GetComponent<Transform>().lock();
-			if (transform == nullptr) {
-				transform = p->AddComponent<Transform>().lock();
-			}
+			// Get Transform.
+			if (const auto t = p->GetComponent<Transform>().lock()) {
+	
+				// Get starting position.
+				m_StartingPosition = t->m_Position;
 			
-			// Get starting position.
-			m_StartingPosition = transform->m_Position;
-		
-			// Get radius.
-			m_Radius = glm::max(transform->m_Scale.x, glm::max(transform->m_Scale.y, transform->m_Scale.z));
-		
-			// Get or add renderer.
-			auto renderer = s->Attach(p->AddComponent<Graphics::Renderer>().lock());
-			if (renderer == nullptr) {
-				renderer = p->AddComponent<Graphics::Renderer>().lock();
-			}
-		
-			renderer->SetMesh(Resources::GetMesh("sphere"));
-			renderer->SetMaterial(Resources::GetMaterial("sphere"));
-			renderer->SetTransform(transform);
-		
-			// Get or add collider.
-			auto collider = s->Attach<Physics::SphereCollider>(p->AddComponent<Physics::SphereCollider>().lock());
-			if (collider == nullptr) {
-				collider = p->AddComponent<Physics::SphereCollider>().lock();
-			}
-		
-			collider->SetTransform(transform);
-			collider->SetType(Physics::Collider::Type::Sphere);
-			collider->Radius(m_Radius);
-		
-			// Get or add rigidbody.
-			auto rigidbody = s->Attach(p->AddComponent<Physics::Rigidbody>().lock());
-			if (rigidbody == nullptr) {
-				rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
-			}
+				// Get radius.
+				m_Radius = glm::max(t->m_Scale.x, glm::max(t->m_Scale.y, t->m_Scale.z));
 			
-			rigidbody->SetTransform(transform);
-			rigidbody->SetCollider(collider);
-			rigidbody->Mass(4.0f * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
-			rigidbody->Drag(0.005f); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-		
-			collider->SetRigidbody(rigidbody);
+				// Add Renderer.
+				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				renderer->SetMesh(Resources::GetMesh("sphere"));
+				renderer->SetMaterial(Resources::GetMaterial("sphere"));
+				renderer->SetTransform(t);
 			
-			// Get or add AudioSource.
-			m_AudioSource = p->AddComponent<Audio::AudioSource>();
-			if (m_AudioSource.expired()) {
+				// Add Collider.
+				const auto collider = p->AddComponent<Physics::SphereCollider>().lock();
+				collider->SetTransform(t);
+				collider->SetType(Physics::Collider::Type::Sphere);
+				collider->Radius(m_Radius);
+			
+				// Add Rigidbody.
+				const auto rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
+				rigidbody->SetTransform(t);
+				rigidbody->SetCollider(collider);
+				rigidbody->Mass(4.0f * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
+				rigidbody->Drag(0.005f); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
+			
+				collider->SetRigidbody(rigidbody);
+				
+				// Add AudioSource.
 				m_AudioSource = p->AddComponent<Audio::AudioSource>();
+				m_AudioSource.lock()->Clip(Resources::GetAudio("Hollow_Bass"));
+				m_AudioSource.lock()->Global(true);
 			}
-			
-			auto clip = Resources::GetAudio("Hollow_Bass");
-			
-			m_AudioSource.lock()->Clip(clip);
-			m_AudioSource.lock()->Global(true);
 		}}
 	}
 	
@@ -120,7 +100,7 @@ namespace LouiEriksson::Game {
 	
 	void Ball::OnCollision(const Physics::Collision& _collision) {
 		
-		if (const auto p = Parent().lock()) {
+		if (const auto  p = Parent().lock()) {
 		if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
 			
 			// Threshold impulse to play a sound.

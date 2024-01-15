@@ -4,6 +4,8 @@
 #include "../core/Script.h"
 #include "../core/utils/Hashmap.h"
 
+#include "Scene.h"
+
 #include <cstddef>
 #include <memory>
 #include <stdexcept>
@@ -17,7 +19,6 @@
 namespace LouiEriksson::ECS {
 	
 	class Component;
-	class Scene;
 	
 	/// <summary> An Entity which exists in a Scene and can contain Components. </summary>
 	class GameObject final : public std::enable_shared_from_this<GameObject> {
@@ -126,7 +127,23 @@ namespace LouiEriksson::ECS {
 			if (exists) {
 				result->m_Index = entries.size() - 1;
 			}
-			else if (!m_Components.Add(category, entries)) {
+			else if (m_Components.Add(category, entries)) {
+				
+				// Attach to scene:
+				if (const auto s = GetScene().lock()) {
+					
+					// If type derives from script, add it as a script.
+					if (std::is_base_of<Script, T>::value) {
+						s->Attach<Script>(std::dynamic_pointer_cast<Script>(result));
+					}
+					else {
+						
+						// Otherwise, add it as its current type.
+						s->Attach(result);
+					}
+				}
+			}
+			else {
 				result.reset();
 				
 				throw std::runtime_error("ERROR (GameObject.cpp [AddComponent<T>()]): Failed adding new Component to hashmap!");
@@ -143,6 +160,8 @@ namespace LouiEriksson::ECS {
 		template <typename T>
 		void RemoveComponent(size_t _index = 0) {
 	
+			std::cout << "TODO: call Detach!\n";
+			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
 			std::vector<std::shared_ptr<Component>> entries;
@@ -150,8 +169,8 @@ namespace LouiEriksson::ECS {
 	
 				// Bounds check.
 				if (_index < entries.size()) {
-	
-					// Remove component from category.
+					
+					// Remove component from collection.
 					entries.erase(entries.begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index);
 				}
 			}
