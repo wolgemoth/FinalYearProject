@@ -211,6 +211,7 @@ NestedBreak:
 			     UI::    GUI::Dispose();
 			Physics::Physics::Dispose();
 			  Input::  Input::Dispose();
+			  Audio::  Sound::Dispose();
 			
 			SDL_Quit();
 		}
