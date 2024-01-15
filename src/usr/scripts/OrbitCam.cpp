@@ -12,7 +12,7 @@
 #include "../../engine/scripts/graphics/Light.h"
 
 #include <glm/ext/matrix_transform.hpp>
-#include <glm/ext/vector_float4.hpp>
+#include <glm/ext/quaternion_float.hpp>
 #include <glm/trigonometric.hpp>
 
 #include <cmath>

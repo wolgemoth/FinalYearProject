@@ -3,7 +3,6 @@
 #include "../audio/AudioClip.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
-#include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
@@ -12,7 +11,6 @@
 #include <AL/al.h>
 #include <glm/common.hpp>
 
-#include <cfloat>
 #include <exception>
 #include <iostream>
 #include <limits>

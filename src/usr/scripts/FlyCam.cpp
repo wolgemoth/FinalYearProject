@@ -1,6 +1,7 @@
 #include "FlyCam.h"
 
 #include "../../engine/scripts/audio/AudioSource.h"
+#include "../../engine/scripts/audio/AudioListener.h"
 #include "../../engine/scripts/core/Resources.h"
 #include "../../engine/scripts/core/Script.h"
 #include "../../engine/scripts/core/Settings.h"
@@ -16,14 +17,9 @@
 #include "../../engine/scripts/input/Input.h"
 
 #include <glm/common.hpp>
-#include <glm/ext.hpp>
-#include <glm/ext/vector_float3.hpp>
-#include <glm/ext/vector_float4.hpp>
-#include <glm/glm.hpp>
-#include <glm/gtx/norm.hpp>
-#include <glm/gtx/projection.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/trigonometric.hpp>
 
-#include <SDL.h>
 #include <SDL_mouse.h>
 #include <SDL_scancode.h>
 
@@ -135,9 +131,9 @@ namespace LouiEriksson::Game {
 					);
 					
 					movement_input = glm::vec3(
-						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_A     ) - Input::Input::Key::Get(SDL_SCANCODE_D    )),
-						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_LSHIFT) - Input::Input::Key::Get(SDL_SCANCODE_LCTRL)),
-						static_cast<float>(Input::Input::Key::Get(SDL_SCANCODE_W     ) - Input::Input::Key::Get(SDL_SCANCODE_S    ))
+						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_A     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_D    ))),
+						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LSHIFT)) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LCTRL))),
+						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_W     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_S    )))
 					);
 					
 					if (Input::Input::Mouse::GetDown(SDL_BUTTON_LEFT)) {
@@ -156,9 +152,9 @@ namespace LouiEriksson::Game {
 					m_Rotation.x = glm::clamp(m_Rotation.x, -89.999f, 89.999f);
 					
 					const auto direction = glm::vec3(
-						glm::cos(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x)),
+						glm::cos(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x)),
 						glm::sin(glm::radians(m_Rotation.x)),
-						glm::sin(glm::radians(m_Rotation.y)) * cos(glm::radians(m_Rotation.x))
+						glm::sin(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x))
 					);
 					
 					t->m_Rotation = glm::quat(glm::lookAt(VEC_ZERO, direction, VEC_UP));

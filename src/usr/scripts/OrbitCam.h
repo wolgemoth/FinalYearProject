@@ -3,6 +3,8 @@
 
 #include "../../engine/scripts/core/Script.h"
 
+#include "Component.h"
+
 #include <glm/ext/vector_float3.hpp>
 
 #include <memory>

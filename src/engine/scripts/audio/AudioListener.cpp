@@ -2,7 +2,6 @@
 
 #include "../core/Time.h"
 #include "../core/Transform.h"
-#include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
