@@ -4,39 +4,23 @@ project(FinalYearProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto -DNDEBUG")
 
-set(     GAME_DIR ${PROJECT_SOURCE_DIR}/src/engine)
-set(   ENGINE_DIR ${PROJECT_SOURCE_DIR}/src/usr   )
+set(  GAME_DIR ${PROJECT_SOURCE_DIR}/src/engine)
+set(ENGINE_DIR ${PROJECT_SOURCE_DIR}/src/usr   )
 
+# ADD GLEW:
 set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/contrib/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
 set(GLEW_LIB_DIR     ${GLEW_DIR}/lib)
 
-set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/contrib/imgui)
-set(IMGUI_BACKENDS_DIR ${PROJECT_SOURCE_DIR}/contrib/imgui/backends)
-
-set(PELLET_DIR         ${PROJECT_SOURCE_DIR}/contrib/pellet/src/)
-set(PELLET_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/pellet/src/pellet)
-
+# ADD SDL:
 set(SDL2_DIR         ${PROJECT_SOURCE_DIR}/contrib/SDL2)
 set(SDL2_INCLUDE_DIR ${SDL2_DIR}/include)
 set(SDL2_LIB_DIR     ${SDL2_DIR}/lib/x86/)
 
-set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/contrib/openal)
-set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
-
-include_directories(
-        ${GLEW_INCLUDE_DIR}
-        ${IMGUI_DIR}
-        ${PELLET_INCLUDE_DIR}
-        ${PROJECT_SOURCE_DIR}/contrib/cereal/include
-        ${PROJECT_SOURCE_DIR}/contrib/glm
-        ${PROJECT_SOURCE_DIR}/contrib/stb/include/
-        ${PROJECT_SOURCE_DIR}/contrib/wavefront/include/
-        ${SDL2_INCLUDE_DIR}
-        ${OPENAL_INCLUDE_DIR}
-)
-
 # ADD IMGUI:
+set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/contrib/imgui)
+set(IMGUI_BACKENDS_DIR ${PROJECT_SOURCE_DIR}/contrib/imgui/backends)
+
 add_library(IMGUI STATIC
         ${IMGUI_DIR}/imgui.cpp                         # MAIN ...
         ${IMGUI_DIR}/imgui_demo.cpp
@@ -49,7 +33,10 @@ add_library(IMGUI STATIC
 )
 
 # ADD PELLET:
-add_library(PELLET
+set(PELLET_DIR         ${PROJECT_SOURCE_DIR}/contrib/pellet/src/)
+set(PELLET_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/pellet/src/pellet)
+
+add_library(PELLET STATIC
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3DynamicBvh.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3DynamicBvhBroadphase.cpp
         ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3OverlappingPairCache.cpp
@@ -220,8 +207,28 @@ add_library(PELLET
         ${PELLET_INCLUDE_DIR}/LinearMath/btVector3.cpp
 )
 
-add_executable(FinalYearProject
-        src/main.cpp
+# ADD OPENAL:
+set(OPENAL_DIR         ${PROJECT_SOURCE_DIR}/contrib/openal)
+set(OPENAL_INCLUDE_DIR ${OPENAL_DIR}/include)
+
+# TODO: Find out why OpenAL doesnt' work unless added like this, and replace this method.
+add_subdirectory(${OPENAL_DIR})
+
+# LINK:
+include_directories(
+        ${GLEW_INCLUDE_DIR}
+        ${IMGUI_DIR}
+        ${PELLET_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/contrib/cereal/include
+        ${PROJECT_SOURCE_DIR}/contrib/glm
+        ${PROJECT_SOURCE_DIR}/contrib/stb/include
+        ${PROJECT_SOURCE_DIR}/contrib/wavefront/include
+        ${SDL2_INCLUDE_DIR}
+        ${OPENAL_INCLUDE_DIR}
+)
+
+# ADD FINALYEARPROJECT:
+add_library(FinalYearProject STATIC
         src/engine/scripts/audio/AudioClip.cpp
         src/engine/scripts/audio/AudioClip.h
         src/engine/scripts/audio/AudioListener.cpp
@@ -297,20 +304,6 @@ add_executable(FinalYearProject
         src/engine/scripts/core/utils/Utils.h
 )
 
-add_library(Game
-        src/usr/scripts/Ball.cpp
-        src/usr/scripts/Ball.h
-        src/usr/scripts/FlyCam.cpp
-        src/usr/scripts/FlyCam.h
-        src/usr/scripts/OrbitCam.cpp
-        src/usr/scripts/OrbitCam.h
-        src/usr/scripts/Plane.cpp
-        src/usr/scripts/Plane.h
-)
-
-# TODO: Find out why OpenAL doesnt' work unless added like this, and replace this method.
-add_subdirectory(${OPENAL_DIR})
-
 link_directories(FinalYearProject
         ${GLEW_LIB_DIR}
         ${SDL2_LIB_DIR}
@@ -324,9 +317,39 @@ target_link_libraries(FinalYearProject
         PELLET
         SDL2
         SDL2main
-        Game
 )
 
+target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
+
+# ADD GAME:
+add_executable(Game
+        src/main.cpp
+
+        src/usr/scripts/Ball.cpp
+        src/usr/scripts/Ball.h
+        src/usr/scripts/FlyCam.cpp
+        src/usr/scripts/FlyCam.h
+        src/usr/scripts/OrbitCam.cpp
+        src/usr/scripts/OrbitCam.h
+        src/usr/scripts/Plane.cpp
+        src/usr/scripts/Plane.h
+)
+
+target_link_libraries(Game PRIVATE
+        FinalYearProject
+)
+
+target_precompile_headers(Game PRIVATE
+        src/usr/include/engine_ecs.h
+        src/usr/include/engine_audio.h
+        src/usr/include/engine_core.h
+        src/usr/include/engine_graphics.h
+        src/usr/include/engine_input.h
+        src/usr/include/engine_physics.h
+        src/usr/include/engine_ui.h
+)
+
+# COPY FILES:
 set(    AUDIO_DIR ${PROJECT_SOURCE_DIR}/src/engine/audio    )
 set(   LEVELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/levels   )
 set(   MODELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/models   )
@@ -340,6 +363,3 @@ file(COPY    ${MODELS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY   ${SHADERS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY  ${TEXTURES_DIR} DESTINATION ${PROJECT_BINARY_DIR})
 file(COPY ${MATERIALS_DIR} DESTINATION ${PROJECT_BINARY_DIR})
-
-target_precompile_headers(FinalYearProject PRIVATE src/stdafx.h)
-target_precompile_headers(Game PRIVATE src/stdafx.h)

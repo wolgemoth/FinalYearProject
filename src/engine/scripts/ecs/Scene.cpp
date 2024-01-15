@@ -12,6 +12,7 @@
 #include "../core/Transform.h"
 #include "../core/utils/Hashmap.h"
 #include "../ecs/Component.h"
+#include "../ecs/GameObject.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Light.h"
 #include "../graphics/Renderer.h"
@@ -112,18 +113,6 @@ namespace LouiEriksson::ECS {
 					
 					const auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(l);
 					rigidbody->Interpolate();
-				}
-			}
-		}
-		
-		/* UPDATE AUDIOLISTENERS */
-		if (m_Components.Get(typeid(Audio::AudioListener), items)) {
-			for (const auto& item : items) {
-				
-				if (const auto l = item.lock()) {
-					
-					const auto audioListener = std::dynamic_pointer_cast<Audio::AudioListener>(l);
-					audioListener->Tick();
 				}
 			}
 		}

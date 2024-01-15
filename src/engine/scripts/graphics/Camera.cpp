@@ -664,7 +664,6 @@ namespace LouiEriksson::Graphics {
 			// Reset resolution after shadow pass.
 			auto dimensions = w->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			// Set / reset culling mode (after shadow pass).
 			glCullFace(cullMode);
@@ -1057,7 +1056,7 @@ namespace LouiEriksson::Graphics {
 				v->Assign(v->AttributeID("u_Step"), dpiFactor * size);
 				  
 				// Blit into a temporary texture, and blur that once on the x, and once on the y.
-				RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		        Blit(_rt, tmp, h);
 		        Blit(tmp, tmp, v);
 				
@@ -1087,7 +1086,7 @@ namespace LouiEriksson::Graphics {
 				// Create a 32 by 32 render texture for the luminosity calculations.
 				const glm::ivec2 luma_res(32, 32);
 				
-				RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				
 				// Load a mask for the average luminosity calculation.
 				if (const auto mask = Resources::GetTexture("exposure_weights").lock()) {
@@ -1183,7 +1182,7 @@ namespace LouiEriksson::Graphics {
 			// to save performance by computing AO at a lower resolution.
 			const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
 			
-			RenderTexture ao_rt(
+			const RenderTexture ao_rt(
 				glm::max(viewport[2] / (downscale + 1), 1),
 				glm::max(viewport[3] / (downscale + 1), 1),
 				Texture::Parameters::Format(GL_RGB, false),
@@ -1260,7 +1259,7 @@ namespace LouiEriksson::Graphics {
 				threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), target::s_Threshold);
 				threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
 				
-				RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(m_RT, tmp, threshold_shader);
 				
 				/* DOWNSCALING */
@@ -1269,12 +1268,12 @@ namespace LouiEriksson::Graphics {
 		
 				// Mip chain. (currently hard-coded). TODO: Dynamically-sized mip chain.
 				const int scalingPasses = 6;
-				RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				const RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				
 				// Downscale passes:
 				Blit(tmp,  mip0, downscale_shader);

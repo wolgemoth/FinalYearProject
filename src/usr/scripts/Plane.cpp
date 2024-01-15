@@ -1,20 +1,5 @@
 #include "Plane.h"
 
-#include "../../engine/scripts/core/File.h"
-#include "../../engine/scripts/core/Resources.h"
-#include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/core/Transform.h"
-#include "../../engine/scripts/ecs/GameObject.h"
-#include "../../engine/scripts/ecs/Scene.h"
-#include "../../engine/scripts/graphics/Renderer.h"
-#include "../../engine/scripts/physics/colliders/PlaneCollider.h"
-#include "../../engine/scripts/physics/Rigidbody.h"
-#include "../../src/engine/scripts/physics/Collider.h"
-#include "../../src/engine/scripts/physics/Collision.h"
-
-#include <memory>
-#include <string>
-
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
 namespace LouiEriksson::Game {

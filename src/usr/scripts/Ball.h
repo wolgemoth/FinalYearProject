@@ -1,14 +1,8 @@
 #ifndef FINALYEARPROJECT_BALL_H
 #define FINALYEARPROJECT_BALL_H
 
-#include "../../engine/scripts/audio/AudioSource.h"
-#include "../../engine/scripts/core/Script.h"
-#include "../../engine/scripts/ecs/GameObject.h"
-#include "../../engine/scripts/graphics/Material.h"
-
-#include <glm/ext/vector_float3.hpp>
-
-#include <memory>
+#include "../include/engine_audio.h"
+#include "../include/engine_core.h"
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
