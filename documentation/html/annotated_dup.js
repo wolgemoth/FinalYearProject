@@ -41,6 +41,9 @@ var annotated_dup =
         [ "Physics", "class_loui_eriksson_1_1_physics_1_1_physics.html", "class_loui_eriksson_1_1_physics_1_1_physics" ],
         [ "Rigidbody", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html", "class_loui_eriksson_1_1_physics_1_1_rigidbody" ]
       ] ],
+      [ "Scripting", "namespace_loui_eriksson_1_1_scripting.html", [
+        [ "Injector", "class_loui_eriksson_1_1_scripting_1_1_injector.html", null ]
+      ] ],
       [ "UI", "namespace_loui_eriksson_1_1_u_i.html", [
         [ "GUI", "class_loui_eriksson_1_1_u_i_1_1_g_u_i.html", null ]
       ] ],

@@ -29,7 +29,7 @@ namespace LouiEriksson::Graphics {
 	class Texture;
 	
 	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
-	class Camera : public ECS::Component {
+	class Camera final : public ECS::Component {
 	
 		friend LouiEriksson::Window;
 	
@@ -110,6 +110,8 @@ namespace LouiEriksson::Graphics {
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
+		std::type_index TypeID() const noexcept override { return typeid(Camera); };
+		
 		/// <summary> Called before rendering. </summary>
 		void PreRender(const RenderFlags& _flags);
 		

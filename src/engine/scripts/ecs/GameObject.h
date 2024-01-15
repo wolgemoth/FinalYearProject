@@ -38,9 +38,48 @@ namespace LouiEriksson::ECS {
 		/// <summary> Components attached to the GameObject. </summary>
 		Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>> m_Components;
 	
+		/// <summary>
+		/// Attach a component to the GameObject.
+		/// </summary>
+		template <typename T>
+		const void Attach(const std::type_index _type, const std::shared_ptr<T>& _component) {
+			
+			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
+			
+			std::type_index category = typeid(T);
+			
+			std::vector<std::shared_ptr<Component>> entries;
+			const bool exists = m_Components.Get(category, entries);
+			
+			entries.emplace_back(_component);
+			
+			m_Components.Assign(category, entries);
+			
+			if (exists) {
+				_component->m_Index = entries.size() - 1;
+			}
+			else {
+				
+				// Attach to scene:
+				if (const auto s = GetScene().lock()) {
+					
+					/*
+					 * If type derives from script, attach it as a script.
+					 * Otherwise, attach it as current type.
+					 */
+					if (std::is_base_of<Script, T>::value) {
+						s->Attach<Script>(std::dynamic_pointer_cast<Script>(_component));
+					}
+					else {
+						s->Attach(_component);
+					}
+				}
+			}
+		}
+		
 		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept;
 		~GameObject() = default;
-	
+		
 	public:
 	
 		/// <summary> Set the name of the GameObject. </summary>
@@ -63,7 +102,7 @@ namespace LouiEriksson::ECS {
 		/// <summary>
 		/// Get Components of type attached to GameObject.
 		/// </summary>
-		/// <typeparam name="T">Type to be searched.</typeparam>
+		/// <typeparam name="T">TypeID to be searched.</typeparam>
 		/// <returns>Vector of std::shared_ptr<T> wrapping a std::shared_ptr<T></returns>
 		template <typename T>
 		std::vector<const std::weak_ptr<T>> GetComponents() const {
@@ -82,7 +121,7 @@ namespace LouiEriksson::ECS {
 		/// <summary>
 		/// Get a Component of type in the GameObject by index.
 		/// </summary>
-		/// <typeparam name="T">Type to be searched.</typeparam>
+		/// <typeparam name="T">TypeID to be searched.</typeparam>
 		/// <param name="_index">Index of the Component.</param>
 		/// <returns>const std::weak_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
 		template<typename T>
@@ -103,7 +142,7 @@ namespace LouiEriksson::ECS {
 		/// <summary>
 		/// Add a Component of type to the GameObject.
 		/// </summary>
-		/// <typeparam name="T">Type to be added.</typeparam>
+		/// <typeparam name="T">TypeID to be added.</typeparam>
 		/// <returns>const::weak_ptr<T>& referencing the created type.</returns>
 		template <typename T>
 		const std::weak_ptr<T> AddComponent() {
@@ -113,43 +152,17 @@ namespace LouiEriksson::ECS {
 			// Create a new instance of the component, taking a pointer to this gameobject.
 			auto result = std::shared_ptr<T>(new T(shared_from_this()));
 			
-			std::type_index category = typeid(T);
+			// Attach the component to the GameObject.
+			Attach(typeid(T), result);
 			
-			std::vector<std::shared_ptr<Component>> entries;
-			const bool exists = m_Components.Get(category, entries);
-			
-			entries.emplace_back(result);
-			
-			m_Components.Assign(category, entries);
-			
-			if (exists) {
-				result->m_Index = entries.size() - 1;
-			}
-			else {
-				
-				// Attach to scene:
-				if (const auto s = GetScene().lock()) {
-					
-					/*
-					 * If type derives from script, attach it as a script.
-					 * Otherwise, attach it as current type.
-					 */
-					if (std::is_base_of<Script, T>::value) {
-						s->Attach<Script>(std::dynamic_pointer_cast<Script>(result));
-					}
-					else {
-						s->Attach(result);
-					}
-				}
-			}
-			
+			// Return a weak reference to the component.
 			return result;
 		}
-	
+		
 		/// <summary>
 		/// Remove a Component of type from the GameObject, using an index.
 		/// </summary>
-		/// <typeparam name="T">Type to be searched.</typeparam>
+		/// <typeparam name="T">TypeID to be searched.</typeparam>
 		/// <param name="_index">Index of the component.</param>
 		template <typename T>
 		void RemoveComponent(size_t _index = 0) {

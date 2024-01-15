@@ -333,6 +333,7 @@ add_executable(Game
         src/usr/scripts/OrbitCam.h
         src/usr/scripts/Plane.cpp
         src/usr/scripts/Plane.h
+        src/usr/core/Injector.h
 )
 
 target_link_libraries(Game PRIVATE

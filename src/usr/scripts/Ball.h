@@ -1,5 +1,5 @@
-#ifndef FINALYEARPROJECT_BALL_H
-#define FINALYEARPROJECT_BALL_H
+#ifndef GAME_BALL_H
+#define GAME_BALL_H
 
 #include "../include/engine_audio.h"
 #include "../include/engine_core.h"
@@ -42,9 +42,11 @@ namespace LouiEriksson::Game {
 	
 		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Ball() override;
+		
+		std::type_index TypeID() const noexcept override { return typeid(Ball); };
 	
 	};
 	
 } // LouiEriksson::Game
 
-#endif //FINALYEARPROJECT_BALL_H
+#endif //GAME_BALL_H

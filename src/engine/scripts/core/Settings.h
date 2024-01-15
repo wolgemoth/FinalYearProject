@@ -69,8 +69,8 @@ namespace LouiEriksson {
 					inline static bool s_Enabled { true };
 					
 					inline static glm::vec3 s_Speed  { -0.25f, 0.33f,   0.5f };
-					inline static glm::vec3 s_Amount {   0.0f,  4.0f,   5.0f };
-					inline static glm::vec3 s_Offset {   0.0f,  2.5f, -12.0f };
+					inline static glm::vec3 s_Amount {   0.0f,  3.0f,   5.0f };
+					inline static glm::vec3 s_Offset {   0.0f,  6.0f, -12.0f };
 				};
 				
 			};

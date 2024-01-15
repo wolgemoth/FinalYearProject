@@ -1,12 +1,13 @@
 <map id="src/engine/scripts/graphics/Camera.h" name="src/engine/scripts/graphics/Camera.h">
-<area shape="rect" id="node1" title=" " alt="" coords="357,5,505,47"/>
-<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="5,95,152,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="144,169,221,196"/>
-<area shape="rect" id="node5" href="$_render_texture_8h.html" title=" " alt="" coords="227,95,413,121"/>
-<area shape="rect" id="node8" title=" " alt="" coords="438,95,645,121"/>
-<area shape="rect" id="node9" title=" " alt="" coords="669,95,859,121"/>
-<area shape="rect" id="node10" title=" " alt="" coords="883,95,946,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="43,169,114,196"/>
-<area shape="rect" id="node6" href="$_texture_8h.html" title=" " alt="" coords="259,169,354,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="307,244,392,271"/>
+<area shape="rect" id="node1" title=" " alt="" coords="420,5,568,47"/>
+<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="69,95,215,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="213,169,290,196"/>
+<area shape="rect" id="node6" href="$_render_texture_8h.html" title=" " alt="" coords="290,95,477,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="501,95,708,121"/>
+<area shape="rect" id="node10" title=" " alt="" coords="733,95,922,121"/>
+<area shape="rect" id="node11" title=" " alt="" coords="947,95,1009,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,76,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="100,169,187,196"/>
+<area shape="rect" id="node7" href="$_texture_8h.html" title=" " alt="" coords="325,169,420,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="373,244,458,271"/>
 </map>

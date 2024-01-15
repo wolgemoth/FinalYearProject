@@ -1,5 +1,5 @@
-#ifndef FINALYEARPROJECT_FLYCAM_H
-#define FINALYEARPROJECT_FLYCAM_H
+#ifndef GAME_FLYCAM_H
+#define GAME_FLYCAM_H
 
 #include "../include/engine_audio.h"
 #include "../include/engine_core.h"
@@ -53,8 +53,9 @@ namespace LouiEriksson::Game {
 		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~FlyCam() override;
 	
+		std::type_index TypeID() const noexcept override { return typeid(FlyCam); };
 	};
 	
 } // LouiEriksson::Game
 
-#endif //FINALYEARPROJECT_FLYCAM_H
+#endif //GAME_FLYCAM_H

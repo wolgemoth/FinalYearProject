@@ -9,7 +9,7 @@
 
 namespace LouiEriksson::Graphics {
 	
-	class RenderTexture : public Texture {
+	class RenderTexture final : public Texture {
 		
 		friend class Camera;
 		friend class Light;

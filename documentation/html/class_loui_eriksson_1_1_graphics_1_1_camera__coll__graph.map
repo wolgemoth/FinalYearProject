@@ -1,4 +1,4 @@
 <map id="LouiEriksson::Graphics::Camera" name="LouiEriksson::Graphics::Camera">
-<area shape="rect" id="node1" title="Camera class for 3D rendering of a scene from a perspective." alt="" coords="5,233,241,941"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="19,5,228,185"/>
+<area shape="rect" id="node1" title="Camera class for 3D rendering of a scene from a perspective." alt="" coords="5,263,241,1000"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="19,5,228,215"/>
 </map>

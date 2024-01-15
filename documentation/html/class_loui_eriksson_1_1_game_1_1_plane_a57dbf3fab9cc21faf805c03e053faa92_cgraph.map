@@ -1,6 +1,6 @@
 <map id="LouiEriksson::Game::Plane::Begin" name="LouiEriksson::Game::Plane::Begin">
 <area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,71,156,112"/>
 <area shape="rect" id="node2" href="$class_loui_eriksson_1_1_resources.html#a0174d528d0ac2cbf7e86462c22a3c158" title=" " alt="" coords="204,5,383,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="220,71,367,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_file.html#a714a8efecd50d71509b4033fe9fcbf78" title=" " alt="" coords="226,136,361,177"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_resources.html#a330943fbd56e2d31855e1cc5b94747f8" title=" " alt="" coords="204,71,383,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="220,136,367,177"/>
 </map>

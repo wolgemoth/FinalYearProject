@@ -9,6 +9,8 @@
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
 
+#include "utils/Hashmap.h"
+
 #include "Resources.h"
 #include "Settings.h"
 #include "Window.h"
@@ -24,17 +26,19 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
+#include <typeindex>
 #include <vector>
 
 namespace LouiEriksson {
 	
-	int Application::Main() {
+	int Application::Main(const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 		
 		// Restrict Main() to one instance.
 		if (!s_Initialised) {
 			 s_Initialised = true;
-			
+			 
 			srand(0u); // Use a constant seed (like '0') for deterministic behaviour.
 			
 			/* CREATE A MAIN WINDOW */
@@ -73,10 +77,8 @@ namespace LouiEriksson {
 			UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/gep.scene");
+			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 			scene->Begin();
-			
-			//scene->Save("levels/TEST.scene");
 	
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(1.0f / 60.0f);

@@ -2,6 +2,7 @@ var class_loui_eriksson_1_1_audio_1_1_audio_source =
 [
     [ "AudioSource", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#acb781fcb41b127b55d2731b1f9ff3b6e", null ],
     [ "~AudioSource", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#af1a95d5c616abf78e567142de2e43079", null ],
+    [ "Begin", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a20fa01d02b56a252a0c9b32c42bc6fe0", null ],
     [ "Clip", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a81c22e4a3955f5df3d4fefe23a471467", null ],
     [ "Clip", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a750e18096709a6c8b514bf9855d5ca93", null ],
     [ "Gain", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a6126dc709de52bacb5da9dec907d48b8", null ],
@@ -34,5 +35,6 @@ var class_loui_eriksson_1_1_audio_1_1_audio_source =
     [ "Rolloff", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#af91205def34e71b79192ed3f725365f3", null ],
     [ "State", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a1350f73c092e9235ed51de03d5a2cffe", null ],
     [ "Stop", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a5bc99c07c7969748854c70d434e3d354", null ],
-    [ "Tick", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#a286bdd14f8d7634e8df14a18d3550bdb", null ]
+    [ "Tick", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#ad034e50b133c7d9a7326e3a46abcb994", null ],
+    [ "TypeID", "class_loui_eriksson_1_1_audio_1_1_audio_source.html#add48fc2de9d921ff80e7e18e23e1dba4", null ]
 ];

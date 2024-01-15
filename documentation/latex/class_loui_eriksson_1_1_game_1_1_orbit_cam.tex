@@ -35,7 +35,9 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Orbit\+Cam\+:
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a91ed28d1ba90a6aa4ebd1a4b03be17ec}{Orbit\+Cam}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a96aadbc26d428996ff6f3fd8f00c7564}{$\sim$\+Orbit\+Cam}} () override
-\end{DoxyCompactItemize}
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a06bf4060d59219cd95ccbe9fc895bc72}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -63,7 +65,7 @@ Camera that orbits a target.
 
 
 
-Definition at line 30 of file Orbit\+Cam.\+h.
+Definition at line 13 of file Orbit\+Cam.\+h.
 
 
 
@@ -76,8 +78,16 @@ Definition at line 30 of file Orbit\+Cam.\+h.
 
 
 
-Definition at line 25 of file Orbit\+Cam.\+cpp.
+Definition at line 7 of file Orbit\+Cam.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_orbit_cam_a91ed28d1ba90a6aa4ebd1a4b03be17ec_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_a96aadbc26d428996ff6f3fd8f00c7564}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_a96aadbc26d428996ff6f3fd8f00c7564}} 
 \index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!````~OrbitCam@{$\sim$OrbitCam}}
 \index{````~OrbitCam@{$\sim$OrbitCam}!LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}}
@@ -103,7 +113,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5
 
 
 
-Definition at line 31 of file Orbit\+Cam.\+cpp.
+Definition at line 13 of file Orbit\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -125,7 +135,7 @@ Synchronise the camera\textquotesingle{}s parameters with the ones defined in \m
 
 
 
-Definition at line 103 of file Orbit\+Cam.\+cpp.
+Definition at line 78 of file Orbit\+Cam.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -151,7 +161,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 78 of file Orbit\+Cam.\+cpp.
+Definition at line 53 of file Orbit\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -159,6 +169,32 @@ Here is the call graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_orbit_cam_af6d8c0473dc35064718630aae5858dc3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_a06bf4060d59219cd95ccbe9fc895bc72}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_a06bf4060d59219cd95ccbe9fc895bc72}} 
+\index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Orbit\+Cam\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Loui\+Eriksson\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 45 of file Orbit\+Cam.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_orbit_cam_a06bf4060d59219cd95ccbe9fc895bc72_cgraph}
 \end{center}
 \end{figure}
 
@@ -176,7 +212,7 @@ Progression of the animation.
 
 
 
-Definition at line 46 of file Orbit\+Cam.\+h.
+Definition at line 29 of file Orbit\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_afa9f18db0ee7e3e38818aa7f639b72f9}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_afa9f18db0ee7e3e38818aa7f639b72f9}} 
 \index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!m\_Camera@{m\_Camera}}
@@ -190,7 +226,7 @@ Camera of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam}{Orbit
 
 
 
-Definition at line 35 of file Orbit\+Cam.\+h.
+Definition at line 18 of file Orbit\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_a86389e19d1096747126a28b0918fc0ea}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_a86389e19d1096747126a28b0918fc0ea}} 
 \index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!m\_Target@{m\_Target}}
@@ -204,7 +240,7 @@ Target of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam}{Orbit
 
 
 
-Definition at line 43 of file Orbit\+Cam.\+h.
+Definition at line 26 of file Orbit\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_orbit_cam_a92e25990f0ca1fe71b7e44503bd0ea4f}\label{class_loui_eriksson_1_1_game_1_1_orbit_cam_a92e25990f0ca1fe71b7e44503bd0ea4f}} 
 \index{LouiEriksson::Game::OrbitCam@{LouiEriksson::Game::OrbitCam}!m\_Transform@{m\_Transform}}
@@ -218,7 +254,7 @@ Definition at line 43 of file Orbit\+Cam.\+h.
 
 
 
-Definition at line 40 of file Orbit\+Cam.\+h.
+Definition at line 23 of file Orbit\+Cam.\+h.
 
 
 

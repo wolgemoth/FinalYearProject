@@ -35,7 +35,9 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Plane\+:
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_a6d03ac7d59c09e2f77adf3fb0e07e50d}{Plane}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_a47c05d0b9befc76154def03d137aa51e}{$\sim$\+Plane}} () override
-\end{DoxyCompactItemize}
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_a3c055b0b4f31298349e6355df52223a8}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -46,8 +48,6 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_ae44b572acd6fdc748a
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_mesh}{Graphics\+::\+Mesh}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_adace485fb9fdf56f91a27a46ecf01f9f}{m\+\_\+\+Mesh}} \{ nullptr \}
-\begin{DoxyCompactList}\small\item\em Mesh of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane}{Plane}}. \end{DoxyCompactList}\item 
 static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_material}{Graphics\+::\+Material}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_a7e56078f111174a634639cacfbe5c47d}{m\+\_\+\+Material}}
 \begin{DoxyCompactList}\small\item\em Material of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane}{Plane}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -57,7 +57,7 @@ A \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane}{Plane}} with Collisio
 
 
 
-Definition at line 17 of file Plane.\+h.
+Definition at line 13 of file Plane.\+h.
 
 
 
@@ -70,8 +70,16 @@ Definition at line 17 of file Plane.\+h.
 
 
 
-Definition at line 22 of file Plane.\+cpp.
+Definition at line 7 of file Plane.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_plane_a6d03ac7d59c09e2f77adf3fb0e07e50d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_plane_a47c05d0b9befc76154def03d137aa51e}\label{class_loui_eriksson_1_1_game_1_1_plane_a47c05d0b9befc76154def03d137aa51e}} 
 \index{LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}!````~Plane@{$\sim$Plane}}
 \index{````~Plane@{$\sim$Plane}!LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}}
@@ -97,7 +105,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5
 
 
 
-Definition at line 25 of file Plane.\+cpp.
+Definition at line 10 of file Plane.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -123,8 +131,34 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 83 of file Plane.\+cpp.
+Definition at line 43 of file Plane.\+cpp.
 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_plane_a3c055b0b4f31298349e6355df52223a8}\label{class_loui_eriksson_1_1_game_1_1_plane_a3c055b0b4f31298349e6355df52223a8}} 
+\index{LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Plane\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Loui\+Eriksson\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 31 of file Plane.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_plane_a3c055b0b4f31298349e6355df52223a8_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -140,21 +174,7 @@ Material of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane}{Plane}}
 
 
 
-Definition at line 25 of file Plane.\+h.
-
-\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_plane_adace485fb9fdf56f91a27a46ecf01f9f}\label{class_loui_eriksson_1_1_game_1_1_plane_adace485fb9fdf56f91a27a46ecf01f9f}} 
-\index{LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}!m\_Mesh@{m\_Mesh}}
-\index{m\_Mesh@{m\_Mesh}!LouiEriksson::Game::Plane@{LouiEriksson::Game::Plane}}
-\doxysubsubsection{\texorpdfstring{m\_Mesh}{m\_Mesh}}
-{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_mesh}{Graphics\+::\+Mesh}}$>$ Loui\+Eriksson\+::\+Game\+::\+Plane\+::m\+\_\+\+Mesh \{ nullptr \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
-
-
-
-Mesh of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane}{Plane}}. 
-
-
-
-Definition at line 22 of file Plane.\+h.
+Definition at line 18 of file Plane.\+h.
 
 
 

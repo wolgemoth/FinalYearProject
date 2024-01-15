@@ -15,7 +15,7 @@ namespace LouiEriksson {
 
 namespace LouiEriksson::Graphics {
 	
-	class Cubemap : public Texture {
+	class Cubemap final : public Texture {
 	
 		friend LouiEriksson::File;
 		

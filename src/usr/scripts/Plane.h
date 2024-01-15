@@ -1,5 +1,5 @@
-#ifndef FINALYEARPROJECT_PLANE_H
-#define FINALYEARPROJECT_PLANE_H
+#ifndef GAME_PLANE_H
+#define GAME_PLANE_H
 
 #include "../include/engine_core.h"
 
@@ -28,8 +28,9 @@ namespace LouiEriksson::Game {
 		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Plane() override;
 	
+		std::type_index TypeID() const noexcept override { return typeid(Plane); };
 	};
 	
 } // LouiEriksson::Game
 
-#endif //FINALYEARPROJECT_PLANE_H
+#endif //GAME_PLANE_H

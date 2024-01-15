@@ -32,6 +32,8 @@ Collaboration diagram for Loui\+Eriksson\+::ECS\+::Component\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+virtual std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Type\+ID}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
 virtual const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344}{Parent}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}\textquotesingle{}s parent \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
@@ -48,7 +50,7 @@ Represents a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Compo
 
 
 
-Definition at line 14 of file Component.\+h.
+Definition at line 15 of file Component.\+h.
 
 
 
@@ -98,6 +100,20 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_component_ae0703b1da49cd5d4218e1bfd701b5344_icgraph}
 \end{center}
 \end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}\label{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}} 
+\index{LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::ECS::Component@{LouiEriksson::ECS::Component}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily virtual std\+::type\+\_\+index Loui\+Eriksson\+::\+ECS\+::\+Component\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}}\textquotesingle{}s derived type. 
+
+
+
+Implemented in \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_plane_a3c055b0b4f31298349e6355df52223a8}{Loui\+Eriksson\+::\+Game\+::\+Plane}}, \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_orbit_cam_a06bf4060d59219cd95ccbe9fc895bc72}{Loui\+Eriksson\+::\+Game\+::\+Orbit\+Cam}}, \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a2dd7b2ea93343dde98f2b19bc9bc23e7}{Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam}}, \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_ball_aadabd8556db3a426d38a5b677876f141}{Loui\+Eriksson\+::\+Game\+::\+Ball}}, \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_rigidbody_a7a509245e3bc3e8886b942ae0b9363ec}{Loui\+Eriksson\+::\+Physics\+::\+Rigidbody}}, \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_sphere_collider_a97699525ff76ba3fcd1cb9da65d673af}{Loui\+Eriksson\+::\+Physics\+::\+Sphere\+Collider}}, \mbox{\hyperlink{class_loui_eriksson_1_1_physics_1_1_plane_collider_a92bbd8d0643866ea7de19dc42e76c0ed}{Loui\+Eriksson\+::\+Physics\+::\+Plane\+Collider}}, \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_renderer_a6eccc2e30842a64c19d72b25778b1c5e}{Loui\+Eriksson\+::\+Graphics\+::\+Renderer}}, \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_light_a46e3f2a9ae79af2fa6d0a91d86610922}{Loui\+Eriksson\+::\+Graphics\+::\+Light}}, \mbox{\hyperlink{class_loui_eriksson_1_1_graphics_1_1_camera_a7380881f085b0b12a69769ef017421c5}{Loui\+Eriksson\+::\+Graphics\+::\+Camera}}, \mbox{\hyperlink{struct_loui_eriksson_1_1_transform_aa16644a6c897364f746feeb7ebb60585}{Loui\+Eriksson\+::\+Transform}}, \mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_source_add48fc2de9d921ff80e7e18e23e1dba4}{Loui\+Eriksson\+::\+Audio\+::\+Audio\+Source}}, and \mbox{\hyperlink{class_loui_eriksson_1_1_audio_1_1_audio_listener_a12424d9b95dfcf8503e091bc2f69bacc}{Loui\+Eriksson\+::\+Audio\+::\+Audio\+Listener}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

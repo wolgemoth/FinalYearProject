@@ -15,6 +15,7 @@
 namespace LouiEriksson {
 	
 	class Application;
+	class Script;
 	
 } // LouiEriksson
 
@@ -23,7 +24,7 @@ namespace LouiEriksson::ECS {
 	class Component;
 	class GameObject;
 	
-	class Scene : public std::enable_shared_from_this<Scene> {
+	class Scene final : public std::enable_shared_from_this<Scene> {
 	
 		friend LouiEriksson::Application;
 		friend GameObject;
@@ -62,7 +63,7 @@ namespace LouiEriksson::ECS {
 		void Save(const std::filesystem::path& _path);
 	
 		/// <summary> TryLoad the Scene from xml format at a given path. </summary>
-		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path);
+		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path, const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers);
 	
 		/// <summary> Attach an instance of a type to the Scene. </summary>
 		template<class T>

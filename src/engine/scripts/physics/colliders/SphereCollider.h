@@ -22,6 +22,8 @@ namespace LouiEriksson::Physics {
 		explicit SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent);
 		~SphereCollider() override;
 		
+		std::type_index TypeID() const noexcept override { return typeid(SphereCollider); };
+		
 		/// <summary> Set the radius of the SphereCollider. </summary>
 		void Radius(const float& _radius);
 		

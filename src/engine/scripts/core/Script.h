@@ -4,6 +4,7 @@
 #include "../ecs/Component.h"
 
 #include <memory>
+#include <typeindex>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
@@ -20,6 +21,12 @@ namespace LouiEriksson::Physics {
 	
 } // LouiEriksson::Physics
 
+namespace LouiEriksson::Scripts {
+	
+	class ScriptInjector;
+	
+} // LouiEriksson::Scripts
+
 namespace LouiEriksson {
 
 	/// <summary>
@@ -28,6 +35,7 @@ namespace LouiEriksson {
 	class Script : public ECS::Component {
 	
 		friend ECS::Scene;
+		friend Scripts::ScriptInjector;
 	
 	protected:
 	

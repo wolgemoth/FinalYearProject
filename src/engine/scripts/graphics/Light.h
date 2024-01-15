@@ -21,7 +21,7 @@ namespace LouiEriksson::Graphics {
 	
 	class Camera;
 	
-	class Light : public ECS::Component {
+	class Light final : public ECS::Component {
 	
 		friend Camera;
 		
@@ -34,7 +34,7 @@ namespace LouiEriksson::Graphics {
 			
 		public:
 			
-			/// <summary> Type of the Light. </summary>
+			/// <summary> TypeID of the Light. </summary>
 			enum Type : char {
 				
 				/// <summary> Light is a Point Light. </summary>
@@ -77,6 +77,8 @@ namespace LouiEriksson::Graphics {
 		
 		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Light() override;
+		
+		std::type_index TypeID() const noexcept override { return typeid(Light); };
 		
 		void Type(const Light::Parameters::Type& _type);
 		

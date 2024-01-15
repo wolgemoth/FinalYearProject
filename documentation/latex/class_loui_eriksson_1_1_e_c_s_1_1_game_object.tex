@@ -60,7 +60,7 @@ An Entity which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_s
 
 
 
-Definition at line 23 of file Game\+Object.\+h.
+Definition at line 25 of file Game\+Object.\+h.
 
 
 
@@ -78,7 +78,7 @@ Add a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & Type to be added.\\
+{\em T} & Type\+ID to be added.\\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -86,16 +86,8 @@ const\+::weak\+\_\+ptr$<$\+T$>$\& referencing the created type.
 \end{DoxyReturn}
 
 
-Definition at line 107 of file Game\+Object.\+h.
+Definition at line 148 of file Game\+Object.\+h.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a341f5191b602d7f66caa462b654c7c55_cgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a28b3935eccb03f349ae9323ea1f85e79}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_a28b3935eccb03f349ae9323ea1f85e79}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Components@{Components}}
 \index{Components@{Components}!LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}}
@@ -145,7 +137,7 @@ Get a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component}} 
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & Type to be searched.\\
+{\em T} & Type\+ID to be searched.\\
 \hline
 \end{DoxyTemplParams}
 
@@ -158,7 +150,7 @@ const std\+::weak\+\_\+ptr$<$\+T$>$ Referencing the \mbox{\hyperlink{class_loui_
 \end{DoxyReturn}
 
 
-Definition at line 87 of file Game\+Object.\+h.
+Definition at line 128 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -181,7 +173,7 @@ Get Components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & Type to be searched.\\
+{\em T} & Type\+ID to be searched.\\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
@@ -189,7 +181,7 @@ Vector of std\+::shared\+\_\+ptr$<$\+T$>$ wrapping a std\+::shared\+\_\+ptr$<$\+
 \end{DoxyReturn}
 
 
-Definition at line 67 of file Game\+Object.\+h.
+Definition at line 108 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -213,6 +205,14 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_scene}{Scene}} the \m
 
 Definition at line 40 of file Game\+Object.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_e_c_s_1_1_game_object_aa144649bb5d3c77a275dac699287062b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab1068c29cb3e2a9e3d1f43d347c2f52b}\label{class_loui_eriksson_1_1_e_c_s_1_1_game_object_ab1068c29cb3e2a9e3d1f43d347c2f52b}} 
 \index{LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}!Name@{Name}}
 \index{Name@{Name}!LouiEriksson::ECS::GameObject@{LouiEriksson::ECS::GameObject}}
@@ -254,7 +254,7 @@ Remove a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & Type to be searched.\\
+{\em T} & Type\+ID to be searched.\\
 \hline
 \end{DoxyTemplParams}
 
@@ -264,7 +264,7 @@ Remove a \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component}{Component
 \end{DoxyParams}
 
 
-Definition at line 144 of file Game\+Object.\+h.
+Definition at line 168 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak

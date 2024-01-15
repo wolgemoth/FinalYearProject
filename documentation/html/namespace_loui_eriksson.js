@@ -6,6 +6,8 @@ var namespace_loui_eriksson =
     [ "Graphics", "namespace_loui_eriksson_1_1_graphics.html", "namespace_loui_eriksson_1_1_graphics" ],
     [ "Input", "namespace_loui_eriksson_1_1_input.html", "namespace_loui_eriksson_1_1_input" ],
     [ "Physics", "namespace_loui_eriksson_1_1_physics.html", "namespace_loui_eriksson_1_1_physics" ],
+    [ "Scripting", "namespace_loui_eriksson_1_1_scripting.html", "namespace_loui_eriksson_1_1_scripting" ],
+    [ "Scripts", "namespace_loui_eriksson_1_1_scripts.html", null ],
     [ "UI", "namespace_loui_eriksson_1_1_u_i.html", "namespace_loui_eriksson_1_1_u_i" ],
     [ "Application", "class_loui_eriksson_1_1_application.html", "class_loui_eriksson_1_1_application" ],
     [ "File", "class_loui_eriksson_1_1_file.html", "class_loui_eriksson_1_1_file" ],

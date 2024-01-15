@@ -50,10 +50,10 @@ namespace LouiEriksson::Physics {
 		/// <summary> Get the Rigidbody of the Collider. </summary>
 		[[nodiscard]] const std::weak_ptr<Rigidbody>& GetRigidbody() const noexcept;
 	
-		/// <summary> Set the Collider's Type. </summary>
+		/// <summary> Set the Collider's TypeID. </summary>
 		void SetType(const Type& _type) noexcept;
 		
-		/// <summary> Get the Collider's Type. </summary>
+		/// <summary> Get the Collider's TypeID. </summary>
 		[[nodiscard]] const Type& GetType() const noexcept;
 	
 	protected:

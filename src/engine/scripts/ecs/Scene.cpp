@@ -1,10 +1,5 @@
 #include "Scene.h"
 
-#include "../../../usr/scripts/Ball.h"
-#include "../../../usr/scripts/FlyCam.h"
-#include "../../../usr/scripts/OrbitCam.h"
-#include "../../../usr/scripts/Plane.h"
-
 #include "../audio/AudioListener.h"
 #include "../core/File.h"
 #include "../core/Script.h"
@@ -20,8 +15,8 @@
 #include "../physics/Collision.h"
 #include "../physics/Rigidbody.h"
 
-#include <cereal/cereal.hpp>
 #include <cereal/archives/xml.hpp>
+#include <cereal/cereal.hpp>
 
 #include <cstddef>
 #include <exception>
@@ -192,138 +187,109 @@ namespace LouiEriksson::ECS {
 	
 			auto xml = cereal::XMLOutputArchive(ofStream);
 	
-			auto map = Components().GetAll();
-	
 			xml.setNextName("Entities"); // Start "Entities"
 			xml.startNode();
 	
-			for (const auto& category : map) {
-	
-				const auto& items = category.second;
-	
-				for (const auto& item : items) {
-	
-					if (const auto l = item.lock()) {
-						
-						if (category.first == typeid(GameObject)) { // Only serialise things attached to GameObject.
-		
-							auto entity = std::dynamic_pointer_cast<GameObject>(l);
-		
-							auto subCategories = entity->Components().GetAll();
-		
-							xml.setNextName(entity->Name().c_str());
+			for (const auto& entity : m_Entities) { // Only serialise things attached to GameObject.
+
+				xml.setNextName(entity->Name().c_str());
+				xml.startNode();
+
+				for (const auto& kvp : entity->Components().GetAll()) {
+
+					const auto& components = kvp.second;
+
+					if  (kvp.first == typeid(Transform)) {		// Serialise Transform.
+
+						for (const auto& component : components) {
+
+							auto transform = std::dynamic_pointer_cast<Transform>(component);
+
+							xml.setNextName(kvp.first.name());
 							xml.startNode();
-		
-							for (const auto& subCategory : subCategories) {
-		
-								const auto& components = subCategory.second;
-		
-								if (subCategory.first == typeid(Transform)) {		// Serialise Transform.
-		
-									for (const auto& component : components) {
-		
-										auto transform = std::dynamic_pointer_cast<Transform>(component);
-		
-										xml.setNextName("Transform");
-										xml.startNode();
-		
-										xml(cereal::make_nvp("Position", Serialisation::Serialise(transform->m_Position)));
-										xml(cereal::make_nvp("Rotation", Serialisation::Serialise(transform->m_Rotation)));
-										xml(cereal::make_nvp("Scale",    Serialisation::Serialise(transform->m_Scale)));
-		
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Physics::Rigidbody)) {	// Serialise Rigidbody.
-		
-									for (const auto& component : components) {
-		
-										auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(component);
-		
-										xml.setNextName("Rigidbody");
-										xml.startNode();
-		
-										xml(cereal::make_nvp("Velocity", Serialisation::Serialise(rigidbody->Velocity())));
-										xml(cereal::make_nvp("AngularVelocity", Serialisation::Serialise(rigidbody->AngularVelocity())));
-										xml(cereal::make_nvp("Mass", rigidbody->Mass()));
-										xml(cereal::make_nvp("Drag", rigidbody->Drag()));
-										xml(cereal::make_nvp("AngularDrag", rigidbody->AngularDrag()));
-		
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Graphics::Camera)) {		// Serialise Camera.
-		
-									for (const auto& component : components) {
-		
-										auto camera = std::dynamic_pointer_cast<Graphics::Camera>(component);
-		
-										xml.setNextName("Camera");
-		
-										xml.startNode();
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Physics::Collider)) {	// Serialise Collider.
-		
-									for (const auto& component : components) {
-		
-										auto collider = std::dynamic_pointer_cast<Physics::Collider>(component);
-		
-										xml.setNextName("Collider");
-		
-										xml.startNode();
-										xml(cereal::make_nvp("Type", std::to_string((int)collider->GetType())));
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Graphics::Light)) {    // Serialise Light.
-		
-									for (const auto& component : components) {
-		
-										auto light = std::dynamic_pointer_cast<Graphics::Light>(component);
-		
-										xml.setNextName("Light");
-		
-										xml.startNode();
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Graphics::Renderer)) {	// Serialise Renderer.
-		
-									for (const auto& component : components) {
-		
-										xml.setNextName(subCategory.first.name());
-		
-										xml.startNode();
-										xml.finishNode();
-									}
-								}
-								else if (subCategory.first == typeid(Script)) {		        // Serialise Shader.
-		
-									xml.setNextName("Script");
-									xml.startNode();
-		
-									for (const auto& component : components) {
-										xml(cereal::make_nvp("Type", std::string(subCategory.first.name())));
-									}
-		
-									xml.finishNode();
-								}
-							}
+
+							xml(cereal::make_nvp("Position", Serialisation::Serialise(transform->m_Position)));
+							xml(cereal::make_nvp("Rotation", Serialisation::Serialise(transform->m_Rotation)));
+							xml(cereal::make_nvp("Scale",    Serialisation::Serialise(transform->m_Scale)));
+
 							xml.finishNode();
 						}
 					}
+					else if (kvp.first == typeid( Physics::Rigidbody)) {	// Serialise Rigidbody.
+
+						for (const auto& component : components) {
+
+							auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(component);
+
+							xml.setNextName(kvp.first.name());
+							xml.startNode();
+
+							xml(cereal::make_nvp("Velocity",        Serialisation::Serialise(rigidbody->Velocity())));
+							xml(cereal::make_nvp("AngularVelocity", Serialisation::Serialise(rigidbody->AngularVelocity())));
+							xml(cereal::make_nvp("Mass",            rigidbody->Mass()));
+							xml(cereal::make_nvp("Drag",            rigidbody->Drag()));
+							xml(cereal::make_nvp("AngularDrag",     rigidbody->AngularDrag()));
+
+							xml.finishNode();
+						}
+					}
+					else if (kvp.first == typeid(Graphics::Camera   )) {		// Serialise Camera.
+
+						for (const auto& component : components) {
+
+							auto camera = std::dynamic_pointer_cast<Graphics::Camera>(component);
+
+							xml.setNextName(kvp.first.name());
+
+							xml.startNode();
+							xml.finishNode();
+						}
+					}
+					else if (kvp.first == typeid(Graphics::Light    )) {    // Serialise Light.
+
+						for (const auto& component : components) {
+
+							auto light = std::dynamic_pointer_cast<Graphics::Light>(component);
+
+							xml.setNextName(kvp.first.name());
+
+							xml.startNode();
+							xml.finishNode();
+						}
+					}
+					else if (kvp.first == typeid(Graphics::Renderer )) {	// Serialise Renderer.
+
+						for (const auto& component : components) {
+
+							xml.setNextName(kvp.first.name());
+
+							xml.startNode();
+							xml.finishNode();
+						}
+					}
+					else if (kvp.first == typeid(Script)) {		        // Serialise Shader.
+
+						xml.setNextName(kvp.first.name());
+						xml.startNode();
+
+						for (const auto& component : components) {
+							xml(cereal::make_nvp("TypeID", std::string(component->TypeID().name())));
+						}
+
+						xml.finishNode();
+					}
 				}
-		
+				
 				xml.finishNode();
 			}
+			
+			xml.finishNode();
 		}
 	
 		std::cout << "Done." << "\nOutput:\n" << File::ReadAllText(_path); // Debug output.
 	}
 	
-	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path) {
+	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 	
 		std::cout << "Loading Scene \"" << _path.c_str() << "\"... ";
 		
@@ -368,13 +334,21 @@ namespace LouiEriksson::ECS {
 				
 				for (size_t j = 0; j < count; j++) {
 		
-					auto name = std::string(xml.getNodeName());
+					auto name = xml.getNodeName();
 					
 					if (log) {
 						std::cout << "\t\t" << name<< '\n';
 					}
 					
-					if (name == "Transform") {			// Deserialise Transform.
+//					std::cout << typeid(Transform).name() << '\n';
+//					std::cout << typeid( Physics::Rigidbody).name() << '\n';
+//					std::cout << typeid(Graphics::Camera   ).name() << '\n';
+//					std::cout << typeid( Physics::Collider ).name() << '\n';
+//					std::cout << typeid(Graphics::Light    ).name() << '\n';
+//					std::cout << typeid(Graphics::Renderer ).name() << '\n';
+//					std::cout << typeid(Script).name() << '\n';
+//
+					if (strcmp(name, typeid(Transform).name()) == 0) {			// Deserialise Transform.
 		
 						if (const auto t = go->AddComponent<Transform>().lock()) {
 		
@@ -387,7 +361,7 @@ namespace LouiEriksson::ECS {
 							xml.finishNode();
 						}
 					}
-					else if (name == "Rigidbody") {	// Deserialise Rigidbody.
+					else if (strcmp(name, typeid( Physics::Rigidbody).name()) == 0) {	// Deserialise Rigidbody.
 		
 						if (const auto r = go->AddComponent<Physics::Rigidbody>().lock()) {
 		
@@ -402,7 +376,7 @@ namespace LouiEriksson::ECS {
 							xml.finishNode();
 						}
 					}
-					else if (name == "Camera") {		// Deserialise Camera.
+					else if (strcmp(name, typeid(Graphics::Camera   ).name()) == 0) {		// Deserialise Camera.
 					
 						if (const auto c = go->AddComponent<Graphics::Camera>().lock()) {
 							
@@ -410,21 +384,7 @@ namespace LouiEriksson::ECS {
 							xml.finishNode();
 						}
 					}
-					else if (name == "Collider") {		// Deserialise Collider.
-		
-						if (const auto c = go->AddComponent<Physics::Collider>().lock()) {
-			
-							xml.startNode();
-			
-							std::string type;
-							xml(type);
-			
-							c->SetType((Physics::Collider::Type)std::stoi(type));
-			
-							xml.finishNode();
-						}
-					}
-					else if (name == "Light") {		// Deserialise Light
+					else if (strcmp(name, typeid(Graphics::Light    ).name()) == 0) {		// Deserialise Light
 						
 						if (const auto l = go->AddComponent<Graphics::Light>().lock()) {
 		
@@ -432,7 +392,7 @@ namespace LouiEriksson::ECS {
 							xml.finishNode();
 						}
 					}
-					else if (name == "Renderer") {		// Deserialise Renderer.
+					else if (strcmp(name, typeid(Graphics::Renderer ).name()) == 0) {		// Deserialise Renderer.
 		
 						if (const auto r = go->AddComponent<Graphics::Renderer>().lock()) {
 			
@@ -440,7 +400,7 @@ namespace LouiEriksson::ECS {
 							xml.finishNode();
 						}
 					}
-					else if (name == "Script") {		// Deserialise Scripts...
+					else if (strcmp(name, typeid(Script).name()) == 0) {		// Deserialise Scripts...
 		
 						xml.startNode();
 		
@@ -451,24 +411,35 @@ namespace LouiEriksson::ECS {
 							std::cout << "\t\t\t\"" << type << "\"\n";
 						}
 						
-						if (type == "class std::shared_ptr<class Ball>") {		    // Ball
-							go->AddComponent<LouiEriksson::Game::Ball>();
-						}
-						else if (type == "class std::shared_ptr<class Plane>") {	// Plane
-							go->AddComponent<LouiEriksson::Game::Plane>();
-						}
-						else if (type == "class std::shared_ptr<class OrbitCam>") {	// OrbitCam
-							go->AddComponent<LouiEriksson::Game::OrbitCam>();
-						}
-						else if (type == "class std::shared_ptr<class FlyCam>") {	// FlyCam
-							go->AddComponent<LouiEriksson::Game::FlyCam>();
-						}
-						else {
-							std::stringstream err;
-							err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<
-								type << "\" Has not been implemented.";
+						try {
 						
-							throw std::runtime_error(err.str());
+							bool success = false;
+							
+							const static auto kvps = _initialisers.GetAll();
+							
+							for (const auto& item : kvps) {
+								
+								if (strcmp(item.first.name(), type.c_str()) == 0) {
+
+									go->Attach(typeid(Script), item.second(go));
+
+									success = true;
+									break;
+								}
+							}
+							
+							if (!success) {
+								
+								std::stringstream err;
+								err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<
+									type << "\" Has not been implemented.\n";
+							
+								throw(std::runtime_error(err.str()));
+							}
+							
+						}
+						catch (const std::exception& e) {
+							std::cout << e.what() << '\n';
 						}
 		
 						xml.finishNode();

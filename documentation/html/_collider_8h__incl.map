@@ -1,7 +1,8 @@
 <map id="src/engine/scripts/physics/Collider.h" name="src/engine/scripts/physics/Collider.h">
-<area shape="rect" id="node1" title=" " alt="" coords="119,5,259,47"/>
-<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="5,102,152,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="144,184,221,211"/>
-<area shape="rect" id="node5" title=" " alt="" coords="227,95,421,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="43,184,114,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="183,5,323,47"/>
+<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="69,102,215,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="213,184,290,211"/>
+<area shape="rect" id="node6" title=" " alt="" coords="290,95,485,136"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,184,76,211"/>
+<area shape="rect" id="node5" title=" " alt="" coords="100,184,187,211"/>
 </map>

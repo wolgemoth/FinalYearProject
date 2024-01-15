@@ -1,8 +1,6 @@
 <map id="src/engine/scripts/graphics/Light.h" name="src/engine/scripts/graphics/Light.h">
-<area shape="rect" id="node1" title=" " alt="" coords="356,5,492,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="179,5,315,47"/>
 <area shape="rect" id="node2" href="$_scene_8cpp.html" title=" " alt="" coords="5,95,141,136"/>
 <area shape="rect" id="node3" href="$_camera_8cpp.html" title=" " alt="" coords="165,95,328,136"/>
 <area shape="rect" id="node4" href="$_light_8cpp.html" title=" " alt="" coords="352,95,496,136"/>
-<area shape="rect" id="node5" href="$_fly_cam_8cpp.html" title=" " alt="" coords="521,102,714,129"/>
-<area shape="rect" id="node6" href="$_orbit_cam_8cpp.html" title=" " alt="" coords="739,102,944,129"/>
 </map>

@@ -8,8 +8,6 @@ var hierarchy =
     [ "LouiEriksson::Settings::PostProcessing::Bloom", "struct_loui_eriksson_1_1_settings_1_1_post_processing_1_1_bloom.html", null ],
     [ "LouiEriksson::Physics::Collision", "struct_loui_eriksson_1_1_physics_1_1_collision.html", null ],
     [ "LouiEriksson::ECS::Component", "class_loui_eriksson_1_1_e_c_s_1_1_component.html", [
-      [ "LouiEriksson::Audio::AudioListener", "class_loui_eriksson_1_1_audio_1_1_audio_listener.html", null ],
-      [ "LouiEriksson::Audio::AudioSource", "class_loui_eriksson_1_1_audio_1_1_audio_source.html", null ],
       [ "LouiEriksson::Graphics::Camera", "class_loui_eriksson_1_1_graphics_1_1_camera.html", null ],
       [ "LouiEriksson::Graphics::Light", "class_loui_eriksson_1_1_graphics_1_1_light.html", null ],
       [ "LouiEriksson::Graphics::Renderer", "class_loui_eriksson_1_1_graphics_1_1_renderer.html", null ],
@@ -19,6 +17,8 @@ var hierarchy =
       ] ],
       [ "LouiEriksson::Physics::Rigidbody", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html", null ],
       [ "LouiEriksson::Script", "class_loui_eriksson_1_1_script.html", [
+        [ "LouiEriksson::Audio::AudioListener", "class_loui_eriksson_1_1_audio_1_1_audio_listener.html", null ],
+        [ "LouiEriksson::Audio::AudioSource", "class_loui_eriksson_1_1_audio_1_1_audio_source.html", null ],
         [ "LouiEriksson::Game::Ball", "class_loui_eriksson_1_1_game_1_1_ball.html", null ],
         [ "LouiEriksson::Game::FlyCam", "class_loui_eriksson_1_1_game_1_1_fly_cam.html", null ],
         [ "LouiEriksson::Game::OrbitCam", "class_loui_eriksson_1_1_game_1_1_orbit_cam.html", null ],
@@ -52,6 +52,7 @@ var hierarchy =
     [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::shared_ptr< LouiEriksson::ECS::Component > > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< std::type_index, std::vector< std::weak_ptr< LouiEriksson::ECS::Component > > >", "class_loui_eriksson_1_1_hashmap.html", null ],
     [ "LouiEriksson::Hashmap< Uint32, std::vector< SDL_Event > >", "class_loui_eriksson_1_1_hashmap.html", null ],
+    [ "LouiEriksson::Scripting::Injector", "class_loui_eriksson_1_1_scripting_1_1_injector.html", null ],
     [ "LouiEriksson::Input::Input", "class_loui_eriksson_1_1_input_1_1_input.html", null ],
     [ "LouiEriksson::Input::Input::Key", "struct_loui_eriksson_1_1_input_1_1_input_1_1_key.html", null ],
     [ "LouiEriksson::Hashmap< Tk, Tv >::KeyValuePair", "struct_loui_eriksson_1_1_hashmap_1_1_key_value_pair.html", null ],

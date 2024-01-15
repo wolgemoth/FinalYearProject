@@ -34,6 +34,8 @@ Collaboration diagram for Loui\+Eriksson\+::Transform\+:
 \item 
 \mbox{\hyperlink{struct_loui_eriksson_1_1_transform_a2007150e7af89eea22704fa1aa2a155c}{Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
+std\+::type\+\_\+index \mbox{\hyperlink{struct_loui_eriksson_1_1_transform_aa16644a6c897364f746feeb7ebb60585}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
 glm\+::vec3 \mbox{\hyperlink{struct_loui_eriksson_1_1_transform_afa2f3528e5aea4931aac255c8b2274da}{To\+World}} (const glm\+::vec3 \&\+\_\+vector) const
 \begin{DoxyCompactList}\small\item\em Get the given vector (local to this transform) as it exists in world space. \end{DoxyCompactList}\item 
 glm\+::mat4 \mbox{\hyperlink{struct_loui_eriksson_1_1_transform_abf6930567183c8d924cd8c23ba834f8f}{TRS}} () const
@@ -70,6 +72,14 @@ Definition at line 26 of file Transform.\+h.
 
 Definition at line 18 of file Transform.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_loui_eriksson_1_1_transform_a2007150e7af89eea22704fa1aa2a155c_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
@@ -101,6 +111,32 @@ Get this \mbox{\hyperlink{struct_loui_eriksson_1_1_transform}{Transform}} as a \
 
 Definition at line 28 of file Transform.\+cpp.
 
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_transform_aa16644a6c897364f746feeb7ebb60585}\label{struct_loui_eriksson_1_1_transform_aa16644a6c897364f746feeb7ebb60585}} 
+\index{LouiEriksson::Transform@{LouiEriksson::Transform}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Transform@{LouiEriksson::Transform}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Transform\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Loui\+Eriksson\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 39 of file Transform.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_loui_eriksson_1_1_transform_aa16644a6c897364f746feeb7ebb60585_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}

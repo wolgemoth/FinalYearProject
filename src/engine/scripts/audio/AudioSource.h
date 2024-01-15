@@ -129,6 +129,8 @@ namespace LouiEriksson::Audio {
 		 explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
 		~AudioSource() override;
 		
+		std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
+		
 		/// <summary> Initialise the AudioSource.</summary>
 		void Begin() override;
 		

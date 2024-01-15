@@ -708,7 +708,7 @@ namespace LouiEriksson::UI {
 				
 				if (ImGui::CollapsingHeader("Light")) {
 					
-					ImGui::Combo("Light Type", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
+					ImGui::Combo("Light TypeID", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
 					
 					ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
 					ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );

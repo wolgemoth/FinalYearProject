@@ -1,5 +1,5 @@
-#ifndef FINALYEARPROJECT_ORBITCAM_H
-#define FINALYEARPROJECT_ORBITCAM_H
+#ifndef GAME_ORBITCAM_H
+#define GAME_ORBITCAM_H
 
 #include "../include/engine_core.h"
 
@@ -42,8 +42,9 @@ namespace LouiEriksson::Game {
 		explicit OrbitCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~OrbitCam() override;
 		
+		std::type_index TypeID() const noexcept override { return typeid(OrbitCam); };
 	};
 	
 } // LouiEriksson::Game
 
-#endif //FINALYEARPROJECT_ORBITCAM_H
+#endif //GAME_ORBITCAM_H

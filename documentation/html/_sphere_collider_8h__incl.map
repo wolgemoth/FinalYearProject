@@ -1,8 +1,9 @@
 <map id="src/engine/scripts/physics/colliders/SphereCollider.h" name="src/engine/scripts/physics/colliders/SphereCollider.h">
-<area shape="rect" id="node1" title=" " alt="" coords="202,5,446,47"/>
-<area shape="rect" id="node2" href="$_collider_8h.html" title=" " alt="" coords="210,95,305,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="151,259,228,285"/>
-<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="5,177,152,203"/>
-<area shape="rect" id="node6" title=" " alt="" coords="227,169,421,211"/>
-<area shape="rect" id="node4" title=" " alt="" coords="43,259,114,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="264,5,508,47"/>
+<area shape="rect" id="node2" href="$_collider_8h.html" title=" " alt="" coords="272,95,367,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="213,259,290,285"/>
+<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="67,177,214,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="289,169,483,211"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,259,76,285"/>
+<area shape="rect" id="node6" title=" " alt="" coords="100,259,187,285"/>
 </map>

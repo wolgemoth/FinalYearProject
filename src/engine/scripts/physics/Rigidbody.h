@@ -28,7 +28,7 @@ namespace LouiEriksson::Physics {
 	/// <summary>
 	/// Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.
 	/// </summary>
-	class Rigidbody : public ECS::Component {
+	class Rigidbody final : public ECS::Component {
 	
 	private:
 		
@@ -113,6 +113,8 @@ namespace LouiEriksson::Physics {
 		explicit Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Rigidbody() override = default;
 	
+		std::type_index TypeID() const noexcept override { return typeid(Rigidbody); };
+		
 		/// <summary> Called every frame. </summary>
 		void Interpolate();
 		

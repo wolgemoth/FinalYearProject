@@ -35,7 +35,9 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Ball\+:
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_ball_a64b9e4def2cc52d1fdd5537294a5b666}{Ball}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_ball_add9bd149189532d74c49e09166827fdf}{$\sim$\+Ball}} () override
-\end{DoxyCompactItemize}
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_ball_aadabd8556db3a426d38a5b677876f141}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -54,7 +56,7 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_ball_a7329538af873f2351d8
 
 
 
-Definition at line 21 of file Ball.\+h.
+Definition at line 14 of file Ball.\+h.
 
 
 
@@ -67,8 +69,16 @@ Definition at line 21 of file Ball.\+h.
 
 
 
-Definition at line 24 of file Ball.\+cpp.
+Definition at line 7 of file Ball.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_ball_a64b9e4def2cc52d1fdd5537294a5b666_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_ball_add9bd149189532d74c49e09166827fdf}\label{class_loui_eriksson_1_1_game_1_1_ball_add9bd149189532d74c49e09166827fdf}} 
 \index{LouiEriksson::Game::Ball@{LouiEriksson::Game::Ball}!````~Ball@{$\sim$Ball}}
 \index{````~Ball@{$\sim$Ball}!LouiEriksson::Game::Ball@{LouiEriksson::Game::Ball}}
@@ -94,7 +104,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5
 
 
 
-Definition at line 30 of file Ball.\+cpp.
+Definition at line 13 of file Ball.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -120,7 +130,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a3d36a46a3cca
 
 
 
-Definition at line 108 of file Ball.\+cpp.
+Definition at line 62 of file Ball.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -146,7 +156,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a8cdd901be097
 
 
 
-Definition at line 132 of file Ball.\+cpp.
+Definition at line 86 of file Ball.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -172,8 +182,34 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 104 of file Ball.\+cpp.
+Definition at line 58 of file Ball.\+cpp.
 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_ball_aadabd8556db3a426d38a5b677876f141}\label{class_loui_eriksson_1_1_game_1_1_ball_aadabd8556db3a426d38a5b677876f141}} 
+\index{LouiEriksson::Game::Ball@{LouiEriksson::Game::Ball}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::Ball@{LouiEriksson::Game::Ball}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Ball\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Loui\+Eriksson\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 46 of file Ball.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_ball_aadabd8556db3a426d38a5b677876f141_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

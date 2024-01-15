@@ -35,7 +35,9 @@ Collaboration diagram for Loui\+Eriksson\+::Game\+::Fly\+Cam\+:
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ac902c41cf88f09da10c40bcffd552e7c}{Fly\+Cam}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}{$\sim$\+Fly\+Cam}} () override
-\end{DoxyCompactItemize}
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam_a2dd7b2ea93343dde98f2b19bc9bc23e7}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -71,7 +73,7 @@ Free-\/fly camera.
 
 
 
-Definition at line 21 of file Fly\+Cam.\+h.
+Definition at line 14 of file Fly\+Cam.\+h.
 
 
 
@@ -84,8 +86,16 @@ Definition at line 21 of file Fly\+Cam.\+h.
 
 
 
-Definition at line 37 of file Fly\+Cam.\+cpp.
+Definition at line 7 of file Fly\+Cam.\+cpp.
 
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_ac902c41cf88f09da10c40bcffd552e7c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ae953843f22e5c2733b13c7bdeaf07d72}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!````~FlyCam@{$\sim$FlyCam}}
 \index{````~FlyCam@{$\sim$FlyCam}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
@@ -111,7 +121,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a1011c4a6f1e5
 
 
 
-Definition at line 45 of file Fly\+Cam.\+cpp.
+Definition at line 15 of file Fly\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -133,7 +143,7 @@ Synchronise the camera\textquotesingle{}s parameters with the ones defined in \m
 
 
 
-Definition at line 192 of file Fly\+Cam.\+cpp.
+Definition at line 140 of file Fly\+Cam.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -159,7 +169,7 @@ Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_script_a58b79042ed55
 
 
 
-Definition at line 105 of file Fly\+Cam.\+cpp.
+Definition at line 58 of file Fly\+Cam.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -167,6 +177,32 @@ Here is the call graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_ae805f0970bc97dafa6a5bdbb4c48ed27_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a2dd7b2ea93343dde98f2b19bc9bc23e7}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a2dd7b2ea93343dde98f2b19bc9bc23e7}} 
+\index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Fly\+Cam\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_e_c_s_1_1_component_af1fcf908080a46033a08cbb6d6e481bd}{Loui\+Eriksson\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 56 of file Fly\+Cam.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_loui_eriksson_1_1_game_1_1_fly_cam_a2dd7b2ea93343dde98f2b19bc9bc23e7_cgraph}
 \end{center}
 \end{figure}
 
@@ -184,7 +220,7 @@ Audio\+Listener component.
 
 
 
-Definition at line 32 of file Fly\+Cam.\+h.
+Definition at line 25 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a9296a4dac738299bfc83242556a35418}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a9296a4dac738299bfc83242556a35418}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Camera@{m\_Camera}}
@@ -198,7 +234,7 @@ Camera of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Ca
 
 
 
-Definition at line 26 of file Fly\+Cam.\+h.
+Definition at line 19 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a1a289a8d1e2f1e2bf53a3a35f74023dc}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a1a289a8d1e2f1e2bf53a3a35f74023dc}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_GunSound@{m\_GunSound}}
@@ -212,7 +248,7 @@ Audio\+Source component for gun sounds.
 
 
 
-Definition at line 35 of file Fly\+Cam.\+h.
+Definition at line 28 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a52a85d55eabbb8dd34d54910979cc965}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a52a85d55eabbb8dd34d54910979cc965}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_LookSpeed@{m\_LookSpeed}}
@@ -226,7 +262,7 @@ Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} r
 
 
 
-Definition at line 44 of file Fly\+Cam.\+h.
+Definition at line 37 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a423e6b543a289937aaee963718911459}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a423e6b543a289937aaee963718911459}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Motion@{m\_Motion}}
@@ -240,7 +276,7 @@ Current motion vector of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_f
 
 
 
-Definition at line 38 of file Fly\+Cam.\+h.
+Definition at line 31 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a4317d6815846166d0b5d2fadf2407f42}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a4317d6815846166d0b5d2fadf2407f42}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_MoveSpeed@{m\_MoveSpeed}}
@@ -254,7 +290,7 @@ Speed of \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_fly_cam}{Fly\+Cam}} a
 
 
 
-Definition at line 41 of file Fly\+Cam.\+h.
+Definition at line 34 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_a5f2f56c9567d5676e97b8c055515e73f}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_a5f2f56c9567d5676e97b8c055515e73f}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Rotation@{m\_Rotation}}
@@ -264,7 +300,7 @@ Definition at line 41 of file Fly\+Cam.\+h.
 
 
 
-Definition at line 47 of file Fly\+Cam.\+h.
+Definition at line 40 of file Fly\+Cam.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_fly_cam_ae455e9ba565001272fe8078315f8e895}\label{class_loui_eriksson_1_1_game_1_1_fly_cam_ae455e9ba565001272fe8078315f8e895}} 
 \index{LouiEriksson::Game::FlyCam@{LouiEriksson::Game::FlyCam}!m\_Transform@{m\_Transform}}
@@ -278,7 +314,7 @@ Definition at line 47 of file Fly\+Cam.\+h.
 
 
 
-Definition at line 29 of file Fly\+Cam.\+h.
+Definition at line 22 of file Fly\+Cam.\+h.
 
 
 

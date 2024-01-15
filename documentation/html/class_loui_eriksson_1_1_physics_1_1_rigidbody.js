@@ -31,6 +31,7 @@ var class_loui_eriksson_1_1_physics_1_1_rigidbody =
     [ "SetCollider", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#ab13e2a6d16fea2a7f7b6b9afab66a76d", null ],
     [ "SetTransform", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a864358d2f0bda68b0967aa748bb8c532", null ],
     [ "Sync", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#aa63e22c1906455f8865c29411ea9d571", null ],
+    [ "TypeID", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a7a509245e3bc3e8886b942ae0b9363ec", null ],
     [ "Velocity", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a38b7d6213c2ed936e863664a893b75f6", null ],
     [ "Velocity", "class_loui_eriksson_1_1_physics_1_1_rigidbody.html#a7038582c7644234f36cab5c9761e85a3", null ]
 ];

@@ -5,5 +5,6 @@ var class_loui_eriksson_1_1_game_1_1_ball =
     [ "Begin", "class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd", null ],
     [ "FixedTick", "class_loui_eriksson_1_1_game_1_1_ball.html#ae209fc6e0ef8580334f2059fd2c84bc9", null ],
     [ "OnCollision", "class_loui_eriksson_1_1_game_1_1_ball.html#a7329538af873f2351d81a65cd95895c1", null ],
-    [ "Tick", "class_loui_eriksson_1_1_game_1_1_ball.html#a1f55477c235342286b5c210e31ec23d9", null ]
+    [ "Tick", "class_loui_eriksson_1_1_game_1_1_ball.html#a1f55477c235342286b5c210e31ec23d9", null ],
+    [ "TypeID", "class_loui_eriksson_1_1_game_1_1_ball.html#aadabd8556db3a426d38a5b677876f141", null ]
 ];

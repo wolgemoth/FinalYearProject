@@ -1,6 +1,0 @@
-<map id="LouiEriksson::File::TryLoad" name="LouiEriksson::File::TryLoad">
-<area shape="rect" id="node1" title=" " alt="" coords="223,71,357,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd" title="Called at the beginning of the first frame." alt="" coords="15,5,165,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_plane.html#a57dbf3fab9cc21faf805c03e053faa92" title="Called at the beginning of the first frame." alt="" coords="15,71,165,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a5df7bd9cef71b4dcfb7e974b6b5d43f7" title=" " alt="" coords="5,136,175,177"/>
-</map>

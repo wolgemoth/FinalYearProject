@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <memory>
+#include <typeindex>
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
@@ -34,6 +35,9 @@ namespace LouiEriksson::ECS {
 	
 	public:
 	
+		/// <summary> Return the type_index of this Component's derived type. </summary>
+		virtual std::type_index TypeID() const noexcept = 0;
+		
 		/// <summary> Get the Component's parent GameObject. </summary>
 		[[nodiscard]] virtual const std::weak_ptr<GameObject>& Parent() const noexcept;
 		

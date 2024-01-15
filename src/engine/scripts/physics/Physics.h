@@ -33,7 +33,7 @@ namespace LouiEriksson::Physics {
 		/// <summary>
 		/// Implementation of the abstract btIDebugDraw class.
 		/// </summary>
-		class Debugger : public btIDebugDraw {
+		class Debugger final : public btIDebugDraw {
 		
 		private:
 			

@@ -1,0 +1,4 @@
+<map id="LouiEriksson::ECS::GameObject::GetScene" name="LouiEriksson::ECS::GameObject::GetScene">
+<area shape="rect" id="node1" title="Get the Scene the GameObject belongs to." alt="" coords="293,5,467,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,5,245,47"/>
+</map>

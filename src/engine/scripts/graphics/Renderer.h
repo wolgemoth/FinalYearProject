@@ -22,7 +22,7 @@ namespace LouiEriksson::Graphics {
 
 namespace LouiEriksson::Graphics {
 	
-	class Renderer : public ECS::Component {
+	class Renderer final : public ECS::Component {
 	
 	private:
 	
@@ -40,6 +40,8 @@ namespace LouiEriksson::Graphics {
 		explicit Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Renderer() override;
 	
+		std::type_index TypeID() const noexcept override { return typeid(Renderer); };
+		
 		/// <summary> Set the Mesh of the Renderer. </summary>
 		void SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept;
 	

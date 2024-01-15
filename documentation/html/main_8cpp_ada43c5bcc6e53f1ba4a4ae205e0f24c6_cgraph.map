@@ -1,29 +1,30 @@
 <map id="main" name="main">
-<area shape="rect" id="node1" title="Entry point for the program." alt="" coords="5,490,60,517"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_application.html#a3cd3d52cd7a0b2520ab7b53159214657" title="Main function of the application." alt="" coords="108,483,293,524"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a" title="Dumps the latest OpenAL error to the console." alt="" coords="367,5,510,47"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_window.html#a7b7d824da6668c14e0fbfe6e1c44189b" title=" " alt="" coords="357,71,521,112"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb" title="Finalise input." alt="" coords="366,136,511,177"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_time.html#afaa1bb533215062f7900a9afd1bf1ee8" title="Get the scaled fixed delta time. (Time between physics updates.)" alt="" coords="366,201,511,243"/>
-<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_time.html#a2a298b9fdcb68bf49848ecdc3d6462fe" title="Get the unscaled fixed delta time. (Time between physics updates.)" alt="" coords="343,267,535,308"/>
-<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_window.html#a7ead0d85d1637f7cdacfd741cd7684f8" title=" " alt="" coords="341,333,536,359"/>
-<area shape="rect" id="node9" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a" title="Get all events of a certain type which occurred this frame." alt="" coords="366,384,511,425"/>
-<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125" title="Dumps the latest OpenGL error to the console." alt="" coords="367,449,510,491"/>
-<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79" title="Initialise the audio subsystems." alt="" coords="364,515,513,556"/>
-<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090" title="Initialise settings on application start." alt="" coords="356,580,521,621"/>
-<area shape="rect" id="node20" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a89a3bc15fb9cb0a6b5f64b6d773590f3" title="TryLoad the Scene from xml format at a given path." alt="" coords="366,645,511,687"/>
-<area shape="rect" id="node23" href="$class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f" title=" " alt="" coords="349,711,528,752"/>
-<area shape="rect" id="node24" href="$class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a" title="Quits the application." alt="" coords="346,776,531,817"/>
-<area shape="rect" id="node25" href="$class_loui_eriksson_1_1_input_1_1_cursor.html#a08e5deafd6edab5c8923a8d4a5a3eee8" title="Set the pending state of the Cursor." alt="" coords="366,841,511,883"/>
-<area shape="rect" id="node26" href="$class_loui_eriksson_1_1_input_1_1_input.html#af7bc632ef89f648d2b8ff2ff3a027108" title="Refresh the input." alt="" coords="366,907,511,948"/>
-<area shape="rect" id="node27" href="$class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="359,972,518,1013"/>
-<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#aa6fdf76fa41fba102532e9d6fb16df9c" title="Get the distance model used by the audio engine." alt="" coords="619,376,793,417"/>
-<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#af77da215e8759b338d7126eb8ab715b6" title="Get the doppler factor used by the audio engine." alt="" coords="622,441,790,483"/>
-<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#afa8a3c6e6459d625a65862c93bebb60b" title="Get the speed of sound used by the audio engine." alt="" coords="619,507,793,548"/>
-<area shape="rect" id="node16" href="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_material.html#a2dbd157a39ddbb149e951ecdc4d14d71" title=" " alt="" coords="623,573,789,629"/>
-<area shape="rect" id="node18" href="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox.html#aefe5367353ec24123a46bf1632afc8d8" title=" " alt="" coords="584,653,828,695"/>
-<area shape="rect" id="node17" href="$class_loui_eriksson_1_1_resources.html#a293bc4012ddc9c96d7e28f8580752887" title=" " alt="" coords="876,580,1055,621"/>
-<area shape="rect" id="node19" href="$class_loui_eriksson_1_1_resources.html#ad015bfde31159dfeceb25105566a4695" title=" " alt="" coords="876,653,1055,695"/>
-<area shape="rect" id="node21" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97" title="Factory function which creates a GameObject within a Scene." alt="" coords="629,719,783,760"/>
-<area shape="rect" id="node22" href="$class_loui_eriksson_1_1_serialisation.html#adeb428f5d6d87f3d36aa7fef13dd8f90" title=" " alt="" coords="609,784,803,825"/>
+<area shape="rect" id="node1" title="Entry point for the program." alt="" coords="5,458,60,485"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_scripting_1_1_injector.html#a0ff66b4ae0d450fa5ff8cd736abcc473" title="Get the function pointers for initialisation of custom user scripts." alt="" coords="111,417,290,459"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_application.html#a5e10c9f6f20014ba69250f48357d28f0" title="Main function of the application." alt="" coords="108,483,293,524"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_utils.html#a8f224f7d3b75e3e26ec0aebad333935a" title="Dumps the latest OpenAL error to the console." alt="" coords="367,5,510,47"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_window.html#a7b7d824da6668c14e0fbfe6e1c44189b" title=" " alt="" coords="357,71,521,112"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_input_1_1_input.html#a69e17cf85d09f93104a4e57a3220e0bb" title="Finalise input." alt="" coords="366,136,511,177"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_time.html#afaa1bb533215062f7900a9afd1bf1ee8" title="Get the scaled fixed delta time. (Time between physics updates.)" alt="" coords="366,201,511,243"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_time.html#a2a298b9fdcb68bf49848ecdc3d6462fe" title="Get the unscaled fixed delta time. (Time between physics updates.)" alt="" coords="343,267,535,308"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_window.html#a7ead0d85d1637f7cdacfd741cd7684f8" title=" " alt="" coords="341,333,536,359"/>
+<area shape="rect" id="node10" href="$struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a83ba2aea21a992a26e1e22bbd620b22a" title="Get all events of a certain type which occurred this frame." alt="" coords="366,384,511,425"/>
+<area shape="rect" id="node11" href="$class_loui_eriksson_1_1_utils.html#ae89b9431315af52dcc8aa1b038c94125" title="Dumps the latest OpenGL error to the console." alt="" coords="367,449,510,491"/>
+<area shape="rect" id="node12" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#ad0b45140de5e2fed60af25e8ee71fe79" title="Initialise the audio subsystems." alt="" coords="364,515,513,556"/>
+<area shape="rect" id="node16" href="$class_loui_eriksson_1_1_settings.html#a99f22abc6c114e19c20a05806daa8090" title="Initialise settings on application start." alt="" coords="356,580,521,621"/>
+<area shape="rect" id="node21" href="$class_loui_eriksson_1_1_e_c_s_1_1_scene.html#a2e9563364ff527881255fc7b7f46a492" title="TryLoad the Scene from xml format at a given path." alt="" coords="366,645,511,687"/>
+<area shape="rect" id="node24" href="$class_loui_eriksson_1_1_resources.html#a7b99796ee90be12e77eba2bbe4022e2f" title=" " alt="" coords="349,711,528,752"/>
+<area shape="rect" id="node25" href="$class_loui_eriksson_1_1_application.html#abb14284e05d703293822f8cc16269b1a" title="Quits the application." alt="" coords="346,776,531,817"/>
+<area shape="rect" id="node26" href="$class_loui_eriksson_1_1_input_1_1_cursor.html#a08e5deafd6edab5c8923a8d4a5a3eee8" title="Set the pending state of the Cursor." alt="" coords="366,841,511,883"/>
+<area shape="rect" id="node27" href="$class_loui_eriksson_1_1_input_1_1_input.html#af7bc632ef89f648d2b8ff2ff3a027108" title="Refresh the input." alt="" coords="366,907,511,948"/>
+<area shape="rect" id="node28" href="$class_loui_eriksson_1_1_time.html#a8de363510d6f0decb85de230560aba8e" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="359,972,518,1013"/>
+<area shape="rect" id="node13" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#aa6fdf76fa41fba102532e9d6fb16df9c" title="Get the distance model used by the audio engine." alt="" coords="619,376,793,417"/>
+<area shape="rect" id="node14" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#af77da215e8759b338d7126eb8ab715b6" title="Get the doppler factor used by the audio engine." alt="" coords="622,441,790,483"/>
+<area shape="rect" id="node15" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#afa8a3c6e6459d625a65862c93bebb60b" title="Get the speed of sound used by the audio engine." alt="" coords="619,507,793,548"/>
+<area shape="rect" id="node17" href="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_material.html#a2dbd157a39ddbb149e951ecdc4d14d71" title=" " alt="" coords="623,573,789,629"/>
+<area shape="rect" id="node19" href="$struct_loui_eriksson_1_1_settings_1_1_graphics_1_1_skybox.html#aefe5367353ec24123a46bf1632afc8d8" title=" " alt="" coords="584,653,828,695"/>
+<area shape="rect" id="node18" href="$class_loui_eriksson_1_1_resources.html#a293bc4012ddc9c96d7e28f8580752887" title=" " alt="" coords="876,580,1055,621"/>
+<area shape="rect" id="node20" href="$class_loui_eriksson_1_1_resources.html#ad015bfde31159dfeceb25105566a4695" title=" " alt="" coords="876,653,1055,695"/>
+<area shape="rect" id="node22" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a7e07424f76cf318be4156f06ce4a4b97" title="Factory function which creates a GameObject within a Scene." alt="" coords="629,719,783,760"/>
+<area shape="rect" id="node23" href="$class_loui_eriksson_1_1_serialisation.html#adeb428f5d6d87f3d36aa7fef13dd8f90" title=" " alt="" coords="609,784,803,825"/>
 </map>

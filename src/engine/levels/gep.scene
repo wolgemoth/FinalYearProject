@@ -2,1304 +2,1304 @@
 <cereal>
 	<Entities>
 		<Entity_0>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.99072 0 -2.11542</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.476853 0.476853 0.476853</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_0>
 		<Entity_1>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.40501 1 -1.83807</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.376009 0.376009 0.376009</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_1>
 		<Entity_2>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.9577 2 3.88232</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.361621 0.361621 0.361621</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_2>
 		<Entity_3>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.47386 3 -2.571</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.55015 0.55015 0.55015</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_3>
 		<Entity_4>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.72118 4 -3.93139</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.469366 0.469366 0.469366</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_4>
 		<Entity_5>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.112918 5 -1.8161</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.530763 0.530763 0.530763</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_5>
 		<Entity_6>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.26829 6 -0.415906</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.474055 0.474055 0.474055</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_6>
 		<Entity_7>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.78613 7 1.28703</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.526714 0.526714 0.526714</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_7>
 		<Entity_8>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.506241 8 -3.67699</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.558492 0.558492 0.558492</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_8>
 		<Entity_9>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.45311 9 -1.62566</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.594777 0.594777 0.594777</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_9>
 		<Entity_10>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.40281 10 -3.85595</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.258972 0.258972 0.258972</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_10>
 		<Entity_11>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.53798 11 0.127811</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.476843 0.476843 0.476843</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_11>
 		<Entity_12>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.76458 12 -0.919584</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.383049 0.383049 0.383049</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_12>
 		<Entity_13>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.78832 13 3.21042</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.323467 0.323467 0.323467</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_13>
 		<Entity_14>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.89059 14 0.367076</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.587503 0.587503 0.587503</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_14>
 		<Entity_15>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.02554 15 -1.01846</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.582312 0.582312 0.582312</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_15>
 		<Entity_16>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.14985 16 0.166631</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.331489 0.331489 0.331489</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_16>
 		<Entity_17>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.17893 17 -1.00211</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.394253 0.394253 0.394253</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_17>
 		<Entity_18>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.95428 18 -1.15592</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.381692 0.381692 0.381692</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_18>
 		<Entity_19>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.24799 19 -3.43089</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.455768 0.455768 0.455768</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_19>
 		<Entity_20>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.39909 20 -0.548723</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.537631 0.537631 0.537631</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_20>
 		<Entity_21>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.73095 21 1.28629</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.339767 0.339767 0.339767</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_21>
 		<Entity_22>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.94183 22 2.80099</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.309795 0.309795 0.309795</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_22>
 		<Entity_23>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.04804 23 -0.558244</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.391134 0.391134 0.391134</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_23>
 		<Entity_24>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.85665 24 0.0780053</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.412999 0.412999 0.412999</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_24>
 		<Entity_25>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.107791 25 -3.32933</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.542405 0.542405 0.542405</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_25>
 		<Entity_26>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.0488 26 0.395642</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.428092 0.428092 0.428092</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_26>
 		<Entity_27>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.23045 27 -1.11441</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.501058 0.501058 0.501058</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_27>
 		<Entity_28>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.94165 28 -2.978</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.279951 0.279951 0.279951</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_28>
 		<Entity_29>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.06491 29 -3.26194</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.360393 0.360393 0.360393</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_29>
 		<Entity_30>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.01309 30 1.22306</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.421117 0.421117 0.421117</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_30>
 		<Entity_31>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.17423 31 2.3437</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.399124 0.399124 0.399124</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_31>
 		<Entity_32>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.84765 32 -2.27509</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.544478 0.544478 0.544478</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_32>
 		<Entity_33>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.86758 33 1.90033</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.380699 0.380699 0.380699</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_33>
 		<Entity_34>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.62938 34 1.77068</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.416834 0.416834 0.416834</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_34>
 		<Entity_35>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.2812 35 -0.899319</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.509806 0.509806 0.509806</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_35>
 		<Entity_36>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.356822 36 1.56023</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.322752 0.322752 0.322752</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_36>
 		<Entity_37>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.05509 37 -3.12961</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.519077 0.519077 0.519077</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_37>
 		<Entity_38>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.97095 38 0.577044</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.528253 0.528253 0.528253</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_38>
 		<Entity_39>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.790185 39 -0.0120854</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.313747 0.313747 0.313747</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_39>
 		<Entity_40>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.278451 40 -3.12668</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.410714 0.410714 0.410714</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_40>
 		<Entity_41>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.23334 41 -0.470107</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.562668 0.562668 0.562668</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_41>
 		<Entity_42>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.47725 42 3.84545</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.598013 0.598013 0.598013</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_42>
 		<Entity_43>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.8938 43 -1.15152</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.561472 0.561472 0.561472</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_43>
 		<Entity_44>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.54659 44 -1.64592</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.260425 0.260425 0.260425</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_44>
 		<Entity_45>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.9414 45 -3.06662</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.475315 0.475315 0.475315</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_45>
 		<Entity_46>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.56835 46 -1.7431</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.397661 0.397661 0.397661</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_46>
 		<Entity_47>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.5768 47 3.52147</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.562925 0.562925 0.562925</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_47>
 		<Entity_48>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.5251 48 -0.517716</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.50251 0.50251 0.50251</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_48>
 		<Entity_49>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.74071 49 -1.79119</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.411077 0.411077 0.411077</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_49>
 		<Entity_50>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.37614 50 -0.257698</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.358022 0.358022 0.358022</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_50>
 		<Entity_51>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.71117 51 0.0916777</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.386114 0.386114 0.386114</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_51>
 		<Entity_52>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.123905 52 -1.19376</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.328626 0.328626 0.328626</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_52>
 		<Entity_53>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.11277 53 -1.90716</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.556035 0.556035 0.556035</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_53>
 		<Entity_54>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.89816 54 2.9509</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.282247 0.282247 0.282247</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_54>
 		<Entity_55>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.85321 55 -1.84637</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.47241 0.47241 0.47241</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_55>
 		<Entity_56>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.53368 56 -1.20402</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.573093 0.573093 0.573093</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_56>
 		<Entity_57>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.85083 57 0.861232</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.393933 0.393933 0.393933</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_57>
 		<Entity_58>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.42866 58 -3.82446</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.318233 0.318233 0.318233</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_58>
 		<Entity_59>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.18937 59 -3.15842</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.451239 0.451239 0.451239</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_59>
 		<Entity_60>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.83831 60 0.0267344</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.407605 0.407605 0.407605</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_60>
 		<Entity_61>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.10904 61 2.39766</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.315873 0.315873 0.315873</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_61>
 		<Entity_62>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.05878 62 2.4836</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.591818 0.591818 0.591818</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_62>
 		<Entity_63>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.55293 63 3.37669</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.512241 0.512241 0.512241</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_63>
 		<Entity_64>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.7824 64 1.43937</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.588325 0.588325 0.588325</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_64>
 		<Entity_65>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.0661 65 0.153935</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.269216 0.269216 0.269216</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_65>
 		<Entity_66>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.51021 66 -0.206671</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.277345 0.277345 0.277345</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_66>
 		<Entity_67>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.58028 67 -0.124149</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.467475 0.467475 0.467475</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_67>
 		<Entity_68>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.34544 68 -2.57173</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.469205 0.469205 0.469205</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_68>
 		<Entity_69>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.57689 69 0.749901</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.466375 0.466375 0.466375</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_69>
 		<Entity_70>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.21796 70 0.662496</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.55736 0.55736 0.55736</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_70>
 		<Entity_71>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.40568 71 -1.81732</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.561653 0.561653 0.561653</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_71>
 		<Entity_72>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.59786 72 -1.48991</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.320669 0.320669 0.320669</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_72>
 		<Entity_73>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.77288 73 -1.03433</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.598344 0.598344 0.598344</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_73>
 		<Entity_74>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.46306 74 0.522355</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.347543 0.347543 0.347543</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_74>
 		<Entity_75>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.73827 75 -1.54265</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.563031 0.563031 0.563031</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_75>
 		<Entity_76>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.27165 76 2.31831</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.367785 0.367785 0.367785</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_76>
 		<Entity_77>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.91644 77 1.87249</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.473745 0.473745 0.473745</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_77>
 		<Entity_78>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.92914 78 3.11985</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.439073 0.439073 0.439073</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_78>
 		<Entity_79>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.644429 79 -0.714743</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.49295 0.49295 0.49295</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_79>
 		<Entity_80>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.87912 80 -2.32539</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.386872 0.386872 0.386872</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_80>
 		<Entity_81>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.23795 81 -0.143925</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.278349 0.278349 0.278349</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_81>
 		<Entity_82>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.87542 82 -0.089236</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.384341 0.384341 0.384341</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_82>
 		<Entity_83>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.53902 83 3.05295</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.576789 0.576789 0.576789</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_83>
 		<Entity_84>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.2013 84 0.493546</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.374717 0.374717 0.374717</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_84>
 		<Entity_85>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.9809 85 -1.72112</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.575539 0.575539 0.575539</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_85>
 		<Entity_86>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.423963 86 0.156621</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.278092 0.278092 0.278092</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_86>
 		<Entity_87>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.944487 87 -3.66503</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.27398 0.27398 0.27398</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_87>
 		<Entity_88>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.07852 88 -3.74096</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.529395 0.529395 0.529395</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_88>
 		<Entity_89>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.950835 89 3.53417</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.592982 0.592982 0.592982</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_89>
 		<Entity_90>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.90643 90 -3.52635</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.510244 0.510244 0.510244</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_90>
 		<Entity_91>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.55052 91 1.05216</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.270263 0.270263 0.270263</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_91>
 		<Entity_92>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.96088 92 3.83447</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.356729 0.356729 0.356729</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_92>
 		<Entity_93>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.97388 93 -2.75948</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.515926 0.515926 0.515926</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_93>
 		<Entity_94>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.91208 94 2.58687</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.442032 0.442032 0.442032</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_94>
 		<Entity_95>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.43428 95 0.140263</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.2895 0.2895 0.2895</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_95>
 		<Entity_96>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.23435 96 -0.654439</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.391615 0.391615 0.391615</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_96>
 		<Entity_97>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.26069 97 0.327036</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.382269 0.382269 0.382269</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_97>
 		<Entity_98>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.32316 98 0.034791</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.282141 0.282141 0.282141</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_98>
 		<Entity_99>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.12668 99 1.48723</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.45831 0.45831 0.45831</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_99>
 		<Entity_100>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.97726 100 2.89743</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.397981 0.397981 0.397981</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_100>
 		<Entity_101>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.34294 101 -3.24265</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.599861 0.599861 0.599861</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_101>
 		<Entity_102>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.28242 102 2.58028</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.464206 0.464206 0.464206</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_102>
 		<Entity_103>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.29463 103 3.88549</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.481115 0.481115 0.481115</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_103>
 		<Entity_104>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.99976 104 2.86422</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.336798 0.336798 0.336798</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_104>
 		<Entity_105>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.20652 105 2.64864</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.531169 0.531169 0.531169</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_105>
 		<Entity_106>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.47774 106 3.07175</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.352414 0.352414 0.352414</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_106>
 		<Entity_107>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.50169 107 0.749413</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.508417 0.508417 0.508417</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_107>
 		<Entity_108>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.46455 108 -3.49022</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.415873 0.415873 0.415873</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_108>
 		<Entity_109>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.0284433 109 2.52535</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.515905 0.515905 0.515905</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_109>
 		<Entity_110>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0.29017 110 3.50804</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.37665 0.37665 0.37665</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_110>
 		<Entity_111>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.20283 111 1.34928</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.406153 0.406153 0.406153</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_111>
 		<Entity_112>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.32389 112 -2.31294</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.560756 0.560756 0.560756</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_112>
 		<Entity_113>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.17765 113 -1.53117</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.276629 0.276629 0.276629</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_113>
 		<Entity_114>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.52776 114 -2.94162</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.32383 0.32383 0.32383</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_114>
 		<Entity_115>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.116825 115 -2.69039</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.258972 0.258972 0.258972</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_115>
 		<Entity_116>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.65184 116 2.36323</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.520626 0.520626 0.520626</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_116>
 		<Entity_117>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.52019 117 -2.0954</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.477836 0.477836 0.477836</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_117>
 		<Entity_118>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>3.06491 118 -1.21622</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.336894 0.336894 0.336894</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_118>
 		<Entity_119>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.60933 119 -1.87567</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.565189 0.565189 0.565189</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_119>
 		<Entity_120>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.24409 120 2.72384</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.598312 0.598312 0.598312</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_120>
 		<Entity_121>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>1.79095 121 1.78143</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.383711 0.383711 0.383711</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_121>
 		<Entity_122>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.55901 122 1.81097</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.498173 0.498173 0.498173</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_122>
 		<Entity_123>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-3.45408 123 -0.563128</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.406174 0.406174 0.406174</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_123>
 		<Entity_124>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-1.26481 124 0.607074</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.368575 0.368575 0.368575</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_124>
 		<Entity_125>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-0.228156 125 2.89035</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.485014 0.485014 0.485014</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_125>
 		<Entity_126>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>2.18036 126 3.71044</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.298451 0.298451 0.298451</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_126>
 		<Entity_127>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>-2.61348 127 -0.16419</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>0.448259 0.448259 0.448259</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Ball&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game4BallEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Entity_127>
 		<Floor>
-			<Transform>
+			<N12LouiEriksson9TransformE>
 				<Position>0 -2.5 0</Position>
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>5 1 5</Scale>
-			</Transform>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class Plane&gt;</EntryType>
-			</Script>
+			</N12LouiEriksson9TransformE>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game5PlaneEE</EntryType>
+			</N12LouiEriksson6ScriptE>
 		</Floor>
 		<Orbit_Camera>
-			<Script>
-				<EntryType>class std::shared_ptr&lt;class FlyCam&gt;</EntryType>
-			</Script>
-			<Transform>
+			<N12LouiEriksson6ScriptE>
+				<EntryType>St10shared_ptrIN12LouiEriksson4Game6FlyCamEE</EntryType>
+			</N12LouiEriksson6ScriptE>
+			<N12LouiEriksson9TransformE>
 				<Position>0 2.5 -7</Position>
 				<Rotation>0.300706 0 0 0.953717</Rotation>
 				<Scale>1 1 1</Scale>
-			</Transform>
+			</N12LouiEriksson9TransformE>
 		</Orbit_Camera>
 	</Entities>
 </cereal>
