@@ -4,8 +4,6 @@
 
 #include <memory>
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
-
 namespace LouiEriksson::Engine {
 	
 	Script::Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}

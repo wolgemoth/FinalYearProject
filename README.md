@@ -17,7 +17,7 @@ This project represents the culmination of all the programming work I have compl
 
 It is an extension of my 3DGP assignment from second year, and is expected to undergo changes and transformations in the upcoming months as more additions and modifications are implemented.
 
-If you are assessing this project, please search for instances of `"@Assessor"` in the project's source code for notes and references. Please also refer to the [Dependencies](#Dependencies) and [References](#References) sections of this document for a comprehensive list of external sources.
+If you are assessing this project, please refer to the [Dependencies](#Dependencies) and [References](#References) sections of this document for a comprehensive list of sources.
 
 ### Build from Source
 

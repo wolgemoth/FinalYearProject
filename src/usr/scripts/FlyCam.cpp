@@ -1,7 +1,5 @@
 #include "FlyCam.h"
 
-// @Assessor: Please mark this class for GEP.
-
 using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {

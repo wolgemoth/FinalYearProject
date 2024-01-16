@@ -5,8 +5,6 @@
 
 #include <GL/glew.h>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	class RenderTexture final : public Texture {

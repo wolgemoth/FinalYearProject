@@ -6,8 +6,6 @@
 
 #include <memory>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	class Application;

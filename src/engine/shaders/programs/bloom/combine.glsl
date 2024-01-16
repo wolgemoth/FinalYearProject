@@ -34,11 +34,6 @@
 
     void main() {
 
-        // @Assessor: This shader is functionally-identical to the combine shader
-        // which I submitted for my 3DGP assignment. I personally consider it to be
-        // boilerplate code which is neccessary for the bloom effect, however you
-        // may wish to exclude this from marking altogether.
-
         gl_FragColor = vec4(
             Sample3(u_Texture0, v_TexCoord) + (
                 Sample3(u_Texture1, v_TexCoord) * u_Strength

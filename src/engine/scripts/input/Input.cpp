@@ -16,8 +16,6 @@
 #include <algorithm>
 #include <vector>
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
-
 namespace LouiEriksson::Engine::Input {
 	
 	Input::Key::State::State() noexcept :

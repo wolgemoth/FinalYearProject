@@ -10,8 +10,6 @@
 #include <memory>
 #include <typeindex>
 
-// @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	class Transform;

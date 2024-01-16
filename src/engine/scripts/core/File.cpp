@@ -33,8 +33,6 @@
 #include <string>
 #include <vector>
 
-// @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	std::string File::ReadAllText(const std::filesystem::path& _path) {
@@ -267,9 +265,8 @@ namespace LouiEriksson::Engine {
 		std::cout << "Loading Mesh \"" << _path.c_str() << "\"... ";
 		
 		/*
-		 * @Assessor:
 		 * Implementation derived from Mesh.cpp and Mesh.h
-		 * provided with OBJLoader_v3 project in GCP labs.
+		 * provided with OBJLoader_v3 project in GACP labs.
 		 *
 		 * I added tangent calculations to the code derived from an implementation by Learn OpenGL:
          * de Vries, J. (n.d.). LearnOpenGL - Normal Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Normal-Mapping [Accessed 15 Dec. 2023].
@@ -675,7 +672,6 @@ namespace LouiEriksson::Engine {
 		
 		try {
 			
-			// @Assessor:
 			// de Vries, J. (n.d.). LearnOpenGL - Cubemaps. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-OpenGL/Cubemaps [Accessed 15 Dec. 2023].
 			
 			glGenTextures(1, &_output->m_TextureID);

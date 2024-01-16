@@ -11,8 +11,6 @@
 
 #include <memory>
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
-
 namespace LouiEriksson::Engine {
 	
 	Transform::Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),

@@ -12,8 +12,6 @@
 
 #include <vector>
 
-// @Assessor: This class was originally submitted for 3DGP and modified for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	class Application;

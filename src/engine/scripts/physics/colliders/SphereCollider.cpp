@@ -7,8 +7,6 @@
 
 #include <memory>
 
-// @Assessor: This class was originally created for PFG but has since been modified. Please mark it for GEP.
-
 namespace LouiEriksson::Engine::Physics {
 	
 	SphereCollider::SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent) : Collider(_parent) {

@@ -5,8 +5,6 @@
 #include <iostream>
 #include <memory>
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
-
 namespace LouiEriksson::Engine::ECS {
 	
 	Component::Component(const std::weak_ptr<GameObject>& _parent) noexcept :

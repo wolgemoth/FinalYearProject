@@ -49,7 +49,6 @@
 
     void main() {
 
-        // @Assessor:
         // de Vries, J. (n.d.). LearnOpenGL - SSAO. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/SSAO [Accessed 15 Dec. 2023].
 
         mediump vec3  position = Sample3(u_Position_gBuffer, v_TexCoord);

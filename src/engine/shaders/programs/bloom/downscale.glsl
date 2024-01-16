@@ -30,7 +30,6 @@
 
     void main() {
 
-        // @Assessor:
         // Jimenez, J. (n.d.). LearnOpenGL - Phys. Based Bloom. [online] learnopengl.com. Available at: https://learnopengl.com/Guest-Articles/2022/Phys.-Based-Bloom [Accessed 15 Dec. 2023].
 
         mediump vec2 texelSize = vec2(1.0) / textureSize(u_Texture, 0);

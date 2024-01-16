@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_MODEL_H
 #define FINALYEARPROJECT_MODEL_H
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
-
 #include <GL/glew.h>
 #include <glm/ext/vector_float4.hpp>
 

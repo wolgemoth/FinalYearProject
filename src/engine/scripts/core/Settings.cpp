@@ -5,8 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	void Settings::Init() {

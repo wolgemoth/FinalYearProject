@@ -16,8 +16,6 @@
 #include <memory>
 #include <stdexcept>
 
-// @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	Light::Light(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
@@ -117,7 +115,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
 		
-		// @Assessor: Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
+		// Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
         //  - de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
         //  - de Vries, J. (n.d.). LearnOpenGL - Point Shadows. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows [Accessed 15 Dec. 2023].
 		

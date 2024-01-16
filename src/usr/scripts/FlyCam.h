@@ -4,8 +4,6 @@
 #include "../include/engine_audio.h"
 #include "../include/engine_core.h"
 
-// @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
-
 using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {

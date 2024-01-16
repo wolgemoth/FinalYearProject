@@ -7,8 +7,6 @@
 #include <iostream>
 #include <stdexcept>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	RenderTexture::RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode) : Texture(_width, _height, 0, _format, _filterMode, _wrapMode),

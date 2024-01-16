@@ -9,7 +9,7 @@
 
     void main() {
 
-        // @Assessor: This shader derived from an implementation by Learn OpenGL.
+        // This shader derived from an implementation by Learn OpenGL.
         // de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
 
         gl_Position = u_LightSpaceMatrix * u_Model * vec4(a_Position, 1.0);

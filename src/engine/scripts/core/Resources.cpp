@@ -20,8 +20,6 @@
 #include <utility>
 #include <vector>
 
-// @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
-
 namespace LouiEriksson::Engine {
 	
 	void Resources::PreloadAudio() {

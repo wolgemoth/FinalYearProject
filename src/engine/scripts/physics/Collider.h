@@ -7,8 +7,6 @@
 
 #include <memory>
 
-// @Assessor: This class was originally submitted for PFG but has been modified to accommodate Bullet Physics Engine for GEP.
-
 namespace LouiEriksson::Engine {
 	
 	class Transform;

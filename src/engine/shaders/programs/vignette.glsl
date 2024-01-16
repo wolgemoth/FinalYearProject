@@ -30,9 +30,6 @@
 
 	void main() {
 
-        // @Assessor: This shader is different from the vignette shader I submitted
-		// for my 3DGP assignment. Please mark this for GACP.
-		
 	    mediump vec2 uv = (v_TexCoord - 0.5) * 2.0;
 
 		// Darken the image proportional to the distance of the texture coordinate to screen center.

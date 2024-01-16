@@ -3,8 +3,6 @@
 
 #include "../include/engine_core.h"
 
-// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
-
 using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {

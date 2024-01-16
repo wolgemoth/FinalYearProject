@@ -41,8 +41,6 @@
 #include <queue>
 #include <stdexcept>
 
-// @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
-
 namespace LouiEriksson::Engine::Graphics {
 
 	Camera::Camera(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
@@ -484,7 +482,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Camera::ShadowPass(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights) const {
 		
-		// @Assessor: Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
+		// Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
         //  - de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
         //  - de Vries, J. (n.d.). LearnOpenGL - Point Shadows. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows [Accessed 15 Dec. 2023].
 		
@@ -979,7 +977,6 @@ namespace LouiEriksson::Engine::Graphics {
 		/* RENDER TO SCREEN */
 		RenderTexture::Unbind();
 		
-		// @Assessor:
 		// de Vries, J. (n.d.). LearnOpenGL - Gamma Correction. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Gamma-Correction [Accessed 15 Dec. 2023].
 		
 		// Check if gamma correction is enabled in settings.

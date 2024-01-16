@@ -170,7 +170,6 @@
         return Sample3(_samplerTexture, _dir, b);
     }
 
-    /// @Assessor:
     /// Penov, F. and Slayden, G. (2016). image - Formula to determine perceived brightness of RGB color. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color [Accessed 15 Dec. 2023].
     float Luma(in vec3 _color, const int _technique) {
 
@@ -192,14 +191,13 @@
         return result;
     }
 
-    /// @Assessor:
     /// JeGX (2009). How to Visualize the Depth Buffer in GLSL | Geeks3D. [online] Geeks3D. Available at: https://www.geeks3d.com/20091216/geexlab-how-to-visualize-the-depth-buffer-in-glsl/ [Accessed 15 Dec. 2023].
     float Linear01Depth(in float _depth, const float _near, const float _far) {
         return (2.0 * _near) / (_far + _near - _depth * (_far - _near));
     }
 
     /// <summary>
-    /// Parallax Occlusion Mapping. @Assessor: Implementation courtesy of Learn OpenGL.
+    /// Parallax Occlusion Mapping. Implementation courtesy of Learn OpenGL.
     /// de Vries, J. (n.d.). LearnOpenGL - Parallax Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Parallax-Mapping [Accessed 15 Dec. 2023].
     /// </summary>
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {

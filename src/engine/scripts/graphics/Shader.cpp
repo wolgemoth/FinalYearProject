@@ -21,8 +21,6 @@
 #include <string>
 #include <vector>
 
-// @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) noexcept :

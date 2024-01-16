@@ -31,10 +31,5 @@
     in mediump vec2 v_TexCoord;
 
     void main() {
-
-        // @Assessor: This shader is functionally-identical to the passthrough shader
-        // which I submitted for my 3DGP assignment. I personally consider it to be
-        // boilerplate code applicable to any similar graphics engine, however you may
-        // wish to exclude this from marking altogether.
         gl_FragColor = Sample4(u_Texture, v_TexCoord);
     }

@@ -85,7 +85,7 @@
     uniform mediump float u_LightSize       =  0.2; // Size of the light (PCSS only).
     uniform mediump float u_LightAngle      = -1.0; // Cos of light's FOV (for spot lights).
 
-    // @Assessor: The BRDF function and its child functions are heavily derived from an implementation by "Nadrin":
+    // The BRDF function and its child functions are heavily derived from an implementation by "Nadrin":
     // Siejak, M. (2018). /PBR/data/shaders/glsl/pbr_fs.glsl. [online] GitHub. Available at: https://github.com/Nadrin/PBR/blob/master/data/shaders/glsl/pbr_fs.glsl [Accessed 15 Dec. 2023].
 
     mediump vec3 Irradiance(in mediump vec3 _fresnel, in mediump float _metallic) {

@@ -5,8 +5,6 @@
 #include <iostream>
 #include <utility>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) noexcept :

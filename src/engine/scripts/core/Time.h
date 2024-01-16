@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_TIME_H
 #define FINALYEARPROJECT_TIME_H
 
-// @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
-
 namespace LouiEriksson::Engine {
 	
 	class Time {

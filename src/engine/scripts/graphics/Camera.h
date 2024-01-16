@@ -12,8 +12,6 @@
 #include <typeindex>
 #include <vector>
 
-// @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
-
 namespace LouiEriksson::Engine {
 	
 	class Transform;

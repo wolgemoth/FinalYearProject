@@ -4,8 +4,6 @@
 
 #include <memory>
 
-// @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
-
 namespace LouiEriksson::Engine::Graphics {
 	
 	Mesh::Mesh() noexcept : m_VAO_ID(0u),

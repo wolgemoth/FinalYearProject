@@ -7,8 +7,6 @@
 #include <memory>
 #include <string>
 
-// @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
-
 namespace LouiEriksson::Engine::Audio {
 	
 	class AudioClip;

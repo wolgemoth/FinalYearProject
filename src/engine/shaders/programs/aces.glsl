@@ -62,9 +62,6 @@
 
     void main() {
 
-        // @Assessor: This shader is functionally-identical to the ACES shader which I submitted
-        // for my GEP assignment, which Karsten Pedersen marked. Please don't mark me for this.
-
         mediump vec3 tonemapped = ACES(max((Sample3(u_Texture, v_TexCoord) * u_Exposure) + u_Gain, vec3(0.0)));
 
         gl_FragColor = vec4(tonemapped, 1.0);
