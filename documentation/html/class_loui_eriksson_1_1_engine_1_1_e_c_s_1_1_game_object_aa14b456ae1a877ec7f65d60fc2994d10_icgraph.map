@@ -1,8 +1,0 @@
-<map id="LouiEriksson::Engine::ECS::GameObject::Create" name="LouiEriksson::Engine::ECS::GameObject::Create">
-<area shape="rect" id="node1" title="Factory function which creates a GameObject within a Scene." alt="" coords="537,79,732,120"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_fly_cam.html#a89677d1b90b94b2289547040501ddc6b" title="Called at the beginning of the first frame." alt="" coords="312,5,489,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_orbit_cam.html#a8bf3807808590881cbcf31354d9d2861" title="Called at the beginning of the first frame." alt="" coords="325,71,476,127"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed" title="TryLoad the Scene from xml format at a given path." alt="" coords="323,152,479,193"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a9b27e258ed2b59ff32b35aaf4ead2474" title="Main function of the application." alt="" coords="108,152,264,193"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,159,60,186"/>
-</map>

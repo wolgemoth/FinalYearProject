@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Engine::Graphics::Texture::ID" name="LouiEriksson::Engine::Graphics::Texture::ID">
-<area shape="rect" id="node1" title="Get the Texture&#39;s ID." alt="" coords="281,86,447,127"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#a83a2926465687bdba75509e603c70edd" title=" " alt="" coords="41,5,197,61"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#ad843c912075bba70a0ff2eca37dfa2fa" title="Called after rendering." alt="" coords="5,86,233,127"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a02c97c85669abc97fb1966d982ce513f" title="Renders each Renderer using the Camera." alt="" coords="19,151,219,193"/>
-</map>

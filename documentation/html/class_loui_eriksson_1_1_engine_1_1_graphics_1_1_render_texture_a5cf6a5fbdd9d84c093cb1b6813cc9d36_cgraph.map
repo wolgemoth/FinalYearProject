@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Engine::Graphics::RenderTexture::Reinitialise" name="LouiEriksson::Engine::Graphics::RenderTexture::Reinitialise">
-<area shape="rect" id="node1" title="Reinitialise the texture with a given width, height, format, filter mode, wrap mode,..." alt="" coords="5,5,195,61"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture.html#a7b2d50e5c10c277a3dc9be17d7daba4f" title="Discard the RenderTexture." alt="" coords="243,5,432,61"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#a8eb51bef0b2c1748483a8b7ed063488c" title="Discard the Texture." alt="" coords="480,5,636,61"/>
-</map>

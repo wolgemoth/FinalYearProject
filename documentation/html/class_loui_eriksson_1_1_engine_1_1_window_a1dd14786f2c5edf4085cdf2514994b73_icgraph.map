@@ -1,8 +1,0 @@
-<map id="LouiEriksson::Engine::Window::Get" name="LouiEriksson::Engine::Window::Get">
-<area shape="rect" id="node1" title=" " alt="" coords="333,116,489,157"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_fly_cam.html#a89677d1b90b94b2289547040501ddc6b" title="Called at the beginning of the first frame." alt="" coords="108,5,285,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_orbit_cam.html#a8bf3807808590881cbcf31354d9d2861" title="Called at the beginning of the first frame." alt="" coords="121,71,272,127"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb" title=" " alt="" coords="119,152,275,193"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a9b27e258ed2b59ff32b35aaf4ead2474" title="Main function of the application." alt="" coords="119,217,275,259"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,225,60,251"/>
-</map>

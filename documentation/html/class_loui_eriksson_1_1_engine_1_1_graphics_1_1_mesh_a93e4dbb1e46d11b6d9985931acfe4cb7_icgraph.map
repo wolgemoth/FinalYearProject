@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Engine::Graphics::Mesh::VAO_ID" name="LouiEriksson::Engine::Graphics::Mesh::VAO_ID">
-<area shape="rect" id="node1" title=" " alt="" coords="468,5,655,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh.html#a203506fdd49aca9f0fb5a971db07c55a" title="Bind the provided mesh." alt="" coords="253,5,420,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a02c97c85669abc97fb1966d982ce513f" title="Renders each Renderer using the Camera." alt="" coords="5,5,205,47"/>
-</map>

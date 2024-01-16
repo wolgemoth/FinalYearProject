@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Engine::Graphics::Mesh::Primitives::Quad::Instance" name="LouiEriksson::Engine::Graphics::Mesh::Primitives::Quad::Instance">
-<area shape="rect" id="node1" title="Returns a pointer to the static instance of the mesh." alt="" coords="281,31,485,87"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#ad843c912075bba70a0ff2eca37dfa2fa" title="Called after rendering." alt="" coords="5,5,233,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a02c97c85669abc97fb1966d982ce513f" title="Renders each Renderer using the Camera." alt="" coords="19,71,219,112"/>
-</map>

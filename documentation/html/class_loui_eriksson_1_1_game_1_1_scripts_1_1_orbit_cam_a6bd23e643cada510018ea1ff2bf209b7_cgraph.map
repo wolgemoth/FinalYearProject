@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Game::Scripts::OrbitCam::Tick" name="LouiEriksson::Game::Scripts::OrbitCam::Tick">
-<area shape="rect" id="node1" title="Called every frame." alt="" coords="5,5,184,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_time.html#aec26e739d4e58eabba5803f458da36c4" title="Get the scaled delta time. (Duration of the previous frame.)" alt="" coords="232,5,388,47"/>
-</map>

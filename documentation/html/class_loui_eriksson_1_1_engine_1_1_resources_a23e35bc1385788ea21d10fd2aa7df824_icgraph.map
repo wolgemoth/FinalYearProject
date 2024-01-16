@@ -1,9 +1,0 @@
-<map id="LouiEriksson::Engine::Resources::TryGetShader" name="LouiEriksson::Engine::Resources::TryGetShader">
-<area shape="rect" id="node1" title=" " alt="" coords="820,43,1012,84"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#afd7add99661ae2df0d20a7fdf0b3a7e0" title=" " alt="" coords="593,5,767,47"/>
-<area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material.html#a8d023538b68e769b25687ed72cb87970" title=" " alt="" coords="588,71,772,127"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#ad843c912075bba70a0ff2eca37dfa2fa" title="Called after rendering." alt="" coords="312,5,540,47"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_settings.html#a292a8c9ae0fbf520908200975ccbf767" title="Initialise settings on application start." alt="" coords="348,79,504,120"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a9b27e258ed2b59ff32b35aaf4ead2474" title="Main function of the application." alt="" coords="108,79,264,120"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,86,60,113"/>
-</map>
