@@ -72,13 +72,6 @@ namespace LouiEriksson::Engine::Audio {
 				DopplerFactor(1.0f);
 				SpeedOfSound(343.3f);
 				
-				/*
-				 * Generate the global audio source.
-				 * This will be responsible for on-demand playback of non-positional sound.
-				 */
-				s_GlobalSource.reset(new AudioSource({}));
-				s_GlobalSource->Global(true);
-				
 				std::cout << "Done.\n";
 			}
 			catch (const std::exception& e) {
@@ -86,6 +79,14 @@ namespace LouiEriksson::Engine::Audio {
 				
 				throw e;
 			}
+			
+			/*
+			 * Generate the global audio source.
+			 * This will be responsible for on-demand playback of non-positional sound.
+			 */
+			s_GlobalSource.reset(new AudioSource({}));
+			s_GlobalSource->Global(true);
+			
 		}
 		catch (const std::exception& e) {
 			std::cout << e.what() << '\n';
