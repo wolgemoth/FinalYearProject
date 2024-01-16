@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
+#include "AudioSource.h"
+
 #include <al.h>
 #include <alc.h>
 
@@ -33,7 +35,7 @@ namespace LouiEriksson::Engine::Audio {
 		/// <summary>
 		inline static unsigned int s_SDL_Device { 0u };
 		
-		inline static std::shared_ptr<AudioSource> s_GlobalSource;
+		inline static std::unique_ptr<AudioSource> s_GlobalSource;
 		
 	public:
 	

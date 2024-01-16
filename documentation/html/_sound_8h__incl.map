@@ -1,6 +1,12 @@
 <map id="src/engine/scripts/audio/Sound.h" name="src/engine/scripts/audio/Sound.h">
-<area shape="rect" id="node1" title=" " alt="" coords="35,5,171,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,52,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="77,95,130,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="154,95,231,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="459,5,595,47"/>
+<area shape="rect" id="node2" href="$_audio_source_8h.html" title=" " alt="" coords="278,95,393,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="365,319,442,345"/>
+<area shape="rect" id="node8" title=" " alt="" coords="468,169,515,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="590,95,643,121"/>
+<area shape="rect" id="node3" href="$_component_8h.html" title=" " alt="" coords="82,244,229,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,319,92,345"/>
+<area shape="rect" id="node7" href="$_script_8h.html" title=" " alt="" coords="278,169,393,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="65,169,254,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="120,319,191,345"/>
 </map>

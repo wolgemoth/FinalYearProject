@@ -7,7 +7,6 @@
 #include <alc.h>
 #include <glm/common.hpp>
 #include <SDL.h>
-#include <SDL2/SDL.h>
 #include <SDL_audio.h>
 
 #include <exception>
