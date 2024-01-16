@@ -1,0 +1,431 @@
+\hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material}{}\doxysection{Loui\+Eriksson\+::Engine\+::Settings\+::Graphics\+::Material Struct Reference}
+\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material}\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+
+
+Container for the settings of the application\textquotesingle{}s \char`\"{}pbr\char`\"{} and \char`\"{}blinnphong\char`\"{} materials.  
+
+
+
+
+{\ttfamily \#include $<$Settings.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Settings\+::Graphics\+::Material\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8d023538b68e769b25687ed72cb87970}{Update\+Shader}} (const int \&\+\_\+index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::vector$<$ const char $\ast$ $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a082352be0c8956248e27cf8a3c8667fe}{s\+\_\+\+Available\+Shaders}}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a9eef43d72485d4f037404cd6f03c8805}{s\+\_\+\+Current\+Shader\+Selection}} \{ 0 \}
+\item 
+static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_shader}{Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Shader}} $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa1dab85e3e40371bfd78e24ea7c40e48}{s\+\_\+\+Shader}}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a6a724f901ab9ad1ddb4c7296457c6d26}{s\+\_\+\+Roughness\+Amount}} \{ 1.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a3bef07d3e3cf85acaea0bdea31e82d4b}{s\+\_\+\+Displacement\+Amount}} \{ 0.\+3f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a78b3a5df4b9fd60c64bf3b5e4a52de73}{s\+\_\+\+Normal\+Amount}} \{ 1.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac3233b1325a155f8b6ecd2e5987bdc22}{s\+\_\+\+Emission\+Amount}} \{ 0.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a968275f29e5319b4c3468632d1ae9eb8}{s\+\_\+\+AOAmount}} \{ 2.\+0f \}
+\item 
+static glm\+::vec4 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a729f19d7fc139c4a14c93befccfc9a4c}{s\+\_\+\+Texture\+Scale\+Translate}} \{ 3.\+0f, 3.\+0f, 0.\+0f, 0.\+0f \}
+\item 
+static std\+::vector$<$ const char $\ast$ $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a7a6357fdb7f9d393256f3e1d856c25e9}{s\+\_\+\+Shadow\+Techniques}}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a046f4677ac494fef4b74b0d5634bc3f0}{s\+\_\+\+Current\+Shadow\+Technique}} \{ 3 \}
+\item 
+static std\+::vector$<$ const char $\ast$ $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8dad87342028d4943ae73349516f8030}{s\+\_\+\+Shadow\+Resolutions}}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac875e0ec73f80ad53a6eae5f0a658676}{s\+\_\+\+Current\+Shadow\+Resolution\+Selection}} \{ 3 \}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ae39591aaffa05d6d93385131cfd6d76b}{s\+\_\+\+Shadow\+Samples}} \{ 12 \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5c889073321d8659adcb2d79b56681ae}{s\+\_\+\+Shadow\+Bias}} \{ 0.\+01f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a239e5d1ab5c6e82b6acd7ca04721e209}{s\+\_\+\+Shadow\+Normal\+Bias}} \{ 0.\+02f \}
+\item 
+static bool \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa74e067c4fc155961892034a2ab53c65}{s\+\_\+\+Parallax\+Shadows}} \{ true \}
+\item 
+static std\+::vector$<$ const char $\ast$ $>$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5f9607222ca79cd86a9ff7e08ff0e7d0}{s\+\_\+\+Available\+Light\+Types}}
+\item 
+static int \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a912086b80d6950f64ce2fb67631e76c9}{s\+\_\+\+Current\+Light\+Type}} \{ 0 \}
+\item 
+static glm\+::vec3 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aad62bcff6e29d5f20b6de42fafc62b75}{s\+\_\+\+Light\+Position}} \{ 0.\+0f, 2.\+5f, 0.\+0f \}
+\item 
+static glm\+::vec3 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5842f8d0b6f9670bbf4068dd1409042c}{s\+\_\+\+Light\+Rotation}} \{ -\/125.\+0f, 225.\+0f, 0.\+0f \}
+\item 
+static glm\+::vec3 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa70c70fc9205d7faec04eec8d785a770}{s\+\_\+\+Light\+Color}} \{ 1.\+0f, 0.\+91f, 0.\+874f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aaf3a04caf67ef3b1661b4a315898cad2}{s\+\_\+\+Light\+Intensity}} \{ 3.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a93a161c8e3913934a2a06b5d2d894839}{s\+\_\+\+Light\+Range}} \{ 100.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a212c2040fa584e4abf29efb6fe9686eb}{s\+\_\+\+Light\+Angle}} \{ 120.\+0f \}
+\item 
+static float \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a411727e7eb2f95d9346c6b76a5116154}{s\+\_\+\+Light\+Size}} \{ 0.\+2f \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Container for the settings of the application\textquotesingle{}s \char`\"{}pbr\char`\"{} and \char`\"{}blinnphong\char`\"{} materials. 
+
+
+
+Definition at line 101 of file Settings.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8d023538b68e769b25687ed72cb87970}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8d023538b68e769b25687ed72cb87970}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!UpdateShader@{UpdateShader}}
+\index{UpdateShader@{UpdateShader}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{UpdateShader()}{UpdateShader()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::\+Update\+Shader (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 57 of file Settings.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8d023538b68e769b25687ed72cb87970_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8d023538b68e769b25687ed72cb87970_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a968275f29e5319b4c3468632d1ae9eb8}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a968275f29e5319b4c3468632d1ae9eb8}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_AOAmount@{s\_AOAmount}}
+\index{s\_AOAmount@{s\_AOAmount}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_AOAmount}{s\_AOAmount}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+AOAmount \{ 2.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 120 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5f9607222ca79cd86a9ff7e08ff0e7d0}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5f9607222ca79cd86a9ff7e08ff0e7d0}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_AvailableLightTypes@{s\_AvailableLightTypes}}
+\index{s\_AvailableLightTypes@{s\_AvailableLightTypes}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_AvailableLightTypes}{s\_AvailableLightTypes}}
+{\footnotesize\ttfamily std\+::vector$<$const char$\ast$$>$ Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Available\+Light\+Types\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}point"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}directional"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}spot"{}}}
+\DoxyCodeLine{                \}}
+
+\end{DoxyCode}
+
+
+Definition at line 157 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a082352be0c8956248e27cf8a3c8667fe}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a082352be0c8956248e27cf8a3c8667fe}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_AvailableShaders@{s\_AvailableShaders}}
+\index{s\_AvailableShaders@{s\_AvailableShaders}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_AvailableShaders}{s\_AvailableShaders}}
+{\footnotesize\ttfamily std\+::vector$<$const char$\ast$$>$ Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Available\+Shaders\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}pbr"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}blinnphong"{}},}
+\DoxyCodeLine{                \}}
+
+\end{DoxyCode}
+
+
+Definition at line 104 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a912086b80d6950f64ce2fb67631e76c9}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a912086b80d6950f64ce2fb67631e76c9}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_CurrentLightType@{s\_CurrentLightType}}
+\index{s\_CurrentLightType@{s\_CurrentLightType}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_CurrentLightType}{s\_CurrentLightType}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Current\+Light\+Type \{ 0 \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 163 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a9eef43d72485d4f037404cd6f03c8805}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a9eef43d72485d4f037404cd6f03c8805}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_CurrentShaderSelection@{s\_CurrentShaderSelection}}
+\index{s\_CurrentShaderSelection@{s\_CurrentShaderSelection}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_CurrentShaderSelection}{s\_CurrentShaderSelection}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Current\+Shader\+Selection \{ 0 \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 109 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac875e0ec73f80ad53a6eae5f0a658676}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac875e0ec73f80ad53a6eae5f0a658676}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_CurrentShadowResolutionSelection@{s\_CurrentShadowResolutionSelection}}
+\index{s\_CurrentShadowResolutionSelection@{s\_CurrentShadowResolutionSelection}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_CurrentShadowResolutionSelection}{s\_CurrentShadowResolutionSelection}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Current\+Shadow\+Resolution\+Selection \{ 3 \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 147 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a046f4677ac494fef4b74b0d5634bc3f0}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a046f4677ac494fef4b74b0d5634bc3f0}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_CurrentShadowTechnique@{s\_CurrentShadowTechnique}}
+\index{s\_CurrentShadowTechnique@{s\_CurrentShadowTechnique}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_CurrentShadowTechnique}{s\_CurrentShadowTechnique}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Current\+Shadow\+Technique \{ 3 \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 132 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a3bef07d3e3cf85acaea0bdea31e82d4b}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a3bef07d3e3cf85acaea0bdea31e82d4b}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_DisplacementAmount@{s\_DisplacementAmount}}
+\index{s\_DisplacementAmount@{s\_DisplacementAmount}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_DisplacementAmount}{s\_DisplacementAmount}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Displacement\+Amount \{ 0.\+3f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 117 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac3233b1325a155f8b6ecd2e5987bdc22}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ac3233b1325a155f8b6ecd2e5987bdc22}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_EmissionAmount@{s\_EmissionAmount}}
+\index{s\_EmissionAmount@{s\_EmissionAmount}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_EmissionAmount}{s\_EmissionAmount}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Emission\+Amount \{ 0.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 119 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a212c2040fa584e4abf29efb6fe9686eb}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a212c2040fa584e4abf29efb6fe9686eb}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightAngle@{s\_LightAngle}}
+\index{s\_LightAngle@{s\_LightAngle}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightAngle}{s\_LightAngle}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Angle \{ 120.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 170 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa70c70fc9205d7faec04eec8d785a770}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa70c70fc9205d7faec04eec8d785a770}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightColor@{s\_LightColor}}
+\index{s\_LightColor@{s\_LightColor}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightColor}{s\_LightColor}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Color \{ 1.\+0f, 0.\+91f, 0.\+874f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 167 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aaf3a04caf67ef3b1661b4a315898cad2}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aaf3a04caf67ef3b1661b4a315898cad2}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightIntensity@{s\_LightIntensity}}
+\index{s\_LightIntensity@{s\_LightIntensity}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightIntensity}{s\_LightIntensity}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Intensity \{ 3.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 168 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aad62bcff6e29d5f20b6de42fafc62b75}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aad62bcff6e29d5f20b6de42fafc62b75}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightPosition@{s\_LightPosition}}
+\index{s\_LightPosition@{s\_LightPosition}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightPosition}{s\_LightPosition}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Position \{ 0.\+0f, 2.\+5f, 0.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 165 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a93a161c8e3913934a2a06b5d2d894839}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a93a161c8e3913934a2a06b5d2d894839}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightRange@{s\_LightRange}}
+\index{s\_LightRange@{s\_LightRange}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightRange}{s\_LightRange}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Range \{ 100.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 169 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5842f8d0b6f9670bbf4068dd1409042c}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5842f8d0b6f9670bbf4068dd1409042c}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightRotation@{s\_LightRotation}}
+\index{s\_LightRotation@{s\_LightRotation}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightRotation}{s\_LightRotation}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Rotation \{ -\/125.\+0f, 225.\+0f, 0.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 166 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a411727e7eb2f95d9346c6b76a5116154}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a411727e7eb2f95d9346c6b76a5116154}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_LightSize@{s\_LightSize}}
+\index{s\_LightSize@{s\_LightSize}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_LightSize}{s\_LightSize}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Light\+Size \{ 0.\+2f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 171 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a78b3a5df4b9fd60c64bf3b5e4a52de73}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a78b3a5df4b9fd60c64bf3b5e4a52de73}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_NormalAmount@{s\_NormalAmount}}
+\index{s\_NormalAmount@{s\_NormalAmount}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_NormalAmount}{s\_NormalAmount}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Normal\+Amount \{ 1.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 118 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa74e067c4fc155961892034a2ab53c65}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa74e067c4fc155961892034a2ab53c65}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ParallaxShadows@{s\_ParallaxShadows}}
+\index{s\_ParallaxShadows@{s\_ParallaxShadows}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ParallaxShadows}{s\_ParallaxShadows}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Parallax\+Shadows \{ true \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 154 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a6a724f901ab9ad1ddb4c7296457c6d26}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a6a724f901ab9ad1ddb4c7296457c6d26}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_RoughnessAmount@{s\_RoughnessAmount}}
+\index{s\_RoughnessAmount@{s\_RoughnessAmount}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_RoughnessAmount}{s\_RoughnessAmount}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Roughness\+Amount \{ 1.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 116 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa1dab85e3e40371bfd78e24ea7c40e48}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_aa1dab85e3e40371bfd78e24ea7c40e48}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_Shader@{s\_Shader}}
+\index{s\_Shader@{s\_Shader}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_Shader}{s\_Shader}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_shader}{Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Shader}}$>$ Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shader\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 111 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5c889073321d8659adcb2d79b56681ae}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a5c889073321d8659adcb2d79b56681ae}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ShadowBias@{s\_ShadowBias}}
+\index{s\_ShadowBias@{s\_ShadowBias}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ShadowBias}{s\_ShadowBias}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shadow\+Bias \{ 0.\+01f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 151 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a239e5d1ab5c6e82b6acd7ca04721e209}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a239e5d1ab5c6e82b6acd7ca04721e209}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ShadowNormalBias@{s\_ShadowNormalBias}}
+\index{s\_ShadowNormalBias@{s\_ShadowNormalBias}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ShadowNormalBias}{s\_ShadowNormalBias}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shadow\+Normal\+Bias \{ 0.\+02f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 152 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8dad87342028d4943ae73349516f8030}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a8dad87342028d4943ae73349516f8030}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ShadowResolutions@{s\_ShadowResolutions}}
+\index{s\_ShadowResolutions@{s\_ShadowResolutions}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ShadowResolutions}{s\_ShadowResolutions}}
+{\footnotesize\ttfamily std\+::vector$<$const char$\ast$$>$ Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shadow\+Resolutions\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}0"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}32"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}64"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}128"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}256"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}512"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}1024"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}2048"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}4096"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}8196"{}}}
+\DoxyCodeLine{                \}}
+
+\end{DoxyCode}
+
+
+Definition at line 134 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ae39591aaffa05d6d93385131cfd6d76b}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_ae39591aaffa05d6d93385131cfd6d76b}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ShadowSamples@{s\_ShadowSamples}}
+\index{s\_ShadowSamples@{s\_ShadowSamples}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ShadowSamples}{s\_ShadowSamples}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shadow\+Samples \{ 12 \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 149 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a7a6357fdb7f9d393256f3e1d856c25e9}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a7a6357fdb7f9d393256f3e1d856c25e9}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_ShadowTechniques@{s\_ShadowTechniques}}
+\index{s\_ShadowTechniques@{s\_ShadowTechniques}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_ShadowTechniques}{s\_ShadowTechniques}}
+{\footnotesize\ttfamily std\+::vector$<$const char$\ast$$>$ Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Shadow\+Techniques\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}hard"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}pcf"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}poisson-\/disk"{}},}
+\DoxyCodeLine{                    \textcolor{stringliteral}{"{}pcss"{}}}
+\DoxyCodeLine{                \}}
+
+\end{DoxyCode}
+
+
+Definition at line 125 of file Settings.\+h.
+
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a729f19d7fc139c4a14c93befccfc9a4c}\label{struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material_a729f19d7fc139c4a14c93befccfc9a4c}} 
+\index{LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}!s\_TextureScaleTranslate@{s\_TextureScaleTranslate}}
+\index{s\_TextureScaleTranslate@{s\_TextureScaleTranslate}!LouiEriksson::Engine::Settings::Graphics::Material@{LouiEriksson::Engine::Settings::Graphics::Material}}
+\doxysubsubsection{\texorpdfstring{s\_TextureScaleTranslate}{s\_TextureScaleTranslate}}
+{\footnotesize\ttfamily glm\+::vec4 Loui\+Eriksson\+::\+Engine\+::\+Settings\+::\+Graphics\+::\+Material\+::s\+\_\+\+Texture\+Scale\+Translate \{ 3.\+0f, 3.\+0f, 0.\+0f, 0.\+0f \}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 122 of file Settings.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/core/\mbox{\hyperlink{_settings_8h}{Settings.\+h}}\item 
+src/engine/scripts/core/\mbox{\hyperlink{_settings_8cpp}{Settings.\+cpp}}\end{DoxyCompactItemize}

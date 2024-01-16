@@ -7,19 +7,19 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class PlaneCollider final : public Collider {
 	
@@ -34,6 +34,6 @@ namespace LouiEriksson::Physics {
 		
 	};
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
 #endif //FINALYEARPROJECT_PLANECOLLIDER_H

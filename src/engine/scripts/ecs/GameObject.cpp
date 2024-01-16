@@ -12,7 +12,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	GameObject::GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
 			m_Scene(_scene),
@@ -41,4 +41,4 @@ namespace LouiEriksson::ECS {
 		return m_Scene;
 	}
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS

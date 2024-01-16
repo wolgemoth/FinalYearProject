@@ -25,7 +25,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson::UI {
+namespace LouiEriksson::Engine::UI {
 	
 	void GUI::Init(const std::weak_ptr<Window>& _window, const char* _glsl_version) {
 		
@@ -728,4 +728,4 @@ namespace LouiEriksson::UI {
 		}
 	}
 
-} // LouiEriksson::UI
+} // LouiEriksson::Engine::UI

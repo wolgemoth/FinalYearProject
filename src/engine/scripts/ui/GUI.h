@@ -8,25 +8,25 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	class Window;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Input {
+namespace LouiEriksson::Engine::Input {
 	
 	class Input;
 	
-} // LouiEriksson::Input
+} // LouiEriksson::Engine::Input
 
-namespace LouiEriksson::UI {
+namespace LouiEriksson::Engine::UI {
 	
 	class GUI {
 		
-		friend LouiEriksson::Application;
-		friend LouiEriksson::Input::Input;
+		friend LouiEriksson::Engine::Application;
+		friend LouiEriksson::Engine::Input::Input;
 		
 	private:
 	
@@ -79,6 +79,6 @@ namespace LouiEriksson::UI {
 		
 	};
 	
-} // LouiEriksson::UI
+} // LouiEriksson::Engine::UI
 
 #endif //FINALYEARPROJECT_GUI_H

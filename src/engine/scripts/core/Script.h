@@ -8,26 +8,26 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class Scene;
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class Camera;
 	class Collision;
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
-namespace LouiEriksson::Scripts {
+namespace LouiEriksson::Game::Core {
 	
 	class ScriptInjector;
 	
-} // LouiEriksson::Scripts
+} // LouiEriksson::Game::Core
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 
 	/// <summary>
 	/// Base class to be inherited by scriptable types.
@@ -35,7 +35,7 @@ namespace LouiEriksson {
 	class Script : public ECS::Component {
 	
 		friend ECS::Scene;
-		friend Scripts::ScriptInjector;
+		friend LouiEriksson::Game::Core::ScriptInjector;
 	
 	protected:
 	
@@ -56,6 +56,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_SCRIPT_H

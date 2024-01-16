@@ -9,17 +9,17 @@
 #include <cstddef>
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class File;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Mesh {
 	
-		friend LouiEriksson::File;
+		friend LouiEriksson::Engine::File;
 		
 	private:
 		
@@ -92,6 +92,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_MODEL_H

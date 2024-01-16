@@ -11,7 +11,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	Renderer::Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	Renderer::~Renderer() = default;
@@ -37,4 +37,4 @@ namespace LouiEriksson::Graphics {
 		return m_Transform;
 	}
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics

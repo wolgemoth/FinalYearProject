@@ -6,13 +6,13 @@
 #include <memory>
 #include <typeindex>
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
-}; // LouiEriksson::ECS
+}; // LouiEriksson::Engine::ECS
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 
 	class Script;
 	
@@ -40,6 +40,6 @@ namespace LouiEriksson {
 		static void Quit() noexcept;
 	
 	};
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_APPLICATION_H

@@ -2,7 +2,7 @@
 #define FINALYEARPROJECT_STDAFX_H
 
 /* EXTERNAL */
-#include <al.h>                  // AL ...
+#include <al.h>                     // AL ...
 #include <alc.h>
 #include <alext.h>
 

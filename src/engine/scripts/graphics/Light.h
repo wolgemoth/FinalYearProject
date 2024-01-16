@@ -11,13 +11,13 @@
 
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Camera;
 	
@@ -100,6 +100,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_LIGHT_H

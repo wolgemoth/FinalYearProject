@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Engine::Input::Input::Mouse::GetUp" name="LouiEriksson::Engine::Input::Input::Mouse::GetUp">
+<area shape="rect" id="node1" title="Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released." alt="" coords="5,5,161,61"/>
+<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_engine_1_1_input_1_1_input_1_1_event.html#afeddc6f51ad6803be0cb5990c823f2cf" title="Get all events of a certain type which occurred this frame." alt="" coords="209,13,389,54"/>
+</map>

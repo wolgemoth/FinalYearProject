@@ -1,8 +1,0 @@
-<map id="LouiEriksson::Graphics::Texture::Discard" name="LouiEriksson::Graphics::Texture::Discard">
-<area shape="rect" id="node1" title="Discard the Texture." alt="" coords="737,71,907,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_render_texture.html#ab1569963e9e263f67d913d922039d11b" title="Discard the RenderTexture." alt="" coords="508,37,689,79"/>
-<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_graphics_1_1_texture.html#ab4e544f8dff67f6849d137cf6c10d212" title=" " alt="" coords="514,103,683,144"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_render_texture.html#a0fa8d8b759f6c04d7666be231780e4c9" title="Reinitialise the texture with a given width and height." alt="" coords="239,5,444,47"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_graphics_1_1_render_texture.html#a42d12b61fe33b7ee784612f9ad5d5c1e" title=" " alt="" coords="223,71,460,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a806013d3afc6a7b9f4500c9c2da9f41b" title="Called before rendering." alt="" coords="5,5,175,47"/>
-</map>

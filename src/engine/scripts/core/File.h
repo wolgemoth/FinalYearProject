@@ -11,22 +11,22 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GEP.
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 
 	class AudioClip;
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Cubemap;
 	class Material;
 	class Mesh;
 	class Texture;
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class File {
 	
@@ -65,6 +65,6 @@ namespace LouiEriksson {
 	
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_FILE_H

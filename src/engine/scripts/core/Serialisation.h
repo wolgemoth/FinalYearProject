@@ -11,7 +11,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Serialisation {
 	
@@ -57,6 +57,6 @@ namespace LouiEriksson {
 		return std::stof(_str);
 	}
 
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_SERIALISATION_H

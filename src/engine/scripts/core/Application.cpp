@@ -31,7 +31,7 @@
 #include <typeindex>
 #include <vector>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	int Application::Main(const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 		
@@ -226,4 +226,4 @@ NestedBreak:
 		Application::s_Quit = true;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

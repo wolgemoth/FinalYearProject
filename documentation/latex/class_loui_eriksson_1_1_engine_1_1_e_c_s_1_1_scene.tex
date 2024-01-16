@@ -1,0 +1,305 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{}\doxysection{Loui\+Eriksson\+::Engine\+::ECS\+::Scene Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+
+
+{\ttfamily \#include $<$Scene.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::ECS\+::Scene\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::ECS\+::Scene\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aa27283836ce186f17ec9f64e24aa908b}{Scene}} ()=default
+\item 
+virtual \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5925403ecb8b1718fa0a47e7635f4f00}{$\sim$\+Scene}} ()
+\item 
+const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aede2c904cc80411b8495284a744c3015}{Components}} () noexcept
+\begin{DoxyCompactList}\small\item\em Get the components within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a4a8c5d04541a324f307530c1009c3ae1}{Save}} (const std\+::filesystem\+::path \&\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Save the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} in xml format at a given path. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a8d23ea5d429680601b4583d641fcb475}{Attach}} (std\+::shared\+\_\+ptr$<$ T $>$ \+\_\+entity)
+\begin{DoxyCompactList}\small\item\em Attach an instance of a type to the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a1ce149f3cc259c501a5c74c882dc0964}{Detach}} (const std\+::weak\+\_\+ptr$<$ T $>$ \&\+\_\+entity)
+\begin{DoxyCompactList}\small\item\em Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+template$<$$>$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a3aec902eac39d83fb1f42614d8f8c64f}{Attach}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \+\_\+entity)
+\item 
+template$<$$>$ void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aaf6810496b6a8095421749cae0be1013}{Detach}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&\+\_\+entity)
+\item 
+template$<$$>$ void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5fea92d4fcee6dca3f37f562ab41049c}{Detach}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} $>$ \&\+\_\+entity)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_ac90d01d0c7e659e48dc7b26297a0d608}{Load}} (const std\+::filesystem\+::path \&\+\_\+path, const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script}{Script}} $>$($\ast$)(const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)$>$ \&\+\_\+initialisers)
+\begin{DoxyCompactList}\small\item\em Try\+Load the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} from xml format at a given path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a321f7d4e046e5a4803160000f542bb6a}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5ab5087b8ea1fe85d18586a6e18cba73}{Tick}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad9ad8c1e312f9a96ac924a4d0627039c}{Graphics\+::\+Camera\+::\+Render\+Flags}} \&\+\_\+flags)
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a63722103e0f5b610649b5ef0054e98d0}{Fixed\+Tick}} ()
+\begin{DoxyCompactList}\small\item\em Called every physics update. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5c3e6e7abba0d0dca511fc407bf4ec36}{m\+\_\+\+Entities}}
+\begin{DoxyCompactList}\small\item\em Entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aed5da7cb03e97775efd119f989233c58}{m\+\_\+\+Components}}
+\begin{DoxyCompactList}\small\item\em Components (linked to entities) within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 27 of file Scene.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aa27283836ce186f17ec9f64e24aa908b}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aa27283836ce186f17ec9f64e24aa908b}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Scene@{Scene}}
+\index{Scene@{Scene}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5925403ecb8b1718fa0a47e7635f4f00}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5925403ecb8b1718fa0a47e7635f4f00}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!````~Scene@{$\sim$Scene}}
+\index{````~Scene@{$\sim$Scene}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{$\sim$Scene()}{~Scene()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::$\sim$\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 36 of file Scene.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a3aec902eac39d83fb1f42614d8f8c64f}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a3aec902eac39d83fb1f42614d8f8c64f}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Attach@{Attach}}
+\index{Attach@{Attach}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Attach()}{Attach()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}}$>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Attach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 108 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a8d23ea5d429680601b4583d641fcb475}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a8d23ea5d429680601b4583d641fcb475}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Attach@{Attach}}
+\index{Attach@{Attach}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Attach()}{Attach()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::shared\+\_\+ptr$<$T$>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Attach (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ T $>$}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Attach an instance of a type to the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 70 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a321f7d4e046e5a4803160000f542bb6a}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a321f7d4e046e5a4803160000f542bb6a}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Definition at line 85 of file Scene.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aede2c904cc80411b8495284a744c3015}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aede2c904cc80411b8495284a744c3015}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Components@{Components}}
+\index{Components@{Components}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Components()}{Components()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} $>$ $>$ $>$ \& Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the components within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 177 of file Scene.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5fea92d4fcee6dca3f37f562ab41049c}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5fea92d4fcee6dca3f37f562ab41049c}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Detach@{Detach}}
+\index{Detach@{Detach}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$$>$ \\
+void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} $>$ \&}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 131 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aaf6810496b6a8095421749cae0be1013}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aaf6810496b6a8095421749cae0be1013}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Detach@{Detach}}
+\index{Detach@{Detach}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$$>$ \\
+void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} $>$ \&}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 116 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a1ce149f3cc259c501a5c74c882dc0964}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a1ce149f3cc259c501a5c74c882dc0964}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Detach@{Detach}}
+\index{Detach@{Detach}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Detach()}{Detach()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Detach (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ T $>$ \&}]{\+\_\+entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Detach an instance of a type from the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 85 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a63722103e0f5b610649b5ef0054e98d0}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a63722103e0f5b610649b5ef0054e98d0}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!FixedTick@{FixedTick}}
+\index{FixedTick@{FixedTick}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{FixedTick()}{FixedTick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Fixed\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every physics update. 
+
+
+
+Definition at line 128 of file Scene.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_ac90d01d0c7e659e48dc7b26297a0d608}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_ac90d01d0c7e659e48dc7b26297a0d608}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Load@{Load}}
+\index{Load@{Load}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} $>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ std\+::type\+\_\+index, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script}{Script}} $>$($\ast$)(const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)$>$ \&}]{\+\_\+initialisers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Try\+Load the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} from xml format at a given path. 
+
+
+
+Definition at line 292 of file Scene.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_ac90d01d0c7e659e48dc7b26297a0d608_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_ac90d01d0c7e659e48dc7b26297a0d608_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a4a8c5d04541a324f307530c1009c3ae1}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a4a8c5d04541a324f307530c1009c3ae1}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Save@{Save}}
+\index{Save@{Save}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Save()}{Save()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Save (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path }\end{DoxyParamCaption})}
+
+
+
+Save the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}} in xml format at a given path. 
+
+
+
+Definition at line 181 of file Scene.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a4a8c5d04541a324f307530c1009c3ae1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5ab5087b8ea1fe85d18586a6e18cba73}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5ab5087b8ea1fe85d18586a6e18cba73}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::\+Tick (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad9ad8c1e312f9a96ac924a4d0627039c}{Graphics\+::\+Camera\+::\+Render\+Flags}} \&}]{\+\_\+flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Definition at line 99 of file Scene.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aed5da7cb03e97775efd119f989233c58}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_aed5da7cb03e97775efd119f989233c58}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!m\_Components@{m\_Components}}
+\index{m\_Components@{m\_Components}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{m\_Components}{m\_Components}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$std\+::type\+\_\+index, std\+::vector$<$std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}}$>$ $>$ $>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::m\+\_\+\+Components\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Components (linked to entities) within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 43 of file Scene.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5c3e6e7abba0d0dca511fc407bf4ec36}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_a5c3e6e7abba0d0dca511fc407bf4ec36}} 
+\index{LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}!m\_Entities@{m\_Entities}}
+\index{m\_Entities@{m\_Entities}!LouiEriksson::Engine::ECS::Scene@{LouiEriksson::Engine::ECS::Scene}}
+\doxysubsubsection{\texorpdfstring{m\_Entities}{m\_Entities}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}}$>$ $>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Scene\+::m\+\_\+\+Entities\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Entities within the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene}{Scene}}. 
+
+
+
+Definition at line 40 of file Scene.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/ecs/\mbox{\hyperlink{_scene_8h}{Scene.\+h}}\item 
+src/engine/scripts/ecs/\mbox{\hyperlink{_scene_8cpp}{Scene.\+cpp}}\end{DoxyCompactItemize}

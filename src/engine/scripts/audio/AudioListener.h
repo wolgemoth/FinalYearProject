@@ -9,13 +9,13 @@
 #include <memory>
 #include <typeindex>
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	class AudioListener final : public Script {
 	
@@ -56,6 +56,6 @@ namespace LouiEriksson::Audio {
 		
 	};
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
 #endif //FINALYEARPROJECT_AUDIOLISTENER_H

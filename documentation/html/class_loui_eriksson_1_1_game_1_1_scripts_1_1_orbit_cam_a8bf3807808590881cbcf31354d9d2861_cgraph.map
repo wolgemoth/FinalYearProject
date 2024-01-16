@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Game::Scripts::OrbitCam::Begin" name="LouiEriksson::Game::Scripts::OrbitCam::Begin">
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,31,156,87"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10" title="Factory function which creates a GameObject within a Scene." alt="" coords="204,5,399,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_window.html#adc34b71c2def728370bf9a80078354ac" title=" " alt="" coords="223,71,379,112"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="LouiEriksson::Engine::File::TryLoad" name="LouiEriksson::Engine::File::TryLoad">
+<area shape="rect" id="node1" title=" " alt="" coords="5,116,161,157"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#acbaaa89c2621dbd1be57b12489e7d6ee" title="Bind the provided Texture." alt="" coords="209,5,389,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#a983e9f8dacf96669d7a5f1914f5be486" title="Determine a Texture&#39;s format and number of channels using its pixel format." alt="" coords="221,71,377,127"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_utils.html#af9428cb3d42015d431d6953541a27d04" title="Dumps the latest OpenGL error to the console." alt="" coords="221,152,377,193"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#afb861af05c4ee293e0f73c6e879cd712" title="Unbind the currently bound Texture." alt="" coords="221,218,377,274"/>
+</map>

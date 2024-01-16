@@ -5,7 +5,7 @@
 #include <SDL_mouse.h>
 #include <SDL_stdinc.h>
 
-namespace LouiEriksson::Input {
+namespace LouiEriksson::Engine::Input {
 	
 	void Cursor::State::Apply() const {
 		
@@ -57,4 +57,4 @@ namespace LouiEriksson::Input {
 		SetState(s_Default);
 	}
 	
-} // LouiEriksson::Input
+} // LouiEriksson::Engine::Input

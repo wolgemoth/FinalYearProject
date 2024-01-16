@@ -1,7 +1,0 @@
-<map id="LouiEriksson::Utils::Repeat" name="LouiEriksson::Utils::Repeat">
-<area shape="rect" id="node1" title="Repeats a value within the range 0 &#45;&gt; _max." alt="" coords="395,39,537,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_utils.html#aefbcc3026057d3a5c026072a7440c06c" title="Repeats a value within the range _min &#45;&gt; _max." alt="" coords="204,5,347,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_utils.html#a3a1c7df699b49379a71dee5b018208fb" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="204,71,347,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#ae805f0970bc97dafa6a5bdbb4c48ed27" title="Called every frame." alt="" coords="5,37,156,79"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_utils.html#aa8a25fdaec9158510c20812c21252296" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="9,103,152,144"/>
-</map>

@@ -1,17 +1,17 @@
 #ifndef FINALYEARPROJECT_CURSOR_H
 #define FINALYEARPROJECT_CURSOR_H
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Input {
+namespace LouiEriksson::Engine::Input {
 	
 	class Cursor {
 		
-		friend LouiEriksson::Application;
+		friend LouiEriksson::Engine::Application;
 		
 	public:
 		
@@ -99,6 +99,6 @@ namespace LouiEriksson::Input {
 		
 	};
 	
-} // LouiEriksson::Input
+} // LouiEriksson::Engine::Input
 
 #endif //FINALYEARPROJECT_CURSOR_H

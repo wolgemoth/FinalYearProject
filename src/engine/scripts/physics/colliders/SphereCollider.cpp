@@ -9,7 +9,7 @@
 
 // @Assessor: This class was originally created for PFG but has since been modified. Please mark it for GEP.
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	SphereCollider::SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent) : Collider(_parent) {
 		
@@ -35,4 +35,4 @@ namespace LouiEriksson::Physics {
 		return sphereCollider->getRadius();
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

@@ -31,7 +31,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	Scene::~Scene() {
 		m_Components.Clear();
@@ -340,14 +340,6 @@ namespace LouiEriksson::ECS {
 						std::cout << "\t\t" << name<< '\n';
 					}
 					
-//					std::cout << typeid(Transform).name() << '\n';
-//					std::cout << typeid( Physics::Rigidbody).name() << '\n';
-//					std::cout << typeid(Graphics::Camera   ).name() << '\n';
-//					std::cout << typeid( Physics::Collider ).name() << '\n';
-//					std::cout << typeid(Graphics::Light    ).name() << '\n';
-//					std::cout << typeid(Graphics::Renderer ).name() << '\n';
-//					std::cout << typeid(Script).name() << '\n';
-//
 					if (strcmp(name, typeid(Transform).name()) == 0) {			// Deserialise Transform.
 		
 						if (const auto t = go->AddComponent<Transform>().lock()) {
@@ -463,4 +455,4 @@ namespace LouiEriksson::ECS {
 		return result;
 	}
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS

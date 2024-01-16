@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Engine::ECS::Scene::Save" name="LouiEriksson::Engine::ECS::Scene::Save">
+<area shape="rect" id="node1" title="Save the Scene in xml format at a given path." alt="" coords="5,39,161,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_file.html#a924f4124077a056bca5442a4160fe0c0" title=" " alt="" coords="219,5,375,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_serialisation.html#a839f289862841db0acf5267ebfcb452b" title=" " alt="" coords="209,71,384,112"/>
+</map>

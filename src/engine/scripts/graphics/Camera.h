@@ -13,14 +13,14 @@
 
 // @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	class Window;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Light;
 	class Mesh;
@@ -31,7 +31,7 @@ namespace LouiEriksson::Graphics {
 	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
 	class Camera final : public ECS::Component {
 	
-		friend LouiEriksson::Window;
+		friend LouiEriksson::Engine::Window;
 	
 	private:
 		
@@ -171,6 +171,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_CAMERA_H

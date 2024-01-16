@@ -1,0 +1,4 @@
+<map id="LouiEriksson::Engine::Physics::Collision::Impulse" name="LouiEriksson::Engine::Physics::Collision::Impulse">
+<area shape="rect" id="node1" title="Get the impulse of the Collision." alt="" coords="243,5,399,61"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball.html#a2724d86f782b72fb99e0c310d348dd1d" title="Called every time a collision event occurs." alt="" coords="5,13,195,54"/>
+</map>

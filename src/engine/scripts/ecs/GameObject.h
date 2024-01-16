@@ -17,7 +17,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class Component;
 	
@@ -190,6 +190,6 @@ namespace LouiEriksson::ECS {
 		
 	};
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
 #endif //FINALYEARPROJECT_GAMEOBJECT_H

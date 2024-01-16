@@ -19,7 +19,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	Window::Window(const int& _width, const int& _height, const char* _name, bool _fullscreen, bool _hdr10) {
 	
@@ -197,4 +197,4 @@ namespace LouiEriksson {
 		return (flags & _flag) != 0u;
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

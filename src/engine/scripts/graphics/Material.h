@@ -5,24 +5,24 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class File;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Shader;
 	class Texture;
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Material {
 	
-		friend LouiEriksson::File;
+		friend LouiEriksson::Engine::File;
 		
 	private:
 	
@@ -56,6 +56,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_MATERIAL_H

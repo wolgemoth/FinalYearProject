@@ -9,7 +9,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	Collider::Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
 			m_Type() {}
@@ -35,4 +35,4 @@ namespace LouiEriksson::Physics {
 		return m_Type;
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

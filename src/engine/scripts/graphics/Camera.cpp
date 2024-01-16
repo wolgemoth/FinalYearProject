@@ -43,7 +43,7 @@
 
 // @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 
 	Camera::Camera(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
 		
@@ -1543,4 +1543,4 @@ namespace LouiEriksson::Graphics {
 		m_IsDirty = true;
 	}
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics

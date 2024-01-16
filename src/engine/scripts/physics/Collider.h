@@ -9,13 +9,13 @@
 
 // @Assessor: This class was originally submitted for PFG but has been modified to accommodate Bullet Physics Engine for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class Rigidbody;
 	
@@ -74,6 +74,6 @@ namespace LouiEriksson::Physics {
 		
 	};
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
 #endif //FINALYEARPROJECT_COLLIDER_H

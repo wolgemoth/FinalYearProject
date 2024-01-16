@@ -16,7 +16,7 @@
 #include <stdexcept>
 #include <memory>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	void Sound::Init() {
 		
@@ -176,4 +176,4 @@ namespace LouiEriksson::Audio {
 		if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
 	}
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio

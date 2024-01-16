@@ -1,0 +1,88 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{}\doxysection{Loui\+Eriksson\+::Engine\+::Input\+::Cursor Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}\index{LouiEriksson::Engine::Input::Cursor@{LouiEriksson::Engine::Input::Cursor}}
+
+
+{\ttfamily \#include $<$Cursor.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Input\+::Cursor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_1_1_state}{State}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_ad0e85964a7edc13661e1d0cea32fb6fa}{Set\+State}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_1_1_state}{State}} \&\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Set the pending state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}. \end{DoxyCompactList}\item 
+static const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_1_1_state}{State}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011}{Get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Return the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Cursor.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011}\label{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011}} 
+\index{LouiEriksson::Engine::Input::Cursor@{LouiEriksson::Engine::Input::Cursor}!GetState@{GetState}}
+\index{GetState@{GetState}!LouiEriksson::Engine::Input::Cursor@{LouiEriksson::Engine::Input::Cursor}}
+\doxysubsubsection{\texorpdfstring{GetState()}{GetState()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_1_1_state}{Cursor\+::\+State}} \& Loui\+Eriksson\+::\+Engine\+::\+Input\+::\+Cursor\+::\+Get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}. 
+
+Please note\+: The result of \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011}{Get\+State()}} may not always match the value provided to \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_ad0e85964a7edc13661e1d0cea32fb6fa}{Set\+State()}}. This is because the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}\textquotesingle{}s state does not get applied until the beginning of the next frame. When \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011}{Get\+State()}} is called, it returns the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}, regardless of whatever state changes may be pending. 
+
+Definition at line 46 of file Cursor.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_afe521728bae7377c94dd6bd1a5449011_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_ad0e85964a7edc13661e1d0cea32fb6fa}\label{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_ad0e85964a7edc13661e1d0cea32fb6fa}} 
+\index{LouiEriksson::Engine::Input::Cursor@{LouiEriksson::Engine::Input::Cursor}!SetState@{SetState}}
+\index{SetState@{SetState}!LouiEriksson::Engine::Input::Cursor@{LouiEriksson::Engine::Input::Cursor}}
+\doxysubsubsection{\texorpdfstring{SetState()}{SetState()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Input\+::\+Cursor\+::\+Set\+State (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_1_1_state}{State}} \&}]{\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the pending state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor}{Cursor}}. 
+
+Please note\+: Your changes will not take effect until the beginning of the next frame, and may be overridden by subsequent calls to this function. 
+
+Definition at line 43 of file Cursor.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_input_1_1_cursor_ad0e85964a7edc13661e1d0cea32fb6fa_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/input/\mbox{\hyperlink{_cursor_8h}{Cursor.\+h}}\item 
+src/engine/scripts/input/\mbox{\hyperlink{_cursor_8cpp}{Cursor.\+cpp}}\end{DoxyCompactItemize}

@@ -18,7 +18,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::Input {
+namespace LouiEriksson::Engine::Input {
 	
 	Input::Key::State::State() noexcept :
 			s_Length(0) {}
@@ -237,4 +237,4 @@ namespace LouiEriksson::Input {
 		}
 	}
 	
-} // LouiEriksson::Input
+} // LouiEriksson::Engine::Input

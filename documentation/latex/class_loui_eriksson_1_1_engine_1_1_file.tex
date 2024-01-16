@@ -1,0 +1,182 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_file}{}\doxysection{Loui\+Eriksson\+::Engine\+::File Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_file}\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+
+
+{\ttfamily \#include $<$File.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::File\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{class_loui_eriksson_1_1_engine_1_1_file__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_file_1_1_directory}{Directory}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a9a8ade26a357a37deb28d9c553d1a243}{File}} ()=delete
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a17b4954bab0746ecb00ee8d6d8f5477a}{File}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}} \&\+\_\+other)=delete
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a059663af0ba64cb1d6c8237e73a4922d}{$\sim$\+File}} ()=delete
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_ad64a29cf53ba892cb13636c39f39c97e}{operator=}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}} \&\+\_\+other)=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a924f4124077a056bca5442a4160fe0c0}{Read\+All\+Text}} (const std\+::filesystem\+::path \&\+\_\+path)
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_ae4648ec12ee178fcf8a3afb930f93f97}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+::\+Audio\+Clip}} $>$ \&\+\_\+output)
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_ab03bbb9d8c3c8b088be501217eb2e46d}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture}{Graphics\+::\+Texture}} $>$ \&\+\_\+output, GLenum \+\_\+format, bool \+\_\+generate\+Mipmaps)
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a0e3c653b7d142661b771e77b84ccd78d}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}{Graphics\+::\+Mesh}} $>$ \&\+\_\+output)
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a55a9169fe68e3784e0a97303682032f7}{Try\+Load}} (const std\+::filesystem\+::path \&\+\_\+path, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_material}{Graphics\+::\+Material}} $>$ \&\+\_\+output)
+\item 
+static bool \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file_a930f0b2b2d0e7e4cd69f0ef496913242}{Try\+Load}} (const std\+::array$<$ std\+::filesystem\+::path, 6 $>$ \&\+\_\+paths, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_cubemap}{Graphics\+::\+Cubemap}} $>$ \&\+\_\+output, GLenum \+\_\+format, bool \+\_\+generate\+Mipmaps)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 31 of file File.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a9a8ade26a357a37deb28d9c553d1a243}\label{class_loui_eriksson_1_1_engine_1_1_file_a9a8ade26a357a37deb28d9c553d1a243}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!File@{File}}
+\index{File@{File}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{File()}{File()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+File\+::\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a17b4954bab0746ecb00ee8d6d8f5477a}\label{class_loui_eriksson_1_1_engine_1_1_file_a17b4954bab0746ecb00ee8d6d8f5477a}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!File@{File}}
+\index{File@{File}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{File()}{File()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+File\+::\+File (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}} \&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a059663af0ba64cb1d6c8237e73a4922d}\label{class_loui_eriksson_1_1_engine_1_1_file_a059663af0ba64cb1d6c8237e73a4922d}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!````~File@{$\sim$File}}
+\index{````~File@{$\sim$File}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{$\sim$File()}{~File()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+File\+::$\sim$\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_ad64a29cf53ba892cb13636c39f39c97e}\label{class_loui_eriksson_1_1_engine_1_1_file_ad64a29cf53ba892cb13636c39f39c97e}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!operator=@{operator=}}
+\index{operator=@{operator=}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}}\& Loui\+Eriksson\+::\+Engine\+::\+File\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_file}{File}} \&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a924f4124077a056bca5442a4160fe0c0}\label{class_loui_eriksson_1_1_engine_1_1_file_a924f4124077a056bca5442a4160fe0c0}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!ReadAllText@{ReadAllText}}
+\index{ReadAllText@{ReadAllText}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{ReadAllText()}{ReadAllText()}}
+{\footnotesize\ttfamily std\+::string Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Read\+All\+Text (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 39 of file File.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_file_a924f4124077a056bca5442a4160fe0c0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a930f0b2b2d0e7e4cd69f0ef496913242}\label{class_loui_eriksson_1_1_engine_1_1_file_a930f0b2b2d0e7e4cd69f0ef496913242}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::array$<$ std\+::filesystem\+::path, 6 $>$ \&}]{\+\_\+paths,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_cubemap}{Graphics\+::\+Cubemap}} $>$ \&}]{\+\_\+output,  }\item[{GLenum}]{\+\_\+format = {\ttfamily GL\+\_\+RGBA},  }\item[{bool}]{\+\_\+generate\+Mipmaps = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 662 of file File.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_file_a930f0b2b2d0e7e4cd69f0ef496913242_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_ae4648ec12ee178fcf8a3afb930f93f97}\label{class_loui_eriksson_1_1_engine_1_1_file_ae4648ec12ee178fcf8a3afb930f93f97}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+::\+Audio\+Clip}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 118 of file File.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a55a9169fe68e3784e0a97303682032f7}\label{class_loui_eriksson_1_1_engine_1_1_file_a55a9169fe68e3784e0a97303682032f7}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_material}{Graphics\+::\+Material}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 521 of file File.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_file_a55a9169fe68e3784e0a97303682032f7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_a0e3c653b7d142661b771e77b84ccd78d}\label{class_loui_eriksson_1_1_engine_1_1_file_a0e3c653b7d142661b771e77b84ccd78d}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}{Graphics\+::\+Mesh}} $>$ \&}]{\+\_\+output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 262 of file File.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_file_ab03bbb9d8c3c8b088be501217eb2e46d}\label{class_loui_eriksson_1_1_engine_1_1_file_ab03bbb9d8c3c8b088be501217eb2e46d}} 
+\index{LouiEriksson::Engine::File@{LouiEriksson::Engine::File}!TryLoad@{TryLoad}}
+\index{TryLoad@{TryLoad}!LouiEriksson::Engine::File@{LouiEriksson::Engine::File}}
+\doxysubsubsection{\texorpdfstring{TryLoad()}{TryLoad()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool Loui\+Eriksson\+::\+Engine\+::\+File\+::\+Try\+Load (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture}{Graphics\+::\+Texture}} $>$ \&}]{\+\_\+output,  }\item[{GLenum}]{\+\_\+format = {\ttfamily GL\+\_\+RGBA},  }\item[{bool}]{\+\_\+generate\+Mipmaps = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 140 of file File.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_file_ab03bbb9d8c3c8b088be501217eb2e46d_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/core/\mbox{\hyperlink{_file_8h}{File.\+h}}\item 
+src/engine/scripts/core/\mbox{\hyperlink{_file_8cpp}{File.\+cpp}}\end{DoxyCompactItemize}

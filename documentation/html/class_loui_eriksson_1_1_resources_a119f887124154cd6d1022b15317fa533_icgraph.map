@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Resources::GetAudio" name="LouiEriksson::Resources::GetAudio">
-<area shape="rect" id="node1" title=" " alt="" coords="204,39,383,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_ball.html#a4705d4e9764d5028e4e881db5fdf97fd" title="Called at the beginning of the first frame." alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#a7148e36ef442bc1783d1bad79e1aa854" title="Called at the beginning of the first frame." alt="" coords="5,71,156,112"/>
-</map>

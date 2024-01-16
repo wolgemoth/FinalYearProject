@@ -6,7 +6,9 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson::Game {
+using namespace LouiEriksson::Engine;
+
+namespace LouiEriksson::Game::Scripts {
 	
 	/// <summary>
 	/// Free-fly camera.
@@ -56,6 +58,6 @@ namespace LouiEriksson::Game {
 		std::type_index TypeID() const noexcept override { return typeid(FlyCam); };
 	};
 	
-} // LouiEriksson::Game
+} // LouiEriksson::Game::Scripts
 
 #endif //GAME_FLYCAM_H

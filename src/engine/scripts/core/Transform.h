@@ -18,7 +18,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 
 	/// <summary>
 	/// Component representing a Transform.
@@ -50,6 +50,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_TRANSFORM_H

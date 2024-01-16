@@ -2,7 +2,9 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson::Game {
+using namespace LouiEriksson::Engine;
+
+namespace LouiEriksson::Game::Scripts {
 	
 	OrbitCam::OrbitCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			           m_Target(0.0f),
@@ -85,4 +87,4 @@ namespace LouiEriksson::Game {
 		}
 	}
 	
-} // LouiEriksson::Game
+} // LouiEriksson::Game::Scripts

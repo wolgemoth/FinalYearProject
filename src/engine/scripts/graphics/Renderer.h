@@ -7,20 +7,20 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Material;
 	class Mesh;
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Renderer final : public ECS::Component {
 	
@@ -62,6 +62,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_RENDERER_H

@@ -14,7 +14,10 @@
 #include <memory>
 #include <typeindex>
 
-namespace LouiEriksson::Scripting {
+using namespace LouiEriksson::Engine;
+using namespace LouiEriksson::Game::Scripts;
+
+namespace LouiEriksson::Game::Core {
 
 	/// <summary> Generates the function pointers necessary for injecting custom scripts into the engine. </summary>
 	class Injector {
@@ -41,30 +44,30 @@ namespace LouiEriksson::Scripting {
 					 */
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Game::Ball>),
+						typeid(std::shared_ptr<Ball>),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Game::Ball(_parent));
+							return std::shared_ptr<Script>(new Ball(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Game::FlyCam>),
+						typeid(std::shared_ptr<FlyCam>),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Game::FlyCam(_parent));
+							return std::shared_ptr<Script>(new FlyCam(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Game::OrbitCam>),
+						typeid(std::shared_ptr<OrbitCam>),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Game::OrbitCam(_parent));
+							return std::shared_ptr<Script>(new OrbitCam(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Game::Plane>),
+						typeid(std::shared_ptr<Plane>),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Game::Plane(_parent));
+							return std::shared_ptr<Script>(new Plane(_parent));
 						}
 					);
 					
@@ -79,6 +82,6 @@ namespace LouiEriksson::Scripting {
 		
 	};
 
-} // LouiEriksson::Scripting
+} // LouiEriksson::Game::Core
 
 #endif //GAME_SCRIPTS_H

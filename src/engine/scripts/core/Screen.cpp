@@ -4,7 +4,7 @@
 #include <SDL_rect.h>
 #include <SDL_video.h>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	glm::ivec2 Screen::Dimensions(const int& _screenID) {
 		

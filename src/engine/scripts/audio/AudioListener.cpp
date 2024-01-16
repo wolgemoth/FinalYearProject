@@ -11,7 +11,7 @@
 
 #include <memory>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_Gain        (1.0f),
@@ -74,4 +74,4 @@ namespace LouiEriksson::Audio {
 		return m_Gain;
 	}
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio

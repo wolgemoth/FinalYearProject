@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <iostream>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	AudioClip::Format::Format(const SDL_AudioSpec& _audioSpec) noexcept :
 			m_Specification(_audioSpec) {}
@@ -114,4 +114,4 @@ namespace LouiEriksson::Audio {
 		if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
 	}
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio

@@ -4,7 +4,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	Collision::Collision(const btManifoldPoint& _point, const int& _body) {
 		
@@ -42,4 +42,4 @@ namespace LouiEriksson::Physics {
 		return m_Impulse;
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

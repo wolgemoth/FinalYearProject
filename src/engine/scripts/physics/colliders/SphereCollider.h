@@ -7,13 +7,13 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class SphereCollider final : public Collider {
 	
@@ -32,6 +32,6 @@ namespace LouiEriksson::Physics {
 		
 	};
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
 #endif //FINALYEARPROJECT_SPHERECOLLIDER_H

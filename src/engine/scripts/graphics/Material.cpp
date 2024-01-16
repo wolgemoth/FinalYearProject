@@ -9,7 +9,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for 3DGP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	Material::Material() :
 			m_Shader      (Resources::GetShader ("pbr"  )),
@@ -33,4 +33,4 @@ namespace LouiEriksson::Graphics {
 	const std::weak_ptr<Texture>& Material::GetAO()           const noexcept { return m_AO;           }
 	const std::weak_ptr<Texture>& Material::GetEmission()     const noexcept { return m_Emission;     }
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics

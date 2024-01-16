@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 
 	class AudioClip;
 	class AudioSource;
@@ -73,6 +73,6 @@ namespace LouiEriksson::Audio {
 		
 	};
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
 #endif //FINALYEARPROJECT_SOUND_H

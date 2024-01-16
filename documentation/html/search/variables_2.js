@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['input_961',['Input',['../struct_loui_eriksson_1_1_input_1_1_input_1_1_event.html#a60e398f6b6921c262d561f0b4b5040ee',1,'LouiEriksson::Input::Input::Event::Input()'],['../struct_loui_eriksson_1_1_input_1_1_input_1_1_key.html#a70c1cb0ee35d50196ead500ebe08aaa6',1,'LouiEriksson::Input::Input::Key::Input()'],['../struct_loui_eriksson_1_1_input_1_1_input_1_1_mouse.html#a2db3fa29d5ea154669e9d228ddd16d4c',1,'LouiEriksson::Input::Input::Mouse::Input()']]]
+  ['input_963',['Input',['../struct_loui_eriksson_1_1_engine_1_1_input_1_1_input_1_1_event.html#a97ec734a031b93ddc2f39afb78670267',1,'LouiEriksson::Engine::Input::Input::Event::Input()'],['../struct_loui_eriksson_1_1_engine_1_1_input_1_1_input_1_1_key.html#aa7cb5b259357fe3262c65152d55896c6',1,'LouiEriksson::Engine::Input::Input::Key::Input()'],['../struct_loui_eriksson_1_1_engine_1_1_input_1_1_input_1_1_mouse.html#a214c9b32031cdb568383150da4e0d626',1,'LouiEriksson::Engine::Input::Input::Mouse::Input()']]]
 ];

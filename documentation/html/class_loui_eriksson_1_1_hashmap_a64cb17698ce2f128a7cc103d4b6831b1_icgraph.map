@@ -1,7 +1,0 @@
-<map id="LouiEriksson::Hashmap::Get" name="LouiEriksson::Hashmap::Get">
-<area shape="rect" id="node1" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="293,111,499,138"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="41,5,210,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a38dd7ce0cebaaa5309d07ead3c3b6517" title="Get a Component of type in the GameObject by index." alt="" coords="21,71,230,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a49685a109357bf01dbcf7e6f6656e8f3" title="Get Components of type attached to GameObject." alt="" coords="17,136,233,177"/>
-<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_e_c_s_1_1_game_object.html#a2ad1a152085209e278adda62227a996c" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,201,245,243"/>
-</map>

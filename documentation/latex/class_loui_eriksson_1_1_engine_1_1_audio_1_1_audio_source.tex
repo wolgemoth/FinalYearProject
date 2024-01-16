@@ -1,0 +1,685 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{}\doxysection{Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Source Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+
+
+{\ttfamily \#include $<$Audio\+Source.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Source\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Source\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a88159e5839fc7aefef815e2ae433a53d}{Audio\+Source}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6fcd22d6703c23be839bf00427f1257e}{$\sim$\+Audio\+Source}} () override
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a2d1498821a463b13474f1a4445a17b95}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a271e22c01b59fe6de949514ed963acb1}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Initialise the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abc4ae8d23397ee293638607a69c9076d}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a61166661e5d364d9de17cf60a44f8af4}{Play}} (const bool \&\+\_\+allow\+Fallback=true)
+\begin{DoxyCompactList}\small\item\em Play this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afd7dc04a26fa7eb93c5c50a4ec3111b4}{Pause}} () const
+\begin{DoxyCompactList}\small\item\em Pause this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ad9ac8c3833cb41510b4f1a97b6c3dd51}{Stop}} () const
+\begin{DoxyCompactList}\small\item\em Stop this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a50eb9342e482eb56811554e4c9a7af8c}{Clip}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}} $>$ \&\+\_\+value) noexcept
+\begin{DoxyCompactList}\small\item\em Set this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}}. \end{DoxyCompactList}\item 
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a254f93369ac2c9d076103755fdb28132}{Clip}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get weak reference to the currently used \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}}. \end{DoxyCompactList}\item 
+ALenum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a59b45ca120bb537fbcafdbf9c5f6548a}{State}} () const
+\begin{DoxyCompactList}\small\item\em Get the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6436d49282c1ded1ede31c086fca0cfd}{Global}} (const bool \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} is global or not. \end{DoxyCompactList}\item 
+const bool \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1416e269499816e535013386abf9833b}{Global}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} is global or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_adaa17688cb245dd59288587ace11d952}{Loop}} (const bool \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} should loop or not. \end{DoxyCompactList}\item 
+const bool \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a442aecc1cdccfc46877f4d1110b543bc}{Loop}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} loops or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aed9fe004cb0f2c2a4353c33a3301e557}{Min\+Distance}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5defdb606491594ef8370052bec5f553}{Min\+Distance}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ac46adc368b58f43c7b5b3b7459f2bfad}{Max\+Distance}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the maximum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3d50776d53e25d606be01ad29732cd4e}{Max\+Distance}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ae8162236330b3c6c3076ad53b677557f}{Pitch}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abd75013ed0032528ea23cdfa0f46d824}{Pitch}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afac3364746a3b95806f71259040f4dda}{Gain}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3e2ac7ac0c3c0eb4191c080f99b697f3}{Gain}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdca4faf30275492dcfa4162a091a114}{Min\+Gain}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6eb74785aebf6431c7e8c6206c8490ad}{Min\+Gain}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1538d993a8af124e167f481af7366e24}{Max\+Gain}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1109085128ece056ea622fb5ce95c444}{Max\+Gain}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a899e76f1b6608b4d5f109a3157ddf9e7}{Rolloff}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a41e1aa00f3974cf3dc99370eb5fa59c8}{Rolloff}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdc6e3ee2b0dfd77cfe17e09894b7429}{Min\+Angle}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aa7fd155d7934b456b78370f39b2b93fb}{Min\+Angle}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a66800053728e06ce46b34fa477524fc1}{Max\+Angle}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Sets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a411c70201d623b5e5a03f196d03803d9}{Max\+Angle}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a77471825c041036f7c34a5d549081674}{Playback\+Position}} (const float \&\+\_\+value) const
+\begin{DoxyCompactList}\small\item\em Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} in seconds. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5393bac314aa693bb9738e6812068f26}{Playback\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} expressed in seconds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeecb13cdc6182a93dd16ba9b3710424d}{Playback\+Position}} (const ALenum \&\+\_\+param, const int \&\+\_\+value) const
+\begin{DoxyCompactList}\small\item\em Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeabbb2e7bd2000d093042525a4f4f3e4}{Playback\+Position}} (const ALenum \&\+\_\+param) const
+\begin{DoxyCompactList}\small\item\em Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} expressed in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file Audio\+Source.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a88159e5839fc7aefef815e2ae433a53d}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a88159e5839fc7aefef815e2ae433a53d}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!AudioSource@{AudioSource}}
+\index{AudioSource@{AudioSource}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{AudioSource()}{AudioSource()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Audio\+Source (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 132 of file Audio\+Source.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a88159e5839fc7aefef815e2ae433a53d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6fcd22d6703c23be839bf00427f1257e}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6fcd22d6703c23be839bf00427f1257e}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!````~AudioSource@{$\sim$AudioSource}}
+\index{````~AudioSource@{$\sim$AudioSource}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{$\sim$AudioSource()}{~AudioSource()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::$\sim$\+Audio\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line 158 of file Audio\+Source.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a271e22c01b59fe6de949514ed963acb1}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a271e22c01b59fe6de949514ed963acb1}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Initialise the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_ac434db47ebc2ada8b30f6198420524de}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 165 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a254f93369ac2c9d076103755fdb28132}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a254f93369ac2c9d076103755fdb28132}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Clip@{Clip}}
+\index{Clip@{Clip}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Clip()}{Clip()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Clip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get weak reference to the currently used \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}}. 
+
+
+
+Definition at line 238 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a50eb9342e482eb56811554e4c9a7af8c}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a50eb9342e482eb56811554e4c9a7af8c}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Clip@{Clip}}
+\index{Clip@{Clip}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Clip()}{Clip()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Clip (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}} $>$ \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Set this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{Audio\+Clip}}. 
+
+
+
+Definition at line 235 of file Audio\+Source.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a50eb9342e482eb56811554e4c9a7af8c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3e2ac7ac0c3c0eb4191c080f99b697f3}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3e2ac7ac0c3c0eb4191c080f99b697f3}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Gain@{Gain}}
+\index{Gain@{Gain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Gain()}{Gain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Gain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 302 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afac3364746a3b95806f71259040f4dda}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afac3364746a3b95806f71259040f4dda}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Gain@{Gain}}
+\index{Gain@{Gain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Gain()}{Gain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Gain (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the gain modifier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 297 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1416e269499816e535013386abf9833b}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1416e269499816e535013386abf9833b}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Global@{Global}}
+\index{Global@{Global}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Global()}{Global()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const bool \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Global (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} is global or not. 
+
+
+
+Definition at line 256 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6436d49282c1ded1ede31c086fca0cfd}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6436d49282c1ded1ede31c086fca0cfd}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Global@{Global}}
+\index{Global@{Global}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Global()}{Global()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Global (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} is global or not. 
+
+
+
+Definition at line 251 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a442aecc1cdccfc46877f4d1110b543bc}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a442aecc1cdccfc46877f4d1110b543bc}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Loop@{Loop}}
+\index{Loop@{Loop}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Loop()}{Loop()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const bool \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} loops or not. 
+
+
+
+Definition at line 265 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_adaa17688cb245dd59288587ace11d952}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_adaa17688cb245dd59288587ace11d952}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Loop@{Loop}}
+\index{Loop@{Loop}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Loop()}{Loop()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Loop (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets whether this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} should loop or not. 
+
+
+
+Definition at line 260 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a411c70201d623b5e5a03f196d03803d9}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a411c70201d623b5e5a03f196d03803d9}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxAngle@{MaxAngle}}
+\index{MaxAngle@{MaxAngle}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxAngle()}{MaxAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 349 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a66800053728e06ce46b34fa477524fc1}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a66800053728e06ce46b34fa477524fc1}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxAngle@{MaxAngle}}
+\index{MaxAngle@{MaxAngle}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxAngle()}{MaxAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Angle (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the maximum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 344 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3d50776d53e25d606be01ad29732cd4e}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a3d50776d53e25d606be01ad29732cd4e}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxDistance@{MaxDistance}}
+\index{MaxDistance@{MaxDistance}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxDistance()}{MaxDistance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 284 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ac46adc368b58f43c7b5b3b7459f2bfad}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ac46adc368b58f43c7b5b3b7459f2bfad}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxDistance@{MaxDistance}}
+\index{MaxDistance@{MaxDistance}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxDistance()}{MaxDistance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Distance (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the maximum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 279 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1109085128ece056ea622fb5ce95c444}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1109085128ece056ea622fb5ce95c444}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxGain@{MaxGain}}
+\index{MaxGain@{MaxGain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxGain()}{MaxGain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Gain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 321 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1538d993a8af124e167f481af7366e24}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a1538d993a8af124e167f481af7366e24}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MaxGain@{MaxGain}}
+\index{MaxGain@{MaxGain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MaxGain()}{MaxGain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Max\+Gain (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the maximum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 316 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aa7fd155d7934b456b78370f39b2b93fb}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aa7fd155d7934b456b78370f39b2b93fb}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinAngle@{MinAngle}}
+\index{MinAngle@{MinAngle}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinAngle()}{MinAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 340 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdc6e3ee2b0dfd77cfe17e09894b7429}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdc6e3ee2b0dfd77cfe17e09894b7429}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinAngle@{MinAngle}}
+\index{MinAngle@{MinAngle}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinAngle()}{MinAngle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Angle (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the minimum angle of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 334 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5defdb606491594ef8370052bec5f553}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5defdb606491594ef8370052bec5f553}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinDistance@{MinDistance}}
+\index{MinDistance@{MinDistance}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinDistance()}{MinDistance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 275 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aed9fe004cb0f2c2a4353c33a3301e557}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aed9fe004cb0f2c2a4353c33a3301e557}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinDistance@{MinDistance}}
+\index{MinDistance@{MinDistance}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinDistance()}{MinDistance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Distance (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the minimum distance for this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 269 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6eb74785aebf6431c7e8c6206c8490ad}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a6eb74785aebf6431c7e8c6206c8490ad}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinGain@{MinGain}}
+\index{MinGain@{MinGain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinGain()}{MinGain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Gain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 312 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdca4faf30275492dcfa4162a091a114}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afdca4faf30275492dcfa4162a091a114}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!MinGain@{MinGain}}
+\index{MinGain@{MinGain}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{MinGain()}{MinGain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Min\+Gain (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the minimum gain of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 306 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afd7dc04a26fa7eb93c5c50a4ec3111b4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_afd7dc04a26fa7eb93c5c50a4ec3111b4}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Pause@{Pause}}
+\index{Pause@{Pause}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Pause()}{Pause()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Pause this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 227 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abd75013ed0032528ea23cdfa0f46d824}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abd75013ed0032528ea23cdfa0f46d824}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Pitch@{Pitch}}
+\index{Pitch@{Pitch}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Pitch()}{Pitch()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Pitch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 293 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ae8162236330b3c6c3076ad53b677557f}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ae8162236330b3c6c3076ad53b677557f}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Pitch@{Pitch}}
+\index{Pitch@{Pitch}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Pitch()}{Pitch()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Pitch (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the pitch multiplier of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 288 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a61166661e5d364d9de17cf60a44f8af4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a61166661e5d364d9de17cf60a44f8af4}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Play@{Play}}
+\index{Play@{Play}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Play()}{Play()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Play (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+allow\+Fallback = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Play this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 173 of file Audio\+Source.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a61166661e5d364d9de17cf60a44f8af4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5393bac314aa693bb9738e6812068f26}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a5393bac314aa693bb9738e6812068f26}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!PlaybackPosition@{PlaybackPosition}}
+\index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} expressed in seconds. 
+
+
+
+Definition at line 356 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeabbb2e7bd2000d093042525a4f4f3e4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeabbb2e7bd2000d093042525a4f4f3e4}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!PlaybackPosition@{PlaybackPosition}}
+\index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily int Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const ALenum \&}]{\+\_\+param }\end{DoxyParamCaption}) const}
+
+
+
+Gets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} expressed in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). 
+
+
+
+Definition at line 368 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeecb13cdc6182a93dd16ba9b3710424d}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_aeecb13cdc6182a93dd16ba9b3710424d}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!PlaybackPosition@{PlaybackPosition}}
+\index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const ALenum \&}]{\+\_\+param,  }\item[{const int \&}]{\+\_\+value }\end{DoxyParamCaption}) const}
+
+
+
+Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} in samples (AL\+\_\+\+SAMPLE\+\_\+\+OFFSET) or bytes (AL\+\_\+\+BYTE\+\_\+\+OFFSET). 
+
+
+
+Definition at line 365 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a77471825c041036f7c34a5d549081674}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a77471825c041036f7c34a5d549081674}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!PlaybackPosition@{PlaybackPosition}}
+\index{PlaybackPosition@{PlaybackPosition}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{PlaybackPosition()}{PlaybackPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Playback\+Position (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption}) const}
+
+
+
+Sets the playback position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} in seconds. 
+
+
+
+Definition at line 353 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a41e1aa00f3974cf3dc99370eb5fa59c8}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a41e1aa00f3974cf3dc99370eb5fa59c8}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Rolloff@{Rolloff}}
+\index{Rolloff@{Rolloff}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Rolloff()}{Rolloff()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Rolloff (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Gets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 330 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a899e76f1b6608b4d5f109a3157ddf9e7}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a899e76f1b6608b4d5f109a3157ddf9e7}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Rolloff@{Rolloff}}
+\index{Rolloff@{Rolloff}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Rolloff()}{Rolloff()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Rolloff (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Sets the rolloff factor of this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 325 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a59b45ca120bb537fbcafdbf9c5f6548a}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a59b45ca120bb537fbcafdbf9c5f6548a}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!State@{State}}
+\index{State@{State}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{State()}{State()}}
+{\footnotesize\ttfamily ALenum Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the current state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 242 of file Audio\+Source.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a59b45ca120bb537fbcafdbf9c5f6548a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ad9ac8c3833cb41510b4f1a97b6c3dd51}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_ad9ac8c3833cb41510b4f1a97b6c3dd51}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Stop@{Stop}}
+\index{Stop@{Stop}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Stop this \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}}. 
+
+
+
+Definition at line 231 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abc4ae8d23397ee293638607a69c9076d}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_abc4ae8d23397ee293638607a69c9076d}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source}{Audio\+Source}} every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_a73b6513ef33cc256dc99ecb9fc765764}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 169 of file Audio\+Source.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a2d1498821a463b13474f1a4445a17b95}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a2d1498821a463b13474f1a4445a17b95}} 
+\index{LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Engine::Audio::AudioSource@{LouiEriksson::Engine::Audio::AudioSource}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Source\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 132 of file Audio\+Source.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source_a2d1498821a463b13474f1a4445a17b95_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_source_8h}{Audio\+Source.\+h}}\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_source_8cpp}{Audio\+Source.\+cpp}}\end{DoxyCompactItemize}

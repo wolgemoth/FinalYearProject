@@ -22,7 +22,7 @@
 
 // @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	void Resources::PreloadAudio() {
 		
@@ -272,4 +272,4 @@ namespace LouiEriksson {
 		return m_Shaders.Return(_name);
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

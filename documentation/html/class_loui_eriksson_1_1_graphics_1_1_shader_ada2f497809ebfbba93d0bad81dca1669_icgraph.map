@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Graphics::Shader::ID" name="LouiEriksson::Graphics::Shader::ID">
-<area shape="rect" id="node1" title="Get the ID of the Shader." alt="" coords="229,71,399,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#aafd1f9717fc3f5835b46f6b0681907a3" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="9,5,178,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#af9ef190cada4ea23de22c6f0d14fe7d8" title=" " alt="" coords="9,71,178,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_shader.html#a139a5607a8a251c3cc1692e259ea66ba" title=" " alt="" coords="5,136,181,177"/>
-</map>

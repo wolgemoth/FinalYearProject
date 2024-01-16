@@ -1,7 +1,7 @@
 <map id="src/engine/scripts/audio/AudioClip.h" name="src/engine/scripts/audio/AudioClip.h">
-<area shape="rect" id="node1" title=" " alt="" coords="142,5,282,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,72,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="97,95,199,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="223,95,329,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="353,95,444,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="121,5,261,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,52,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="76,95,179,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="203,95,308,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="333,95,423,121"/>
 </map>

@@ -1,0 +1,194 @@
+\hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball}{}\doxysection{Loui\+Eriksson\+::Game\+::Scripts\+::Ball Class Reference}
+\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball}\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball}{Ball}} object with Rigidbody physics.  
+
+
+
+
+{\ttfamily \#include $<$Ball.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Game\+::Scripts\+::Ball\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Game\+::Scripts\+::Ball\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a322e1426204660f8acd39479cb317a0e}{Ball}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aae09656c442d9872eec65cb55f23acc6}{$\sim$\+Ball}} () override
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2dffc26df2608eeb9ea228f886f635ff}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a4ed6f260b0e2d8fc8b560935da53e328}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aa07e808db033e7943b91a96d1ee2df2c}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_ac7df735a1369aae9a436aa1654f076aa}{Fixed\+Tick}} () override
+\begin{DoxyCompactList}\small\item\em Called every tick of the physics engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2724d86f782b72fb99e0c310d348dd1d}{On\+Collision}} (const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Physics\+::\+Collision}} \&\+\_\+collision) override
+\begin{DoxyCompactList}\small\item\em Called every time a collision event occurs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball}{Ball}} object with Rigidbody physics. 
+
+
+
+Definition at line 16 of file Ball.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a322e1426204660f8acd39479cb317a0e}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a322e1426204660f8acd39479cb317a0e}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!Ball@{Ball}}
+\index{Ball@{Ball}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{Ball()}{Ball()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+Ball (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 9 of file Ball.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aae09656c442d9872eec65cb55f23acc6}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aae09656c442d9872eec65cb55f23acc6}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!````~Ball@{$\sim$Ball}}
+\index{````~Ball@{$\sim$Ball}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{$\sim$Ball()}{~Ball()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::$\sim$\+Ball (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a4ed6f260b0e2d8fc8b560935da53e328}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a4ed6f260b0e2d8fc8b560935da53e328}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_ac434db47ebc2ada8b30f6198420524de}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 15 of file Ball.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a4ed6f260b0e2d8fc8b560935da53e328_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_ac7df735a1369aae9a436aa1654f076aa}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_ac7df735a1369aae9a436aa1654f076aa}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!FixedTick@{FixedTick}}
+\index{FixedTick@{FixedTick}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{FixedTick()}{FixedTick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+Fixed\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every tick of the physics engine. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_a46fd71da9935bb0da87f3d3e6296f944}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 64 of file Ball.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2724d86f782b72fb99e0c310d348dd1d}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2724d86f782b72fb99e0c310d348dd1d}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!OnCollision@{OnCollision}}
+\index{OnCollision@{OnCollision}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{OnCollision()}{OnCollision()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+On\+Collision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Physics\+::\+Collision}} \&}]{\+\_\+collision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every time a collision event occurs. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_ac2c8f78409bede82f6d8864d22a53798}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 88 of file Ball.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2724d86f782b72fb99e0c310d348dd1d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aa07e808db033e7943b91a96d1ee2df2c}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_aa07e808db033e7943b91a96d1ee2df2c}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_a73b6513ef33cc256dc99ecb9fc765764}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 60 of file Ball.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2dffc26df2608eeb9ea228f886f635ff}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball_a2dffc26df2608eeb9ea228f886f635ff}} 
+\index{LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::Scripts::Ball@{LouiEriksson::Game::Scripts::Ball}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Ball\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 48 of file Ball.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/usr/scripts/\mbox{\hyperlink{_ball_8h}{Ball.\+h}}\item 
+src/usr/scripts/\mbox{\hyperlink{_ball_8cpp}{Ball.\+cpp}}\end{DoxyCompactItemize}

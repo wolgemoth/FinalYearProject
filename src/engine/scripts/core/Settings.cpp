@@ -7,7 +7,7 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	void Settings::Init() {
 		Settings::Graphics::Skybox::UpdateSkybox(Settings::Graphics::Skybox::s_CurrentSkyboxSelection);
@@ -66,4 +66,4 @@ namespace LouiEriksson {
 		}
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

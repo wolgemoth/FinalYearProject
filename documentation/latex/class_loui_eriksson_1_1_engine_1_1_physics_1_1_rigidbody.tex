@@ -1,0 +1,608 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{}\doxysection{Loui\+Eriksson\+::Engine\+::Physics\+::Rigidbody Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} Component implementing \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} dynamics and \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Collision}} response behaviour.  
+
+
+
+
+{\ttfamily \#include $<$Rigidbody.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::Physics\+::Rigidbody\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Physics\+::Rigidbody\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af45aae1acc11ade3dcca886fa73ede84}{Rigidbody}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa12905363864f903cb94245b63b8dc37}{$\sim$\+Rigidbody}} () override=default
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7c7fb96c7e8a480031e1dc5929c3e020}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ab50cfcaf9a5698d97c3ab9f67833658e}{Interpolate}} ()
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0db60518f29af66930677bbe939e477f}{Sync}} ()
+\begin{DoxyCompactList}\small\item\em Sync the transform with the physics engine. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Collision}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aee1bf539e2d31d89c9f375abc8d8bd69}{Collisions}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Retrieve the list of collisions for the current tick of the physics engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4ae1a6cefb6e0da2f83d61d79690eea5}{Set\+Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \&\+\_\+transform)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa2e6e036c6f5c3d2d25832cbdb629aa2}{Get\+Transform}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af62d547fdcf5266eb1e57c0cb1c2e6a3}{Set\+Collider}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} $>$ \&\+\_\+collider)
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a8315d17cddaf988e769b782a3f74c826}{Get\+Collider}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7e30fbacffdb514a0c6c6b835780d48a}{Position}} (const glm\+::vec3 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. You shouldn\textquotesingle{}t normally need to do this. See \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}{Add\+Force()}} instead. \end{DoxyCompactList}\item 
+const glm\+::vec3 \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a35c965cf40893ec284c5ff84d1062b3c}{Position}} ()
+\begin{DoxyCompactList}\small\item\em Get the position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5901e662e99b7b4ea04112e0f171f243}{Rotation}} (const glm\+::quat \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the rotation of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. You shouldn\textquotesingle{}t normally need to do this. See \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}{Add\+Force()}} Instead. \end{DoxyCompactList}\item 
+const glm\+::quat \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7920b6d7d0812b1461ca7e91b7e055b8}{Rotation}} ()
+\begin{DoxyCompactList}\small\item\em Get the rotation of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_add8e82bdfb9e6ce08c3c8242dc359abd}{Kinematic}} (const bool \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const bool \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0cd2b012c9e6f031d1b3c6d21c811e45}{Kinematic}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_acc16153b248adfcf967a2fef428bf5c1}{Gravity}} (const bool \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const bool \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afeb2a3c3716747e5e2d939b66d0a0021}{Gravity}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a61be3e4527019b96d9a56bc59ffb0076}{Velocity}} (const glm\+::vec3 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a79e5bc885ddc49073059f344277cfca7}{Velocity}} () const
+\begin{DoxyCompactList}\small\item\em Get the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aef99bed720d87ce0428eb1c474ef4239}{Angular\+Velocity}} (const glm\+::vec3 \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a483d32bf31b02d820af19f693ce23d28}{Angular\+Velocity}} () const
+\begin{DoxyCompactList}\small\item\em Get the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}{Add\+Force}} (const glm\+::vec3 \&\+\_\+value, const glm\+::vec3 \&\+\_\+relative\+Position=glm\+::vec3(0.\+0f))
+\begin{DoxyCompactList}\small\item\em Add a force to the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+glm\+::vec3 \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a47b156960691fb3b057f4cf1bcd488df}{Get\+Force}} () const
+\begin{DoxyCompactList}\small\item\em Get the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5cdbf1e872958b1a0cee9159e82a2bd3}{Mass}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ae5a099036aab3d10abd31918e165815d}{Mass}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a093815035e23d21993ef5330f98f068f}{Drag}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0c65a1cd853541e864b85757a774f2bd}{Drag}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a217105cf9b603ea3d2b1c49c0d6355c3}{Angular\+Drag}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a1a1c000200b360d89c89289734a58144}{Angular\+Drag}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a074841e01ddbbe3780e254cfa104785b}{Friction}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the friction of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afe2b45eb9175e1d24074f824d93026e9}{Friction}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the friction of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4aeb9926f87af37fcb4aef3cb7e812bb}{Bounciness}} (const float \&\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Set the bounciness of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4fb6ed1dc8b063ed6fa1a80defcbf164}{Bounciness}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the bounciness of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} Component implementing \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} dynamics and \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Collision}} response behaviour. 
+
+
+
+Definition at line 31 of file Rigidbody.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af45aae1acc11ade3dcca886fa73ede84}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af45aae1acc11ade3dcca886fa73ede84}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Rigidbody@{Rigidbody}}
+\index{Rigidbody@{Rigidbody}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Rigidbody()}{Rigidbody()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Rigidbody (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 177 of file Rigidbody.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af45aae1acc11ade3dcca886fa73ede84_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa12905363864f903cb94245b63b8dc37}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa12905363864f903cb94245b63b8dc37}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!````~Rigidbody@{$\sim$Rigidbody}}
+\index{````~Rigidbody@{$\sim$Rigidbody}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{$\sim$Rigidbody()}{~Rigidbody()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::$\sim$\+Rigidbody (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!AddForce@{AddForce}}
+\index{AddForce@{AddForce}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AddForce()}{AddForce()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Add\+Force (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value,  }\item[{const glm\+::vec3 \&}]{\+\_\+relative\+Position = {\ttfamily glm\+:\+:vec3(0.0f)} }\end{DoxyParamCaption})}
+
+
+
+Add a force to the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 402 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a1a1c000200b360d89c89289734a58144}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a1a1c000200b360d89c89289734a58144}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!AngularDrag@{AngularDrag}}
+\index{AngularDrag@{AngularDrag}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularDrag()}{AngularDrag()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Angular\+Drag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 439 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a217105cf9b603ea3d2b1c49c0d6355c3}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a217105cf9b603ea3d2b1c49c0d6355c3}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!AngularDrag@{AngularDrag}}
+\index{AngularDrag@{AngularDrag}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularDrag()}{AngularDrag()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Angular\+Drag (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the angular drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 434 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a483d32bf31b02d820af19f693ce23d28}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a483d32bf31b02d820af19f693ce23d28}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!AngularVelocity@{AngularVelocity}}
+\index{AngularVelocity@{AngularVelocity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularVelocity()}{AngularVelocity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Angular\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 395 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aef99bed720d87ce0428eb1c474ef4239}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aef99bed720d87ce0428eb1c474ef4239}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!AngularVelocity@{AngularVelocity}}
+\index{AngularVelocity@{AngularVelocity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{AngularVelocity()}{AngularVelocity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Angular\+Velocity (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the angular velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 389 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4fb6ed1dc8b063ed6fa1a80defcbf164}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4fb6ed1dc8b063ed6fa1a80defcbf164}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Bounciness@{Bounciness}}
+\index{Bounciness@{Bounciness}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Bounciness()}{Bounciness()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Bounciness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the bounciness of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 457 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4aeb9926f87af37fcb4aef3cb7e812bb}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4aeb9926f87af37fcb4aef3cb7e812bb}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Bounciness@{Bounciness}}
+\index{Bounciness@{Bounciness}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Bounciness()}{Bounciness()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Bounciness (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the bounciness of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 452 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aee1bf539e2d31d89c9f375abc8d8bd69}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aee1bf539e2d31d89c9f375abc8d8bd69}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Collisions@{Collisions}}
+\index{Collisions@{Collisions}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Collisions()}{Collisions()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision}{Collision}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Collisions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Retrieve the list of collisions for the current tick of the physics engine. 
+
+
+
+Definition at line 305 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0c65a1cd853541e864b85757a774f2bd}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0c65a1cd853541e864b85757a774f2bd}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Drag@{Drag}}
+\index{Drag@{Drag}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Drag()}{Drag()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Drag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 430 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a093815035e23d21993ef5330f98f068f}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a093815035e23d21993ef5330f98f068f}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Drag@{Drag}}
+\index{Drag@{Drag}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Drag()}{Drag()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Drag (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the drag of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 425 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afe2b45eb9175e1d24074f824d93026e9}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afe2b45eb9175e1d24074f824d93026e9}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Friction@{Friction}}
+\index{Friction@{Friction}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Friction()}{Friction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Friction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the friction of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 448 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a074841e01ddbbe3780e254cfa104785b}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a074841e01ddbbe3780e254cfa104785b}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Friction@{Friction}}
+\index{Friction@{Friction}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Friction()}{Friction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Friction (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the friction of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 443 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a8315d17cddaf988e769b782a3f74c826}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a8315d17cddaf988e769b782a3f74c826}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!GetCollider@{GetCollider}}
+\index{GetCollider@{GetCollider}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetCollider()}{GetCollider()}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Get\+Collider (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 328 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a47b156960691fb3b057f4cf1bcd488df}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a47b156960691fb3b057f4cf1bcd488df}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!GetForce@{GetForce}}
+\index{GetForce@{GetForce}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetForce()}{GetForce()}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Get\+Force (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the force of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 409 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa2e6e036c6f5c3d2d25832cbdb629aa2}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_aa2e6e036c6f5c3d2d25832cbdb629aa2}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 314 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afeb2a3c3716747e5e2d939b66d0a0021}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_afeb2a3c3716747e5e2d939b66d0a0021}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Gravity@{Gravity}}
+\index{Gravity@{Gravity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Gravity()}{Gravity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const bool \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Gravity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 372 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_acc16153b248adfcf967a2fef428bf5c1}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_acc16153b248adfcf967a2fef428bf5c1}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Gravity@{Gravity}}
+\index{Gravity@{Gravity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Gravity()}{Gravity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Gravity (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 367 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ab50cfcaf9a5698d97c3ab9f67833658e}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ab50cfcaf9a5698d97c3ab9f67833658e}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Interpolate@{Interpolate}}
+\index{Interpolate@{Interpolate}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Interpolate()}{Interpolate()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Interpolate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Called every frame. 
+
+
+
+Definition at line 179 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0cd2b012c9e6f031d1b3c6d21c811e45}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0cd2b012c9e6f031d1b3c6d21c811e45}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Kinematic@{Kinematic}}
+\index{Kinematic@{Kinematic}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Kinematic()}{Kinematic()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const bool \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Kinematic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 363 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_add8e82bdfb9e6ce08c3c8242dc359abd}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_add8e82bdfb9e6ce08c3c8242dc359abd}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Kinematic@{Kinematic}}
+\index{Kinematic@{Kinematic}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Kinematic()}{Kinematic()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Kinematic (\begin{DoxyParamCaption}\item[{const bool \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the kinematic state of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 358 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ae5a099036aab3d10abd31918e165815d}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_ae5a099036aab3d10abd31918e165815d}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Mass@{Mass}}
+\index{Mass@{Mass}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Mass()}{Mass()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Mass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 421 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5cdbf1e872958b1a0cee9159e82a2bd3}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5cdbf1e872958b1a0cee9159e82a2bd3}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Mass@{Mass}}
+\index{Mass@{Mass}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Mass()}{Mass()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Mass (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the mass of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 416 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a35c965cf40893ec284c5ff84d1062b3c}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a35c965cf40893ec284c5ff84d1062b3c}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Position@{Position}}
+\index{Position@{Position}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Position()}{Position()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const glm\+::vec3 \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 338 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7e30fbacffdb514a0c6c6b835780d48a}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7e30fbacffdb514a0c6c6b835780d48a}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Position@{Position}}
+\index{Position@{Position}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Position()}{Position()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Position (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the position of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. You shouldn\textquotesingle{}t normally need to do this. See \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}{Add\+Force()}} instead. 
+
+
+
+Definition at line 332 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7920b6d7d0812b1461ca7e91b7e055b8}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7920b6d7d0812b1461ca7e91b7e055b8}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Rotation@{Rotation}}
+\index{Rotation@{Rotation}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Rotation()}{Rotation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const glm\+::quat \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the rotation of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 351 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5901e662e99b7b4ea04112e0f171f243}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a5901e662e99b7b4ea04112e0f171f243}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Rotation@{Rotation}}
+\index{Rotation@{Rotation}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Rotation()}{Rotation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Rotation (\begin{DoxyParamCaption}\item[{const glm\+::quat \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the rotation of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. You shouldn\textquotesingle{}t normally need to do this. See \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_abf93c0898a4fcce220d271c23cf276f8}{Add\+Force()}} Instead. 
+
+
+
+Definition at line 345 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af62d547fdcf5266eb1e57c0cb1c2e6a3}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_af62d547fdcf5266eb1e57c0cb1c2e6a3}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!SetCollider@{SetCollider}}
+\index{SetCollider@{SetCollider}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{SetCollider()}{SetCollider()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Set\+Collider (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} $>$ \&}]{\+\_\+collider }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 318 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4ae1a6cefb6e0da2f83d61d79690eea5}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a4ae1a6cefb6e0da2f83d61d79690eea5}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!SetTransform@{SetTransform}}
+\index{SetTransform@{SetTransform}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{SetTransform()}{SetTransform()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})}
+
+
+
+Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 309 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0db60518f29af66930677bbe939e477f}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a0db60518f29af66930677bbe939e477f}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Sync@{Sync}}
+\index{Sync@{Sync}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Sync()}{Sync()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Sync (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sync the transform with the physics engine. 
+
+
+
+Definition at line 234 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7c7fb96c7e8a480031e1dc5929c3e020}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7c7fb96c7e8a480031e1dc5929c3e020}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 116 of file Rigidbody.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a7c7fb96c7e8a480031e1dc5929c3e020_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a79e5bc885ddc49073059f344277cfca7}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a79e5bc885ddc49073059f344277cfca7}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Velocity()}{Velocity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily glm\+::vec3 Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 382 of file Rigidbody.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a61be3e4527019b96d9a56bc59ffb0076}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_a61be3e4527019b96d9a56bc59ffb0076}} 
+\index{LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!LouiEriksson::Engine::Physics::Rigidbody@{LouiEriksson::Engine::Physics::Rigidbody}}
+\doxysubsubsection{\texorpdfstring{Velocity()}{Velocity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Rigidbody\+::\+Velocity (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Set the velocity of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}. 
+
+
+
+Definition at line 376 of file Rigidbody.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/physics/\mbox{\hyperlink{_rigidbody_8h}{Rigidbody.\+h}}\item 
+src/engine/scripts/physics/\mbox{\hyperlink{_rigidbody_8cpp}{Rigidbody.\+cpp}}\end{DoxyCompactItemize}

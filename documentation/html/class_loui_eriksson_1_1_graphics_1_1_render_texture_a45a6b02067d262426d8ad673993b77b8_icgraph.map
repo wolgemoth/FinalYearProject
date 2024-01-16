@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Graphics::RenderTexture::DepthID" name="LouiEriksson::Graphics::RenderTexture::DepthID">
-<area shape="rect" id="node1" title="Get the ID of the depth attachment." alt="" coords="223,5,408,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#ad5ce8ab752fc221996eefba46da216aa" title="Renders each Renderer using the Camera." alt="" coords="5,5,175,47"/>
-</map>

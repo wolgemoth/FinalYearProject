@@ -5,7 +5,9 @@
 
 // @Assessor: This class has changed significantly since it was submitted for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson::Game {
+using namespace LouiEriksson::Engine;
+
+namespace LouiEriksson::Game::Scripts {
 	
 	/// <summary>
 	/// Camera that orbits a target.
@@ -45,6 +47,6 @@ namespace LouiEriksson::Game {
 		std::type_index TypeID() const noexcept override { return typeid(OrbitCam); };
 	};
 	
-} // LouiEriksson::Game
+} // LouiEriksson::Game::Scripts
 
 #endif //GAME_ORBITCAM_H

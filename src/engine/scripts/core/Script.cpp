@@ -6,7 +6,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	Script::Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
@@ -15,4 +15,4 @@ namespace LouiEriksson {
 	void Script::FixedTick() {}
 	void Script::OnCollision(const Physics::Collision& _collision) {}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

@@ -3,7 +3,7 @@
 
 #include <glm/ext/vector_int2.hpp>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Screen {
 	
@@ -13,6 +13,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_SCREEN_H

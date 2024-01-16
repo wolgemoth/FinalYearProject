@@ -9,20 +9,20 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Texture;
 	class Shader;
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
-namespace LouiEriksson::UI {
+namespace LouiEriksson::Engine::UI {
 	
 	class GUI;
 	
-} // LouiEriksson::UI
+} // LouiEriksson::Engine::UI
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Settings {
 	
@@ -87,7 +87,7 @@ namespace LouiEriksson {
 				
 				inline static int s_CurrentSkyboxSelection { 0 };
 				
-				inline static std::weak_ptr<LouiEriksson::Graphics::Texture> s_Skybox;
+				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Texture> s_Skybox;
 				
 				static void UpdateSkybox(const int& _index);
 				
@@ -108,7 +108,7 @@ namespace LouiEriksson {
 				
 				inline static int s_CurrentShaderSelection { 0 };
 				
-				inline static std::weak_ptr<LouiEriksson::Graphics::Shader> s_Shader;
+				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Shader> s_Shader;
 				
 				static void UpdateShader(const int& _index);
 				
@@ -278,6 +278,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_SETTINGS_H

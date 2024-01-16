@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Utils {
 	
@@ -66,6 +66,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_UTILS_H

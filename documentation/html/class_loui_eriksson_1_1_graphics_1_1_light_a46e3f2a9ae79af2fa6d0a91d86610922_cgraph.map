@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Graphics::Light::TypeID" name="LouiEriksson::Graphics::Light::TypeID">
-<area shape="rect" id="node1" title="Return the type_index of this Component&#39;s derived type." alt="" coords="5,39,175,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_light.html#aebbd929bd8a1d253804491b649763d21" title=" " alt="" coords="223,39,392,80"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="451,5,598,47"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_graphics_1_1_light.html#abfe7225089bbf73148e040644cd4e035" title=" " alt="" coords="440,71,609,112"/>
-</map>

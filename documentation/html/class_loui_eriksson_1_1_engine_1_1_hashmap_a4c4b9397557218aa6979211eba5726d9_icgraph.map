@@ -1,0 +1,7 @@
+<map id="LouiEriksson::Engine::Hashmap::size" name="LouiEriksson::Engine::Hashmap::size">
+<area shape="rect" id="node1" title="Returns the number of items stored within the Hashmap." alt="" coords="476,71,632,112"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_hashmap.html#a4aab667d32767fb39b5854df7dedf739" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="272,5,428,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_hashmap.html#aef0697029eb3518219d030dee428def6" title="Inserts or replaces an entry within the Hashmap with the given key." alt="" coords="272,71,428,112"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_hashmap.html#ab83bc868ff840a6e521f2900a7e13ffe" title="Trims unused entries from the end of the Hashmap." alt="" coords="272,136,428,177"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_shader.html#a028ffec96c42af32c2e1694ec5f859a4" title="Get the ID of an attribute by name. Returns &#45;1 if none found." alt="" coords="5,71,224,112"/>
+</map>

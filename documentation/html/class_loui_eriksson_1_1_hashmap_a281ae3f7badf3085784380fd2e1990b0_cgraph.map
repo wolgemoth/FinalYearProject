@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Hashmap::Add" name="LouiEriksson::Hashmap::Add">
-<area shape="rect" id="node1" title="Inserts a new entry into the Hashmap with given key and value, if one does not already exist." alt="" coords="5,13,212,39"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_hashmap.html#aa56ab142c4ac7ea4a17e9134065a84e9" title="Returns the number of items stored within the Hashmap." alt="" coords="260,5,435,47"/>
-</map>

@@ -12,19 +12,19 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	class Resources;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 
 	class Shader {
 		
-		friend LouiEriksson::Application;
-		friend LouiEriksson::Resources;
+		friend LouiEriksson::Engine::Application;
+		friend LouiEriksson::Engine::Resources;
 		
 	private:
 		
@@ -129,6 +129,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_SHADER_H

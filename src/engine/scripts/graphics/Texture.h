@@ -5,21 +5,21 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class File;
 	class Resources;
 	class Settings;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Texture {
 		
-		friend LouiEriksson::File;
-		friend LouiEriksson::Resources;
-		friend LouiEriksson::Settings;
+		friend LouiEriksson::Engine::File;
+		friend LouiEriksson::Engine::Resources;
+		friend LouiEriksson::Engine::Settings;
 	
 		friend class Camera;
 		friend class Cubemap;
@@ -160,6 +160,6 @@ namespace LouiEriksson::Graphics {
 	
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_TEXTURE_H

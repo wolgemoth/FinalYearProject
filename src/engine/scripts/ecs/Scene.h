@@ -12,27 +12,27 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	class Script;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	class Component;
 	class GameObject;
 	
 	class Scene final : public std::enable_shared_from_this<Scene> {
 	
-		friend LouiEriksson::Application;
+		friend LouiEriksson::Engine::Application;
 		friend GameObject;
 	
 	private:
 	
 		/// <summary> Render the Scene. </summary>
-		void Draw(const LouiEriksson::Graphics::Camera::RenderFlags& _flags);
+		void Draw(const LouiEriksson::Engine::Graphics::Camera::RenderFlags& _flags);
 		
 	protected:
 	
@@ -153,6 +153,6 @@ namespace LouiEriksson::ECS {
 		}
 	}
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS
 
 #endif //FINALYEARPROJECT_SCENE_H

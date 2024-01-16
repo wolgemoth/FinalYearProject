@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Engine::Window::Dimensions" name="LouiEriksson::Engine::Window::Dimensions">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7" title=" " alt="" coords="220,5,376,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7" title="Returns the window&#39;s x,y dimensions as a c&#45;style array." alt="" coords="424,5,591,47"/>
+</map>

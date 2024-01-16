@@ -3,7 +3,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Time {
 	
@@ -60,6 +60,6 @@ namespace LouiEriksson {
 		Time& operator =       (Time&& _other) = delete;
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_TIME_H

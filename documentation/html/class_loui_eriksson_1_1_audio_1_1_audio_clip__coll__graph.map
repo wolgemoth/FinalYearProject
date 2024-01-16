@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Audio::AudioClip" name="LouiEriksson::Audio::AudioClip">
-<area shape="rect" id="node1" title=" " alt="" coords="100,204,291,355"/>
-<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_audio_1_1_audio_clip_1_1_samples.html" title="Contains the samples of the audio clip." alt="" coords="5,20,161,127"/>
-<area shape="rect" id="node3" href="$struct_loui_eriksson_1_1_audio_1_1_audio_clip_1_1_format.html" title="Represents the format of an audio clip. Please note that positional audio does not work for sound fil..." alt="" coords="185,5,429,141"/>
-</map>

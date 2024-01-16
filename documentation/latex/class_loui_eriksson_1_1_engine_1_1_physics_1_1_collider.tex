@@ -1,0 +1,277 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{}\doxysection{Loui\+Eriksson\+::Engine\+::Physics\+::Collider Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+
+
+{\ttfamily \#include $<$Collider.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::Physics\+::Collider\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Physics\+::Collider\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} \+: char \{ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca23865a931ec775be86078cda12d28576}{Sphere}}
+, \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca986ee211b9151fd40aee38ada45131c3}{Plane}}
+ \}
+\begin{DoxyCompactList}\small\item\em The type of the collider. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a71775eef8aa0cbca80e6837ca615d57d}{Collider}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2ed347f2821e6f76265fa111c792b011}{$\sim$\+Collider}} () override=default
+\item 
+virtual void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_aaec7189b5426a98d2ba6d073efe2acb7}{Set\+Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \&\+\_\+transform) noexcept
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1d135f6ada32bf2d81f11608cac6b5c4}{Get\+Transform}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a7095a095fc6dcd33bddd16014c05555b}{Set\+Rigidbody}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} $>$ \&\+\_\+transform) noexcept
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a98ddf9932a86a52392f55f730ac6beb4}{Get\+Rigidbody}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a6e4938dbab824f193e4c733586a2eb61}{Set\+Type}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} \&\+\_\+type) noexcept
+\begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}\textquotesingle{}s Type\+ID. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a97308cc7b5a0474f0a951f9f82122c76}{Get\+Type}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}\textquotesingle{}s Type\+ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a0faccdf52b7c626898bd916326a32b13}{m\+\_\+\+Type}}
+\item 
+std\+::shared\+\_\+ptr$<$ bt\+Collision\+Shape $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2f39cab9dcf539205d5602105f343a5a}{m\+\_\+\+Collision\+Shape}}
+\begin{DoxyCompactList}\small\item\em (Bullet \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_physics}{Physics}} \mbox{\hyperlink{namespace_loui_eriksson_1_1_engine}{Engine}}) Shape of collider. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1729446599f5957d66356ab01a8ba40e}{m\+\_\+\+Transform}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_abffa56d58ba319549825d7b06306fa37}{m\+\_\+\+Rigidbody}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file Collider.\+h.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!Type@{Type}}
+\index{Type@{Type}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Type}} \+: char}
+
+
+
+The type of the collider. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sphere@{Sphere}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!Sphere@{Sphere}}}\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca23865a931ec775be86078cda12d28576}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca23865a931ec775be86078cda12d28576}} 
+Sphere&\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} is a Sphere \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Plane@{Plane}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!Plane@{Plane}}}\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca986ee211b9151fd40aee38ada45131c3}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16ca986ee211b9151fd40aee38ada45131c3}} 
+Plane&\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}} is a Plane \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 29 of file Collider.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a71775eef8aa0cbca80e6837ca615d57d}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a71775eef8aa0cbca80e6837ca615d57d}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!Collider@{Collider}}
+\index{Collider@{Collider}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{Collider()}{Collider()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Collider (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 14 of file Collider.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2ed347f2821e6f76265fa111c792b011}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2ed347f2821e6f76265fa111c792b011}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!````~Collider@{$\sim$Collider}}
+\index{````~Collider@{$\sim$Collider}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{$\sim$Collider()}{~Collider()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::$\sim$\+Collider (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a98ddf9932a86a52392f55f730ac6beb4}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a98ddf9932a86a52392f55f730ac6beb4}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!GetRigidbody@{GetRigidbody}}
+\index{GetRigidbody@{GetRigidbody}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{GetRigidbody()}{GetRigidbody()}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Get\+Rigidbody (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 27 of file Collider.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1d135f6ada32bf2d81f11608cac6b5c4}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1d135f6ada32bf2d81f11608cac6b5c4}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!GetTransform@{GetTransform}}
+\index{GetTransform@{GetTransform}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 20 of file Collider.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a97308cc7b5a0474f0a951f9f82122c76}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a97308cc7b5a0474f0a951f9f82122c76}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!GetType@{GetType}}
+\index{GetType@{GetType}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Collider\+::\+Type}} \& Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}\textquotesingle{}s Type\+ID. 
+
+
+
+Definition at line 34 of file Collider.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a7095a095fc6dcd33bddd16014c05555b}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a7095a095fc6dcd33bddd16014c05555b}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!SetRigidbody@{SetRigidbody}}
+\index{SetRigidbody@{SetRigidbody}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{SetRigidbody()}{SetRigidbody()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Set\+Rigidbody (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 24 of file Collider.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_aaec7189b5426a98d2ba6d073efe2acb7}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_aaec7189b5426a98d2ba6d073efe2acb7}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!SetTransform@{SetTransform}}
+\index{SetTransform@{SetTransform}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{SetTransform()}{SetTransform()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Set\+Transform (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \&}]{\+\_\+transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_aa5a34a316faa7fae81a358fc5b9cee0b}{Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Plane\+Collider}}.
+
+
+
+Definition at line 17 of file Collider.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_aaec7189b5426a98d2ba6d073efe2acb7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a6e4938dbab824f193e4c733586a2eb61}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a6e4938dbab824f193e4c733586a2eb61}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!SetType@{SetType}}
+\index{SetType@{SetType}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{SetType()}{SetType()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::\+Set\+Type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} \&}]{\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}\textquotesingle{}s Type\+ID. 
+
+
+
+Definition at line 31 of file Collider.\+cpp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2f39cab9dcf539205d5602105f343a5a}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a2f39cab9dcf539205d5602105f343a5a}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!m\_CollisionShape@{m\_CollisionShape}}
+\index{m\_CollisionShape@{m\_CollisionShape}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_CollisionShape}{m\_CollisionShape}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$bt\+Collision\+Shape$>$ Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::m\+\_\+\+Collision\+Shape\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+(Bullet \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_physics}{Physics}} \mbox{\hyperlink{namespace_loui_eriksson_1_1_engine}{Engine}}) Shape of collider. 
+
+
+
+Definition at line 67 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_abffa56d58ba319549825d7b06306fa37}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_abffa56d58ba319549825d7b06306fa37}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!m\_Rigidbody@{m\_Rigidbody}}
+\index{m\_Rigidbody@{m\_Rigidbody}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Rigidbody}{m\_Rigidbody}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}}$>$ Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::m\+\_\+\+Rigidbody\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody}{Rigidbody}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 73 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1729446599f5957d66356ab01a8ba40e}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a1729446599f5957d66356ab01a8ba40e}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!m\_Transform@{m\_Transform}}
+\index{m\_Transform@{m\_Transform}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Transform}{m\_Transform}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}}$>$ Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::m\+\_\+\+Transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider}{Collider}}. 
+
+
+
+Definition at line 70 of file Collider.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a0faccdf52b7c626898bd916326a32b13}\label{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a0faccdf52b7c626898bd916326a32b13}} 
+\index{LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}!m\_Type@{m\_Type}}
+\index{m\_Type@{m\_Type}!LouiEriksson::Engine::Physics::Collider@{LouiEriksson::Engine::Physics::Collider}}
+\doxysubsubsection{\texorpdfstring{m\_Type}{m\_Type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_a8111a42652b03419558eb02e28a1f16c}{Type}} Loui\+Eriksson\+::\+Engine\+::\+Physics\+::\+Collider\+::m\+\_\+\+Type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 62 of file Collider.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/physics/\mbox{\hyperlink{_collider_8h}{Collider.\+h}}\item 
+src/engine/scripts/physics/\mbox{\hyperlink{_collider_8cpp}{Collider.\+cpp}}\end{DoxyCompactItemize}

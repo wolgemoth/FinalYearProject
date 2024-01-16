@@ -1,5 +1,0 @@
-<map id="LouiEriksson::File::TryLoad" name="LouiEriksson::File::TryLoad">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,140,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_texture.html#a1e3161238430e4579283dc21b2cc4f94" title="Bind the provided Texture." alt="" coords="188,5,357,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_texture.html#a11bde620cb849fbc186f25c236a2792a" title="Unbind the currently bound Texture." alt="" coords="188,71,357,112"/>
-</map>

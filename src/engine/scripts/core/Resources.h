@@ -9,22 +9,22 @@
 
 // @Assessor: This class was submitted for GEP. Please don't mark it for GACP.
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	class AudioClip;
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Material;
 	class Mesh;
 	class Shader;
 	class Texture;
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Resources {
 	
@@ -95,6 +95,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_RESOURCES_H

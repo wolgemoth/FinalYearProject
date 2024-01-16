@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	class AudioClip;
 	
@@ -238,6 +238,6 @@ namespace LouiEriksson::Audio {
 		[[nodiscard]] int PlaybackPosition(const ALenum& _param) const;
 	};
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
 #endif //FINALYEARPROJECT_AUDIOSOURCE_H

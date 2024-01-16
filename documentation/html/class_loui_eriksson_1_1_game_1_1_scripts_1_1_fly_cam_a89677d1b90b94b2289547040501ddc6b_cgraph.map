@@ -1,0 +1,7 @@
+<map id="LouiEriksson::Game::Scripts::FlyCam::Begin" name="LouiEriksson::Game::Scripts::FlyCam::Begin">
+<area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,104,183,145"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source.html#a50eb9342e482eb56811554e4c9a7af8c" title="Set this AudioSource&#39;s AudioClip." alt="" coords="233,5,423,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10" title="Factory function which creates a GameObject within a Scene." alt="" coords="231,71,425,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_window.html#adc34b71c2def728370bf9a80078354ac" title=" " alt="" coords="250,136,406,177"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a6480d99ee7d9b9ea0e334ae8611f5af3" title=" " alt="" coords="245,201,411,243"/>
+</map>

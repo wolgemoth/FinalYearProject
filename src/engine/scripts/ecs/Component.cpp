@@ -7,7 +7,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::ECS {
+namespace LouiEriksson::Engine::ECS {
 	
 	Component::Component(const std::weak_ptr<GameObject>& _parent) noexcept :
 			m_GameObject(_parent),
@@ -29,4 +29,4 @@ namespace LouiEriksson::ECS {
 		return m_GameObject;
 	}
 	
-} // LouiEriksson::ECS
+} // LouiEriksson::Engine::ECS

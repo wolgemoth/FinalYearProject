@@ -14,13 +14,13 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Transform;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class Collider;
 	class Collision;
@@ -218,6 +218,6 @@ namespace LouiEriksson::Physics {
 		
 	};
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
 #endif //FINALYEARPROJECT_RIGIDBODY_H

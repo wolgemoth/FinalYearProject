@@ -1,0 +1,299 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{}\doxysection{Loui\+Eriksson\+::Engine\+::Graphics\+::Render\+Texture Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+
+
+{\ttfamily \#include $<$Render\+Texture.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::Graphics\+::Render\+Texture\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Graphics\+::Render\+Texture\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_1_1_parameters}{Parameters}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae68ae94b79ad83298c39e50f67fc55e9}{Render\+Texture}} (const int \&\+\_\+width, const int \&\+\_\+height, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_format}{Texture\+::\+Parameters\+::\+Format}} \&\+\_\+format, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode}{Texture\+::\+Parameters\+::\+Filter\+Mode}} \&\+\_\+filter\+Mode, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_wrap_mode}{Texture\+::\+Parameters\+::\+Wrap\+Mode}} \&\+\_\+wrap\+Mode, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_1_1_parameters_a716ae67b1b4baa777b0aa77dd15cd155}{Render\+Texture\+::\+Parameters\+::\+Depth\+Mode}} \&\+\_\+depth\+Mode)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a451eead9abcefa6173b1be427ddd50af}{$\sim$\+Render\+Texture}} ()
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a8c380592b748e85c5dbddea271d4207b}{Render\+Texture}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&\+\_\+other)=delete
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a391040433f6dc70eb240208fb140d1ff}{operator=}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&\+\_\+other)=delete
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_aee5f3ea88f2f0c1d50b5de7794ad1f81}{Reinitialise}} (const int \&\+\_\+width, const int \&\+\_\+height)
+\begin{DoxyCompactList}\small\item\em Reinitialise the texture with a given width and height. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a5cf6a5fbdd9d84c093cb1b6813cc9d36}{Reinitialise}} (const int \&\+\_\+width, const int \&\+\_\+height, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_format}{Texture\+::\+Parameters\+::\+Format}} \&\+\_\+format, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode}{Texture\+::\+Parameters\+::\+Filter\+Mode}} \&\+\_\+filter\+Mode, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_wrap_mode}{Texture\+::\+Parameters\+::\+Wrap\+Mode}} \&\+\_\+wrap\+Mode, const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_1_1_parameters_a716ae67b1b4baa777b0aa77dd15cd155}{Render\+Texture\+::\+Parameters\+::\+Depth\+Mode}} \&\+\_\+depth\+Mode)
+\begin{DoxyCompactList}\small\item\em Reinitialise the texture with a given width, height, format, filter mode, wrap mode, and depth attachment mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a7b2d50e5c10c277a3dc9be17d7daba4f}{Discard}} () const override
+\begin{DoxyCompactList}\small\item\em Discard the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. \end{DoxyCompactList}\item 
+GLuint \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae5d59ac6562f1c4f11298aca32cf8954}{Depth\+ID}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the ID of the depth attachment. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ac84528307536baac025b5aa8f3c3def5}{Bind}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&\+\_\+rt)
+\begin{DoxyCompactList}\small\item\em Bind the provided \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a53bf20f83337d1f5f3cd32f66d548259}{Unbind}} ()
+\begin{DoxyCompactList}\small\item\em Unbind the currently bound \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ad8bd9afbbd7af19d996da80e9d25890d}{Camera}}
+\item 
+class \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a27862a9fe512b352f98ec1c054680edd}{Light}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Render\+Texture.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae68ae94b79ad83298c39e50f67fc55e9}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae68ae94b79ad83298c39e50f67fc55e9}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!RenderTexture@{RenderTexture}}
+\index{RenderTexture@{RenderTexture}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{RenderTexture()}{RenderTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Render\+Texture (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+width,  }\item[{const int \&}]{\+\_\+height,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_format}{Texture\+::\+Parameters\+::\+Format}} \&}]{\+\_\+format,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode}{Texture\+::\+Parameters\+::\+Filter\+Mode}} \&}]{\+\_\+filter\+Mode,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_wrap_mode}{Texture\+::\+Parameters\+::\+Wrap\+Mode}} \&}]{\+\_\+wrap\+Mode,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_1_1_parameters_a716ae67b1b4baa777b0aa77dd15cd155}{Render\+Texture\+::\+Parameters\+::\+Depth\+Mode}} \&}]{\+\_\+depth\+Mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 14 of file Render\+Texture.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a451eead9abcefa6173b1be427ddd50af}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a451eead9abcefa6173b1be427ddd50af}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!````~RenderTexture@{$\sim$RenderTexture}}
+\index{````~RenderTexture@{$\sim$RenderTexture}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{$\sim$RenderTexture()}{~RenderTexture()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::$\sim$\+Render\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 23 of file Render\+Texture.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a451eead9abcefa6173b1be427ddd50af_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a8c380592b748e85c5dbddea271d4207b}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a8c380592b748e85c5dbddea271d4207b}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!RenderTexture@{RenderTexture}}
+\index{RenderTexture@{RenderTexture}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{RenderTexture()}{RenderTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Render\+Texture (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ac84528307536baac025b5aa8f3c3def5}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ac84528307536baac025b5aa8f3c3def5}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Bind@{Bind}}
+\index{Bind@{Bind}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Bind (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&}]{\+\_\+rt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Bind the provided \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. 
+
+
+
+Definition at line 113 of file Render\+Texture.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ac84528307536baac025b5aa8f3c3def5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae5d59ac6562f1c4f11298aca32cf8954}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae5d59ac6562f1c4f11298aca32cf8954}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!DepthID@{DepthID}}
+\index{DepthID@{DepthID}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{DepthID()}{DepthID()}}
+{\footnotesize\ttfamily GLuint Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Depth\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the ID of the depth attachment. 
+
+
+
+Definition at line 136 of file Render\+Texture.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ae5d59ac6562f1c4f11298aca32cf8954_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a7b2d50e5c10c277a3dc9be17d7daba4f}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a7b2d50e5c10c277a3dc9be17d7daba4f}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Discard@{Discard}}
+\index{Discard@{Discard}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Discard()}{Discard()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Discard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Discard the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_a8eb51bef0b2c1748483a8b7ed063488c}{Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Texture}}.
+
+
+
+Definition at line 127 of file Render\+Texture.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a7b2d50e5c10c277a3dc9be17d7daba4f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a7b2d50e5c10c277a3dc9be17d7daba4f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a391040433f6dc70eb240208fb140d1ff}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a391040433f6dc70eb240208fb140d1ff}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!operator=@{operator=}}
+\index{operator=@{operator=}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}\& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}} \&}]{\+\_\+other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_aee5f3ea88f2f0c1d50b5de7794ad1f81}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_aee5f3ea88f2f0c1d50b5de7794ad1f81}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Reinitialise@{Reinitialise}}
+\index{Reinitialise@{Reinitialise}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Reinitialise()}{Reinitialise()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Reinitialise (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+width,  }\item[{const int \&}]{\+\_\+height }\end{DoxyParamCaption})}
+
+
+
+Reinitialise the texture with a given width and height. 
+
+
+
+Definition at line 101 of file Render\+Texture.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_aee5f3ea88f2f0c1d50b5de7794ad1f81_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_aee5f3ea88f2f0c1d50b5de7794ad1f81_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a5cf6a5fbdd9d84c093cb1b6813cc9d36}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a5cf6a5fbdd9d84c093cb1b6813cc9d36}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Reinitialise@{Reinitialise}}
+\index{Reinitialise@{Reinitialise}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Reinitialise()}{Reinitialise()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Reinitialise (\begin{DoxyParamCaption}\item[{const int \&}]{\+\_\+width,  }\item[{const int \&}]{\+\_\+height,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_format}{Texture\+::\+Parameters\+::\+Format}} \&}]{\+\_\+format,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode}{Texture\+::\+Parameters\+::\+Filter\+Mode}} \&}]{\+\_\+filter\+Mode,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_wrap_mode}{Texture\+::\+Parameters\+::\+Wrap\+Mode}} \&}]{\+\_\+wrap\+Mode,  }\item[{const \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_1_1_parameters_a716ae67b1b4baa777b0aa77dd15cd155}{Render\+Texture\+::\+Parameters\+::\+Depth\+Mode}} \&}]{\+\_\+depth\+Mode }\end{DoxyParamCaption})}
+
+
+
+Reinitialise the texture with a given width, height, format, filter mode, wrap mode, and depth attachment mode. 
+
+
+
+Definition at line 107 of file Render\+Texture.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a5cf6a5fbdd9d84c093cb1b6813cc9d36_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a53bf20f83337d1f5f3cd32f66d548259}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a53bf20f83337d1f5f3cd32f66d548259}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Render\+Texture\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Unbind the currently bound \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture}{Render\+Texture}}. 
+
+
+
+Definition at line 120 of file Render\+Texture.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a53bf20f83337d1f5f3cd32f66d548259_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ad8bd9afbbd7af19d996da80e9d25890d}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_ad8bd9afbbd7af19d996da80e9d25890d}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Camera@{Camera}}
+\index{Camera@{Camera}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Camera}{Camera}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 14 of file Render\+Texture.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a27862a9fe512b352f98ec1c054680edd}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture_a27862a9fe512b352f98ec1c054680edd}} 
+\index{LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}!Light@{Light}}
+\index{Light@{Light}!LouiEriksson::Engine::Graphics::RenderTexture@{LouiEriksson::Engine::Graphics::RenderTexture}}
+\doxysubsubsection{\texorpdfstring{Light}{Light}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light}{Light}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 15 of file Render\+Texture.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/graphics/textures/\mbox{\hyperlink{_render_texture_8h}{Render\+Texture.\+h}}\item 
+src/engine/scripts/graphics/textures/\mbox{\hyperlink{_render_texture_8cpp}{Render\+Texture.\+cpp}}\end{DoxyCompactItemize}

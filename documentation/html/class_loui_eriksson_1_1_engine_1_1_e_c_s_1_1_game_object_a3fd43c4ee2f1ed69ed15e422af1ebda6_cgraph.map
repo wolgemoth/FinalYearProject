@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Engine::ECS::GameObject::RemoveComponent" name="LouiEriksson::Engine::ECS::GameObject::RemoveComponent">
+<area shape="rect" id="node1" title="Remove a Component of type from the GameObject, using an index." alt="" coords="5,39,287,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_hashmap.html#aade38183c82e90e3aa8860592157ced2" title="Retrieves a reference to the entry within the Hashmap with the given key, if one exists." alt="" coords="364,5,520,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#acf90b87e99f6837e54568b7ed270e573" title="Get the Scene the GameObject belongs to." alt="" coords="335,71,549,112"/>
+</map>

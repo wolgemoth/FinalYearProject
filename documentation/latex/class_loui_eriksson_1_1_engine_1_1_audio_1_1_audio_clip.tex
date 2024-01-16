@@ -1,0 +1,179 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}{}\doxysection{Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Clip Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip}\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+
+
+{\ttfamily \#include $<$Audio\+Clip.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Clip\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_format}{Format}}
+\begin{DoxyCompactList}\small\item\em Represents the format of an audio clip. Please note that positional audio does not work for sound files loaded in stereo. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_samples}{Samples}}
+\begin{DoxyCompactList}\small\item\em Contains the samples of the audio clip. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_afe75a794b77538ed9cf3bb105c32c8f9}{Audio\+Clip}} (const std\+::filesystem\+::path \&\+\_\+path)
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a319dccc572462d28a56715594af134b4}{$\sim$\+Audio\+Clip}} ()
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a7113499c335e94a03415c6892a7aee2a}{Dispose}} ()
+\begin{DoxyCompactList}\small\item\em Dispose the clip. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_format}{Format}} \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_ae00c3786fa4968c4e7717f61f22aa4b3}{m\+\_\+\+Format}}
+\begin{DoxyCompactList}\small\item\em The format of the audio clip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_samples}{Samples}} \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a60c9ecbe1d737b9980b7ea322c2f6694}{m\+\_\+\+Samples}}
+\begin{DoxyCompactList}\small\item\em The samples of the audio clip. \end{DoxyCompactList}\item 
+ALuint \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_abdaed4eccb4b80f44b041a19cec84aac}{m\+\_\+\+ALBuffer}}
+\begin{DoxyCompactList}\small\item\em Identifier of this clip\textquotesingle{}s audio buffer as used by Open\+AL. Please note that a value of 0u (or AL\+\_\+\+NONE) indicates that the buffer has not yet initialised or initialised incorrectly. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a9d53e9249c8b3c27fef4492ca3220de6}{m\+\_\+\+Duration}}
+\begin{DoxyCompactList}\small\item\em Duration of the clip in seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Audio\+Clip.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_afe75a794b77538ed9cf3bb105c32c8f9}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_afe75a794b77538ed9cf3bb105c32c8f9}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!AudioClip@{AudioClip}}
+\index{AudioClip@{AudioClip}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{AudioClip()}{AudioClip()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::\+Audio\+Clip (\begin{DoxyParamCaption}\item[{const std\+::filesystem\+::path \&}]{\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 69 of file Audio\+Clip.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a319dccc572462d28a56715594af134b4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a319dccc572462d28a56715594af134b4}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!````~AudioClip@{$\sim$AudioClip}}
+\index{````~AudioClip@{$\sim$AudioClip}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{$\sim$AudioClip()}{~AudioClip()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::$\sim$\+Audio\+Clip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 105 of file Audio\+Clip.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a319dccc572462d28a56715594af134b4_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a7113499c335e94a03415c6892a7aee2a}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a7113499c335e94a03415c6892a7aee2a}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::\+Dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dispose the clip. 
+
+
+
+Definition at line 109 of file Audio\+Clip.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a7113499c335e94a03415c6892a7aee2a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a7113499c335e94a03415c6892a7aee2a_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_abdaed4eccb4b80f44b041a19cec84aac}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_abdaed4eccb4b80f44b041a19cec84aac}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!m\_ALBuffer@{m\_ALBuffer}}
+\index{m\_ALBuffer@{m\_ALBuffer}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{m\_ALBuffer}{m\_ALBuffer}}
+{\footnotesize\ttfamily ALuint Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::m\+\_\+\+ALBuffer}
+
+
+
+Identifier of this clip\textquotesingle{}s audio buffer as used by Open\+AL. Please note that a value of 0u (or AL\+\_\+\+NONE) indicates that the buffer has not yet initialised or initialised incorrectly. 
+
+
+
+Definition at line 67 of file Audio\+Clip.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a9d53e9249c8b3c27fef4492ca3220de6}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a9d53e9249c8b3c27fef4492ca3220de6}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!m\_Duration@{m\_Duration}}
+\index{m\_Duration@{m\_Duration}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{m\_Duration}{m\_Duration}}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::m\+\_\+\+Duration}
+
+
+
+Duration of the clip in seconds. 
+
+
+
+Definition at line 70 of file Audio\+Clip.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_ae00c3786fa4968c4e7717f61f22aa4b3}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_ae00c3786fa4968c4e7717f61f22aa4b3}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!m\_Format@{m\_Format}}
+\index{m\_Format@{m\_Format}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{m\_Format}{m\_Format}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_format}{Format}} Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::m\+\_\+\+Format}
+
+
+
+The format of the audio clip. 
+
+
+
+Definition at line 57 of file Audio\+Clip.\+h.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a60c9ecbe1d737b9980b7ea322c2f6694}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_a60c9ecbe1d737b9980b7ea322c2f6694}} 
+\index{LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}!m\_Samples@{m\_Samples}}
+\index{m\_Samples@{m\_Samples}!LouiEriksson::Engine::Audio::AudioClip@{LouiEriksson::Engine::Audio::AudioClip}}
+\doxysubsubsection{\texorpdfstring{m\_Samples}{m\_Samples}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip_1_1_samples}{Samples}} Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Clip\+::m\+\_\+\+Samples}
+
+
+
+The samples of the audio clip. 
+
+
+
+Definition at line 60 of file Audio\+Clip.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_clip_8h}{Audio\+Clip.\+h}}\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_clip_8cpp}{Audio\+Clip.\+cpp}}\end{DoxyCompactItemize}

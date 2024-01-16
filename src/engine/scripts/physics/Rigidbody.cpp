@@ -29,7 +29,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	Rigidbody::BulletRigidbody::BulletRigidbody(const std::weak_ptr<Transform>& _transform, const std::weak_ptr<Collider>& _collider, const Parameters& _parameters) :
 			m_MotionState(new btDefaultMotionState())
@@ -458,4 +458,4 @@ namespace LouiEriksson::Physics {
 		return m_Parameters.m_Bounciness;
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

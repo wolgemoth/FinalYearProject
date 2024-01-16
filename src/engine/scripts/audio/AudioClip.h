@@ -7,7 +7,7 @@
 
 #include <filesystem>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	class AudioClip {
 	
@@ -77,6 +77,6 @@ namespace LouiEriksson::Audio {
 		
 	};
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio
 
 #endif //FINALYEARPROJECT_AUDIOCLIP_H

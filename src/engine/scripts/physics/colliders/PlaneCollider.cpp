@@ -10,7 +10,7 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	PlaneCollider::PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Collider(_parent) {}
 	PlaneCollider::~PlaneCollider() = default;
@@ -38,4 +38,4 @@ namespace LouiEriksson::Physics {
 		
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

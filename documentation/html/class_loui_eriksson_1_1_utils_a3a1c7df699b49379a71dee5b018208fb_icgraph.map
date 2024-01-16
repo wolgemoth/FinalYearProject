@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Utils::WrapAngle" name="LouiEriksson::Utils::WrapAngle">
-<area shape="rect" id="node1" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="204,39,347,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_game_1_1_fly_cam.html#ae805f0970bc97dafa6a5bdbb4c48ed27" title="Called every frame." alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_utils.html#aa8a25fdaec9158510c20812c21252296" title="Wraps an angle so that it remains within &#45;180 to 180 degrees." alt="" coords="9,71,152,112"/>
-</map>

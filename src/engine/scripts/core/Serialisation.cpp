@@ -13,7 +13,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	std::string Serialisation::ParseNext(cereal::XMLInputArchive& _xml, int _log) {
 	
@@ -62,4 +62,4 @@ namespace LouiEriksson {
 		return result.str();
 	}
 
-} // LouiEriksson
+} // LouiEriksson::Engine

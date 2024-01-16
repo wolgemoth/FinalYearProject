@@ -1,0 +1,13 @@
+<map id="LouiEriksson::Engine::Graphics::Camera::Render" name="LouiEriksson::Engine::Graphics::Camera::Render">
+<area shape="rect" id="node1" title="Renders each Renderer using the Camera." alt="" coords="5,283,205,324"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_shader.html#a48c0aae81c8483146c394a6cd97c9ee9" title="Bind the provided Shader." alt="" coords="286,5,463,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh.html#a203506fdd49aca9f0fb5a971db07c55a" title="Bind the provided mesh." alt="" coords="291,71,458,112"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture.html#ac84528307536baac025b5aa8f3c3def5" title="Bind the provided RenderTexture." alt="" coords="261,136,488,177"/>
+<area shape="rect" id="node6" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_render_texture.html#ae5d59ac6562f1c4f11298aca32cf8954" title="Get the ID of the depth attachment." alt="" coords="280,202,469,258"/>
+<area shape="rect" id="node7" href="$class_loui_eriksson_1_1_engine_1_1_time.html#a8abdf1348e506bb6514097aac1e93572" title="Get the total time elapsed since the engine was initialised." alt="" coords="297,283,453,324"/>
+<area shape="rect" id="node8" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a0f8fac228182594c0c103c15f33455cd" title="Get the Camera&#39;s Transform." alt="" coords="253,348,496,389"/>
+<area shape="rect" id="node9" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a5560a254f47016c3cef0b97cef9c3da0" title="Get the Camera&#39;s Window." alt="" coords="260,413,489,455"/>
+<area shape="rect" id="node10" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#a025bde5dc7f62724c4fff1d4373cf478" title="Get the Texture&#39;s ID." alt="" coords="292,479,457,520"/>
+<area shape="rect" id="node11" href="$struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_1_1_primitives_1_1_quad.html#a10509f02dfd16121b0c5e00cd49e975c" title="Returns a pointer to the static instance of the mesh." alt="" coords="273,545,477,601"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh.html#a93e4dbb1e46d11b6d9985931acfe4cb7" title=" " alt="" coords="544,71,731,112"/>
+</map>

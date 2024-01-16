@@ -1,0 +1,5 @@
+<map id="LouiEriksson::Engine::Graphics::Texture::GetFormatData" name="LouiEriksson::Engine::Graphics::Texture::GetFormatData">
+<area shape="rect" id="node1" title="Determine a Texture&#39;s format and number of channels using its pixel format." alt="" coords="257,43,413,99"/>
+<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_format.html#a269d0db3637cc6cd591142c3c84f9594" title=" " alt="" coords="5,5,209,61"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_file.html#ab03bbb9d8c3c8b088be501217eb2e46d" title=" " alt="" coords="29,86,185,127"/>
+</map>

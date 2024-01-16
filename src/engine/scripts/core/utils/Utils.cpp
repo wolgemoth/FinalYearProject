@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	std::vector<std::string> Utils::Split(const std::string& _string, const char& _divider) {
 		
@@ -104,4 +104,4 @@ namespace LouiEriksson {
 		};
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

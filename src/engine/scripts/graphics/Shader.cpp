@@ -23,7 +23,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	Shader::SubShader::SubShader(const char* _path, GLenum _type) noexcept :
 			m_Path(_path),
@@ -352,4 +352,4 @@ namespace LouiEriksson::Graphics {
 		return m_ProgramID;
 	}
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics

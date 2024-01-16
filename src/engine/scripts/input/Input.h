@@ -14,17 +14,17 @@
 
 // @Assessor: This class was originally submitted for 3DGP and modified for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Input {
+namespace LouiEriksson::Engine::Input {
 	
 	class Input {
 	
-		friend LouiEriksson::Application;
+		friend LouiEriksson::Engine::Application;
 	
 	private:
 	
@@ -149,6 +149,6 @@ namespace LouiEriksson::Input {
 		
 	};
 	
-} // LouiEriksson::Input
+} // LouiEriksson::Engine::Input
 
 #endif //FINALYEARPROJECT_INPUT_H

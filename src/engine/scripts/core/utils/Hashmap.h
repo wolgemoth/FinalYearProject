@@ -30,7 +30,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	/// <summary>
 	/// <para>
@@ -415,6 +415,6 @@ namespace LouiEriksson {
 		
 	};
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
 #endif //LOUIERIKSSON_HASHMAP_H

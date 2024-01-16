@@ -5,7 +5,9 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Game {
+using namespace LouiEriksson::Engine;
+
+namespace LouiEriksson::Game::Scripts {
 	
 	/// <summary>
 	/// A Plane with Collision.
@@ -31,6 +33,6 @@ namespace LouiEriksson::Game {
 		std::type_index TypeID() const noexcept override { return typeid(Plane); };
 	};
 	
-} // LouiEriksson::Game
+} // LouiEriksson::Game::Scripts
 
 #endif //GAME_PLANE_H

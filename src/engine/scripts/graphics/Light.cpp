@@ -18,7 +18,7 @@
 
 // @Assessor: This class has been changed since its submission for 3DGP. Please mark it for GACP.
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	Light::Light(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
 			m_Intensity(  3.0f),
@@ -226,4 +226,4 @@ namespace LouiEriksson::Graphics {
 		}
 	}
 
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics

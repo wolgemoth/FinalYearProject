@@ -18,7 +18,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace LouiEriksson::Audio {
+namespace LouiEriksson::Engine::Audio {
 	
 	AudioSource::Parameters::Parameters() noexcept :
 			m_IsGlobal(false), // Do not start as global.
@@ -374,4 +374,4 @@ namespace LouiEriksson::Audio {
 		return result;
 	}
 	
-} // LouiEriksson::Audio
+} // LouiEriksson::Engine::Audio

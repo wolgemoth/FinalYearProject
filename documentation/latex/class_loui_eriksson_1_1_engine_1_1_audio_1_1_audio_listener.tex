@@ -1,0 +1,177 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{}\doxysection{Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Listener Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+
+
+{\ttfamily \#include $<$Audio\+Listener.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Listener\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Audio\+Listener\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ad5da26cf7ff636b2a13e40436734caf0}{Audio\+Listener}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac334b4e190df9fdf157c2369db460b6a}{$\sim$\+Audio\+Listener}} () override
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac74edaff9097d49fc94e7ba4f2b59710}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a4dcf1c07e89d6143689e1bf4496f9f68}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Initialise the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a3a604914c3a42e9367fba7bbfaaa3200}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}} every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_aa4c34e29291be34172ac453148a670f2}{Gain}} (const float \&\+\_\+value) noexcept
+\begin{DoxyCompactList}\small\item\em Set the master gain of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. \end{DoxyCompactList}\item 
+const float \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a7d323071a7175e393d566b4458ccedbc}{Gain}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the master gain of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 20 of file Audio\+Listener.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ad5da26cf7ff636b2a13e40436734caf0}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ad5da26cf7ff636b2a13e40436734caf0}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!AudioListener@{AudioListener}}
+\index{AudioListener@{AudioListener}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{AudioListener()}{AudioListener()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Audio\+Listener (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 16 of file Audio\+Listener.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ad5da26cf7ff636b2a13e40436734caf0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac334b4e190df9fdf157c2369db460b6a}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac334b4e190df9fdf157c2369db460b6a}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!````~AudioListener@{$\sim$AudioListener}}
+\index{````~AudioListener@{$\sim$AudioListener}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{$\sim$AudioListener()}{~AudioListener()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::$\sim$\+Audio\+Listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a4dcf1c07e89d6143689e1bf4496f9f68}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a4dcf1c07e89d6143689e1bf4496f9f68}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Initialise the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_ac434db47ebc2ada8b30f6198420524de}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 22 of file Audio\+Listener.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a7d323071a7175e393d566b4458ccedbc}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a7d323071a7175e393d566b4458ccedbc}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!Gain@{Gain}}
+\index{Gain@{Gain}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{Gain()}{Gain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const float \& Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Gain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the master gain of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. 
+
+
+
+Definition at line 73 of file Audio\+Listener.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_aa4c34e29291be34172ac453148a670f2}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_aa4c34e29291be34172ac453148a670f2}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!Gain@{Gain}}
+\index{Gain@{Gain}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{Gain()}{Gain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Gain (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Set the master gain of the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}}. 
+
+
+
+Definition at line 70 of file Audio\+Listener.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a3a604914c3a42e9367fba7bbfaaa3200}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_a3a604914c3a42e9367fba7bbfaaa3200}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener}{Audio\+Listener}} every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_a73b6513ef33cc256dc99ecb9fc765764}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 26 of file Audio\+Listener.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac74edaff9097d49fc94e7ba4f2b59710}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac74edaff9097d49fc94e7ba4f2b59710}} 
+\index{LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Engine::Audio::AudioListener@{LouiEriksson::Engine::Audio::AudioListener}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Audio\+Listener\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 43 of file Audio\+Listener.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener_ac74edaff9097d49fc94e7ba4f2b59710_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_listener_8h}{Audio\+Listener.\+h}}\item 
+src/engine/scripts/audio/\mbox{\hyperlink{_audio_listener_8cpp}{Audio\+Listener.\+cpp}}\end{DoxyCompactItemize}

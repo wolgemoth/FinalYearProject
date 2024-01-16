@@ -18,7 +18,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	Physics::Debugger::Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld) :
 			m_DynamicsWorld(_dynamicsWorld)
@@ -147,4 +147,4 @@ namespace LouiEriksson::Physics {
 	
 	}
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics

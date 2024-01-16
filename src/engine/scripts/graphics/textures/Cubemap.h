@@ -7,17 +7,17 @@
 
 // @Assessor: This class was submitted for GACP. Please don't mark it for GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class File;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Graphics {
+namespace LouiEriksson::Engine::Graphics {
 	
 	class Cubemap final : public Texture {
 	
-		friend LouiEriksson::File;
+		friend LouiEriksson::Engine::File;
 		
 		friend class Camera;
 		
@@ -34,6 +34,6 @@ namespace LouiEriksson::Graphics {
 		
 	};
 	
-} // LouiEriksson::Graphics
+} // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_CUBEMAP_H

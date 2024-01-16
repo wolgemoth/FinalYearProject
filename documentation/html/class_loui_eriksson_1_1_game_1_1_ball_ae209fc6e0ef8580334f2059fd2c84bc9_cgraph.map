@@ -1,4 +1,0 @@
-<map id="LouiEriksson::Game::Ball::FixedTick" name="LouiEriksson::Game::Ball::FixedTick">
-<area shape="rect" id="node1" title="Called every tick of the physics engine." alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_e_c_s_1_1_component.html#ae0703b1da49cd5d4218e1bfd701b5344" title="Get the Component&#39;s parent GameObject." alt="" coords="204,5,351,47"/>
-</map>

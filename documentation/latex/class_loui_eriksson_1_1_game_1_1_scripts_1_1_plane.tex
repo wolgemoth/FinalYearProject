@@ -1,0 +1,168 @@
+\hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}{}\doxysection{Loui\+Eriksson\+::Game\+::Scripts\+::Plane Class Reference}
+\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+
+
+A \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}{Plane}} with Collision.  
+
+
+
+
+{\ttfamily \#include $<$Plane.\+h$>$}
+
+
+
+Inheritance diagram for Loui\+Eriksson\+::Game\+::Scripts\+::Plane\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Loui\+Eriksson\+::Game\+::Scripts\+::Plane\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_ab24b3168991e9e9d396975bd9219c156}{Plane}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a50d83e0e2be766d66c96e46a4ff657cd}{$\sim$\+Plane}} () override
+\item 
+std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a974ca65875e799065fe6599a58a3e8bb}{Type\+ID}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a948f41c90ddc293640add86e250ed501}{Begin}} () override
+\begin{DoxyCompactList}\small\item\em Called at the beginning of the first frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a37ad45f413a9377cbd180d1aad8d8e67}{Tick}} () override
+\begin{DoxyCompactList}\small\item\em Called every frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_material}{Graphics\+::\+Material}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a466aa11c9f63256efb87381fc937fdca}{m\+\_\+\+Material}}
+\begin{DoxyCompactList}\small\item\em Material of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}{Plane}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}{Plane}} with Collision. 
+
+
+
+Definition at line 15 of file Plane.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_ab24b3168991e9e9d396975bd9219c156}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_ab24b3168991e9e9d396975bd9219c156}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!Plane@{Plane}}
+\index{Plane@{Plane}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{Plane()}{Plane()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::\+Plane (\begin{DoxyParamCaption}\item[{const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&}]{\+\_\+parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line 9 of file Plane.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a50d83e0e2be766d66c96e46a4ff657cd}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a50d83e0e2be766d66c96e46a4ff657cd}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!````~Plane@{$\sim$Plane}}
+\index{````~Plane@{$\sim$Plane}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{$\sim$Plane()}{~Plane()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::$\sim$\+Plane (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a948f41c90ddc293640add86e250ed501}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a948f41c90ddc293640add86e250ed501}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!Begin@{Begin}}
+\index{Begin@{Begin}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called at the beginning of the first frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_ac434db47ebc2ada8b30f6198420524de}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 12 of file Plane.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a948f41c90ddc293640add86e250ed501_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a37ad45f413a9377cbd180d1aad8d8e67}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a37ad45f413a9377cbd180d1aad8d8e67}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!Tick@{Tick}}
+\index{Tick@{Tick}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{Tick()}{Tick()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Called every frame. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_script_a73b6513ef33cc256dc99ecb9fc765764}{Loui\+Eriksson\+::\+Engine\+::\+Script}}.
+
+
+
+Definition at line 45 of file Plane.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a974ca65875e799065fe6599a58a3e8bb}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a974ca65875e799065fe6599a58a3e8bb}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!TypeID@{TypeID}}
+\index{TypeID@{TypeID}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
+{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the type\+\_\+index of this Component\textquotesingle{}s derived type. 
+
+
+
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+
+
+
+Definition at line 33 of file Plane.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a466aa11c9f63256efb87381fc937fdca}\label{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane_a466aa11c9f63256efb87381fc937fdca}} 
+\index{LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}!m\_Material@{m\_Material}}
+\index{m\_Material@{m\_Material}!LouiEriksson::Game::Scripts::Plane@{LouiEriksson::Game::Scripts::Plane}}
+\doxysubsubsection{\texorpdfstring{m\_Material}{m\_Material}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_material}{Graphics\+::\+Material}}$>$ Loui\+Eriksson\+::\+Game\+::\+Scripts\+::\+Plane\+::m\+\_\+\+Material\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Material of the \mbox{\hyperlink{class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane}{Plane}}. 
+
+
+
+Definition at line 20 of file Plane.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/usr/scripts/\mbox{\hyperlink{_plane_8h}{Plane.\+h}}\item 
+src/usr/scripts/\mbox{\hyperlink{_plane_8cpp}{Plane.\+cpp}}\end{DoxyCompactItemize}

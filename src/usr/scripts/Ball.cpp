@@ -2,7 +2,9 @@
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson::Game {
+using namespace LouiEriksson::Engine;
+
+namespace LouiEriksson::Game::Scripts {
 	
 	Ball::Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_StartingPosition(0.0f),
@@ -151,4 +153,4 @@ namespace LouiEriksson::Game {
 		}}
 	}
 	
-} // LouiEriksson::Game
+} // LouiEriksson::Game::Scripts

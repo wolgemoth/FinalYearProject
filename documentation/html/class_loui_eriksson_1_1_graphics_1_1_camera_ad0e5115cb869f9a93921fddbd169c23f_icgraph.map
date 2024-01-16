@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Graphics::Camera::GetTransform" name="LouiEriksson::Graphics::Camera::GetTransform">
-<area shape="rect" id="node1" title="Get the Camera&#39;s Transform." alt="" coords="223,39,400,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#ad5ce8ab752fc221996eefba46da216aa" title="Renders each Renderer using the Camera." alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_graphics_1_1_camera.html#a34658757289d680b1cf8ffd3d68c211e" title="Get the Camera&#39;s view matrix." alt="" coords="5,71,175,112"/>
-</map>

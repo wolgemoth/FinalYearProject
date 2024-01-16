@@ -14,17 +14,17 @@
 
 #include <memory>
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	class Application;
 	
-} // LouiEriksson
+} // LouiEriksson::Engine
 
-namespace LouiEriksson::Physics {
+namespace LouiEriksson::Engine::Physics {
 	
 	class Physics {
 	
-		friend LouiEriksson::Application;
+		friend LouiEriksson::Engine::Application;
 		
 		friend class Rigidbody;
 		
@@ -115,6 +115,6 @@ namespace LouiEriksson::Physics {
 		
 	};
 	
-} // LouiEriksson::Physics
+} // LouiEriksson::Engine::Physics
 
 #endif //FINALYEARPROJECT_PHYSICS_H

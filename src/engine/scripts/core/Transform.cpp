@@ -13,7 +13,7 @@
 
 // @Assessor: This class was submitted for 3DGP. Please don't mark it for GACP or GEP.
 
-namespace LouiEriksson {
+namespace LouiEriksson::Engine {
 	
 	Transform::Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
 			m_Position(VEC_ZERO     ),
@@ -35,4 +35,4 @@ namespace LouiEriksson {
 		);
 	}
 	
-} // LouiEriksson
+} // LouiEriksson::Engine

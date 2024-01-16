@@ -1,5 +1,0 @@
-<map id="LouiEriksson::Audio::AudioSource::Play" name="LouiEriksson::Audio::AudioSource::Play">
-<area shape="rect" id="node1" title="Play this AudioSource." alt="" coords="5,39,155,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_audio_1_1_sound.html#a43f4d75a079bb1c3ab2846d3f81a4e03" title="Play the Clip without positional audio." alt="" coords="205,5,354,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_audio_1_1_audio_source.html#a1350f73c092e9235ed51de03d5a2cffe" title="Get the current state of the AudioSource." alt="" coords="203,71,356,112"/>
-</map>

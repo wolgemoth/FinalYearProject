@@ -1,0 +1,198 @@
+\hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}{}\doxysection{Loui\+Eriksson\+::Engine\+::Graphics\+::Mesh Class Reference}
+\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+
+
+{\ttfamily \#include $<$Mesh.\+h$>$}
+
+
+
+Collaboration diagram for Loui\+Eriksson\+::Engine\+::Graphics\+::Mesh\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_1_1_primitives}{Primitives}}
+\begin{DoxyCompactList}\small\item\em Container for various primitive mesh types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_adb37116e088a4d9e772600170a6a0660}{$\sim$\+Mesh}} ()
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a93e4dbb1e46d11b6d9985931acfe4cb7}{VAO\+\_\+\+ID}} () const noexcept
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a6e66f17b4e198781e5b517c7adfa7903}{Position\+VBO\+\_\+\+ID}} () const noexcept
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a8edaeb9d5325247176992eb30ad01972}{Tex\+Coord\+VBO\+\_\+\+ID}} () const noexcept
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a14d5b755756d5ffe18bfd3d7ef4ccb98}{Normal\+VBO\+\_\+\+ID}} () const noexcept
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aca13ff22ce150963d7a865418068a628}{Tangent\+VBO\+\_\+\+ID}} () const noexcept
+\item 
+const GLuint \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a7d6961a9717139067bece769599110be}{Bitangent\+VBO\+\_\+\+ID}} () const noexcept
+\item 
+const unsigned long \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a9eaee371b1fc9a21a8440c00e75ce6b3}{Vertex\+Count}} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a203506fdd49aca9f0fb5a971db07c55a}{Bind}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}{Mesh}} \&\+\_\+mesh)
+\begin{DoxyCompactList}\small\item\em Bind the provided mesh. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aed016de02bd84358be7668561606f882}{Unbind}} ()
+\begin{DoxyCompactList}\small\item\em Unbind the currently bound mesh. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 20 of file Mesh.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_adb37116e088a4d9e772600170a6a0660}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_adb37116e088a4d9e772600170a6a0660}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!````~Mesh@{$\sim$Mesh}}
+\index{````~Mesh@{$\sim$Mesh}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{$\sim$Mesh()}{~Mesh()}}
+{\footnotesize\ttfamily Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::$\sim$\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 19 of file Mesh.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a203506fdd49aca9f0fb5a971db07c55a}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a203506fdd49aca9f0fb5a971db07c55a}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!Bind@{Bind}}
+\index{Bind@{Bind}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Bind (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh}{Mesh}} \&}]{\+\_\+mesh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Bind the provided mesh. 
+
+
+
+Definition at line 29 of file Mesh.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a203506fdd49aca9f0fb5a971db07c55a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a203506fdd49aca9f0fb5a971db07c55a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a7d6961a9717139067bece769599110be}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a7d6961a9717139067bece769599110be}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!BitangentVBO\_ID@{BitangentVBO\_ID}}
+\index{BitangentVBO\_ID@{BitangentVBO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{BitangentVBO\_ID()}{BitangentVBO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Bitangent\+VBO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 48 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a14d5b755756d5ffe18bfd3d7ef4ccb98}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a14d5b755756d5ffe18bfd3d7ef4ccb98}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!NormalVBO\_ID@{NormalVBO\_ID}}
+\index{NormalVBO\_ID@{NormalVBO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{NormalVBO\_ID()}{NormalVBO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Normal\+VBO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 46 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a6e66f17b4e198781e5b517c7adfa7903}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a6e66f17b4e198781e5b517c7adfa7903}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!PositionVBO\_ID@{PositionVBO\_ID}}
+\index{PositionVBO\_ID@{PositionVBO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{PositionVBO\_ID()}{PositionVBO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Position\+VBO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 44 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aca13ff22ce150963d7a865418068a628}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aca13ff22ce150963d7a865418068a628}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!TangentVBO\_ID@{TangentVBO\_ID}}
+\index{TangentVBO\_ID@{TangentVBO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{TangentVBO\_ID()}{TangentVBO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Tangent\+VBO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 47 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a8edaeb9d5325247176992eb30ad01972}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a8edaeb9d5325247176992eb30ad01972}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!TexCoordVBO\_ID@{TexCoordVBO\_ID}}
+\index{TexCoordVBO\_ID@{TexCoordVBO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{TexCoordVBO\_ID()}{TexCoordVBO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Tex\+Coord\+VBO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 45 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aed016de02bd84358be7668561606f882}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_aed016de02bd84358be7668561606f882}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!Unbind@{Unbind}}
+\index{Unbind@{Unbind}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{Unbind()}{Unbind()}}
+{\footnotesize\ttfamily void Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Unbind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Unbind the currently bound mesh. 
+
+
+
+Definition at line 36 of file Mesh.\+cpp.
+
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a93e4dbb1e46d11b6d9985931acfe4cb7}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a93e4dbb1e46d11b6d9985931acfe4cb7}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!VAO\_ID@{VAO\_ID}}
+\index{VAO\_ID@{VAO\_ID}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{VAO\_ID()}{VAO\_ID()}}
+{\footnotesize\ttfamily const GLuint \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+VAO\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 43 of file Mesh.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a93e4dbb1e46d11b6d9985931acfe4cb7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a9eaee371b1fc9a21a8440c00e75ce6b3}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_a9eaee371b1fc9a21a8440c00e75ce6b3}} 
+\index{LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}!VertexCount@{VertexCount}}
+\index{VertexCount@{VertexCount}!LouiEriksson::Engine::Graphics::Mesh@{LouiEriksson::Engine::Graphics::Mesh}}
+\doxysubsubsection{\texorpdfstring{VertexCount()}{VertexCount()}}
+{\footnotesize\ttfamily const unsigned long \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Mesh\+::\+Vertex\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 50 of file Mesh.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/engine/scripts/graphics/\mbox{\hyperlink{_mesh_8h}{Mesh.\+h}}\item 
+src/engine/scripts/graphics/\mbox{\hyperlink{_mesh_8cpp}{Mesh.\+cpp}}\end{DoxyCompactItemize}

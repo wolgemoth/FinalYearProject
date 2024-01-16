@@ -1,0 +1,7 @@
+<map id="LouiEriksson::Engine::Settings::Init" name="LouiEriksson::Engine::Settings::Init">
+<area shape="rect" id="node1" title="Initialise settings on application start." alt="" coords="5,53,161,94"/>
+<area shape="rect" id="node2" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material.html#a8d023538b68e769b25687ed72cb87970" title=" " alt="" coords="209,5,393,61"/>
+<area shape="rect" id="node4" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_skybox.html#aa27b53bc432a286ee6f308945a089a76" title=" " alt="" coords="212,85,391,141"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ae2234b75eeb6b22892337ee6e0dc3908" title=" " alt="" coords="443,13,616,54"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ac5df3a71296586eae3d8c6b25d79ffb0" title=" " alt="" coords="441,93,617,134"/>
+</map>
