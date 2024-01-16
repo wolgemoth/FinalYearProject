@@ -83,15 +83,15 @@ namespace LouiEriksson::Engine {
 		
 		static bool TryGetShader(const std::string& _name, std::shared_ptr<Graphics::Shader>& _output) noexcept;
 		
-		static const std::weak_ptr<Audio::AudioClip> GetAudio(const std::string& _name);
+		static std::weak_ptr<Audio::AudioClip> GetAudio(const std::string& _name);
 		
-		static const std::weak_ptr<Graphics::Mesh> GetMesh(const std::string& _name);
+		static std::weak_ptr<Graphics::Mesh> GetMesh(const std::string& _name);
 		
-		static const std::weak_ptr<Graphics::Material> GetMaterial(const std::string& _name);
+		static std::weak_ptr<Graphics::Material> GetMaterial(const std::string& _name);
 		
-		static const std::weak_ptr<Graphics::Texture> GetTexture(const std::string& _name);
+		static std::weak_ptr<Graphics::Texture> GetTexture(const std::string& _name);
 		
-		static const std::weak_ptr<Graphics::Shader> GetShader(const std::string& _name);
+		static std::weak_ptr<Graphics::Shader> GetShader(const std::string& _name);
 		
 	};
 	

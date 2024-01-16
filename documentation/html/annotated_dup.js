@@ -6,7 +6,7 @@ var annotated_dup =
           [ "AudioClip", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip.html", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_clip" ],
           [ "AudioListener", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener.html", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_listener" ],
           [ "AudioSource", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source.html", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source" ],
-          [ "Sound", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound" ]
+          [ "Sound", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html", null ]
         ] ],
         [ "ECS", "namespace_loui_eriksson_1_1_engine_1_1_e_c_s.html", [
           [ "Component", "class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html", "class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component" ],

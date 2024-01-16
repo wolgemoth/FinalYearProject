@@ -16,6 +16,6 @@ var dir_390f60b9bcb896cb463d037bcfbc60b6 =
     ] ],
     [ "Sound.cpp", "_sound_8cpp.html", null ],
     [ "Sound.h", "_sound_8h.html", [
-      [ "Sound", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound" ]
+      [ "Sound", "class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html", null ]
     ] ]
 ];

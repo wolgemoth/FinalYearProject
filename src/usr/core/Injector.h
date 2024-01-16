@@ -3,6 +3,7 @@
 
 #include "../../src/engine/scripts/core/Script.h"
 #include "../../src/engine/scripts/core/utils/Hashmap.h"
+#include "../../src/engine/scripts/ecs/GameObject.h"
 
 #include "../scripts/Ball.h"
 #include "../scripts/FlyCam.h"
@@ -13,7 +14,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <typeindex>
 
 using namespace LouiEriksson::Engine;
 using namespace LouiEriksson::Game::Scripts;
@@ -26,12 +26,12 @@ namespace LouiEriksson::Game::Core {
 	private:
 		
 		/// <summary> Hashmap of function pointers for custom script initialisation indexed by the name of their type. <summary>
-		inline static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> s_Initialisers;
+		inline static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)> s_Initialisers;
 		
 	public:
 		
 		/// <summary> Get the function pointers for initialisation of custom user scripts. </summary>
-		static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> GetInitialisers() noexcept {
+		static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)> GetInitialisers() noexcept {
 			
 			try {
 				

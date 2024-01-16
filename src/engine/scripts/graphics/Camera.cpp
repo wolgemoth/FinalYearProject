@@ -1077,9 +1077,6 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto w = GetWindow().lock()) {
 			
-			// Get window dimensions:
-			const auto dimensions = w->Dimensions();
-			
 			// Load shader program:
 			if (const auto s = Resources::GetShader("auto_exposure").lock()) {
 				
@@ -1425,14 +1422,14 @@ namespace LouiEriksson::Engine::Graphics {
 			std::cout << "Provided Window is invalid!\n";
 		}
 	}
-	const std::weak_ptr<Window> Camera::GetWindow() const noexcept {
+	const std::weak_ptr<Window>& Camera::GetWindow() const noexcept {
 		return m_Window;
 	}
 	
 	void Camera::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
 	}
-	const std::weak_ptr<Transform> Camera::GetTransform() const noexcept {
+	const std::weak_ptr<Transform>& Camera::GetTransform() const noexcept {
 		return m_Transform;
 	}
 	

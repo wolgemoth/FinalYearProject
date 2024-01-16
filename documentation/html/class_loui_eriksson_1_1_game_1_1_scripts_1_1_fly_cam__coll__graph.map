@@ -1,5 +1,5 @@
 <map id="LouiEriksson::Game::Scripts::FlyCam" name="LouiEriksson::Game::Scripts::FlyCam">
-<area shape="rect" id="node1" title="Free&#45;fly camera." alt="" coords="5,549,252,935"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="23,263,234,501"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="24,5,233,215"/>
+<area shape="rect" id="node1" title="Free&#45;fly camera." alt="" coords="5,564,252,964"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="23,277,234,516"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="24,5,233,229"/>
 </map>

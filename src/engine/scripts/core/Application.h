@@ -4,7 +4,7 @@
 #include "utils/Hashmap.h"
 
 #include <memory>
-#include <typeindex>
+#include <string>
 
 namespace LouiEriksson::Engine::ECS {
 	

@@ -51,7 +51,7 @@ namespace LouiEriksson::Engine {
 	
 		static std::shared_ptr<Window> Create(const int& _width, const int& _height, const char* _name);
 	
-		static const std::weak_ptr<Window> Get(const int& _id);
+		static std::weak_ptr<Window> Get(const int& _id);
 	
 		static void Destroy(const int& _id);
 	

@@ -19,6 +19,7 @@
 #include <cereal/cereal.hpp>
 
 #include <cstddef>
+#include <cstring>
 #include <exception>
 #include <filesystem>
 #include <fstream>
@@ -237,8 +238,6 @@ namespace LouiEriksson::Engine::ECS {
 
 						for (const auto& component : components) {
 
-							auto camera = std::dynamic_pointer_cast<Graphics::Camera>(component);
-
 							xml.setNextName(kvp.first.name());
 
 							xml.startNode();
@@ -248,8 +247,6 @@ namespace LouiEriksson::Engine::ECS {
 					else if (kvp.first == typeid(Graphics::Light    )) {    // Serialise Light.
 
 						for (const auto& component : components) {
-
-							auto light = std::dynamic_pointer_cast<Graphics::Light>(component);
 
 							xml.setNextName(kvp.first.name());
 
@@ -334,7 +331,7 @@ namespace LouiEriksson::Engine::ECS {
 				
 				for (size_t j = 0; j < count; j++) {
 		
-					auto name = xml.getNodeName();
+					const auto* name = xml.getNodeName();
 					
 					if (log) {
 						std::cout << "\t\t" << name<< '\n';

@@ -1,10 +1,10 @@
 <map id="src/engine/scripts/graphics/Light.h" name="src/engine/scripts/graphics/Light.h">
-<area shape="rect" id="node1" title=" " alt="" coords="265,5,401,47"/>
-<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="69,95,215,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="213,169,290,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="290,95,375,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="399,95,589,121"/>
-<area shape="rect" id="node8" title=" " alt="" coords="613,95,716,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,169,76,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="100,169,187,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="231,5,367,47"/>
+<area shape="rect" id="node2" href="$_component_8h.html" title=" " alt="" coords="75,95,221,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,169,83,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="211,169,298,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="296,95,381,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="405,95,595,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="619,95,722,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="113,169,183,196"/>
 </map>

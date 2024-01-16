@@ -7,9 +7,7 @@
 #include "Scene.h"
 
 #include <cstddef>
-#include <iostream>
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <typeindex>
@@ -42,7 +40,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// Attach a component to the GameObject.
 		/// </summary>
 		template <typename T>
-		const void Attach(const std::type_index _type, const std::shared_ptr<T>& _component) {
+		void Attach(const std::type_index _type, const std::shared_ptr<T>& _component) {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
@@ -145,7 +143,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// <typeparam name="T">TypeID to be added.</typeparam>
 		/// <returns>const::weak_ptr<T>& referencing the created type.</returns>
 		template <typename T>
-		const std::weak_ptr<T> AddComponent() {
+		std::weak_ptr<T> AddComponent() {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			

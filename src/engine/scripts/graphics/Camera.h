@@ -9,6 +9,7 @@
 #include <glm/ext/vector_float4.hpp>
 
 #include <memory>
+#include <typeindex>
 #include <vector>
 
 // @Assessor: This class has been changed significantly since it was submitted for 3DGP. Please mark it for GACP.
@@ -110,7 +111,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
-		std::type_index TypeID() const noexcept override { return typeid(Camera); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
 		/// <summary> Called before rendering. </summary>
 		void PreRender(const RenderFlags& _flags);
@@ -125,13 +126,13 @@ namespace LouiEriksson::Engine::Graphics {
 		void SetWindow(const std::weak_ptr<Window>& _window);
 		
 		/// <summary> Get the Camera's Window. </summary>
-		[[nodiscard]] const std::weak_ptr<Window> GetWindow() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Window>& GetWindow() const noexcept;
 		
 		/// <summary> Set the Camera's Transform. </summary>
 		void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
 		
 		/// <summary> Get the Camera's Transform. </summary>
-		[[nodiscard]] const std::weak_ptr<Transform> GetTransform() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
 		
 		/// <summary> Get the Camera's Aspect. </summary>
 		[[nodiscard]] float Aspect() const;

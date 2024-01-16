@@ -9,10 +9,10 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept :
-			m_Format    (_format    ),
-			m_FilterMode(_filterMode),
-			m_WrapMode  (_wrapMode  ),
+	Texture::Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) noexcept :
+			m_Format    (std::move(_format    )),
+			m_FilterMode(std::move(_filterMode)),
+			m_WrapMode  (std::move(_wrapMode  )),
 			m_TextureID (_textureID),
 			m_Width     (_width    ),
 			m_Height    (_height   ) {}

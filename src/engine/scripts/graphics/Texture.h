@@ -156,7 +156,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Texture's wrapping parameters. </sum  mary>
 		Parameters::WrapMode m_WrapMode;
 		
-		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept;
+		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) noexcept;
 	
 	};
 	

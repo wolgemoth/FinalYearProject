@@ -1,6 +1,6 @@
 <map id="LouiEriksson::Engine::Audio::Sound::Init" name="LouiEriksson::Engine::Audio::Sound::Init">
 <area shape="rect" id="node1" title="Initialise the audio subsystems." alt="" coords="5,71,161,112"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a1bf6f36368e755e738af7305615d5fb0" title="Get the distance model used by the audio engine." alt="" coords="209,5,429,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#abd47a5a432e218635fef85fe20ac5eb6" title="Get the doppler factor used by the audio engine." alt="" coords="213,71,426,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a7b61d5f1702e8075b946f7fabd6be3f4" title="Get the speed of sound used by the audio engine." alt="" coords="210,136,429,177"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a7bd8538db66296dc88c9187af14ed681" title="Get the distance model used by the audio engine." alt="" coords="209,5,429,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a7d02328ccd840d8a53c88066a73e4070" title="Get the doppler factor used by the audio engine." alt="" coords="213,71,426,112"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#aa98b60cb42e9debb3e63be63745ece05" title="Get the speed of sound used by the audio engine." alt="" coords="210,136,429,177"/>
 </map>

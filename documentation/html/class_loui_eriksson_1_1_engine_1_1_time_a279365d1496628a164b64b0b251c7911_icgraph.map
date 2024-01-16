@@ -1,6 +1,6 @@
 <map id="LouiEriksson::Engine::Time::UnscaledDeltaTime" name="LouiEriksson::Engine::Time::UnscaledDeltaTime">
 <area shape="rect" id="node1" title="Get the unscaled delta time. (Duration of the previous frame.)" alt="" coords="323,39,521,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a42aab57ec9b68aaaa0d1ee9736674872" title="Main function of the application." alt="" coords="113,5,269,47"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a9b27e258ed2b59ff32b35aaf4ead2474" title="Main function of the application." alt="" coords="113,5,269,47"/>
 <area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_fly_cam.html#ad3b51c2b15d99d2b10a59bfed4924e4a" title="Called every frame." alt="" coords="108,71,275,112"/>
 <area shape="rect" id="node3" href="$main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,13,60,39"/>
 </map>

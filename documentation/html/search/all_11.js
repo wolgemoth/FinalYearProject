@@ -99,7 +99,7 @@ var searchData=
   ['sound_425',['Sound',['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html',1,'LouiEriksson::Engine::Audio']]],
   ['sound_2ecpp_426',['Sound.cpp',['../_sound_8cpp.html',1,'']]],
   ['sound_2eh_427',['Sound.h',['../_sound_8h.html',1,'']]],
-  ['speedofsound_428',['SpeedOfSound',['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#ae4423e7ab1bb49c715c795958dbca592',1,'LouiEriksson::Engine::Audio::Sound::SpeedOfSound(const float &amp;_value)'],['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a7b61d5f1702e8075b946f7fabd6be3f4',1,'LouiEriksson::Engine::Audio::Sound::SpeedOfSound() const']]],
+  ['speedofsound_428',['SpeedOfSound',['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#ae4423e7ab1bb49c715c795958dbca592',1,'LouiEriksson::Engine::Audio::Sound::SpeedOfSound(const float &amp;_value)'],['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#aa98b60cb42e9debb3e63be63745ece05',1,'LouiEriksson::Engine::Audio::Sound::SpeedOfSound()']]],
   ['sphere_429',['Sphere',['../class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html#a8111a42652b03419558eb02e28a1f16ca23865a931ec775be86078cda12d28576',1,'LouiEriksson::Engine::Physics::Collider']]],
   ['spherecollider_430',['SphereCollider',['../class_loui_eriksson_1_1_engine_1_1_physics_1_1_sphere_collider.html',1,'LouiEriksson::Engine::Physics::SphereCollider'],['../class_loui_eriksson_1_1_engine_1_1_physics_1_1_sphere_collider.html#a6bf06a8b787e4b3193fe9395090f886b',1,'LouiEriksson::Engine::Physics::SphereCollider::SphereCollider()']]],
   ['spherecollider_2ecpp_431',['SphereCollider.cpp',['../_sphere_collider_8cpp.html',1,'']]],

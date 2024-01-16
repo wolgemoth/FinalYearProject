@@ -1,5 +1,5 @@
 <map id="LouiEriksson::Engine::ECS::Component::Parent" name="LouiEriksson::Engine::ECS::Component::Parent">
 <area shape="rect" id="node1" title="Get the Component&#39;s parent GameObject." alt="" coords="447,5,633,47"/>
 <area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html#a012c8fbc1161f91776fae77183c3d1eb" title=" " alt="" coords="232,5,399,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html#a3bba789c249011dbb81f58a337484855" title="Return the type_index of this Component&#39;s derived type." alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html#a0b22f5cb7b177d666d0d7eed99b96f36" title="Return the type_index of this Component&#39;s derived type." alt="" coords="5,5,184,47"/>
 </map>

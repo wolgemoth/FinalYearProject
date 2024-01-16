@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine::Audio {
 		static void DistanceModel(const ALenum& _value);
 		
 		/// <summary> Get the distance model used by the audio engine. </summary>
-		[[nodiscard]] ALenum DistanceModel() const;
+		[[nodiscard]] static ALenum DistanceModel() ;
 		
 		/// <summary>
 		/// Set the doppler factor used by the audio engine.
@@ -56,7 +56,7 @@ namespace LouiEriksson::Engine::Audio {
 		static void DopplerFactor(const float& _value);
 		
 		/// <summary> Get the doppler factor used by the audio engine. </summary>
-		[[nodiscard]] float DopplerFactor() const;
+		[[nodiscard]] static float DopplerFactor() ;
 		
 		/// <summary>
 		/// Set the speed of sound used by the audio engine.
@@ -66,7 +66,7 @@ namespace LouiEriksson::Engine::Audio {
 		static void SpeedOfSound(const float& _value);
 		
 		/// <summary> Get the speed of sound used by the audio engine. </summary>
-		[[nodiscard]] float SpeedOfSound() const;
+		[[nodiscard]] static float SpeedOfSound() ;
 		
 		/// <summary> Finalise the audio subsystems. </summary>
 		static void Dispose();

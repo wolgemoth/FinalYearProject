@@ -6,6 +6,8 @@
 
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 
+#include <exception>
+#include <iostream>
 #include <memory>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.

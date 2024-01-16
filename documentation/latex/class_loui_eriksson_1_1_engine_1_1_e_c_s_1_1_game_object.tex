@@ -44,7 +44,7 @@ const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_hashmap}{Hashmap}}$<$ 
 \begin{DoxyCompactList}\small\item\em Get Components of type attached to \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\std\+::weak\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_a3b4b92aeea17cc9d2e458b57f36d1d37}{Get\+Component}} (size\+\_\+t \+\_\+index=0) const
 \begin{DoxyCompactList}\small\item\em Get a \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} of type in the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}} by index. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename T $>$ }\\const std\+::weak\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_aaf57991fba1d38e325924e6f6e158365}{Add\+Component}} ()
+{\footnotesize template$<$typename T $>$ }\\std\+::weak\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_afd3b0dfddc54969a3dd8d1459e0bd228}{Add\+Component}} ()
 \begin{DoxyCompactList}\small\item\em Add a \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} of type to the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}}. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_a3fd43c4ee2f1ed69ed15e422af1ebda6}{Remove\+Component}} (size\+\_\+t \+\_\+index=0)
 \begin{DoxyCompactList}\small\item\em Remove a \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component}{Component}} of type from the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{Game\+Object}}, using an index. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -60,17 +60,17 @@ An Entity which exists in a \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_
 
 
 
-Definition at line 25 of file Game\+Object.\+h.
+Definition at line 23 of file Game\+Object.\+h.
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_aaf57991fba1d38e325924e6f6e158365}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_aaf57991fba1d38e325924e6f6e158365}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_afd3b0dfddc54969a3dd8d1459e0bd228}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_afd3b0dfddc54969a3dd8d1459e0bd228}} 
 \index{LouiEriksson::Engine::ECS::GameObject@{LouiEriksson::Engine::ECS::GameObject}!AddComponent@{AddComponent}}
 \index{AddComponent@{AddComponent}!LouiEriksson::Engine::ECS::GameObject@{LouiEriksson::Engine::ECS::GameObject}}
 \doxysubsubsection{\texorpdfstring{AddComponent()}{AddComponent()}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
-const std\+::weak\+\_\+ptr$<$T$>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Game\+Object\+::\+Add\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+std\+::weak\+\_\+ptr$<$T$>$ Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Game\+Object\+::\+Add\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -86,7 +86,7 @@ const\+::weak\+\_\+ptr$<$\+T$>$\& referencing the created type.
 \end{DoxyReturn}
 
 
-Definition at line 148 of file Game\+Object.\+h.
+Definition at line 146 of file Game\+Object.\+h.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_a1fc29cddf16694d3f75c44f90f0d0230}\label{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_a1fc29cddf16694d3f75c44f90f0d0230}} 
 \index{LouiEriksson::Engine::ECS::GameObject@{LouiEriksson::Engine::ECS::GameObject}!Components@{Components}}
@@ -150,7 +150,7 @@ const std\+::weak\+\_\+ptr$<$\+T$>$ Referencing the \mbox{\hyperlink{class_loui_
 \end{DoxyReturn}
 
 
-Definition at line 128 of file Game\+Object.\+h.
+Definition at line 126 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -181,7 +181,7 @@ Vector of std\+::shared\+\_\+ptr$<$\+T$>$ wrapping a std\+::shared\+\_\+ptr$<$\+
 \end{DoxyReturn}
 
 
-Definition at line 108 of file Game\+Object.\+h.
+Definition at line 106 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -264,7 +264,7 @@ Remove a \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component
 \end{DoxyParams}
 
 
-Definition at line 168 of file Game\+Object.\+h.
+Definition at line 166 of file Game\+Object.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak

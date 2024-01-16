@@ -1,7 +1,7 @@
 var searchData=
 [
   ['mag_819',['Mag',['../struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture_1_1_parameters_1_1_filter_mode.html#a7bf34801d7166c71c1b36e0e8bd59638',1,'LouiEriksson::Engine::Graphics::Texture::Parameters::FilterMode']]],
-  ['main_820',['Main',['../class_loui_eriksson_1_1_engine_1_1_application.html#a42aab57ec9b68aaaa0d1ee9736674872',1,'LouiEriksson::Engine::Application']]],
+  ['main_820',['Main',['../class_loui_eriksson_1_1_engine_1_1_application.html#a9b27e258ed2b59ff32b35aaf4ead2474',1,'LouiEriksson::Engine::Application']]],
   ['main_821',['main',['../main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6',1,'main.cpp']]],
   ['mass_822',['Mass',['../class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html#ae5a099036aab3d10abd31918e165815d',1,'LouiEriksson::Engine::Physics::Rigidbody::Mass() const noexcept'],['../class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html#a5cdbf1e872958b1a0cee9159e82a2bd3',1,'LouiEriksson::Engine::Physics::Rigidbody::Mass(const float &amp;_value)']]],
   ['maxangle_823',['MaxAngle',['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source.html#a66800053728e06ce46b34fa477524fc1',1,'LouiEriksson::Engine::Audio::AudioSource::MaxAngle(const float &amp;_value)'],['../class_loui_eriksson_1_1_engine_1_1_audio_1_1_audio_source.html#a411c70201d623b5e5a03f196d03803d9',1,'LouiEriksson::Engine::Audio::AudioSource::MaxAngle() const noexcept']]],

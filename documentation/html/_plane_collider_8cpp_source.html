@@ -93,46 +93,48 @@ $(document).ready(function(){initNavTree('_plane_collider_8cpp_source.html','');
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BulletCollision/CollisionShapes/btBoxShape.h&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">   15</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">PlaneCollider::PlaneCollider</a>(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept : <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html">Collider</a>(_parent) {}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afb49d706e28014be724a1add97754d65">PlaneCollider::~PlaneCollider</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">   18</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">PlaneCollider::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) noexcept {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html#aaec7189b5426a98d2ba6d073efe2acb7">Collider::SetTransform</a>(_transform); <span class="comment">// Call base function to assign new transform.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// @Assessor: This class was submitted for PFG. Please don&#39;t mark it for GACP or GEP.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">   17</a></span>&#160;    <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">PlaneCollider::PlaneCollider</a>(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept : <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html">Collider</a>(_parent) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afb49d706e28014be724a1add97754d65">PlaneCollider::~PlaneCollider</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">   20</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">PlaneCollider::SetTransform</a>(<span class="keyword">const</span> std::weak_ptr&lt;Transform&gt;&amp; _transform) noexcept {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="comment">// Lock the transform and check it is valid.</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> t = m_Transform.lock()) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> s = t-&gt;m_Scale;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html#aaec7189b5426a98d2ba6d073efe2acb7">Collider::SetTransform</a>(_transform); <span class="comment">// Call base function to assign new transform.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="comment">// Lock the transform and check it is valid.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> t = m_Transform.lock()) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="comment">/* Use box-shaped collision instead of a plane-shape so that</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">             * we can allow our plane to have edges, and not just be infinite. */</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                m_CollisionShape.reset(</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                    <span class="keyword">new</span> btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                );</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// LouiEriksson::Engine::Physics</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> s = t-&gt;m_Scale;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="comment">/* Use box-shaped collision instead of a plane-shape so that</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">             * we can allow our plane to have edges, and not just be infinite. */</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                m_CollisionShape.reset(</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                    <span class="keyword">new</span> btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// LouiEriksson::Engine::Physics</span></div>
 <div class="ttc" id="a_plane_collider_8h_html"><div class="ttname"><a href="_plane_collider_8h.html">PlaneCollider.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html">LouiEriksson::Engine::Physics::Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_collider_8h_source.html#l00022">Collider.h:22</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_collider_html_aaec7189b5426a98d2ba6d073efe2acb7"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_collider.html#aaec7189b5426a98d2ba6d073efe2acb7">LouiEriksson::Engine::Physics::Collider::SetTransform</a></div><div class="ttdeci">virtual void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) noexcept</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collider_8cpp_source.html#l00017">Collider.cpp:17</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html_aa5a34a316faa7fae81a358fc5b9cee0b"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">LouiEriksson::Engine::Physics::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) noexcept override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00018">PlaneCollider.cpp:18</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html_aa5a34a316faa7fae81a358fc5b9cee0b"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#aa5a34a316faa7fae81a358fc5b9cee0b">LouiEriksson::Engine::Physics::PlaneCollider::SetTransform</a></div><div class="ttdeci">void SetTransform(const std::weak_ptr&lt; Transform &gt; &amp;_transform) noexcept override</div><div class="ttdoc">Set the Transform of the Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00020">PlaneCollider.cpp:20</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html_afb49d706e28014be724a1add97754d65"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afb49d706e28014be724a1add97754d65">LouiEriksson::Engine::Physics::PlaneCollider::~PlaneCollider</a></div><div class="ttdeci">~PlaneCollider() override</div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html_afd5651ec1b9b720e53cb4fa2692648e9"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">LouiEriksson::Engine::Physics::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00015">PlaneCollider.cpp:15</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_1_1_engine_1_1_physics_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00017">Script.h:17</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html_afd5651ec1b9b720e53cb4fa2692648e9"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html#afd5651ec1b9b720e53cb4fa2692648e9">LouiEriksson::Engine::Physics::PlaneCollider::PlaneCollider</a></div><div class="ttdeci">PlaneCollider(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8cpp_source.html#l00017">PlaneCollider.cpp:17</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_engine_1_1_physics_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00016">Script.h:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

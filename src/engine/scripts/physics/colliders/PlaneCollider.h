@@ -4,6 +4,7 @@
 #include "../Collider.h"
 
 #include <memory>
+#include <typeindex>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
 
@@ -28,7 +29,7 @@ namespace LouiEriksson::Engine::Physics {
 		explicit PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~PlaneCollider() override;
 		
-		std::type_index TypeID() const noexcept override { return typeid(PlaneCollider); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(PlaneCollider); };
 		
 		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override;
 		

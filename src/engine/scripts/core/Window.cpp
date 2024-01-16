@@ -81,7 +81,7 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	const std::weak_ptr<Window> Window::Get(const int& _id) {
+	std::weak_ptr<Window> Window::Get(const int& _id) {
 	
 		std::shared_ptr<Window> result;
 		if (!m_Windows.Get(_id, result)) {

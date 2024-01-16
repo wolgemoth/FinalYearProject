@@ -55,7 +55,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~FlyCam() override;
 	
-		std::type_index TypeID() const noexcept override { return typeid(FlyCam); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(FlyCam); };
 	};
 	
 } // LouiEriksson::Game::Scripts

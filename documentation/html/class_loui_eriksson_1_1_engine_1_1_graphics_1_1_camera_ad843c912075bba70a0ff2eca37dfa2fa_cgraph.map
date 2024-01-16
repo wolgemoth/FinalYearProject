@@ -2,9 +2,9 @@
 <area shape="rect" id="node1" title="Called after rendering." alt="" coords="5,435,233,476"/>
 <area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_shader.html#a48c0aae81c8483146c394a6cd97c9ee9" title="Bind the provided Shader." alt="" coords="335,5,513,47"/>
 <area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_time.html#a8abdf1348e506bb6514097aac1e93572" title="Get the total time elapsed since the engine was initialised." alt="" coords="346,71,502,112"/>
-<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ae2234b75eeb6b22892337ee6e0dc3908" title=" " alt="" coords="337,136,511,177"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#adfd61fa9206e1227ca8de4f0bf92158f" title=" " alt="" coords="337,136,511,177"/>
 <area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_graphics_1_1_texture.html#a025bde5dc7f62724c4fff1d4373cf478" title="Get the Texture&#39;s ID." alt="" coords="341,201,507,243"/>
-<area shape="rect" id="node6" href="$struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_1_1_primitives_1_1_quad.html#a10509f02dfd16121b0c5e00cd49e975c" title="Returns a pointer to the static instance of the mesh." alt="" coords="322,267,526,323"/>
+<area shape="rect" id="node6" href="$struct_loui_eriksson_1_1_engine_1_1_graphics_1_1_mesh_1_1_primitives_1_1_quad.html#ab546337490bfee0b6f1e16c8b8dcfbfd" title="Returns a pointer to the static instance of the mesh." alt="" coords="322,267,526,323"/>
 <area shape="rect" id="node7" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_post_processing_1_1_ambient_occlusion.html#adc16b5c58dc6b53f89b4216a133d3af3" title=" " alt="" coords="281,347,567,403"/>
 <area shape="rect" id="node8" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_post_processing_1_1_bloom.html#af56f73cbc907723ad143331e90400662" title=" " alt="" coords="319,427,529,483"/>
 <area shape="rect" id="node9" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_post_processing_1_1_tone_mapping.html#aa60f019c73dd50c28c3a55b47a744b06" title=" " alt="" coords="297,507,551,563"/>

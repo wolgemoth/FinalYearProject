@@ -6,6 +6,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <string>
 #include <type_traits>
 #include <typeindex>
 #include <vector>
@@ -63,7 +64,7 @@ namespace LouiEriksson::Engine::ECS {
 		void Save(const std::filesystem::path& _path);
 	
 		/// <summary> TryLoad the Scene from xml format at a given path. </summary>
-		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers);
+		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)>& _initialisers);
 	
 		/// <summary> Attach an instance of a type to the Scene. </summary>
 		template<class T>

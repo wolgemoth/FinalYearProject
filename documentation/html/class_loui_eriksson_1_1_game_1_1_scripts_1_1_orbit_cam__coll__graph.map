@@ -1,5 +1,5 @@
 <map id="LouiEriksson::Game::Scripts::OrbitCam" name="LouiEriksson::Game::Scripts::OrbitCam">
-<area shape="rect" id="node1" title="Camera that orbits a target." alt="" coords="5,549,224,847"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="9,263,220,501"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="10,5,219,215"/>
+<area shape="rect" id="node1" title="Camera that orbits a target." alt="" coords="5,564,224,876"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_script.html" title="Base class to be inherited by scriptable types." alt="" coords="9,277,220,516"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html" title="Represents a Component which can be attached to a GameObject." alt="" coords="10,5,219,229"/>
 </map>

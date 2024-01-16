@@ -11,18 +11,9 @@ Collaboration diagram for Loui\+Eriksson\+::Engine\+::Audio\+::Sound\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=235pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound__coll__graph}
+\includegraphics[width=261pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound__coll__graph}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-ALenum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a1bf6f36368e755e738af7305615d5fb0}{Distance\+Model}} () const
-\begin{DoxyCompactList}\small\item\em Get the distance model used by the audio engine. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_abd47a5a432e218635fef85fe20ac5eb6}{Doppler\+Factor}} () const
-\begin{DoxyCompactList}\small\item\em Get the doppler factor used by the audio engine. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7b61d5f1702e8075b946f7fabd6be3f4}{Speed\+Of\+Sound}} () const
-\begin{DoxyCompactList}\small\item\em Get the speed of sound used by the audio engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -32,10 +23,16 @@ static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_
 \begin{DoxyCompactList}\small\item\em Play the Clip without positional audio. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aae9e55aa61047bd277e5cf7d8474c1d0}{Distance\+Model}} (const ALenum \&\+\_\+value)
 \begin{DoxyCompactList}\small\item\em Set the distance model used by the audio engine. \end{DoxyCompactList}\item 
+static ALenum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7bd8538db66296dc88c9187af14ed681}{Distance\+Model}} ()
+\begin{DoxyCompactList}\small\item\em Get the distance model used by the audio engine. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a758c65fafe49c1d61cd7995c6400afa4}{Doppler\+Factor}} (const float \&\+\_\+value)
 \begin{DoxyCompactList}\small\item\em Set the doppler factor used by the audio engine. Must be greater than or equal to zero. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7d02328ccd840d8a53c88066a73e4070}{Doppler\+Factor}} ()
+\begin{DoxyCompactList}\small\item\em Get the doppler factor used by the audio engine. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_ae4423e7ab1bb49c715c795958dbca592}{Speed\+Of\+Sound}} (const float \&\+\_\+value)
 \begin{DoxyCompactList}\small\item\em Set the speed of sound used by the audio engine. This influences the doppler effect. Must be greater than or equal to zero. \end{DoxyCompactList}\item 
+static float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aa98b60cb42e9debb3e63be63745ece05}{Speed\+Of\+Sound}} ()
+\begin{DoxyCompactList}\small\item\em Get the speed of sound used by the audio engine. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a0be40ed774de1c99277fc83e6c198c39}{Dispose}} ()
 \begin{DoxyCompactList}\small\item\em Finalise the audio subsystems. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -60,7 +57,7 @@ Finalise the audio subsystems.
 
 
 
-Definition at line 165 of file Sound.\+cpp.
+Definition at line 164 of file Sound.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -70,11 +67,11 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a0be40ed774de1c99277fc83e6c198c39_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a1bf6f36368e755e738af7305615d5fb0}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a1bf6f36368e755e738af7305615d5fb0}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7bd8538db66296dc88c9187af14ed681}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7bd8538db66296dc88c9187af14ed681}} 
 \index{LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}!DistanceModel@{DistanceModel}}
 \index{DistanceModel@{DistanceModel}!LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}}
 \doxysubsubsection{\texorpdfstring{DistanceModel()}{DistanceModel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily ALenum Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Distance\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily ALenum Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Distance\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -82,14 +79,14 @@ Get the distance model used by the audio engine.
 
 
 
-Definition at line 147 of file Sound.\+cpp.
+Definition at line 146 of file Sound.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a1bf6f36368e755e738af7305615d5fb0_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7bd8538db66296dc88c9187af14ed681_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aae9e55aa61047bd277e5cf7d8474c1d0}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aae9e55aa61047bd277e5cf7d8474c1d0}} 
@@ -104,13 +101,13 @@ Set the distance model used by the audio engine.
 
 
 
-Definition at line 144 of file Sound.\+cpp.
+Definition at line 143 of file Sound.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_abd47a5a432e218635fef85fe20ac5eb6}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_abd47a5a432e218635fef85fe20ac5eb6}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7d02328ccd840d8a53c88066a73e4070}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7d02328ccd840d8a53c88066a73e4070}} 
 \index{LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}!DopplerFactor@{DopplerFactor}}
 \index{DopplerFactor@{DopplerFactor}!LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}}
 \doxysubsubsection{\texorpdfstring{DopplerFactor()}{DopplerFactor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Doppler\+Factor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Doppler\+Factor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -118,14 +115,14 @@ Get the doppler factor used by the audio engine.
 
 
 
-Definition at line 154 of file Sound.\+cpp.
+Definition at line 153 of file Sound.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_abd47a5a432e218635fef85fe20ac5eb6_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7d02328ccd840d8a53c88066a73e4070_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a758c65fafe49c1d61cd7995c6400afa4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a758c65fafe49c1d61cd7995c6400afa4}} 
@@ -140,7 +137,7 @@ Set the doppler factor used by the audio engine. Must be greater than or equal t
 
 
 
-Definition at line 151 of file Sound.\+cpp.
+Definition at line 150 of file Sound.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a42f27a5bdb97a8a0661e10cb544c2a73}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a42f27a5bdb97a8a0661e10cb544c2a73}} 
 \index{LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}!Init@{Init}}
@@ -154,7 +151,7 @@ Initialise the audio subsystems.
 
 
 
-Definition at line 21 of file Sound.\+cpp.
+Definition at line 20 of file Sound.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -184,7 +181,7 @@ Play the Clip without positional audio.
 
 
 
-Definition at line 97 of file Sound.\+cpp.
+Definition at line 96 of file Sound.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -194,11 +191,11 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_ad5b034fbecf3698b0b169efe48f8cd45_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7b61d5f1702e8075b946f7fabd6be3f4}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7b61d5f1702e8075b946f7fabd6be3f4}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aa98b60cb42e9debb3e63be63745ece05}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aa98b60cb42e9debb3e63be63745ece05}} 
 \index{LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}!SpeedOfSound@{SpeedOfSound}}
 \index{SpeedOfSound@{SpeedOfSound}!LouiEriksson::Engine::Audio::Sound@{LouiEriksson::Engine::Audio::Sound}}
 \doxysubsubsection{\texorpdfstring{SpeedOfSound()}{SpeedOfSound()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Speed\+Of\+Sound (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily float Loui\+Eriksson\+::\+Engine\+::\+Audio\+::\+Sound\+::\+Speed\+Of\+Sound (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -206,14 +203,14 @@ Get the speed of sound used by the audio engine.
 
 
 
-Definition at line 161 of file Sound.\+cpp.
+Definition at line 160 of file Sound.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_a7b61d5f1702e8075b946f7fabd6be3f4_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_aa98b60cb42e9debb3e63be63745ece05_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_ae4423e7ab1bb49c715c795958dbca592}\label{class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound_ae4423e7ab1bb49c715c795958dbca592}} 
@@ -228,7 +225,7 @@ Set the speed of sound used by the audio engine. This influences the doppler eff
 
 
 
-Definition at line 158 of file Sound.\+cpp.
+Definition at line 157 of file Sound.\+cpp.
 
 
 

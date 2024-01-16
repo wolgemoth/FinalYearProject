@@ -11,8 +11,8 @@ var class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera =
     [ "FarClip", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a0e39aa4bfc28007565d802fb2a717c95", null ],
     [ "FOV", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a879a60df3130fc87e2a36b5dd91f32a6", null ],
     [ "FOV", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a8a5924d78f87879c898a100d136e1e06", null ],
-    [ "GetTransform", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a0f8fac228182594c0c103c15f33455cd", null ],
-    [ "GetWindow", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a5560a254f47016c3cef0b97cef9c3da0", null ],
+    [ "GetTransform", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a6b22e38c0c6854c015d77c2c30bb8457", null ],
+    [ "GetWindow", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a38e3624675a3a593da757b319dbb58ad", null ],
     [ "NearClip", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#ae0c605c2b2414eeb41c25bd99b1a695d", null ],
     [ "NearClip", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a3301cecfa7651a8911048259fcb9c1d9", null ],
     [ "PostRender", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#ad843c912075bba70a0ff2eca37dfa2fa", null ],
@@ -22,6 +22,6 @@ var class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera =
     [ "SetDirty", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a79d3ef92b7745567198c9d66f2091385", null ],
     [ "SetTransform", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a2ab9ca6484c87e844de18c6fd41e0450", null ],
     [ "SetWindow", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a148132d843fd216b70b19c87f6e64f8d", null ],
-    [ "TypeID", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a5265c2c1e2c6ed826d38c4cd83bdf523", null ],
+    [ "TypeID", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a98d541dad06af0c232666fd6908269c4", null ],
     [ "View", "class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html#a34b2b4fbb528917377a7f306da03ed99", null ]
 ];

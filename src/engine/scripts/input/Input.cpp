@@ -21,6 +21,7 @@
 namespace LouiEriksson::Engine::Input {
 	
 	Input::Key::State::State() noexcept :
+			s_Data(nullptr),
 			s_Length(0) {}
 	
 	Input::Key::State::~State() = default;

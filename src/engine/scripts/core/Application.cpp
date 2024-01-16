@@ -29,7 +29,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <typeindex>
 #include <vector>
 
 namespace LouiEriksson::Engine {

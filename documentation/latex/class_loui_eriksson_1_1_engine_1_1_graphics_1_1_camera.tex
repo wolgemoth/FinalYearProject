@@ -43,7 +43,7 @@ enum \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad9
 \item 
 \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a8951e3eb902aa0654aeecace5ac34e0a}{$\sim$\+Camera}} () override
 \item 
-std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5265c2c1e2c6ed826d38c4cd83bdf523}{Type\+ID}} () const noexcept override
+const std\+::type\+\_\+index \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a98d541dad06af0c232666fd6908269c4}{Type\+ID}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a53a013c189a262c212ed48ad6879eeb1}{Pre\+Render}} (const \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad9ad8c1e312f9a96ac924a4d0627039c}{Render\+Flags}} \&\+\_\+flags)
 \begin{DoxyCompactList}\small\item\em Called before rendering. \end{DoxyCompactList}\item 
@@ -53,11 +53,11 @@ void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad8
 \begin{DoxyCompactList}\small\item\em Called after rendering. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a148132d843fd216b70b19c87f6e64f8d}{Set\+Window}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}} $>$ \&\+\_\+window)
 \begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}}. \end{DoxyCompactList}\item 
-const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5560a254f47016c3cef0b97cef9c3da0}{Get\+Window}} () const noexcept
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a38e3624675a3a593da757b319dbb58ad}{Get\+Window}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a2ab9ca6484c87e844de18c6fd41e0450}{Set\+Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \&\+\_\+transform) noexcept
 \begin{DoxyCompactList}\small\item\em Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}}. \end{DoxyCompactList}\item 
-const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0f8fac228182594c0c103c15f33455cd}{Get\+Transform}} () const noexcept
+const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a6b22e38c0c6854c015d77c2c30bb8457}{Get\+Transform}} () const noexcept
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\textquotesingle{}s \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}}. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a100efedbc23429e3cc4b1e80458e6c1c}{Aspect}} () const
 \begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}{Camera}}\textquotesingle{}s Aspect. \end{DoxyCompactList}\item 
@@ -94,7 +94,7 @@ static glm\+::vec4 \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_
 
 
 
-Definition at line 32 of file Camera.\+h.
+Definition at line 33 of file Camera.\+h.
 
 
 
@@ -121,7 +121,7 @@ REINITIALISE&Reinitialise the g-\/buffer. \\
 \end{DoxyEnumFields}
 
 
-Definition at line 101 of file Camera.\+h.
+Definition at line 102 of file Camera.\+h.
 
 
 
@@ -169,7 +169,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1439 of file Camera.\+cpp.
+Definition at line 1436 of file Camera.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
@@ -191,7 +191,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1500 of file Camera.\+cpp.
+Definition at line 1497 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_aa19e0b809d30001b28898d9d4b0bf402}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_aa19e0b809d30001b28898d9d4b0bf402}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!ClearColor@{ClearColor}}
@@ -205,7 +205,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1494 of file Camera.\+cpp.
+Definition at line 1491 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a77cf66b66d06022f6120fe4e7b83d6cc}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a77cf66b66d06022f6120fe4e7b83d6cc}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!FarClip@{FarClip}}
@@ -219,7 +219,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1490 of file Camera.\+cpp.
+Definition at line 1487 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0e39aa4bfc28007565d802fb2a717c95}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0e39aa4bfc28007565d802fb2a717c95}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!FarClip@{FarClip}}
@@ -233,7 +233,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1481 of file Camera.\+cpp.
+Definition at line 1478 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a879a60df3130fc87e2a36b5dd91f32a6}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a879a60df3130fc87e2a36b5dd91f32a6}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!FOV@{FOV}}
@@ -247,7 +247,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1464 of file Camera.\+cpp.
+Definition at line 1461 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a8a5924d78f87879c898a100d136e1e06}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a8a5924d78f87879c898a100d136e1e06}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!FOV@{FOV}}
@@ -261,13 +261,13 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1455 of file Camera.\+cpp.
+Definition at line 1452 of file Camera.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0f8fac228182594c0c103c15f33455cd}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0f8fac228182594c0c103c15f33455cd}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a6b22e38c0c6854c015d77c2c30bb8457}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a6b22e38c0c6854c015d77c2c30bb8457}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!GetTransform@{GetTransform}}
 \index{GetTransform@{GetTransform}!LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}}
 \doxysubsubsection{\texorpdfstring{GetTransform()}{GetTransform()}}
-{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transform}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Get\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
@@ -275,21 +275,21 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1435 of file Camera.\+cpp.
+Definition at line 1432 of file Camera.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a0f8fac228182594c0c103c15f33455cd_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a6b22e38c0c6854c015d77c2c30bb8457_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5560a254f47016c3cef0b97cef9c3da0}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5560a254f47016c3cef0b97cef9c3da0}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a38e3624675a3a593da757b319dbb58ad}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a38e3624675a3a593da757b319dbb58ad}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!GetWindow@{GetWindow}}
 \index{GetWindow@{GetWindow}!LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}}
 \doxysubsubsection{\texorpdfstring{GetWindow()}{GetWindow()}}
-{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}} $>$ Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Get\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+{\footnotesize\ttfamily const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_window}{Window}} $>$ \& Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Get\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
 
 
 
@@ -297,14 +297,14 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1428 of file Camera.\+cpp.
+Definition at line 1425 of file Camera.\+cpp.
 
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5560a254f47016c3cef0b97cef9c3da0_icgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a38e3624675a3a593da757b319dbb58ad_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ae0c605c2b2414eeb41c25bd99b1a695d}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ae0c605c2b2414eeb41c25bd99b1a695d}} 
@@ -319,7 +319,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1477 of file Camera.\+cpp.
+Definition at line 1474 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a3301cecfa7651a8911048259fcb9c1d9}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a3301cecfa7651a8911048259fcb9c1d9}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!NearClip@{NearClip}}
@@ -333,7 +333,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1468 of file Camera.\+cpp.
+Definition at line 1465 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad843c912075bba70a0ff2eca37dfa2fa}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_ad843c912075bba70a0ff2eca37dfa2fa}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!PostRender@{PostRender}}
@@ -391,7 +391,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1510 of file Camera.\+cpp.
+Definition at line 1507 of file Camera.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak
@@ -435,7 +435,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1542 of file Camera.\+cpp.
+Definition at line 1539 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a2ab9ca6484c87e844de18c6fd41e0450}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a2ab9ca6484c87e844de18c6fd41e0450}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!SetTransform@{SetTransform}}
@@ -449,7 +449,7 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1432 of file Camera.\+cpp.
+Definition at line 1429 of file Camera.\+cpp.
 
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a148132d843fd216b70b19c87f6e64f8d}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a148132d843fd216b70b19c87f6e64f8d}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!SetWindow@{SetWindow}}
@@ -463,13 +463,13 @@ Set the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1419 of file Camera.\+cpp.
+Definition at line 1416 of file Camera.\+cpp.
 
-\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5265c2c1e2c6ed826d38c4cd83bdf523}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5265c2c1e2c6ed826d38c4cd83bdf523}} 
+\mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a98d541dad06af0c232666fd6908269c4}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a98d541dad06af0c232666fd6908269c4}} 
 \index{LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}!TypeID@{TypeID}}
 \index{TypeID@{TypeID}!LouiEriksson::Engine::Graphics::Camera@{LouiEriksson::Engine::Graphics::Camera}}
 \doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
-{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily const std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Graphics\+::\+Camera\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -477,18 +477,18 @@ Return the type\+\_\+index of this Component\textquotesingle{}s derived type.
 
 
 
-Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_a56609524cfa742a425229dc4aa6570aa}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
 
 
 
-Definition at line 113 of file Camera.\+h.
+Definition at line 114 of file Camera.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a5265c2c1e2c6ed826d38c4cd83bdf523_cgraph}
+\includegraphics[width=350pt]{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a98d541dad06af0c232666fd6908269c4_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a34b2b4fbb528917377a7f306da03ed99}\label{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_a34b2b4fbb528917377a7f306da03ed99}} 
@@ -503,7 +503,7 @@ Get the \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera}
 
 
 
-Definition at line 1522 of file Camera.\+cpp.
+Definition at line 1519 of file Camera.\+cpp.
 
 Here is the call graph for this function\+:
 \nopagebreak

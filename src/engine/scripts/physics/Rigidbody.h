@@ -10,6 +10,7 @@
 #include <LinearMath/btVector3.h>
 
 #include <memory>
+#include <typeindex>
 #include <vector>
 
 // @Assessor: This class was submitted for PFG. Please don't mark it for GACP or GEP.
@@ -113,7 +114,7 @@ namespace LouiEriksson::Engine::Physics {
 		explicit Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Rigidbody() override = default;
 	
-		std::type_index TypeID() const noexcept override { return typeid(Rigidbody); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Rigidbody); };
 		
 		/// <summary> Called every frame. </summary>
 		void Interpolate();

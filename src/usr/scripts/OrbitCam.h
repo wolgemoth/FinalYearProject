@@ -44,7 +44,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit OrbitCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~OrbitCam() override;
 		
-		std::type_index TypeID() const noexcept override { return typeid(OrbitCam); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(OrbitCam); };
 	};
 	
 } // LouiEriksson::Game::Scripts

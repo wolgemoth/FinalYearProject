@@ -7,6 +7,7 @@
 #include <glm/fwd.hpp>
 
 #include <memory>
+#include <typeindex>
 
 #define VEC_ZERO    glm::vec3(0)
 #define VEC_ONE     glm::vec3(1)
@@ -36,7 +37,7 @@ namespace LouiEriksson::Engine {
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		
-		std::type_index TypeID() const noexcept override { return typeid(Transform); };
+		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Transform); };
 		
 		/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
 		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const;

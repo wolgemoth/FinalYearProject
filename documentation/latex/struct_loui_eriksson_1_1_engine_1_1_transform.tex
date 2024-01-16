@@ -34,7 +34,7 @@ Collaboration diagram for Loui\+Eriksson\+::Engine\+::Transform\+:
 \item 
 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform_a1ce943600a6ac11ae11f289a0852d553}{Transform}} (const std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object}{ECS\+::\+Game\+Object}} $>$ \&\+\_\+parent) noexcept
 \item 
-std\+::type\+\_\+index \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform_acf6c57728179395ea53a32d84fa69d05}{Type\+ID}} () const noexcept override
+const std\+::type\+\_\+index \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform_a934fbc55a3327e116c53f74431cb45f2}{Type\+ID}} () const noexcept override
 \begin{DoxyCompactList}\small\item\em Return the type\+\_\+index of this Component\textquotesingle{}s derived type. \end{DoxyCompactList}\item 
 glm\+::vec3 \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform_aa868b997b47e85bd8446fb72b7642ed7}{To\+World}} (const glm\+::vec3 \&\+\_\+vector) const
 \begin{DoxyCompactList}\small\item\em Get the given vector (local to this transform) as it exists in world space. \end{DoxyCompactList}\item 
@@ -57,7 +57,7 @@ Component representing a \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_tr
 
 
 
-Definition at line 26 of file Transform.\+h.
+Definition at line 27 of file Transform.\+h.
 
 
 
@@ -111,11 +111,11 @@ Get this \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Transfo
 
 Definition at line 28 of file Transform.\+cpp.
 
-\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_transform_acf6c57728179395ea53a32d84fa69d05}\label{struct_loui_eriksson_1_1_engine_1_1_transform_acf6c57728179395ea53a32d84fa69d05}} 
+\mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_transform_a934fbc55a3327e116c53f74431cb45f2}\label{struct_loui_eriksson_1_1_engine_1_1_transform_a934fbc55a3327e116c53f74431cb45f2}} 
 \index{LouiEriksson::Engine::Transform@{LouiEriksson::Engine::Transform}!TypeID@{TypeID}}
 \index{TypeID@{TypeID}!LouiEriksson::Engine::Transform@{LouiEriksson::Engine::Transform}}
 \doxysubsubsection{\texorpdfstring{TypeID()}{TypeID()}}
-{\footnotesize\ttfamily std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Transform\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily const std\+::type\+\_\+index Loui\+Eriksson\+::\+Engine\+::\+Transform\+::\+Type\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
 
 
 
@@ -123,18 +123,18 @@ Return the type\+\_\+index of this Component\textquotesingle{}s derived type.
 
 
 
-Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_af78a7ef0d6035d4e0421277aaf315b87}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
+Implements \mbox{\hyperlink{class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_a56609524cfa742a425229dc4aa6570aa}{Loui\+Eriksson\+::\+Engine\+::\+ECS\+::\+Component}}.
 
 
 
-Definition at line 39 of file Transform.\+h.
+Definition at line 40 of file Transform.\+h.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{struct_loui_eriksson_1_1_engine_1_1_transform_acf6c57728179395ea53a32d84fa69d05_cgraph}
+\includegraphics[width=350pt]{struct_loui_eriksson_1_1_engine_1_1_transform_a934fbc55a3327e116c53f74431cb45f2_cgraph}
 \end{center}
 \end{figure}
 
@@ -152,7 +152,7 @@ Position of the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{
 
 
 
-Definition at line 29 of file Transform.\+h.
+Definition at line 30 of file Transform.\+h.
 
 \mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_transform_a276498a702c5233459528706ed972d6a}\label{struct_loui_eriksson_1_1_engine_1_1_transform_a276498a702c5233459528706ed972d6a}} 
 \index{LouiEriksson::Engine::Transform@{LouiEriksson::Engine::Transform}!m\_Rotation@{m\_Rotation}}
@@ -166,7 +166,7 @@ Rotation of the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{
 
 
 
-Definition at line 32 of file Transform.\+h.
+Definition at line 33 of file Transform.\+h.
 
 \mbox{\Hypertarget{struct_loui_eriksson_1_1_engine_1_1_transform_ac86ca15f37610a18bb4fcbe28fff1c9f}\label{struct_loui_eriksson_1_1_engine_1_1_transform_ac86ca15f37610a18bb4fcbe28fff1c9f}} 
 \index{LouiEriksson::Engine::Transform@{LouiEriksson::Engine::Transform}!m\_Scale@{m\_Scale}}
@@ -180,7 +180,7 @@ Scale of the \mbox{\hyperlink{struct_loui_eriksson_1_1_engine_1_1_transform}{Tra
 
 
 
-Definition at line 35 of file Transform.\+h.
+Definition at line 36 of file Transform.\+h.
 
 
 

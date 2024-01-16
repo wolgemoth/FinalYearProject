@@ -14,7 +14,6 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include <memory>
 
 namespace LouiEriksson::Engine::Audio {
 	
@@ -144,21 +143,21 @@ namespace LouiEriksson::Engine::Audio {
 	void Sound::DistanceModel(const ALenum& _value) {
 		alDistanceModel(_value);
 	}
-	ALenum Sound::DistanceModel() const {
+	ALenum Sound::DistanceModel() {
 		return alGetInteger(AL_DISTANCE_MODEL);
 	}
 	
 	void Sound::DopplerFactor(const float& _value) {
 		alDopplerFactor(glm::max(_value, 0.0f));
 	}
-	float Sound::DopplerFactor() const {
+	float Sound::DopplerFactor() {
 		return alGetFloat(AL_DOPPLER_FACTOR);
 	}
 	
 	void Sound::SpeedOfSound(const float& _value) {
 		alDopplerVelocity(glm::max(_value, 0.0f));
 	}
-	float Sound::SpeedOfSound() const {
+	float Sound::SpeedOfSound() {
 		return alGetFloat(AL_DOPPLER_VELOCITY);
 	}
 	

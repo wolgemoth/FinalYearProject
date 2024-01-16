@@ -91,57 +91,56 @@ $(document).ready(function(){initNavTree('_script_8h_source.html',''); initResiz
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../ecs/Component.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_e_c_s.html">LouiEriksson::Engine::ECS</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// LouiEriksson::Engine::ECS</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">   17</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">class </span>Camera;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">class </span><a class="code" href="struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision.html">Collision</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// LouiEriksson::Engine::Physics</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespace_loui_eriksson_1_1_game.html">   24</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_game_1_1_core.html">LouiEriksson::Game::Core</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">class </span>ScriptInjector;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// LouiEriksson::Game::Core</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine.html">LouiEriksson::Engine</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_script.html">   35</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html">Script</a> : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html">ECS::Component</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html">ECS::Scene</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">friend</span> LouiEriksson::Game::Core::ScriptInjector;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a78355a706e718b7c1f8e6ca318ddf4eb">Script</a>(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_script.html#a79729e585125f7bd0d4394cf1f2c2073">   43</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a79729e585125f7bd0d4394cf1f2c2073">~Script</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#ac434db47ebc2ada8b30f6198420524de">Begin</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a73b6513ef33cc256dc99ecb9fc765764">Tick</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a46fd71da9935bb0da87f3d3e6296f944">FixedTick</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#ac2c8f78409bede82f6d8864d22a53798">OnCollision</a>(<span class="keyword">const</span> <a class="code" href="struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision.html">Physics::Collision</a>&amp; _collision);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// LouiEriksson::Engine</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_SCRIPT_H</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// @Assessor: This class was submitted for 3DGP. Please don&#39;t mark it for GACP.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_e_c_s.html">LouiEriksson::Engine::ECS</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>Scene;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// LouiEriksson::Engine::ECS</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">   16</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">class </span>Camera;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">class </span><a class="code" href="struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision.html">Collision</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// LouiEriksson::Engine::Physics</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespace_loui_eriksson_1_1_game.html">   23</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_game_1_1_core.html">LouiEriksson::Game::Core</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">class </span>ScriptInjector;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// LouiEriksson::Game::Core</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_loui_eriksson_1_1_engine.html">LouiEriksson::Engine</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_script.html">   34</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html">Script</a> : <span class="keyword">public</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html">ECS::Component</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html">ECS::Scene</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">friend</span> LouiEriksson::Game::Core::ScriptInjector;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a78355a706e718b7c1f8e6ca318ddf4eb">Script</a>(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent) noexcept;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_script.html#a79729e585125f7bd0d4394cf1f2c2073">   42</a></span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a79729e585125f7bd0d4394cf1f2c2073">~Script</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#ac434db47ebc2ada8b30f6198420524de">Begin</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a73b6513ef33cc256dc99ecb9fc765764">Tick</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#a46fd71da9935bb0da87f3d3e6296f944">FixedTick</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html#ac2c8f78409bede82f6d8864d22a53798">OnCollision</a>(<span class="keyword">const</span> <a class="code" href="struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision.html">Physics::Collision</a>&amp; _collision);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// LouiEriksson::Engine</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FINALYEARPROJECT_SCRIPT_H</span></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_component.html">LouiEriksson::Engine::ECS::Component</a></div><div class="ttdoc">Represents a Component which can be attached to a GameObject.</div><div class="ttdef"><b>Definition:</b> <a href="_component_8h_source.html#l00015">Component.h:15</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html">LouiEriksson::Engine::ECS::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00027">Scene.h:27</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html">LouiEriksson::Engine::Script</a></div><div class="ttdoc">Base class to be inherited by scriptable types.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00035">Script.h:35</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html">LouiEriksson::Engine::ECS::Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00028">Scene.h:28</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html">LouiEriksson::Engine::Script</a></div><div class="ttdoc">Base class to be inherited by scriptable types.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00034">Script.h:34</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html_a46fd71da9935bb0da87f3d3e6296f944"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html#a46fd71da9935bb0da87f3d3e6296f944">LouiEriksson::Engine::Script::FixedTick</a></div><div class="ttdeci">virtual void FixedTick()</div><div class="ttdoc">Called every tick of the physics engine.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00015">Script.cpp:15</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html_a73b6513ef33cc256dc99ecb9fc765764"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html#a73b6513ef33cc256dc99ecb9fc765764">LouiEriksson::Engine::Script::Tick</a></div><div class="ttdeci">virtual void Tick()</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00014">Script.cpp:14</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html_a78355a706e718b7c1f8e6ca318ddf4eb"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html#a78355a706e718b7c1f8e6ca318ddf4eb">LouiEriksson::Engine::Script::Script</a></div><div class="ttdeci">Script(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;_parent) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00011">Script.cpp:11</a></div></div>
@@ -149,9 +148,9 @@ $(document).ready(function(){initNavTree('_script_8h_source.html',''); initResiz
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html_ac2c8f78409bede82f6d8864d22a53798"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html#ac2c8f78409bede82f6d8864d22a53798">LouiEriksson::Engine::Script::OnCollision</a></div><div class="ttdeci">virtual void OnCollision(const Physics::Collision &amp;_collision)</div><div class="ttdoc">Called every time a collision event occurs.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00016">Script.cpp:16</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html_ac434db47ebc2ada8b30f6198420524de"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html#ac434db47ebc2ada8b30f6198420524de">LouiEriksson::Engine::Script::Begin</a></div><div class="ttdeci">virtual void Begin()</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8cpp_source.html#l00013">Script.cpp:13</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_engine_1_1_e_c_s_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine_1_1_e_c_s.html">LouiEriksson::Engine::ECS</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_listener_8h_source.html#l00012">AudioListener.h:12</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_1_1_engine_1_1_physics_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00017">Script.h:17</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_engine_1_1_physics_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine_1_1_physics.html">LouiEriksson::Engine::Physics</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00016">Script.h:16</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_engine_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine.html">LouiEriksson::Engine</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
-<div class="ttc" id="anamespace_loui_eriksson_1_1_game_1_1_core_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_game_1_1_core.html">LouiEriksson::Game::Core</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00024">Script.h:24</a></div></div>
+<div class="ttc" id="anamespace_loui_eriksson_1_1_game_1_1_core_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_game_1_1_core.html">LouiEriksson::Game::Core</a></div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00023">Script.h:23</a></div></div>
 <div class="ttc" id="astruct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision_html"><div class="ttname"><a href="struct_loui_eriksson_1_1_engine_1_1_physics_1_1_collision.html">LouiEriksson::Engine::Physics::Collision</a></div><div class="ttdoc">Contains information describing a collision between a Rigidbody and a Collider.</div><div class="ttdef"><b>Definition:</b> <a href="_collision_8h_source.html#l00014">Collision.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

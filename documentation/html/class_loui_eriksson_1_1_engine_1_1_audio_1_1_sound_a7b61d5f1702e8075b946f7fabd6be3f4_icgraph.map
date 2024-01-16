@@ -1,6 +1,0 @@
-<map id="LouiEriksson::Engine::Audio::Sound::SpeedOfSound" name="LouiEriksson::Engine::Audio::Sound::SpeedOfSound">
-<area shape="rect" id="node1" title="Get the speed of sound used by the audio engine." alt="" coords="516,5,735,47"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#a42f27a5bdb97a8a0661e10cb544c2a73" title="Initialise the audio subsystems." alt="" coords="312,5,468,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_application.html#a42aab57ec9b68aaaa0d1ee9736674872" title="Main function of the application." alt="" coords="108,5,264,47"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ada43c5bcc6e53f1ba4a4ae205e0f24c6" title="Entry point for the program." alt="" coords="5,13,60,39"/>
-</map>

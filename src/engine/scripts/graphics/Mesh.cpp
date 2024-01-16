@@ -49,7 +49,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	const unsigned long& Mesh::VertexCount() const noexcept { return m_VertexCount; }
 	
-	const std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
+	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
 		
 		if (s_Instance == nullptr) {
 			s_Instance = std::make_shared<Mesh>(Mesh());
@@ -69,7 +69,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			// Texture coordinates.
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (int*)(2 * sizeof(GLfloat)));
 			
 		}
 		

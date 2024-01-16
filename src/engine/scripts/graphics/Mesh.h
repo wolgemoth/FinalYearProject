@@ -67,7 +67,7 @@ namespace LouiEriksson::Engine::Graphics {
 			public:
 				
 				/// <summary> Returns a pointer to the static instance of the mesh. </summary>
-				static const std::weak_ptr<Mesh> Instance();
+				static std::weak_ptr<Mesh> Instance();
 				
 			};
 			
