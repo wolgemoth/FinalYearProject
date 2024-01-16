@@ -105,13 +105,17 @@ Building for Windows is not yet supported. This will be added in the future.
 #### Asset Sources
 
 Textures downloaded from Poly Haven under a CC0 permissive license:
-https://polyhaven.com/a/abandoned_workshop_02
-https://polyhaven.com/a/blue_photo_studio
-https://polyhaven.com/a/little_paris_eiffel_tower
-https://polyhaven.com/a/floor_tiles_06
+- https://polyhaven.com/a/abandoned_workshop_02
+- https://polyhaven.com/a/blue_photo_studio
+- https://polyhaven.com/a/little_paris_eiffel_tower
+- https://polyhaven.com/a/floor_tiles_06
 
-"Bokeh__Lens_Dirt_65" texture downloaded from "SweetFX Settings DB" and edited with GIMP. Unknown license. Used non-commercially under fair use:
-https://sfx.thelazy.net/games/screenshot/72311/
+"Bokeh__Lens_Dirt_65" texture downloaded from "SweetFX Settings DB" and edited with GIMP. Unknown license. Used non-commercially under fair use (for educational purposes):
+- https://sfx.thelazy.net/games/screenshot/72311/
 
-"tavern-wood-planks1" PBR texture pack downloaded from "Free PBR" and edited with GIMP. Non-commercial license. Used non-commercially under fair use:
-https://freepbr.com/materials/tavern-wood-planks/
+"tavern-wood-planks1" PBR texture pack downloaded from "Free PBR" and edited with GIMP. Non-commercial license. Used non-commercially under fair use (for educational purposes):
+- https://freepbr.com/materials/tavern-wood-planks/
+
+"Hollow_Bass.wav" made by me for this project using [Audacity](https://www.audacityteam.org/).
+
+"machineGun.wav" was made by me for [another project](https://store.steampowered.com/app/1141390/The_Blitzkrieg_Weapons_of_War/).
