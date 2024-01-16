@@ -57,7 +57,7 @@ namespace LouiEriksson::Engine {
 			if (glewInit() != GLEW_OK) {
 				
 				// Throw error if GLEW fails to initialise correctly.
-				throw std::runtime_error("ERROR (Application.cpp [Main()]): Failed to initialize GLEW!");
+				std::cout << "Failed to initialize GLEW!\n";
 			}
 			
 			/* INIT SOUND */

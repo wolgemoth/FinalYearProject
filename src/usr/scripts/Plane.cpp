@@ -21,6 +21,7 @@ namespace LouiEriksson::Game::Scripts {
 			
 				// Add Renderer.
 				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				
 				renderer->SetMesh(Resources::GetMesh("woodfloor"));
 				renderer->SetMaterial(Resources::GetMaterial("woodfloor"));
 				renderer->SetTransform(transform);

@@ -44,25 +44,23 @@ namespace LouiEriksson::Engine {
 	
 	void Settings::Graphics::Skybox::UpdateSkybox(const int& _index) {
 		
-		try {
-			s_Skybox = Resources::GetTexture(s_AvailableSkyboxes.at(_index));
+		std::shared_ptr<LouiEriksson::Engine::Graphics::Texture> item;
+		if (Resources::TryGetTexture(s_AvailableSkyboxes.at(_index), item)) {
+			
+			s_Skybox = item;
 			
 			s_CurrentSkyboxSelection = _index;
-		}
-		catch (const std::runtime_error& e) {
-			std::cout << e.what()<< '\n';
 		}
 	}
 	
 	void Settings::Graphics::Material::UpdateShader(const int& _index) {
 		
-		try {
-			s_Shader = Resources::GetShader(s_AvailableShaders.at(_index));
+		std::shared_ptr<LouiEriksson::Engine::Graphics::Shader> item;
+		if (Resources::TryGetShader(s_AvailableShaders.at(_index), item)) {
+			
+			s_Shader = item;
 			
 			s_CurrentShaderSelection = _index;
-		}
-		catch (const std::runtime_error& e) {
-			std::cout << e.what()<< '\n';
 		}
 	}
 	

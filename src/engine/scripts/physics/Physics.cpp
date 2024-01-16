@@ -48,27 +48,29 @@ namespace LouiEriksson::Engine::Physics {
 	}
 	
 	void Physics::Debugger::drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
 	}
 	
 	void Physics::Debugger::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
 	}
 	
 	void Physics::Debugger::reportErrorWarning(const char* warningString) {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
 	}
 	
 	void Physics::Debugger::draw3dText(const btVector3& location, const char* textString) {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
 	}
 	
 	void Physics::Debugger::setDebugMode(int debugMode) {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
 	}
 	
 	int Physics::Debugger::getDebugMode() const {
-		throw std::runtime_error("Not implemented!");
+		std::cout << "Not implemented!\n";
+		
+		return -1;
 	}
 	
 	void Physics::Init() {

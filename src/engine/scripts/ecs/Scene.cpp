@@ -183,7 +183,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 		std::cout << "Saving Scene... ";
 	
-		{
+		try {
 			auto ofStream = std::ofstream(_path);
 	
 			auto xml = cereal::XMLOutputArchive(ofStream);
@@ -281,9 +281,14 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			xml.finishNode();
+			
+			std::cout << "Done.\n";
+		}
+		catch (const std::exception& e) {
+			std::cout << "Failed.\n"; // Debug output.
 		}
 	
-		std::cout << "Done." << "\nOutput:\n" << File::ReadAllText(_path); // Debug output.
+		std::cout << "Output:\n" << File::ReadAllText(_path); // Debug output.
 	}
 	
 	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
@@ -413,8 +418,7 @@ namespace LouiEriksson::Engine::ECS {
 							else {
 								
 								std::stringstream err;
-								err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<
-									type << "\" Has not been implemented.\n";
+								err << "Deserialisation for type \"" << type << "\" Has not been implemented.\n";
 							
 								throw(std::runtime_error(err.str()));
 							}

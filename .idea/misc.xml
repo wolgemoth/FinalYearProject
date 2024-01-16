@@ -15,6 +15,7 @@
     <excludeRoots>
       <file path="$PROJECT_DIR$/cmake_build_debug" />
       <file path="$PROJECT_DIR$/contrib" />
+      <file path="$PROJECT_DIR$/documentation" />
     </excludeRoots>
   </component>
   <component name="ExtraIconsSettingsProject">

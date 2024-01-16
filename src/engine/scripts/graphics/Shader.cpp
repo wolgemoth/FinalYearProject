@@ -60,8 +60,7 @@ namespace LouiEriksson::Engine::Graphics {
 			DetachShaders();
 		}
 		else {
-			throw std::runtime_error(
-				"ERROR (Shader.cpp [Shader(const std::vector<SubShader>&)]): Attempted to create a shader object with no subshaders.");
+			std::cout << "Attempted to create a shader object with no subshaders.\n";
 		}
 	}
 	
@@ -87,8 +86,7 @@ namespace LouiEriksson::Engine::Graphics {
 			DetachShaders();
 		}
 		else {
-			throw std::runtime_error(
-				"ERROR (Shader.cpp [Shader(const std::vector<SubShader>&)]): Attempted to create a shader object with no subshaders.");
+			std::cout << "Attempted to create a shader object with no subshaders.\n";
 		}
 	}
 	
@@ -122,7 +120,7 @@ namespace LouiEriksson::Engine::Graphics {
 		if (success == 0) {
 			
 			std::stringstream err;
-			err << "ERROR (Shader.cpp [LinkShaders()]): \"" <<
+			err << "Shader linking error: \"" <<
 				m_Name << "\", " << glGetError()<< '\n';
 			
 			{
@@ -135,8 +133,6 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			
 			std::cout << err.str()<< '\n';
-			
-			throw std::runtime_error(err.str());
 		}
 	}
 	
@@ -177,7 +173,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glGetShaderInfoLog(m_SubShaders.back(), maxLength, &maxLength, errorLog.data());
 			
 			std::stringstream err;
-			err << "ERROR (Shader.cpp [Compile(const char*, GLint)]): Failed to compile shader:\n\t";
+			err << "Shader compilation error:\n\t";
 			
 			for (const auto& error : errorLog) {
 				err << error;
@@ -185,7 +181,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			std::cout << "Failed.\n";
 			
-			throw std::runtime_error(err.str());
+			std::cout << err.str() << '\n';
 		}
 	}
 	
@@ -279,14 +275,10 @@ namespace LouiEriksson::Engine::Graphics {
 		const GLenum errorCode(glGetError());
 		if (errorCode != 0u) {
 			
-			std::stringstream err;
-			
-			err << "ERROR (Shader.cpp [TryBindAttribute(const GLint&, const char*)]): Shader \"" <<
+			std::cout << "Shader \"" <<
 			    Name() << "\": Attempt at binding attribute \"" <<
 			    _name  << "\", to location (" << _pos << ") failed. " <<
-			              "GL Error Code: " << errorCode<< '\n';
-			
-			throw std::runtime_error(err.str());
+			              "GL Error Code: " << errorCode << '\n';
 		}
 	}
 	

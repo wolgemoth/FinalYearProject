@@ -47,10 +47,7 @@ namespace LouiEriksson::Engine {
 				SDL_PIXELFORMAT_RGB24;
 		
 		if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
-			
-			std::stringstream err;
-			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
-				SDL_GetError();
+			std::cout << SDL_GetError() << '\n';
 		}
 		else {
 			std::cout <<
@@ -61,14 +58,7 @@ namespace LouiEriksson::Engine {
 		m_Context = SDL_GL_CreateContext(m_Window.get());
 		
 		if (m_Context == nullptr) {
-	
-			std::stringstream err;
-			err << "ERROR (Window.cpp [Window(int, int, const char*)]): " <<
-				SDL_GetError();
-	
-			std::cout << err.str()<< '\n';
-	
-			throw std::runtime_error(err.str());
+			std::cout << SDL_GetError() << '\n';
 		}
 	}
 	
@@ -85,12 +75,7 @@ namespace LouiEriksson::Engine {
 	
 		std::shared_ptr<Window> result;
 		if (!m_Windows.Get(_id, result)) {
-	
-			std::stringstream err;
-			err << "ERROR (Application.cpp [GetWindow(int)]): Failed getting window with ID: \"" <<
-				_id << "\"";
-	
-			throw std::runtime_error(err.str());
+			std::cout << "Failed getting window with ID: \"" << _id << "\"\n";
 		}
 	
 		return result;
@@ -114,11 +99,7 @@ namespace LouiEriksson::Engine {
 				window.reset();
 			}
 			else {
-				std::stringstream err;
-				err << "ERROR (Application.cpp [DestroyWindow(int)]): Failed to destroy window with ID: \"" <<
-					_id << "\"";
-	
-				throw std::runtime_error(err.str());
+				std::cout << "Failed to destroy window with ID: \"" << _id << "\"\n";
 			}
 		}
 	}

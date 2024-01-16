@@ -528,7 +528,7 @@ namespace LouiEriksson::Engine::Graphics {
 						case Light::Parameters::Directional: { p = Resources::GetShader("shadowDepth").lock();     break; }
 						case Light::Parameters::Spot:        { p = Resources::GetShader("shadowDepthSpot").lock(); break; }
 						default: {
-							throw std::runtime_error("Not implemented!");
+							std::cout << "Unknown Light Type!\n";
 						}
 					}
 					

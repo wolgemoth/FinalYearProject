@@ -28,6 +28,7 @@ namespace LouiEriksson::Game::Scripts {
 			
 				// Add Renderer.
 				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				
 				renderer->SetMesh(Resources::GetMesh("sphere"));
 				renderer->SetMaterial(Resources::GetMaterial("sphere"));
 				renderer->SetTransform(t);
@@ -50,7 +51,7 @@ namespace LouiEriksson::Game::Scripts {
 				// Add AudioSource and Clip.
 				if (const auto as = p->AddComponent<Audio::AudioSource>().lock()) {
 					as->Clip(Resources::GetAudio("Hollow_Bass"));
-					
+
 					m_AudioSource = as;
 				}
 			}

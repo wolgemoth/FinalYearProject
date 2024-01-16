@@ -84,7 +84,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				m_Shadow.m_Projection = glm::mat4(1.0);
 				
-				throw std::runtime_error("Not Implemented!");
+				std::cout << "Not implemented!\n";
 			}
 		}
 		
@@ -143,14 +143,17 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 					
-					if (m_ShadowMap_FBO     == 0) { throw std::runtime_error("Shadow map FBO is 0!");     }
-					if (m_ShadowMap_Texture == 0) { throw std::runtime_error("Shadow map texture is 0!"); }
+					if (m_ShadowMap_FBO != GL_NONE) {
+						glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
+						
+						m_ShadowMap_FBO = GL_NONE;
+					}
 					
-					glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
-					glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
-					
-					m_ShadowMap_FBO     = 0;
-					m_ShadowMap_Texture = 0;
+					if (m_ShadowMap_Texture != GL_NONE) {
+						glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
+						
+						m_ShadowMap_Texture = GL_NONE;
+					}
 				}
 			}
 			
@@ -214,14 +217,17 @@ namespace LouiEriksson::Engine::Graphics {
 				RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 				      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
 				
-				if (m_ShadowMap_FBO     == 0) { throw std::runtime_error("Shadow map FBO is 0!");      }
-				if (m_ShadowMap_Texture == 0) { throw std::runtime_error("Shadow map texture is 0!");  }
+				if (m_ShadowMap_FBO != GL_NONE) {
+					glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
+					
+					m_ShadowMap_FBO = GL_NONE;
+				}
 				
-				glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
-				glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
-				
-				m_ShadowMap_FBO     = 0;
-				m_ShadowMap_Texture = 0;
+				if (m_ShadowMap_Texture != GL_NONE) {
+					glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
+					
+					m_ShadowMap_Texture = GL_NONE;
+				}
 			}
 		}
 	}

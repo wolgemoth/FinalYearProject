@@ -94,7 +94,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_DepthMode = _depthMode;
 		}
 		else {
-			throw std::runtime_error("ERROR (RenderTexture.cpp [RenderTexture(int, int)]): Failure generating Frame Buffer Object for new RenderTexture.");
+			std::cout << "Failed generating Frame Buffer Object for new RenderTexture!\n";
 		}
 	}
 	
