@@ -181,7 +181,7 @@ $(document).ready(function(){initNavTree('_render_texture_8cpp_source.html','');
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            m_DepthMode = _depthMode;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR (RenderTexture.cpp [RenderTexture(int, int)]): Failure generating Frame Buffer Object for new RenderTexture.&quot;</span>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed generating Frame Buffer Object for new RenderTexture!\n&quot;</span>;</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>

@@ -1,0 +1,6 @@
+<map id="LouiEriksson::Engine::Resources::TryGetAudio" name="LouiEriksson::Engine::Resources::TryGetAudio">
+<area shape="rect" id="node1" title=" " alt="" coords="444,39,628,80"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#aaecc6486ceeb8fd04f2bf849c0e3c000" title=" " alt="" coords="231,39,396,80"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_ball.html#a4ed6f260b0e2d8fc8b560935da53e328" title="Called at the beginning of the first frame." alt="" coords="18,5,170,47"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_game_1_1_scripts_1_1_fly_cam.html#a89677d1b90b94b2289547040501ddc6b" title="Called at the beginning of the first frame." alt="" coords="5,71,183,112"/>
+</map>

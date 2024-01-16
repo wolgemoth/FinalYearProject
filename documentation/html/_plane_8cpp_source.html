@@ -108,38 +108,39 @@ $(document).ready(function(){initNavTree('_plane_8cpp_source.html',''); initResi
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                <span class="comment">// Add Renderer.</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> renderer = p-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">Graphics::Renderer</a>&gt;().lock();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                renderer-&gt;SetMesh(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_resources.html#af41294e69d26551e223e986fef1a3436">Resources::GetMesh</a>(<span class="stringliteral">&quot;woodfloor&quot;</span>));</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                renderer-&gt;SetMaterial(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_resources.html#a37106fbb4da90fed4ca14708a22f9edb">Resources::GetMaterial</a>(<span class="stringliteral">&quot;woodfloor&quot;</span>));</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                renderer-&gt;SetTransform(transform);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                <span class="comment">// Add Collider.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> collider = p-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html">Physics::PlaneCollider</a>&gt;().lock();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                collider-&gt;SetTransform(transform);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                collider-&gt;SetType(Physics::Collider::Type::Plane);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="comment">// Add Rigidbody.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> rigidbody = p-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>&gt;().lock();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                rigidbody-&gt;SetTransform(transform);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                rigidbody-&gt;SetCollider(collider);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                rigidbody-&gt;Kinematic(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                rigidbody-&gt;Gravity(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                collider-&gt;SetRigidbody(rigidbody);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane.html#a37ad45f413a9377cbd180d1aad8d8e67">   45</a></span>&#160;    <span class="keywordtype">void</span> Plane::Tick() {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// LouiEriksson::Game::Scripts</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                renderer-&gt;SetMesh(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_resources.html#a79b7f4dec74f28babace166bfdfb66c4">Resources::GetMesh</a>(<span class="stringliteral">&quot;woodfloor&quot;</span>));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                renderer-&gt;SetMaterial(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_resources.html#a0790e370e049b475729c0513ad9b805b">Resources::GetMaterial</a>(<span class="stringliteral">&quot;woodfloor&quot;</span>));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                renderer-&gt;SetTransform(transform);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                <span class="comment">// Add Collider.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> collider = p-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html">Physics::PlaneCollider</a>&gt;().lock();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                collider-&gt;SetTransform(transform);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                collider-&gt;SetType(Physics::Collider::Type::Plane);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <span class="comment">// Add Rigidbody.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> rigidbody = p-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>&gt;().lock();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                rigidbody-&gt;SetTransform(transform);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                rigidbody-&gt;SetCollider(collider);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                rigidbody-&gt;Kinematic(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                rigidbody-&gt;Gravity(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                collider-&gt;SetRigidbody(rigidbody);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_game_1_1_scripts_1_1_plane.html#a37ad45f413a9377cbd180d1aad8d8e67">   46</a></span>&#160;    <span class="keywordtype">void</span> Plane::Tick() {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// LouiEriksson::Game::Scripts</span></div>
 <div class="ttc" id="a_plane_8h_html"><div class="ttname"><a href="_plane_8h.html">Plane.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">LouiEriksson::Engine::Graphics::Renderer</a></div><div class="ttdef"><b>Definition:</b> <a href="_renderer_8h_source.html#l00026">Renderer.h:26</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_plane_collider.html">LouiEriksson::Engine::Physics::PlaneCollider</a></div><div class="ttdef"><b>Definition:</b> <a href="_plane_collider_8h_source.html#l00025">PlaneCollider.h:25</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">LouiEriksson::Engine::Physics::Rigidbody</a></div><div class="ttdoc">Rigidbody Component implementing Rigidbody dynamics and Collision response behaviour.</div><div class="ttdef"><b>Definition:</b> <a href="_rigidbody_8h_source.html#l00032">Rigidbody.h:32</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_resources_html_a37106fbb4da90fed4ca14708a22f9edb"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_resources.html#a37106fbb4da90fed4ca14708a22f9edb">LouiEriksson::Engine::Resources::GetMaterial</a></div><div class="ttdeci">static std::weak_ptr&lt; Graphics::Material &gt; GetMaterial(const std::string &amp;_name)</div><div class="ttdef"><b>Definition:</b> <a href="_resources_8cpp_source.html#l00263">Resources.cpp:263</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_resources_html_af41294e69d26551e223e986fef1a3436"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_resources.html#af41294e69d26551e223e986fef1a3436">LouiEriksson::Engine::Resources::GetMesh</a></div><div class="ttdeci">static std::weak_ptr&lt; Graphics::Mesh &gt; GetMesh(const std::string &amp;_name)</div><div class="ttdef"><b>Definition:</b> <a href="_resources_8cpp_source.html#l00259">Resources.cpp:259</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_resources_html_a0790e370e049b475729c0513ad9b805b"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_resources.html#a0790e370e049b475729c0513ad9b805b">LouiEriksson::Engine::Resources::GetMaterial</a></div><div class="ttdeci">static std::weak_ptr&lt; Graphics::Material &gt; GetMaterial(const std::string &amp;_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_resources_8cpp_source.html#l00277">Resources.cpp:277</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_resources_html_a79b7f4dec74f28babace166bfdfb66c4"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_resources.html#a79b7f4dec74f28babace166bfdfb66c4">LouiEriksson::Engine::Resources::GetMesh</a></div><div class="ttdeci">static std::weak_ptr&lt; Graphics::Mesh &gt; GetMesh(const std::string &amp;_name) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_resources_8cpp_source.html#l00269">Resources.cpp:269</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_script_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_script.html">LouiEriksson::Engine::Script</a></div><div class="ttdoc">Base class to be inherited by scriptable types.</div><div class="ttdef"><b>Definition:</b> <a href="_script_8h_source.html#l00034">Script.h:34</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_engine_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine.html">LouiEriksson::Engine</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_game_1_1_scripts_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_game_1_1_scripts.html">LouiEriksson::Game::Scripts</a></div><div class="ttdef"><b>Definition:</b> <a href="_ball_8cpp_source.html#l00007">Ball.cpp:7</a></div></div>

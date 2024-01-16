@@ -1,5 +1,7 @@
 <map id="LouiEriksson::Game::Scripts::Plane::Begin" name="LouiEriksson::Game::Scripts::Plane::Begin">
 <area shape="rect" id="node1" title="Called at the beginning of the first frame." alt="" coords="5,39,168,80"/>
-<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a37106fbb4da90fed4ca14708a22f9edb" title=" " alt="" coords="216,5,399,47"/>
-<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#af41294e69d26551e223e986fef1a3436" title=" " alt="" coords="226,71,389,112"/>
+<area shape="rect" id="node2" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a0790e370e049b475729c0513ad9b805b" title=" " alt="" coords="216,5,399,47"/>
+<area shape="rect" id="node4" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a79b7f4dec74f28babace166bfdfb66c4" title=" " alt="" coords="226,71,389,112"/>
+<area shape="rect" id="node3" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ab45d0d38150f9eb5653af54b1133243d" title=" " alt="" coords="447,5,648,47"/>
+<area shape="rect" id="node5" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ad353085142a0373aab48281c383d0f5d" title=" " alt="" coords="456,71,639,112"/>
 </map>

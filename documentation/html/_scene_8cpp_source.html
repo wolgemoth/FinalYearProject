@@ -270,7 +270,7 @@ $(document).ready(function(){initNavTree('_scene_8cpp_source.html',''); initResi
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    </div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Saving Scene... &quot;</span>;</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">try</span> {</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keyword">auto</span> ofStream = std::ofstream(_path);</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keyword">auto</span> xml = cereal::XMLOutputArchive(ofStream);</div>
@@ -368,171 +368,175 @@ $(document).ready(function(){initNavTree('_scene_8cpp_source.html',''); initResi
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            }</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            </div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            xml.finishNode();</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Done.&quot;</span> &lt;&lt; <span class="stringliteral">&quot;\nOutput:\n&quot;</span> &lt;&lt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_file.html#a924f4124077a056bca5442a4160fe0c0">File::ReadAllText</a>(_path); <span class="comment">// Debug output.</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    </div>
-<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">  289</a></span>&#160;    std::shared_ptr&lt;Scene&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">Scene::Load</a>(<span class="keyword">const</span> std::filesystem::path&amp; _path, <span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_hashmap.html">Hashmap</a>&lt;std::string, std::shared_ptr&lt;Script&gt; (*)(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent)&gt;&amp; _initialisers) {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Done.\n&quot;</span>;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed.\n&quot;</span>; <span class="comment">// Debug output.</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        }</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Loading Scene \&quot;&quot;</span> &lt;&lt; _path.c_str() &lt;&lt; <span class="stringliteral">&quot;\&quot;... &quot;</span>;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keyword">auto</span> result = std::make_shared&lt;Scene&gt;();</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="comment">// TODO: Better logging.</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> log = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Output:\n&quot;</span> &lt;&lt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_file.html#a924f4124077a056bca5442a4160fe0c0">File::ReadAllText</a>(_path); <span class="comment">// Debug output.</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    }</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    </div>
+<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">  294</a></span>&#160;    std::shared_ptr&lt;Scene&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">Scene::Load</a>(<span class="keyword">const</span> std::filesystem::path&amp; _path, <span class="keyword">const</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_hashmap.html">Hashmap</a>&lt;std::string, std::shared_ptr&lt;Script&gt; (*)(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp; _parent)&gt;&amp; _initialisers) {</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Loading Scene \&quot;&quot;</span> &lt;&lt; _path.c_str() &lt;&lt; <span class="stringliteral">&quot;\&quot;... &quot;</span>;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            <span class="keyword">auto</span> ifStream = std::ifstream(_path, std::ifstream::in);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            <span class="keyword">auto</span> xml = cereal::XMLInputArchive(ifStream);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        </div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            xml.startNode();</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        </div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            <span class="keywordtype">int</span> gameObjectCount = 0;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            xml.loadSize(gameObjectCount);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keyword">auto</span> result = std::make_shared&lt;Scene&gt;();</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="comment">// TODO: Better logging.</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> log = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            <span class="keyword">auto</span> ifStream = std::ifstream(_path, std::ifstream::in);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <span class="keyword">auto</span> xml = cereal::XMLInputArchive(ifStream);</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        </div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            <span class="keywordflow">if</span> (log) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot;GameObjects: &quot;</span> &lt;&lt; gameObjectCount&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            }</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; gameObjectCount; i++) {</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            xml.startNode();</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        </div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            <span class="keywordtype">int</span> gameObjectCount = 0;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            xml.loadSize(gameObjectCount);</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> *goName = xml.getNodeName();</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;                <span class="keywordflow">if</span> (log) {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                    std::cout &lt;&lt; <span class="stringliteral">&quot;\tName: \&quot;&quot;</span> &lt;&lt; goName &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                }</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                <span class="comment">// Create GameObject to populate.</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                <span class="keyword">auto</span> go = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10">GameObject::Create</a>(result-&gt;shared_from_this(), goName);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                xml.startNode();</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                <span class="keywordtype">int</span> count = 0;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                xml.loadSize(count);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="keywordflow">if</span> (log) {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot;GameObjects: &quot;</span> &lt;&lt; gameObjectCount&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            }</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; gameObjectCount; i++) {</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> *goName = xml.getNodeName();</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                </div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                <span class="keywordflow">if</span> (log) {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                    std::cout &lt;&lt; <span class="stringliteral">&quot;\tName: \&quot;&quot;</span> &lt;&lt; goName &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                <span class="comment">// Create GameObject to populate.</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                <span class="keyword">auto</span> go = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10">GameObject::Create</a>(result-&gt;shared_from_this(), goName);</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                <span class="keywordflow">if</span> (log) {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                    std::cout &lt;&lt; <span class="stringliteral">&quot;\tComponents: &quot;</span> &lt;&lt; count&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                </div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; count; j++) {</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span>* name = xml.getNodeName();</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                    </div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                    <span class="keywordflow">if</span> (log) {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                        std::cout &lt;&lt; <span class="stringliteral">&quot;\t\t&quot;</span> &lt;&lt; name&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    }</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                    <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="struct_loui_eriksson_1_1_engine_1_1_transform.html">Transform</a>).name()) == 0) {          <span class="comment">// Deserialise Transform.</span></div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        </div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> t = go-&gt;AddComponent&lt;<a class="code" href="struct_loui_eriksson_1_1_engine_1_1_transform.html">Transform</a>&gt;().lock()) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                            xml.startNode();</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                            t-&gt;m_Position = Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                            t-&gt;m_Rotation = Serialisation::Deserialise&lt;glm::quat&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                            t-&gt;m_Scale    = Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                            xml.finishNode();</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                        }</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                    }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>( <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>).name()) == 0) {   <span class="comment">// Deserialise Rigidbody.</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> r = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>&gt;().lock()) {</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        </div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                            xml.startNode();</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                            r-&gt;       Velocity(Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                            r-&gt;AngularVelocity(Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                            r-&gt;           Mass(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                            r-&gt;           Drag(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                            r-&gt;    AngularDrag(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                            </div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                            xml.finishNode();</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                        }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                    }</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>   ).name()) == 0) {       <span class="comment">// Deserialise Camera.</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                    </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> c = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>&gt;().lock()) {</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                            </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                            xml.startNode();</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                            xml.finishNode();</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                        }</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                    }</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html">Graphics::Light</a>    ).name()) == 0) {       <span class="comment">// Deserialise Light</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                        </div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> l = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html">Graphics::Light</a>&gt;().lock()) {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                            xml.startNode();</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                            xml.finishNode();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                        }</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                    }</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">Graphics::Renderer</a> ).name()) == 0) {       <span class="comment">// Deserialise Renderer.</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> r = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">Graphics::Renderer</a>&gt;().lock()) {</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            </div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                            xml.startNode();</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                            xml.finishNode();</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                        }</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                    }</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html">Script</a>).name()) == 0) {        <span class="comment">// Deserialise Scripts...</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;                        xml.startNode();</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                        std::string type;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                        xml(type);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                xml.startNode();</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        </div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                <span class="keywordtype">int</span> count = 0;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                xml.loadSize(count);</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                <span class="keywordflow">if</span> (log) {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                    std::cout &lt;&lt; <span class="stringliteral">&quot;\tComponents: &quot;</span> &lt;&lt; count&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                }</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; count; j++) {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    <span class="keyword">const</span> <span class="keyword">auto</span>* name = xml.getNodeName();</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                    </div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                    <span class="keywordflow">if</span> (log) {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                        std::cout &lt;&lt; <span class="stringliteral">&quot;\t\t&quot;</span> &lt;&lt; name&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                    }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                    </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                    <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="struct_loui_eriksson_1_1_engine_1_1_transform.html">Transform</a>).name()) == 0) {          <span class="comment">// Deserialise Transform.</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> t = go-&gt;AddComponent&lt;<a class="code" href="struct_loui_eriksson_1_1_engine_1_1_transform.html">Transform</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                            xml.startNode();</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            </div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                            t-&gt;m_Position = Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                            t-&gt;m_Rotation = Serialisation::Deserialise&lt;glm::quat&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                            t-&gt;m_Scale    = Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1));</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                            xml.finishNode();</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                        }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                    }</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>( <a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>).name()) == 0) {   <span class="comment">// Deserialise Rigidbody.</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> r = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_physics_1_1_rigidbody.html">Physics::Rigidbody</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                            xml.startNode();</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            </div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                            r-&gt;       Velocity(Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                            r-&gt;AngularVelocity(Serialisation::Deserialise&lt;glm::vec3&gt;(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                            r-&gt;           Mass(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                            r-&gt;           Drag(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                            r-&gt;    AngularDrag(Serialisation::Deserialise&lt;float&gt;    (<a class="code" href="class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078">Serialisation::ParseNext</a>(xml, log ? 3 : -1)));</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                            </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                            xml.finishNode();</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                        }</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                    }</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>   ).name()) == 0) {       <span class="comment">// Deserialise Camera.</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                    </div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> c = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                            </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                            xml.startNode();</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                            xml.finishNode();</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                        }</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                    }</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html">Graphics::Light</a>    ).name()) == 0) {       <span class="comment">// Deserialise Light</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                        </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> l = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_light.html">Graphics::Light</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                            xml.startNode();</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                            xml.finishNode();</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;                        }</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                    }</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">Graphics::Renderer</a> ).name()) == 0) {       <span class="comment">// Deserialise Renderer.</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        </div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> r = go-&gt;AddComponent&lt;<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_renderer.html">Graphics::Renderer</a>&gt;().lock()) {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                            xml.startNode();</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;                            xml.finishNode();</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                        }</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                    }</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(name, <span class="keyword">typeid</span>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_script.html">Script</a>).name()) == 0) {        <span class="comment">// Deserialise Scripts...</span></div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                        <span class="keywordflow">if</span> (log) {</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                            std::cout &lt;&lt; <span class="stringliteral">&quot;\t\t\t\&quot;&quot;</span> &lt;&lt; type &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                        }</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                        </div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                        <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                        </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                            <span class="keyword">using</span> FuncPtrType = std::shared_ptr&lt;Script&gt; (*)(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp;);</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                            </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                            FuncPtrType fPtr;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                            <span class="keywordflow">if</span> (_initialisers.Get(type, fPtr)) {</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                                </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                                <span class="keyword">const</span> <span class="keyword">auto</span> script = fPtr(go);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                                go-&gt;Attach(script-&gt;TypeID(), script);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                            }</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                        xml.startNode();</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                        std::string type;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                        xml(type);</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                        <span class="keywordflow">if</span> (log) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                            std::cout &lt;&lt; <span class="stringliteral">&quot;\t\t\t\&quot;&quot;</span> &lt;&lt; type &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                        }</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                        </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                        </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                            <span class="keyword">using</span> FuncPtrType = std::shared_ptr&lt;Script&gt; (*)(<span class="keyword">const</span> std::weak_ptr&lt;ECS::GameObject&gt;&amp;);</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                            </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                            FuncPtrType fPtr;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                            <span class="keywordflow">if</span> (_initialisers.Get(type, fPtr)) {</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                                </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                                std::stringstream err;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                                err &lt;&lt; <span class="stringliteral">&quot;ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \&quot;&quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                                    type &lt;&lt; <span class="stringliteral">&quot;\&quot; Has not been implemented.\n&quot;</span>;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                            </div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                                <span class="keywordflow">throw</span>(std::runtime_error(err.str()));</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;                            }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                            </div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;                        }</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;                        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;                            std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                        }</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                        xml.finishNode();</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;                    }</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                }</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                                <span class="keyword">const</span> <span class="keyword">auto</span> script = fPtr(go);</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                                go-&gt;Attach(script-&gt;TypeID(), script);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                            }</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                                </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;                                std::stringstream err;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                                err &lt;&lt; <span class="stringliteral">&quot;Deserialisation for type \&quot;&quot;</span> &lt;&lt; type &lt;&lt; <span class="stringliteral">&quot;\&quot; Has not been implemented.\n&quot;</span>;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;                            </div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;                                <span class="keywordflow">throw</span>(std::runtime_error(err.str()));</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;                            }</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                            </div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;                        }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;                            std::cout &lt;&lt; e.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                        }</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        </div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                xml.finishNode();</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;            }</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            xml.finishNode();</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Done.&quot;</span>&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        }</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                        xml.finishNode();</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                    }</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;                }</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                xml.finishNode();</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        </div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;            xml.finishNode();</div>
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            </div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed.\n&quot;</span>;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            </div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;            std::cout &lt;&lt; e.what()&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        }</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        </div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    }</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    </div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;} <span class="comment">// LouiEriksson::Engine::ECS</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Done.&quot;</span>&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        }</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;            </div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed.\n&quot;</span>;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;            </div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            std::cout &lt;&lt; e.what()&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        }</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        </div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    }</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    </div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;} <span class="comment">// LouiEriksson::Engine::ECS</span></div>
 <div class="ttc" id="a_scene_8h_html"><div class="ttname"><a href="_scene_8h.html">Scene.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object_html_aa14b456ae1a877ec7f65d60fc2994d10"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10">LouiEriksson::Engine::ECS::GameObject::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; GameObject &gt; Create(const std::shared_ptr&lt; Scene &gt; &amp;_scene, const std::string &amp;_name=&quot;&quot;)</div><div class="ttdoc">Factory function which creates a GameObject within a Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_game_object_8cpp_source.html#l00021">GameObject.cpp:21</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a321f7d4e046e5a4803160000f542bb6a"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a321f7d4e046e5a4803160000f542bb6a">LouiEriksson::Engine::ECS::Scene::Begin</a></div><div class="ttdeci">virtual void Begin()</div><div class="ttdoc">Called at the beginning of the first frame.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00086">Scene.cpp:86</a></div></div>
@@ -541,7 +545,7 @@ $(document).ready(function(){initNavTree('_scene_8cpp_source.html',''); initResi
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a5ab5087b8ea1fe85d18586a6e18cba73"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a5ab5087b8ea1fe85d18586a6e18cba73">LouiEriksson::Engine::ECS::Scene::Tick</a></div><div class="ttdeci">virtual void Tick(const Graphics::Camera::RenderFlags &amp;_flags)</div><div class="ttdoc">Called every frame.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00100">Scene.cpp:100</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a5c3e6e7abba0d0dca511fc407bf4ec36"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a5c3e6e7abba0d0dca511fc407bf4ec36">LouiEriksson::Engine::ECS::Scene::m_Entities</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; GameObject &gt; &gt; m_Entities</div><div class="ttdoc">Entities within the Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00041">Scene.h:41</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a63722103e0f5b610649b5ef0054e98d0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a63722103e0f5b610649b5ef0054e98d0">LouiEriksson::Engine::ECS::Scene::FixedTick</a></div><div class="ttdeci">virtual void FixedTick()</div><div class="ttdoc">Called every physics update.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00129">Scene.cpp:129</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a7c228881f8274670b023b74386bb27ed"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">LouiEriksson::Engine::ECS::Scene::Load</a></div><div class="ttdeci">static std::shared_ptr&lt; Scene &gt; Load(const std::filesystem::path &amp;_path, const Hashmap&lt; std::string, std::shared_ptr&lt; Script &gt;(*)(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;parent)&gt; &amp;_initialisers)</div><div class="ttdoc">TryLoad the Scene from xml format at a given path.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00289">Scene.cpp:289</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_a7c228881f8274670b023b74386bb27ed"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#a7c228881f8274670b023b74386bb27ed">LouiEriksson::Engine::ECS::Scene::Load</a></div><div class="ttdeci">static std::shared_ptr&lt; Scene &gt; Load(const std::filesystem::path &amp;_path, const Hashmap&lt; std::string, std::shared_ptr&lt; Script &gt;(*)(const std::weak_ptr&lt; ECS::GameObject &gt; &amp;parent)&gt; &amp;_initialisers)</div><div class="ttdoc">TryLoad the Scene from xml format at a given path.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00294">Scene.cpp:294</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_aed5da7cb03e97775efd119f989233c58"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#aed5da7cb03e97775efd119f989233c58">LouiEriksson::Engine::ECS::Scene::m_Components</a></div><div class="ttdeci">Hashmap&lt; std::type_index, std::vector&lt; std::weak_ptr&lt; Component &gt; &gt; &gt; m_Components</div><div class="ttdoc">Components (linked to entities) within the Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00044">Scene.h:44</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene_html_aede2c904cc80411b8495284a744c3015"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_scene.html#aede2c904cc80411b8495284a744c3015">LouiEriksson::Engine::ECS::Scene::Components</a></div><div class="ttdeci">const Hashmap&lt; std::type_index, std::vector&lt; std::weak_ptr&lt; Component &gt; &gt; &gt; &amp; Components() noexcept</div><div class="ttdoc">Get the components within the Scene.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8cpp_source.html#l00178">Scene.cpp:178</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_file_html_a924f4124077a056bca5442a4160fe0c0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_file.html#a924f4124077a056bca5442a4160fe0c0">LouiEriksson::Engine::File::ReadAllText</a></div><div class="ttdeci">static std::string ReadAllText(const std::filesystem::path &amp;_path)</div><div class="ttdef"><b>Definition:</b> <a href="_file_8cpp_source.html#l00040">File.cpp:40</a></div></div>

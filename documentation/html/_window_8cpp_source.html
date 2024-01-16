@@ -134,168 +134,149 @@ $(document).ready(function(){initNavTree('_window_8cpp_source.html',''); initRes
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                SDL_PIXELFORMAT_RGB24;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> (SDL_SetWindowDisplayMode(m_Window.get(), &amp;displayMode) != 0) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            std::stringstream err;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            err &lt;&lt; <span class="stringliteral">&quot;ERROR (Window.cpp [Window(int, int, const char*)]): &quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                SDL_GetError();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            std::cout &lt;&lt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="stringliteral">&quot;Output Format: \&quot;&quot;</span> &lt;&lt; SDL_GetPixelFormatName(displayMode.format) &lt;&lt; <span class="stringliteral">&quot;\&quot; (&quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                SDL_BITSPERPIXEL(displayMode.format) &lt;&lt; <span class="stringliteral">&quot;bpp)\n&quot;</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        m_Context = SDL_GL_CreateContext(m_Window.get());</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">if</span> (m_Context == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            std::cout &lt;&lt; SDL_GetError() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            std::cout &lt;&lt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="stringliteral">&quot;Output Format: \&quot;&quot;</span> &lt;&lt; SDL_GetPixelFormatName(displayMode.format) &lt;&lt; <span class="stringliteral">&quot;\&quot; (&quot;</span> &lt;&lt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                SDL_BITSPERPIXEL(displayMode.format) &lt;&lt; <span class="stringliteral">&quot;bpp)\n&quot;</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        m_Context = SDL_GL_CreateContext(m_Window.get());</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> (m_Context == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            std::cout &lt;&lt; SDL_GetError() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            std::stringstream err;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            err &lt;&lt; <span class="stringliteral">&quot;ERROR (Window.cpp [Window(int, int, const char*)]): &quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                SDL_GetError();</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">   65</a></span>&#160;    std::shared_ptr&lt;Window&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">Window::Create</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _width, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _height, <span class="keyword">const</span> <span class="keywordtype">char</span>* _name) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        std::shared_ptr&lt;Window&gt; result(<span class="keyword">new</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html">Window</a>(_width, _height, _name), [](<a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html">Window</a>* _ptr) { <span class="keyword">delete</span> _ptr; });</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            std::cout &lt;&lt; err.str()&lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        m_Windows.Add(result-&gt;ID(), result);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(err.str());</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">   75</a></span>&#160;    std::shared_ptr&lt;Window&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">Window::Create</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _width, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _height, <span class="keyword">const</span> <span class="keywordtype">char</span>* _name) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        std::shared_ptr&lt;Window&gt; result(<span class="keyword">new</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html">Window</a>(_width, _height, _name), [](<a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html">Window</a>* _ptr) { <span class="keyword">delete</span> _ptr; });</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        m_Windows.Add(result-&gt;ID(), result);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">   74</a></span>&#160;    std::weak_ptr&lt;Window&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Window::Get</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _id) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::shared_ptr&lt;Window&gt; result;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (!m_Windows.Get(_id, result)) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Failed getting window with ID: \&quot;&quot;</span> &lt;&lt; _id &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">   84</a></span>&#160;    std::weak_ptr&lt;Window&gt; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Window::Get</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _id) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">   84</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">Window::Destroy</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _id) {</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        std::shared_ptr&lt;Window&gt; result;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (!m_Windows.Get(_id, result)) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            std::stringstream err;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            err &lt;&lt; <span class="stringliteral">&quot;ERROR (Application.cpp [GetWindow(int)]): Failed getting window with ID: \&quot;&quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                _id &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(err.str());</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">   99</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">Window::Destroy</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _id) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">auto</span> window = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Get</a>(_id).lock()) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">if</span> (m_Windows.Remove(window-&gt;ID())) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="comment">// Unlink window from cameras.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> camera : window-&gt;m_Cameras.Values()) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    camera.get().m_Window.reset();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="comment">// Unlink cameras from window.</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                window-&gt;m_Cameras.Clear();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <span class="comment">// &quot;Destroy&quot;</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                window.reset();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                std::stringstream err;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                err &lt;&lt; <span class="stringliteral">&quot;ERROR (Application.cpp [DestroyWindow(int)]): Failed to destroy window with ID: \&quot;&quot;</span> &lt;&lt;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    _id &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                <span class="keywordflow">throw</span> std::runtime_error(err.str());</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    </div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">  126</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">Window::ID</a>() const noexcept {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span> m_ID;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    </div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">  130</a></span>&#160;    SDL_GLContext <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">Window::Context</a>() const noexcept {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> m_Context;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">  134</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">Window::Update</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        SDL_GL_SwapWindow(m_Window.get());</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">auto</span> window = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Get</a>(_id).lock()) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">if</span> (m_Windows.Remove(window-&gt;ID())) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="comment">// Unlink window from cameras.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> camera : window-&gt;m_Cameras.Values()) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    camera.get().m_Window.reset();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="comment">// Unlink cameras from window.</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                window-&gt;m_Cameras.Clear();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                <span class="comment">// &quot;Destroy&quot;</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                window.reset();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot;Failed to destroy window with ID: \&quot;&quot;</span> &lt;&lt; _id &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">  107</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">Window::ID</a>() const noexcept {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> m_ID;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">  111</a></span>&#160;    SDL_GLContext <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">Window::Context</a>() const noexcept {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> m_Context;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">  115</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">Window::Update</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        SDL_GL_SwapWindow(m_Window.get());</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#adc406e310af8dc95b7826918564b9f56">  119</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Window::Dimensions</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _width, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _height) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        SDL_SetWindowSize(m_Window.get(), _width, _height);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">SetDirty</a>();</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">  129</a></span>&#160;    glm::ivec2 <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Window::Dimensions</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        glm::ivec2 result(-1, -1);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        SDL_GetWindowSize(m_Window.get(), &amp;result[0], &amp;result[1]);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#adc406e310af8dc95b7826918564b9f56">  138</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Window::Dimensions</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _width, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _height) {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        SDL_SetWindowSize(m_Window.get(), _width, _height);</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">  138</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">Window::Aspect</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> dimensions = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Dimensions</a>();</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">SetDirty</a>();</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dimensions[0]) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dimensions[1]);</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    </div>
-<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">  148</a></span>&#160;    glm::ivec2 <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Window::Dimensions</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        glm::ivec2 result(-1, -1);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        SDL_GetWindowSize(m_Window.get(), &amp;result[0], &amp;result[1]);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> Window::Link(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>&amp; _camera) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        _camera.m_Window = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Get</a>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">ID</a>());</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        m_Cameras.Add((<span class="keywordtype">int</span>)(<span class="keywordtype">size_t</span>)&amp;_camera, std::reference_wrapper(_camera));</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> Window::Unlink(Graphics::Camera&amp; _camera) noexcept {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        _camera.m_Window.reset();</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        m_Cameras.Remove((<span class="keywordtype">int</span>)(<span class="keywordtype">size_t</span>)&amp;_camera);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    </div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">  157</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">Window::Aspect</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> dimensions = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Dimensions</a>();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dimensions[0]) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dimensions[1]);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> Window::Link(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">Graphics::Camera</a>&amp; _camera) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        _camera.m_Window = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">Get</a>(<a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">ID</a>());</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        m_Cameras.Add((<span class="keywordtype">int</span>)(<span class="keywordtype">size_t</span>)&amp;_camera, std::reference_wrapper(_camera));</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">void</span> Window::Unlink(Graphics::Camera&amp; _camera) noexcept {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        _camera.m_Window.reset();</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        m_Cameras.Remove((<span class="keywordtype">int</span>)(<span class="keywordtype">size_t</span>)&amp;_camera);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    </div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">  173</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">Window::SetDirty</a>() {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> cameras = m_Cameras.Values();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> camera : cameras) {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            camera.get().SetDirty();</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">  154</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">Window::SetDirty</a>() {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> cameras = m_Cameras.Values();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> camera : cameras) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            camera.get().SetDirty();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> dimensions = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Dimensions</a>();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        glViewport(0, 0, dimensions[0], dimensions[1]);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">  166</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">Window::Focused</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">GetFlag</a>(SDL_WINDOW_INPUT_FOCUS);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    </div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">  170</a></span>&#160;    Uint32 <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">Window::GetFlags</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">return</span> SDL_GetWindowFlags(m_Window.get());</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    </div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">  174</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">Window::GetFlag</a>(<span class="keyword">const</span> Uint32&amp; _flag)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keyword">auto</span> flags = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">GetFlags</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordflow">return</span> (flags &amp; _flag) != 0u;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> dimensions = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">Dimensions</a>();</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        glViewport(0, 0, dimensions[0], dimensions[1]);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    </div>
-<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">  185</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">Window::Focused</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">GetFlag</a>(SDL_WINDOW_INPUT_FOCUS);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">  189</a></span>&#160;    Uint32 <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">Window::GetFlags</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">return</span> SDL_GetWindowFlags(m_Window.get());</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    </div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">  193</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">Window::GetFlag</a>(<span class="keyword">const</span> Uint32&amp; _flag)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keyword">auto</span> flags = <a class="code" href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">GetFlags</a>();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordflow">return</span> (flags &amp; _flag) != 0u;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    }</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;} <span class="comment">// LouiEriksson::Engine</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;} <span class="comment">// LouiEriksson::Engine</span></div>
 <div class="ttc" id="a_window_8h_html"><div class="ttname"><a href="_window_8h.html">Window.h</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_graphics_1_1_camera.html">LouiEriksson::Engine::Graphics::Camera</a></div><div class="ttdoc">Camera class for 3D rendering of a scene from a perspective.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8h_source.html#l00033">Camera.h:33</a></div></div>
 <div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html">LouiEriksson::Engine::Window</a></div><div class="ttdef"><b>Definition:</b> <a href="_window_8h_source.html#l00023">Window.h:23</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a1dd14786f2c5edf4085cdf2514994b73"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">LouiEriksson::Engine::Window::Get</a></div><div class="ttdeci">static std::weak_ptr&lt; Window &gt; Get(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00084">Window.cpp:84</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a1eb445cc22dea5ebe05d733dfc7169fb"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">LouiEriksson::Engine::Window::Destroy</a></div><div class="ttdeci">static void Destroy(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00099">Window.cpp:99</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a5eed808100091a4f1528f3bc03f271e0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">LouiEriksson::Engine::Window::Focused</a></div><div class="ttdeci">bool Focused() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00185">Window.cpp:185</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a70e708aa66ffd57378f8e1a8e925c3e7"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">LouiEriksson::Engine::Window::Dimensions</a></div><div class="ttdeci">glm::ivec2 Dimensions() const</div><div class="ttdoc">Returns the window's x,y dimensions as a c-style array.</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00148">Window.cpp:148</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a74ae5e8ba1f350436469aabed875f869"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">LouiEriksson::Engine::Window::GetFlags</a></div><div class="ttdeci">Uint32 GetFlags() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00189">Window.cpp:189</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a7eacffad040979427bafc63a6ed4339a"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">LouiEriksson::Engine::Window::GetFlag</a></div><div class="ttdeci">bool GetFlag(const Uint32 &amp;_flag) const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00193">Window.cpp:193</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a852889c941071eefa5e2562325580738"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">LouiEriksson::Engine::Window::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; Window &gt; Create(const int &amp;_width, const int &amp;_height, const char *_name)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00075">Window.cpp:75</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_aae7eeaac5f0495acc73734a5ad68c417"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">LouiEriksson::Engine::Window::ID</a></div><div class="ttdeci">const int &amp; ID() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00126">Window.cpp:126</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_abd5186c344e7643adca2a4a3345755e0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">LouiEriksson::Engine::Window::Update</a></div><div class="ttdeci">void Update() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00134">Window.cpp:134</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_abf9c13b2b16a785749b24cec1b8cabc6"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">LouiEriksson::Engine::Window::Aspect</a></div><div class="ttdeci">float Aspect() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00157">Window.cpp:157</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_ae2a6ae9b0aa687a5c34a9d3ca708fce7"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">LouiEriksson::Engine::Window::SetDirty</a></div><div class="ttdeci">void SetDirty()</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00173">Window.cpp:173</a></div></div>
-<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_ae7afe2436f6a0ee25aeb84b037baa3fe"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">LouiEriksson::Engine::Window::Context</a></div><div class="ttdeci">SDL_GLContext Context() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00130">Window.cpp:130</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a1dd14786f2c5edf4085cdf2514994b73"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a1dd14786f2c5edf4085cdf2514994b73">LouiEriksson::Engine::Window::Get</a></div><div class="ttdeci">static std::weak_ptr&lt; Window &gt; Get(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00074">Window.cpp:74</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a1eb445cc22dea5ebe05d733dfc7169fb"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a1eb445cc22dea5ebe05d733dfc7169fb">LouiEriksson::Engine::Window::Destroy</a></div><div class="ttdeci">static void Destroy(const int &amp;_id)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00084">Window.cpp:84</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a5eed808100091a4f1528f3bc03f271e0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a5eed808100091a4f1528f3bc03f271e0">LouiEriksson::Engine::Window::Focused</a></div><div class="ttdeci">bool Focused() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00166">Window.cpp:166</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a70e708aa66ffd57378f8e1a8e925c3e7"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a70e708aa66ffd57378f8e1a8e925c3e7">LouiEriksson::Engine::Window::Dimensions</a></div><div class="ttdeci">glm::ivec2 Dimensions() const</div><div class="ttdoc">Returns the window's x,y dimensions as a c-style array.</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00129">Window.cpp:129</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a74ae5e8ba1f350436469aabed875f869"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a74ae5e8ba1f350436469aabed875f869">LouiEriksson::Engine::Window::GetFlags</a></div><div class="ttdeci">Uint32 GetFlags() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00170">Window.cpp:170</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a7eacffad040979427bafc63a6ed4339a"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a7eacffad040979427bafc63a6ed4339a">LouiEriksson::Engine::Window::GetFlag</a></div><div class="ttdeci">bool GetFlag(const Uint32 &amp;_flag) const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00174">Window.cpp:174</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_a852889c941071eefa5e2562325580738"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#a852889c941071eefa5e2562325580738">LouiEriksson::Engine::Window::Create</a></div><div class="ttdeci">static std::shared_ptr&lt; Window &gt; Create(const int &amp;_width, const int &amp;_height, const char *_name)</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00065">Window.cpp:65</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_aae7eeaac5f0495acc73734a5ad68c417"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#aae7eeaac5f0495acc73734a5ad68c417">LouiEriksson::Engine::Window::ID</a></div><div class="ttdeci">const int &amp; ID() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00107">Window.cpp:107</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_abd5186c344e7643adca2a4a3345755e0"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#abd5186c344e7643adca2a4a3345755e0">LouiEriksson::Engine::Window::Update</a></div><div class="ttdeci">void Update() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00115">Window.cpp:115</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_abf9c13b2b16a785749b24cec1b8cabc6"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#abf9c13b2b16a785749b24cec1b8cabc6">LouiEriksson::Engine::Window::Aspect</a></div><div class="ttdeci">float Aspect() const</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00138">Window.cpp:138</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_ae2a6ae9b0aa687a5c34a9d3ca708fce7"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#ae2a6ae9b0aa687a5c34a9d3ca708fce7">LouiEriksson::Engine::Window::SetDirty</a></div><div class="ttdeci">void SetDirty()</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00154">Window.cpp:154</a></div></div>
+<div class="ttc" id="aclass_loui_eriksson_1_1_engine_1_1_window_html_ae7afe2436f6a0ee25aeb84b037baa3fe"><div class="ttname"><a href="class_loui_eriksson_1_1_engine_1_1_window.html#ae7afe2436f6a0ee25aeb84b037baa3fe">LouiEriksson::Engine::Window::Context</a></div><div class="ttdeci">SDL_GLContext Context() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_window_8cpp_source.html#l00111">Window.cpp:111</a></div></div>
 <div class="ttc" id="anamespace_loui_eriksson_1_1_engine_html"><div class="ttname"><a href="namespace_loui_eriksson_1_1_engine.html">LouiEriksson::Engine</a></div><div class="ttdef"><b>Definition:</b> <a href="_audio_clip_8cpp_source.html#l00010">AudioClip.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

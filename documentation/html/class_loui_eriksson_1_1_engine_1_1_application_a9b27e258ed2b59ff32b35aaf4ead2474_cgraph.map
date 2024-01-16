@@ -22,8 +22,8 @@
 <area shape="rect" id="node14" href="$class_loui_eriksson_1_1_engine_1_1_audio_1_1_sound.html#aa98b60cb42e9debb3e63be63745ece05" title="Get the speed of sound used by the audio engine." alt="" coords="491,585,710,627"/>
 <area shape="rect" id="node16" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_material.html#a8d023538b68e769b25687ed72cb87970" title=" " alt="" coords="509,651,693,707"/>
 <area shape="rect" id="node18" href="$struct_loui_eriksson_1_1_engine_1_1_settings_1_1_graphics_1_1_skybox.html#aa27b53bc432a286ee6f308945a089a76" title=" " alt="" coords="511,731,690,787"/>
-<area shape="rect" id="node17" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#adfd61fa9206e1227ca8de4f0bf92158f" title=" " alt="" coords="760,659,933,700"/>
-<area shape="rect" id="node19" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#ad7c7aa3dd00977631a1e81432f4cab11" title=" " alt="" coords="759,739,935,780"/>
+<area shape="rect" id="node17" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a23e35bc1385788ea21d10fd2aa7df824" title=" " alt="" coords="760,659,952,700"/>
+<area shape="rect" id="node19" href="$class_loui_eriksson_1_1_engine_1_1_resources.html#a660d41053422e371b48d30240d22d28b" title=" " alt="" coords="759,739,953,780"/>
 <area shape="rect" id="node21" href="$class_loui_eriksson_1_1_engine_1_1_e_c_s_1_1_game_object.html#aa14b456ae1a877ec7f65d60fc2994d10" title="Factory function which creates a GameObject within a Scene." alt="" coords="503,812,698,853"/>
 <area shape="rect" id="node22" href="$class_loui_eriksson_1_1_engine_1_1_serialisation.html#a25c637188054b4cc7b4faad2db5f7078" title=" " alt="" coords="508,877,693,919"/>
 </map>
