@@ -289,7 +289,7 @@ namespace LouiEriksson::Engine::ECS {
 		std::cout << "Done." << "\nOutput:\n" << File::ReadAllText(_path); // Debug output.
 	}
 	
-	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
+	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 	
 		std::cout << "Loading Scene \"" << _path.c_str() << "\"... ";
 		
@@ -405,22 +405,15 @@ namespace LouiEriksson::Engine::ECS {
 						
 						try {
 						
-							bool success = false;
+							using FuncPtrType = std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>&);
 							
-							const static auto kvps = _initialisers.GetAll();
-							
-							for (const auto& item : kvps) {
+							FuncPtrType fPtr;
+							if (_initialisers.Get(type, fPtr)) {
 								
-								if (strcmp(item.first.name(), type.c_str()) == 0) {
-
-									go->Attach(typeid(Script), item.second(go));
-
-									success = true;
-									break;
-								}
+								const auto script = fPtr(go);
+								go->Attach(script->TypeID(), script);
 							}
-							
-							if (!success) {
+							else {
 								
 								std::stringstream err;
 								err << "ERROR (Scene.cpp [TryLoad(std::filesystem::path)]): Deserialisation for type \"" <<

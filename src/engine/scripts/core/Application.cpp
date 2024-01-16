@@ -28,12 +28,13 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <string>
 #include <typeindex>
 #include <vector>
 
 namespace LouiEriksson::Engine {
 	
-	int Application::Main(const Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
+	int Application::Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 		
 		// Restrict Main() to one instance.
 		if (!s_Initialised) {

@@ -12,6 +12,7 @@
 #include <exception>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <typeindex>
 
 using namespace LouiEriksson::Engine;
@@ -24,13 +25,13 @@ namespace LouiEriksson::Game::Core {
 	
 	private:
 		
-		/// <summary> Hashmap of function pointers for custom script initialisation indexed by type. <summary>
-		inline static Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> s_Initialisers;
+		/// <summary> Hashmap of function pointers for custom script initialisation indexed by the name of their type. <summary>
+		inline static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> s_Initialisers;
 		
 	public:
 		
 		/// <summary> Get the function pointers for initialisation of custom user scripts. </summary>
-		static Hashmap<std::type_index, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> GetInitialisers() noexcept {
+		static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)> GetInitialisers() noexcept {
 			
 			try {
 				
@@ -44,28 +45,28 @@ namespace LouiEriksson::Game::Core {
 					 */
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Ball>),
+						typeid(std::shared_ptr<Ball>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new Ball(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<FlyCam>),
+						typeid(std::shared_ptr<FlyCam>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new FlyCam(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<OrbitCam>),
+						typeid(std::shared_ptr<OrbitCam>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new OrbitCam(_parent));
 						}
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Plane>),
+						typeid(std::shared_ptr<Plane>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new Plane(_parent));
 						}
