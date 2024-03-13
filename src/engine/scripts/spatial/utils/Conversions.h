@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace LouiEriksson::Engine::Spatial {
+namespace LouiEriksson::Engine::Spatial::Utils {
 
 	struct Conversions {
 		
@@ -821,6 +821,6 @@ namespace LouiEriksson::Engine::Spatial {
 		};
 	};
 	
-} // LouiEriksson::Engine::Spatial
+} // LouiEriksson::Engine::Spatial::Utils
 
 #endif //FINALYEARPROJECT_CONVERSIONS_H

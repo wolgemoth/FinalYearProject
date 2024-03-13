@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace LouiEriksson::Engine::Spatial {
+namespace LouiEriksson::Engine::Spatial::Utils {
 	
 	bool Conversions::Speed::TryGuessUnit(const std::string& _symbol, Conversions::Speed::Unit& _result) {
 		return s_Lookup.Get(_symbol, _result);
@@ -154,4 +154,4 @@ namespace LouiEriksson::Engine::Spatial {
 		return s_Symbol.Return(_unit);
 	}
 	
-} // LouiEriksson::Engine::Spatial
+} // LouiEriksson::Engine::Spatial::Utils

@@ -300,6 +300,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/Utils.h
         src/engine/scripts/spatial/utils/Conversions.cpp
         src/engine/scripts/spatial/utils/Conversions.h
+        src/engine/scripts/spatial/utils/ISA.cpp
+        src/engine/scripts/spatial/utils/ISA.h
 )
 
 link_directories(FinalYearProject
