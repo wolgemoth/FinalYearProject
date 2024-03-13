@@ -13,7 +13,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				KilometreHour,
 				FeetSecond,
 				MileHour,
@@ -81,7 +81,7 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			public:
 				
-				enum Unit {
+				enum Unit : char {
 					Millimetre,
 					Centimetre,
 					Inch,
@@ -166,7 +166,7 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			public:
 				
-				enum Unit {
+				enum Unit : char {
 					Gradian,
 					Degree,
 					Radian,
@@ -222,7 +222,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				Nanosecond,
 				Microsecond,
 				Millisecond,
@@ -298,7 +298,7 @@ namespace LouiEriksson::Engine::Spatial {
 			static constexpr float s_PlanckTemperature = 14200000000000000000000000000000000.0f;
 			static constexpr float s_AbsoluteZero      =                                   0.0f;
 			
-			enum Unit {
+			enum Unit : char {
 				Celsius,
 				Fahrenheit,
 				Kelvin,
@@ -340,7 +340,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				DyneSquareCentimetre,
 				MilliTorr,
 				Pascal,
@@ -502,7 +502,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				Nanogram,
 				Microgram,
 				Milligram,
@@ -613,7 +613,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				SquareMillimetre,
 				SquareCentimetre,
 				SquareInch,
@@ -690,7 +690,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		public:
 			
-			enum Unit {
+			enum Unit : char {
 				Millilitre,
 				Centilitre,
 				CubicInch,

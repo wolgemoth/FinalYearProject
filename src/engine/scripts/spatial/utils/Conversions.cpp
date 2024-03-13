@@ -2,6 +2,7 @@
 
 #include <glm/common.hpp>
 
+#include <stdexcept>
 #include <string>
 
 namespace LouiEriksson::Engine::Spatial {
