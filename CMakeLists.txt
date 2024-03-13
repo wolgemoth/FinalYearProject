@@ -298,6 +298,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/Hashmap.h
         src/engine/scripts/core/utils/Utils.cpp
         src/engine/scripts/core/utils/Utils.h
+        src/engine/scripts/spatial/utils/Conversions.cpp
+        src/engine/scripts/spatial/utils/Conversions.h
 )
 
 link_directories(FinalYearProject

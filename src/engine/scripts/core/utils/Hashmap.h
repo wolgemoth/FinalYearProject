@@ -27,6 +27,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <initializer_list>
 #include <stdexcept>
 #include <vector>
 
@@ -115,6 +116,33 @@ namespace LouiEriksson::Engine {
 				m_Size(0)
 		{
 			m_Buckets.resize(_capacity);
+		}
+		
+		/// <summary>
+		/// Initialise Hashmap using a collection of key-value pairs.
+		/// <remarks>
+		/// Please note: The provided collection should be distinct. Otherwise, some data loss may occur as duplicate entries will be ignored.
+		/// </remarks>
+		/// </summary>
+		/// <param name="_items">A collection of key-value pairs.</param>
+		/// <param name="_capacity">Initial capacity of the Hashmap. If a value less than 1 is assigned, it will use the size of the provided collection.</param>
+		Hashmap(const std::initializer_list<KeyValuePair>& _items, const size_t& _capacity = 0) : m_Size(0) {
+			
+			size_t auto_capacity = _capacity;
+			
+			if (auto_capacity < 1) {
+				auto_capacity = _items.size();
+				
+				if (auto_capacity < 1) {
+					auto_capacity = 1;
+				}
+			}
+			
+			m_Buckets.resize(auto_capacity);
+			
+			for (const auto& item : _items) {
+				Add(item.first, item.second);
+			}
 		}
 		
 		/// <summary>
