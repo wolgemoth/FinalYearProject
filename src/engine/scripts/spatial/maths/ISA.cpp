@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <iostream>
 
-namespace LouiEriksson::Engine::Spatial::Utils {
+namespace LouiEriksson::Engine::Spatial::Maths {
 
 	ISA::State ISA::Solve(const float& _height, const State& _state) {
 
@@ -65,4 +65,4 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		_state.m_Density = _state.m_Pressure / (s_R * _state.m_Temperature);
 	}
 	
-} // LouiEriksson::Engine::Spatial::Utils
+} // LouiEriksson::Engine::Spatial::Maths

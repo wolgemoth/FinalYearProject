@@ -298,10 +298,13 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/Hashmap.h
         src/engine/scripts/core/utils/Utils.cpp
         src/engine/scripts/core/utils/Utils.h
-        src/engine/scripts/spatial/utils/Conversions.cpp
-        src/engine/scripts/spatial/utils/Conversions.h
-        src/engine/scripts/spatial/utils/ISA.cpp
-        src/engine/scripts/spatial/utils/ISA.h
+        src/engine/scripts/spatial/maths/Conversions.cpp
+        src/engine/scripts/spatial/maths/Conversions.h
+        src/engine/scripts/spatial/maths/ISA.cpp
+        src/engine/scripts/spatial/maths/ISA.h
+        src/engine/scripts/spatial/maths/Coords.cpp
+        src/engine/scripts/spatial/maths/Coords.h
+        src/engine/scripts/spatial/osm/features/Point.h
 )
 
 link_directories(FinalYearProject

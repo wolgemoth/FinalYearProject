@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace LouiEriksson::Engine::Spatial::Utils {
+namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	bool Conversions::Speed::TryGuessUnit(const std::string& _symbol, Conversions::Speed::Unit& _result) {
 		return s_Lookup.Get(_symbol, _result);
@@ -19,29 +19,29 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		return s_Symbol.Return(_unit);
 	}
 	
-	bool Conversions::Distance::Lateral::TryGuessUnit(const std::string& _symbol, Conversions::Distance::Lateral::Unit& _result) {
+	bool Conversions::Distance::TryGuessUnit(const std::string& _symbol, Conversions::Distance::Unit& _result) {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Distance::Lateral::Convert(const float& _val, const Conversions::Distance::Lateral::Unit& _from, const Conversions::Distance::Lateral::Unit& _to) {
+	float Conversions::Distance::Convert(const float& _val, const Conversions::Distance::Unit& _from, const Conversions::Distance::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
-	std::string Conversions::Distance::Lateral::Symbol(const Conversions::Distance::Lateral::Unit& _unit) {
+	std::string Conversions::Distance::Symbol(const Conversions::Distance::Unit& _unit) {
 		return s_Symbol.Return(_unit);
 	}
 	
-	bool Conversions::Distance::Rotational::TryGuessUnit(const std::string& _symbol, Conversions::Distance::Rotational::Unit& _result) {
+	bool Conversions::Rotation::TryGuessUnit(const std::string& _symbol, Conversions::Rotation::Unit& _result) {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Distance::Rotational::Convert(
-			const float& _val, const Conversions::Distance::Rotational::Unit& _from, const Conversions::Distance::Rotational::Unit& _to
+	float Conversions::Rotation::Convert(
+			const float& _val, const Conversions::Rotation::Unit& _from, const Conversions::Rotation::Unit& _to
 	) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
-	std::string Conversions::Distance::Rotational::Symbol(const Conversions::Distance::Rotational::Unit& _unit) {
+	std::string Conversions::Rotation::Symbol(const Conversions::Rotation::Unit& _unit) {
 		return s_Symbol.Return(_unit);
 	}
 	
@@ -154,4 +154,4 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		return s_Symbol.Return(_unit);
 	}
 	
-} // LouiEriksson::Engine::Spatial::Utils
+} // LouiEriksson::Engine::Spatial::Maths

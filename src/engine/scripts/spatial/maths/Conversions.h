@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace LouiEriksson::Engine::Spatial::Utils {
+namespace LouiEriksson::Engine::Spatial::Maths {
 
 	struct Conversions {
 		
@@ -77,144 +77,146 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		
 		struct Distance {
 		
-			struct Lateral {
+		public:
 			
-			public:
-				
-				enum Unit : char {
-					Millimetre,
-					Centimetre,
-					Inch,
-					Foot,
-					Yard,
-					Metre,
-					Kilometre,
-					Mile,
-					NauticalMile,
-					AstronomicalUnit,
-					Lightyear,
-					Parsec,
-				};
-				
-				static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
-			
-				[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
-
-				static std::string Symbol(const Unit& _unit);
-			
-			private:
-				
-				inline static Hashmap<std::string, Unit> s_Lookup = {
-		            { "mm",         Millimetre       },
-		            { "cm",         Centimetre       },
-		            { "\"",         Inch             },
-		            { "in",         Inch             },
-		            { "f",          Foot             },
-		            { "\'",         Foot             },
-		            { "ft",         Foot             },
-		            { "yards",      Yard             },
-		            { "yard",       Yard             },
-		            { "yd",         Yard             },
-		            { "m",          Metre            },
-		            { "km",         Kilometre        },
-		            { "mi",         Mile             },
-		            { "nmi",        NauticalMile     },
-					{ "au",         AstronomicalUnit },
-		            { "ly",         Lightyear        },
-		            { "lightyear",  Lightyear        },
-		            { "lightyears", Lightyear        },
-		            { "pc",         Parsec           },
-		            { "parsec",     Parsec           },
-		            { "parsecs",    Parsec           },
-				};
-				
-				inline static Hashmap<Unit, std::string> s_Symbol = {
-					{ Millimetre,       "mm"  },
-					{ Centimetre,       "cm"  },
-					{ Inch,             "in"  },
-					{ Foot,             "ft"  },
-					{ Yard,             "yd"  },
-					{ Metre,             "m"  },
-					{ Kilometre,        "km"  },
-					{ Mile,             "mi"  },
-					{ NauticalMile,     "nmi" },
-					{ AstronomicalUnit, "au"  },
-					{ Lightyear,        "ly"  },
-					{ Parsec,           "pc"  },
-				};
-				
-				/// <summary>
-				/// Conversions between common lateral distance units and metres.
-				/// </summary>
-				inline static Hashmap<Unit, float> s_Conversion = {
-		            { Millimetre,                       0.001f      },
-		            { Centimetre,                       0.01f       },
-		            { Inch,                             0.0254f     },
-		            { Foot,                             0.30479999f },
-		            { Yard,                             0.9144f     },
-		            { Metre,                            1.0f        },
-		            { Kilometre,                     1000.0f        },
-		            { Mile,                          1609.344f      },
-		            { NauticalMile,                  1852.0f        },
-					{ AstronomicalUnit,      149597870700.0f        },
-		            { Lightyear,         9460730472580800.0f        },
-		            { Parsec,           30856775810000000.0f        },
-				};
+			enum Unit : char {
+				Millimetre,
+				Centimetre,
+				Inch,
+				Foot,
+				Yard,
+				Metre,
+				Kilometre,
+				Mile,
+				NauticalMile,
+				AstronomicalUnit,
+				Lightyear,
+				Parsec,
 			};
 			
-			struct Rotational {
+			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+		
+			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+
+			static std::string Symbol(const Unit& _unit);
+		
+		private:
 			
-			public:
-				
-				enum Unit : char {
-					Gradian,
-					Degree,
-					Radian,
-					Turn,
-				};
-				
+			inline static Hashmap<std::string, Unit> s_Lookup = {
+	            { "mm",         Millimetre       },
+	            { "cm",         Centimetre       },
+	            { "\"",         Inch             },
+	            { "in",         Inch             },
+	            { "f",          Foot             },
+	            { "\'",         Foot             },
+	            { "ft",         Foot             },
+	            { "yards",      Yard             },
+	            { "yard",       Yard             },
+	            { "yd",         Yard             },
+	            { "m",          Metre            },
+	            { "km",         Kilometre        },
+	            { "mi",         Mile             },
+	            { "nmi",        NauticalMile     },
+				{ "au",         AstronomicalUnit },
+	            { "ly",         Lightyear        },
+	            { "lightyear",  Lightyear        },
+	            { "lightyears", Lightyear        },
+	            { "pc",         Parsec           },
+	            { "parsec",     Parsec           },
+	            { "parsecs",    Parsec           },
+			};
+			
+			inline static Hashmap<Unit, std::string> s_Symbol = {
+				{ Millimetre,       "mm"  },
+				{ Centimetre,       "cm"  },
+				{ Inch,             "in"  },
+				{ Foot,             "ft"  },
+				{ Yard,             "yd"  },
+				{ Metre,             "m"  },
+				{ Kilometre,        "km"  },
+				{ Mile,             "mi"  },
+				{ NauticalMile,     "nmi" },
+				{ AstronomicalUnit, "au"  },
+				{ Lightyear,        "ly"  },
+				{ Parsec,           "pc"  },
+			};
+			
+			/// <summary>
+			/// Conversions between common lateral distance units and metres.
+			/// </summary>
+			inline static Hashmap<Unit, float> s_Conversion = {
+	            { Millimetre,                       0.001f      },
+	            { Centimetre,                       0.01f       },
+	            { Inch,                             0.0254f     },
+	            { Foot,                             0.30479999f },
+	            { Yard,                             0.9144f     },
+	            { Metre,                            1.0f        },
+	            { Kilometre,                     1000.0f        },
+	            { Mile,                          1609.344f      },
+	            { NauticalMile,                  1852.0f        },
+				{ AstronomicalUnit,      149597870700.0f        },
+	            { Lightyear,         9460730472580800.0f        },
+	            { Parsec,           30856775810000000.0f        },
+			};
+			
+		};
+			
+		struct Rotation {
+		
+		public:
+			
+			enum Unit : char {
+				Gradian,
+				Degree,
+				Radian,
+				Turn,
+			};
+			
+			inline static constexpr float s_DegreesToRadians = M_PI / 180.0f;
+			
+			inline static constexpr float s_RadiansToDegrees = 180.0f / M_PI;
+			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
 			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
+		
+		private:
 			
-			private:
-				
-				inline static Hashmap<std::string, Unit> s_Lookup = {
-					{ "grad",     Gradian },
-					{ "gradians", Gradian },
-		            { "°",        Degree  },
-		            { "d",        Degree  },
-		            { "deg",      Degree  },
-		            { "degree",   Degree  },
-		            { "degrees",  Degree  },
-					{ "rad",      Radian  },
-					{ "radians",  Radian  },
-					{ "turns",    Turn    },
-					{ "turn",     Turn    },
-					{ "cycle",    Turn    },
-					{ "pla",      Turn    },
-					{ "rev",      Turn    },
-					{ "tr",       Turn    },
-				};
-				
-				inline static Hashmap<Unit, std::string> s_Symbol = {
-					{ Gradian, "grad" },
-					{ Degree,  "deg"  },
-					{ Radian,  "rad"  },
-					{ Turn,    "tr"   },
-				};
-				
-				/// <summary>
-				/// Conversions between common rotational units and degrees.
-				/// </summary>
-				inline static Hashmap<Unit, float> s_Conversion = {
-					{ Gradian,  0.9f     },
-		            { Degree,   1.0f     },
-		            { Radian,  57.29578f },
-		            { Turn,   360.0f     },
-				};
+			inline static Hashmap<std::string, Unit> s_Lookup = {
+				{ "grad",     Gradian },
+				{ "gradians", Gradian },
+	            { "°",        Degree  },
+	            { "d",        Degree  },
+	            { "deg",      Degree  },
+	            { "degree",   Degree  },
+	            { "degrees",  Degree  },
+				{ "rad",      Radian  },
+				{ "radians",  Radian  },
+				{ "turns",    Turn    },
+				{ "turn",     Turn    },
+				{ "cycle",    Turn    },
+				{ "pla",      Turn    },
+				{ "rev",      Turn    },
+				{ "tr",       Turn    },
+			};
+			
+			inline static Hashmap<Unit, std::string> s_Symbol = {
+				{ Gradian, "grad" },
+				{ Degree,  "deg"  },
+				{ Radian,  "rad"  },
+				{ Turn,    "tr"   },
+			};
+			
+			/// <summary>
+			/// Conversions between common rotational units and degrees.
+			/// </summary>
+			inline static Hashmap<Unit, float> s_Conversion = {
+				{ Gradian,  0.9f     },
+	            { Degree,   1.0f     },
+	            { Radian,  57.29578f },
+	            { Turn,   360.0f     },
 			};
 		};
 		
@@ -295,14 +297,14 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		
 		public:
 			
-			static constexpr float s_PlanckTemperature = 14200000000000000000000000000000000.0f;
-			static constexpr float s_AbsoluteZero      =                                   0.0f;
-			
 			enum Unit : char {
 				Celsius,
 				Fahrenheit,
 				Kelvin,
 			};
+			
+			static constexpr float s_PlanckTemperature = 14200000000000000000000000000000000.0f;
+			static constexpr float s_AbsoluteZero      =                                   0.0f;
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
@@ -821,6 +823,6 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		};
 	};
 	
-} // LouiEriksson::Engine::Spatial::Utils
+} // LouiEriksson::Engine::Spatial::Maths
 
 #endif //FINALYEARPROJECT_CONVERSIONS_H

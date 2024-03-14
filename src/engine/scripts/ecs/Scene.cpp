@@ -30,11 +30,6 @@
 #include <string>
 #include <vector>
 
-
-// DELETE
-#include "../spatial/utils/ISA.h"
-
-
 namespace LouiEriksson::Engine::ECS {
 	
 	Scene::~Scene() {
@@ -87,19 +82,6 @@ namespace LouiEriksson::Engine::ECS {
 	}
 	
 	void Scene::Begin() {
-	
-		
-		// DELETE
-		for (int i = -100000; i < 100000; i += 1000) {
-			
-			auto pdt = Spatial::Utils::ISA::Solve(static_cast<float>(i));
-			
-			std::cout << "I: " << i        << " | "
-			          << pdt.m_Pressure    << " "
-					  << pdt.m_Temperature << " "
-					  << pdt.m_Density     << std::endl;
-		}
-		
 		
 		std::vector<std::weak_ptr<Component>> items;
 		

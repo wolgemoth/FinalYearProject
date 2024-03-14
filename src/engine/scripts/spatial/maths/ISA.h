@@ -2,8 +2,9 @@
 #define FINALYEARPROJECT_ISA_H
 
 #include <array>
+#include <cstddef>
 
-namespace LouiEriksson::Engine::Spatial::Utils {
+namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	/*
 	This is free and unencumbered software released into the public domain.
@@ -89,6 +90,6 @@ namespace LouiEriksson::Engine::Spatial::Utils {
 		
 	};
 	
-} // LouiEriksson::Engine::Spatial::Utils
+} // LouiEriksson::Engine::Spatial::Maths
 
 #endif //FINALYEARPROJECT_ISA_H
