@@ -9,6 +9,7 @@
 #include "../scripts/FlyCam.h"
 #include "../scripts/OrbitCam.h"
 #include "../scripts/Plane.h"
+#include "../scripts/Planetarium.h"
 
 #include <exception>
 #include <iostream>
@@ -69,6 +70,13 @@ namespace LouiEriksson::Game::Core {
 						typeid(std::shared_ptr<Plane>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new Plane(_parent));
+						}
+					);
+					
+					s_Initialisers.Add(
+						typeid(std::shared_ptr<Planetarium>).name(),
+						[](const std::weak_ptr<ECS::GameObject>& _parent) {
+							return std::shared_ptr<Script>(new Planetarium(_parent));
 						}
 					);
 					

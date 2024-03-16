@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine {
 		std::vector<std::vector<KeyValuePair>> m_Buckets;
 		
 		/// <summary>
-		/// Current number of elements within the Hashmap.
+		/// SinceEpoch number of elements within the Hashmap.
 		/// </summary>
 		size_t m_Size;
 		

@@ -3,7 +3,7 @@
 
 #include <glm/ext/vector_float3.hpp>
 
-namespace LouiEriksson::Spatial::OSM {
+namespace LouiEriksson::Engine::Spatial::OSM {
 
 	struct Point {
 

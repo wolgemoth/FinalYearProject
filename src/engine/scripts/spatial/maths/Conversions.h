@@ -99,7 +99,25 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
-		
+			
+	        /// <summary>
+	        /// Convert arc-seconds to metres.
+	        /// Courtesy of: https://opendem.info/arc2meters.html
+	        /// </summary>
+	        /// <param name="_arcSeconds">Arc-seconds to convert.</param>
+	        /// <param name="_lat">(Optional) latitude of the arc.</param>
+	        /// <returns></returns>
+	        static float ArcSecondsToMetres(const float& _arcSeconds, const float& _lat = 0.0f);
+			
+	        /// <summary>
+	        /// Convert metres to arc-seconds given a latitude.
+	        /// Courtesy of: https://opendem.info/arc2meters.html
+	        /// </summary>
+	        /// <param name="_metres">Metres to convert.</param>
+	        /// <param name="_lat">(Optional) latitude of the arc.</param>
+	        /// <returns></returns>
+	        static float MetresToArcSeconds(const float& _metres, const float& _lat = 0.0f);
+	        
 		private:
 			
 			inline static Hashmap<std::string, Unit> s_Lookup = {

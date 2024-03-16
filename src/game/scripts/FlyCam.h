@@ -27,7 +27,7 @@ namespace LouiEriksson::Game::Scripts {
 		/// <summary> AudioSource component for gun sounds. </summary>
 		std::weak_ptr<Audio::AudioSource> m_GunSound;
 		
-		/// <summary> Current motion vector of the FlyCam. </summary>
+		/// <summary> SinceEpoch motion vector of the FlyCam. </summary>
 		glm::vec3 m_Motion;
 		
 		/// <summary> Speed of FlyCam along each axis. </summary>

@@ -4,9 +4,6 @@ project(FinalYearProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto -DNDEBUG")
 
-set(  GAME_DIR ${PROJECT_SOURCE_DIR}/src/engine)
-set(ENGINE_DIR ${PROJECT_SOURCE_DIR}/src/usr   )
-
 # ADD GLEW:
 set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/contrib/glew)
 set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
@@ -300,11 +297,15 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/Utils.h
         src/engine/scripts/spatial/maths/Conversions.cpp
         src/engine/scripts/spatial/maths/Conversions.h
-        src/engine/scripts/spatial/maths/ISA.cpp
-        src/engine/scripts/spatial/maths/ISA.h
+        src/engine/scripts/spatial/atmosphere/ISA.cpp
+        src/engine/scripts/spatial/atmosphere/ISA.h
         src/engine/scripts/spatial/maths/Coords.cpp
         src/engine/scripts/spatial/maths/Coords.h
         src/engine/scripts/spatial/osm/features/Point.h
+        src/engine/scripts/spatial/osm/utils/OSM_Utils.cpp
+        src/engine/scripts/spatial/osm/utils/OSM_Utils.h
+        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87d_full.cpp
+        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87d_full.h
 )
 
 link_directories(FinalYearProject
@@ -328,15 +329,17 @@ target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
 add_executable(Game
         src/main.cpp
 
-        src/usr/scripts/Ball.cpp
-        src/usr/scripts/Ball.h
-        src/usr/scripts/FlyCam.cpp
-        src/usr/scripts/FlyCam.h
-        src/usr/scripts/OrbitCam.cpp
-        src/usr/scripts/OrbitCam.h
-        src/usr/scripts/Plane.cpp
-        src/usr/scripts/Plane.h
-        src/usr/core/Injector.h
+        src/game/scripts/Ball.cpp
+        src/game/scripts/Ball.h
+        src/game/scripts/FlyCam.cpp
+        src/game/scripts/FlyCam.h
+        src/game/scripts/OrbitCam.cpp
+        src/game/scripts/OrbitCam.h
+        src/game/scripts/Plane.cpp
+        src/game/scripts/Plane.h
+        src/game/core/Injector.h
+        src/game/scripts/Planetarium.cpp
+        src/game/scripts/Planetarium.h
 )
 
 target_link_libraries(Game PRIVATE
@@ -344,13 +347,14 @@ target_link_libraries(Game PRIVATE
 )
 
 target_precompile_headers(Game PRIVATE
-        src/usr/include/engine_ecs.h
-        src/usr/include/engine_audio.h
-        src/usr/include/engine_core.h
-        src/usr/include/engine_graphics.h
-        src/usr/include/engine_input.h
-        src/usr/include/engine_physics.h
-        src/usr/include/engine_ui.h
+        src/game/include/engine_audio.h
+        src/game/include/engine_core.h
+        src/game/include/engine_ecs.h
+        src/game/include/engine_graphics.h
+        src/game/include/engine_input.h
+        src/game/include/engine_physics.h
+        src/game/include/engine_spatial.h
+        src/game/include/engine_ui.h
 )
 
 # COPY FILES:

@@ -25,7 +25,7 @@ namespace LouiEriksson::Engine::Audio {
 		/// <summary> Currently opened device as used by AL. </summary>
 		inline static ALCdevice*  s_Device { nullptr };
 		
-		/// <summary> Current AL context. </summary>
+		/// <summary> SinceEpoch AL context. </summary>
 		inline static ALCcontext* s_Context { nullptr };
 		
 		/// <summary>

@@ -2,6 +2,7 @@
 
 #include <glm/common.hpp>
 
+#include <cmath>
 #include <stdexcept>
 #include <string>
 
@@ -31,13 +32,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol.Return(_unit);
 	}
 	
+	float Conversions::Distance::ArcSecondsToMetres(const float& _arcSeconds, const float& _lat) {
+		return _arcSeconds * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) * (1852.0f / 60.0f));
+	}
+	
+	float Conversions::Distance::MetresToArcSeconds(const float& _metres, const float& _lat) {
+		return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0f / 60.0f));;
+	}
+	
 	bool Conversions::Rotation::TryGuessUnit(const std::string& _symbol, Conversions::Rotation::Unit& _result) {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Rotation::Convert(
-			const float& _val, const Conversions::Rotation::Unit& _from, const Conversions::Rotation::Unit& _to
-	) {
+	float Conversions::Rotation::Convert(const float& _val, const Conversions::Rotation::Unit& _from, const Conversions::Rotation::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	

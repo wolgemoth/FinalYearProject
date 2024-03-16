@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine {
 		// Restrict Main() to one instance.
 		if (!s_Initialised) {
 			 s_Initialised = true;
-			 
+			
 			srand(0u); // Use a constant seed (like '0') for deterministic behaviour.
 			
 			/* CREATE A MAIN WINDOW */
@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine {
 			UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+			auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.
@@ -89,10 +89,10 @@ namespace LouiEriksson::Engine {
 			while (!Application::s_Quit) {
 				
 				try {
-				
+					
 					// Get the beginning of the frame for timing purposes.
 					auto frame_start = std::chrono::high_resolution_clock::now();
-				
+					
 					// Clear the AL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
 					
@@ -188,11 +188,11 @@ namespace LouiEriksson::Engine {
 					Utils::GLDumpError();
 				
 					/* UPDATE TIMERS */
-					Time::s_UnscaledDeltaTime =
-						static_cast<float>(std::chrono::duration_cast<std::chrono::microseconds>(
+					Time::s_UnscaledDeltaTime = static_cast<float>(
+						std::chrono::duration_cast<std::chrono::microseconds>(
 							std::chrono::high_resolution_clock::now() -
 							frame_start
-						).count()) / 1000000.0f; // Calculate delta time.
+						).count() / 1000000.0); // Calculate delta time.
 		
 					            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
 					Physics::Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.

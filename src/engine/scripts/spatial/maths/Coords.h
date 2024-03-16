@@ -1,7 +1,10 @@
 #ifndef FINALYEARPROJECT_COORDS_H
 #define FINALYEARPROJECT_COORDS_H
 
+#include <glm/ext/vector_int2.hpp>
+#include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_float4.hpp>
 
 #include <cmath>
 
@@ -9,16 +12,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				
 	struct Coords {
 	
-        static glm::vec3 s_Origin;
+        inline static glm::vec3 s_Origin = { 0.0f, 0.0f, 0.0f };
 		
 		/// <summary>
-        /// Globally-average Earth radius in metres.
-        /// <see>https://en.wikipedia.org/wiki/Earth_radius</see>
+        /// Globally-average Earth radius in metres, according to the International System of Units.
         /// </summary>
-        inline static constexpr auto s_AverageEarthRadius = 6371000.0f;
+        inline static constexpr auto SI_EarthRadius = 6371000.0f;
 
         /// <summary>
-        /// Courtesy of OpenStreetMap. (See https://wiki.openstreetmap.org/wiki/Mercator#JavaScript_.28or_ActionScript.29)
+        /// WGS84 Implementation, courtesy of OpenStreetMap (https://wiki.openstreetmap.org/wiki/Mercator#Elliptical_(true)_Mercator_Projection).
         /// </summary>
 		class WGS84 {
 		
@@ -47,13 +49,28 @@ namespace LouiEriksson::Engine::Spatial::Maths {
             static auto CalculateEquatorialStretchFactor(const float& _latitude);
 		};
 		
-        static auto GeoToGlobe(const glm::vec3& _coord, const float& _lat = 45.0f);
-        
-        /// <summary>
-        /// Converts from latitude, longitude, and altitude to cartesian coordinates.
-        /// Courtesy of "Dan S." (https://gis.stackexchange.com/questions/4147/lat-lon-alt-to-spherical-or-cartesian-coordinates)
-        /// </summary>
-        static auto GeoToSphere(const glm::vec3& _coord);
+		class GPS {
+			
+		public:
+			
+			static glm::vec3 GPSToCartesian(const glm::vec3& _coord, const float& _lat = 45.0f);
+			
+			static glm::ivec2 GPSToPixel(const glm::vec2& _coord);
+			
+			static glm::vec2 GPSToUV(const glm::vec2& _coord);
+			
+			static glm::vec2 GPSToUV(const glm::vec2& _coord, const glm::ivec2& _dimensions, const glm::vec4& _bounds);
+	  
+			static glm::vec3 GPSToSphere(const glm::vec3& _coord);
+			
+		    static glm::vec3 PixelToGPS(const glm::ivec2& _coord);
+	     
+			static glm::vec3 PixelToGPS(const glm::vec2& _coord, const glm::ivec2& _dimensions, const glm::vec4& _bounds);
+			
+	        static glm::vec3 SphereToCartesian(const glm::vec3& _coord);
+		
+		    static glm::vec3 UVToGPS(const glm::vec2& _coord);
+		};
 		
 	};
 	

@@ -4,7 +4,7 @@
 #include <array>
 #include <cstddef>
 
-namespace LouiEriksson::Engine::Spatial::Maths {
+namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	
 	/*
 	This is free and unencumbered software released into the public domain.
@@ -90,6 +90,6 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 	};
 	
-} // LouiEriksson::Engine::Spatial::Maths
+} // LouiEriksson::Engine::Spatial::Atmosphere
 
 #endif //FINALYEARPROJECT_ISA_H
