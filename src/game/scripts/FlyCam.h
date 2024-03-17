@@ -44,7 +44,7 @@ namespace LouiEriksson::Game::Scripts {
 	
 		/// <inheritdoc/>
 		void Tick() override;
-	
+		
 		/// <summary> Synchronise the camera's parameters with the ones defined in Settings. </summary>
 		void SyncCameraSettings() noexcept;
 		

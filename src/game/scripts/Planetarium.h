@@ -19,72 +19,107 @@ namespace LouiEriksson::Game::Scripts {
 			
 			struct Time {
 				
-				static auto EphemerisToJulian(const double& _julian);
+				template<typename T>
+				static T EphemerisToJulian(const T& _julian);
 				
-				static auto JulianToEphemeris(const double& _ephemeris);
+				template<typename T>
+				static T JulianToEphemeris(const T& _ephemeris);
 				
-				static auto JulianToUNIX(const double& _julian);
+				template<typename T>
+				static T JulianToUNIX(const T& _julian);
 				
-				static auto UNIXToJulian(const double& _unix);
+				template<typename T>
+				static T UNIXToJulian(const T& _unix);
 				
-				static auto TT(const double& _tai);
+				template<typename T>
+				static T TT(const T& _tai);
 			};
 			
 			struct Coord {
 				
-				static auto ChangeHandedness(const glm::vec3& _vec);
+				template<typename T, glm::precision P>
+				static auto ChangeHandedness(const glm::vec<3, T, P>& _vec);
 			};
+		};
+		
+		template<typename T, glm::precision P>
+		class Planets {
+		
+		public:
+			
+			struct Position {
+				
+				glm::vec<3, T, P> m_Spherical;
+				glm::vec<3, T, P> m_Cartesian;
+				glm::qua<   T, P> m_Rotation;
+			};
+			
+			const double& Time();
+			void Time(const double& _ephemeris);
+			
+			const bool TryGetPosition(const std::string& _name, const Position& _out) const;
+			
+			const std::vector<typename Hashmap<std::string, Position>::KeyValuePair> Positions() const;
+			
+			const std::vector<std::string> Names() const;
+			
+		private:
+			
+			double m_Time;
+			
+			/// <summary>
+			/// String-indexed Hashmap holding planetary positions.
+			/// </summary>
+			Hashmap<std::string, Position> m_Positions {
+				{ "Sol",     {} },
+				{ "Mercury", {} },
+				{ "Venus",   {} },
+				{ "Earth",   {} },
+				{ "Moon",    {} },
+				{ "Mars",    {} },
+				{ "Jupiter", {} },
+				{ "Saturn",  {} },
+				{ "Uranus",  {} },
+				{ "Neptune", {} },
+			};
+			
+			static Position GetSol(const double& _ephemeris);
+			
+			static Position GetMercury(const double& _ephemeris);
+			
+			static Position GetVenus(const double& _ephemeris);
+			
+			std::pair<Position, Position> GetEarthAndMoon(const double& _ephemeris);
+			
+			static Position GetMars(const double& _ephemeris);
+			
+			static Position GetJupiter(const double& _ephemeris);
+			
+			static Position GetSaturn(const double& _ephemeris);
+			
+			static Position GetUranus(const double& _ephemeris);
+			
+			static Position GetNeptune(const double& _ephemeris);
 		};
 		
 		/// <summary> Transform of the FlyCam. </summary>
 		std::weak_ptr<Transform> m_Transform;
 		
 		/// <summary>
-		/// String-indexed Hashmap holding strong pointers to planets as represented in the VSOP87 model.
+		/// Planetary positions computed using the VSOP87 model.
 		/// </summary>
-		Hashmap<std::string, std::shared_ptr<ECS::GameObject>> m_Planets;
+		Planets<double, glm::highp> m_Positions;
 		
 		/// <summary>
-		/// String-indexed Hashmap holding planetary positions.
+		/// Hashmap containing planet GameObjects.
 		/// </summary>
-		Hashmap<std::string, glm::dvec3> m_Positions {
-			{ "Sol",     {} },
-			{ "Mercury", {} },
-			{ "Venus",   {} },
-			{ "Earth",   {} },
-			{ "Moon",    {} },
-			{ "Mars",    {} },
-			{ "Jupiter", {} },
-			{ "Saturn",  {} },
-			{ "Uranus",  {} },
-			{ "Neptune", {} },
-		};
+		Hashmap<std::string, std::shared_ptr<ECS::GameObject>> m_Planets;
 		
 		/// <inheritdoc/>
 		void Begin() override;
 	
 		/// <inheritdoc/>
 		void Tick() override;
-		
-		void UpdatePlanets();
-		
-		glm::dvec3 GetSol(const double& _ephemeris) const;
-		
-		glm::dvec3 GetMercury(const double& _ephemeris) const;
-		
-		glm::dvec3 GetVenus(const double& _ephemeris) const;
-		
-		std::pair<glm::dvec3, glm::dvec3> GetEarthAndMoon(const double& _ephemeris) const;
-		
-		glm::dvec3 GetMars(const double& _ephemeris) const;
-		
-		glm::dvec3 GetJupiter(const double& _ephemeris) const;
-		
-		glm::dvec3 GetSaturn(const double& _ephemeris) const;
-		
-		glm::dvec3 GetUranus(const double& _ephemeris) const;
-		
-		glm::dvec3 GetNeptune(const double& _ephemeris) const;
 		
 	public:
 	
