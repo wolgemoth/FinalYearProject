@@ -1,38 +1,47 @@
 #include "ISA.h"
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <exception>
 #include <iostream>
+#include <stdexcept>
 
 namespace LouiEriksson::Engine::Spatial::Atmosphere {
 
-	ISA::State ISA::Solve(const float& _height, const State& _state) {
+	bool ISA::TrySolve(const float& _height, State& _state) noexcept {
 
-		State result{};
+		bool result = false;
 		
-		if (_height <= s_Alt[s_Alt.size() - 2]) {
+		try {
 			
-			size_t ctr = 0;
-		
-			result = _state;
+			if (_height <= s_Alt[s_Alt.size() - 2]) {
 			
-			Calculate(_height, result, ctr);
+				std::size_t ctr(0);
 			
-			for (int i = 0; i < s_A_Val.size(); ++i) {
+				Calculate(_height, _state, ctr);
 				
-				if (_height > s_Alt[ctr]) {
-            
-		            if (ctr == 0 || ctr == 3 || ctr == 6) {
-		                Pause(_height, result, ++ctr);
-		            }
-		            else {
-		                Calculate(_height, result, ++ctr);
-		            }
-		        }
+				for (int i = 0; i < s_A_Val.size(); ++i) {
+					
+					if (_height > s_Alt[ctr]) {
+	            
+			            if (ctr == 0 || ctr == 3 || ctr == 6) {
+			                Pause(_height, _state, ++ctr);
+			            }
+			            else {
+			                Calculate(_height, _state, ++ctr);
+			            }
+			        }
+				}
+				
+				result = true;
+			}
+			else {
+				throw std::runtime_error("Altitude out of range!");
 			}
 		}
-		else {
-			std::cout << "Altitude out of range\n";
+		catch (const std::exception& e) {
+			std::cerr << e.what() << '\n';
 		}
 		
 		return result;

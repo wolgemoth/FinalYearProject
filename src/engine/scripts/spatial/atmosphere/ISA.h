@@ -47,10 +47,12 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			      m_Temperature;
 		};
 		
+		static constexpr State s_DefaultState = { 101325.0f, 1.225f, 288.15f };
+		
 		/// <summary>
 		/// A wrapper function to hide calculate's extra input and output.
 		/// </summary>
-	    static State Solve(const float& _height, const State& _state = { 101325.0f, 1.225f, 288.15f });
+	    static bool TrySolve(const float& _height, State& _state) noexcept;
 		
 	private:
 		

@@ -18,16 +18,9 @@ namespace LouiEriksson::Game::Scripts {
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
 			{
-				m_Planets = {
-					{ "Earth",   ECS::GameObject::Create(s, "Earth"  ) },
-					{ "Jupiter", ECS::GameObject::Create(s, "Jupiter") },
-					{ "Mars",    ECS::GameObject::Create(s, "Mars"   ) },
-					{ "Mercury", ECS::GameObject::Create(s, "Mercury") },
-					{ "Neptune", ECS::GameObject::Create(s, "Neptune") },
-					{ "Saturn",  ECS::GameObject::Create(s, "Saturn" ) },
-					{ "Uranus",  ECS::GameObject::Create(s, "Uranus" ) },
-					{ "Venus",   ECS::GameObject::Create(s, "Venus"  ) },
-				};
+				for (const auto& item : m_Positions.Keys()) {
+					m_Planets.Add(item, ECS::GameObject::Create(s, item));
+				}
 				
 				for (auto& kvp : m_Planets.GetAll()) {
 				
@@ -48,67 +41,150 @@ namespace LouiEriksson::Game::Scripts {
 		UpdatePlanets();
 	}
 	
-	auto Planetarium::UNIX2JD(const double& _val) {
-		return (_val / 86400.0) + 2440587.5000000;
+	auto Planetarium::Utils::Time::EphemerisToJulian(const double& _julian) {
+		return (_julian / 365250.0) + 2451545.0;
 	}
 	
-	auto Planetarium::JD2UNIX(const double& _val) {
-		return (_val - 2440587.5000000) * 86400.0;
+	auto  Planetarium::Utils::Time::JulianToEphemeris(const double& _ephemeris) {
+		return (_ephemeris - 2451545.0) / 365250.0;
 	}
 	
-	auto Planetarium::ET2JD(const double& _val) {
-		return (_val / 365250.0) + 2451545.0;
+	auto  Planetarium::Utils::Time::JulianToUNIX(const double& _julian) {
+		return (_julian - 2440587.5000000) * 86400.0;
 	}
 	
-	auto Planetarium::JD2ET(const double& _val) {
-		return (_val - 2451545.0) / 365250.0;
+	auto  Planetarium::Utils::Time::UNIXToJulian(const double& _unix) {
+		return (_unix / 86400.0) + 2440587.5000000;
 	}
 	
-	auto Planetarium::TT(const double& _tai) {
+	auto  Planetarium::Utils::Time::TT(const double& _tai) {
 		return _tai + 32.184;
 	}
 	
-	auto Planetarium::Invert(const glm::vec3& _vec) {
-		return glm::vec3 { -_vec.x, -_vec.y, -_vec.z };
+	auto Planetarium::Utils::Coord::ChangeHandedness(const glm::vec3& _vec) {
+		return glm::vec3 { -_vec.x, _vec.z, _vec.y };
 	}
 	
 	void Planetarium::UpdatePlanets() {
 		
-		using COORDS = LouiEriksson::Engine::Spatial::Maths::Coords;
-		
-		glm::dvec3 coord;
+		glm::dvec3 tmp;
 		
 		auto unix_time = std::chrono::duration_cast<std::chrono::microseconds>(
 				std::chrono::system_clock::now().time_since_epoch()
 			).count() / 1000000.0;
 		
-		auto curr_time = JD2ET(UNIX2JD(unix_time));
+		auto ephemeris_time = Utils::Time::JulianToEphemeris(Utils::Time::UNIXToJulian(unix_time));
 		
-		std::cout << std::fixed << unix_time << ", " << curr_time << "\n";
+		{
+			const auto earthMoon = GetEarthAndMoon(ephemeris_time);
+			
+			// Origin as Earth for Earth-centric planetarium.
+			const auto& origin = earthMoon.first;
+			
+			m_Positions.Assign("Sol"    , GetSol    (ephemeris_time) - origin);
+			m_Positions.Assign("Mercury", GetMercury(ephemeris_time) - origin);
+			m_Positions.Assign("Venus"  , GetVenus  (ephemeris_time) - origin);
+			m_Positions.Assign("Earth"  , earthMoon.first            - origin);
+			m_Positions.Assign("Moon"   , earthMoon.second           - origin);
+			m_Positions.Assign("Mars"   , GetMars   (ephemeris_time) - origin);
+			m_Positions.Assign("Jupiter", GetJupiter(ephemeris_time) - origin);
+			m_Positions.Assign("Saturn" , GetSaturn (ephemeris_time) - origin);
+			m_Positions.Assign("Uranus" , GetUranus (ephemeris_time) - origin);
+			m_Positions.Assign("Neptune", GetNeptune(ephemeris_time) - origin);
+			
+			for (const auto& kvp : m_Positions.GetAll()) {
+				
+				std::shared_ptr<ECS::GameObject> item;
+				if (m_Planets.Get(kvp.first, item)) {
+					
+					auto transform = item->GetComponent<Transform>();
+					
+					if (const auto t = transform.lock()) {
+						t->m_Position = kvp.second;
+					}
+				}
+			}
+		}
+	}
+	
+	glm::dvec3 Planetarium::GetSol(const double& _ephemeris) const {
+		return Utils::Coord::ChangeHandedness({ 0.0f, 0.0f, 0.0f });
+	}
+	
+	glm::dvec3 Planetarium::GetMercury(const double& _ephemeris) const {
 		
-		vsop87d_full::getEarth(curr_time, &coord[0]);
-		m_Planets.Return("Earth")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getJupiter(curr_time, &coord[0]);
-		m_Planets.Return("Jupiter")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getMars(curr_time, &coord[0]);
-		m_Planets.Return("Mars")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getMercury(curr_time, &coord[0]);
-		m_Planets.Return("Mercury")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getNeptune(curr_time, &coord[0]);
-		m_Planets.Return("Neptune")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getSaturn(curr_time, &coord[0]);
-		m_Planets.Return("Saturn")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getUranus(curr_time, &coord[0]);
-		m_Planets.Return("Uranus")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
-
-	    vsop87d_full::getVenus(curr_time, &coord[0]);
-		m_Planets.Return("Venus")->GetComponent<Transform>().lock()->m_Position = COORDS::GPS::SphereToCartesian(Invert(coord));
+		glm::dvec3 result;
+		
+	    vsop87a_full::getMercury(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	glm::dvec3 Planetarium::GetVenus(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getVenus(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	std::pair<glm::dvec3, glm::dvec3> Planetarium::GetEarthAndMoon(const double& _ephemeris) const {
+		
+		std::pair<glm::dvec3, glm::dvec3> result;
+		
+		glm::dvec3 emb;
+		
+	    vsop87a_full::getEarth(_ephemeris, &result.first[0]);
+		vsop87a_full::getEmb  (_ephemeris, &emb[0]);
+		vsop87a_full::getMoon (&result.first[0], &emb[0], &result.second[0]);
+		
+		return { Utils::Coord::ChangeHandedness(result.first), Utils::Coord::ChangeHandedness(result.first) };
+	}
+	
+	glm::dvec3 Planetarium::GetMars(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getMars(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	glm::dvec3 Planetarium::GetJupiter(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getJupiter(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	glm::dvec3 Planetarium::GetSaturn(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getSaturn(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	glm::dvec3 Planetarium::GetUranus(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getUranus(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
+	}
+	
+	glm::dvec3 Planetarium::GetNeptune(const double& _ephemeris) const {
+		
+		glm::dvec3 result;
+		
+	    vsop87a_full::getNeptune(_ephemeris, &result[0]);
+		
+		return Utils::Coord::ChangeHandedness(result);
 	}
 	
 } // LouiEriksson::Game::Scripts

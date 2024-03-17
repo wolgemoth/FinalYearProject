@@ -304,8 +304,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/osm/features/Point.h
         src/engine/scripts/spatial/osm/utils/OSM_Utils.cpp
         src/engine/scripts/spatial/osm/utils/OSM_Utils.h
-        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87d_full.cpp
-        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87d_full.h
+        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.cpp
+        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.h
 )
 
 link_directories(FinalYearProject
