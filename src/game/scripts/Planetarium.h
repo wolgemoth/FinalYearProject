@@ -17,28 +17,10 @@ namespace LouiEriksson::Game::Scripts {
 	
 		struct Utils {
 			
-			struct Time {
-				
-				template<typename T>
-				static T EphemerisToJulian(const T& _julian);
-				
-				template<typename T>
-				static T JulianToEphemeris(const T& _ephemeris);
-				
-				template<typename T>
-				static T JulianToUNIX(const T& _julian);
-				
-				template<typename T>
-				static T UNIXToJulian(const T& _unix);
-				
-				template<typename T>
-				static T TT(const T& _tai);
-			};
-			
 			struct Coord {
 				
 				template<typename T, glm::precision P>
-				static auto ChangeHandedness(const glm::vec<3, T, P>& _vec);
+				static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec);
 			};
 		};
 		

@@ -34,15 +34,46 @@ namespace LouiEriksson::Game::Scripts {
 	
 	void Planetarium::Tick() {
 		
-		// Update planetary positions using current UNIX time.
-		auto unix_time = std::chrono::duration_cast<std::chrono::microseconds>(
-				std::chrono::system_clock::now().time_since_epoch()
-			).count() / 1000000.0;
+		double j2000_days;
 		
-		// Debug speedy time.
-		unix_time += Time::Elapsed() * 86400.0 / 24.0;
+		{
+			/*
+			 * Current UNIX time from the system clock.
+			 * ...Probably UTC but not guaranteed?
+			 *
+			 * This may not be accurate to the 'actual' UNIX time
+			 * -especially if the user doesn't have an internet connection
+			 * from which their system is syncing the time automatically.
+			 */
+			auto unix_time_utc = std::chrono::duration_cast<std::chrono::microseconds>(
+					std::chrono::system_clock::now().time_since_epoch()
+				).count() / 1000000.0;
+			
+			/*
+			 * Convert from UTC to TAI using an offset of 37 seconds.
+			 *
+			 * This solution is imprecise and doesn't take into account
+			 * historical UTC-TAI conversions.
+			 *
+			 * A better solution is to use a lookup table and update leap
+			 * seconds with an internet connection.
+			 */
+			const auto TAI = unix_time_utc + 37;
+			
+			// Convert TAI to TT using the established conversion of 32.184.
+			const auto TT = TAI + 32.184;
+			
+			// Get the current TT in the Julian calendar.
+			const auto JD = ((TT) / 86400.0) + 2440587.5;
+	
+			// Get the days since the J2000 epoch.
+			j2000_days = JD - 2451545.0;
+		}
 		
-		const auto ephemeris_time = Utils::Time::JulianToEphemeris(Utils::Time::UNIXToJulian(unix_time));
+		// DEBUG ONLY: Speedy time. 1s = 1d.
+		j2000_days += Time::Elapsed();//Time::Elapsed() / 24.0;
+		
+		const auto ephemeris_time = j2000_days / 365250.0;
 		
 		m_Positions.Time(ephemeris_time);
 		
@@ -126,11 +157,7 @@ namespace LouiEriksson::Game::Scripts {
 								};
 								
 								if (tilt_period.y != 0.0) {
-									rotation.y = ROTATION::Convert(
-										(1.0 / tilt_period.y) * (unix_time / 86400.0) * 360.0,
-										ROTATION::Unit::Turn,
-										ROTATION::Unit::Degree
-									);
+									rotation.y = (1.0 / tilt_period.y) * (j2000_days) * 360.0 * 360.0;
 								}
 								
 								t->m_Rotation = glm::quat(glm::radians(rotation));
@@ -140,7 +167,7 @@ namespace LouiEriksson::Game::Scripts {
 				}
 			}
 			
-			// Set rotation of moon separately since it is locked to the earth..
+			// Set rotation of moon separately since it is tidally-locked to the earth..
 			{
 				std::weak_ptr<ECS::GameObject> moon, earth;
 				
@@ -158,42 +185,20 @@ namespace LouiEriksson::Game::Scripts {
 							
 							auto dir_to_earth = glm::normalize(e_t->m_Position - m_t->m_Position);
 							
-							m_t->m_Rotation = glm::quatLookAt(dir_to_earth, m_t->UP);
+							// To correctly represent the rotation, the z-axis must be reversed.
+							// See: https://stackoverflow.com/questions/72706695/how-works-glmquatlookat
+							dir_to_earth.z = -dir_to_earth.z;
+							
+							m_t->m_Rotation = glm::quatLookAt(dir_to_earth, e_t->UP);
 						}}
-						
 					}}
 				}
 			}
 		}
 	}
 	
-	template<typename T>
-	T Planetarium::Utils::Time::EphemerisToJulian(const T& _julian) {
-		return (_julian / 365250.0) + 2451545.0;
-	}
-	
-	template<typename T>
-	T Planetarium::Utils::Time::JulianToEphemeris(const T& _ephemeris) {
-		return (_ephemeris - 2451545.0) / 365250.0;
-	}
-	
-	template<typename T>
-	T Planetarium::Utils::Time::JulianToUNIX(const T& _julian) {
-		return (_julian - 2440587.5) * 86400.0;
-	}
-	
-	template<typename T>
-	T Planetarium::Utils::Time::UNIXToJulian(const T& _unix) {
-		return (_unix / 86400.0) + 2440587.5;
-	}
-	
-	template<typename T>
-	T Planetarium::Utils::Time::TT(const T& _tai) {
-		return _tai + 32.184;
-	}
-	
 	template<typename T, glm::precision P>
-	auto Planetarium::Utils::Coord::ChangeHandedness(const glm::vec<3, T, P>& _vec) {
+	glm::vec<3, T, P>  Planetarium::Utils::Coord::ChangeHandedness(const glm::vec<3, T, P>& _vec) {
 		return glm::vec3 { -_vec.x, _vec.z, _vec.y };
 	}
 	
