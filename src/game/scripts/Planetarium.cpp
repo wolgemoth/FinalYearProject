@@ -21,14 +21,6 @@ namespace LouiEriksson::Game::Scripts {
 					auto go = ECS::GameObject::Create(s, item);
 					
 					const auto transform = go->AddComponent<Transform>().lock();
-					
-					if (item == "Moon") {
-						transform->m_Scale = glm::vec3{ 0.25f };
-					}
-					else {
-						transform->m_Scale = glm::vec3{ 1.0f };
-					}
-					
 					const auto renderer  = go->AddComponent<Graphics::Renderer>().lock();
 					renderer->SetMesh(Resources::GetMesh("sphere"));
 					renderer->SetMaterial(Resources::GetMaterial("sphere"));
@@ -43,31 +35,27 @@ namespace LouiEriksson::Game::Scripts {
 	void Planetarium::Tick() {
 		
 		// Update planetary positions using current UNIX time.
-		{
-			const auto unix_time = std::chrono::duration_cast<std::chrono::microseconds>(
-					std::chrono::system_clock::now().time_since_epoch()
-				).count() / 1000000.0;
-			
-			const auto DEBUG_SpeedyTime = 0.0f;// Time::Elapsed() * 1000000.0;
-			
-			const auto ephemeris_time = Utils::Time::JulianToEphemeris(Utils::Time::UNIXToJulian(unix_time + DEBUG_SpeedyTime));
-			
-			m_Positions.Time(ephemeris_time);
-		}
+		auto unix_time = std::chrono::duration_cast<std::chrono::microseconds>(
+				std::chrono::system_clock::now().time_since_epoch()
+			).count() / 1000000.0;
+		
+		// Debug speedy time.
+		unix_time += Time::Elapsed() * 86400.0 / 24.0;
+		
+		const auto ephemeris_time = Utils::Time::JulianToEphemeris(Utils::Time::UNIXToJulian(unix_time));
+		
+		m_Positions.Time(ephemeris_time);
 		
 		{
 			using DISTANCE = Spatial::Maths::Conversions::Distance;
-			
-			// Get position of earth to use as a point-of-origin.
-			const Planets<double, glm::highp>::Position origin{};
-			m_Positions.TryGetPosition("Earth", origin);
+			using ROTATION = Spatial::Maths::Conversions::Rotation;
 			
 			// Get the number of metres in an astronomical unit, to convert to 1:1 scale.
 			const double au_to_m = DISTANCE::Convert(1.0f, DISTANCE::Unit::AstronomicalUnit, DISTANCE::Unit::Metre);
 			
 			// Establish scale multipliers in AU:
-			const auto distance_multiplier_au = (1.0 / au_to_m) * 200.0;
-			const auto     size_multiplier_au = (1.0 / au_to_m) * 200.0;
+			const auto distance_multiplier_au = (1.0 / au_to_m) * 20.0;
+			const auto     size_multiplier_au = (1.0 / au_to_m) * 400.0;
 			
 			/*
 			 * Scales of planets in solar system (in AU).
@@ -75,7 +63,7 @@ namespace LouiEriksson::Game::Scripts {
 			 * https://informal.jpl.nasa.gov/museum/sites/default/files/ResourceLibrary/Planets%20to%20Scale.pdf,
 			 * https://nightsky.jpl.nasa.gov/club/attachments/Fun_Facts_About_the_Moon.pdf
 			 */
-			const Hashmap<std::string, double> scales {
+			const Hashmap<std::string, double> scales_au {
 				{ "Sol",     0.0092982607 },
 				{ "Mercury", 0.0000327545 },
 				{ "Venus",   0.0000808835 },
@@ -88,24 +76,92 @@ namespace LouiEriksson::Game::Scripts {
 				{ "Neptune", 0.0003308871 },
 			};
 			
+			// https://www.wikiwand.com/en/Rotation_period_(astronomy)
+			// https://www.wikiwand.com/en/Axial_tilt
+			const Hashmap<std::string, glm::vec<2, double, glm::highp>> rotations {
+				{ "Sol",     {  7.25,   25.379995  } },
+				{ "Mercury", {  0.03,   58.6462    } },
+				{ "Venus",   {  2.64, -243.0226    } },
+				{ "Earth",   { 23.44,    0.99726968} },
+				{ "Moon",    {  6.68,    0.0       } },
+				{ "Mars",    { 25.19,    1.02595675} },
+				{ "Jupiter", {  3.13,    0.41007   } },
+				{ "Saturn",  { 26.73,    0.4264    } },
+				{ "Uranus",  { 82.23,   -0.71833   } },
+				{ "Neptune", { 28.32,    0.67125   } },
+			};
+			
+			// Get position of earth to use as a point-of-origin.
+			const Planets<double, glm::highp>::Position origin{};
+			
+			m_Positions.TryGetPosition("Earth", origin);
+			
 			for (const auto& kvp : m_Positions.Positions()) {
 				
-				std::shared_ptr<ECS::GameObject> item;
+				std::weak_ptr<ECS::GameObject> item;
 				if (m_Planets.Get(kvp.first, item)) {
 					
-					auto transform = item->GetComponent<Transform>();
+					if (auto go = item.lock()) {
 					
-					if (const auto t = transform.lock()) {
-						
-						// Adjust the position of the planet.
-						t->m_Position = (kvp.second.m_Cartesian - origin.m_Cartesian) * au_to_m * distance_multiplier_au;
-						
-						// Adjust the size of the planet.
-						double scale;
-						if (scales.Get(kvp.first, scale)) {
-							t->m_Scale = glm::vec3(au_to_m * scale * size_multiplier_au);
+					auto transform = go->GetComponent<Transform>();
+					
+						if (const auto t = transform.lock()) {
+							
+							// Adjust the position of the planet.
+							t->m_Position = (kvp.second.m_Cartesian - origin.m_Cartesian) * au_to_m * distance_multiplier_au;
+							
+							// Adjust the size of the planet.
+							double scale;
+							if (scales_au.Get(kvp.first, scale)) {
+								t->m_Scale = glm::vec3(au_to_m * scale * size_multiplier_au);
+							}
+							
+							glm::vec<2, double, glm::highp> tilt_period;
+							if (rotations.Get(kvp.first, tilt_period)) {
+	
+								glm::vec<3, double, glm::highp> rotation = {
+									tilt_period.x,
+									0.0,
+									0.0
+								};
+								
+								if (tilt_period.y != 0.0) {
+									rotation.y = ROTATION::Convert(
+										(1.0 / tilt_period.y) * (unix_time / 86400.0) * 360.0,
+										ROTATION::Unit::Turn,
+										ROTATION::Unit::Degree
+									);
+								}
+								
+								t->m_Rotation = glm::quat(glm::radians(rotation));
+							}
 						}
 					}
+				}
+			}
+			
+			// Set rotation of moon separately since it is locked to the earth..
+			{
+				std::weak_ptr<ECS::GameObject> moon, earth;
+				
+				if (m_Planets.Get("Moon",   moon) &&
+				    m_Planets.Get("Earth", earth)) {
+					
+					if (const auto m =  moon.lock()) {
+					if (const auto e = earth.lock()) {
+						
+						auto  moon_transform = m->GetComponent<Transform>();
+						auto earth_transform = e->GetComponent<Transform>();
+						
+						if (const auto m_t =  moon_transform.lock()) {
+						if (const auto e_t = earth_transform.lock()) {
+							
+							auto dir_to_earth = glm::normalize(e_t->m_Position - m_t->m_Position);
+							
+							m_t->m_Rotation = glm::quatLookAt(dir_to_earth, m_t->UP);
+						}}
+						
+					}}
 				}
 			}
 		}
@@ -142,7 +198,7 @@ namespace LouiEriksson::Game::Scripts {
 	}
 	
 	template<typename T, glm::precision P>
-	const double& Planetarium::Planets<T, P>::Time() {
+	const double& Planetarium::Planets<T, P>::Time() const noexcept {
 		return m_Time;
 	}
 	

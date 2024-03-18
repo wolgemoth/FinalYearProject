@@ -54,7 +54,7 @@ namespace LouiEriksson::Game::Scripts {
 				glm::qua<   T, P> m_Rotation;
 			};
 			
-			const double& Time();
+			const double& Time() const noexcept;
 			void Time(const double& _ephemeris);
 			
 			const bool TryGetPosition(const std::string& _name, const Position& _out) const;
@@ -113,7 +113,7 @@ namespace LouiEriksson::Game::Scripts {
 		/// <summary>
 		/// Hashmap containing planet GameObjects.
 		/// </summary>
-		Hashmap<std::string, std::shared_ptr<ECS::GameObject>> m_Planets;
+		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
 		/// <inheritdoc/>
 		void Begin() override;
