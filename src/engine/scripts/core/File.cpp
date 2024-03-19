@@ -146,9 +146,9 @@ namespace LouiEriksson::Engine {
 			
 			_output.reset(
 				new Graphics::Texture(-1, -1, 0,
-					Graphics::Texture::Parameters::Format    (         _format, _generateMipmaps),
-					Graphics::Texture::Parameters::FilterMode(       GL_LINEAR, GL_LINEAR       ),
-					Graphics::Texture::Parameters::WrapMode  (GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
+					Graphics::Texture::Parameters::Format    (  _format, _generateMipmaps),
+					Graphics::Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR       ),
+					Graphics::Texture::Parameters::WrapMode  (GL_REPEAT, GL_REPEAT       )
 				)
 			);
 			

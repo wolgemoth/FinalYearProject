@@ -16,6 +16,9 @@ namespace LouiEriksson::Game::Scripts {
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
 			{
+				auto defaultMesh     = Resources::GetMesh    ("sphere");
+				auto defaultMaterial = Resources::GetMaterial("sphere");
+				
 				for (const auto& item : m_Positions.Names()) {
 				
 					auto go = ECS::GameObject::Create(s, item);
@@ -24,10 +27,16 @@ namespace LouiEriksson::Game::Scripts {
 					const auto renderer  = go->AddComponent<Graphics::Renderer>();
 					
 					if (const auto t = transform.lock()) {
-					if (const auto r = renderer.lock()) {
+					if (const auto r =  renderer.lock()) {
 					
-						r->SetMesh(Resources::GetMesh("sphere"));
-						r->SetMaterial(Resources::GetMaterial("earth"));
+						auto mesh     = Resources::GetMesh    (item);
+						auto material = Resources::GetMaterial(item);
+						
+						if (    mesh.expired()) { mesh     = defaultMesh;     }
+						if (material.expired()) { material = defaultMaterial; }
+						
+						r->SetMesh(mesh);
+						r->SetMaterial(material);
 						r->SetTransform(transform);
 						
 						m_Planets.Add(item, go);
@@ -128,45 +137,10 @@ namespace LouiEriksson::Game::Scripts {
 					}
 				}
 			}
-			
-			/*
-			 * Print an approximate of the apparent solar time using the position and rotation
-			 * of the Earth, and the position of the Sun.
-			 *
-			 * This is a quick-and-dirty check to make sure everything works correctly.
-			 */
-			{
-				std::weak_ptr<ECS::GameObject> sol, earth;
-				
-				if (m_Planets.Get("Sol", sol) &&
-				    m_Planets.Get("Earth", earth)) {
-					
-					if (const auto s =  sol.lock()) {
-					if (const auto e = earth.lock()) {
-						
-						auto   sol_transform = s->GetComponent<Transform>();
-						auto earth_transform = e->GetComponent<Transform>();
-						
-						if (const auto s_t =   sol_transform.lock()) {
-						if (const auto e_t = earth_transform.lock()) {
-
-							// Get normalized direction to sun.
-							auto dir_to_sun = glm::normalize(s_t->m_Position - e_t->m_Position);
-							
-						    // Calculate the angle in radians.
-						    auto angle = Utils::Coord::SignedAngle(e_t->FORWARD, dir_to_sun, e_t->UP);
-							
-						    // Convert the angle to degrees.
-						    auto angleDegrees = glm::degrees(angle);
-							
-							auto time = (((angleDegrees / 180.0) + 1.0) / 2.0) * 24.0;
-							
-							std::cout << std::fixed << time << '\n';
-						}}
-					}}
-				}
-			}
 		}
+		
+		auto sol = m_Planets.Return("Sol").lock()->GetComponent<Transform>().lock();
+		Settings::Graphics::Material::s_LightPosition = sol->m_Position;
 	}
 	
 } // LouiEriksson::Game::Scripts

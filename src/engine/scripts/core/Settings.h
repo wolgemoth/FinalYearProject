@@ -78,12 +78,13 @@ namespace LouiEriksson::Engine {
 				
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes {
+					"8k_stars_milky_way",
 					"little_paris_eiffel_tower_1k",
 					"abandoned_workshop_02_1k",
 					"blue_photo_studio_1k",
 				};
 				
-				inline static int s_CurrentSkyboxSelection { 2 };
+				inline static int s_CurrentSkyboxSelection { 0 };
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Texture> s_Skybox;
 				
@@ -115,7 +116,7 @@ namespace LouiEriksson::Engine {
 				inline static float s_DisplacementAmount { 0.3f };
 				inline static float s_NormalAmount       { 1.0f };
 				inline static float s_EmissionAmount     { 0.0f };
-				inline static float s_AOAmount           { 2.0f };
+				inline static float s_AOAmount           { 1.0f };
 				
 				inline static glm::vec4 s_TextureScaleTranslate { 1.0f, 1.0f, 0.0f, 0.0f };
 			

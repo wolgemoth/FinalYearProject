@@ -1,0 +1,19 @@
+CREDIT:
+
+NASA's Scientific Visualization Studio
+
+	Visualizer:
+        	Ernie Wright (USRA)
+	Scientist:
+		Noah Petro (NASA/GSFC)
+
+
+ACCESSED: 19-03-2024
+
+MODIFIED: 19-03-2024
+
+	Tools Used:
+		
+		GIMP 2.10.36
+		NormalMap-Online (https://cpetry.github.io/NormalMap-Online/)
+		
