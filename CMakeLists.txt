@@ -248,6 +248,9 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/Time.h
         src/engine/scripts/core/Transform.cpp
         src/engine/scripts/core/Transform.h
+        src/engine/scripts/core/utils/Hashmap.h
+        src/engine/scripts/core/utils/Utils.cpp
+        src/engine/scripts/core/utils/Utils.h
         src/engine/scripts/core/Window.cpp
         src/engine/scripts/core/Window.h
         src/engine/scripts/ecs/Component.cpp
@@ -290,15 +293,10 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/physics/Physics.h
         src/engine/scripts/physics/Rigidbody.cpp
         src/engine/scripts/physics/Rigidbody.h
-        src/engine/scripts/ui/GUI.cpp
-        src/engine/scripts/ui/GUI.h
-        src/engine/scripts/core/utils/Hashmap.h
-        src/engine/scripts/core/utils/Utils.cpp
-        src/engine/scripts/core/utils/Utils.h
-        src/engine/scripts/spatial/maths/Conversions.cpp
-        src/engine/scripts/spatial/maths/Conversions.h
         src/engine/scripts/spatial/atmosphere/ISA.cpp
         src/engine/scripts/spatial/atmosphere/ISA.h
+        src/engine/scripts/spatial/maths/Conversions.cpp
+        src/engine/scripts/spatial/maths/Conversions.h
         src/engine/scripts/spatial/maths/Coords.cpp
         src/engine/scripts/spatial/maths/Coords.h
         src/engine/scripts/spatial/osm/features/Point.h
@@ -306,6 +304,10 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/osm/utils/OSM_Utils.h
         src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.cpp
         src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.h
+        src/engine/scripts/spatial/planets/WGCCRE.cpp
+        src/engine/scripts/spatial/planets/WGCCRE.h
+        src/engine/scripts/ui/GUI.cpp
+        src/engine/scripts/ui/GUI.h
 )
 
 link_directories(FinalYearProject
@@ -329,6 +331,7 @@ target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
 add_executable(Game
         src/main.cpp
 
+        src/game/core/Injector.h
         src/game/scripts/Ball.cpp
         src/game/scripts/Ball.h
         src/game/scripts/FlyCam.cpp
@@ -337,7 +340,6 @@ add_executable(Game
         src/game/scripts/OrbitCam.h
         src/game/scripts/Plane.cpp
         src/game/scripts/Plane.h
-        src/game/core/Injector.h
         src/game/scripts/Planetarium.cpp
         src/game/scripts/Planetarium.h
 )

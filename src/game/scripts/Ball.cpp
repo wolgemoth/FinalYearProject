@@ -26,7 +26,6 @@ namespace LouiEriksson::Game::Scripts {
 			
 				// Add Renderer.
 				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
-				
 				renderer->SetMesh(Resources::GetMesh("sphere"));
 				renderer->SetMaterial(Resources::GetMaterial("sphere"));
 				renderer->SetTransform(t);

@@ -21,6 +21,9 @@ namespace LouiEriksson::Game::Scripts {
 				
 				template<typename T, glm::precision P>
 				static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec);
+				
+				template<typename T, glm::precision P>
+				static double SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis);
 			};
 		};
 		
@@ -36,14 +39,34 @@ namespace LouiEriksson::Game::Scripts {
 				glm::qua<   T, P> m_Rotation;
 			};
 			
-			const double& Time() const noexcept;
-			void Time(const double& _ephemeris);
+			/// </summary>
+			/// Scales of planets in solar system (in AU).
+			/// Converted from information provided by NASA:
+			/// https://informal.jpl.nasa.gov/museum/sites/default/files/ResourceLibrary/Planets%20to%20Scale.pdf,
+			/// https://nightsky.jpl.nasa.gov/club/attachments/Fun_Facts_About_the_Moon.pdf
+			/// </summary>
+			inline static const Hashmap<std::string, T> s_Scales_AU {
+				{ "Sol",     0.0092982607 },
+				{ "Mercury", 0.0000327545 },
+				{ "Venus",   0.0000808835 },
+				{ "Earth",   0.0000855627 },
+				{ "Moon",    0.0000232289 },
+				{ "Mars",    0.0000454552 },
+				{ "Jupiter", 0.000955896  },
+				{ "Saturn",  0.0008054927 },
+				{ "Uranus",  0.0003415824 },
+				{ "Neptune", 0.0003308871 },
+			};
 			
-			const bool TryGetPosition(const std::string& _name, const Position& _out) const;
+			void Time(const double& _time);
 			
-			const std::vector<typename Hashmap<std::string, Position>::KeyValuePair> Positions() const;
+			[[nodiscard]] const double& Time() const noexcept;
 			
-			const std::vector<std::string> Names() const;
+			[[nodiscard]] const bool TryGetPosition(const std::string& _name, const Position& _out) const;
+			
+			[[nodiscard]] const std::vector<typename Hashmap<std::string, Position>::KeyValuePair> Positions() const;
+			
+			[[nodiscard]] const std::vector<std::string> Names() const;
 			
 		private:
 			
@@ -65,23 +88,23 @@ namespace LouiEriksson::Game::Scripts {
 				{ "Neptune", {} },
 			};
 			
-			static Position GetSol(const double& _ephemeris);
+			static Position GetSol(const double& _time);
 			
-			static Position GetMercury(const double& _ephemeris);
+			static Position GetMercury(const double& _time);
 			
-			static Position GetVenus(const double& _ephemeris);
+			static Position GetVenus(const double& _time);
 			
-			std::pair<Position, Position> GetEarthAndMoon(const double& _ephemeris);
+			std::pair<Position, Position> GetEarthAndMoon(const double& _time);
 			
-			static Position GetMars(const double& _ephemeris);
+			static Position GetMars(const double& _time);
 			
-			static Position GetJupiter(const double& _ephemeris);
+			static Position GetJupiter(const double& _time);
 			
-			static Position GetSaturn(const double& _ephemeris);
+			static Position GetSaturn(const double& _time);
 			
-			static Position GetUranus(const double& _ephemeris);
+			static Position GetUranus(const double& _time);
 			
-			static Position GetNeptune(const double& _ephemeris);
+			static Position GetNeptune(const double& _time);
 		};
 		
 		/// <summary> Transform of the FlyCam. </summary>
@@ -110,6 +133,190 @@ namespace LouiEriksson::Game::Scripts {
 	
 		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 	};
+	
+	template<typename T, glm::precision P>
+	glm::vec<3, T, P>  Planetarium::Utils::Coord::ChangeHandedness(const glm::vec<3, T, P>& _vec) {
+		return glm::vec3 { -_vec.x, _vec.z, _vec.y };
+	}
+	
+	template<typename T, glm::precision P>
+	double Planetarium::Utils::Coord::SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
+		
+	    auto d = glm::dot  (_a, _b);
+	    auto p = glm::cross(_a, _b);
+	    
+	    auto angle = glm::atan(glm::length(p), d);
+	    
+	    return angle * glm::sign(dot(p, _axis));
+	}
+	
+	template<typename T, glm::precision P>
+	void Planetarium::Planets<T, P>::Time(const double& _time) {
+		
+		const auto earthMoon = GetEarthAndMoon(_time);
+		
+		m_Positions.Assign("Sol"    , GetSol    (_time));
+		m_Positions.Assign("Mercury", GetMercury(_time));
+		m_Positions.Assign("Venus"  , GetVenus  (_time));
+		m_Positions.Assign("Earth"  , earthMoon.first  );
+		m_Positions.Assign("Moon"   , earthMoon.second );
+		m_Positions.Assign("Mars"   , GetMars   (_time));
+		m_Positions.Assign("Jupiter", GetJupiter(_time));
+		m_Positions.Assign("Saturn" , GetSaturn (_time));
+		m_Positions.Assign("Uranus" , GetUranus (_time));
+		m_Positions.Assign("Neptune", GetNeptune(_time));
+	}
+	
+	template<typename T, glm::precision P>
+	const double& Planetarium::Planets<T, P>::Time() const noexcept {
+		return m_Time;
+	}
+	
+	template<typename T, glm::precision P>
+	const bool Planetarium::Planets<T, P>::TryGetPosition(const std::string& _name, const Position& _out) const {
+		return m_Positions.Get(_name, const_cast<Position&>(_out) );
+	}
+	
+	template<typename T, glm::precision P>
+	const std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, P>::Position>::KeyValuePair> Planetarium::Planets<T, P>::Positions() const {
+		return m_Positions.GetAll();
+	}
+	
+	template<typename T, glm::precision P>
+	const std::vector<std::string> Planetarium::Planets<T, P>::Names() const {
+		return m_Positions.Keys();
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetSol(const double& _time) {
+		
+		return {
+			{},
+			{ 0.0, 0.0, 0.0 },
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetMercury(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getMercury(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetVenus(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getVenus(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	std::pair<typename Planetarium::Planets<T, P>::Position, typename Planetarium::Planets<T, P>::Position> Planetarium::Planets<T, P>::GetEarthAndMoon(const double& _time) {
+		
+		double tmp_earth[3], tmp_emb[3], tmp_moon[3];
+		
+	    vsop87a_full::getEarth(_time, tmp_earth);
+		vsop87a_full::getEmb  (_time, tmp_emb);
+		vsop87a_full::getMoon (tmp_earth, tmp_emb, tmp_moon);
+		
+		return {
+			{
+				{},
+				{ Utils::Coord::ChangeHandedness<T, P>({ tmp_earth[0], tmp_earth[1], tmp_earth[2] }) },
+				{}
+			},
+			{
+				{},
+				{Utils::Coord::ChangeHandedness<T, P>({ tmp_moon[0], tmp_moon[1], tmp_moon[2] }) },
+				{}
+			}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetMars(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getMars(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetJupiter(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getJupiter(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetSaturn(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getSaturn(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetUranus(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getUranus(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
+	
+	template<typename T, glm::precision P>
+	typename Planetarium::Planets<T, P>::Position Planetarium::Planets<T, P>::GetNeptune(const double& _time) {
+		
+		double tmp[3];
+		
+	    vsop87a_full::getNeptune(_time, tmp);
+		
+		return {
+			{},
+			Utils::Coord::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }),
+			{}
+		};
+	}
 	
 } // LouiEriksson::Game::Scripts
 

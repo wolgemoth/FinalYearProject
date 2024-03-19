@@ -83,7 +83,7 @@ namespace LouiEriksson::Engine {
 					"blue_photo_studio_1k",
 				};
 				
-				inline static int s_CurrentSkyboxSelection { 0 };
+				inline static int s_CurrentSkyboxSelection { 2 };
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Texture> s_Skybox;
 				
@@ -117,7 +117,7 @@ namespace LouiEriksson::Engine {
 				inline static float s_EmissionAmount     { 0.0f };
 				inline static float s_AOAmount           { 2.0f };
 				
-				inline static glm::vec4 s_TextureScaleTranslate { 3.0f, 3.0f, 0.0f, 0.0f };
+				inline static glm::vec4 s_TextureScaleTranslate { 1.0f, 1.0f, 0.0f, 0.0f };
 			
 				/* SHADOWS */
 				inline static std::vector<const char*> s_ShadowTechniques {
