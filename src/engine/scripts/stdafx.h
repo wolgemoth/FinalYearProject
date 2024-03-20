@@ -21,6 +21,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
 
+#include <vsop87a_full.h>           // VSOP87
+
 #include <SDL.h>                    // SDL2
 
 /* INTERNAL */

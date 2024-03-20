@@ -207,6 +207,14 @@ add_library(PELLET STATIC
 # ADD OPENAL:
 find_package(OpenAL REQUIRED)
 
+# ADD VSOP87:
+set(VSOP87_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/greg-miller/vsop87/)
+
+add_library(VSOP87 STATIC
+        ${VSOP87_INCLUDE_DIR}/vsop87a_full.cpp
+        ${VSOP87_INCLUDE_DIR}/vsop87a_full.h
+)
+
 # LINK:
 include_directories(
         ${GLEW_INCLUDE_DIR}
@@ -218,6 +226,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/contrib/wavefront/include
         ${SDL2_INCLUDE_DIR}
         ${OPENAL_INCLUDE_DIR}
+        ${VSOP87_INCLUDE_DIR}
 )
 
 # ADD FINALYEARPROJECT:
@@ -302,12 +311,11 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/osm/features/Point.h
         src/engine/scripts/spatial/osm/utils/OSM_Utils.cpp
         src/engine/scripts/spatial/osm/utils/OSM_Utils.h
-        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.cpp
-        src/engine/scripts/spatial/planets/greg-miller/vsop87/vsop87a_full.h
         src/engine/scripts/spatial/planets/WGCCRE.cpp
         src/engine/scripts/spatial/planets/WGCCRE.h
         src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
+        src/engine/scripts/spatial/planets/VSOP.h
 )
 
 link_directories(FinalYearProject
@@ -316,6 +324,8 @@ link_directories(FinalYearProject
 )
 
 target_link_libraries(FinalYearProject
+
+        # CORE:
         GL
         GLEW
         IMGUI
@@ -323,6 +333,9 @@ target_link_libraries(FinalYearProject
         PELLET
         SDL2
         SDL2main
+
+        # SPATIAL:
+        VSOP87
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

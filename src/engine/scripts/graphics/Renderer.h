@@ -34,8 +34,8 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Transform of the Renderer. </summary>
 		std::weak_ptr<Transform> m_Transform;
 	
-		/// <summary> Whether or not the Renderer should draw shadows. </summary>
-		bool m_DrawShadows;
+		/// <summary> Whether or not the Renderer is a shadow caster. </summary>
+		bool m_CastShadows;
 		
 	public:
 	
@@ -44,10 +44,10 @@ namespace LouiEriksson::Engine::Graphics {
 	
 		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Renderer); };
 		
-		/// <summary> Set whether or not the Renderer should draw shadows. </summary>
+		/// <summary> Set whether or not the Renderer should cast shadows. </summary>
 		void Shadows(const bool& _enable) noexcept;
 	
-		/// <summary> Set whether or not the Renderer should draw shadows. </summary>
+		/// <summary> Set whether or not the Renderer should cast shadows. </summary>
 		const bool& Shadows() noexcept;
 		
 		/// <summary> Set the Mesh of the Renderer. </summary>

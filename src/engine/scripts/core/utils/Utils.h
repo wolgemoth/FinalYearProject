@@ -64,7 +64,28 @@ namespace LouiEriksson::Engine {
 		/// </summary>
 		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
 		
+		template<typename T, glm::precision P>
+		static double SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis);
+		
+		template<typename T, glm::precision P>
+		static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec);
 	};
+	
+	template<typename T, glm::precision P>
+	double Utils::SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
+		
+	    auto d = glm::dot  (_a, _b);
+	    auto p = glm::cross(_a, _b);
+	    
+	    auto angle = glm::atan(glm::length(p), d);
+	    
+	    return angle * glm::sign(dot(p, _axis));
+	}
+	
+	template<typename T, glm::precision P>
+	glm::vec<3, T, P>  Utils::ChangeHandedness(const glm::vec<3, T, P>& _vec) {
+		return glm::vec3 { -_vec.x, _vec.z, _vec.y };
+	}
 	
 } // LouiEriksson::Engine
 

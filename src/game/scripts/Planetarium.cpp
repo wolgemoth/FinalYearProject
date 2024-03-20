@@ -121,11 +121,11 @@ namespace LouiEriksson::Game::Scripts {
 			const double au_to_m = DISTANCE::Convert(1.0f, DISTANCE::Unit::AstronomicalUnit, DISTANCE::Unit::Metre);
 			
 			// Establish scale multipliers in AU:
-			const auto distance_multiplier_au = (1.0 / au_to_m) * 20.0;
+			const auto distance_multiplier_au = (1.0 / au_to_m) *  20.0;
 			const auto     size_multiplier_au = (1.0 / au_to_m) * 400.0;
 			
 			// Get position of earth to use as a point-of-origin.
-			const Planets<double, glm::highp>::Position origin{};
+			const Spatial::VSOP<double, glm::highp>::Position origin{};
 			
 			m_Positions.TryGetPosition("Earth", origin);
 			
