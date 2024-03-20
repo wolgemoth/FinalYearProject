@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine {
 			UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 			
 			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 			scene->Begin();
 	
 			// Set the delta time of the physics simulation.
