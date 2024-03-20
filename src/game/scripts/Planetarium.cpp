@@ -51,11 +51,16 @@ namespace LouiEriksson::Game::Scripts {
 			
 			if (const auto go = sol.lock()) {
 			
-				auto renderer = go->GetComponent<Graphics::Renderer>();
+				const auto transform = go->GetComponent<Transform>();
+				const auto  renderer = go->GetComponent<Graphics::Renderer>();
 			
-				if (const auto r = renderer.lock()) {
+				if (const auto t = transform.lock()) {
+				if (const auto r =  renderer.lock()) {
+					
+					Settings::Graphics::Material::s_LightRange = 2000.0f;
+					
 					r->Shadows(false);
-				}
+				}}
 			}
 		}
 	}
@@ -152,7 +157,9 @@ namespace LouiEriksson::Game::Scripts {
 			}
 		}
 		
-		auto sol = m_Planets.Return("Sol").lock()->GetComponent<Transform>().lock();
+		// Put the light where the sun is.
+		// TODO: Use a 'Light' component instead!
+		const auto sol = m_Planets.Return("Sol").lock()->GetComponent<Transform>().lock();
 		Settings::Graphics::Material::s_LightPosition = sol->m_Position;
 	}
 	
