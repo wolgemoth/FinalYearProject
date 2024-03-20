@@ -1101,7 +1101,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Load the luminosity samples into the buffer.
 				RenderTexture::Bind(luma_out);
-				glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_FLOAT, pixels.data());
+				glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_HALF_FLOAT, pixels.data());
 				
 				// Compute the average luminosity:
 				int avg_count = 0;
