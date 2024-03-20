@@ -111,13 +111,6 @@ namespace LouiEriksson::Engine {
 				
 				static void UpdateShader(const int& _index);
 				
-				/* PARAMETERS */
-				inline static float s_RoughnessAmount    { 1.0f };
-				inline static float s_DisplacementAmount { 0.3f };
-				inline static float s_NormalAmount       { 1.0f };
-				inline static float s_EmissionAmount     { 0.0f };
-				inline static float s_AOAmount           { 1.0f };
-				
 				inline static glm::vec4 s_TextureScaleTranslate { 1.0f, 1.0f, 0.0f, 0.0f };
 			
 				/* SHADOWS */

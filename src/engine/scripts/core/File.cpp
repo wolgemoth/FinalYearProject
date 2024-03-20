@@ -541,7 +541,49 @@ namespace LouiEriksson::Engine {
 						
 						const auto& key = subStrings.at(0);
 						
-						if (key == "map_Kd") {
+						if (key == "Ka") {
+							std::cout << "Ambient color loading not implemented.\n";
+						}
+						else if (key == "Kd") {
+							
+							auto r = std::stof(subStrings.at(1));
+							auto g = std::stof(subStrings.at(2));
+							auto b = std::stof(subStrings.at(3));
+							
+							_output->m_Albedo_Color = { r, g, b, 1.0 };
+							
+							try {
+								_output->m_Albedo_Color.a = std::stof(subStrings.at(4));
+							}
+							catch (const std::exception& e) {}
+						}
+						else if (key == "d" || key == "Tr") {
+							_output->m_Albedo_Color.a = 1.0 - std::clamp(std::stof(subStrings.at(1)), 0.0f, 1.0f);
+						}
+						else if (key == "Ks") {
+							std::cout << "Specular color loading not implemented.\n";
+						}
+						else if (key == "illum") {
+							std::cout << "Support for different lighting models is not implemented.\n";
+						}
+						else if (key == "Ao") {
+							_output->m_AO = std::stof(subStrings.at(1));
+						}
+						else if (key == "Ns") {
+							_output->m_Roughness = 1.0 - (std::atan(std::stof(subStrings.at(1))) / (M_PI / 2));
+						}
+						else if (key == "Ke") {
+							
+							_output->m_Emission_Color = {
+									std::stof(subStrings.at(1)),
+									std::stof(subStrings.at(2)),
+									std::stof(subStrings.at(3))
+							};
+						}
+						else if (key == "Ni") {
+							std::cout << "Optical density loading not implemented.\n";
+						}
+						else if (key == "map_Kd") {
 							
 							if (subStrings.size() >= 2) {
 							
@@ -549,18 +591,18 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Albedo = texture;
+									_output->m_Albedo_Texture = texture;
 								}
 							}
 						}
 						else if (key == "map_Ks") {
-							std::cout << "Specular map loading not implemented. ";
+							std::cout << "Specular map loading not implemented.\n";
 						}
 						else if (key == "map_Tr" || key == "map_d") {
-							std::cout << "Transparency map loading not implemented. ";
+							std::cout << "Transparency map loading not implemented.\n";
 						}
 						else if (key == "bump" || key == "map_bump" || key == "bm") {
-							std::cout << "Bump map loading not implemented. ";
+							std::cout << "Bump map loading not implemented.\n";
 						}
 						else if (key == "disp") {
 							
@@ -570,7 +612,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Displacement = texture;
+									_output->m_Displacement_Texture = texture;
 								}
 							}
 						}
@@ -582,7 +624,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Roughness = texture;
+									_output->m_Roughness_Texture = texture;
 								}
 							}
 						}
@@ -594,7 +636,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Metallic = texture;
+									_output->m_Metallic_Texture = texture;
 								}
 							}
 						}
@@ -606,7 +648,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Emission = texture;
+									_output->m_Emission_Texture = texture;
 								}
 							}
 						}
@@ -618,7 +660,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_Normals = texture;
+									_output->m_Normal_Texture = texture;
 								}
 							}
 						}
@@ -630,7 +672,7 @@ namespace LouiEriksson::Engine {
 								
 								std::shared_ptr<Graphics::Texture> texture;
 								if (Resources::TryGetTexture(path.stem().string(), texture)) {
-									_output->m_AO = texture;
+									_output->m_AO_Texture = texture;
 								}
 							}
 						}

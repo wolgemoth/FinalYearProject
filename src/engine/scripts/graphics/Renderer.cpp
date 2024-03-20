@@ -11,8 +11,18 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	Renderer::Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
+	Renderer::Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
+		m_DrawShadows(true) {}
+		
 	Renderer::~Renderer() = default;
+	
+	void Renderer::Shadows(const bool& _enable) noexcept {
+		m_DrawShadows = _enable;
+	}
+	
+	const bool& Renderer::Shadows() noexcept {
+		return m_DrawShadows;
+	}
 	
 	void Renderer::SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept {
 		m_Mesh = _mesh;

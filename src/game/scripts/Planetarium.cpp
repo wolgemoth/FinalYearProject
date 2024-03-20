@@ -16,12 +16,12 @@ namespace LouiEriksson::Game::Scripts {
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
 			{
-				auto defaultMesh     = Resources::GetMesh    ("sphere");
-				auto defaultMaterial = Resources::GetMaterial("sphere");
+				const auto defaultMesh     = Resources::GetMesh    ("sphere");
+				const auto defaultMaterial = Resources::GetMaterial("sphere");
 				
 				for (const auto& item : m_Positions.Names()) {
 				
-					auto go = ECS::GameObject::Create(s, item);
+					const auto go = ECS::GameObject::Create(s, item);
 					
 					const auto transform = go->AddComponent<Transform>();
 					const auto renderer  = go->AddComponent<Graphics::Renderer>();
@@ -44,6 +44,20 @@ namespace LouiEriksson::Game::Scripts {
 				}
 			}
 		}}
+		
+		// Prevent the sun from casting shadows:
+		std::weak_ptr<ECS::GameObject> sol;
+		if (m_Planets.Get("Sol", sol)) {
+			
+			if (const auto go = sol.lock()) {
+			
+				auto renderer = go->GetComponent<Graphics::Renderer>();
+			
+				if (const auto r = renderer.lock()) {
+					r->Shadows(false);
+				}
+			}
+		}
 	}
 	
 	void Planetarium::Tick() {
@@ -115,9 +129,9 @@ namespace LouiEriksson::Game::Scripts {
 				std::weak_ptr<ECS::GameObject> item;
 				if (m_Planets.Get(kvp.first, item)) {
 					
-					if (auto go = item.lock()) {
+					if (const auto go = item.lock()) {
 					
-					auto transform = go->GetComponent<Transform>();
+						const auto transform = go->GetComponent<Transform>();
 					
 						if (const auto t = transform.lock()) {
 							
@@ -130,9 +144,8 @@ namespace LouiEriksson::Game::Scripts {
 								t->m_Scale = glm::vec3(au_to_m * scale * size_multiplier_au);
 							}
 							
-							auto rot = Spatial::WGCCRE::GetOrientationVSOP87<double, glm::highp>(kvp.first, julian_centuries);
-							
-							t->m_Rotation = glm::quat(glm::radians(rot));
+							// Adjust the rotation of the planet.
+							t->m_Rotation = glm::quat(glm::radians(Spatial::WGCCRE::GetOrientationVSOP87<double, glm::highp>(kvp.first, julian_centuries)));
 						}
 					}
 				}

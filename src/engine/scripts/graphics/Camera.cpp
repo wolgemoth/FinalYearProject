@@ -118,8 +118,7 @@ namespace LouiEriksson::Engine::Graphics {
 			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
 			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
 			
-			p->Assign(p->AttributeID("u_ST"                 ), Settings::Graphics::Material::s_TextureScaleTranslate);
-			p->Assign(p->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount   );
+			p->Assign(p->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
 			
 			{
 				const auto t = GetTransform().lock();
@@ -144,8 +143,10 @@ namespace LouiEriksson::Engine::Graphics {
 					// Bind VAO.
 					Mesh::Bind(*me);
 					
+					p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
+					
 					// Assign textures:
-					if (const auto d = ma->GetDisplacement().lock()) {
+					if (const auto d = ma->GetDisplacementTexture().lock()) {
 						p->Assign(p->AttributeID("u_Displacement"), d->ID(), 0, GL_TEXTURE_2D);
 					}
 					
@@ -231,7 +232,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
 					// Assign textures:
-					if (const auto a = ma->GetAlbedo().lock()) {
+					if (const auto a = ma->GetAlbedoTexture().lock()) {
 						p->Assign(p->AttributeID("u_Albedo"), a->ID(), 0, GL_TEXTURE_2D);
 					}
 					
@@ -267,8 +268,6 @@ namespace LouiEriksson::Engine::Graphics {
 				);
 			}
 			
-			p->Assign(p->AttributeID("u_EmissionAmount"), Settings::Graphics::Material::s_EmissionAmount);
-			
 			RenderTexture::Bind(m_Emission_gBuffer);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -285,8 +284,10 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
+					p->Assign(p->AttributeID("u_EmissionColor"), ma->GetEmissionColor());
+			
 					// Assign textures:
-					if (const auto e = ma->GetEmission().lock()) {
+					if (const auto e = ma->GetEmissionTexture().lock()) {
 						p->Assign(p->AttributeID("u_Emission"), e->ID(), 0, GL_TEXTURE_2D);
 					}
 					
@@ -357,10 +358,6 @@ namespace LouiEriksson::Engine::Graphics {
 
 			p->Assign(p->AttributeID(    "u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
 			
-			p->Assign(p->AttributeID(   "u_Roughness_Amount"), Settings::Graphics::Material::s_RoughnessAmount);
-			p->Assign(p->AttributeID("u_Displacement_Amount"), Settings::Graphics::Material::s_DisplacementAmount);
-			p->Assign(p->AttributeID(          "u_AO_Amount"), Settings::Graphics::Material::s_AOAmount);
-			
 			if (const auto t = GetTransform().lock()) {
 				
 				const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
@@ -398,20 +395,24 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL */
 					
+					p->Assign(p->AttributeID(   "u_Roughness_Amount"), ma->GetRoughnessAmount()   );
+					p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
+					p->Assign(p->AttributeID(          "u_AO_Amount"), ma->GetAOAmount()          );
+					
 					// Assign textures:
-					if (const auto ro = ma->GetRoughness().lock()) {
+					if (const auto ro = ma->GetRoughnessTexture().lock()) {
 						p->Assign(p->AttributeID("u_Roughness"), ro->ID(), 0, GL_TEXTURE_2D);
 					}
 					
-					if (const auto met = ma->GetMetallic().lock()) {
+					if (const auto met = ma->GetMetallicTexture().lock()) {
 						p->Assign(p->AttributeID("u_Metallic"), met->ID(), 1, GL_TEXTURE_2D);
 					}
 					
-					if (const auto a = ma->GetAO().lock()) {
+					if (const auto a = ma->GetAOTexture().lock()) {
 						p->Assign(p->AttributeID("u_AO"), a->ID(), 2, GL_TEXTURE_2D);
 					}
 					
-					if (const auto d = ma->GetDisplacement().lock()) {
+					if (const auto d = ma->GetDisplacementTexture().lock()) {
 						p->Assign(p->AttributeID("u_Displacement"), d->ID(), 3, GL_TEXTURE_2D);
 					}
 					
@@ -436,8 +437,6 @@ namespace LouiEriksson::Engine::Graphics {
 				1,
 				GL_TEXTURE_2D
 			);
-			
-			p->Assign(p->AttributeID("u_NormalAmount"), Settings::Graphics::Material::s_NormalAmount);
 			
 			{
 				const auto w = m_Window.lock();
@@ -465,9 +464,11 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
+					p->Assign(p->AttributeID("u_NormalAmount"), ma->GetNormalAmount());
+			
 					p->Assign(
 						p->AttributeID("u_Normals"),
-							ma->GetNormals().lock()->ID(),
+							ma->GetNormalTexture().lock()->ID(),
 						0,
 						GL_TEXTURE_2D
 					);
@@ -607,13 +608,16 @@ namespace LouiEriksson::Engine::Graphics {
 						if (const auto  t = r->GetTransform().lock()) {
 						if (const auto me = r->GetMesh().lock()     ) {
 							
-							// Bind VAO.
-							Mesh::Bind(*me);
-							
-							p->Assign(p->AttributeID("u_Model"), t->TRS());
-							
-							/* DRAW */
-							glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+							if (r->Shadows()) {
+								
+								// Bind VAO.
+								Mesh::Bind(*me);
+								
+								p->Assign(p->AttributeID("u_Model"), t->TRS());
+								
+								/* DRAW */
+								glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+							}
 							
 						}}}
 					}

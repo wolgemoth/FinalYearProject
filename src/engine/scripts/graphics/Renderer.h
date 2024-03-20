@@ -34,12 +34,21 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Transform of the Renderer. </summary>
 		std::weak_ptr<Transform> m_Transform;
 	
+		/// <summary> Whether or not the Renderer should draw shadows. </summary>
+		bool m_DrawShadows;
+		
 	public:
 	
 		explicit Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Renderer() override;
 	
 		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Renderer); };
+		
+		/// <summary> Set whether or not the Renderer should draw shadows. </summary>
+		void Shadows(const bool& _enable) noexcept;
+	
+		/// <summary> Set whether or not the Renderer should draw shadows. </summary>
+		const bool& Shadows() noexcept;
 		
 		/// <summary> Set the Mesh of the Renderer. </summary>
 		void SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept;

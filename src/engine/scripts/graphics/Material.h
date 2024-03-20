@@ -27,13 +27,22 @@ namespace LouiEriksson::Engine::Graphics {
 		// Shader the Material points to.
 		std::weak_ptr<Shader> m_Shader;
 	
-		std::weak_ptr<Texture> m_Albedo;
-		std::weak_ptr<Texture> m_Roughness;
-		std::weak_ptr<Texture> m_Metallic;
-		std::weak_ptr<Texture> m_Normals;
-		std::weak_ptr<Texture> m_Displacement;
-		std::weak_ptr<Texture> m_AO;
-		std::weak_ptr<Texture> m_Emission;
+		std::weak_ptr<Texture> m_Albedo_Texture,
+		                       m_AO_Texture,
+		                       m_Displacement_Texture,
+		                       m_Emission_Texture,
+		                       m_Metallic_Texture,
+		                       m_Normal_Texture,
+		                       m_Roughness_Texture;
+		
+		glm::vec4 m_Albedo_Color;
+		
+		glm::vec3 m_Emission_Color;
+		
+		float m_AO,
+			  m_Displacement,
+			  m_Normal,
+		      m_Roughness;
 		
 		 Material();
 		 
@@ -44,13 +53,21 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Get the currently assigned Shader. </summary>
 		[[nodiscard]] const std::weak_ptr<Shader>& GetShader() const noexcept;
 		
-		[[nodiscard]] const std::weak_ptr<Texture>& GetAlbedo()       const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetRoughness()    const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetMetallic()     const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetNormals()      const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetDisplacement() const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetAO()           const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetEmission()     const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetAlbedoTexture()       const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetAOTexture()           const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetDisplacementTexture() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetEmissionTexture()     const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetMetallicTexture()     const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetNormalTexture()      const noexcept;
+		[[nodiscard]] const std::weak_ptr<Texture>& GetRoughnessTexture()    const noexcept;
+		
+		[[nodiscard]] const glm::vec4& GetAlbedoColor()   const noexcept;
+		[[nodiscard]] const glm::vec3& GetEmissionColor() const noexcept;
+		
+		[[nodiscard]] const float& GetAOAmount()           const noexcept;
+		[[nodiscard]] const float& GetDisplacementAmount() const noexcept;
+		[[nodiscard]] const float& GetNormalAmount()       const noexcept;
+		[[nodiscard]] const float& GetRoughnessAmount()    const noexcept;
 		
 	};
 	
