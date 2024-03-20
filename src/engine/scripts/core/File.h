@@ -22,6 +22,8 @@ namespace LouiEriksson::Engine::Graphics {
 	class Cubemap;
 	class Material;
 	class Mesh;
+	class Shader;
+	struct SubShader;
 	
 } // LouiEriksson::Engine::Graphics
 
@@ -65,6 +67,9 @@ namespace LouiEriksson::Engine {
 		
 		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format, bool _generateMipmaps);
 	
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output);
+
+		static bool TryLoad(std::vector<Graphics::SubShader> _subshaders, std::shared_ptr<Graphics::Shader>& _output);
 	};
 	
 } // LouiEriksson::Engine

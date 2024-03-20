@@ -36,6 +36,9 @@ namespace LouiEriksson::Engine {
 			if (File::TryLoad(kvp.second, clip)) {
 				m_Audio.Add(kvp.first, clip);
 			}
+			else {
+				AddFailed<Audio::AudioClip>(kvp.first, "");
+			}
 		}
 	}
 	
@@ -55,6 +58,9 @@ namespace LouiEriksson::Engine {
 			std::shared_ptr<Graphics::Mesh> mesh;
 			if (File::TryLoad(kvp.second, mesh)) {
 				m_Meshes.Add(kvp.first, mesh);
+			}
+			else {
+				AddFailed<Graphics::Mesh>(kvp.first, "");
 			}
 		}
 	}
@@ -76,6 +82,9 @@ namespace LouiEriksson::Engine {
 			if (File::TryLoad(kvp.second, material)) {
 				m_Materials.Add(kvp.first, material);
 			}
+			else {
+				AddFailed<Graphics::Mesh>(kvp.first, "");
+			}
 		}
 	}
 	
@@ -95,6 +104,9 @@ namespace LouiEriksson::Engine {
 				if (File::TryLoad(kvp.second, texture, { GL_SRGB, true })) {
 					m_Textures.Add(kvp.first, texture);
 				}
+				else {
+					AddFailed<Graphics::Texture>(kvp.first, "");
+				}
 			}
 		}
 		
@@ -111,6 +123,9 @@ namespace LouiEriksson::Engine {
 				std::shared_ptr<Graphics::Texture> texture;
 				if (File::TryLoad(kvp.second, texture, { GL_RGB32F, true })) {
 					m_Textures.Add(kvp.first, texture);
+				}
+				else {
+					AddFailed<Graphics::Texture>(kvp.first, "");
 				}
 			}
 		}
@@ -196,7 +211,7 @@ namespace LouiEriksson::Engine {
 			{
 				for (const auto& kvp : separated.GetAll()) {
 				
-					std::vector<Graphics::Shader::SubShader> subShaders;
+					std::vector<Graphics::SubShader> subShaders;
 					subShaders.reserve(kvp.second.size());
 					
 					for (const auto& subshader : kvp.second) {
@@ -204,8 +219,13 @@ namespace LouiEriksson::Engine {
 					}
 					
 					// Compile shader and add to cache.
-					auto compiled = std::shared_ptr<Graphics::Shader>(new Graphics::Shader(subShaders), [](Graphics::Shader* _ptr) { delete _ptr; });
-					m_Shaders.Add(compiled->Name(), compiled);
+					std::shared_ptr<Graphics::Shader> shader;
+					if (File::TryLoad(subShaders, shader)) {
+						m_Shaders.Add(shader->Name(), shader);
+					}
+					else {
+						AddFailed<Graphics::Shader>(kvp.first, "");
+					}
 				}
 			}
 			
@@ -215,8 +235,13 @@ namespace LouiEriksson::Engine {
 				for (const auto& item : combined) {
 				
 					// Compile shader and add to cache.
-					auto compiled = std::shared_ptr<Graphics::Shader>(new Graphics::Shader(item), [](Graphics::Shader* _ptr) { delete _ptr; });
-					m_Shaders.Add(compiled->Name(), compiled);
+					std::shared_ptr<Graphics::Shader> shader;
+					if (File::TryLoad(item, shader)) {
+						m_Shaders.Add(shader->Name(), shader);
+					}
+					else {
+						AddFailed<Graphics::Shader>(item.filename(), "");
+					}
 				}
 			}
 		}
@@ -236,56 +261,101 @@ namespace LouiEriksson::Engine {
 		}
 	}
 	
-	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name) noexcept  {
+	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name, const bool& _fallback) noexcept  {
 		
 		std::shared_ptr<Audio::AudioClip> result;
 		
-		if (!m_Audio.Get(_name, result)) {
-			m_Audio.Get("default", result);
+		if (!m_Audio.Get(_name, result) && _fallback) {
+			
+			std::string reason;
+			if (GetFailed<Audio::AudioClip>(_name, reason)) {
+				m_Audio.Get("error", result);
+				
+				std::cerr << reason << std::endl;
+			}
+			else {
+				m_Audio.Get("missing", result);
+			}
 		}
 		
 		return result;
 	}
 	
-	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name) noexcept {
+	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name, const bool& _fallback) noexcept {
 
 		std::shared_ptr<Graphics::Mesh> result;
 		
-		if (!m_Meshes.Get(_name, result)) {
-			m_Meshes.Get("default", result);
+		if (!m_Meshes.Get(_name, result) && _fallback) {
+			
+			std::string reason;
+			if (GetFailed<Graphics::Mesh>(_name, reason)) {
+				m_Meshes.Get("error", result);
+				
+				std::cerr << reason << std::endl;
+			}
+			else {
+				m_Meshes.Get("missing", result);
+			}
 		}
 		
 		return result;
 	}
 	
-	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name) noexcept {
+	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name, const bool& _fallback) noexcept {
 
 		std::shared_ptr<Graphics::Material> result;
 		
-		if (!m_Materials.Get(_name, result)) {
-			m_Materials.Get("default", result);
+		if (!m_Materials.Get(_name, result) && _fallback) {
+			
+			std::string reason;
+			if (GetFailed<Graphics::Material>(_name, reason)) {
+				m_Materials.Get("error", result);
+				
+				std::cerr << reason << std::endl;
+			}
+			else {
+				m_Materials.Get("missing", result);
+			}
 		}
 		
 		return result;
 	}
 	
-	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name) noexcept {
+	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name, const bool& _fallback) noexcept {
 		
 		std::shared_ptr<Graphics::Texture> result;
 		
-		if (!m_Textures.Get(_name, result)) {
-			m_Textures.Get("default", result);
+		if (!m_Textures.Get(_name, result) && _fallback) {
+			
+			std::string reason;
+			if (GetFailed<Graphics::Texture>(_name, reason)) {
+				m_Textures.Get("error", result);
+				
+				std::cerr << reason << std::endl;
+			}
+			else {
+				m_Textures.Get("missing", result);
+			}
 		}
 		
 		return result;
 	}
 	
-	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name) noexcept {
+	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name, const bool& _fallback) noexcept {
 		
 		std::shared_ptr<Graphics::Shader> result;
 		
-		if (!m_Shaders.Get(_name, result)) {
-			m_Shaders.Get("default", result);
+		if (!m_Shaders.Get(_name, result) && _fallback) {
+			
+			std::string reason;
+			if (GetFailed<Graphics::Shader>(_name, reason)) {
+				m_Shaders.Get("error", result);
+				
+				std::cerr << reason << std::endl;
+			}
+			else {
+				m_Shaders.Get("missing", result);
+			}
 		}
 		
 		return result;

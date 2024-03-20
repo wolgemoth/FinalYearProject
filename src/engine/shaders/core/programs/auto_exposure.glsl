@@ -20,7 +20,7 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/core/include/common_utils.glsl"
 
     in mediump vec2 v_TexCoord;
 

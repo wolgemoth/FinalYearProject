@@ -24,10 +24,10 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/core/include/common_utils.glsl"
 
     in mediump vec2 v_TexCoord;
 
     void main() {
-        gl_FragColor = vec4(1, 0, 1, 1);
+        gl_FragColor = vec4(0, 1, 0, 1);
     }

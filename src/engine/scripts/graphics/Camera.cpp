@@ -231,6 +231,8 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
+					p->Assign(p->AttributeID("u_AlbedoColor"), ma->GetAlbedoColor());
+			
 					// Assign textures:
 					if (const auto a = ma->GetAlbedoTexture().lock()) {
 						p->Assign(p->AttributeID("u_Albedo"), a->ID(), 0, GL_TEXTURE_2D);

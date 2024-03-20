@@ -1,8 +1,8 @@
 #ifndef _LIGHTING_UTILS
 #define _LIGHTING_UTILS
 
-    #include "/shaders/include/common_utils.glsl"
-    #include "/shaders/include/rand.glsl"
+    #include "/shaders/core/include/common_utils.glsl"
+    #include "/shaders/core/include/rand.glsl"
 
     // Light attenuation function using the squared distance between the light and fragment.
     float Attenuation(in vec3 _lightPos, in vec3 _fragPos, in float _range) {

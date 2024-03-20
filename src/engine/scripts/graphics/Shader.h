@@ -13,30 +13,32 @@
 namespace LouiEriksson::Engine {
 	
 	class Application;
+	class File;
 	class Resources;
 	
 } // LouiEriksson::Engine
 
 namespace LouiEriksson::Engine::Graphics {
 
+	struct SubShader {
+		
+		const char* m_Path;
+		
+		GLint m_Type;
+		
+		SubShader(const char* _path, GLenum _type) noexcept;
+		
+	};
+	
 	class Shader {
 		
 		friend LouiEriksson::Engine::Application;
+		friend LouiEriksson::Engine::File;
 		friend LouiEriksson::Engine::Resources;
 		
 	private:
 		
 		inline static auto s_CurrentProgram { GL_NONE };
-		
-		struct SubShader {
-			
-			const char* m_Path;
-			
-			GLint m_Type;
-			
-			SubShader(const char* _path, GLenum _type) noexcept;
-			
-		};
 		
 		Hashmap<std::string, GLint> m_ParameterIDs;
 		
@@ -56,7 +58,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		static Hashmap<GLenum, std::string> ExtractSubshaders(const std::string& _src);
 		
-		explicit Shader(const std::vector<Shader::SubShader>& _subShaders);
+		explicit Shader(const std::vector<SubShader>& _subShaders);
 		
 		explicit Shader(const std::filesystem::path& _path);
 		

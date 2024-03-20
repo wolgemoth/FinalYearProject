@@ -1,7 +1,7 @@
 #ifndef _COMMON_UTILS
 #define _COMMON_UTILS
 
-    #include "/shaders/include/constants.glsl"
+    #include "/shaders/core/include/constants.glsl"
 
     /// <summary> Returns the square of a value. </summary>
     int sqr(in int _value) {

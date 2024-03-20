@@ -23,9 +23,9 @@
     #extension GL_ARB_explicit_uniform_location : enable
     #extension GL_ARB_shading_language_include  : require
 
-    #include "/shaders/include/rand.glsl"
-    #include "/shaders/include/common_utils.glsl"
-    #include "/shaders/include/lighting_utils.glsl"
+    #include "/shaders/core/include/rand.glsl"
+    #include "/shaders/core/include/common_utils.glsl"
+    #include "/shaders/core/include/lighting_utils.glsl"
 
     in mediump vec2 v_TexCoord;
 

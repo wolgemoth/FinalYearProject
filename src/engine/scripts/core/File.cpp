@@ -840,5 +840,37 @@ namespace LouiEriksson::Engine {
 		
 		return result;
 	}
+	
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output) {
 
+		bool result = false;
+		
+		try {
+			_output.reset(new Graphics::Shader(_path), [](Graphics::Shader* _ptr) { delete _ptr; });
+
+			result = true;
+		}
+		catch (const std::exception& e){
+			std::cout << e.what()<< '\n';
+		}
+		
+		return result;
+	}
+	
+	bool File::TryLoad(std::vector<Graphics::SubShader> _subshaders, std::shared_ptr<Graphics::Shader>& _output) {
+		
+		bool result = false;
+		
+		try {
+			_output.reset(new Graphics::Shader(_subshaders), [](Graphics::Shader* _ptr) { delete _ptr; });
+
+			result = true;
+		}
+		catch (const std::exception& e){
+			std::cout << e.what()<< '\n';
+		}
+		
+		return result;
+	}
+	
 } // LouiEriksson::Engine

@@ -23,25 +23,15 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	Shader::SubShader::SubShader(const char* _path, GLenum _type) noexcept :
+	SubShader::SubShader(const char* _path, GLenum _type) noexcept :
 			m_Path(_path),
 			m_Type(static_cast<GLint>(_type)) {}
 	
 	Shader::Shader(const std::filesystem::path& _path) {
 		
 		Hashmap<GLenum, std::string> subShaders;
-		std::cout << "Loading Shader \"" << _path.c_str() << "\"... ";
 		
-		try {
-			subShaders = ExtractSubshaders(File::ReadAllText(_path));
-			
-			std::cout << "Done.\n";
-		}
-		catch (const std::exception& e){
-			std::cout << "Failed.\n";
-			
-			std::cout << e.what()<< '\n';
-		}
+		subShaders = ExtractSubshaders(File::ReadAllText(_path));
 		
 		if (!subShaders.empty()) {
 			
@@ -58,11 +48,11 @@ namespace LouiEriksson::Engine::Graphics {
 			DetachShaders();
 		}
 		else {
-			std::cout << "Attempted to create a shader object with no subshaders.\n";
+			throw std::runtime_error("Attempted to create a shader object with no subshaders.");
 		}
 	}
 	
-	Shader::Shader(const std::vector<Shader::SubShader>& _subShaders) {
+	Shader::Shader(const std::vector<SubShader>& _subShaders) {
 		
 		if (!_subShaders.empty()) {
 			

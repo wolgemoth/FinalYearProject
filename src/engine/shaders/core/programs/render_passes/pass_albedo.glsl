@@ -27,7 +27,7 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/include/common_utils.glsl"
+    #include "/shaders/core/include/common_utils.glsl"
 
     in mediump vec2 v_TexCoord;
 
@@ -36,9 +36,11 @@
 
     uniform mediump vec2 u_ScreenDimensions;
 
+    uniform vec4 u_AlbedoColor;
+
     void main() {
 
         mediump vec2 uv = Sample2(u_TexCoord_gBuffer, (gl_FragCoord.xy / u_ScreenDimensions));
 
-        gl_FragColor = Sample4(u_Albedo, uv);
+        gl_FragColor = Sample4(u_Albedo, uv) * u_AlbedoColor;
     }

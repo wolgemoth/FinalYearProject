@@ -16,6 +16,9 @@ namespace LouiEriksson::Game::Scripts {
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
 			{
+				auto default_mesh     = Resources::GetMesh    ("sphere" );
+				auto default_material = Resources::GetMaterial("Mercury");
+			
 				for (const auto& item : m_Positions.Names()) {
 				
 					const auto go = ECS::GameObject::Create(s, item);
@@ -23,11 +26,11 @@ namespace LouiEriksson::Game::Scripts {
 					if (const auto transform = go->AddComponent<Transform>().lock()) {
 					if (const auto renderer =  go->AddComponent<Graphics::Renderer>().lock()) {
 					
-						auto mesh     = Resources::GetMesh    (item);
-						auto material = Resources::GetMaterial(item);
+						auto mesh     = Resources::GetMesh    (item, false);
+						auto material = Resources::GetMaterial(item, false);
 						
-						if (    mesh.expired()) { mesh     = Resources::GetMesh    ("sphere"); }
-						if (material.expired()) { material = Resources::GetMaterial("sphere"); }
+						if (    mesh.expired()) {     mesh = default_mesh;     }
+						if (material.expired()) { material = default_material; }
 						
 						if (mesh.lock() && material.lock()) {
 							renderer->SetMesh(mesh);

@@ -26,10 +26,8 @@
 
     #include "/shaders/core/include/common_utils.glsl"
 
-    uniform sampler2D u_Texture;
-
     in mediump vec2 v_TexCoord;
 
     void main() {
-        gl_FragColor = Sample4(u_Texture, v_TexCoord);
+        gl_FragColor = vec4(1, 0, 1, 1);
     }
