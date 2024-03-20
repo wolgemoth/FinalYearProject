@@ -16,12 +16,7 @@ namespace LouiEriksson::Engine::ECS {
 		}
 	}
 	
-	Component::~Component() {
-		
-		if (const auto go = m_GameObject.lock()) {
-			go->RemoveComponent<Component>(m_Index);
-		}
-	}
+	Component::~Component() {}
 	
 	const std::weak_ptr<GameObject>& Component::Parent() const noexcept {
 		return m_GameObject;

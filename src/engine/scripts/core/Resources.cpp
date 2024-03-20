@@ -92,7 +92,7 @@ namespace LouiEriksson::Engine {
 			for (const auto& kvp : files.GetAll()) {
 				
 				std::shared_ptr<Graphics::Texture> texture;
-				if (File::TryLoad(kvp.second, texture, GL_SRGB, true)) {
+				if (File::TryLoad(kvp.second, texture, { GL_SRGB, true })) {
 					m_Textures.Add(kvp.first, texture);
 				}
 			}
@@ -109,7 +109,7 @@ namespace LouiEriksson::Engine {
 			for (const auto& kvp : files.GetAll()) {
 				
 				std::shared_ptr<Graphics::Texture> texture;
-				if (File::TryLoad(kvp.second, texture, GL_RGB32F, true)) {
+				if (File::TryLoad(kvp.second, texture, { GL_RGB32F, true })) {
 					m_Textures.Add(kvp.first, texture);
 				}
 			}
@@ -236,85 +236,59 @@ namespace LouiEriksson::Engine {
 		}
 	}
 	
-	bool Resources::TryGetAudio(const std::string& _name, std::shared_ptr<Audio::AudioClip>& _output) noexcept {
-		return m_Audio.Get(_name, _output);
-	}
-	
-	bool Resources::TryGetMesh(const std::string& _name, std::shared_ptr<Graphics::Mesh>& _output) noexcept {
-		return m_Meshes.Get(_name, _output);
-	}
-	
-	bool Resources::TryGetMaterial(const std::string& _name, std::shared_ptr<Graphics::Material>& _output) noexcept {
-		return m_Materials.Get(_name, _output);
-	}
-	
-	bool Resources::TryGetTexture(const std::string& _name, std::shared_ptr<Graphics::Texture>& _output) noexcept {
-		return m_Textures.Get(_name, _output);
-	}
-	
-	bool Resources::TryGetShader(const std::string& _name, std::shared_ptr<Graphics::Shader>& _output) noexcept {
-		return m_Shaders.Get(_name, _output);
-	}
-	
 	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name) noexcept  {
 		
-		std::shared_ptr<Audio::AudioClip> item;
-		Resources::TryGetAudio(_name, item);
+		std::shared_ptr<Audio::AudioClip> result;
 		
-		return item;
+		if (!m_Audio.Get(_name, result)) {
+			m_Audio.Get("default", result);
+		}
+		
+		return result;
 	}
 	
 	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name) noexcept {
 
-		std::shared_ptr<Graphics::Mesh> item;
-		Resources::TryGetMesh(_name, item);
+		std::shared_ptr<Graphics::Mesh> result;
 		
-		return item;
+		if (!m_Meshes.Get(_name, result)) {
+			m_Meshes.Get("default", result);
+		}
+		
+		return result;
 	}
 	
 	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name) noexcept {
 
-		std::shared_ptr<Graphics::Material> item;
-		Resources::TryGetMaterial(_name, item);
+		std::shared_ptr<Graphics::Material> result;
 		
-		return item;
+		if (!m_Materials.Get(_name, result)) {
+			m_Materials.Get("default", result);
+		}
+		
+		return result;
 	}
 	
 	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name) noexcept {
 		
-		std::shared_ptr<Graphics::Texture> item;
-		Resources::TryGetTexture(_name, item);
+		std::shared_ptr<Graphics::Texture> result;
 		
-		return item;
+		if (!m_Textures.Get(_name, result)) {
+			m_Textures.Get("default", result);
+		}
+		
+		return result;
 	}
 	
 	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name) noexcept {
 		
-		std::shared_ptr<Graphics::Shader> item;
-		Resources::TryGetShader(_name, item);
+		std::shared_ptr<Graphics::Shader> result;
 		
-		return item;
+		if (!m_Shaders.Get(_name, result)) {
+			m_Shaders.Get("default", result);
+		}
+		
+		return result;
 	}
-	
-	std::weak_ptr<Audio::AudioClip> Resources::ReturnAudio(const std::string& _name) {
-		return m_Audio.Return(_name);
-	}
-	
-	std::weak_ptr<Graphics::Mesh> Resources::ReturnMesh(const std::string& _name) {
-		return m_Meshes.Return(_name);
-	}
-	
-	std::weak_ptr<Graphics::Material> Resources::ReturnMaterial(const std::string& _name) {
-		return m_Materials.Return(_name);
-	}
-	
-	std::weak_ptr<Graphics::Texture> Resources::ReturnTexture(const std::string& _name) {
-		return m_Textures.Return(_name);
-	}
-	
-	std::weak_ptr<Graphics::Shader> Resources::ReturnShader(const std::string& _name) {
-		return m_Shaders.Return(_name);
-	}
-	
 	
 } // LouiEriksson::Engine

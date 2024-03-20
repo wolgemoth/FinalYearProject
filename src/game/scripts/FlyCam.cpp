@@ -65,7 +65,7 @@ namespace LouiEriksson::Game::Scripts {
 		
 			// Lock the cursor to the center of the screen if the window is in focus:
 			if (const auto w = c->GetWindow().lock()) {
-				
+
 				if (w->Focused()) {
 					Input::Cursor::SetState({ Input::Cursor::State::LockMode::Centered, false });
 				}

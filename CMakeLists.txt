@@ -344,7 +344,7 @@ target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
 add_executable(Game
         src/main.cpp
 
-        src/game/core/Injector.h
+        src/game/Injector.h
         src/game/scripts/Ball.cpp
         src/game/scripts/Ball.h
         src/game/scripts/FlyCam.cpp

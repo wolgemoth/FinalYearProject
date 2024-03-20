@@ -41,7 +41,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			public:
 				
-				explicit Format(const GLenum& _pixelFormat, const bool& _mips);
+				Format(const GLenum& _pixelFormat, const bool& _mips);
 				
 				Format             (const Format& _other);
 				Format& operator = (const Format& _other);
@@ -86,7 +86,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			public:
 				
-				explicit WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE) noexcept;
+				WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE) noexcept;
 				
 				WrapMode             (const WrapMode& _other);
 				WrapMode& operator = (const WrapMode& _other);

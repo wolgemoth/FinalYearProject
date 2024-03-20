@@ -90,6 +90,8 @@ namespace LouiEriksson::Engine::ECS {
 		/// <summary> Factory function which creates a GameObject within a Scene. </summary>
 		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string& _name = "");
 		
+		void Destroy();
+		
 		/// <summary>
 		/// Get the Components attached to the GameObject.
 		/// </summary>
@@ -177,13 +179,15 @@ namespace LouiEriksson::Engine::ECS {
 					if (const auto s = GetScene().lock()) {
 						s->Detach<Component>(*itr);
 					}
+					else {
+						std::cout << "No scene to detach component from.\n";
+					}
 					
 					// Remove component from collection.
 					entries.erase(itr);
 				}
 			}
 		}
-		
 	};
 	
 } // LouiEriksson::Engine::ECS

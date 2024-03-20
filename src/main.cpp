@@ -1,5 +1,5 @@
 #include "engine/scripts/core/Application.h" // Engine runtime.
-#include "game/core/Injector.h"              // User scripts.
+#include "game/Injector.h"              // User scripts.
 
 /// <summary>
 /// Entry point for the program.

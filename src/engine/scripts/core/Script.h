@@ -50,7 +50,6 @@ namespace LouiEriksson::Engine {
 		
 		/// <summary> Called every time a collision event occurs. </summary>
 		virtual void OnCollision(const Physics::Collision& _collision);
-		
 	};
 	
 } // LouiEriksson::Engine

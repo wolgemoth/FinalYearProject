@@ -16,30 +16,26 @@ namespace LouiEriksson::Game::Scripts {
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
 			{
-				const auto defaultMesh     = Resources::GetMesh    ("sphere");
-				const auto defaultMaterial = Resources::GetMaterial("sphere");
-				
 				for (const auto& item : m_Positions.Names()) {
 				
 					const auto go = ECS::GameObject::Create(s, item);
 					
-					const auto transform = go->AddComponent<Transform>();
-					const auto renderer  = go->AddComponent<Graphics::Renderer>();
-					
-					if (const auto t = transform.lock()) {
-					if (const auto r =  renderer.lock()) {
+					if (const auto transform = go->AddComponent<Transform>().lock()) {
+					if (const auto renderer =  go->AddComponent<Graphics::Renderer>().lock()) {
 					
 						auto mesh     = Resources::GetMesh    (item);
 						auto material = Resources::GetMaterial(item);
 						
-						if (    mesh.expired()) { mesh     = defaultMesh;     }
-						if (material.expired()) { material = defaultMaterial; }
+						if (    mesh.expired()) { mesh     = Resources::GetMesh    ("sphere"); }
+						if (material.expired()) { material = Resources::GetMaterial("sphere"); }
 						
-						r->SetMesh(mesh);
-						r->SetMaterial(material);
-						r->SetTransform(transform);
-						
-						m_Planets.Add(item, go);
+						if (mesh.lock() && material.lock()) {
+							renderer->SetMesh(mesh);
+							renderer->SetMaterial(material);
+							renderer->SetTransform(transform);
+							
+							m_Planets.Add(item, go);
+						}
 					}}
 				}
 			}
@@ -51,11 +47,8 @@ namespace LouiEriksson::Game::Scripts {
 			
 			if (const auto go = sol.lock()) {
 			
-				const auto transform = go->GetComponent<Transform>();
-				const auto  renderer = go->GetComponent<Graphics::Renderer>();
-			
-				if (const auto t = transform.lock()) {
-				if (const auto r =  renderer.lock()) {
+				if (const auto t = go->GetComponent<Transform>().lock()) {
+				if (const auto r = go->GetComponent<Graphics::Renderer>().lock()) {
 					
 					Settings::Graphics::Material::s_LightRange = 2000.0f;
 					
@@ -136,9 +129,7 @@ namespace LouiEriksson::Game::Scripts {
 					
 					if (const auto go = item.lock()) {
 					
-						const auto transform = go->GetComponent<Transform>();
-					
-						if (const auto t = transform.lock()) {
+						if (const auto t = go->GetComponent<Transform>().lock()) {
 							
 							// Adjust the position of the planet.
 							t->m_Position = (kvp.second.m_Cartesian - origin.m_Cartesian) * au_to_m * distance_multiplier_au;

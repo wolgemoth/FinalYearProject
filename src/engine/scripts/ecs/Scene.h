@@ -49,7 +49,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 		/// <summary> Called every physics update. </summary>
 		virtual void FixedTick();
-	
+		
 	public:
 	
 		Scene() = default;

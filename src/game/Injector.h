@@ -1,15 +1,15 @@
 #ifndef GAME_SCRIPTS_H
 #define GAME_SCRIPTS_H
 
-#include "../../src/engine/scripts/core/Script.h"
-#include "../../src/engine/scripts/core/utils/Hashmap.h"
-#include "../../src/engine/scripts/ecs/GameObject.h"
+#include "../engine/scripts/core/Script.h"
+#include "../engine/scripts/core/utils/Hashmap.h"
+#include "../engine/scripts/ecs/GameObject.h"
 
-#include "../scripts/Ball.h"
-#include "../scripts/FlyCam.h"
-#include "../scripts/OrbitCam.h"
-#include "../scripts/Plane.h"
-#include "../scripts/Planetarium.h"
+#include "scripts/Ball.h"
+#include "scripts/FlyCam.h"
+#include "scripts/OrbitCam.h"
+#include "scripts/Plane.h"
+#include "scripts/Planetarium.h"
 
 #include <exception>
 #include <iostream>

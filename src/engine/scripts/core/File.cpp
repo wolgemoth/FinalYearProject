@@ -136,7 +136,11 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output,
+		const Graphics::Texture::Parameters::Format&     _format,
+		const Graphics::Texture::Parameters::FilterMode& _filterMode,
+		const Graphics::Texture::Parameters::WrapMode&   _wrapMode
+	) {
 		
 		bool result = false;
 		
@@ -145,11 +149,7 @@ namespace LouiEriksson::Engine {
 		try {
 			
 			_output.reset(
-				new Graphics::Texture(-1, -1, 0,
-					Graphics::Texture::Parameters::Format    (  _format, _generateMipmaps),
-					Graphics::Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR       ),
-					Graphics::Texture::Parameters::WrapMode  (GL_REPEAT, GL_REPEAT       )
-				)
+				new Graphics::Texture(-1, -1, 0, _format, _filterMode, _wrapMode)
 			);
 			
 			glGenTextures(1, &_output->m_TextureID);
@@ -159,7 +159,7 @@ namespace LouiEriksson::Engine {
 				int channels;
 				GLenum texture_format;
 				
-				Graphics::Texture::GetFormatData(_format, texture_format, channels);
+				Graphics::Texture::GetFormatData(_format.PixelFormat(), texture_format, channels);
 				
 				void* data;
 				GLenum data_format;
@@ -192,7 +192,7 @@ namespace LouiEriksson::Engine {
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
-						static_cast<GLint>(_format),
+						static_cast<GLint>(_format.PixelFormat()),
 						_output->m_Width,
 						_output->m_Height,
 						0,
@@ -203,7 +203,7 @@ namespace LouiEriksson::Engine {
 					
 					stbi_image_free(data);
 					
-					if (_generateMipmaps) {
+					if (_format.Mips()) {
 						glGenerateMipmap(GL_TEXTURE_2D);
 						
 						const auto min = _output->FilterMode().Min();
@@ -233,8 +233,11 @@ namespace LouiEriksson::Engine {
 							}
 						}
 					}
+					else {
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _output->FilterMode().Min());
+					}
 					
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 					
@@ -589,8 +592,7 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Albedo_Texture = texture;
 								}
 							}
@@ -610,8 +612,7 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Displacement_Texture = texture;
 								}
 							}
@@ -623,7 +624,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Roughness_Texture = texture;
 								}
 							}
@@ -635,7 +636,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Metallic_Texture = texture;
 								}
 							}
@@ -647,7 +648,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Emission_Texture = texture;
 								}
 							}
@@ -659,7 +660,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_Normal_Texture = texture;
 								}
 							}
@@ -671,7 +672,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (Resources::TryGetTexture(path.stem().string(), texture)) {
+								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
 									_output->m_AO_Texture = texture;
 								}
 							}

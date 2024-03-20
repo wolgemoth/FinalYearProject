@@ -72,10 +72,16 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto l = item.lock()) {
 					
-					const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(l);
-					camera->PreRender(_flags);
-					camera->Render(casted_renderers, casted_lights);
-					camera->PostRender();
+					try {
+						
+						const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(l);
+						camera->PreRender(_flags);
+						camera->Render(casted_renderers, casted_lights);
+						camera->PostRender();
+					}
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}
@@ -89,7 +95,13 @@ namespace LouiEriksson::Engine::ECS {
 			for (const auto& item : items) {
 				
 				if (const auto l = item.lock()) {
-					std::dynamic_pointer_cast<Script>(l)->Begin();
+					
+					try {
+						std::dynamic_pointer_cast<Script>(l)->Begin();
+					}
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}
@@ -105,8 +117,13 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto l = item.lock()) {
 					
-					const auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(l);
-					rigidbody->Interpolate();
+					try {
+						const auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(l);
+						rigidbody->Interpolate();
+					}
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}
@@ -116,12 +133,23 @@ namespace LouiEriksson::Engine::ECS {
 			for (const auto& item : items) {
 				
 				if (const auto l = item.lock()) {
-					std::dynamic_pointer_cast<Script>(l)->Tick();
+					
+					try {
+						std::dynamic_pointer_cast<Script>(l)->Tick();
+					}
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}
 		
-		Draw(_flags);
+		try {
+			Draw(_flags);
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
 	}
 	
 	void Scene::FixedTick() {
@@ -134,8 +162,13 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto l = item.lock()) {
 					
-					auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(l);
-					rigidbody->Sync();
+					try {
+						auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(l);
+						rigidbody->Sync();
+					}
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}
@@ -146,28 +179,50 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto l = item.lock()) {
 					
-					const auto script = std::dynamic_pointer_cast<Script>(l);
-					
-					/*
-					 * Invoke collision event for every collision that the attached
-					 * rigidbody component has encountered.
-					 */
-					{
-						// Get rigidbody on Script's parent.
-						if (const auto  p = script->Parent().lock()) {
-						if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+					try {
+						const auto script = std::dynamic_pointer_cast<Script>(l);
+						
+						try {
 							
-							// Invoke collision event for every Collision:
-							const auto collisions = rb->Collisions();
-							
-							for (auto collision : collisions) {
-								script->OnCollision(collision);
+							/*
+							 * Invoke collision event for every collision that the attached
+							 * rigidbody component has encountered.
+							 */
+							{
+								// Get rigidbody on Script's parent.
+								if (const auto  p = script->Parent().lock()) {
+								if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+									
+									// Invoke collision event for every Collision:
+									const auto collisions = rb->Collisions();
+									
+									for (auto collision : collisions) {
+										
+										try {
+											script->OnCollision(collision);
+										}
+										catch (const std::exception& e) {
+											std::cerr << e.what() << std::endl;
+										}
+									}
+								}}
 							}
-						}}
+						}
+						catch (const std::exception& e) {
+							std::cerr << e.what() << std::endl;
+						}
+						
+						try {
+							// Run the script's FixedTick().
+							script->FixedTick();
+						}
+						catch (const std::exception& e) {
+							std::cerr << e.what() << std::endl;
+						}
 					}
-					
-					// Run the script's FixedTick().
-					script->FixedTick();
+					catch (const std::exception& e) {
+						std::cerr << e.what() << std::endl;
+					}
 				}
 			}
 		}

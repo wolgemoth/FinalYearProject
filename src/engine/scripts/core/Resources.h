@@ -71,16 +71,6 @@ namespace LouiEriksson::Engine {
 	
 		static void Preload();
 	
-		static bool TryGetAudio(const std::string& _name, std::shared_ptr<Audio::AudioClip>& _output) noexcept;
-		
-		static bool TryGetMesh(const std::string& _name, std::shared_ptr<Graphics::Mesh>& _output) noexcept;
-		
-		static bool TryGetMaterial(const std::string& _name, std::shared_ptr<Graphics::Material>& _output) noexcept;
-		
-		static bool TryGetTexture(const std::string& _name, std::shared_ptr<Graphics::Texture>& _output) noexcept;
-		
-		static bool TryGetShader(const std::string& _name, std::shared_ptr<Graphics::Shader>& _output) noexcept;
-		
 		static std::weak_ptr<Audio::AudioClip> GetAudio(const std::string& _name) noexcept;
 		
 		static std::weak_ptr<Graphics::Mesh> GetMesh(const std::string& _name) noexcept;
@@ -90,17 +80,6 @@ namespace LouiEriksson::Engine {
 		static std::weak_ptr<Graphics::Texture> GetTexture(const std::string& _name) noexcept;
 	 
 		static std::weak_ptr<Graphics::Shader> GetShader(const std::string& _name) noexcept;
-		
-		static std::weak_ptr<Audio::AudioClip> ReturnAudio(const std::string& _name);
-
-		static std::weak_ptr<Graphics::Mesh> ReturnMesh(const std::string& _name);
-
-		static std::weak_ptr<Graphics::Material> ReturnMaterial(const std::string& _name);
-
-		static std::weak_ptr<Graphics::Texture> ReturnTexture(const std::string& _name);
-	 
-		static std::weak_ptr<Graphics::Shader> ReturnShader(const std::string& _name);
-		
 	};
 	
 } // LouiEriksson::Engine

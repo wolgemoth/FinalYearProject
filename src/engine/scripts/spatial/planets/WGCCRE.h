@@ -3,6 +3,7 @@
 
 #include <glm/detail/qualifier.hpp>
 
+#include <cstdio>
 #include <string>
 
 namespace LouiEriksson::Engine::Spatial {
@@ -76,7 +77,7 @@ namespace LouiEriksson::Engine::Spatial {
 		const auto correction = _alpha_delta_W[2];
 		
 		// Values courtesy of stellarium: https://github.com/Stellarium/stellarium/blob/e57820ca6122fe4353d4d66dfa1104bd60e4deb5/src/core/StelCore.cpp#L59
-		const auto x_offset = 90 - 23.4392803055555555556;
+		const auto x_offset = 90.0 - 23.4392803055555555556;
 		const auto y_offset = 0.0000275;
 		
 		return {

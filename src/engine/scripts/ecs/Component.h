@@ -24,7 +24,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// <summary>
 		/// Parent GameObject which contains the component.
 		/// </summary>
-		const std::weak_ptr<GameObject> m_GameObject;
+		std::weak_ptr<GameObject> m_GameObject;
 		
 	protected:
 	

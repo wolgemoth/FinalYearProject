@@ -39,4 +39,30 @@ namespace LouiEriksson::Engine::ECS {
 		return m_Scene;
 	}
 	
+	void GameObject::Destroy() {
+		
+		try {
+			
+			if (auto scene = m_Scene.lock()) {
+				
+				auto buckets = Components().GetAll();
+				
+				for (const auto& bucket : buckets) {
+					
+					for (const auto& item : bucket.second) {
+						scene->Detach<Component>(item);
+					}
+				}
+				
+				m_Components.Clear();
+				
+				scene->Detach<GameObject>(shared_from_this());
+			}
+			
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	
 } // LouiEriksson::Engine::ECS

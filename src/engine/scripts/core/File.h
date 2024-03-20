@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
+#include "../graphics/Texture.h"
+
 #include <GL/glew.h>
 
 #include <array>
@@ -20,7 +22,6 @@ namespace LouiEriksson::Engine::Graphics {
 	class Cubemap;
 	class Material;
 	class Mesh;
-	class Texture;
 	
 } // LouiEriksson::Engine::Graphics
 
@@ -53,7 +54,10 @@ namespace LouiEriksson::Engine {
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output);
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output, GLenum _format, bool _generateMipmaps);
+		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output,
+				const Graphics::Texture::Parameters::Format&     _format     = { GL_RGBA,   true      },
+				const Graphics::Texture::Parameters::FilterMode& _filterMode = { GL_LINEAR, GL_LINEAR },
+				const Graphics::Texture::Parameters::WrapMode&   _wrapMode   = { GL_REPEAT, GL_REPEAT });
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Mesh>& _output);
 		
