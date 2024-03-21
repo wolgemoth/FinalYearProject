@@ -25,7 +25,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 			
 			static std::string Symbol(const Unit& _unit);
 			
@@ -64,14 +64,14 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common speed units and m/s.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-				{ KilometreHour, 0.2777778f   },
-				{ FeetSecond,    0.3048f      },
-				{ MileHour,      0.44704f     },
-				{ Knot,          0.514444f    },
-	            { MetreSecond,   1.0f         },
-				{ Mach,          340.29f      },
-				{ Lightspeed,    299792458.0f },
+			inline static Hashmap<Unit, double> s_Conversion = {
+				{ KilometreHour, 0.2777778   },
+				{ FeetSecond,    0.3048      },
+				{ MileHour,      0.44704     },
+				{ Knot,          0.514444    },
+	            { MetreSecond,   1.0         },
+				{ Mach,          340.29      },
+				{ Lightspeed,    299792458.0 },
 			};
 		};
 		
@@ -96,7 +96,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 		
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -107,7 +107,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	        /// <param name="_arcSeconds">Arc-seconds to convert.</param>
 	        /// <param name="_lat">(Optional) latitude of the arc.</param>
 	        /// <returns></returns>
-	        static float ArcSecondsToMetres(const float& _arcSeconds, const float& _lat = 0.0f);
+	        static double ArcSecondsToMetres(const double& _arcSeconds, const double& _lat = 0.0f);
 			
 	        /// <summary>
 	        /// Convert metres to arc-seconds given a latitude.
@@ -116,7 +116,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	        /// <param name="_metres">Metres to convert.</param>
 	        /// <param name="_lat">(Optional) latitude of the arc.</param>
 	        /// <returns></returns>
-	        static float MetresToArcSeconds(const float& _metres, const float& _lat = 0.0f);
+	        static double MetresToArcSeconds(const double& _metres, const double& _lat = 0.0f);
 	        
 		private:
 			
@@ -162,19 +162,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common lateral distance units and metres.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-	            { Millimetre,                       0.001f      },
-	            { Centimetre,                       0.01f       },
-	            { Inch,                             0.0254f     },
-	            { Foot,                             0.30479999f },
-	            { Yard,                             0.9144f     },
-	            { Metre,                            1.0f        },
-	            { Kilometre,                     1000.0f        },
-	            { Mile,                          1609.344f      },
-	            { NauticalMile,                  1852.0f        },
-				{ AstronomicalUnit,      149597870700.0f        },
-	            { Lightyear,         9460730472580800.0f        },
-	            { Parsec,           30856775810000000.0f        },
+			inline static Hashmap<Unit, double> s_Conversion = {
+	            { Millimetre,                       0.001      },
+	            { Centimetre,                       0.01       },
+	            { Inch,                             0.0254     },
+	            { Foot,                             0.30479999 },
+	            { Yard,                             0.9144     },
+	            { Metre,                            1.0        },
+	            { Kilometre,                     1000.0        },
+	            { Mile,                          1609.344      },
+	            { NauticalMile,                  1852.0        },
+				{ AstronomicalUnit,      149597870700.0        },
+	            { Lightyear,         9460730472580800.0        },
+	            { Parsec,           30856775810000000.0        },
 			};
 			
 		};
@@ -190,13 +190,13 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Turn,
 			};
 			
-			inline static constexpr float s_DegreesToRadians = M_PI / 180.0f;
+			inline static constexpr double s_DegreesToRadians = M_PI / 180.0f;
 			
-			inline static constexpr float s_RadiansToDegrees = 180.0f / M_PI;
+			inline static constexpr double s_RadiansToDegrees = 180.0f / M_PI;
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 		
@@ -230,11 +230,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common rotational units and degrees.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-				{ Gradian,  0.9f     },
-	            { Degree,   1.0f     },
-	            { Radian,  57.29578f },
-	            { Turn,   360.0f     },
+			inline static Hashmap<Unit, double> s_Conversion = {
+				{ Gradian,  0.9     },
+	            { Degree,   1.0     },
+	            { Radian,  57.29578 },
+	            { Turn,   360.0     },
 			};
 		};
 		
@@ -254,7 +254,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -300,14 +300,14 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common time units and seconds.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-	            { Nanosecond,      0.000000001f },
-				{ Microsecond,     0.000001f    },
-	            { Millisecond,     0.001f       },
-	            { Second,          1.0f         },
-				{ Minute,         60.0f         },
-				{ Hour,         3600.0f         },
-				{ Day,         86400.0f         },
+			inline static Hashmap<Unit, double> s_Conversion = {
+	            { Nanosecond,      0.000000001 },
+				{ Microsecond,     0.000001    },
+	            { Millisecond,     0.001       },
+	            { Second,          1.0         },
+				{ Minute,         60.0         },
+				{ Hour,         3600.0         },
+				{ Day,         86400.0         },
 			};
 		};
 		
@@ -321,16 +321,16 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Kelvin,
 			};
 			
-			static constexpr float s_PlanckTemperature = 14200000000000000000000000000000000.0f;
-			static constexpr float s_AbsoluteZero      =                                   0.0f;
+			static constexpr double s_PlanckTemperature = 14200000000000000000000000000000000.0f;
+			static constexpr double s_AbsoluteZero      =                                   0.0f;
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit&);
 			
-			static float ClampTemperature(const float& _val, Unit& _unit);
+			static double ClampTemperature(const double& _val, Unit& _unit);
 			
 		private:
 			
@@ -390,7 +390,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -488,32 +488,32 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// Conversions between common pressure units and "atmospheres".
 			/// Source: https://www.sensorsone.com/atm-standard-atmosphere-pressure-unit/
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-				{ DyneSquareCentimetre,       0.000000987f },
-				{ MilliTorr,                  0.000001316f },
-				{ Pascal,                     0.000009869f },
-				{ MillimetreWater,            0.000096784f },
-				{ PoundSquareFoot,            0.000472541f },
-				{ Hectopascal,                0.000986923f },
-				{ CentimetreWater,            0.000967839f },
-				{ MillimetreMercury,          0.001315789f },
-				{ InchWater,                  0.002458319f },
-				{ OunceSquareInch,            0.004252876f },
-				{ Decibel,                    0.005154639f },
-				{ Kilopascal,                 0.009869233f },
-				{ CentimetreMercury,          0.013157895f },
-				{ FeetWater,                  0.02949983f  },
-				{ InchMercury,                0.033421008f },
-				{ PoundSquareInch,            0.06804619f  },
-				{ MetreWater,                 0.096783872f },
-				{ TonneSquareFoot_Short,      0.945081324f },
-	            { TechnicalAtmosphere,        0.967838719f },
-				{ KilogramSquareCentimetre,   0.967838719f },
-	            { Bar,                        0.986923267f },
-	            { Atmosphere,                 1.0f         },
-				{ Megapascal,                 9.869232667f },
-				{ TonneSquareInch_Short,    136.092009086f },
-				{ TonneSquareInch_Long,     152.422992094f },
+			inline static Hashmap<Unit, double> s_Conversion = {
+				{ DyneSquareCentimetre,       0.000000987 },
+				{ MilliTorr,                  0.000001316 },
+				{ Pascal,                     0.000009869 },
+				{ MillimetreWater,            0.000096784 },
+				{ PoundSquareFoot,            0.000472541 },
+				{ Hectopascal,                0.000986923 },
+				{ CentimetreWater,            0.000967839 },
+				{ MillimetreMercury,          0.001315789 },
+				{ InchWater,                  0.002458319 },
+				{ OunceSquareInch,            0.004252876 },
+				{ Decibel,                    0.005154639 },
+				{ Kilopascal,                 0.009869233 },
+				{ CentimetreMercury,          0.013157895 },
+				{ FeetWater,                  0.02949983  },
+				{ InchMercury,                0.033421008 },
+				{ PoundSquareInch,            0.06804619  },
+				{ MetreWater,                 0.096783872 },
+				{ TonneSquareFoot_Short,      0.945081324 },
+	            { TechnicalAtmosphere,        0.967838719 },
+				{ KilogramSquareCentimetre,   0.967838719 },
+	            { Bar,                        0.986923267 },
+	            { Atmosphere,                 1.0         },
+				{ Megapascal,                 9.869232667 },
+				{ TonneSquareInch_Short,    136.092009086 },
+				{ TonneSquareInch_Long,     152.422992094 },
 			};
 			
 		};
@@ -538,7 +538,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -613,18 +613,18 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common mass units and kilograms.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-					{ Nanogram,              0.000000000001f },
-					{ Microgram,             0.000000001f    },
-					{ Milligram,             0.000001f       },
-					{ Gram,                  0.001f          },
-					{ Ounce,                 0.02834952f     },
-					{ Pound,                 0.4535923f      },
-					{ Kilogram,              1.0f            },
-					{ Ton,                1000.0f            },
-					{ Kiloton,         1000000.0f            },
-					{ Megaton,      1000000000.0f            },
-					{ Gigaton,   1000000000000.0f            },
+			inline static Hashmap<Unit, double> s_Conversion = {
+					{ Nanogram,              0.000000000001 },
+					{ Microgram,             0.000000001    },
+					{ Milligram,             0.000001       },
+					{ Gram,                  0.001          },
+					{ Ounce,                 0.02834952     },
+					{ Pound,                 0.4535923      },
+					{ Kilogram,              1.0            },
+					{ Ton,                1000.0            },
+					{ Kiloton,         1000000.0            },
+					{ Megaton,      1000000000.0            },
+					{ Gigaton,   1000000000000.0            },
 			};
 			
 		};
@@ -646,7 +646,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -693,15 +693,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common mass units and square metres.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-				{ SquareMillimetre,    0.000001f     },
-				{ SquareCentimetre,    0.0001f       },
-				{ SquareInch,          0.00064516f   },
-				{ SquareFoot,          0.09290304f   },
-				{ SquareYard,          0.83612736f   },
-				{ SquareMetre,         1.0f          },
-				{ Acre,             4046.8564224f    },
-				{ Hectare,         10000.0f          },
+			inline static Hashmap<Unit, double> s_Conversion = {
+				{ SquareMillimetre,    0.000001     },
+				{ SquareCentimetre,    0.0001       },
+				{ SquareInch,          0.00064516   },
+				{ SquareFoot,          0.09290304   },
+				{ SquareYard,          0.83612736   },
+				{ SquareMetre,         1.0          },
+				{ Acre,             4046.8564224    },
+				{ Hectare,         10000.0          },
 			};
 		
 		};
@@ -728,7 +728,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
-			[[nodiscard]] static float Convert(const float& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
 			static std::string Symbol(const Unit& _unit);
 			
@@ -823,20 +823,20 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			/// <summary>
 			/// Conversions between common mass units and cubic metres.
 			/// </summary>
-			inline static Hashmap<Unit, float> s_Conversion = {
-				{ Millilitre, 0.000001f       },
-				{ Centilitre, 0.00001f        },
-				{ CubicInch,  0.000016387064f },
-				{ FluidOunce, 0.000029574f    },
-				{ Cup,        0.000237f       },
-				{ Pint,       0.000473176473f },
-				{ Quart,      0.000946f       },
-				{ Litre,      0.001f          },
-				{ Gallon,     0.003785411784f },
-				{ CubicFoot,  0.028316846592f },
-				{ Barrel,     0.158987294928f },
-				{ CubicYard,  0.764554858f    },
-				{ CubicMetre, 1.0f            },
+			inline static Hashmap<Unit, double> s_Conversion = {
+				{ Millilitre, 0.000001       },
+				{ Centilitre, 0.00001        },
+				{ CubicInch,  0.000016387064 },
+				{ FluidOunce, 0.000029574    },
+				{ Cup,        0.000237       },
+				{ Pint,       0.000473176473 },
+				{ Quart,      0.000946       },
+				{ Litre,      0.001          },
+				{ Gallon,     0.003785411784 },
+				{ CubicFoot,  0.028316846592 },
+				{ Barrel,     0.158987294928 },
+				{ CubicYard,  0.764554858    },
+				{ CubicMetre, 1.0            },
 			};
 		};
 	};

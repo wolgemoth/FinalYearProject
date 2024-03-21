@@ -5,7 +5,7 @@
 			<N12LouiEriksson6Engine9TransformE>
 				<Position>0 0 0</Position>
 				<Rotation>0 0 0 1</Rotation>
-				<Scale>0.448259 0.448259 0.448259</Scale>
+				<Scale>1 1 1</Scale>
 			</N12LouiEriksson6Engine9TransformE>
 			<N12LouiEriksson6Engine6ScriptE>
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts11PlanetariumEE</EntryType>
@@ -16,8 +16,8 @@
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts6FlyCamEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
 			<N12LouiEriksson6Engine9TransformE>
-				<Position>0 2.5 -7</Position>
-				<Rotation>0.300706 0 0 0.953717</Rotation>
+				<Position>0 0 0</Position>
+				<Rotation>0 0 0 1</Rotation>
 				<Scale>1 1 1</Scale>
 			</N12LouiEriksson6Engine9TransformE>
 		</Orbit_Camera>

@@ -39,20 +39,6 @@ namespace LouiEriksson::Engine {
 			sm[0] : _string;
 	}
 	
-	float Utils::Remap(const float& _val, const float& _aMin, const float& _aMax, const float& _bMin, const float& _bMax) {
-		
-		// Remap function I made for a homework task in "Mathematics for Computer Graphics".
-		return _bMin + (_val - _aMin) * (_bMax - _bMin) / (_aMax - _aMin);
-	}
-	
-	template<typename T>
-	void Utils::Empty(std::queue<T>& _queue) {
-		
-		while (!_queue.empty()) {
-			_queue.pop();
-		}
-	}
-	
 	void Utils::ALDumpError(const bool& _silent) {
 	
 	const auto error = alGetError();

@@ -12,7 +12,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Speed::Convert(const float& _val, const Conversions::Speed::Unit& _from, const Conversions::Speed::Unit& _to) {
+	double Conversions::Speed::Convert(const double& _val, const Conversions::Speed::Unit& _from, const Conversions::Speed::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -24,7 +24,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Distance::Convert(const float& _val, const Conversions::Distance::Unit& _from, const Conversions::Distance::Unit& _to) {
+	double Conversions::Distance::Convert(const double& _val, const Conversions::Distance::Unit& _from, const Conversions::Distance::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -32,11 +32,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol.Return(_unit);
 	}
 	
-	float Conversions::Distance::ArcSecondsToMetres(const float& _arcSeconds, const float& _lat) {
+	double Conversions::Distance::ArcSecondsToMetres(const double& _arcSeconds, const double& _lat) {
 		return _arcSeconds * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) * (1852.0f / 60.0f));
 	}
 	
-	float Conversions::Distance::MetresToArcSeconds(const float& _metres, const float& _lat) {
+	double Conversions::Distance::MetresToArcSeconds(const double& _metres, const double& _lat) {
 		return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0f / 60.0f));;
 	}
 	
@@ -44,7 +44,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Rotation::Convert(const float& _val, const Conversions::Rotation::Unit& _from, const Conversions::Rotation::Unit& _to) {
+	double Conversions::Rotation::Convert(const double& _val, const Conversions::Rotation::Unit& _from, const Conversions::Rotation::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -56,7 +56,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Time::Convert(const float& _val, const Conversions::Time::Unit& _from, const Conversions::Time::Unit& _to) {
+	double Conversions::Time::Convert(const double& _val, const Conversions::Time::Unit& _from, const Conversions::Time::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -68,15 +68,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Temperature::Convert(const float& _val, const Conversions::Temperature::Unit& _from, const Conversions::Temperature::Unit& _to) {
+	double Conversions::Temperature::Convert(const double& _val, const Conversions::Temperature::Unit& _from, const Conversions::Temperature::Unit& _to) {
 
-		float result;
+		double result;
 		
 		// Convert to Kelvin:
 		switch (_from) {
-			case Celsius:    { result =  _val - 272.15f;         break; }
-			case Fahrenheit: { result = (_val + 459.67f) / 1.8f; break; }
-			case Kelvin:     { result = _val;                    break; }
+			case Celsius:    { result =  _val - 272.15;        break; }
+			case Fahrenheit: { result = (_val + 459.67) / 1.8; break; }
+			case Kelvin:     { result = _val;                  break; }
 			default: {
 				throw std::runtime_error("Not implemented!");
 			}
@@ -87,9 +87,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		// Convert Kelvin to target:
 		switch (_to) {
-			case Celsius:    { result += 273.15f;                  break; }
-			case Fahrenheit: { result = (result * 1.8f) - 459.67f; break; }
-			case Kelvin:     {                                     break; }
+			case Celsius:    { result += 273.15;                 break; }
+			case Fahrenheit: { result = (result * 1.8) - 459.67; break; }
+			case Kelvin:     {                                   break; }
 			default: {
 				throw std::runtime_error("Not implemented!");
 			}
@@ -102,7 +102,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol.Return(_unit);
 	}
 	
-	float Conversions::Temperature::ClampTemperature(const float& _val, Conversions::Temperature::Unit& _unit) {
+	double Conversions::Temperature::ClampTemperature(const double& _val, Conversions::Temperature::Unit& _unit) {
 		return Convert(
 			glm::min(
 				Convert(_val, _unit, Kelvin),
@@ -117,7 +117,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Pressure::Convert(const float& _val, const Conversions::Pressure::Unit& _from, const Conversions::Pressure::Unit& _to) {
+	double Conversions::Pressure::Convert(const double& _val, const Conversions::Pressure::Unit& _from, const Conversions::Pressure::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -129,7 +129,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Mass::Convert(const float& _val, const Conversions::Mass::Unit& _from, const Conversions::Mass::Unit& _to) {
+	double Conversions::Mass::Convert(const double& _val, const Conversions::Mass::Unit& _from, const Conversions::Mass::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -141,7 +141,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Area::Convert(const float& _val, const Conversions::Area::Unit& _from, const Conversions::Area::Unit& _to) {
+	double Conversions::Area::Convert(const double& _val, const Conversions::Area::Unit& _from, const Conversions::Area::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
@@ -153,7 +153,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Lookup.Get(_symbol, _result);
 	}
 	
-	float Conversions::Volume::Convert(const float& _val, const Conversions::Volume::Unit& _from, const Conversions::Volume::Unit& _to) {
+	double Conversions::Volume::Convert(const double& _val, const Conversions::Volume::Unit& _from, const Conversions::Volume::Unit& _to) {
 		return _val * (s_Conversion.Return(_from) / s_Conversion.Return(_to));
 	}
 	
