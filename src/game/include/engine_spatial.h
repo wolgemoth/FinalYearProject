@@ -8,5 +8,6 @@
 #include "../../engine/scripts/spatial/osm/utils/OSM_Utils.h"
 #include "../../engine/scripts/spatial/planets/VSOP.h"
 #include "../../engine/scripts/spatial/planets/WGCCRE.h"
+#include "../../engine/scripts/spatial/stars/ATHYG.h"
 
 #endif //FINALYEARPROJECT_ENGINE_SPATIAL_H
