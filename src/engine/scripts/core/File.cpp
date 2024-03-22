@@ -545,7 +545,8 @@ namespace LouiEriksson::Engine {
 						const auto& key = subStrings.at(0);
 						
 						if (key == "Ka") {
-							std::cout << "Ambient color loading not implemented.\n";
+							std::cout << "Ambient color loading not implemented. ";
+
 						}
 						else if (key == "Kd") {
 							
@@ -564,10 +565,12 @@ namespace LouiEriksson::Engine {
 							_output->m_Albedo_Color.a = 1.0 - std::clamp(std::stof(subStrings.at(1)), 0.0f, 1.0f);
 						}
 						else if (key == "Ks") {
-							std::cout << "Specular color loading not implemented.\n";
+							std::cout << "Specular color loading not implemented. ";
+
 						}
 						else if (key == "illum") {
-							std::cout << "Support for different lighting models is not implemented.\n";
+							std::cout << "Support for different lighting models is not implemented. ";
+
 						}
 						else if (key == "Ao") {
 							_output->m_AO = std::stof(subStrings.at(1));
@@ -584,7 +587,8 @@ namespace LouiEriksson::Engine {
 							};
 						}
 						else if (key == "Ni") {
-							std::cout << "Optical density loading not implemented.\n";
+							std::cout << "Optical density loading not implemented. ";
+
 						}
 						else if (key == "map_Kd") {
 							
@@ -598,13 +602,16 @@ namespace LouiEriksson::Engine {
 							}
 						}
 						else if (key == "map_Ks") {
-							std::cout << "Specular map loading not implemented.\n";
+							std::cout << "Specular map loading not implemented. ";
+
 						}
 						else if (key == "map_Tr" || key == "map_d") {
-							std::cout << "Transparency map loading not implemented.\n";
+							std::cout << "Transparency map loading not implemented. ";
+
 						}
 						else if (key == "bump" || key == "map_bump" || key == "bm") {
-							std::cout << "Bump map loading not implemented.\n";
+							std::cout << "Bump map loading not implemented. ";
+
 						}
 						else if (key == "disp") {
 							

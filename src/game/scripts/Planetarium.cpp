@@ -54,7 +54,12 @@ namespace LouiEriksson::Game::Scripts {
 		
 		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
 		
-		LoadStars();
+		LoadStars({
+			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
+			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
+			},
+			6.5
+		);
 	}
 	
 	void Planetarium::Tick() {
@@ -115,16 +120,11 @@ namespace LouiEriksson::Game::Scripts {
 		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), 0.0, 1.0));
 	}
 	
-	void Planetarium::LoadStars() {
+	void Planetarium::LoadStars(std::vector<std::filesystem::path> _athyg_paths, const double& _threshold_magnitude) {
 	
-		std::vector<std::filesystem::path> filepaths = {
-			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
-			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
-		};
-		
 		std::vector<std::string> lines;
 		
-		for (const auto& path : filepaths) {
+		for (const auto& path : _athyg_paths) {
 			
 			std::cout << "Loading \"" << path.string() << "\"... " << std::flush;
 			
@@ -164,9 +164,7 @@ namespace LouiEriksson::Game::Scripts {
 			
 			const auto star = Engine::Spatial::ATHYG::V3(dat);
 			
-			const auto threshold_magnitude = std::numeric_limits<double>().infinity();//6.5;
-			
-			if (star.mag <= threshold_magnitude) {
+			if (star.mag <= _threshold_magnitude) {
 				star_positions.emplace_back(star.x0, star.y0, star.z0);
 			}
 		}

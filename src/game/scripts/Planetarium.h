@@ -101,7 +101,7 @@ namespace LouiEriksson::Game::Scripts {
 		/// <inheritdoc/>
 		void Tick() override;
 		
-		void LoadStars();
+		void LoadStars(std::vector<std::filesystem::path> _athyg_paths, const double& _threshold_magnitude = std::numeric_limits<double>().infinity());
 		
 		template<typename T, glm::precision P>
 		void InterpolatePlanets(Planetarium::Planets<T, P> _from, Planetarium::Planets<T, P> _to, const double& _t, const std::string _origin = "Earth");

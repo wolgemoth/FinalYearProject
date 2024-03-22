@@ -6,14 +6,12 @@ Ns 0.0
 Ka 1.000000 1.000000 1.000000
 Kd 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
+Ke 1.000000 0.900000 0.600000
 Ni 1.450000
 d 1.000000
 illum 2
 
 map_Kd 8k_earth_daymap.jpg
-map_Ao floor_tiles_06_ao_1k.jpg
-disp black
-map_Pm black
-norm floor_tiles_06_nor_gl_1k.jpg
-map_Pr floor_tiles_06_rough_1k.jpg
+norm 8k_earth_normal_map.jpg
+map_Pr 8k_earth_roughness_map.jpg
+map_Ke 8k_earth_nightmap.jpg
