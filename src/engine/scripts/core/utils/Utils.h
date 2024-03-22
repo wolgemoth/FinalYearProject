@@ -74,6 +74,9 @@ namespace LouiEriksson::Engine {
 		/// </summary>
 		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
 		
+		template <typename T>
+		inline static const bool TryParse(const std::string& _str, T& _result) noexcept;
+		
 		template<typename T, glm::precision P>
 		static double SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
 						
@@ -89,8 +92,79 @@ namespace LouiEriksson::Engine {
 		static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec) {
 			return glm::vec3 { -_vec.x, _vec.z, _vec.y };
 		}
+		
 	};
 	
+	template<typename T>
+	inline const bool Utils::TryParse(const std::string& _str, T& _result) noexcept {
+		return false;
+	}
+	
+	template<>
+	inline const bool Utils::TryParse(const std::string& _str, unsigned long& _output) noexcept {
+		
+		bool result;
+		
+		try {
+			_output = std::stoul(_str);
+			
+			result = true;
+		}
+		catch (...) {
+			result = false;
+			
+			_output = {};
+		}
+		
+		return result;
+	}
+	
+	template<>
+	inline const bool Utils::TryParse(const std::string& _str, double& _output) noexcept {
+		
+		bool result;
+		
+		try {
+			_output = std::stod(_str);
+			
+			result = true;
+		}
+		catch (...) {
+			result = false;
+			
+			_output = {};
+		}
+		
+		return result;
+	}
+	
+	template<>
+	inline const bool Utils::TryParse(const std::string& _str, float& _output) noexcept {
+		
+		bool result;
+		
+		try {
+			_output = std::stof(_str);
+			
+			result = true;
+		}
+		catch (...) {
+			result = false;
+			
+			_output = {};
+		}
+		
+		return result;
+	}
+	
+	template<>
+	inline const bool Utils::TryParse(const std::string& _str, std::string& _output) noexcept {
+		
+		_output = _str;
+		
+		return true;
+	}
+		
 } // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_UTILS_H
