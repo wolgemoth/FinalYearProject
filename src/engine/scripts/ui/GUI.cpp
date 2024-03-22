@@ -124,7 +124,7 @@ namespace LouiEriksson::Engine::UI {
 		      avg_fps               = 0.0f,
 		      avg_fps_count         = 0.0f;
 		
-		for (int i = 0; i < s_Samples.size(); ++i) {
+		for (auto i = 0; i < s_Samples.size(); ++i) {
 			
 			const auto timestamp = s_Timestamps[i];
 			auto fps = s_Samples[i];

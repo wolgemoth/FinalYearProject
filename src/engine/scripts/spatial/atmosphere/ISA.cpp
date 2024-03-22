@@ -21,7 +21,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			
 				Calculate(_height, _state, ctr);
 				
-				for (int i = 0; i < s_A_Val.size(); ++i) {
+				for (auto i = 0; i < s_A_Val.size(); ++i) {
 					
 					if (_height > s_Alt[ctr]) {
 	            

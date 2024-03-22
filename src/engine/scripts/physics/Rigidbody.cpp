@@ -261,13 +261,13 @@ namespace LouiEriksson::Engine::Physics {
 				
 				// Get and iterate through every contact manifold in the physics engine.
 			    const auto numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
-			    for (int i = 0; i < numManifolds; i++) {
+			    for (auto i = 0; i < numManifolds; i++) {
 					
 			        auto* contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			
 			        // Get and iterate through every contact in the manifold.
 			        const auto numContacts = contactManifold->getNumContacts();
-			        for (int j = 0; j < numContacts; j++) {
+			        for (auto j = 0; j < numContacts; j++) {
 						
 						// Get a pointer to the btRigidbody associated with this rigidbody.
 						const auto* rbThis = m_Parameters.m_BulletRigidbody->m_Rigidbody.get();

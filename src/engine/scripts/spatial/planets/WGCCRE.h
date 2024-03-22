@@ -67,7 +67,6 @@ namespace LouiEriksson::Engine::Spatial {
 		};
 	};
 	
-	
 	template<typename T, glm::precision P>
 	glm::vec<3, T, P> WGCCRE::ToVSOP87(const glm::vec<3, T, P>& _alpha_delta_W) {
 		
