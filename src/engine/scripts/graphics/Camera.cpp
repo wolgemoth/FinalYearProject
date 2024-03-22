@@ -154,7 +154,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS());
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}}
 			}
@@ -184,7 +184,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}
 			}
@@ -239,7 +239,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}}
 			}
@@ -294,7 +294,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}}
 			}
@@ -333,7 +333,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 					/* DRAW */
 					if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-						glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+						glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 					}
 				}
 				
@@ -419,7 +419,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}}
 			}
@@ -476,7 +476,7 @@ namespace LouiEriksson::Engine::Graphics {
 					);
 					
 					/* DRAW */
-					glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 					
 				}}}}
 			}
@@ -610,7 +610,9 @@ namespace LouiEriksson::Engine::Graphics {
 						if (const auto  t = r->GetTransform().lock()) {
 						if (const auto me = r->GetMesh().lock()     ) {
 							
-							if (r->Shadows()) {
+							if (r->Shadows() &&
+							    me->Format() == GL_TRIANGLES
+							) {
 								
 								// Bind VAO.
 								Mesh::Bind(*me);
@@ -618,7 +620,7 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_Model"), t->TRS());
 								
 								/* DRAW */
-								glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(me->VertexCount()));
+								glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 							}
 							
 						}}}
@@ -862,7 +864,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 						/* DRAW */
 						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+							glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 						}
 					}
 				}
@@ -993,7 +995,7 @@ namespace LouiEriksson::Engine::Graphics {
 		// DRAW:
 		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
 		if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-			glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+			glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 		}
 		
 		// Reset gamma correction.
@@ -1219,7 +1221,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Draw
 			RenderTexture::Bind(ao_rt);
 			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-				glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+				glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 			}
 			
 			// Blur the AO.
@@ -1328,7 +1330,7 @@ namespace LouiEriksson::Engine::Graphics {
 				RenderTexture::Bind(m_RT);
 				
 				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-					glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+					glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 				}
 				
 				RenderTexture::Unbind();
@@ -1347,7 +1349,7 @@ namespace LouiEriksson::Engine::Graphics {
 						// Blit to main render target:
 						RenderTexture::Bind(m_RT);
 						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+							glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 						}
 					}
 				}
@@ -1402,7 +1404,7 @@ namespace LouiEriksson::Engine::Graphics {
 			RenderTexture::Bind(_dest);
 			
 			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-				glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(q->VertexCount()));
+				glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 			}
 
 			if (dimensionsDirty) {

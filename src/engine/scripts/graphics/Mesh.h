@@ -24,6 +24,8 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Currently bound mesh. </summary>
 		inline static GLuint m_CurrentVAO { GL_NONE };
 		
+		GLenum m_Format;
+		
 		GLuint m_VAO_ID;
 		
 		GLuint  m_PositionVBO_ID;
@@ -34,12 +36,18 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		size_t m_VertexCount;
 		
-		Mesh() noexcept;
+		explicit Mesh(const GLenum& _format) noexcept;
 		
 	public:
 		
 		/// <summary> Container for various primitive mesh types. </summary>
 		struct Primitives {
+			
+			struct Points {
+				
+				static std::shared_ptr<Mesh> CreateInstance(std::vector<glm::vec3> _points);
+				
+			};
 			
 			/// <summary> Information for a quad primitive. </summary>
 			struct Quad {
@@ -78,6 +86,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
+		
+		[[nodiscard]] const GLenum& Format() const noexcept;
 		
 		[[nodiscard]] const GLuint&          VAO_ID() const noexcept;
 		[[nodiscard]] const GLuint&  PositionVBO_ID() const noexcept;

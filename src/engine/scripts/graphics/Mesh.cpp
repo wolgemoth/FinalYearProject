@@ -6,7 +6,9 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	Mesh::Mesh() noexcept : m_VAO_ID(0u),
+	Mesh::Mesh(const GLenum& _format) noexcept :
+	          m_Format(_format),
+	               m_VAO_ID(0u),
 	       m_PositionVBO_ID(0u),
 	       m_TexCoordVBO_ID(0u),
 	         m_NormalVBO_ID(0u),
@@ -38,6 +40,8 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
+	const GLenum& Mesh::Format() const noexcept { return m_Format; }
+	
 	const GLuint& Mesh::VAO_ID()           const noexcept { return          m_VAO_ID; }
 	const GLuint& Mesh::PositionVBO_ID()   const noexcept { return  m_PositionVBO_ID; }
 	const GLuint& Mesh::TexCoordVBO_ID()   const noexcept { return  m_TexCoordVBO_ID; }
@@ -50,7 +54,7 @@ namespace LouiEriksson::Engine::Graphics {
 	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
 		
 		if (s_Instance == nullptr) {
-			s_Instance = std::make_shared<Mesh>(Mesh());
+			s_Instance = std::make_shared<Mesh>(Mesh(GL_TRIANGLES));
 			
 			s_Instance->m_VertexCount = Mesh::Primitives::Quad::s_VertexCount;
 			
@@ -72,6 +76,27 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		return s_Instance;
+	}
+	
+	
+	std::shared_ptr<Mesh> Mesh::Primitives::Points::CreateInstance(std::vector<glm::vec3> _points) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
+		
+		result->m_VertexCount = _points.size();
+		
+		// Buffers to store mesh data.
+		glGenVertexArrays(1, &result->m_VAO_ID);
+		glGenBuffers(1, &result->m_PositionVBO_ID);
+		glBindVertexArray(Mesh::m_CurrentVAO = result->m_VAO_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * result->m_VertexCount * 3), _points.data(), GL_STATIC_DRAW);
+		
+		// Positions, triangles (encoded within winding order).
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		
+		return result;
 	}
 	
 } // LouiEriksson::Engine::Graphics

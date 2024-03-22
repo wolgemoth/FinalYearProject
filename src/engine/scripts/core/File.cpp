@@ -276,7 +276,7 @@ namespace LouiEriksson::Engine {
 		 */
 		
 		try {
-			_output.reset(new Graphics::Mesh());
+			_output.reset(new Graphics::Mesh(GL_TRIANGLES));
 			
 			// Find file
 			std::ifstream inputFile(_path);
