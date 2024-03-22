@@ -85,26 +85,23 @@ namespace LouiEriksson::Game::Scripts {
 		/// <summary>
 		/// Planetary positions computed using the VSOP87 model.
 		/// </summary>
-		Planets<double, glm::highp> m_Positions_A;
-		
-		/// <summary>
-		/// Planetary positions computed using the VSOP87 model.
-		/// </summary>
-		Planets<double, glm::highp> m_Positions_B;
+		Planets<double, glm::highp> m_Positions_From;
+		Planets<double, glm::highp> m_Positions_To;
 		
 		/// <summary>
 		/// Hashmap containing planet GameObjects.
 		/// </summary>
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
-		double m_FromUpdate =  std::numeric_limits<double>().infinity();
-		double   m_ToUpdate = -std::numeric_limits<double>().infinity();
+		std::shared_ptr<Graphics::Mesh> m_Stars;
 		
 		/// <inheritdoc/>
 		void Begin() override;
 		
 		/// <inheritdoc/>
 		void Tick() override;
+		
+		void LoadStars();
 		
 		template<typename T, glm::precision P>
 		void InterpolatePlanets(Planetarium::Planets<T, P> _from, Planetarium::Planets<T, P> _to, const double& _t, const std::string _origin = "Earth");
@@ -241,6 +238,7 @@ namespace LouiEriksson::Game::Scripts {
 		const auto sol = m_Planets.Return("Sol").lock()->GetComponent<Transform>().lock();
 		Settings::Graphics::Material::s_LightPosition = sol->m_Position;
 		Settings::Graphics::Material::s_LightRange = 40000.000 * 1000.0;
+		Settings::Graphics::Material::s_LightIntensity = 1.0;
 	}
 	
 } // LouiEriksson::Game::Scripts

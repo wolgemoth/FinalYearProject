@@ -3,7 +3,6 @@
 namespace LouiEriksson::Game::Scripts {
 	
 	Planetarium::Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent) {}
-	
 	Planetarium::~Planetarium() = default;
 	
 	void Planetarium::Begin() {
@@ -15,32 +14,30 @@ namespace LouiEriksson::Game::Scripts {
 			m_Transform = p->GetComponent<Transform>();
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
-			{
-				auto default_mesh     = Resources::GetMesh    ("sphere" );
-				auto default_material = Resources::GetMaterial("Mercury");
+			auto default_mesh     = Resources::GetMesh    ("sphere" );
+			auto default_material = Resources::GetMaterial("Mercury");
+		
+			for (const auto& item : m_Positions_From.Names()) {
 			
-				for (const auto& item : m_Positions_A.Names()) {
+				const auto go = ECS::GameObject::Create(s, item);
 				
-					const auto go = ECS::GameObject::Create(s, item);
+				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
+				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
+				
+					auto mesh     = Resources::GetMesh    (item, false);
+					auto material = Resources::GetMaterial(item, false);
 					
-					if (const auto transform = go->AddComponent<Transform>().lock()) {
-					if (const auto renderer =  go->AddComponent<Graphics::Renderer>().lock()) {
+					if (    mesh.expired()) {     mesh = default_mesh;     }
+					if (material.expired()) { material = default_material; }
 					
-						auto mesh     = Resources::GetMesh    (item, false);
-						auto material = Resources::GetMaterial(item, false);
+					if (mesh.lock() && material.lock()) {
+						renderer->SetMesh(mesh);
+						renderer->SetMaterial(material);
+						renderer->SetTransform(transform);
 						
-						if (    mesh.expired()) {     mesh = default_mesh;     }
-						if (material.expired()) { material = default_material; }
-						
-						if (mesh.lock() && material.lock()) {
-							renderer->SetMesh(mesh);
-							renderer->SetMaterial(material);
-							renderer->SetTransform(transform);
-							
-							m_Planets.Add(item, go);
-						}
-					}}
-				}
+						m_Planets.Add(item, go);
+					}
+				}}
 			}
 		}}
 		
@@ -48,17 +45,16 @@ namespace LouiEriksson::Game::Scripts {
 		std::weak_ptr<ECS::GameObject> sol;
 		if (m_Planets.Get("Sol", sol)) {
 			
-			if (const auto go = sol.lock()) {
-			
-				if (const auto t = go->GetComponent<Transform>().lock()) {
-				if (const auto r = go->GetComponent<Graphics::Renderer>().lock()) {
-					
-					Settings::Graphics::Material::s_LightRange = 40000.0f;
-					
-					r->Shadows(false);
-				}}
-			}
+			if (const auto go = sol.lock()                                   ) {
+			if (const auto t  = go->GetComponent<Transform>().lock()         ) {
+			if (const auto r  = go->GetComponent<Graphics::Renderer>().lock()) {
+				r->Shadows(false);
+			}}}
 		}
+		
+		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
+		
+		LoadStars();
 	}
 	
 	void Planetarium::Tick() {
@@ -107,16 +103,104 @@ namespace LouiEriksson::Game::Scripts {
 		
 		const auto update_interval = 120.0;
 		
-		if (curr > m_ToUpdate) {
-			m_Positions_A.Time(m_FromUpdate = curr);
-			m_Positions_B.Time(  m_ToUpdate = curr + ((update_interval * s_to_c)));
+		if (curr > m_Positions_To.Time()) {
+			m_Positions_From.Time(curr);
+			  m_Positions_To.Time(curr + ((update_interval * s_to_c)));
 		}
-		else if (curr < m_FromUpdate) {
-			m_Positions_A.Time(m_FromUpdate = curr - ((update_interval * s_to_c)));
-			m_Positions_B.Time(  m_ToUpdate = curr);
+		else if (curr < m_Positions_From.Time()) {
+			m_Positions_From.Time(curr - ((update_interval * s_to_c)));
+			  m_Positions_To.Time(curr);
 		}
 		
-		InterpolatePlanets(m_Positions_A, m_Positions_B, Utils::Remap(curr, m_FromUpdate, m_ToUpdate, 0.0, 1.0));
+		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), 0.0, 1.0));
+	}
+	
+	void Planetarium::LoadStars() {
+	
+		std::vector<std::filesystem::path> filepaths = {
+			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
+			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
+		};
+		
+		std::vector<std::string> lines;
+		
+		for (const auto& path : filepaths) {
+			
+			std::cout << "Loading \"" << path.string() << "\"... " << std::flush;
+			
+			try {
+			
+				if (exists(path)) {
+					
+					auto data = Utils::Split(File::ReadAllText(path), '\n');
+					
+					std::move(data.begin(), data.end(), std::back_inserter(lines));
+					
+					std::cout << "Done." << std::endl;
+				}
+				else {
+					throw std::runtime_error("Path is not valid.");
+				}
+			}
+			catch (const std::exception& e) {
+				std::cout << "Failed.\n" << e.what() << std::endl;
+			}
+		}
+		
+		std::cout << "Parsing " << (lines.size() > 0 ? lines.size() - 1 : lines.size()) << " lines... " << std::flush;
+		
+		std::vector<glm::vec3> star_positions;
+		
+		for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
+			
+			const auto columns = Utils::Split(*line, ',');
+			
+			std::array<std::string, 34> dat{};
+			std::move(
+				columns.begin(),
+				columns.begin() + (columns.size() > dat.size() ? dat.size() : columns.size()),
+				    dat.begin()
+			);
+			
+			const auto star = Engine::Spatial::ATHYG::V3(dat);
+			
+			const auto threshold_magnitude = std::numeric_limits<double>().infinity();//6.5;
+			
+			if (star.mag <= threshold_magnitude) {
+				star_positions.emplace_back(star.x0, star.y0, star.z0);
+			}
+		}
+		
+		std::cout << "Done.\nSpawning " << star_positions.size() << " stars... " << std::flush;
+		
+		try {
+			
+			if (const auto p =      Parent().lock()) {
+			if (const auto s = p->GetScene().lock()) {
+			
+				const auto go = ECS::GameObject::Create(s, "Stars");
+				
+				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
+				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
+				
+					m_Stars = Engine::Graphics::Mesh::Primitives::Points::CreateInstance(star_positions);
+					
+					auto material = Resources::GetMaterial("Stars");
+					
+					if (material.lock()) {
+						renderer->SetMesh(m_Stars);
+						renderer->SetMaterial(material);
+						renderer->SetTransform(transform);
+					}
+				}}
+			}}
+			
+			std::cout << "Done." << std::endl;
+		}
+		catch (const std::exception& e) {
+			std::cout << "Failed.\n" << e.what() << std::endl;
+		}
+		
 	}
 	
 } // LouiEriksson::Game::Scripts

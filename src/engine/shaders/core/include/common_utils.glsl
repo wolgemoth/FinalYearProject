@@ -219,7 +219,7 @@
         vec2  currentTexCoords     = _uv;
         float currentDepthMapValue = texture(_displacement, TransformCoord(_uv, _st)).r;
 
-        while(currentLayerDepth < currentDepthMapValue) {
+        while (currentLayerDepth < currentDepthMapValue) {
             // shift texture coordinates along direction of P
             currentTexCoords -= deltaTexCoords;
             // get depthmap value at current texture coordinates
