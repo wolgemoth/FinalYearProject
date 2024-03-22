@@ -58,18 +58,18 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			s_Instance->m_VertexCount = Mesh::Primitives::Quad::s_VertexCount;
 			
-			// Buffers to store mesh data.
+			// Buffers to store mesh data:
 			glGenVertexArrays(1, &s_Instance->m_VAO_ID);
 			glGenBuffers(1, &s_Instance->m_PositionVBO_ID);
 			glBindVertexArray(Mesh::m_CurrentVAO = s_Instance->m_VAO_ID);
 			glBindBuffer(GL_ARRAY_BUFFER, s_Instance->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(s_Instance->m_VertexCount), &Mesh::Primitives::Quad::s_VertexData, GL_STATIC_DRAW);
 			
-			// Positions, triangles (encoded within winding order).
+			// Positions, triangles (encoded within winding order):
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
 			
-			// Texture coordinates.
+			// Texture coordinates:
 			glEnableVertexAttribArray(1);
 			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (int*)(2 * sizeof(GLfloat)));
 			
@@ -85,14 +85,16 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		result->m_VertexCount = _points.size();
 		
-		// Buffers to store mesh data.
+		// Buffers to store mesh data:
 		glGenVertexArrays(1, &result->m_VAO_ID);
+		
 		glGenBuffers(1, &result->m_PositionVBO_ID);
+		
+		// Positions:
 		glBindVertexArray(Mesh::m_CurrentVAO = result->m_VAO_ID);
 		glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * result->m_VertexCount * 3), _points.data(), GL_STATIC_DRAW);
 		
-		// Positions, triangles (encoded within winding order).
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
 		

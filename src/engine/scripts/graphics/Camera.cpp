@@ -526,7 +526,7 @@ namespace LouiEriksson::Engine::Graphics {
 					std::shared_ptr<Shader> p;
 					switch(l->Type()) {
 						case Light::Parameters::Point:       { p = Resources::GetShader("shadowDepthCube").lock(); break; }
-						case Light::Parameters::Directional: { p = Resources::GetShader("shadowDepth").lock();     break; }
+						case Light::Parameters::Directional: { p = Resources::GetShader("shadowDepth"    ).lock(); break; }
 						case Light::Parameters::Spot:        { p = Resources::GetShader("shadowDepthSpot").lock(); break; }
 						default: {
 							std::cout << "Unknown Light Type!\n";
@@ -1036,7 +1036,7 @@ namespace LouiEriksson::Engine::Graphics {
 	        }
 	
 			// Perform a blur pass:
-	        for (int i = 0; i < _passes; i++) {
+	        for (auto i = 0; i < _passes; i++) {
 	            
 	            int width, height;
 	            
