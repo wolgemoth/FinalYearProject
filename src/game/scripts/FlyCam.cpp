@@ -85,6 +85,8 @@ namespace LouiEriksson::Game::Scripts {
 						 0.0f
 					);
 					
+					mouse_input *= m_Camera.lock()->FOV() * Time::DeltaTime();
+					
 					movement_input = glm::vec3(
 						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_A     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_D    ))),
 						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LSHIFT)) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LCTRL))),
