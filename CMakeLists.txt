@@ -316,6 +316,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
         src/engine/scripts/spatial/planets/VSOP.h
+        src/engine/scripts/spatial/stars/ATHYG.cpp
+        src/engine/scripts/spatial/stars/ATHYG.h
 )
 
 link_directories(FinalYearProject
