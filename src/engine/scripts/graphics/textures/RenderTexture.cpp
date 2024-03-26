@@ -135,4 +135,28 @@ namespace LouiEriksson::Engine::Graphics {
 		return m_Depth_ID;
 	}
 	
+	void RenderTexture::ShareDepthAttachment(const RenderTexture& _other) {
+		
+		switch (_other.m_DepthMode) {
+			
+			case RenderTexture::Parameters::NONE: {
+				break;
+			}
+			case RenderTexture::Parameters::RENDER_BUFFER: {
+				m_RBO_ID = _other.m_RBO_ID;
+		
+				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
+				
+				break;
+			}
+			case RenderTexture::Parameters::FRAME_BUFFER: {
+				m_FBO_ID = _other.m_FBO_ID;
+		
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
+				
+				break;
+			}
+		}
+	}
+	
 } // LouiEriksson::Engine::Graphics

@@ -700,7 +700,7 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true) {
+	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format, bool _generateMipmaps) {
 		
 		bool result = false;
 		

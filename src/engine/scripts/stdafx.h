@@ -25,6 +25,8 @@
 
 #include <SDL.h>                    // SDL2
 
+#include <curl/curl.h>              // CURL
+
 /* INTERNAL */
 #include "core/utils/Hashmap.h"
 

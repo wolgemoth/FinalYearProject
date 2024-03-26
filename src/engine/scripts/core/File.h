@@ -65,7 +65,7 @@ namespace LouiEriksson::Engine {
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Material>& _output);
 		
-		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format, bool _generateMipmaps);
+		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true);
 	
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output);
 

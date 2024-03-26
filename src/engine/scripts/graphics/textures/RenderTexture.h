@@ -52,6 +52,9 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Discard the RenderTexture. </summary>
 		void Discard() const override;
 		
+		/// <summary> Make the RenderTexture share the depth attachment of another RenderTexture. </summary>
+		void ShareDepthAttachment(const RenderTexture& _other);
+		
 		/// <summary> Get the ID of the depth attachment. </summary>
 		[[nodiscard]] GLuint DepthID() const noexcept;
 	

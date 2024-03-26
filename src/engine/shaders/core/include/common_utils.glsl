@@ -155,7 +155,6 @@
         );
 
         return Sample3(_samplerTexture, uv, b);
-
     }
 
     /// <summary> Sample a cubemap using a direction vector, with optional blurring. </summary>

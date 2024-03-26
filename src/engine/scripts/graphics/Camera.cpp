@@ -14,6 +14,7 @@
 #include "../graphics/Renderer.h"
 #include "../graphics/Shader.h"
 #include "../graphics/Texture.h"
+#include "../graphics/textures/Cubemap.h"
 
 #include <GL/glew.h>
 #include <glm/common.hpp>
@@ -64,7 +65,24 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 			m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
 			  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {}
+			m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {
+		
+// TODO:
+//			File::TryLoad(
+//				{
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_px.hdr",
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_nx.hdr",
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_py.hdr",
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_ny.hdr",
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_pz.hdr",
+//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_nz.hdr",
+//				},
+//				m_Sky,
+//				GL_RGB32F,
+//				true
+//			);
+		
+	}
 	
 	Camera::~Camera() {
 	
@@ -303,7 +321,7 @@ namespace LouiEriksson::Engine::Graphics {
 			if (const auto s = Resources::GetShader("skybox").lock()) {
 				
 				// Change culling and depth options for skybox rendering.
-				glCullFace (GL_FRONT );
+				glCullFace (GL_FRONT);
 				glDepthFunc(GL_LEQUAL);
 	
 				Shader::Bind(s->ID());
@@ -317,12 +335,10 @@ namespace LouiEriksson::Engine::Graphics {
 				s->Assign(s->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
 				s->Assign(s->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
 				s->Assign(s->AttributeID("u_Model"),                         trs); /* MODEL      */
-	
-				// Assign textures:
-				if (const auto a = Settings::Graphics::Skybox::s_Skybox.lock()) {
-					s->Assign(s->AttributeID("u_Texture"), a->ID(), 0, GL_TEXTURE_2D);
-				}
 				
+				// Assign textures.
+				s->Assign(s->AttributeID("u_Texture"), Settings::Graphics::Skybox::s_Skybox.lock()->ID(), 0, GL_TEXTURE_2D);
+
 				s->Assign(s->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
 				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
 	
@@ -358,7 +374,7 @@ namespace LouiEriksson::Engine::Graphics {
 				GL_TEXTURE_2D
 			);
 
-			p->Assign(p->AttributeID(    "u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
+			p->Assign(p->AttributeID("u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
 			
 			if (const auto t = GetTransform().lock()) {
 				
@@ -622,7 +638,6 @@ namespace LouiEriksson::Engine::Graphics {
 								/* DRAW */
 								glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
 							}
-							
 						}}}
 					}
 					
@@ -652,10 +667,16 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		// Set the preferred culling and depth modes:
 		const auto  cullMode = GL_BACK;
-		const auto depthMode = GL_LESS;
+		const auto depthMode = GL_LEQUAL;
 		
 		glCullFace(cullMode);
 		glDepthFunc(depthMode);
+		
+		glEnable(GL_POINT_SPRITE);       // Enable the rendering of points as sprites.
+		glEnable(GL_PROGRAM_POINT_SIZE); // Allow variable point sizes from within shader programs.
+		
+		// Set point sprite to use texture coordinates.
+		glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
 		
 		/* GEOMETRY PASS */
 		{
@@ -664,15 +685,12 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		/* SHADOW PASS */
 		if (const auto w = m_Window.lock()) {
-			
+
 			ShadowPass(_renderers, _lights);
-			
+
 			// Reset resolution after shadow pass.
 			auto dimensions = w->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
-			
-			// Set / reset culling mode (after shadow pass).
-			glCullFace(cullMode);
 		}
 		else {
 			std::cout << "Camera is not bound to a valid Window!\n";
