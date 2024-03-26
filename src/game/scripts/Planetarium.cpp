@@ -186,12 +186,6 @@ namespace LouiEriksson::Game::Scripts {
 					// Set point size
 					glPointSize(2.0f);
 					
-					glEnable(GL_POINT_SPRITE);       // Enable the rendering of points as sprites.
-					glEnable(GL_PROGRAM_POINT_SIZE); // Allow variable point sizes from within shader programs.
-					
-					// Set point sprite to use texture coordinates.
-					glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-					
 					auto material = Resources::GetMaterial("Stars");
 					
 					if (material.lock()) {
@@ -207,7 +201,6 @@ namespace LouiEriksson::Game::Scripts {
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n" << e.what() << std::endl;
 		}
-		
 	}
 	
 } // LouiEriksson::Game::Scripts

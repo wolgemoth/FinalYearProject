@@ -191,7 +191,6 @@ namespace LouiEriksson::Game::Scripts {
 		
 		// Get position of earth to use as a point-of-origin.
 		typename Planets<T, P>::Transform origin{};
-		
 		{
 			const typename Planets<T, P>::Transform origin_from{}, origin_to{};
 			
