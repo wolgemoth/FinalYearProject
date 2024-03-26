@@ -29,7 +29,7 @@ namespace LouiEriksson::Game::Scripts {
 			// Add AudioSource.
 			m_GunSound = p->AddComponent<Audio::AudioSource>();
 			if (const auto as = m_GunSound.lock()) {
-				as->Clip(Resources::GetAudio("machineGun"));
+				as->Clip(Resources::Get<Audio::AudioClip>("machineGun"));
 			}
 			
 			// Update the camera's parameters to match the ones in Settings.

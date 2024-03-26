@@ -14,8 +14,8 @@ namespace LouiEriksson::Game::Scripts {
 			m_Transform = p->GetComponent<Transform>();
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
-			auto default_mesh     = Resources::GetMesh    ("sphere" );
-			auto default_material = Resources::GetMaterial("Mercury");
+			auto default_mesh     = Resources::Get<Graphics::Mesh>    ("sphere" );
+			auto default_material = Resources::Get<Graphics::Material>("Mercury");
 		
 			for (const auto& item : m_Positions_From.Names()) {
 			
@@ -24,8 +24,8 @@ namespace LouiEriksson::Game::Scripts {
 				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
 				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
 				
-					auto mesh     = Resources::GetMesh    (item, false);
-					auto material = Resources::GetMaterial(item, false);
+					auto mesh     = Resources::Get<Graphics::Mesh>    (item, false);
+					auto material = Resources::Get<Graphics::Material>(item, false);
 					
 					if (    mesh.expired()) {     mesh = default_mesh;     }
 					if (material.expired()) { material = default_material; }
@@ -54,12 +54,12 @@ namespace LouiEriksson::Game::Scripts {
 		
 		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
 		
-		LoadStars({
-			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
-			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
-			},
-			6.5
-		);
+//		LoadStars({
+//			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
+//			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
+//			},
+//			6.5
+//		);
 	}
 	
 	void Planetarium::Tick() {
@@ -186,7 +186,7 @@ namespace LouiEriksson::Game::Scripts {
 					// Set point size
 					glPointSize(2.0f);
 					
-					auto material = Resources::GetMaterial("Stars");
+					auto material = Resources::Get<Graphics::Material>("Stars");
 					
 					if (material.lock()) {
 						renderer->SetMesh(m_Stars);

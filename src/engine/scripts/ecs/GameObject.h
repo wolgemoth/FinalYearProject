@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// Get a Component of type in the GameObject by index.
 		/// </summary>
 		/// <typeparam name="T">TypeID to be searched.</typeparam>
-		/// <param name="_index">Index of the Component.</param>
+		/// <param name="_index">IndexAssets of the Component.</param>
 		/// <returns>const std::weak_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
 		template<typename T>
 		std::weak_ptr<T> GetComponent(size_t _index = 0) const {
@@ -161,7 +161,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// Remove a Component of type from the GameObject, using an index.
 		/// </summary>
 		/// <typeparam name="T">TypeID to be searched.</typeparam>
-		/// <param name="_index">Index of the component.</param>
+		/// <param name="_index">IndexAssets of the component.</param>
 		template <typename T>
 		void RemoveComponent(size_t _index = 0) {
 	

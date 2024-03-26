@@ -305,7 +305,7 @@ namespace LouiEriksson::Engine {
 		/// <param name="_key">Key of the entry to retrieve.</param>
 		/// <param name="_out">Out value result.</param>
 		/// <returns>True if successful, false otherwise.</returns>
-		bool Get(const Tk& _key, Tv& _out) const noexcept  {
+		bool Get(const Tk& _key, Tv& _out) const noexcept {
 			
 			auto result = false;
 			

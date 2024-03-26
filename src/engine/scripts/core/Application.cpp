@@ -6,7 +6,6 @@
 #include "../ecs/Scene.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
-#include "../networking/Requests.h"
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
 
@@ -77,14 +76,14 @@ namespace LouiEriksson::Engine {
 			UI::GUI::Init(main_window, "#version 330");
 			UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 			
-			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
-			scene->Begin();
-	
 			// Set the delta time of the physics simulation.
 			Time::FixedDeltaTime(1.0f / 60.0f);
-	
+			
 			float physics_step = 0.0f;
+			
+			// Load a scene and run:
+			auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+			scene->Begin();
 			
 			/* LOOP */
 			while (!Application::s_Quit) {

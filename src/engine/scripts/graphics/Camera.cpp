@@ -128,7 +128,7 @@ namespace LouiEriksson::Engine::Graphics {
 		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
 		
 		// Texture Coordinates:
-		if (const auto p = Resources::GetShader("pass_texcoords").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_texcoords").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -179,7 +179,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// Positions:
-		if (const auto p = Resources::GetShader("pass_positions").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_positions").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -209,7 +209,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// Albedo:
-		if (const auto p = Resources::GetShader("pass_albedo").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_albedo").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -264,7 +264,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// Emission:
-		if (const auto p = Resources::GetShader("pass_emission").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_emission").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -318,7 +318,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			
 			/* DRAW SKY */
-			if (const auto s = Resources::GetShader("skybox").lock()) {
+			if (const auto s = Resources::Get<Shader>("skybox").lock()) {
 				
 				// Change culling and depth options for skybox rendering.
 				glCullFace (GL_FRONT);
@@ -343,7 +343,7 @@ namespace LouiEriksson::Engine::Graphics {
 				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
-				if (const auto c = Resources::GetMesh("cube").lock()) {
+				if (const auto c = Resources::Get<Mesh>("cube").lock()) {
 					
 					Mesh::Bind(*c);
 		
@@ -360,7 +360,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// Surface properties Roughness, Metallic, AO, Parallax Shadows:
-		if (const auto p = Resources::GetShader("pass_material").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_material").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -442,7 +442,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// Normals:
-		if (const auto p = Resources::GetShader("pass_normals").lock()) {
+		if (const auto p = Resources::Get<Shader>("pass_normals").lock()) {
 			
 			// Bind program.
 			Shader::Bind(p->ID());
@@ -541,9 +541,9 @@ namespace LouiEriksson::Engine::Graphics {
 					// Get the correct shader program for the type of light:
 					std::shared_ptr<Shader> p;
 					switch(l->Type()) {
-						case Light::Parameters::Point:       { p = Resources::GetShader("shadowDepthCube").lock(); break; }
-						case Light::Parameters::Directional: { p = Resources::GetShader("shadowDepth"    ).lock(); break; }
-						case Light::Parameters::Spot:        { p = Resources::GetShader("shadowDepthSpot").lock(); break; }
+						case Light::Parameters::Point:       { p = Resources::Get<Shader>("shadowDepthCube").lock(); break; }
+						case Light::Parameters::Directional: { p = Resources::Get<Shader>("shadowDepth"    ).lock(); break; }
+						case Light::Parameters::Spot:        { p = Resources::Get<Shader>("shadowDepthSpot").lock(); break; }
 						default: {
 							std::cout << "Unknown Light Type!\n";
 						}
@@ -919,7 +919,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::ToneMapping::IsActiveAndEnabled()) {
 				
-				if (const auto t = Resources::GetShader("aces").lock()) {
+				if (const auto t = Resources::Get<Shader>("aces").lock()) {
 					
 					Shader::Bind(t->ID());
 					t->Assign(t->AttributeID("u_Gain"), Settings::PostProcessing::ToneMapping::s_Gain);
@@ -937,7 +937,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Perform anti-aliasing after tonemapping as FXAA suffers in the HDR range.
 			if (Settings::PostProcessing::AntiAliasing::IsActiveAndEnabled()) {
 				
-				if (const auto aa = Resources::GetShader("fxaa").lock()) {
+				if (const auto aa = Resources::Get<Shader>("fxaa").lock()) {
 					
 					Shader::Bind(aa->ID());
 					aa->Assign(aa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
@@ -954,7 +954,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::Grain::IsActiveAndEnabled()) {
 				
-				if (const auto g = Resources::GetShader("grain").lock()) {
+				if (const auto g = Resources::Get<Shader>("grain").lock()) {
 					
 					Shader::Bind(g->ID());
 					g->Assign(g->AttributeID("u_Amount"), Settings::PostProcessing::Grain::s_Intensity);
@@ -966,7 +966,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::Vignette::IsActiveAndEnabled()) {
 				
-				if (const auto v = Resources::GetShader("vignette").lock()) {
+				if (const auto v = Resources::Get<Shader>("vignette").lock()) {
 					
 					Shader::Bind(v->ID());
 					v->Assign(v->AttributeID("u_Amount"    ), Settings::PostProcessing::Vignette::s_Intensity );
@@ -1011,7 +1011,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	 
 		// DRAW:
-		Shader::Bind(Resources::GetShader("passthrough").lock()->ID());
+		Shader::Bind(Resources::Get<Shader>("passthrough").lock()->ID());
 		if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
 			glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
 		}
@@ -1026,8 +1026,8 @@ namespace LouiEriksson::Engine::Graphics {
 		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
 		
 		// Horizontal and vertical blur passes.
-		if (const auto h = Resources::GetShader("blur_horizontal").lock()) {
-		if (const auto v = Resources::GetShader("blur_vertical"  ).lock()) {
+		if (const auto h = Resources::Get<Shader>("blur_horizontal").lock()) {
+		if (const auto v = Resources::Get<Shader>("blur_vertical"  ).lock()) {
 			
 			// Assign target texture to both shader programs:
 			h->Assign(h->AttributeID("u_Texture"), _rt.ID(), 0, GL_TEXTURE_2D);
@@ -1101,7 +1101,7 @@ namespace LouiEriksson::Engine::Graphics {
 		if (const auto w = GetWindow().lock()) {
 			
 			// Load shader program:
-			if (const auto s = Resources::GetShader("auto_exposure").lock()) {
+			if (const auto s = Resources::Get<Shader>("auto_exposure").lock()) {
 				
 				// Create a 32 by 32 render texture for the luminosity calculations.
 				const glm::ivec2 luma_res(32, 32);
@@ -1109,7 +1109,7 @@ namespace LouiEriksson::Engine::Graphics {
 				const RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				
 				// Load a mask for the average luminosity calculation.
-				if (const auto mask = Resources::GetTexture("exposure_weights").lock()) {
+				if (const auto mask = Resources::Get<Texture>("exposure_weights").lock()) {
 					
 					// Generate the luminosity texture:
 					Shader::Bind(s->ID());
@@ -1176,7 +1176,7 @@ namespace LouiEriksson::Engine::Graphics {
 	void Camera::AmbientOcclusion() const {
 		
 		// Get shader program:
-		if (const auto ao = Resources::GetShader("ao").lock()) {
+		if (const auto ao = Resources::Get<Shader>("ao").lock()) {
 			
 			// Get viewport dimensions:
 			glm::ivec4 viewport;
@@ -1268,11 +1268,11 @@ namespace LouiEriksson::Engine::Graphics {
 			const auto dimensions = w->Dimensions();
 			
 			// Get each shader used for rendering the effect.
-			if (const auto threshold_shader = Resources::GetShader("threshold").lock()) {
-			if (const auto downscale_shader = Resources::GetShader("downscale").lock()) {
-			if (const auto   upscale_shader = Resources::GetShader("upscale"  ).lock()) {
-			if (const auto   combine_shader = Resources::GetShader("combine"  ).lock()) {
-			if (const auto lens_dirt_shader = Resources::GetShader("lens_dirt").lock()) {
+			if (const auto threshold_shader = Resources::Get<Shader>("threshold").lock()) {
+			if (const auto downscale_shader = Resources::Get<Shader>("downscale").lock()) {
+			if (const auto   upscale_shader = Resources::Get<Shader>("upscale"  ).lock()) {
+			if (const auto   combine_shader = Resources::Get<Shader>("combine"  ).lock()) {
+			if (const auto lens_dirt_shader = Resources::Get<Shader>("lens_dirt").lock()) {
 				
 				/* THRESHOLD PASS */
 				Shader::Bind(threshold_shader->ID());
@@ -1356,7 +1356,7 @@ namespace LouiEriksson::Engine::Graphics {
 				/* LENS DIRT */
 				if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0f) {
 					
-					if (const auto t = Resources::GetTexture("Bokeh__Lens_Dirt_65").lock()) {
+					if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
 						
 						Shader::Bind(lens_dirt_shader->ID());
 						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
@@ -1382,7 +1382,7 @@ namespace LouiEriksson::Engine::Graphics {
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
 		
 		// Simply blit _src to _dest using a passthrough shader.
-		if (const auto p = Resources::GetShader("passthrough").lock()) {
+		if (const auto p = Resources::Get<Shader>("passthrough").lock()) {
 			Blit(_src, _dest, p);
 		}
 		else {

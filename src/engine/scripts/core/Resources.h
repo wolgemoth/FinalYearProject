@@ -3,10 +3,21 @@
 
 #include "../core/utils/Hashmap.h"
 
+#include "../audio/AudioClip.h"
+#include "../graphics/Material.h"
+#include "../graphics/Mesh.h"
+#include "../graphics/Shader.h"
+#include "../graphics/Texture.h"
+
+#include "File.h"
+
+#include <exception>
 #include <filesystem>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
+#include <utility>
 
 namespace LouiEriksson::Engine::Audio {
 	
@@ -29,97 +40,263 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		inline static std::filesystem::path          m_AudioDirectory { "audio/"                };
-		inline static std::filesystem::path         m_MeshesDirectory { "models/"               };
-		inline static std::filesystem::path      m_MaterialsDirectory { "materials/"            };
-		inline static std::filesystem::path   m_TexturesSRGBDirectory { "textures/srgb"         };
-		inline static std::filesystem::path m_TexturesLinearDirectory { "textures/linear"       };
-		inline static std::filesystem::path  m_ShaderIncludeDirectory { "shaders/core/include"  };
-		inline static std::filesystem::path m_ShaderProgramsDirectory { "shaders/core/programs" };
+		enum Status : char {
+			Unloaded,
+			Loaded,
+			Missing,
+			Error
+		};
+	
+		template <typename T>
+		class Asset final {
 		
-		inline static Hashmap<std::string, std::shared_ptr<   Audio::AudioClip>> m_Audio;
-		inline static Hashmap<std::string, std::shared_ptr<Graphics::Mesh     >> m_Meshes;
-		inline static Hashmap<std::string, std::shared_ptr<Graphics::Material >> m_Materials;
-		inline static Hashmap<std::string, std::shared_ptr<Graphics::Texture  >> m_Textures;
-		inline static Hashmap<std::string, std::shared_ptr<Graphics::Shader   >> m_Shaders;
+			friend Resources;
+			
+		private:
+			
+			Status m_Status;
+			
+			std::filesystem::path m_Path;
+			
+			std::shared_ptr<T> m_Item;
+			
+			Asset() :
+				m_Path(),
+				m_Status(Unloaded),
+				m_Item() {}
+				
+			Asset(const std::filesystem::path& _path) :
+				m_Path(_path),
+				m_Status(Unloaded),
+				m_Item() {}
+	
+			void Load();
+		};
 		
-		inline static Hashmap<std::type_index, Hashmap<std::string, std::string>> m_Failed;
+		inline static Hashmap<std::string, Asset<   Audio::AudioClip>> m_Audio;
+		inline static Hashmap<std::string, Asset<Graphics::Material >> m_Materials;
+		inline static Hashmap<std::string, Asset<Graphics::Mesh     >> m_Meshes;
+		inline static Hashmap<std::string, Asset<Graphics::Shader   >> m_Shaders;
+		inline static Hashmap<std::string, Asset<Graphics::Texture  >> m_Textures;
 		
-		/// <summary>
-		/// Add a key to the list of assets which failed loading.
-		/// </summary>
 		template<typename T>
-		static void AddFailed(std::string _name, std::string _reason) {
-			
-			Hashmap<std::string, std::string> category;
-			if (!m_Failed.Get(typeid(T), category)) {
-				
-				category = {};
-				
-				m_Failed.Assign(typeid(T), category);
-			}
-			
-			if (!category.Add(_name, _reason)) {
-				std::cerr << "Duplicate entry detected.\n";
-			}
-		}
+		inline static Hashmap<std::string, Asset<T>>& GetBucket();
+		
+		static bool GetType(const std::string& _extension, std::type_index& _output);
 		
 		/// <summary>
-		/// Checks for the existence of an asset which failed loading.
+		/// Index all of the assets the application has access to.
 		/// </summary>
-		template<typename T>
-		static bool GetFailed(std::string _name, std::string& _reason) {
-			
-			bool result = false;
-			
-			Hashmap<std::string, std::string> category;
-			if (m_Failed.Get(typeid(T), category)) {
-				
-				result = category.Get(_name, _reason);
-			}
-			
-			return result;
-		}
+		static void IndexAssets();
 		
 		/// <summary>
-		/// Preload meshes and add them to the cache.
+		/// Index items which may other assets may be dependent on.
 		/// </summary>
-		static void PreloadAudio();
-		
-		/// <summary>
-		/// Preload meshes and add them to the cache.
-		/// </summary>
-		static void PreloadMeshes();
-		
-		/// <summary>
-		/// Preload materials and add them to the cache.
-		/// </summary>
-		static void PreloadMaterials();
-		
-		/// <summary>
-		/// Preload textures and add them to the cache.
-		/// </summary>
-		static void PreloadTextures();
-		
-		/// <summary>
-		/// Preload shaders and add them to the cache.
-		/// </summary>
-		static void PreloadShaders();
+		static void IndexDependencies();
 		
 	public:
 	
 		static void Preload();
 	
-		static std::weak_ptr<Audio::AudioClip> GetAudio(const std::string& _name, const bool& _fallback = true) noexcept;
-		
-		static std::weak_ptr<Graphics::Mesh> GetMesh(const std::string& _name, const bool& _fallback = true) noexcept;
-	 
-		static std::weak_ptr<Graphics::Material> GetMaterial(const std::string& _name, const bool& _fallback = true) noexcept;
-	 
-		static std::weak_ptr<Graphics::Texture> GetTexture(const std::string& _name, const bool& _fallback = true) noexcept;
-	 
-		static std::weak_ptr<Graphics::Shader> GetShader(const std::string& _name, const bool& _fallback = true) noexcept;
+		template<typename T>
+		inline static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
+			
+			std::weak_ptr<T> result;
+			
+			try {
+				
+				auto& item = GetBucket<T>().Return(_name);
+				
+				switch (item.m_Status) {
+					case Unloaded: {
+						item.Load();
+						result = item.m_Item;
+						
+						break;
+					}
+					case Loaded: {
+						result = item.m_Item;
+						
+						break;
+					}
+					case Missing: {
+						
+						if (_fallback && _name != "missing") {
+							result = Resources::Get<T>("missing");
+						}
+						
+						break;
+					}
+					case Error: {
+						
+						if (_fallback && _name != "error") {
+							result = Resources::Get<T>("error");
+						}
+						
+						break;
+					}
+					default: {
+						throw std::runtime_error("Not implemented!");
+					}
+				}
+			}
+			catch (const std::exception& e) {
+				std::cerr << e.what() << std::endl;
+			}
+			
+			return result;
+		}
 	};
+	
+	template<>
+	inline Hashmap<std::string, Resources::Asset<Audio::AudioClip>>& Resources::GetBucket() {
+		return m_Audio;
+	}
+	
+	template<>
+	inline Hashmap<std::string, Resources::Asset<Graphics::Material>>& Resources::GetBucket() {
+		return m_Materials;
+	}
+	
+	template<>
+	inline Hashmap<std::string, Resources::Asset<Graphics::Mesh>>& Resources::GetBucket() {
+		return m_Meshes;
+	}
+	
+	template<>
+	inline Hashmap<std::string, Resources::Asset<Graphics::Shader>>& Resources::GetBucket() {
+		return m_Shaders;
+	}
+	
+	template<>
+	inline Hashmap<std::string, Resources::Asset<Graphics::Texture>>& Resources::GetBucket() {
+		return m_Textures;
+	}
+	
+	template<>
+	inline void Resources::Asset<Audio::AudioClip>::Load() {
+
+		try {
+			
+			if (exists(m_Path)) {
+				
+				if (File::TryLoad(m_Path, m_Item)) {
+					m_Status = Loaded;
+				}
+				else {
+					throw std::runtime_error("Error loading resource!");
+				}
+			}
+			else {
+				m_Status = Missing;
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+			
+			m_Status = Error;
+		}
+	}
+
+	template<>
+	inline void Resources::Asset<Graphics::Mesh>::Load() {
+
+		try {
+			
+			if (exists(m_Path)) {
+				
+				if (File::TryLoad(m_Path, m_Item)) {
+					m_Status = Loaded;
+				}
+				else {
+					throw std::runtime_error("Error loading resource!");
+				}
+			}
+			else {
+				m_Status = Missing;
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+			
+			m_Status = Error;
+		}
+	}
+
+	template<>
+	inline void Resources::Asset<Graphics::Material>::Load() {
+
+		try {
+			
+			if (exists(m_Path)) {
+				
+				if (File::TryLoad(m_Path, m_Item)) {
+					m_Status = Loaded;
+				}
+				else {
+					throw std::runtime_error("Error loading resource!");
+				}
+			}
+			else {
+				m_Status = Missing;
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+			
+			m_Status = Error;
+		}
+	}
+
+	template<>
+	inline void Resources::Asset<Graphics::Texture>::Load() {
+
+		try {
+			
+			if (exists(m_Path)) {
+				
+				if (File::TryLoad(m_Path, m_Item)) {
+					m_Status = Loaded;
+				}
+				else {
+					throw std::runtime_error("Error loading resource!");
+				}
+			}
+			else {
+				m_Status = Missing;
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+			
+			m_Status = Error;
+		}
+	}
+	
+	template<>
+	inline void Resources::Asset<Graphics::Shader>::Load() {
+
+		try {
+			
+			if (exists(m_Path)) {
+				
+				if (File::TryLoad(m_Path, m_Item)) {
+					m_Status = Loaded;
+				}
+				else {
+					throw std::runtime_error("Error loading resource!");
+				}
+			}
+			else {
+				m_Status = Missing;
+			}
+		}
+		catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+			
+			m_Status = Error;
+		}
+	}
 	
 } // LouiEriksson::Engine
 

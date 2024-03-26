@@ -1,7 +1,8 @@
 #include "Resources.h"
 
-#include "../audio/AudioClip.h"
 #include "../core/utils/Hashmap.h"
+
+#include "../audio/AudioClip.h"
 #include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
 #include "../graphics/Shader.h"
@@ -17,129 +18,60 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <typeindex>
 #include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine {
 	
-	void Resources::PreloadAudio() {
+	bool Resources::GetType(const std::string& _extension, std::type_index& _output) {
 		
-		Hashmap<std::string, std::filesystem::path> files;
+		const static Hashmap<std::string, std::type_index> lookup {
+			{ ".wav",  typeid(   Audio::AudioClip) },
+			{ ".obj",  typeid(Graphics::Mesh     ) },
+			{ ".mtl",  typeid(Graphics::Material ) },
+			{ ".jpg",  typeid(Graphics::Texture  ) },
+			{ ".png",  typeid(Graphics::Texture  ) },
+			{ ".tif",  typeid(Graphics::Texture  ) },
+			{ ".hdr",  typeid(Graphics::Texture  ) },
+			{ ".exr",  typeid(Graphics::Texture  ) },
+			{ ".vert", typeid(Graphics::Shader   ) },
+			{ ".geom", typeid(Graphics::Shader   ) },
+			{ ".frag", typeid(Graphics::Shader   ) },
+			{ ".glsl", typeid(Graphics::Shader   ) },
+		};
 		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_AudioDirectory, File::Directory::EntryType::FILE)) {
-			files.Add(item.stem().string(), item);
-		}
+		return lookup.Get(_extension, _output);
+	}
+	
+	void Resources::IndexAssets() {
 		
-		for (const auto& kvp : files.GetAll()) {
+		for (const auto& item : File::Directory::GetEntriesRecursive("assets/", File::Directory::EntryType::FILE)) {
 			
-			std::shared_ptr<Audio::AudioClip> clip;
-			if (File::TryLoad(kvp.second, clip)) {
-				m_Audio.Add(kvp.first, clip);
+			std::type_index type { typeid(void) };
+			if (GetType(item.extension(), type)) {
+				   
+				     if (type == typeid(   Audio::AudioClip)) {     m_Audio.Assign(item.stem().string(), { item }); }
+				else if (type == typeid(Graphics::Material )) { m_Materials.Assign(item.stem().string(), { item }); }
+				else if (type == typeid(Graphics::Mesh     )) {    m_Meshes.Assign(item.stem().string(), { item }); }
+				else if (type == typeid(Graphics::Shader   )) {   m_Shaders.Assign(item.stem().string(), { item }); }
+				else if (type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
 			}
 			else {
-				AddFailed<Audio::AudioClip>(kvp.first, "");
+				std::cout << "Unable to determine the type of asset with extension \"" << item.extension() << "\"" << std::endl;
 			}
 		}
 	}
 	
-	void Resources::PreloadMeshes() {
-		
-		Hashmap<std::string, std::filesystem::path> files;
-		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_MeshesDirectory, File::Directory::EntryType::FILE)) {
-			
-			if (strcmp(item.extension().string().c_str(), ".obj") == 0) {
-				files.Add(item.stem().string(), item);
-			}
-		}
-		
-		for (const auto& kvp : files.GetAll()) {
-			
-			std::shared_ptr<Graphics::Mesh> mesh;
-			if (File::TryLoad(kvp.second, mesh)) {
-				m_Meshes.Add(kvp.first, mesh);
-			}
-			else {
-				AddFailed<Graphics::Mesh>(kvp.first, "");
-			}
-		}
-	}
-	
-	void Resources::PreloadMaterials() {
-		
-		Hashmap<std::string, std::filesystem::path> files;
-		
-		for (const auto& item : File::Directory::GetEntriesRecursive(m_MaterialsDirectory, File::Directory::EntryType::FILE)) {
-			
-			if (strcmp(item.extension().string().c_str(), ".mtl") == 0) {
-				files.Add(item.stem().string(), item);
-			}
-		}
-		
-		for (const auto& kvp : files.GetAll()) {
-			
-			std::shared_ptr<Graphics::Material> material;
-			if (File::TryLoad(kvp.second, material)) {
-				m_Materials.Add(kvp.first, material);
-			}
-			else {
-				AddFailed<Graphics::Mesh>(kvp.first, "");
-			}
-		}
-	}
-	
-	void Resources::PreloadTextures() {
-		
-		/* PRELOAD SRGB */
-		{
-			Hashmap<std::string, std::filesystem::path> files;
-			
-			for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesSRGBDirectory, File::Directory::EntryType::FILE)) {
-				files.Add(item.stem().string(), item);
-			}
-			
-			for (const auto& kvp : files.GetAll()) {
-				
-				std::shared_ptr<Graphics::Texture> texture;
-				if (File::TryLoad(kvp.second, texture, { GL_SRGB, true })) {
-					m_Textures.Add(kvp.first, texture);
-				}
-				else {
-					AddFailed<Graphics::Texture>(kvp.first, "");
-				}
-			}
-		}
-		
-		/* PRELOAD LINEAR */
-		{
-			Hashmap<std::string, std::filesystem::path> files;
-			
-			for (const auto& item : File::Directory::GetEntriesRecursive(m_TexturesLinearDirectory, File::Directory::EntryType::FILE)) {
-				files.Add(item.stem().string(), item);
-			}
-			
-			for (const auto& kvp : files.GetAll()) {
-				
-				std::shared_ptr<Graphics::Texture> texture;
-				if (File::TryLoad(kvp.second, texture, { GL_RGB32F, true })) {
-					m_Textures.Add(kvp.first, texture);
-				}
-				else {
-					AddFailed<Graphics::Texture>(kvp.first, "");
-				}
-			}
-		}
-	}
-	
-	void Resources::PreloadShaders() {
+	void Resources::IndexDependencies() {
 		
 		/* INCLUDE SHADER DEPENDENCIES */
 		{
 			std::vector<std::filesystem::path> dependencies;
 			
-			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderIncludeDirectory, File::Directory::EntryType::FILE)) {
+			for (const auto& item : File::Directory::GetEntriesRecursive("assets/", File::Directory::EntryType::FILE)) {
 				
-				if (strcmp(item.extension().string().c_str(), ".glsl") == 0) {
+				if (strcmp(item.extension().string().c_str(), ".inc") == 0) {
 					dependencies.emplace_back(item);
 				}
 			}
@@ -171,194 +103,12 @@ namespace LouiEriksson::Engine {
 				}
 			}
 		}
-		
-		/* PRELOAD + COMPILE SHADERS */
-		{
-			// Container for shaders where the subshaders are all in separate files.
-			Hashmap<std::string, std::vector<std::pair<std::filesystem::path, GLenum>>> separated;
-			
-			// Container for shaders where the subshaders are all in the same file.
-			std::vector<std::filesystem::path> combined;
-			
-			for (const auto& item : File::Directory::GetEntriesRecursive(m_ShaderProgramsDirectory, File::Directory::EntryType::FILE)) {
-				
-				GLenum shaderType;
-				
-				     if (strcmp(item.extension().string().c_str(), ".vert") == 0) { shaderType =   GL_VERTEX_SHADER; }
-				else if (strcmp(item.extension().string().c_str(), ".frag") == 0) { shaderType = GL_FRAGMENT_SHADER; }
-				else if (strcmp(item.extension().string().c_str(), ".geom") == 0) { shaderType = GL_GEOMETRY_SHADER; }
-				else if (strcmp(item.extension().string().c_str(), ".glsl") == 0) { shaderType =          GL_SHADER; }
-				else {
-					shaderType = GL_NONE;
-				}
-				
-				if (shaderType == GL_SHADER) {
-					combined.emplace_back(item);
-				}
-				else if (shaderType != GL_NONE) {
-					
-					std::vector<std::pair<std::filesystem::path, GLenum>> subshaders;
-					separated.Get(item.stem().string(), subshaders);
-				
-					subshaders.emplace_back(item, shaderType);
-					
-					separated.Assign(item.stem().string(), subshaders);
-				}
-			}
-			
-			// Iterate over all of the shaders defined by subshaders in
-			// different files, compiling them and adding to the cache.
-			{
-				for (const auto& kvp : separated.GetAll()) {
-				
-					std::vector<Graphics::SubShader> subShaders;
-					subShaders.reserve(kvp.second.size());
-					
-					for (const auto& subshader : kvp.second) {
-						subShaders.emplace_back(subshader.first.string().c_str(), subshader.second);
-					}
-					
-					// Compile shader and add to cache.
-					std::shared_ptr<Graphics::Shader> shader;
-					if (File::TryLoad(subShaders, shader)) {
-						m_Shaders.Add(shader->Name(), shader);
-					}
-					else {
-						AddFailed<Graphics::Shader>(kvp.first, "");
-					}
-				}
-			}
-			
-			// Iterate over all the shaders defined by subshaders in the same
-			// file, compiling the programs and adding them to the cache.
-			{
-				for (const auto& item : combined) {
-				
-					// Compile shader and add to cache.
-					std::shared_ptr<Graphics::Shader> shader;
-					if (File::TryLoad(item, shader)) {
-						m_Shaders.Add(shader->Name(), shader);
-					}
-					else {
-						AddFailed<Graphics::Shader>(item.filename(), "");
-					}
-				}
-			}
-		}
 	}
 	
 	void Resources::Preload() {
 		
-		try {
-			PreloadAudio();
-			PreloadShaders();
-			PreloadMeshes();
-			PreloadTextures();
-			PreloadMaterials();
-		}
-		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
-		}
-	}
-	
-	std::weak_ptr<Audio::AudioClip> Resources::GetAudio(const std::string& _name, const bool& _fallback) noexcept  {
-		
-		std::shared_ptr<Audio::AudioClip> result;
-		
-		if (!m_Audio.Get(_name, result) && _fallback) {
-			
-			std::string reason;
-			if (GetFailed<Audio::AudioClip>(_name, reason)) {
-				m_Audio.Get("error", result);
-				
-				std::cerr << reason << std::endl;
-			}
-			else {
-				m_Audio.Get("missing", result);
-			}
-		}
-		
-		return result;
-	}
-	
-	std::weak_ptr<Graphics::Mesh> Resources::GetMesh(const std::string& _name, const bool& _fallback) noexcept {
-
-		std::shared_ptr<Graphics::Mesh> result;
-		
-		if (!m_Meshes.Get(_name, result) && _fallback) {
-			
-			std::string reason;
-			if (GetFailed<Graphics::Mesh>(_name, reason)) {
-				m_Meshes.Get("error", result);
-				
-				std::cerr << reason << std::endl;
-			}
-			else {
-				m_Meshes.Get("missing", result);
-			}
-		}
-		
-		return result;
-	}
-	
-	std::weak_ptr<Graphics::Material> Resources::GetMaterial(const std::string& _name, const bool& _fallback) noexcept {
-
-		std::shared_ptr<Graphics::Material> result;
-		
-		if (!m_Materials.Get(_name, result) && _fallback) {
-			
-			std::string reason;
-			if (GetFailed<Graphics::Material>(_name, reason)) {
-				m_Materials.Get("error", result);
-				
-				std::cerr << reason << std::endl;
-			}
-			else {
-				m_Materials.Get("missing", result);
-			}
-		}
-		
-		return result;
-	}
-	
-	std::weak_ptr<Graphics::Texture> Resources::GetTexture(const std::string& _name, const bool& _fallback) noexcept {
-		
-		std::shared_ptr<Graphics::Texture> result;
-		
-		if (!m_Textures.Get(_name, result) && _fallback) {
-			
-			std::string reason;
-			if (GetFailed<Graphics::Texture>(_name, reason)) {
-				m_Textures.Get("error", result);
-				
-				std::cerr << reason << std::endl;
-			}
-			else {
-				m_Textures.Get("missing", result);
-			}
-		}
-		
-		return result;
-	}
-	
-	std::weak_ptr<Graphics::Shader> Resources::GetShader(const std::string& _name, const bool& _fallback) noexcept {
-		
-		std::shared_ptr<Graphics::Shader> result;
-		
-		if (!m_Shaders.Get(_name, result) && _fallback) {
-			
-			std::string reason;
-			if (GetFailed<Graphics::Shader>(_name, reason)) {
-				m_Shaders.Get("error", result);
-				
-				std::cerr << reason << std::endl;
-			}
-			else {
-				m_Shaders.Get("missing", result);
-			}
-		}
-		
-		return result;
+		IndexDependencies();
+		IndexAssets();
 	}
 	
 } // LouiEriksson::Engine

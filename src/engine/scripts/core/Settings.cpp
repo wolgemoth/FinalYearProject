@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine {
 	
 	void Settings::Graphics::Skybox::UpdateSkybox(const int& _index) {
 		
-		if (const auto item = Resources::GetTexture(s_AvailableSkyboxes.at(_index)).lock()) {
+		if (const auto item = Resources::Get<Engine::Graphics::Texture>(s_AvailableSkyboxes.at(_index)).lock()) {
 			s_Skybox = item;
 			
 			s_CurrentSkyboxSelection = _index;
@@ -51,7 +51,7 @@ namespace LouiEriksson::Engine {
 	
 	void Settings::Graphics::Material::UpdateShader(const int& _index) {
 		
-		if (const auto item = Resources::GetShader(s_AvailableShaders.at(_index)).lock()) {
+		if (const auto item = Resources::Get<Engine::Graphics::Shader>(s_AvailableShaders.at(_index)).lock()) {
 			s_Shader = item;
 			
 			s_CurrentShaderSelection = _index;

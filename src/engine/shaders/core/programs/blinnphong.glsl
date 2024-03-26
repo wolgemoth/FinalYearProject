@@ -25,10 +25,10 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/core/include/rand.glsl"
-    #include "/shaders/core/include/constants.glsl"
-    #include "/shaders/core/include/common_utils.glsl"
-    #include "/shaders/core/include/lighting_utils.glsl"
+    #include "/assets/shaders/core/include/rand.inc"
+    #include "/assets/shaders/core/include/constants.inc"
+    #include "/assets/shaders/core/include/common_utils.inc"
+    #include "/assets/shaders/core/include/lighting_utils.inc"
 
     in mediump vec2 v_TexCoord;
 

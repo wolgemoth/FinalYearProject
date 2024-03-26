@@ -17,7 +17,7 @@ namespace LouiEriksson::Engine::ECS {
 	private:
 	
 		/// <summary>
-		/// Index of the component within its category in the GameObject. Used for tidying up during destruction.
+		/// IndexAssets of the component within its category in the GameObject. Used for tidying up during destruction.
 		/// </summary>
 		size_t m_Index;
 	

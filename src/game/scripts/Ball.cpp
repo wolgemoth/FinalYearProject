@@ -14,20 +14,20 @@ namespace LouiEriksson::Game::Scripts {
 		
 		if (const auto p =      Parent().lock()) {
 		if (const auto s = p->GetScene().lock()) {
-		
+			
 			// Get Transform.
 			if (const auto t = p->GetComponent<Transform>().lock()) {
-	
+				
 				// Get starting position.
 				m_StartingPosition = t->m_Position;
-			
+				
 				// Get radius.
 				m_Radius = glm::max(t->m_Scale.x, glm::max(t->m_Scale.y, t->m_Scale.z));
-			
+				
 				// Add Renderer.
 				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
-				renderer->SetMesh(Resources::GetMesh("sphere"));
-				renderer->SetMaterial(Resources::GetMaterial("sphere"));
+				renderer->SetMesh(Resources::Get<Graphics::Mesh>("sphere"));
+				renderer->SetMaterial(Resources::Get<Graphics::Material>("sphere"));
 				renderer->SetTransform(t);
 			
 				// Add Collider.
@@ -35,19 +35,19 @@ namespace LouiEriksson::Game::Scripts {
 				collider->SetTransform(t);
 				collider->SetType(Physics::Collider::Type::Sphere);
 				collider->Radius(m_Radius);
-			
+				
 				// Add Rigidbody.
 				const auto rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
 				rigidbody->SetTransform(t);
 				rigidbody->SetCollider(collider);
 				rigidbody->Mass(4.0f * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
 				rigidbody->Drag(0.005f); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-			
+				
 				collider->SetRigidbody(rigidbody);
 				
 				// Add AudioSource and Clip.
 				if (const auto as = p->AddComponent<Audio::AudioSource>().lock()) {
-					as->Clip(Resources::GetAudio("Hollow_Bass"));
+					as->Clip(Resources::Get<Audio::AudioClip>("Hollow_Bass"));
 
 					m_AudioSource = as;
 				}

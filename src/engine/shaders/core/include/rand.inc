@@ -1,7 +1,7 @@
 #ifndef _RAND
 #define _RAND
 
-    #include "/shaders/core/include/constants.glsl"
+    #include "/assets/shaders/core/include/constants.inc"
 
     /* THIRD-PARTY */
 

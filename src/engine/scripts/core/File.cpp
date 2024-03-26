@@ -592,7 +592,7 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Albedo_Texture = texture;
 								}
 							}
@@ -612,7 +612,7 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Displacement_Texture = texture;
 								}
 							}
@@ -624,7 +624,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Roughness_Texture = texture;
 								}
 							}
@@ -636,7 +636,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Metallic_Texture = texture;
 								}
 							}
@@ -648,7 +648,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Emission_Texture = texture;
 								}
 							}
@@ -660,7 +660,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Normal_Texture = texture;
 								}
 							}
@@ -672,7 +672,7 @@ namespace LouiEriksson::Engine {
 								const std::filesystem::path path(subStrings.at(1));
 								
 								std::shared_ptr<Graphics::Texture> texture;
-								if (const auto texture = Resources::GetTexture(path.stem().string()).lock()) {
+								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_AO_Texture = texture;
 								}
 							}

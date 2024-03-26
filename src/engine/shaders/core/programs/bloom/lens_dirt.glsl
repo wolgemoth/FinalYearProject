@@ -21,7 +21,7 @@
     #extension GL_ARB_texture_query_levels     : enable
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/core/include/common_utils.glsl"
+    #include "/assets/shaders/core/include/common_utils.inc"
 
     in mediump vec2 v_TexCoord;
 

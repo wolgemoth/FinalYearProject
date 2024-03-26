@@ -44,8 +44,8 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/core/include/common_utils.glsl"
-    #include "/shaders/core/include/lighting_utils.glsl"
+    #include "/assets/shaders/core/include/common_utils.inc"
+    #include "/assets/shaders/core/include/lighting_utils.inc"
 
     in mediump vec2 v_TexCoord;
     in mediump vec3 v_FragPos_Tangent;

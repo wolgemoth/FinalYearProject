@@ -74,7 +74,6 @@ namespace LouiEriksson::Engine::Audio {
 		
 		/// <summary> Dispose the clip. </summary>
 		void Dispose();
-		
 	};
 	
 } // LouiEriksson::Engine::Audio

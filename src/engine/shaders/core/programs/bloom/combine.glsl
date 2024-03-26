@@ -22,7 +22,7 @@
 
     #extension GL_ARB_shading_language_include : require
 
-    #include "/shaders/core/include/common_utils.glsl"
+    #include "/assets/shaders/core/include/common_utils.inc"
 
     uniform sampler2D u_Texture0;
     uniform sampler2D u_Texture1;
