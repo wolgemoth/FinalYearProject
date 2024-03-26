@@ -207,6 +207,9 @@ add_library(PELLET STATIC
 # ADD OPENAL:
 find_package(OpenAL REQUIRED)
 
+# ADD CURL:
+find_package(CURL REQUIRED)
+
 # ADD VSOP87:
 set(VSOP87_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/greg-miller/vsop87/)
 
@@ -227,6 +230,7 @@ include_directories(
         ${SDL2_INCLUDE_DIR}
         ${OPENAL_INCLUDE_DIR}
         ${VSOP87_INCLUDE_DIR}
+        ${CURL_INCLUDE_DIRS}
 )
 
 # ADD FINALYEARPROJECT:
@@ -318,6 +322,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/stars/ATHYG.cpp
         src/engine/scripts/spatial/stars/ATHYG.h
+        src/engine/scripts/networking/Requests.cpp
+        src/engine/scripts/networking/Requests.h
 )
 
 link_directories(FinalYearProject
@@ -335,6 +341,9 @@ target_link_libraries(FinalYearProject
         PELLET
         SDL2
         SDL2main
+
+        # NETWORKING:
+        CURL::libcurl
 
         # SPATIAL:
         VSOP87
