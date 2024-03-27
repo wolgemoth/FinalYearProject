@@ -63,8 +63,8 @@ namespace LouiEriksson::Engine {
 			/* INIT SOUND */
 			Audio::Sound::Init();
 			
-			/* PRELOAD RESOURCES */
-			Resources::Preload();
+			/* INIT RESOURCES */
+			Resources::Init();
 			
 			/* INIT SETTINGS */
 			Settings::Init();

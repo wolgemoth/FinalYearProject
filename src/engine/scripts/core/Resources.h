@@ -97,7 +97,27 @@ namespace LouiEriksson::Engine {
 	public:
 	
 		static void Init();
-	
+		
+		template<typename T>
+		static void Preload(const std::string _name) {
+			
+			std::weak_ptr<T> result;
+			
+			try {
+				
+				auto& item = GetBucket<T>().Return(_name);
+				
+				if (item.m_Status == Unloaded) {
+					item.Load();
+				}
+			}
+			catch (const std::exception& e) {
+				std::cerr << e.what() << std::endl;
+			}
+			
+			return result;
+		}
+		
 		template<typename T>
 		inline static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
 			

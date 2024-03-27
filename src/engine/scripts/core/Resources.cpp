@@ -105,7 +105,7 @@ namespace LouiEriksson::Engine {
 		}
 	}
 	
-	void Resources::Preload() {
+	void Resources::Init() {
 		
 		IndexDependencies();
 		IndexAssets();
