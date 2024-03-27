@@ -324,6 +324,10 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/stars/ATHYG.h
         src/engine/scripts/networking/Requests.cpp
         src/engine/scripts/networking/Requests.h
+        src/engine/scripts/spatial/elevation/Elevation.cpp
+        src/engine/scripts/spatial/elevation/Elevation.h
+        src/engine/scripts/spatial/osm/serialisation/OSM.cpp
+        src/engine/scripts/spatial/osm/serialisation/OSM.h
 )
 
 link_directories(FinalYearProject
