@@ -96,7 +96,7 @@ namespace LouiEriksson::Engine {
 		
 	public:
 	
-		static void Preload();
+		static void Init();
 	
 		template<typename T>
 		inline static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
