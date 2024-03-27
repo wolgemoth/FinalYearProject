@@ -101,8 +101,6 @@ namespace LouiEriksson::Engine {
 		template<typename T>
 		static void Preload(const std::string _name) {
 			
-			std::weak_ptr<T> result;
-			
 			try {
 				
 				auto& item = GetBucket<T>().Return(_name);
@@ -114,8 +112,6 @@ namespace LouiEriksson::Engine {
 			catch (const std::exception& e) {
 				std::cerr << e.what() << std::endl;
 			}
-			
-			return result;
 		}
 		
 		template<typename T>
@@ -275,7 +271,21 @@ namespace LouiEriksson::Engine {
 			
 			if (exists(m_Path)) {
 				
-				if (File::TryLoad(m_Path, m_Item)) {
+				GLenum format = GL_SRGB;
+				
+				if (m_Path.has_extension()) {
+				
+					     if (m_Path.extension() == ".hdr") { format = GL_RGBA32F; }
+					else if (m_Path.extension() == ".exr") { format = GL_RGBA32F; }
+					else if (m_Path.has_parent_path()) {
+						
+						if (m_Path.parent_path().string().find("linear")) {
+							format = GL_RGBA32F;
+						}
+					}
+				}
+				
+				if (File::TryLoad(m_Path, m_Item, { format, true })) {
 					m_Status = Loaded;
 				}
 				else {

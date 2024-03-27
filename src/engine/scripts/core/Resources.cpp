@@ -2,12 +2,6 @@
 
 #include "../core/utils/Hashmap.h"
 
-#include "../audio/AudioClip.h"
-#include "../graphics/Material.h"
-#include "../graphics/Mesh.h"
-#include "../graphics/Shader.h"
-#include "../graphics/Texture.h"
-
 #include "File.h"
 
 #include <GL/glew.h>
@@ -47,18 +41,21 @@ namespace LouiEriksson::Engine {
 	void Resources::IndexAssets() {
 		
 		for (const auto& item : File::Directory::GetEntriesRecursive("assets/", File::Directory::EntryType::FILE)) {
+		
+			if (item.has_extension()) {
 			
-			std::type_index type { typeid(void) };
-			if (GetType(item.extension(), type)) {
-				   
-				     if (type == typeid(   Audio::AudioClip)) {     m_Audio.Assign(item.stem().string(), { item }); }
-				else if (type == typeid(Graphics::Material )) { m_Materials.Assign(item.stem().string(), { item }); }
-				else if (type == typeid(Graphics::Mesh     )) {    m_Meshes.Assign(item.stem().string(), { item }); }
-				else if (type == typeid(Graphics::Shader   )) {   m_Shaders.Assign(item.stem().string(), { item }); }
-				else if (type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
-			}
-			else {
-				std::cout << "Unable to determine the type of asset with extension \"" << item.extension() << "\"" << std::endl;
+				std::type_index type { typeid(void) };
+				if (GetType(item.extension(), type)) {
+					   
+					     if (type == typeid(   Audio::AudioClip)) {     m_Audio.Assign(item.stem().string(), { item }); }
+					else if (type == typeid(Graphics::Material )) { m_Materials.Assign(item.stem().string(), { item }); }
+					else if (type == typeid(Graphics::Mesh     )) {    m_Meshes.Assign(item.stem().string(), { item }); }
+					else if (type == typeid(Graphics::Shader   )) {   m_Shaders.Assign(item.stem().string(), { item }); }
+					else if (type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
+				}
+				else {
+					std::cout << "Unable to determine the type of asset with extension " << item.extension() << std::endl;
+				}
 			}
 		}
 	}

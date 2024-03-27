@@ -236,7 +236,7 @@ namespace LouiEriksson::Game::Scripts {
 		// TODO: Use a 'Light' component instead!
 		const auto sol = m_Planets.Return("Sol").lock()->GetComponent<Transform>().lock();
 		Settings::Graphics::Material::s_LightPosition = sol->m_Position;
-		Settings::Graphics::Material::s_LightRange = 40000.000 * 1000.0;
+		Settings::Graphics::Material::s_LightRange = 4000.0 * 1000.0;
 		Settings::Graphics::Material::s_LightIntensity = 1.0;
 	}
 	
