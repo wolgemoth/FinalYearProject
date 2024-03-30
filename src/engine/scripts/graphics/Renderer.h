@@ -48,7 +48,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void Shadows(const bool& _enable) noexcept;
 	
 		/// <summary> Set whether or not the Renderer should cast shadows. </summary>
-		const bool& Shadows() const noexcept;
+		[[nodiscard]] const bool& Shadows() const noexcept;
 		
 		/// <summary> Set the Mesh of the Renderer. </summary>
 		void SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept;

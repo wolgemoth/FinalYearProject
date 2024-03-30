@@ -52,7 +52,7 @@ namespace LouiEriksson::Game::Scripts {
 			
 			[[nodiscard]] const double& Time() const noexcept;
 			
-			const bool TryGetTransform(const std::string& _name, const Transform& _out) const;
+			[[nodiscard]] bool TryGetTransform(const std::string& _name, const Transform& _out) const;
 			
 			[[nodiscard]] const std::vector<typename Hashmap<std::string, Transform>::KeyValuePair> Transforms() const;
 			
@@ -101,10 +101,10 @@ namespace LouiEriksson::Game::Scripts {
 		/// <inheritdoc/>
 		void Tick() override;
 		
-		void LoadStars(std::vector<std::filesystem::path> _athyg_paths, const double& _threshold_magnitude = std::numeric_limits<double>().infinity());
+		void LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude = std::numeric_limits<double>::infinity());
 		
 		template<typename T, glm::precision P>
-		void InterpolatePlanets(Planetarium::Planets<T, P> _from, Planetarium::Planets<T, P> _to, const double& _t, const std::string _origin = "Earth");
+		void InterpolatePlanets(Planetarium::Planets<T, P> _from, Planetarium::Planets<T, P> _to, const double& _t, std::string _origin = "Earth");
 		
 	public:
 	
@@ -147,7 +147,7 @@ namespace LouiEriksson::Game::Scripts {
 	}
 	
 	template<typename T, glm::precision P>
-	const bool Planetarium::Planets<T, P>::TryGetTransform(const std::string& _name, const Planets<T, P>::Transform& _out) const {
+	bool Planetarium::Planets<T, P>::TryGetTransform(const std::string& _name, const Planets<T, P>::Transform& _out) const {
 		return m_Transforms.Get(_name, const_cast<Planets<T, P>::Transform&>(_out) );
 	}
 	

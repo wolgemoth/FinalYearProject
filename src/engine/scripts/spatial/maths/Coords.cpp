@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <math.h>
+#include <cmath>
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 	

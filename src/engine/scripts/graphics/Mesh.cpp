@@ -73,7 +73,9 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			// Texture coordinates:
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (int*)(2 * sizeof(GLfloat)));
+			
+			const auto data = (2 * sizeof(GLfloat));
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), &data);
 			
 		}
 		

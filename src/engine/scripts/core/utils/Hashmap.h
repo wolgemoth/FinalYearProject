@@ -112,9 +112,7 @@ namespace LouiEriksson::Engine {
 		/// Initialise Hashmap.
 		/// </summary>
 		/// <param name="_capacity">Initial capacity of the Hashmap. Must be larger than 0.</param>
-		Hashmap(const size_t& _capacity = 1) :
-				m_Size(0)
-		{
+		Hashmap(const size_t& _capacity = 1) : m_Size(0) {
 			m_Buckets.resize(_capacity);
 		}
 		

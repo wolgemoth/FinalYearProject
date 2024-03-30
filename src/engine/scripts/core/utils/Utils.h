@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_UTILS_H
 #define FINALYEARPROJECT_UTILS_H
 
-#include "glm/detail/qualifier.hpp"
+#include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 
 #include <queue>
@@ -82,7 +82,7 @@ namespace LouiEriksson::Engine {
 		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
 		
 		template <typename T>
-		inline static bool TryParse(const std::string& _str, T& _result) noexcept;
+		inline static bool TryParse(const std::string& _str, T& _output) noexcept;
 		
 		template<typename T, glm::precision P>
 		static double SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {

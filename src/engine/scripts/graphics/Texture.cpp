@@ -87,7 +87,7 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	void Texture::GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels) {
-		
+	
 		if (_pixelFormat == GL_R    || _pixelFormat == GL_R8   || _pixelFormat == GL_R16 ||
 			_pixelFormat == GL_R16F || _pixelFormat == GL_R32F || _pixelFormat == GL_R32F_EXT
 		) {

@@ -76,7 +76,7 @@ namespace LouiEriksson::Game::Scripts {
 		 * -especially if the user doesn't have an internet connection
 		 * from which their system is syncing the time automatically.
 		 */
-		auto unix_time_utc = std::chrono::duration_cast<std::chrono::microseconds>(
+		const auto unix_time_utc = std::chrono::duration_cast<std::chrono::microseconds>(
 				std::chrono::system_clock::now().time_since_epoch()
 			).count() / 1000000.0;
 		
@@ -121,7 +121,7 @@ namespace LouiEriksson::Game::Scripts {
 		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), 0.0, 1.0));
 	}
 	
-	void Planetarium::LoadStars(std::vector<std::filesystem::path> _athyg_paths, const double& _threshold_magnitude) {
+	void Planetarium::LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude) {
 	
 		std::vector<std::string> lines;
 		
@@ -148,7 +148,7 @@ namespace LouiEriksson::Game::Scripts {
 			}
 		}
 		
-		std::cout << "Parsing " << (lines.size() > 0 ? lines.size() - 1 : lines.size()) << " lines... " << std::flush;
+		std::cout << "Parsing " << (!lines.empty() ? lines.size() - 1 : lines.size()) << " lines... " << std::flush;
 		
 		std::vector<glm::vec3> star_positions;
 		

@@ -11,9 +11,9 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-map_Kd tavern-wood-planks1_albedo.png
-map_Ao tavern-wood-planks1_ao.png
-disp tavern-wood-planks1_height.png
-map_Pm tavern-wood-planks1_metallic.png
-norm tavern-wood-planks1_normal-dx.png
-map_Pr tavern-wood-planks1_roughness.png
+map_Kd tavern-wood-planks1_albedo.jpg
+map_Ao tavern-wood-planks1_ao.jpg
+disp tavern-wood-planks1_height.jpg
+map_Pm tavern-wood-planks1_metallic.jpg
+norm tavern-wood-planks1_normal-dx.jpg
+map_Pr tavern-wood-planks1_roughness.jpg

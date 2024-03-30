@@ -6,12 +6,9 @@
 #include "../ecs/Scene.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
+#include "../networking/Requests.h"
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
-
-#include "../spatial/osm/OSM.h"
-#include "../spatial/elevation/Elevation.h"
-#include "../spatial/maths/Coords.h"
 
 #include "utils/Hashmap.h"
 
@@ -34,6 +31,11 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
+// TEMP:
+#include "../spatial/osm/OSM.h"
+#include "../spatial/elevation/Elevation.h"
+#include "../spatial/maths/Coords.h"
 
 namespace LouiEriksson::Engine {
 	
@@ -89,34 +91,31 @@ namespace LouiEriksson::Engine {
 			float physics_step = 0.0f;
 			
 			{
-				auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({22.2829, 114.1736, 0.0}, 0.25);
+				auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({22.2829, 114.1736, 0.0}, 0.05);
 				
-				auto task1 = Spatial::OSM::QueryOverpassBoundingBoxAsync(
-					bounds,
-					10U,
-					[](const Networking::Requests::Response& _response) {
-						std::cout << _response.Content().ToStream().str() << std::endl;
-					}
-				);
+//				auto task1 = Spatial::OSM::QueryOverpassBoundingBoxAsync(
+//					bounds,
+//					10U,
+//					[](const Networking::Requests::Response& _response) {
+//						std::cout << _response.Content().ToStream().str() << std::endl;
+//					}
+//				);
 				
-				auto task2 = Spatial::Elevation::LoadElevationAsync(
-					bounds,
-					Spatial::Elevation::ElevationProvider::OpenElevation,
-					{ 2, 2 },
-					[](const std::vector<float>& _values) {
-
-						std::stringstream ss;
-
-						for (const auto& item : _values) {
-							ss << item << '\n';
-						}
-
-						std::cout << ss.str() << std::endl;
-					}
-				);
-
-				task1.wait();
-				task2.wait();
+//				auto task2 = Spatial::Elevation::LoadElevationAsync(
+//					bounds,
+//					Spatial::Elevation::ElevationProvider::OpenElevation,
+//					{ 2, 2 },
+//					[](const std::vector<float>& _values) {
+//
+//						std::stringstream ss;
+//
+//						for (const auto& item : _values) {
+//							ss << item << '\n';
+//						}
+//
+//						std::cout << ss.str() << std::endl;
+//					}
+//				);
 			}
 			
 			// Load a scene and run:

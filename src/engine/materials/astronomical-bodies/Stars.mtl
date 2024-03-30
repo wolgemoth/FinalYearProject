@@ -11,5 +11,5 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-map_Kd moon-albedo.png
-map_Ke moon-albedo.png
+map_Kd 8k_moon.jpg
+map_Ke 8k_moon.jpg
