@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include "../core/utils/Utils.h"
+
 #include <GL/glew.h>
 #include <glm/ext/vector_float3.hpp>
 
@@ -18,10 +20,32 @@ namespace LouiEriksson::Engine::Graphics {
 	      m_BitangentVBO_ID(0u),
 	          m_VertexCount(0u) {}
 			  
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
+		
+		result->m_VertexCount = _vertices.size();
+		
+		// Buffers to store mesh data:
+		glGenVertexArrays(1, &result->m_VAO_ID);
+		
+		glGenBuffers(1, &result->m_PositionVBO_ID);
+		
+		// Positions:
+		Mesh::Bind(*result);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * result->m_VertexCount * 3), _vertices.data(), GL_STATIC_DRAW);
+		
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		
+		return result;
+	}
     
 	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents, const GLenum& _format) {
 		
-		auto result = std::shared_ptr<Graphics::Mesh>(new Mesh(_format));
+		auto result = std::make_shared<Mesh>(Mesh(_format));
 		
 		result->m_VertexCount = _vertices.size();
 		
@@ -80,65 +104,32 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			
 			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
-			if (_generateTangents && !_normals.empty() && !_UVs.empty()) {
-			
-				// https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
+			if (_generateTangents) {
 				
-				std::vector<glm::vec3>   tangents;
-				std::vector<glm::vec3> bitangents;
+				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				auto& t = tb[0];
+				auto& b = tb[1];
 				
-				for (auto i = 0; i < _vertices.size(); i += 3) {
+				if (!t.empty() && !b.empty()) {
 				
-					// Shortcuts for _vertices
-			        const auto& pos0 = _vertices[  i  ];
-			        const auto& pos1 = _vertices[i + 1];
-			        const auto& pos2 = _vertices[i + 2];
-			
-			        // Shortcuts for _UVs
-			        const auto& uv0 = _UVs[  i  ];
-			        const auto& uv1 = _UVs[i + 1];
-			        const auto& uv2 = _UVs[i + 2];
+					// TODO: Perform tangent averaging / smoothing.
 					
-					const auto delta_pos1 = pos1 - pos0;
-				    const auto delta_pos2 = pos2 - pos0;
-					
-				    const auto delta_texcoord1 = uv1 - uv0;
-				    const auto delta_texcoord2 = uv2 - uv0;
+				    glGenBuffers(1, &result->m_TangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
 				
-					const auto f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
-				    const auto   tangent = f * (delta_pos1 * delta_texcoord2.y - delta_pos2 * delta_texcoord1.y);
-				    const auto bitangent = f * (delta_pos2 * delta_texcoord1.x - delta_pos1 * delta_texcoord2.x);
+					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(3);
 					
-					// Set the same tangent for all three _vertices of the triangle.
-			        // They will be merged later, in vboindexer.cpp
-			        tangents.emplace_back(tangent);
-			        tangents.emplace_back(tangent);
-			        tangents.emplace_back(tangent);
-			
-			        // Same thing for bitangents
-			        bitangents.emplace_back(bitangent);
-			        bitangents.emplace_back(bitangent);
-			        bitangents.emplace_back(bitangent);
+				    glGenBuffers(1, &result->m_BitangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					
+					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(4);
 				}
-				
-				// TODO: Perform tangent averaging / smoothing.
-				
-			    glGenBuffers(1, &result->m_TangentVBO_ID);
-			    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
-			    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(tangents.size() * sizeof(tangents[0])), tangents.data(), GL_STATIC_DRAW);
-			
-				glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(3);
-				
-			    glGenBuffers(1, &result->m_BitangentVBO_ID);
-			    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
-			    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(bitangents.size() * sizeof(bitangents[0])), bitangents.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(4);
 			}
 			
-			Mesh::Unbind();
             glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 		
@@ -180,6 +171,52 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	const unsigned long& Mesh::VertexCount() const noexcept { return m_VertexCount; }
 	
+	std::array<std::vector<glm::vec3>, 2> Mesh::GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs) {
+		
+		auto result = std::array<std::vector<glm::vec3>, 2>();
+		
+		// https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
+		
+		auto&   tangents = result[0];
+		auto& bitangents = result[1];
+		
+		for (auto i = 0; i < _vertices.size(); i += 3) {
+		
+			// Shortcuts for _vertices
+	        const auto& pos0 = _vertices[  i  ];
+	        const auto& pos1 = _vertices[i + 1];
+	        const auto& pos2 = _vertices[i + 2];
+	
+	        // Shortcuts for _UVs
+	        const auto& uv0 = _UVs[  i  ];
+	        const auto& uv1 = _UVs[i + 1];
+	        const auto& uv2 = _UVs[i + 2];
+			
+			const auto delta_pos1 = pos1 - pos0;
+		    const auto delta_pos2 = pos2 - pos0;
+			
+		    const auto delta_texcoord1 = uv1 - uv0;
+		    const auto delta_texcoord2 = uv2 - uv0;
+		
+			const auto f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
+		    const auto   tangent = f * (delta_pos1 * delta_texcoord2.y - delta_pos2 * delta_texcoord1.y);
+		    const auto bitangent = f * (delta_pos2 * delta_texcoord1.x - delta_pos1 * delta_texcoord2.x);
+			
+			// Set the same tangent for all three _vertices of the triangle.
+	        // They will be merged later, in vboindexer.cpp
+	        tangents.emplace_back(tangent);
+	        tangents.emplace_back(tangent);
+	        tangents.emplace_back(tangent);
+	
+	        // Same thing for bitangents
+	        bitangents.emplace_back(bitangent);
+	        bitangents.emplace_back(bitangent);
+	        bitangents.emplace_back(bitangent);
+		}
+		
+		return result;
+	}
+	
 	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
 		
 		if (s_Instance == nullptr) {
@@ -206,27 +243,49 @@ namespace LouiEriksson::Engine::Graphics {
 		return s_Instance;
 	}
 	
+	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution) {
 	
-	std::shared_ptr<Mesh> Mesh::Primitives::Points::Create(std::vector<glm::vec3> _points) {
+		const auto& nX = _resolution.x;
+		const auto& nY = _resolution.y;
 		
-		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
+	    /* VERTICES */
+	    std::vector<glm::vec3> vertices(static_cast<std::size_t>((nX + 1) * (nY + 1)));
 		
-		result->m_VertexCount = _points.size();
+	    for (auto i = 0; i <= nX; i++) {
+        for (auto j = 0; j <= nY; j++) {
+			
+	        vertices[i * (nY + 1) + j] = {
+				static_cast<float>(i) / static_cast<float>(nX),
+				static_cast<float>(j) / static_cast<float>(nY),
+				0
+			};
+        }}
 		
-		// Buffers to store mesh data:
-		glGenVertexArrays(1, &result->m_VAO_ID);
+	    /* INDICES */
+	    std::vector<int> indices(static_cast<std::size_t>(6 * nX * nY));
 		
-		glGenBuffers(1, &result->m_PositionVBO_ID);
+	    for (auto i = 0; i < nX; i++) {
+        for (auto j = 0; j < nY; j++) {
+			
+			const auto v1 = i * (nY + 1) + j;
+            const auto v2 = v1 + 1;
+            const auto v3 = (i + 1) * (nY + 1) + j;
+            const auto v4 = v3 + 1;
+
+			auto idx = Utils::To1D({i, j}, nY);
+			
+            const auto t1 =  (2 * idx)      * 3;
+            const auto t2 = ((2 * idx) + 1) * 3;
+			
+			indices[t1    ] = v1;
+            indices[t1 + 1] = v2;
+            indices[t1 + 2] = v3;
+            indices[t2    ] = v2;
+            indices[t2 + 1] = v4;
+            indices[t2 + 2] = v3;
+        }}
 		
-		// Positions:
-		glBindVertexArray(Mesh::s_CurrentVAO = result->m_VAO_ID);
-		glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * result->m_VertexCount * 3), _points.data(), GL_STATIC_DRAW);
-		
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
-		
-		return result;
+		throw std::runtime_error("NOT IMPLEMENTED");
+		//return Create(vertices, indices, {}, false, GL_TRIANGLES);
 	}
-	
 } // LouiEriksson::Engine::Graphics

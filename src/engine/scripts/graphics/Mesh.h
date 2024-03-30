@@ -36,20 +36,20 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		size_t m_VertexCount;
 		
+		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs);
+
 		explicit Mesh(const GLenum& _format) noexcept;
-		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
 		
 	public:
 		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices);
+		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
+		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
+		
 		/// <summary> Container for various primitive mesh types. </summary>
 		struct Primitives {
-			
-			struct Points {
-				
-				static std::shared_ptr<Mesh> Create(std::vector<glm::vec3> _points);
-				
-			};
 			
 			/// <summary> Information for a quad primitive. </summary>
 			struct Quad {
@@ -79,6 +79,11 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			};
 			
+			struct Grid {
+			
+				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution);
+			};
+			
 		};
 		
 		~Mesh();
@@ -99,7 +104,6 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] const GLuint& BitangentVBO_ID() const noexcept;
 		
 		[[nodiscard]] const unsigned long& VertexCount() const noexcept;
-		
 	};
 	
 } // LouiEriksson::Engine::Graphics
