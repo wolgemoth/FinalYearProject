@@ -53,6 +53,7 @@ namespace LouiEriksson::Game::Scripts {
 		}
 		
 		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
+		Settings::Graphics::Skybox::s_Exposure = 0.05f;
 		
 //		LoadStars({
 //			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",

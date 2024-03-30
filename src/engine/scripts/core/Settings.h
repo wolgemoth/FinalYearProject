@@ -191,10 +191,10 @@ namespace LouiEriksson::Engine {
 			
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Intensity   {  0.2f };
+				inline static float s_Intensity   {  0.5f };
 				inline static float s_Threshold   {  1.2f };
 				inline static float s_Clamp       { 25.0f };
-				inline static float s_LensDirt    {  0.6f };
+				inline static float s_LensDirt    {  0.2f };
 				inline static float s_Anamorphism {  0.0f };
 				inline static float s_Diffusion   {  3.0f };
 			
