@@ -32,7 +32,7 @@ namespace LouiEriksson::Engine::Physics {
 				);
 			}
 			catch (const std::exception& e) {
-				std::cout << e.what() << '\n';
+				std::cerr << e.what() << std::endl;
 			}
 		}
 		

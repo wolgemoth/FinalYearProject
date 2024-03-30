@@ -49,7 +49,7 @@
 
         int hits = 0;
 
-        for (int i = 0; i < _samples; i++) {
+        for (int i = 0; i < _samples; ++i) {
 
             vec3 offset = normalize(Random3S(_dir + vec3(i + 1), _seed, 0.1));
 
@@ -128,7 +128,7 @@
 
         float multiplier = 50.0; // Compensation for 3D.
 
-        for (int i = 0; i < _samples; i++) {
+        for (int i = 0; i < _samples; ++i) {
 
             vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(_seed), 0.1));
 
@@ -157,7 +157,7 @@
 
         int hits = 0;
 
-        for (int i = 0; i < _samples; i++) {
+        for (int i = 0; i < _samples; ++i) {
 
             vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1);
 
@@ -230,7 +230,7 @@
 
         float result = 0.0;
 
-        for (int i = 0; i < _samples; i++) {
+        for (int i = 0; i < _samples; ++i) {
 
             vec2 dir = normalize(Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1));
 

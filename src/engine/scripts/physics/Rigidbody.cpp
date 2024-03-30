@@ -147,7 +147,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	
@@ -225,7 +225,7 @@ namespace LouiEriksson::Engine::Physics {
 			}}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	
@@ -261,7 +261,7 @@ namespace LouiEriksson::Engine::Physics {
 				
 				// Get and iterate through every contact manifold in the physics engine.
 			    const auto numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
-			    for (auto i = 0; i < numManifolds; i++) {
+			    for (auto i = 0; i < numManifolds; ++i) {
 					
 			        auto* contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			
@@ -296,7 +296,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	

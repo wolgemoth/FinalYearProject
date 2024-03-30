@@ -14,8 +14,8 @@ namespace LouiEriksson::Game::Scripts {
 			m_Transform = p->GetComponent<Transform>();
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
-			auto default_mesh     = Resources::Get<Graphics::Mesh>    ("sphere" );
-			auto default_material = Resources::Get<Graphics::Material>("Mercury");
+			auto default_mesh     = Resources::Get<Graphics::Mesh>    ("sphere");
+			auto default_material = Resources::Get<Graphics::Material>("sphere");
 		
 			for (const auto& item : m_Positions_From.Names()) {
 			
@@ -136,14 +136,14 @@ namespace LouiEriksson::Game::Scripts {
 					
 					std::move(data.begin(), data.end(), std::back_inserter(lines));
 					
-					std::cout << "Done." << std::endl;
+					std::cout << "Done." << '\n';
 				}
 				else {
 					throw std::runtime_error("Path is not valid.");
 				}
 			}
 			catch (const std::exception& e) {
-				std::cout << "Failed.\n" << e.what() << std::endl;
+				std::cerr << "Failed.\n" << e.what() << std::endl;
 			}
 		}
 		
@@ -196,10 +196,10 @@ namespace LouiEriksson::Game::Scripts {
 				}}
 			}}
 			
-			std::cout << "Done." << std::endl;
+			std::cout << "Done." << '\n';
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n" << e.what() << std::endl;
+			std::cerr << "Failed.\n" << e.what() << std::endl;
 		}
 	}
 	

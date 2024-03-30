@@ -92,8 +92,8 @@ namespace LouiEriksson::Engine::Graphics {
 				w->Unlink(*this);
 			}
 		}
-		catch (std::exception& e) {
-			std::cout << e.what()<< '\n';
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	
@@ -1054,7 +1054,7 @@ namespace LouiEriksson::Engine::Graphics {
 	        }
 	
 			// Perform a blur pass:
-	        for (auto i = 0; i < _passes; i++) {
+	        for (auto i = 0; i < _passes; ++i) {
 	            
 	            int width, height;
 	            

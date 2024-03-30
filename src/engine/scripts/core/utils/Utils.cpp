@@ -70,6 +70,10 @@ namespace LouiEriksson::Engine {
 		}
 	}
 	
+	std::string Utils::Minimise(const std::string& _string) {
+		return std::regex_replace(_string, std::regex(R"((\r\n)+|\r+|\n+|\t+|\s)"), "");
+	}
+	
 	float Utils::Repeat(const float& _value, const float& _max) {
 		return std::fmod(_max + std::fmod(_value, _max), _max);
 	}

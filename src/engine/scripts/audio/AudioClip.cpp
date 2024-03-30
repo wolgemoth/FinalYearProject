@@ -58,11 +58,10 @@ namespace LouiEriksson::Engine::Audio {
 		}
 		catch (const std::exception& e) {
 			
-			std::cout <<
+			std::cerr <<
 				"Exception occurred when freeing allocated audio data. " <<
-				"This is a potential memory leak!\n";
-			
-			std::cout << e.what() << '\n';
+				"This is a potential memory leak!\n" <<
+				e.what() << std::endl;
 		}
 	}
 	

@@ -339,6 +339,8 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n"; // Debug output.
+			
+			std::cerr << e.what() << std::endl;
 		}
 	
 		std::cout << "Output:\n" << File::ReadAllText(_path); // Debug output.
@@ -367,7 +369,7 @@ namespace LouiEriksson::Engine::ECS {
 			if (log) {
 				std::cout << "GameObjects: " << gameObjectCount<< '\n';
 			}
-			for (size_t i = 0; i < gameObjectCount; i++) {
+			for (size_t i = 0; i < gameObjectCount; ++i) {
 		
 				const auto *goName = xml.getNodeName();
 				
@@ -478,7 +480,7 @@ namespace LouiEriksson::Engine::ECS {
 							
 						}
 						catch (const std::exception& e) {
-							std::cout << e.what() << '\n';
+							std::cerr << e.what() << std::endl;
 						}
 		
 						xml.finishNode();
@@ -496,7 +498,7 @@ namespace LouiEriksson::Engine::ECS {
 			
 			std::cout << "Failed.\n";
 			
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;

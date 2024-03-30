@@ -30,7 +30,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	
@@ -43,7 +43,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	
@@ -110,7 +110,7 @@ namespace LouiEriksson::Engine::Physics {
 			//std::cout << "Done.\n";
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n" << e.what() << '\n';
+			std::cerr << "Failed.\n" << e.what() << std::endl;
 		}
 	}
 	
@@ -141,7 +141,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 		}
 	}
 	

@@ -9,6 +9,10 @@
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
 
+#include "../spatial/osm/OSM.h"
+#include "../spatial/elevation/Elevation.h"
+#include "../spatial/maths/Coords.h"
+
 #include "utils/Hashmap.h"
 
 #include "Resources.h"
@@ -63,6 +67,9 @@ namespace LouiEriksson::Engine {
 			/* INIT SOUND */
 			Audio::Sound::Init();
 			
+			/* INIT NETWORKING */
+			Networking::Requests::Init();
+			
 			/* INIT RESOURCES */
 			Resources::Init();
 			
@@ -81,8 +88,39 @@ namespace LouiEriksson::Engine {
 			
 			float physics_step = 0.0f;
 			
+			{
+				auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({22.2829, 114.1736, 0.0}, 0.25);
+				
+				auto task1 = Spatial::OSM::QueryOverpassBoundingBoxAsync(
+					bounds,
+					10U,
+					[](const Networking::Requests::Response& _response) {
+						std::cout << _response.Content().ToStream().str() << std::endl;
+					}
+				);
+				
+				auto task2 = Spatial::Elevation::LoadElevationAsync(
+					bounds,
+					Spatial::Elevation::ElevationProvider::OpenElevation,
+					{ 2, 2 },
+					[](const std::vector<float>& _values) {
+
+						std::stringstream ss;
+
+						for (const auto& item : _values) {
+							ss << item << '\n';
+						}
+
+						std::cout << ss.str() << std::endl;
+					}
+				);
+
+				task1.wait();
+				task2.wait();
+			}
+			
 			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 			scene->Begin();
 			
 			/* LOOP */
@@ -91,7 +129,7 @@ namespace LouiEriksson::Engine {
 				try {
 					
 					// Get the beginning of the frame for timing purposes.
-					auto frame_start = std::chrono::high_resolution_clock::now();
+					const auto frame_start = std::chrono::high_resolution_clock::now();
 					
 					// Clear the AL error state by dumping the error at the start of the frame.
 					Utils::GLDumpError(true);
@@ -199,7 +237,7 @@ namespace LouiEriksson::Engine {
 					                physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 				}
 				catch (const std::exception& e) {
-					std::cout << e.what()<< '\n';
+					std::cerr << e.what() << std::endl;
 				}
 			}
 			
@@ -208,10 +246,11 @@ NestedBreak:
 			/* FINALISE */
 			Input::Cursor::Reset();
 			
-			     UI::    GUI::Dispose();
-			Physics::Physics::Dispose();
-			  Input::  Input::Dispose();
-			  Audio::  Sound::Dispose();
+			      UI::     GUI::Dispose();
+			 Physics:: Physics::Dispose();
+			   Input::   Input::Dispose();
+			   Audio::   Sound::Dispose();
+		  Networking::Requests::Dispose();
 			
 			SDL_Quit();
 		}

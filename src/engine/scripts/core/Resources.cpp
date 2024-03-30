@@ -54,7 +54,7 @@ namespace LouiEriksson::Engine {
 					else if (type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
 				}
 				else {
-					std::cout << "Unable to determine the type of asset with extension " << item.extension() << std::endl;
+					std::cout << "Unable to determine the type of asset with extension " << item.extension() << '\n';
 				}
 			}
 		}
@@ -96,14 +96,13 @@ namespace LouiEriksson::Engine {
 					
 					std::cout << "Failed.\n";
 					
-					std::cout << e.what()<< '\n';
+					std::cerr << e.what() << std::endl;
 				}
 			}
 		}
 	}
 	
 	void Resources::Init() {
-		
 		IndexDependencies();
 		IndexAssets();
 	}

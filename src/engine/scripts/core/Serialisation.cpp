@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine {
 	
 		if (_log >= 0) {
 	
-			for (size_t i = 0; i < _log; i++) {
+			for (size_t i = 0; i < _log; ++i) {
 				std::cout << "\t";
 			}
 	

@@ -368,7 +368,7 @@ namespace LouiEriksson::Engine {
 			
 			size_t trimStart = 1;
 			
-			for (size_t i = trimStart; i < m_Buckets.size(); i++) {
+			for (size_t i = trimStart; i < m_Buckets.size(); ++i) {
 				if (m_Buckets[i].size() != 0) {
 					trimStart = i + 1;
 				}

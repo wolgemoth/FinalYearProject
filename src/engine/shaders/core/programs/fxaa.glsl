@@ -91,7 +91,7 @@
         result.average   = 0;
         result.direction = vec2(0);
 
-        for (int i = 0; i < sqr(KERNEL_SIZE); i++) {
+        for (int i = 0; i < sqr(KERNEL_SIZE); ++i) {
             result.samples[i] = 0;
         }
 
@@ -99,7 +99,7 @@
 
         int s = 0;
 
-        for (int i = -w; i <= w; i++) {
+        for (int i = -w; i <= w; ++i) {
         for (int j = -w; j <= w; j++) {
 
             mediump vec2 offset = vec2(i, j);
@@ -157,7 +157,7 @@
         mediump float pLuminanceDelta = 0.0;
         bool pAtEnd = false;
 
-        for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; i++) {
+        for (int i = 0; i < EDGE_SEARCHES && !pAtEnd; ++i) {
             puv += edgeStep;
             pLuminanceDelta = Luma(Sample3(u_Texture, puv * _texelSize), 0) - edgeLuminance;
             pAtEnd = abs(pLuminanceDelta) >= gradientThreshold;
@@ -167,7 +167,7 @@
         mediump float nLuminanceDelta = 0.0;
         bool nAtEnd = false;
 
-        for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; i++) {
+        for (int i = 0; i < EDGE_SEARCHES && !nAtEnd; ++i) {
             nuv -= edgeStep;
             nLuminanceDelta = Luma(Sample3(u_Texture, nuv * _texelSize), 0) - edgeLuminance;
             nAtEnd = abs(nLuminanceDelta) >= gradientThreshold;

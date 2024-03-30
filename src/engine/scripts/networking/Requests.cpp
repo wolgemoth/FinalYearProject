@@ -1,10 +1,12 @@
 #include "Requests.h"
 
+#include <algorithm>
 #include <curl/curl.h>
 #include <curl/easy.h>
 
 #include <cstddef>
 #include <exception>
+#include <future>
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -14,13 +16,67 @@
 
 namespace LouiEriksson::Engine::Networking {
 	
-	Requests::Response::Response() :
-		m_Status(),
-		m_Message() {}
+	Requests::Client::Client() : m_Handle() {}
 	
-	Requests::Response::Response(const CURLcode& _status, std::string& _message) :
-		m_Status(_status),
-		m_Message(_message) {}
+	Requests::Client::Client(const std::string& _uri) : m_Handle() {
+		Set(CURLOPT_URL, _uri.c_str());
+	}
+	
+	Requests::Response::Data::Data() : m_Raw() {}
+	
+	const Requests::Client::Handle_t& Requests::Client::Handle() {
+		
+		if (m_Handle == nullptr) {
+			m_Handle.reset(curl_easy_init(), [](void* _ptr) { if (_ptr != nullptr) { curl_easy_cleanup(_ptr); }});
+		}
+		
+		return m_Handle;
+	}
+	
+	const Requests::Client::Header_t Requests::Client::Header() {
+		return Header_t({}, [](curl_slist* _ptr) { if (_ptr != nullptr) { curl_slist_free_all(_ptr); }});
+	}
+	
+	Requests::Response Requests::Client::Send() {
+	
+		Response r;
+		
+		try {
+			
+			// Set parameters:
+			Set(CURLOPT_WRITEFUNCTION, WriteFunction);
+			Set(CURLOPT_WRITEDATA, &r.m_Content.m_Raw);
+			
+			// Perform request:
+			r.m_Status = curl_easy_perform(Handle().get());
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
+		
+		return r;
+	}
+	
+	std::future<Requests::Response> Requests::Client::SendAsync() {
+		
+		return std::async([this]() {
+			return Send();
+		});
+	}
+	
+	void Requests::Client::Dispose() {
+	
+		try {
+			m_Handle.reset();
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
+	}
+	
+	Requests::Response::Response() :
+		m_Status(CURLcode(-1)),
+		m_Content() {}
 	
 	bool Requests::Response::Success(const Requests::Response& _response, const bool& _verbose) {
 		
@@ -37,99 +93,41 @@ namespace LouiEriksson::Engine::Networking {
 		return m_Status;
 	}
 	
-	const std::string& Requests::Response::Message() const noexcept {
-		return m_Message;
+	const Requests::Response::Data& Requests::Response::Content() const noexcept {
+		return m_Content;
 	}
 	
-	Requests::Handle_t Requests::Handle() {
-		
-		const Handle_t result(curl_easy_init(), [](void* _ptr) {
-			if (_ptr != nullptr) {
-				curl_easy_cleanup(_ptr);
-			}
-		});
-		
-		return result;
+	const std::vector<char>& Requests::Response::Data::Raw() const {
+		return m_Raw;
 	}
 	
-	std::size_t Requests::WriteFunction(void* contents, std::size_t _size, std::size_t _nmemb, std::string* response) {
+	std::istringstream Requests::Response::Data::ToStream() const {
 		
-		const auto result = _size * _nmemb;
+		std::stringstream ss;
+		
+		for (const auto& item : m_Raw) {
+			ss << item;
+		}
+		
+		return std::istringstream { std::move(ss.str()) };
+	}
+	
+	std::size_t Requests::WriteFunction(void* _data, std::size_t _stride, std::size_t _count, std::vector<char>* _userData) {
+		
+		const auto len = _stride * _count;
 	 
-		response->append(reinterpret_cast<char*>(contents), result);
-	 
-		return result;
+		const auto* addr = reinterpret_cast<char*>(_data);
+		_userData->insert(_userData->end(), addr, addr + len);
+		
+		return len;
 	}
 	
-	void Requests::Get(const std::string _url, const std::string _payload, void (*_callback)(const Response&)) {
-		
-		try {
-			
-			if (_callback != nullptr) {
-				
-				auto handle = Handle();
-				
-				if (handle) {
-					
-					Response response;
-					
-					// Set parameters:
-					curl_easy_setopt(handle.get(), CURLOPT_URL,                  _url.c_str());
-					curl_easy_setopt(handle.get(), CURLOPT_WRITEFUNCTION,       WriteFunction);
-					curl_easy_setopt(handle.get(), CURLOPT_WRITEDATA,     &response.m_Message);
-					
-					// Perform request:
-					response.m_Status = curl_easy_perform(handle.get());
-					
-					_callback(response);
-				}
-				else {
-					throw std::runtime_error("Failed creating a handle for the request!");
-				}
-			}
-			else {
-				throw std::runtime_error("Callback cannot be null!");
-			}
-		}
-		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
-		}
+	void Requests::Init() {
+		curl_global_init(CURL_GLOBAL_ALL);
 	}
 	
-	void Requests::Post(const std::string _url, const std::string _payload, void (*_callback)(const Response&)) {
-		
-		try {
-			
-			if (_callback != nullptr) {
-				
-				auto handle = Handle();
-				
-				if (handle) {
-					
-					Response response;
-					
-					// Set parameters:
-					curl_easy_setopt(handle.get(), CURLOPT_URL,                  _url.c_str());
-					curl_easy_setopt(handle.get(), CURLOPT_WRITEFUNCTION,       WriteFunction);
-					curl_easy_setopt(handle.get(), CURLOPT_WRITEDATA,     &response.m_Message);
-			        curl_easy_setopt(handle.get(), CURLOPT_POSTFIELDS,       _payload.c_str());
-					
-					// Perform request:
-					response.m_Status = curl_easy_perform(handle.get());
-					
-					_callback(response);
-				}
-				else {
-					throw std::runtime_error("Failed creating a handle for the request!");
-				}
-			}
-			else {
-				throw std::runtime_error("Callback cannot be null!");
-			}
-		}
-		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
-		}
+	void Requests::Dispose() {
+        curl_global_cleanup();
 	}
 	
 } // LouiEriksson::Engine::Networking

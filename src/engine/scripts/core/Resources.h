@@ -17,7 +17,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <utility>
 
 namespace LouiEriksson::Engine::Audio {
 	
@@ -157,7 +156,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			catch (const std::exception& e) {
-				std::cerr << e.what() << std::endl;
+				std::cerr << "Error accessing resource \"" << _name << "\". Reason : " << e.what() << std::endl;
 			}
 			
 			return result;
@@ -208,7 +207,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 			
 			m_Status = Error;
 		}
@@ -233,7 +232,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 			
 			m_Status = Error;
 		}
@@ -258,7 +257,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 			
 			m_Status = Error;
 		}
@@ -297,7 +296,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 			
 			m_Status = Error;
 		}
@@ -322,7 +321,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 			
 			m_Status = Error;
 		}

@@ -130,7 +130,7 @@ namespace LouiEriksson::Engine {
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n\n";
 			
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -255,7 +255,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -334,7 +334,7 @@ namespace LouiEriksson::Engine {
 						
 						if (verts[3].empty()) {
 							
-							for (unsigned int i = 0; i < 3; i++) {
+							for (unsigned int i = 0; i < 3; ++i) {
 								
 								std::stringstream currentSection(verts[i]);
 								
@@ -513,7 +513,7 @@ namespace LouiEriksson::Engine {
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n\n";
 			
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -558,7 +558,7 @@ namespace LouiEriksson::Engine {
 							try {
 								_output->m_Albedo_Color.a = std::stof(subStrings.at(4));
 							}
-							catch (const std::exception& e) {}
+							catch (...) {}
 						}
 						else if (key == "d" || key == "Tr") {
 							_output->m_Albedo_Color.a = 1.0 - std::clamp(std::stof(subStrings.at(1)), 0.0f, 1.0f);
@@ -694,7 +694,7 @@ namespace LouiEriksson::Engine {
 			
 			std::cout << "Failed.\n";
 			
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -784,7 +784,7 @@ namespace LouiEriksson::Engine {
 						}
 					}
 					catch (const std::exception& e) {
-						std::cout << e.what()<< '\n';
+						std::cerr << e.what() << std::endl;
 					}
 				}
 				
@@ -835,7 +835,7 @@ namespace LouiEriksson::Engine {
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cout << e.what()<< '\n';
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -850,8 +850,8 @@ namespace LouiEriksson::Engine {
 
 			result = true;
 		}
-		catch (const std::exception& e){
-			std::cout << e.what()<< '\n';
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;
@@ -866,8 +866,8 @@ namespace LouiEriksson::Engine {
 
 			result = true;
 		}
-		catch (const std::exception& e){
-			std::cout << e.what()<< '\n';
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
 		}
 		
 		return result;

@@ -4,45 +4,107 @@
 #include <curl/curl.h>
 
 #include <cstddef>
+#include <future>
 #include <memory>
+#include <sstream>
 #include <string>
+#include <vector>
 
 namespace LouiEriksson::Engine::Networking {
 	
+	/*
+	 * Note to self:
+	 *      To debug, open terminal and type "nc -l 8080" to listen to port 8080 with netcat.
+	 *      you can then send requests to "http://localhost:8080/" and see the output in realtime.
+	 *      Interrupting operation with Ctrl+D enables user to type a custom response.
+	 */
+	
 	struct Requests {
 		
-		using Handle_t = std::shared_ptr<void>;
-	
+		class Client;
+		
 		struct Response {
 			
 			friend Requests;
 			
-		private:
+		public:
 			
-			CURLcode    m_Status;
-			std::string m_Message;
+			class Data {
+			
+				friend Client;
+				
+			private:
+				
+				std::vector<char> m_Raw;
+				
+			public:
+				
+				[[nodiscard]] const std::vector<char>&      Raw() const;
+				[[nodiscard]]       std::istringstream ToStream() const;
+				
+				Data();
+			};
 			
 			Response();
-			Response(const CURLcode& _status, std::string& _message);
-			
-		public:
 			
 			[[nodiscard]] const CURLcode& Status() const noexcept;
 			
-			[[nodiscard]] const std::string& Message() const noexcept;
+			[[nodiscard]] const Data& Content() const noexcept;
 			
 			static bool Success(const Requests::Response& _response, const bool& _verbose = true);
 			
+		private:
+			
+			CURLcode m_Status;
+			Data     m_Content;
+			
 		};
 		
-		static Handle_t Handle();
+		class Client {
 		
-		static std::size_t WriteFunction(void* contents, std::size_t  _size, std::size_t _nmemb, std::string* response);
-
-		static void Get(const std::string _url, const std::string _payload, void (*_callback)(const Response&));
-	
-		static void Post(const std::string _url, const std::string _payload, void (*_callback)(const Response&));
+		private:
+			
+			using Handle_t = std::shared_ptr<void>;
+			using Header_t = std::shared_ptr<curl_slist>;
+			
+			Handle_t m_Handle;
+			
+		public:
+			
+			[[nodiscard]]        const Handle_t& Handle();
+			[[nodiscard]] static const Header_t  Header();
+			
+			template <typename T>
+			void Set(const CURLoption& _option, const T& _value) {
+				curl_easy_setopt(Handle().get(), _option, _value);
+			}
+			
+			template <typename T>
+			[[nodiscard]] T Get(const CURLINFO _info) {
+				
+				T result;
+				
+				curl_easy_getinfo(Handle().get(), _info, &result);
+				
+				return result;
+			}
+			
+			Response Send();
+			
+			std::future<Requests::Response> SendAsync();
+			
+			void Dispose();
+			
+			Client();
+			Client(const std::string& _uri);
+			
+		};
 		
+		static std::size_t WriteFunction(void* _data, std::size_t _stride, std::size_t _count, std::vector<char>* _userData);
+		
+		static void Init();
+		
+		static void Dispose();
 	};
 	
 } // LouiEriksson::Engine::Networking

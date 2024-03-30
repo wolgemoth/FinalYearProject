@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine {
 			const char delimiter = ' ';
 	
 			auto split = Utils::Split(_str, delimiter);
-			for (auto i = 0; i < split.size(); i++) {
+			for (auto i = 0; i < split.size(); ++i) {
 				result[i] = std::stof(split[i]);
 			}
 	

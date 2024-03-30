@@ -83,7 +83,7 @@ namespace LouiEriksson::Game::Core {
 				}
 			}
 			catch (const std::exception& e) {
-				std::cout << e.what() << '\n';
+				std::cerr << e.what() << std::endl;
 			}
 			
 			return s_Initialisers;

@@ -34,7 +34,7 @@ namespace LouiEriksson::Engine {
 		Application& operator =       (Application&& _other) = delete;
 	
 		/// <summary> Main function of the application. </summary>
-		static int Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers);
+		static int Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _values);
 		
 		/// <summary> Quits the application. </summary>
 		static void Quit() noexcept;

@@ -54,6 +54,11 @@ namespace LouiEriksson::Engine {
 		/// </summary>
 		static void GLDumpError(const bool& _silent = false);
 		
+	    /// <summary>
+	    /// Minimises a string by stripping out line endings, tabs, and spaces.
+	    /// </summary>
+		static std::string Minimise(const std::string& _string);
+		
 		/// <summary>
 		/// Repeats a value within the range 0 -> _max.
 		/// </summary>
