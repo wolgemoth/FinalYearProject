@@ -1,7 +1,5 @@
 #include "Time.h"
 
-#include <chrono>
-
 namespace LouiEriksson::Engine {
 	
 	void Time::Scale(const float& _value) noexcept {

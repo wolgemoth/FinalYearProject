@@ -7,16 +7,17 @@
 #include "../input/Input.h"
 #include "../core/utils/Utils.h"
 
-#include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <glm/common.hpp>
 #include <glm/ext/vector_float2.hpp>
+#include <imgui.h>
 #include <SDL_scancode.h>
 #include <SDL_video.h>
 
 #include <iomanip>
 #include <ios>
+#include <iostream>
 #include <limits>
 #include <memory>
 #include <sstream>

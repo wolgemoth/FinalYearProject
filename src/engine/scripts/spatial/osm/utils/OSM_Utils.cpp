@@ -4,10 +4,12 @@
 
 #include <glm/ext/vector_float3.hpp>
 
+#include <algorithm>
 #include <exception>
 #include <iostream>
 #include <limits>
 #include <regex>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -28,7 +30,7 @@ namespace LouiEriksson::Engine::Spatial::OSM {
 		return result;
 	}
 	
-	bool Utils::TryConvertToMetres(const std::string& _str, float& _output) {
+	bool Utils::TryConvertToMetres(const std::string& _str, double& _output) {
 		
 		using Distance = Maths::Conversions::Distance;
 		
@@ -39,9 +41,9 @@ namespace LouiEriksson::Engine::Spatial::OSM {
 			std::smatch match;
 			
 	        // Check first if the number is in the special feet (') and inches (") format.
-			if (std::regex_match(_str, match, std::regex("^(\\d*\\.\\d+|\\d+)('|"")(?:(\\d*\\.\\d+|\\d+)(?!2)"")?"))) {
+			if (std::regex_match(_str, match, std::regex(R"(^(\d*\.\d+|\d+)('|"")(?:(\d*\.\d+|\d+)(?!2)"")?)"))) {
 	
-	            float inches;
+	            double inches;
 	
 	            // Extract the information and convert to inches only.
 			    if (match[2].str() == "'") {
@@ -62,12 +64,12 @@ namespace LouiEriksson::Engine::Spatial::OSM {
 			else {
 	            
 	            // Check if the number is in the standard decimal/integer format.
-	            if (std::regex_match(_str, match, std::regex("^(\\d*\\.\\d+|\\d+)"))) {
+	            if (std::regex_match(_str, match, std::regex(R"(^(\d*\.\d+|\d+)"))) {
 	                
-	                _output = std::stof(match.str());
+	                _output = std::stod(match.str());
 	                
 	                // Check if the number is in a specific unit.
-	                if (std::regex_match(_str, match, std::regex(" \\w+$"))) {
+	                if (std::regex_match(_str, match, std::regex(R"( \w+$)"))) {
 	                
 	                    // Attempt to convert the units to metres.
 						Distance::Unit unit;
@@ -86,7 +88,7 @@ namespace LouiEriksson::Engine::Spatial::OSM {
 		}
 		catch (const std::exception& e) {
 			
-			std::cerr << e.what() << '\n';
+			std::cerr << e.what() << std::endl;
 	           
             result = false;
 			

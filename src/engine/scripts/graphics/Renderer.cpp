@@ -20,7 +20,7 @@ namespace LouiEriksson::Engine::Graphics {
 		m_CastShadows = _enable;
 	}
 	
-	const bool& Renderer::Shadows() noexcept {
+	const bool& Renderer::Shadows() const noexcept {
 		return m_CastShadows;
 	}
 	

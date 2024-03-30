@@ -42,7 +42,6 @@
 #include <filesystem>
 #include <fstream>
 #include <functional>
-#include <functional>
 #include <future>
 #include <iomanip>
 #include <ios>

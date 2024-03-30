@@ -1,6 +1,7 @@
 #include "WGCCRE.h"
 
 #include <cmath>
+#include <math.h>
 
 namespace LouiEriksson::Engine::Spatial {
 

@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace LouiEriksson::Engine::Networking {
 	
@@ -33,7 +34,7 @@ namespace LouiEriksson::Engine::Networking {
 		return m_Handle;
 	}
 	
-	const Requests::Client::Header_t Requests::Client::Header() {
+	Requests::Client::Header_t Requests::Client::Header() {
 		return Header_t({}, [](curl_slist* _ptr) { if (_ptr != nullptr) { curl_slist_free_all(_ptr); }});
 	}
 	
@@ -109,7 +110,7 @@ namespace LouiEriksson::Engine::Networking {
 			ss << item;
 		}
 		
-		return std::istringstream { std::move(ss.str()) };
+		return std::istringstream { ss.str() };
 	}
 	
 	std::size_t Requests::WriteFunction(void* _data, std::size_t _stride, std::size_t _count, std::vector<char>* _userData) {

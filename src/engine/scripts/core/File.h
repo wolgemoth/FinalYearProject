@@ -69,7 +69,7 @@ namespace LouiEriksson::Engine {
 	
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output);
 
-		static bool TryLoad(std::vector<Graphics::SubShader> _subshaders, std::shared_ptr<Graphics::Shader>& _output);
+		static bool TryLoad(const std::vector<Graphics::SubShader>& _subshaders, std::shared_ptr<Graphics::Shader>& _output);
 	};
 	
 } // LouiEriksson::Engine

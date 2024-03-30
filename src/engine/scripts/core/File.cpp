@@ -21,12 +21,15 @@
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstring>
 #include <exception>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -623,7 +626,6 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
 								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Roughness_Texture = texture;
 								}
@@ -635,7 +637,6 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
 								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Metallic_Texture = texture;
 								}
@@ -647,7 +648,6 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
 								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Emission_Texture = texture;
 								}
@@ -659,7 +659,6 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
 								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_Normal_Texture = texture;
 								}
@@ -671,7 +670,6 @@ namespace LouiEriksson::Engine {
 							
 								const std::filesystem::path path(subStrings.at(1));
 								
-								std::shared_ptr<Graphics::Texture> texture;
 								if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
 									_output->m_AO_Texture = texture;
 								}
@@ -857,7 +855,7 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	bool File::TryLoad(std::vector<Graphics::SubShader> _subshaders, std::shared_ptr<Graphics::Shader>& _output) {
+	bool File::TryLoad(const std::vector<Graphics::SubShader>& _subshaders, std::shared_ptr<Graphics::Shader>& _output) {
 		
 		bool result = false;
 		

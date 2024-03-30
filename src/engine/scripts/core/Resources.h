@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_RESOURCES_H
 
 #include "../core/utils/Hashmap.h"
-
 #include "../audio/AudioClip.h"
 #include "../graphics/Material.h"
 #include "../graphics/Mesh.h"
@@ -17,6 +16,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <typeinfo>
 #include <utility>
 
 namespace LouiEriksson::Engine::Audio {
@@ -279,7 +279,7 @@ namespace LouiEriksson::Engine {
 					else if (m_Path.extension() == ".exr") { format = GL_RGBA32F; }
 					else if (m_Path.has_parent_path()) {
 						
-						if (m_Path.parent_path().string().find("linear")) {
+						if (m_Path.parent_path().string().find("linear") != 0u) {
 							format = GL_RGBA32F;
 						}
 					}

@@ -1,8 +1,10 @@
 #include "Mesh.h"
 
 #include <GL/glew.h>
+#include <glm/ext/vector_float3.hpp>
 
 #include <memory>
+#include <vector>
 
 namespace LouiEriksson::Engine::Graphics {
 	

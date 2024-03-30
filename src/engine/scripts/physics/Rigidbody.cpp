@@ -108,7 +108,7 @@ namespace LouiEriksson::Engine::Physics {
 					{
 						const auto* col = m_Rigidbody->getCollisionShape();
 					
-						btTransform t;
+						const btTransform t;
 						btVector3 min;
 						btVector3 max;
 						

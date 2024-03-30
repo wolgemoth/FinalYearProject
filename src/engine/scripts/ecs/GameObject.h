@@ -103,7 +103,7 @@ namespace LouiEriksson::Engine::ECS {
 		/// <typeparam name="T">TypeID to be searched.</typeparam>
 		/// <returns>Vector of std::shared_ptr<T> wrapping a std::shared_ptr<T></returns>
 		template <typename T>
-		std::vector<const std::weak_ptr<T>> GetComponents() const {
+		std::vector<std::weak_ptr<T>> GetComponents() const {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	

@@ -16,7 +16,7 @@ namespace LouiEriksson::Engine::ECS {
 		}
 	}
 	
-	Component::~Component() {}
+	Component::~Component() = default;
 	
 	const std::weak_ptr<GameObject>& Component::Parent() const noexcept {
 		return m_GameObject;

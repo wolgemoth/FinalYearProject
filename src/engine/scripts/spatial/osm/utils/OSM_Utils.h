@@ -12,7 +12,7 @@ namespace LouiEriksson::Engine::Spatial::OSM {
 	
 		static auto GetMinMaxElevation(const std::vector<glm::vec3>& _coords);
 		
-		static bool TryConvertToMetres(const std::string& _str, float& _output);
+		static bool TryConvertToMetres(const std::string& _str, double& _output);
 	};
 	
 } // LouiEriksson::Engine::Spatial::OSM::Utils

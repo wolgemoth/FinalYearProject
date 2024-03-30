@@ -72,7 +72,7 @@ namespace LouiEriksson::Engine::Networking {
 		public:
 			
 			[[nodiscard]]        const Handle_t& Handle();
-			[[nodiscard]] static const Header_t  Header();
+			[[nodiscard]] static Header_t  Header();
 			
 			template <typename T>
 			void Set(const CURLoption& _option, const T& _value) {

@@ -35,12 +35,12 @@
 #include <cmath>
 #include <cstddef>
 #include <exception>
-#include <vector>
-#include <string>
 #include <iostream>
 #include <memory>
 #include <queue>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 namespace LouiEriksson::Engine::Graphics {
 
