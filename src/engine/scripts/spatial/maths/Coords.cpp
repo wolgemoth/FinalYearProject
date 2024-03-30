@@ -11,6 +11,7 @@
 #include <glm/ext/vector_float4.hpp>
 
 #include <cmath>
+#include <cstddef>
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 	
@@ -31,26 +32,26 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 	    auto con = s_Eccent * sinphi;
 	
-	    con = std::pow(((1.0f - con) / (1.0f + con)), s_Com);
+	    con = std::pow(((1.0 - con) / (1.0 + con)), s_Com);
 	
-	    const auto ts = std::tan(0.5f * ((static_cast<float>(M_PI) / 2.0f) - phi)) / con;
+	    const auto ts = std::tan(0.5 * ((M_PI / 2.0) - phi)) / con;
 	
-	    return (0.0f - s_RMajor * std::log(ts));
+	    return (0.0 - s_RMajor * std::log(ts));
 	}
 	
 	auto Coords::WGS84::YToLatitude(const float& _y) {
 	
 	    const auto ts = std::exp(-_y / s_RMajor);
-	    auto phi  = (M_PI / 2.0f) - 2.0f * std::atan(ts);
+	    auto phi  = (M_PI / 2.0) - 2.0 * std::atan(ts);
 		
-	    auto dphi = 1.0f;
+	    auto dphi = 1.0;
 	
-	    int i = 0;
-	    while ((std::abs(dphi) > 0.00001f) && (i < 15)) {
+	    std::size_t i = 0;
+	    while ((std::abs(dphi) > 0.00001) && (i < 15)) {
 	
 	        const auto con = s_Eccent * std::sin(phi);
 	
-	        dphi = (static_cast<float>(M_PI) / 2.0f) - 2.0f * std::atan(ts * std::pow((1.0f - con) / (1.0f + con), s_Com)) - phi;
+	        dphi = (M_PI / 2.0) - 2.0 * std::atan(ts * std::pow((1.0 - con) / (1.0 + con), s_Com)) - phi;
 	        phi += dphi;
 	
 	        i++;
@@ -78,6 +79,34 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	    return stretch;
 	}
 	
+	glm::vec4 Coords::GPS::GPSToBounds(const glm::vec3& _coord, const float& _sizeKm) {
+
+        glm::vec4 result;
+
+        if (_sizeKm != 0) {
+
+            auto halfSide = 500.0 * _sizeKm;
+
+            auto  latitudeRadians = Conversions::Rotation::s_DegreesToRadians * (_coord.x);
+            auto longitudeRadians = Conversions::Rotation::s_DegreesToRadians * (_coord.y);
+
+            auto radius = Coords::WGS84::WGS84EarthRadius(_coord.x);
+            auto pradius = radius * std::cos(latitudeRadians);
+
+            result = {
+                Conversions::Rotation::s_RadiansToDegrees * ( latitudeRadians - (halfSide /  radius)),
+                Conversions::Rotation::s_RadiansToDegrees * (longitudeRadians - (halfSide / pradius)),
+                Conversions::Rotation::s_RadiansToDegrees * ( latitudeRadians + (halfSide /  radius)),
+                Conversions::Rotation::s_RadiansToDegrees * (longitudeRadians + (halfSide / pradius))
+            };
+        }
+        else {
+            result = { _coord.x, _coord.y, _coord.x, _coord.y };
+        }
+
+        return result;
+	}
+	
 	glm::vec3 Coords::GPS::GPSToCartesian(const glm::vec3& _coord, const float& _lat) {
 		
 		return SphereToCartesian({
@@ -98,8 +127,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	glm::vec2 Coords::GPS::GPSToUV(const glm::vec2& _coord) {
 		
 		return {
-			WGS84::LongitudeToX(_coord.y) / 180.0f,
-			WGS84:: LatitudeToY(_coord.x) /  90.0f
+			WGS84::LongitudeToX(_coord.y) / 180.0,
+			WGS84:: LatitudeToY(_coord.x) /  90.0
 		};
 	}
 	
@@ -143,7 +172,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
         return {
             glm::mix(_bounds.x, _bounds.z, _coord.y / static_cast<float>(_dimensions.y - 1)),
             glm::mix(_bounds.y, _bounds.w, _coord.x / static_cast<float>(_dimensions.x - 1)),
-			0.0f
+			0.0
         };
 	}
 	
@@ -166,7 +195,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return {
 			WGS84::XToLongitude(_coord.x * 180.0f),
 			WGS84::YToLatitude (_coord.y *  90.0f),
-			0.0f
+			0.0
 		};
 	}
 	

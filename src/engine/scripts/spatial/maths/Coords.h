@@ -53,6 +53,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		public:
 			
+			static glm::vec4 GPSToBounds(const glm::vec3& _coord, const float& _sizeKm);
+			
 			static glm::vec3 GPSToCartesian(const glm::vec3& _coord, const float& _lat = 45.0f);
 			
 			static glm::ivec2 GPSToPixel(const glm::vec2& _coord);
