@@ -136,7 +136,7 @@ namespace LouiEriksson::Game::Scripts {
 					
 					std::move(data.begin(), data.end(), std::back_inserter(lines));
 					
-					std::cout << "Done." << '\n';
+					std::cout << "Done." << std::endl;
 				}
 				else {
 					throw std::runtime_error("Path is not valid.");
@@ -196,7 +196,7 @@ namespace LouiEriksson::Game::Scripts {
 				}}
 			}}
 			
-			std::cout << "Done." << '\n';
+			std::cout << "Done." << std::endl;
 		}
 		catch (const std::exception& e) {
 			std::cerr << "Failed.\n" << e.what() << std::endl;
