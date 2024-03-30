@@ -5,6 +5,7 @@
 
 #include <queue>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace LouiEriksson::Engine {
@@ -98,12 +99,73 @@ namespace LouiEriksson::Engine {
 			return glm::vec3 { -_vec.x, _vec.z, _vec.y };
 		}
 		
+		template <typename T>
+		static T To1D(const std::array<T, 2>& _index, const T& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			return (_index[1] * _stride) + _index[0];
+		}
+		
+		template <typename T>
+		static T To1D(const std::array<T, 3>& _index, const std::array<T, 2>& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			return (_index[2] * (_stride[1] * _stride[0])) + (_index[1] * _stride[0]) + _index[0];
+		}
+		
+		template <typename T>
+		static T To1D(const std::array<T, 4>& _index, const std::array<T, 3>& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			return (_index[3] * (_stride[2] * _stride[1] * _stride[0])) + (_index[2] * (_stride[1] * _stride[0])) + (_index[1] * _stride[0]) + _index[0];
+		}
+		
+		template <typename T>
+		static std::array<T, 2> To2D(const T& _i, const T& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			return {
+				_i / _stride,
+				_i % _stride
+			};
+		}
+		
+		template <typename T>
+		static std::array<T, 3> To3D(const T& _i, const std::array<T, 2>& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			const auto w1 = _stride[0] * _stride[1],
+			           w2 = _i % w1;
+			
+			return {
+				_i / w1,
+				w2 / _stride[1],
+				w2 % _stride[1]
+			};
+		}
+		
+		template <typename T>
+		static std::array<T, 4> To4D(const T& _i, const std::array<T, 3>& _stride) {
+			
+			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
+
+			const auto w1 = _stride[2] * _stride[1],
+			           w2 = w1 * _stride[0],
+			           w3 = _i % w2;
+			
+			return {
+				 _i / w2,
+			     w3 / w1,
+			    (w3 % w1) / _stride[2],
+			    (w3 % w1) % _stride[2]
+			};
+		}
 	};
-	
-	template<typename T>
-	inline const bool Utils::TryParse(const std::string& _str, T& _result) noexcept {
-		return false;
-	}
 	
 	template<>
 	inline const bool Utils::TryParse(const std::string& _str, unsigned long& _output) noexcept {
