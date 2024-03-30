@@ -313,7 +313,6 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					/* DRAW */
 					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
-					
 				}}}}
 			}
 			
@@ -780,7 +779,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Assign ambient texture:
 				if (const auto s = Settings::Graphics::Skybox::s_Skybox.lock()) {
-					p->Assign(p->AttributeID("u_Ambient"), s->ID(), 98, GL_TEXTURE_2D );
+					p->Assign(p->AttributeID("u_Ambient"), s->ID(), 98, GL_TEXTURE_2D);
 				}
 	
 				p->Assign(p->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
@@ -888,11 +887,11 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 		}
-		
-		glDisable(GL_DEPTH_TEST);
 	}
 	
 	void Camera::PostRender() {
+		
+		glDisable(GL_DEPTH_TEST);
 		
 		/* POST PROCESSING */
 		if (Settings::PostProcessing::s_Enabled) {
@@ -1280,6 +1279,7 @@ namespace LouiEriksson::Engine::Graphics {
 				threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
 				
 				const RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+				
 				Blit(m_RT, tmp, threshold_shader);
 				
 				/* DOWNSCALING */

@@ -242,14 +242,15 @@ namespace LouiEriksson::Engine::Graphics {
 	void Shader::Bind(const GLint& _id) {
 		
 		if (s_CurrentProgram != _id) {
-			s_CurrentProgram = _id;
-			
-			glUseProgram(_id);
+			glUseProgram(s_CurrentProgram = _id);
 		}
 	}
 	
 	void Shader::Unbind() {
-		Shader::Bind(GL_NONE);
+		
+		if (s_CurrentProgram != GL_NONE) {
+			glUseProgram(s_CurrentProgram = GL_NONE);
+		}
 	}
 	
 	const std::string& Shader::Name() const noexcept {

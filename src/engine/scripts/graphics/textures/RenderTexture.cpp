@@ -27,8 +27,9 @@ namespace LouiEriksson::Engine::Graphics {
 		// Generate the "Frame Buffer Object".
 		glGenFramebuffers(1, &m_FBO_ID);
 		
-		if (m_FBO_ID != 0u) {
+		if (m_FBO_ID != GL_NONE) {
 			
+			RenderTexture::Unbind();
 			RenderTexture::Bind(*this);
 			
 			// COLOR
@@ -110,9 +111,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void RenderTexture::Bind(const RenderTexture& _rt) {
 		
-		//if (RenderTexture::s_CurrentFBO != _rt.m_FBO_ID) {
+		if (RenderTexture::s_CurrentFBO != _rt.m_FBO_ID) {
 			glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = _rt.m_FBO_ID);
-		//}
+		}
 	}
 	
 	void RenderTexture::Unbind() {

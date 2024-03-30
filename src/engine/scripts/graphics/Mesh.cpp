@@ -28,7 +28,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Mesh::Bind(const Mesh& _mesh) {
 		
-		if (m_CurrentVAO != GL_NONE) {
+		if (m_CurrentVAO != _mesh.VAO_ID()) {
 			glBindVertexArray(m_CurrentVAO = _mesh.VAO_ID());
 		}
 	}

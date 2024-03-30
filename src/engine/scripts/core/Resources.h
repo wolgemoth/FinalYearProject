@@ -17,6 +17,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 namespace LouiEriksson::Engine::Audio {
 	
@@ -64,8 +65,8 @@ namespace LouiEriksson::Engine {
 				m_Status(Unloaded),
 				m_Item() {}
 				
-			Asset(const std::filesystem::path& _path) :
-				m_Path(_path),
+			Asset(std::filesystem::path  _path) :
+				m_Path(std::move(_path)),
 				m_Status(Unloaded),
 				m_Item() {}
 	
