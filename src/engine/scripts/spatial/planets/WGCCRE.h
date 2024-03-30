@@ -81,7 +81,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		return {
 			std::fmod(de + x_offset, 360.0),
-			std::fmod(((ra + correction) * (360.0 / 365.0)) + y_offset, 360.0),
+			std::fmod((ra + correction) - 180.0 + y_offset, 360.0),
 			0
 		};
 	}
