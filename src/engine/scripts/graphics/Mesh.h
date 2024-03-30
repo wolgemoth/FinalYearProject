@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine::Graphics {
 	private:
 		
 		/// <summary> Currently bound mesh. </summary>
-		inline static GLuint m_CurrentVAO { GL_NONE };
+		inline static auto s_CurrentVAO { GL_NONE };
 		
 		GLenum m_Format;
 		
@@ -38,6 +38,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		explicit Mesh(const GLenum& _format) noexcept;
 		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
+		
 	public:
 		
 		/// <summary> Container for various primitive mesh types. </summary>
@@ -45,7 +47,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct Points {
 				
-				static std::shared_ptr<Mesh> CreateInstance(std::vector<glm::vec3> _points);
+				static std::shared_ptr<Mesh> Create(std::vector<glm::vec3> _points);
 				
 			};
 			
@@ -65,7 +67,7 @@ namespace LouiEriksson::Engine::Graphics {
 				};
 		
 				/// <summary> Number of vertices in the mesh. </summary>
-				static constexpr unsigned long s_VertexCount = sizeof(s_VertexData);
+				static constexpr auto s_VertexCount = sizeof(s_VertexData);
 				
 				/// <summary> Static Quad instance. </summary>
 				inline static std::shared_ptr<Mesh> s_Instance;
@@ -82,7 +84,7 @@ namespace LouiEriksson::Engine::Graphics {
 		~Mesh();
 		
 		/// <summary> Bind the provided mesh. </summary>
-		static void   Bind(const Mesh& _mesh);
+		static void Bind(const Mesh& _mesh);
 		
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();

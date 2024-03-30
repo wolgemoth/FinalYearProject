@@ -279,7 +279,6 @@ namespace LouiEriksson::Engine {
 		 */
 		
 		try {
-			_output.reset(new Graphics::Mesh(GL_TRIANGLES));
 			
 			// Find file
 			std::ifstream inputFile(_path);
@@ -382,124 +381,7 @@ namespace LouiEriksson::Engine {
 				
 				inputFile.close();
 				
-				_output->m_VertexCount = vertices.size();
-				
-				if (_output->m_VertexCount > 0) {
-					
-					glGenVertexArrays(1, &(_output->m_VAO_ID));
-		
-					glBindVertexArray(_output->m_VAO_ID);
-					
-					// Create a generic 'buffer'
-					glGenBuffers(1, &_output->m_PositionVBO_ID);
-					// Tell OpenGL that we want to activate the buffer and that it's a VBO
-					glBindBuffer(GL_ARRAY_BUFFER, _output->m_PositionVBO_ID);
-					// With this buffer active, we can now send our data to OpenGL
-					// We need to tell it how much data to send
-					// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 3), vertices.data(), GL_STATIC_DRAW);
-					
-					// This tells OpenGL how we link the vertex data to the shader
-					// (We will look at this properly in the lectures)
-					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-					glEnableVertexAttribArray(0);
-					
-					if (!normals.empty()) {
-						
-						// Create a generic 'buffer'
-						glGenBuffers(1, &_output->m_NormalVBO_ID);
-						// Tell OpenGL that we want to activate the buffer and that it's a VBO
-						glBindBuffer(GL_ARRAY_BUFFER, _output->m_NormalVBO_ID);
-						// With this buffer active, we can now send our data to OpenGL
-						// We need to tell it how much data to send
-						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 3), normals.data(), GL_STATIC_DRAW);
-						
-						// This tells OpenGL how we link the vertex data to the shader
-						// (We will look at this properly in the lectures)
-						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-						glEnableVertexAttribArray(1);
-					}
-					
-					if (!UVs.empty()) {
-						
-						// Create a generic 'buffer'
-						glGenBuffers(1, &_output->m_TexCoordVBO_ID);
-						// Tell OpenGL that we want to activate the buffer and that it's a VBO
-						glBindBuffer(GL_ARRAY_BUFFER, _output->m_TexCoordVBO_ID);
-						// With this buffer active, we can now send our data to OpenGL
-						// We need to tell it how much data to send
-						// We can also tell OpenGL how we intend to use this buffer - here we say GL_STATIC_DRAW because we're only writing it once
-						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(sizeof(float) * _output->m_VertexCount * 2), UVs.data(), GL_STATIC_DRAW);
-						
-						// This tells OpenGL how we link the vertex data to the shader
-						// (We will look at this properly in the lectures)
-						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-						glEnableVertexAttribArray(2);
-					}
-					
-					// If the mesh has both texture coordinates and normals, compute the tangents and bitangents.
-					if (!normals.empty() && !UVs.empty()) {
-					
-						// https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
-						
-						std::vector<glm::vec3>   tangents;
-						std::vector<glm::vec3> bitangents;
-						
-						for (auto i = 0; i < vertices.size(); i += 3) {
-						
-							// Shortcuts for vertices
-					        const auto& pos0 = vertices[  i  ];
-					        const auto& pos1 = vertices[i + 1];
-					        const auto& pos2 = vertices[i + 2];
-					
-					        // Shortcuts for UVs
-					        const auto& uv0 = UVs[  i  ];
-					        const auto& uv1 = UVs[i + 1];
-					        const auto& uv2 = UVs[i + 2];
-							
-							const auto delta_pos1 = pos1 - pos0;
-						    const auto delta_pos2 = pos2 - pos0;
-							
-						    const auto delta_texcoord1 = uv1 - uv0;
-						    const auto delta_texcoord2 = uv2 - uv0;
-						
-							const auto f = 1.0f / (delta_texcoord1.x * delta_texcoord2.y - delta_texcoord2.x * delta_texcoord1.y);
-						    const auto   tangent = f * (delta_pos1 * delta_texcoord2.y - delta_pos2 * delta_texcoord1.y);
-						    const auto bitangent = f * (delta_pos2 * delta_texcoord1.x - delta_pos1 * delta_texcoord2.x);
-							
-							// Set the same tangent for all three vertices of the triangle.
-					        // They will be merged later, in vboindexer.cpp
-					        tangents.emplace_back(tangent);
-					        tangents.emplace_back(tangent);
-					        tangents.emplace_back(tangent);
-					
-					        // Same thing for bitangents
-					        bitangents.emplace_back(bitangent);
-					        bitangents.emplace_back(bitangent);
-					        bitangents.emplace_back(bitangent);
-						}
-						
-						// TODO: Perform tangent averaging / smoothing.
-						
-					    glGenBuffers(1, &_output->m_TangentVBO_ID);
-					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_TangentVBO_ID);
-					    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(tangents.size() * sizeof(tangents[0])), tangents.data(), GL_STATIC_DRAW);
-					
-						glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-						glEnableVertexAttribArray(3);
-						
-					    glGenBuffers(1, &_output->m_BitangentVBO_ID);
-					    glBindBuffer(GL_ARRAY_BUFFER, _output->m_BitangentVBO_ID);
-					    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(bitangents.size() * sizeof(bitangents[0])), bitangents.data(), GL_STATIC_DRAW);
-						
-						glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-						glEnableVertexAttribArray(4);
-					}
-					
-					glBindVertexArray(0);
-	                glBindBuffer(GL_ARRAY_BUFFER, 0);
-				}
+				_output = Graphics::Mesh::Create(vertices, normals, UVs, true, GL_TRIANGLES);
 				
 				std::cout << "Done.\n";
 				

@@ -182,7 +182,7 @@ namespace LouiEriksson::Game::Scripts {
 				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
 				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
 				
-					m_Stars = Engine::Graphics::Mesh::Primitives::Points::CreateInstance(star_positions);
+					m_Stars = Engine::Graphics::Mesh::Primitives::Points::Create(star_positions);
 					
 					// Set point size
 					glPointSize(2.0f);
