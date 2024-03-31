@@ -15,6 +15,10 @@
 #include "stb_image.h"
 #endif
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <GL/glew.h>
 #include <glm/common.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -29,7 +33,6 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -37,33 +40,6 @@
 #include <vector>
 
 namespace LouiEriksson::Engine {
-	
-	struct PackedVertex {
-		
-		glm::vec3 position;
-		glm::vec2 uv;
-		glm::vec3 normal;
-		
-		bool operator < (const PackedVertex& _other) const {
-			
-			return
-				position != _other.position ||
-				      uv != _other.uv       ||
-				  normal != _other.normal;
-		};
-	};
-	
-	bool getSimilarVertexIndex_fast(const PackedVertex& packed, std::map<PackedVertex, GLuint>& VertexToOutIndex, GLuint& result){
-		
-		const auto it     = VertexToOutIndex.find(packed);
-		const auto output = it != VertexToOutIndex.end();
-		
-		if (output) {
-			result = it->second;
-		}
-		
-		return output;
-	}
 	
 	std::string File::ReadAllText(const std::filesystem::path& _path) {
 	
@@ -307,138 +283,79 @@ namespace LouiEriksson::Engine {
 		
 		try {
 			
-			// Find file
-			std::ifstream inputFile(_path);
+			const auto flags =
+					aiProcess_Triangulate              |
+					aiProcess_ImproveCacheLocality     |
+					aiProcess_RemoveRedundantMaterials |
+					aiProcess_OptimizeMeshes;
 			
-			if (inputFile.is_open()) {
+			Assimp::Importer importer;
+			const auto* scene = importer.ReadFile(_path, flags);
+			
+			if (scene != nullptr) {
 				
-				// OBJ files can store texture coordinates, positions and normals
-				std::vector<glm::vec3> vertices;
-				std::vector<glm::vec3> normals;
-				std::vector<glm::vec2> UVs;
-				
-				{
-					std::vector<glm::vec3> v;
-					std::vector<glm::vec2> vt;
-					std::vector<glm::vec3> vn;
+				if (!(scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE)) {
 					
-					std::string currentLine;
-					
-					while (std::getline(inputFile, currentLine)) {
+					if (scene->mRootNode != nullptr) {
 						
-						std::stringstream currentLineStream(currentLine);
-						
-						if (currentLine.substr(0, 2).compare(0, 2, "vt") == 0) {
+						if (scene->HasMeshes()) {
 							
-							std::string junk;
-							
-							float x, y;
-							
-							currentLineStream >> junk >> x >> y;
-							vt.emplace_back(x, y);
-						}
-						else if (currentLine.substr(0, 2).compare(0, 2, "vn") == 0) {
-							
-							std::string junk;
-							
-							float x, y, z;
-							
-							currentLineStream >> junk >> x >> y >> z;
-							vn.emplace_back(x, y, z);
-						}
-						else if (currentLine.substr(0, 2).compare(0, 1, "v") == 0) {
-							
-							std::string junk;
-							
-							float x, y, z;
-							
-							currentLineStream >> junk >> x >> y >> z;
-							v.emplace_back(x, y, z);
-						}
-						else if (currentLine.substr(0, 2).compare(0, 1, "f") == 0) {
-							
-							std::string junk;
-							std::string verts[4];
-							
-							currentLineStream >> junk >> verts[0] >> verts[1] >> verts[2] >> verts[3];
-							
-							if (verts[3].empty()) {
+							for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
 								
-								for (unsigned int i = 0; i < 3; ++i) {
+						        const auto* mesh = scene->mMeshes[i];
+						        
+								/* VERTEX DATA */
+								
+						        std::vector<glm::vec3>  vertices(mesh->mNumVertices);
+						        std::vector<glm::vec3>   normals(mesh->mNumVertices);
+						        std::vector<glm::vec2> texCoords(mesh->mNumVertices);
+								
+								for (int j = 0; j < vertices.size(); ++j) {
 									
-									std::stringstream currentSection(verts[i]);
+									const auto vert = mesh->mVertices        [j];
+									const auto norm = mesh->mNormals         [j];
+									const auto   uv = mesh->mTextureCoords[i][j];
 									
-									unsigned int  posID = 0;
-									unsigned int   uvID = 0;
-									unsigned int normID = 0;
-									
-									char junk2;
-									
-									if (verts[i].find('/') == std::string::npos) {
-										currentSection >> posID;
-									}
-									else if (verts[i].find("//") != std::string::npos) {
-										currentSection >> posID >> junk2 >> junk2 >> normID;
-									}
-									else {
-										currentSection >> posID >> junk2 >> uvID >> junk2 >> normID;
-									}
-									
-									if ( posID > 0) { vertices.emplace_back(v [posID  - 1]); }
-									if (  uvID > 0) {      UVs.emplace_back(vt[uvID   - 1]); }
-									if (normID > 0) {  normals.emplace_back(vn[normID - 1]); }
+									 vertices[j] = { vert.x, vert.y, vert.z };
+									  normals[j] = { norm.x, norm.y, norm.z };
+									texCoords[j] = {   uv.x,   uv.y };
 								}
-							}
-							else {
-								inputFile.close();
 								
-								throw std::runtime_error("WARNING: This OBJ loader only works with triangles but a quad has been detected. Please triangulate your mesh.\n");
-							}
+								/* INDEX DATA */
+								
+								const auto* faces = mesh->mFaces;
+								
+						        std::vector<GLuint> indices(mesh->mNumFaces * 3);
+								
+								for (auto j = 0; j < mesh->mNumFaces; ++j) {
+								for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+									indices.emplace_back(faces[j].mIndices[k]);
+								}}
+								
+								_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+								
+								break;
+						    }
+						}
+						else {
+							throw std::runtime_error("No meshes!");
 						}
 					}
-				}
-				
-				inputFile.close();
-
-				std::vector<GLuint> indices;
-				
-				std::vector<glm::vec3> out_vertices;
-				std::vector<glm::vec3> out_normals;
-				std::vector<glm::vec2> out_uvs;
-				
-				/*
-				 * Courtesy of: https://github.com/opengl-tutorials/ogl/blob/master/common/vboindexer.cpp
-				 */
-				
-				std::map<PackedVertex, GLuint> VertexToOutIndex;
-				
-				for (auto i = 0; i < vertices.size(); ++i){
-
-					const PackedVertex packed = { vertices[i], UVs[i], normals[i] };
-					
-					GLuint index;
-					
-					const auto found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
-					
-					if (!found) {
-						out_vertices.emplace_back(vertices[i]);
-						out_uvs     .emplace_back(     UVs[i]);
-						out_normals .emplace_back( normals[i]);
-						
-						index = out_vertices.size() - 1;
-						
-						VertexToOutIndex[packed] = index;
+					else {
+						throw std::runtime_error("No root node!");
 					}
-					
-					indices.emplace_back(index);
 				}
-				
-				_output = Graphics::Mesh::Create(out_vertices, indices, out_normals, out_uvs, true, GL_TRIANGLES);
-				
-				std::cout << "Done." << std::endl;
-				
-				result = true;
+				else {
+					throw std::runtime_error("Incomplete!");
+				}
 			}
+			else {
+				throw std::runtime_error("No scene!");
+			}
+			
+			std::cout << "Done." << std::endl;
+			
+			result = true;
 		}
 		catch (const std::exception& e) {
 			std::cout << "Failed.\n" << std::endl;

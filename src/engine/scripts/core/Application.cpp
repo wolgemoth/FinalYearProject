@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine {
 //						std::cout << _response.Content().ToStream().str() << std::endl;
 //					}
 //				);
-				
+
 //				auto task2 = Spatial::Elevation::LoadElevationAsync(
 //					bounds,
 //					Spatial::Elevation::ElevationProvider::OpenElevation,
@@ -119,7 +119,7 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Load a scene and run:
-			auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+			auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 			scene->Begin();
 			
 			/* LOOP */
