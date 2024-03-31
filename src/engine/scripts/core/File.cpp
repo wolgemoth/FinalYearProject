@@ -29,7 +29,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <math.h>
+#include <map>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -37,6 +37,29 @@
 #include <vector>
 
 namespace LouiEriksson::Engine {
+	
+	struct PackedVertex {
+		
+		glm::vec3 position;
+		glm::vec2 uv;
+		glm::vec3 normal;
+		
+		bool operator<(const PackedVertex _other) const {
+			return memcmp((void*)this, (void*)&_other, sizeof(PackedVertex))>0;
+		};
+	};
+	
+	bool getSimilarVertexIndex_fast(const PackedVertex& packed, std::map<PackedVertex, GLuint>& VertexToOutIndex, GLuint& result){
+		
+		const auto it     = VertexToOutIndex.find(packed);
+		const auto output = it != VertexToOutIndex.end();
+		
+		if (output) {
+			result = it->second;
+		}
+		
+		return output;
+	}
 	
 	std::string File::ReadAllText(const std::filesystem::path& _path) {
 	
@@ -286,102 +309,135 @@ namespace LouiEriksson::Engine {
 			if (inputFile.is_open()) {
 				
 				// OBJ files can store texture coordinates, positions and normals
-				std::vector<glm::vec3> rawVertices;
-				std::vector<glm::vec2> rawUVs;
-				std::vector<glm::vec3> rawNormals;
+				std::vector<GLuint> indices;
 				
 				std::vector<glm::vec3> vertices;
 				std::vector<glm::vec3> normals;
 				std::vector<glm::vec2> UVs;
 				
-				std::string currentLine;
-				
-				while (std::getline(inputFile, currentLine)) {
+				{
+					std::vector<glm::vec3> rawVertices;
+					std::vector<glm::vec2> rawUVs;
+					std::vector<glm::vec3> rawNormals;
 					
-					std::stringstream currentLineStream(currentLine);
+					std::string currentLine;
 					
-					if (currentLine.substr(0, 2).compare(0, 2, "vt") == 0) {
+					while (std::getline(inputFile, currentLine)) {
 						
-						std::string junk;
+						std::stringstream currentLineStream(currentLine);
 						
-						float x, y;
-						
-						currentLineStream >> junk >> x >> y;
-						rawUVs.emplace_back(x, y);
-					}
-					else if (currentLine.substr(0, 2).compare(0, 2, "vn") == 0) {
-						
-						std::string junk;
-						
-						float x, y, z;
-						
-						currentLineStream >> junk >> x >> y >> z;
-						rawNormals.emplace_back(x, y, z);
-					}
-					else if (currentLine.substr(0, 2).compare(0, 1, "v") == 0) {
-						
-						std::string junk;
-						
-						float x, y, z;
-						
-						currentLineStream >> junk >> x >> y >> z;
-						rawVertices.emplace_back(x, y, z);
-					}
-					else if (currentLine.substr(0, 2).compare(0, 1, "f") == 0) {
-						
-						std::string junk;
-						std::string verts[4];
-						
-						currentLineStream >> junk >> verts[0] >> verts[1] >> verts[2] >> verts[3];
-						
-						if (verts[3].empty()) {
+						if (currentLine.substr(0, 2).compare(0, 2, "vt") == 0) {
 							
-							for (unsigned int i = 0; i < 3; ++i) {
+							std::string junk;
+							
+							float x, y;
+							
+							currentLineStream >> junk >> x >> y;
+							rawUVs.emplace_back(x, y);
+						}
+						else if (currentLine.substr(0, 2).compare(0, 2, "vn") == 0) {
+							
+							std::string junk;
+							
+							float x, y, z;
+							
+							currentLineStream >> junk >> x >> y >> z;
+							rawNormals.emplace_back(x, y, z);
+						}
+						else if (currentLine.substr(0, 2).compare(0, 1, "v") == 0) {
+							
+							std::string junk;
+							
+							float x, y, z;
+							
+							currentLineStream >> junk >> x >> y >> z;
+							rawVertices.emplace_back(x, y, z);
+						}
+						else if (currentLine.substr(0, 2).compare(0, 1, "f") == 0) {
+							
+							std::string junk;
+							std::string verts[4];
+							
+							currentLineStream >> junk >> verts[0] >> verts[1] >> verts[2] >> verts[3];
+							
+							if (verts[3].empty()) {
 								
-								std::stringstream currentSection(verts[i]);
-								
-								// There is just position data
-								unsigned int  posID = 0;
-								unsigned int   uvID = 0;
-								unsigned int normID = 0;
-								
-								if (verts[i].find('/') == std::string::npos) {
-									// No texcoords or normals
-									currentSection >> posID;
-								}
-								else if (verts[i].find("//") != std::string::npos) {
-									// No texcoords
-									char junk2;
-									currentSection >> posID >> junk2 >> junk2 >> normID;
-								}
-								else {
-									char junk2;
-									currentSection >> posID >> junk2 >> uvID >> junk2 >> normID;
-								}
-								
-								if (posID > 0) {
-									vertices.emplace_back(rawVertices[posID - 1]);
-								}
-								if (uvID > 0) {
-									UVs.emplace_back(rawUVs[uvID - 1]);
-								}
-								if (normID > 0) {
-									normals.emplace_back(rawNormals[normID - 1]);
+								for (unsigned int i = 0; i < 3; ++i) {
+									
+									std::stringstream currentSection(verts[i]);
+									
+									// There is just position data
+									unsigned int  posID = 0;
+									unsigned int   uvID = 0;
+									unsigned int normID = 0;
+									
+									if (verts[i].find('/') == std::string::npos) {
+										// No texcoords or normals
+										currentSection >> posID;
+									}
+									else if (verts[i].find("//") != std::string::npos) {
+										// No texcoords
+										char junk2;
+										currentSection >> posID >> junk2 >> junk2 >> normID;
+									}
+									else {
+										char junk2;
+										currentSection >> posID >> junk2 >> uvID >> junk2 >> normID;
+									}
+									
+									if (posID > 0) {
+										vertices.emplace_back(rawVertices[posID - 1]);
+									}
+									if (uvID > 0) {
+										UVs.emplace_back(rawUVs[uvID - 1]);
+									}
+									if (normID > 0) {
+										normals.emplace_back(rawNormals[normID - 1]);
+									}
 								}
 							}
-						}
-						else {
-							
-							inputFile.close();
-							
-							throw std::runtime_error("WARNING: This OBJ loader only works with triangles but a quad has been detected. Please triangulate your mesh.\n");
+							else {
+								inputFile.close();
+								
+								throw std::runtime_error("WARNING: This OBJ loader only works with triangles but a quad has been detected. Please triangulate your mesh.\n");
+							}
 						}
 					}
 				}
 				
 				inputFile.close();
+
+				std::vector<glm::vec3> out_vertices;
+				std::vector<glm::vec3> out_normals;
+				std::vector<glm::vec2> out_uvs;
 				
-				_output = Graphics::Mesh::Create(vertices, normals, UVs, true, GL_TRIANGLES);
+				std::map<PackedVertex, GLuint> VertexToOutIndex;
+				
+				for (auto i = 0; i < vertices.size(); ++i){
+
+					const PackedVertex packed = { vertices[i], UVs[i], normals[i] };
+					
+					// Try to find a similar vertex in out_XXXX
+					GLuint index;
+					const auto found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
+					
+					if (found) { // A similar vertex is already in the VBO, use it instead !
+						indices.emplace_back(index);
+					}
+					else { // If not, it needs to be added in the output data.
+						out_vertices.emplace_back(vertices[i]);
+						out_uvs     .emplace_back(     UVs[i]);
+						out_normals .emplace_back( normals[i]);
+						
+						auto itm = out_vertices.size() - 1;
+						
+						indices.emplace_back(itm);
+						
+						VertexToOutIndex[packed] = itm;
+					}
+				}
+				
+				_output = Graphics::Mesh::Create(out_vertices, indices, out_normals, out_uvs, true, GL_TRIANGLES);
 				
 				std::cout << "Done.\n";
 				

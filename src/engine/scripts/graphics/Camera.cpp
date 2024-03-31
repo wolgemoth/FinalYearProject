@@ -172,7 +172,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS());
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 					
 				}}}}
 			}
@@ -202,7 +202,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 					
 				}}}
 			}
@@ -257,7 +257,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 					
 				}}}}
 			}
@@ -312,7 +312,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 				}}}}
 			}
 			
@@ -346,10 +346,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					Mesh::Bind(*c);
 		
-					/* DRAW */
-					if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-						glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
-					}
+					glDrawElements(c->Format(), static_cast<GLsizei>(c->IndexCount()), GL_UNSIGNED_INT, nullptr);
 				}
 				
 				// Restore culling and depth options.
@@ -434,7 +431,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 					
 				}}}}
 			}
@@ -491,7 +488,7 @@ namespace LouiEriksson::Engine::Graphics {
 					);
 					
 					/* DRAW */
-					glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 					
 				}}}}
 			}
@@ -635,7 +632,7 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_Model"), t->TRS());
 								
 								/* DRAW */
-								glDrawArrays(me->Format(), 0, (GLsizei)(me->VertexCount()));
+								glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
 							}
 						}}}
 					}

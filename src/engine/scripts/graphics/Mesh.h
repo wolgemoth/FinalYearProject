@@ -26,15 +26,16 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		GLenum m_Format;
 		
-		GLuint m_VAO_ID;
+		GLuint          m_VAO_ID,
+		        m_PositionVBO_ID,
+		        m_TexCoordVBO_ID,
+		           m_IndexVBO_ID,
+		          m_NormalVBO_ID,
+		         m_TangentVBO_ID,
+		       m_BitangentVBO_ID;
 		
-		GLuint  m_PositionVBO_ID;
-		GLuint  m_TexCoordVBO_ID;
-		GLuint    m_NormalVBO_ID;
-		GLuint   m_TangentVBO_ID;
-		GLuint m_BitangentVBO_ID;
-		
-		size_t m_VertexCount;
+		size_t m_VertexCount,
+		        m_IndexCount;
 		
 		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs);
 
@@ -44,9 +45,9 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices);
 		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices);
 		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
 		
 		/// <summary> Container for various primitive mesh types. </summary>
 		struct Primitives {
@@ -99,11 +100,13 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] const GLuint&          VAO_ID() const noexcept;
 		[[nodiscard]] const GLuint&  PositionVBO_ID() const noexcept;
 		[[nodiscard]] const GLuint&  TexCoordVBO_ID() const noexcept;
+		[[nodiscard]] const GLuint&     IndexVBO_ID() const noexcept;
 		[[nodiscard]] const GLuint&    NormalVBO_ID() const noexcept;
 		[[nodiscard]] const GLuint&   TangentVBO_ID() const noexcept;
 		[[nodiscard]] const GLuint& BitangentVBO_ID() const noexcept;
 		
-		[[nodiscard]] const unsigned long& VertexCount() const noexcept;
+		[[nodiscard]] const std::size_t& VertexCount() const noexcept;
+		[[nodiscard]] const std::size_t&  IndexCount() const noexcept;
 	};
 	
 } // LouiEriksson::Engine::Graphics
