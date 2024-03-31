@@ -44,8 +44,12 @@ namespace LouiEriksson::Engine {
 		glm::vec2 uv;
 		glm::vec3 normal;
 		
-		bool operator<(const PackedVertex _other) const {
-			return memcmp((void*)this, (void*)&_other, sizeof(PackedVertex))>0;
+		bool operator < (const PackedVertex& _other) const {
+			
+			return
+				position != _other.position ||
+				      uv != _other.uv       ||
+				  normal != _other.normal;
 		};
 	};
 	
@@ -291,7 +295,7 @@ namespace LouiEriksson::Engine {
 		
 		bool result = false;
 		
-		std::cout << "Loading Mesh \"" << _path.c_str() << "\"... ";
+		std::cout << "Loading Mesh \"" << _path.c_str() << "\"... " << std::flush;
 		
 		/*
 		 * Implementation derived from Mesh.cpp and Mesh.h
@@ -309,16 +313,14 @@ namespace LouiEriksson::Engine {
 			if (inputFile.is_open()) {
 				
 				// OBJ files can store texture coordinates, positions and normals
-				std::vector<GLuint> indices;
-				
 				std::vector<glm::vec3> vertices;
 				std::vector<glm::vec3> normals;
 				std::vector<glm::vec2> UVs;
 				
 				{
-					std::vector<glm::vec3> rawVertices;
-					std::vector<glm::vec2> rawUVs;
-					std::vector<glm::vec3> rawNormals;
+					std::vector<glm::vec3> v;
+					std::vector<glm::vec2> vt;
+					std::vector<glm::vec3> vn;
 					
 					std::string currentLine;
 					
@@ -333,7 +335,7 @@ namespace LouiEriksson::Engine {
 							float x, y;
 							
 							currentLineStream >> junk >> x >> y;
-							rawUVs.emplace_back(x, y);
+							vt.emplace_back(x, y);
 						}
 						else if (currentLine.substr(0, 2).compare(0, 2, "vn") == 0) {
 							
@@ -342,7 +344,7 @@ namespace LouiEriksson::Engine {
 							float x, y, z;
 							
 							currentLineStream >> junk >> x >> y >> z;
-							rawNormals.emplace_back(x, y, z);
+							vn.emplace_back(x, y, z);
 						}
 						else if (currentLine.substr(0, 2).compare(0, 1, "v") == 0) {
 							
@@ -351,7 +353,7 @@ namespace LouiEriksson::Engine {
 							float x, y, z;
 							
 							currentLineStream >> junk >> x >> y >> z;
-							rawVertices.emplace_back(x, y, z);
+							v.emplace_back(x, y, z);
 						}
 						else if (currentLine.substr(0, 2).compare(0, 1, "f") == 0) {
 							
@@ -366,34 +368,25 @@ namespace LouiEriksson::Engine {
 									
 									std::stringstream currentSection(verts[i]);
 									
-									// There is just position data
 									unsigned int  posID = 0;
 									unsigned int   uvID = 0;
 									unsigned int normID = 0;
 									
+									char junk2;
+									
 									if (verts[i].find('/') == std::string::npos) {
-										// No texcoords or normals
 										currentSection >> posID;
 									}
 									else if (verts[i].find("//") != std::string::npos) {
-										// No texcoords
-										char junk2;
 										currentSection >> posID >> junk2 >> junk2 >> normID;
 									}
 									else {
-										char junk2;
 										currentSection >> posID >> junk2 >> uvID >> junk2 >> normID;
 									}
 									
-									if (posID > 0) {
-										vertices.emplace_back(rawVertices[posID - 1]);
-									}
-									if (uvID > 0) {
-										UVs.emplace_back(rawUVs[uvID - 1]);
-									}
-									if (normID > 0) {
-										normals.emplace_back(rawNormals[normID - 1]);
-									}
+									if ( posID > 0) { vertices.emplace_back(v [posID  - 1]); }
+									if (  uvID > 0) {      UVs.emplace_back(vt[uvID   - 1]); }
+									if (normID > 0) {  normals.emplace_back(vn[normID - 1]); }
 								}
 							}
 							else {
@@ -407,9 +400,15 @@ namespace LouiEriksson::Engine {
 				
 				inputFile.close();
 
+				std::vector<GLuint> indices;
+				
 				std::vector<glm::vec3> out_vertices;
 				std::vector<glm::vec3> out_normals;
 				std::vector<glm::vec2> out_uvs;
+				
+				/*
+				 * Courtesy of: https://github.com/opengl-tutorials/ogl/blob/master/common/vboindexer.cpp
+				 */
 				
 				std::map<PackedVertex, GLuint> VertexToOutIndex;
 				
@@ -417,42 +416,32 @@ namespace LouiEriksson::Engine {
 
 					const PackedVertex packed = { vertices[i], UVs[i], normals[i] };
 					
-					// Try to find a similar vertex in out_XXXX
 					GLuint index;
+					
 					const auto found = getSimilarVertexIndex_fast(packed, VertexToOutIndex, index);
 					
-					if (found) { // A similar vertex is already in the VBO, use it instead !
-						indices.emplace_back(index);
-					}
-					else { // If not, it needs to be added in the output data.
+					if (!found) {
 						out_vertices.emplace_back(vertices[i]);
 						out_uvs     .emplace_back(     UVs[i]);
 						out_normals .emplace_back( normals[i]);
 						
-						auto itm = out_vertices.size() - 1;
+						index = out_vertices.size() - 1;
 						
-						indices.emplace_back(itm);
-						
-						VertexToOutIndex[packed] = itm;
+						VertexToOutIndex[packed] = index;
 					}
+					
+					indices.emplace_back(index);
 				}
 				
 				_output = Graphics::Mesh::Create(out_vertices, indices, out_normals, out_uvs, true, GL_TRIANGLES);
 				
-				std::cout << "Done.\n";
+				std::cout << "Done." << std::endl;
 				
 				result = true;
 			}
-			else {
-				
-				std::stringstream ss;
-					ss << "WARNING: File not found: " << _path<< '\n';
-				
-				throw std::runtime_error(ss.str());
-			}
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n\n";
+			std::cout << "Failed.\n" << std::endl;
 			
 			std::cerr << e.what() << std::endl;
 		}

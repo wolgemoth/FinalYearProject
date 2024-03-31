@@ -1,12 +1,13 @@
 #include "Mesh.h"
 
 #include "../core/utils/Utils.h"
-#include "glm/ext/vector_int2.hpp"
 
 #include <GL/glew.h>
-#include <cstddef>
+#include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_int2.hpp>
 
+#include <cstddef>
 #include <memory>
 #include <vector>
 
@@ -129,7 +130,7 @@ namespace LouiEriksson::Engine::Graphics {
 		if (!_vertices.empty() && !_indices.empty()) {
 			
 			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount = _indices.size();
+			result-> m_IndexCount =  _indices.size();
 			
 			glGenVertexArrays(1, &result->m_VAO_ID);
 			
@@ -140,9 +141,6 @@ namespace LouiEriksson::Engine::Graphics {
 			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			glEnableVertexAttribArray(0);
-			
 			if (!_indices.empty()) {
 				
 				glGenBuffers(1, &result->m_IndexVBO_ID);
@@ -150,6 +148,9 @@ namespace LouiEriksson::Engine::Graphics {
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
+			
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glEnableVertexAttribArray(0);
 			
 			if (!_normals.empty()) {
 				
@@ -177,8 +178,8 @@ namespace LouiEriksson::Engine::Graphics {
 			if (_generateTangents) {
 				
 				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
-				auto& t = tb[0];
-				auto& b = tb[1];
+				const auto& t = tb[0];
+				const auto& b = tb[1];
 				
 				if (!t.empty() && !b.empty()) {
 				
@@ -224,11 +225,11 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			// Positions, triangles (encoded within winding order):
 			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
+			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(s_VertexData[0]), nullptr);
 			
 			// Texture coordinates:
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (int*)(2 * sizeof(GLfloat)));
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(s_VertexData[0]), (int*)(2 * sizeof(GLfloat)));
 		}
 		
 		return s_Instance;
