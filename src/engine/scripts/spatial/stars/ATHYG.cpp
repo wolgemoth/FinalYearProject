@@ -2,20 +2,21 @@
 
 #include "../../core/utils/Utils.h"
 
-#include <string>
 #include <array>
+#include <cstddef>
+#include <string>
 
 namespace LouiEriksson::Engine::Spatial {
 	
 	ATHYG::V1::V1(const std::array<std::string, 23>& _values) {
 		
-		Utils::TryParse<unsigned long>(_values[ 0], id      );
+		Utils::TryParse<size_t       >(_values[ 0], id      );
 		Utils::TryParse<std::string  >(_values[ 1], tyc     );
-		Utils::TryParse<unsigned long>(_values[ 2], gaia    );
-		Utils::TryParse<unsigned long>(_values[ 3], hyg     );
-		Utils::TryParse<unsigned long>(_values[ 4], hip     );
-		Utils::TryParse<unsigned long>(_values[ 5], hd      );
-		Utils::TryParse<unsigned long>(_values[ 6], hr      );
+		Utils::TryParse<size_t       >(_values[ 2], gaia    );
+		Utils::TryParse<size_t       >(_values[ 3], hyg     );
+		Utils::TryParse<size_t       >(_values[ 4], hip     );
+		Utils::TryParse<size_t       >(_values[ 5], hd      );
+		Utils::TryParse<size_t       >(_values[ 6], hr      );
 		Utils::TryParse<std::string  >(_values[ 7], gl      );
 		Utils::TryParse<std::string  >(_values[ 8], bayer   );
 		Utils::TryParse<std::string  >(_values[ 9], flam    );
@@ -36,13 +37,13 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	ATHYG::V2::V2(const std::array<std::string, 33>& _values) {
 		
-		Utils::TryParse<unsigned long>(_values[ 0], id       );
+		Utils::TryParse<size_t       >(_values[ 0], id       );
 		Utils::TryParse<std::string  >(_values[ 1], tyc      );
-		Utils::TryParse<unsigned long>(_values[ 2], gaia     );
-		Utils::TryParse<unsigned long>(_values[ 3], hyg      );
-		Utils::TryParse<unsigned long>(_values[ 4], hip      );
-		Utils::TryParse<unsigned long>(_values[ 5], hd       );
-		Utils::TryParse<unsigned long>(_values[ 6], hr       );
+		Utils::TryParse<size_t       >(_values[ 2], gaia     );
+		Utils::TryParse<size_t       >(_values[ 3], hyg      );
+		Utils::TryParse<size_t       >(_values[ 4], hip      );
+		Utils::TryParse<size_t       >(_values[ 5], hd       );
+		Utils::TryParse<size_t       >(_values[ 6], hr       );
 		Utils::TryParse<std::string  >(_values[ 7], gl       );
 		Utils::TryParse<std::string  >(_values[ 8], bayer    );
 		Utils::TryParse<std::string  >(_values[ 9], flam     );
@@ -73,13 +74,13 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	ATHYG::V3::V3(const std::array<std::string, 34>& _values) {
 
-		Utils::TryParse<unsigned long>(_values[ 0], id       );
+		Utils::TryParse<size_t       >(_values[ 0], id       );
 		Utils::TryParse<std::string  >(_values[ 1], tyc      );
-		Utils::TryParse<unsigned long>(_values[ 2], gaia     );
-		Utils::TryParse<unsigned long>(_values[ 3], hyg      );
-		Utils::TryParse<unsigned long>(_values[ 4], hip      );
-		Utils::TryParse<unsigned long>(_values[ 5], hd       );
-		Utils::TryParse<unsigned long>(_values[ 6], hr       );
+		Utils::TryParse<size_t       >(_values[ 2], gaia     );
+		Utils::TryParse<size_t       >(_values[ 3], hyg      );
+		Utils::TryParse<size_t       >(_values[ 4], hip      );
+		Utils::TryParse<size_t       >(_values[ 5], hd       );
+		Utils::TryParse<size_t       >(_values[ 6], hr       );
 		Utils::TryParse<std::string  >(_values[ 7], gl       );
 		Utils::TryParse<std::string  >(_values[ 8], bayer    );
 		Utils::TryParse<std::string  >(_values[ 9], flam     );

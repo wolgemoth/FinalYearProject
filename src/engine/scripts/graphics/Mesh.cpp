@@ -510,7 +510,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			const size_t limit32 = std::numeric_limits<GLuint>::infinity();
 			
-			Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", Debug::LogType::Warning);
+			Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", LogType::Warning);
 			
 			result->m_VertexCount = std::min(_vertices.size(), limit32);
 			

@@ -17,7 +17,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			
 			if (_height <= s_Alt[s_Alt.size() - 2]) {
 			
-				std::size_t ctr(0);
+				size_t ctr(0);
 			
 				Calculate(_height, _state, ctr);
 				

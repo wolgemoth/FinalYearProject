@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-namespace LouiEriksson::Engine::Debug {
+namespace LouiEriksson::Engine {
 	
 	struct Print final {
 		
@@ -193,18 +193,18 @@ namespace LouiEriksson::Engine::Debug {
 	
 	};
 	
-	void Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept {
+	void Debug::Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept {
 		
 		if (!_condition) {
-			Log(_message, _type);
+			Debug::Log(_message, _type);
 		}
 	}
 	
-	void Log(const std::exception& e, const LogType& _type) noexcept {
-		Log(e.what(), _type);
+	void Debug::Log(const std::exception& e, const LogType& _type) noexcept {
+		Debug::Log(e.what(), _type);
 	}
 	
-	void Log(const std::string& _message, const LogType& _type) noexcept {
+	void Debug::Log(const std::string& _message, const LogType& _type) noexcept {
 	
 		try {
 			try {

@@ -169,7 +169,7 @@ namespace LouiEriksson::Engine {
 	};
 	
 	template<>
-	inline bool Utils::TryParse(const std::string& _str, unsigned long& _output) noexcept {
+	inline bool Utils::TryParse(const std::string& _str, size_t& _output) noexcept {
 		
 		bool result;
 		

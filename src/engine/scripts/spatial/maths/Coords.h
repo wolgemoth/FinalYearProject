@@ -12,12 +12,12 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				
 	struct Coords {
 	
-        inline static glm::vec3 s_Origin = { 0.0f, 0.0f, 0.0f };
+        inline static glm::vec3 s_Origin{};
 		
 		/// <summary>
         /// Globally-average Earth radius in metres, according to the International System of Units.
         /// </summary>
-        inline static constexpr auto SI_EarthRadius = 6371000.0f;
+        inline static constexpr auto SI_EarthRadius = 6371000.0;
 
         /// <summary>
         /// WGS84 Implementation, courtesy of OpenStreetMap (https://wiki.openstreetmap.org/wiki/Mercator#Elliptical_(true)_Mercator_Projection).
@@ -26,36 +26,36 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		private:
 			
-			inline static constexpr auto s_RMajor = 6378137.0f;
-            inline static constexpr auto s_RMinor = 6356752.3142f;
+			inline static constexpr auto s_RMajor = 6378137.0;
+            inline static constexpr auto s_RMinor = 6356752.3142;
             inline static constexpr auto s_Ratio  = s_RMinor / s_RMajor;
 
-            inline static auto s_Eccent = std::sqrt(1.0f - (s_Ratio * s_Ratio));
-            inline static auto s_Com    = 0.5f * s_Eccent;
+            inline static auto s_Eccent = std::sqrt(1.0 - (s_Ratio * s_Ratio));
+            inline static auto s_Com    = 0.5 * s_Eccent;
 
 		public:
 			
-            static auto LongitudeToX(const float& _lon);
+            static double LongitudeToX(const double& _lon);
 
-            static auto XToLongitude(const float& _x);
+            static double XToLongitude(const double& _x);
 
-            static auto LatitudeToY(float _lat);
+            static double LatitudeToY(double _lat);
 
-            static auto YToLatitude(const float& _y);
+            static double YToLatitude(const double& _y);
 
             // https://stackoverflow.com/questions/3269202/latitude-and-longitude-bounding-box-for-c
-            static auto WGS84EarthRadius(const float& _lat);
+            static double WGS84EarthRadius(const double& _lat);
 
-            static auto CalculateEquatorialStretchFactor(const float& _latitude);
+            static double CalculateEquatorialStretchFactor(const double& _latitude);
 		};
 		
 		class GPS {
 			
 		public:
 			
-			static glm::vec4 GPSToBounds(const glm::vec3& _coord, const float& _sizeKm);
+			static glm::vec4 GPSToBounds(const glm::vec3& _coord, const double& _sizeKm);
 			
-			static glm::vec3 GPSToCartesian(const glm::vec3& _coord, const float& _lat = 45.0f);
+			static glm::vec3 GPSToCartesian(const glm::vec3& _coord, const double& _lat = 45.0);
 			
 			static glm::ivec2 GPSToPixel(const glm::vec2& _coord);
 			

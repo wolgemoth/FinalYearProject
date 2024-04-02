@@ -110,7 +110,7 @@ namespace LouiEriksson::Engine::UI {
 			ImGui::DestroyContext();
 		}
 		catch (const std::exception& e) {
-			Debug::Log(e, Debug::LogType::Critical);
+			Debug::Log(e, LogType::Critical);
 		}
 	}
 	

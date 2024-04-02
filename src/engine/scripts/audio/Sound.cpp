@@ -184,7 +184,7 @@ namespace LouiEriksson::Engine::Audio {
 			if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
 		}
 		catch (const std::exception& e) {
-			Debug::Log(e, Debug::LogType::Critical);
+			Debug::Log(e, LogType::Critical);
 		}
 		
 	}

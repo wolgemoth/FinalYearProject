@@ -154,7 +154,7 @@ namespace LouiEriksson::Engine::Physics {
 		
 		}
 		catch (const std::exception& e) {
-			Debug::Log(e, Debug::LogType::Critical);
+			Debug::Log(e, LogType::Critical);
 		}
 		
 	}

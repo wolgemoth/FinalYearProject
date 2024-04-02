@@ -333,7 +333,7 @@ namespace LouiEriksson::Engine {
 									
 									const size_t limit32 = std::numeric_limits<GLuint>::infinity();
 									
-									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated.", Debug::LogType::Warning);
+									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated.", LogType::Warning);
 									
 									// 32-bit:
 									std::vector<GLuint> indices(mesh->mNumVertices);

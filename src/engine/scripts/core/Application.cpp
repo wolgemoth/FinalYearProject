@@ -44,12 +44,12 @@ namespace LouiEriksson::Engine {
 		
 		// Restrict Main() to one instance.
 		if (s_Initialised) {
-			Debug::Log("\"Attempted to call Application::Main() while it is already running! Do you have multiple instances?", Debug::LogType::Warning);
+			Debug::Log("\"Attempted to call Application::Main() while it is already running! Do you have multiple instances?", LogType::Warning);
 		}
 		else {
 			s_Initialised = true;
 			
-			Debug::Log("Initialising.", Debug::LogType::Info);
+			Debug::Log("Initialising.", LogType::Info);
 		
 			// Set custom termination behaviour:
 			std::set_terminate(OnTerminate);
@@ -253,12 +253,12 @@ namespace LouiEriksson::Engine {
 						physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 					}
 					catch (const std::exception& e) {
-						Debug::Log(e, Debug::LogType::Critical);
+						Debug::Log(e, LogType::Critical);
 					}
 				}
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, Debug::LogType::Critical);
+				Debug::Log(e, LogType::Critical);
 			}
 
 NestedBreak:
@@ -272,14 +272,14 @@ NestedBreak:
 	
 	void Application::Quit() noexcept {
 		
-		Debug::Log("Quit() called!", Debug::LogType::Info);
+		Debug::Log("Quit() called!", LogType::Info);
 		
 		Application::s_Quit = true;
 	}
 	
 	void Application::Finalise() {
 		
-		Debug::Log("Finalising.", Debug::LogType::Info);
+		Debug::Log("Finalising.", LogType::Info);
 		
 		Input::Cursor::Reset();
 		
@@ -293,19 +293,19 @@ NestedBreak:
 			SDL_Quit();
 		}
 		catch (const std::exception& e) {
-			Debug::Log(e, Debug::LogType::Critical);
+			Debug::Log(e, LogType::Critical);
 		}
 	}
 	
 	void Application::OnTerminate() {
 		
-		Debug::Log("Application terminated unexpectedly!", Debug::LogType::Critical);
+		Debug::Log("Application terminated unexpectedly!", LogType::Critical);
 		
 		try {
 			Finalise();
 		}
 		catch (const std::exception& e) {
-			Debug::Log(e, Debug::LogType::Critical);
+			Debug::Log(e, LogType::Critical);
 		}
 		
 		std::exit(1);

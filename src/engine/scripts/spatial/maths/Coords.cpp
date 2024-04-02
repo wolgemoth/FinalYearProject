@@ -13,21 +13,20 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <cmath>
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 	
-	auto Coords::WGS84::LongitudeToX(const float& _lon) {
+	double Coords::WGS84::LongitudeToX(const double& _lon) {
 	    return s_RMajor * Conversions::Rotation::s_DegreesToRadians * _lon;
 	}
 	
-	auto Coords::WGS84::XToLongitude(const float& _x) {
+	double Coords::WGS84::XToLongitude(const double& _x) {
 	    return (Conversions::Rotation::s_DegreesToRadians * _x) / s_RMajor;
 	}
 	
-	auto Coords::WGS84::LatitudeToY(float _lat) {
+	double Coords::WGS84::LatitudeToY(double _lat) {
 	
-	    _lat = std::min(89.5f, std::max(_lat, -89.5f));
+	    _lat = std::min(89.5, std::max(_lat, -89.5));
 	
 	    const auto phi    = Conversions::Rotation::s_DegreesToRadians * _lat;
 	    const auto sinphi = std::sin(phi);
@@ -41,14 +40,14 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	    return (0.0 - s_RMajor * std::log(ts));
 	}
 	
-	auto Coords::WGS84::YToLatitude(const float& _y) {
+	double Coords::WGS84::YToLatitude(const double& _y) {
 	
 	    const auto ts = std::exp(-_y / s_RMajor);
 	    auto phi  = (M_PI / 2.0) - 2.0 * std::atan(ts);
 		
 	    auto dphi = 1.0;
 	
-	    std::size_t i = 0;
+	    size_t i = 0;
 	    while ((std::abs(dphi) > 0.00001) && (i < 15)) {
 	
 	        const auto con = s_Eccent * std::sin(phi);
@@ -62,7 +61,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	    return Conversions::Rotation::s_RadiansToDegrees * phi;
 	}
 	
-	auto Coords::WGS84::WGS84EarthRadius(const float& _lat) {
+	double Coords::WGS84::WGS84EarthRadius(const double& _lat) {
 	
 	    // http://en.wikipedia.org/wiki/Earth_radius
 	    const auto An = s_RMajor * s_RMajor * std::cos(_lat);
@@ -73,7 +72,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	    return std::sqrt((An * An + Bn * Bn) / (Ad * Ad + Bd * Bd));
 	}
 	
-	auto Coords::WGS84::CalculateEquatorialStretchFactor(const float& _latitude) {
+	double Coords::WGS84::CalculateEquatorialStretchFactor(const double& _latitude) {
 	
 	    const auto rad = Conversions::Rotation::s_DegreesToRadians * _latitude;
 	    const auto stretch = std::sqrt(1.0f - (s_Eccent * s_Eccent) * std::sin(std::sin(rad))) * (1.0f / std::cos(rad));
@@ -81,7 +80,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	    return stretch;
 	}
 	
-	glm::vec4 Coords::GPS::GPSToBounds(const glm::vec3& _coord, const float& _sizeKm) {
+	glm::vec4 Coords::GPS::GPSToBounds(const glm::vec3& _coord, const double& _sizeKm) {
 
         glm::vec4 result;
 
@@ -109,7 +108,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
         return result;
 	}
 	
-	glm::vec3 Coords::GPS::GPSToCartesian(const glm::vec3& _coord, const float& _lat) {
+	glm::vec3 Coords::GPS::GPSToCartesian(const glm::vec3& _coord, const double& _lat) {
 		
 		return SphereToCartesian({
 			_coord.x * Conversions::Rotation::s_DegreesToRadians,

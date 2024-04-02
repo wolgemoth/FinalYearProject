@@ -73,7 +73,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
-				Debug::Assert(_polyline.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", Debug::LogType::Error);
+				Debug::Assert(_polyline.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
 				// TODO: Make this better.
 				
@@ -94,7 +94,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
-				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", Debug::LogType::Error);
+				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
 				// TODO: Make this better.
 				

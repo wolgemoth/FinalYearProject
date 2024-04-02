@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-namespace LouiEriksson::Engine::Debug {
+namespace LouiEriksson::Engine {
 
 	enum LogType : char {
 		Critical,
@@ -15,11 +15,15 @@ namespace LouiEriksson::Engine::Debug {
 		Trace
 	};
 	
-	static void Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept;
-	
-	static void Log(const std::exception& e, const LogType& _type = LogType::Error) noexcept;
-	
-	static void Log(const std::string& _message, const LogType& _type = LogType::Debug) noexcept;
+	struct Debug final {
+		
+		static void Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept;
+		
+		static void Log(const std::exception& e, const LogType& _type = LogType::Error) noexcept;
+		
+		static void Log(const std::string& _message, const LogType& _type = LogType::Debug) noexcept;
+		
+	};
 	
 } // LouiEriksson::Engine
 
