@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine::Networking {
 			
 		};
 		
-		static std::size_t WriteFunction(void* _data, std::size_t _stride, std::size_t _count, std::vector<char>* _userData);
+		static size_t WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData);
 		
 		static void Init();
 		

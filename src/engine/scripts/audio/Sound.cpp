@@ -2,6 +2,7 @@
 
 #include "AudioClip.h"
 #include "AudioSource.h"
+#include "../core/Debug.h"
 
 #include <al.h>
 #include <alc.h>
@@ -169,16 +170,23 @@ namespace LouiEriksson::Engine::Audio {
 	
 	void Sound::Dispose() {
 		
-		// Release global source.
-		s_GlobalSource.reset();
+		try {
+			
+			// Release global source.
+			s_GlobalSource.reset();
+			
+			// Release AL context.
+		    alcMakeContextCurrent(nullptr);
+			
+			if (s_Context != nullptr) { alcDestroyContext(s_Context); s_Context = nullptr; }
+			if (s_Device  != nullptr) { alcCloseDevice(s_Device);     s_Device  = nullptr; }
+			
+			if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, Debug::LogType::Critical);
+		}
 		
-		// Release AL context.
-	    alcMakeContextCurrent(nullptr);
-		
-		if (s_Context != nullptr) { alcDestroyContext(s_Context); s_Context = nullptr; }
-		if (s_Device  != nullptr) { alcCloseDevice(s_Device);     s_Device  = nullptr; }
-		
-		if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
 	}
 	
 } // LouiEriksson::Engine::Audio

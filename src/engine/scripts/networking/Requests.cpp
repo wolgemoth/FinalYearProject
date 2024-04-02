@@ -1,9 +1,11 @@
 #include "Requests.h"
 
-#include <algorithm>
+#include "../core/Debug.h"
+
 #include <curl/curl.h>
 #include <curl/easy.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <exception>
 #include <future>
@@ -113,7 +115,7 @@ namespace LouiEriksson::Engine::Networking {
 		return std::istringstream { ss.str() };
 	}
 	
-	std::size_t Requests::WriteFunction(void* _data, std::size_t _stride, std::size_t _count, std::vector<char>* _userData) {
+	size_t Requests::WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData) {
 		
 		const auto len = _stride * _count;
 	 
@@ -128,7 +130,13 @@ namespace LouiEriksson::Engine::Networking {
 	}
 	
 	void Requests::Dispose() {
-        curl_global_cleanup();
+		
+		try {
+            curl_global_cleanup();
+		}
+		catch (std::exception& e) {
+			Debug::Log(e, Debug::LogType::Critical);
+		}
 	}
 	
 } // LouiEriksson::Engine::Networking

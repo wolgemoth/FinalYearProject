@@ -1,6 +1,7 @@
 #include "Input.h"
 
 #include "../ui/GUI.h"
+#include "../core/Debug.h"
 
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
@@ -14,6 +15,7 @@
 #include <glm/ext/vector_float2.hpp>
 
 #include <algorithm>
+#include <exception>
 #include <vector>
 
 namespace LouiEriksson::Engine::Input {
@@ -228,11 +230,17 @@ namespace LouiEriksson::Engine::Input {
 	
 	void Input::Dispose() {
 		
-		// Ensure the copied keyboard state is disposed of.
-		if (Input::Key::s_PreviousKeyboardState.s_Data != nullptr) {
-			delete Input::Key::s_PreviousKeyboardState.s_Data;
+		try {
 			
-			Input::Key::s_PreviousKeyboardState.s_Data = nullptr;
+			// Ensure the copied keyboard state is disposed of.
+			if (Input::Key::s_PreviousKeyboardState.s_Data != nullptr) {
+				delete Input::Key::s_PreviousKeyboardState.s_Data;
+				
+				Input::Key::s_PreviousKeyboardState.s_Data = nullptr;
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, Debug::LogType::Critical);
 		}
 	}
 	

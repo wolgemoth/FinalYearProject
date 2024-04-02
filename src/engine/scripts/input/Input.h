@@ -113,7 +113,7 @@ namespace LouiEriksson::Engine::Input {
 			/// <summary> SDL mouse relative state. </summary>
 			inline static Uint32 s_RelativeState { 0u };
 			
-			/// <summary> Pixels the mouse has moved since previous tick. </summary>
+			/// <summary> Reinitialise the mouse has moved since previous tick. </summary>
 			inline static glm::vec2 s_Motion { 0.0f, 0.0f };
 			
 		public:

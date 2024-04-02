@@ -1,20 +1,24 @@
 #include "GUI.h"
 
+#include "../core/Debug.h"
 #include "../core/Settings.h"
 #include "../core/Time.h"
+#include "../core/utils/Utils.h"
 #include "../core/Window.h"
 #include "../input/Cursor.h"
 #include "../input/Input.h"
-#include "../core/utils/Utils.h"
+
+#include <glm/common.hpp>
+#include <glm/ext/vector_float2.hpp>
 
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
-#include <glm/common.hpp>
-#include <glm/ext/vector_float2.hpp>
 #include <imgui.h>
+
 #include <SDL_scancode.h>
 #include <SDL_video.h>
 
+#include <exception>
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -97,11 +101,17 @@ namespace LouiEriksson::Engine::UI {
 	
 	void GUI::Dispose() {
 		
-		// Safely dispose of the IMGUI context.
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplSDL2_Shutdown();
-		
-		ImGui::DestroyContext();
+		try {
+			
+			// Safely dispose of the IMGUI context.
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplSDL2_Shutdown();
+			
+			ImGui::DestroyContext();
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, Debug::LogType::Critical);
+		}
 	}
 	
 	void GUI::GUIWindows::DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {

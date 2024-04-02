@@ -24,6 +24,10 @@ namespace LouiEriksson::Engine {
 		inline static bool  s_Quit        { false }; // Is Application scheduled to quit?
 		inline static bool  s_Initialised { false }; // Is Application initialised?
 	
+		static void Finalise();
+		
+		static void OnTerminate();
+		
 	public:
 	
 		 Application()                          = delete;

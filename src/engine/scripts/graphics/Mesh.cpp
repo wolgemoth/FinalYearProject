@@ -1,13 +1,17 @@
 #include "Mesh.h"
 
 #include "../core/utils/Utils.h"
+#include "../core/Debug.h"
 
 #include <GL/glew.h>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
 
+#include <algorithm>
+#include <array>
 #include <cstddef>
+#include <limits>
 #include <memory>
 #include <vector>
 
@@ -23,7 +27,8 @@ namespace LouiEriksson::Engine::Graphics {
 		  m_TangentVBO_ID(GL_NONE),
 		m_BitangentVBO_ID(GL_NONE),
 		    m_VertexCount(0),
-		     m_IndexCount(0) {}
+		     m_IndexCount(0),
+			 m_IndexSize (0){}
 			  
 	Mesh::~Mesh() {
 		
@@ -82,15 +87,64 @@ namespace LouiEriksson::Engine::Graphics {
 		return result;
 	}
 	
-	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices) {
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices) {
 		
-		std::vector<GLuint> indices(_vertices.size());
+		auto result = std::make_shared<Mesh>(Mesh(GL_TRIANGLES));
 		
-		for (auto i = 0; i < indices.size(); ++i) {
-			indices[i] = i;
+		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_VertexCount = _vertices.size();
+			result-> m_IndexCount =  _indices.size();
+			
+			// Buffers to store mesh data:
+			glGenVertexArrays(1, &result->m_VAO_ID);
+			
+			glGenBuffers(1, &result->m_PositionVBO_ID);
+			glGenBuffers(1, &result->m_IndexVBO_ID);
+			
+			Mesh::Bind(*result);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+			
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
 		}
 		
-		return Create(_vertices, indices);
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
+		
+		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_VertexCount = _vertices.size();
+			result-> m_IndexCount =  _indices.size();
+			
+			// Buffers to store mesh data:
+			glGenVertexArrays(1, &result->m_VAO_ID);
+			
+			glGenBuffers(1, &result->m_PositionVBO_ID);
+			glGenBuffers(1, &result->m_IndexVBO_ID);
+			
+			Mesh::Bind(*result);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+			
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+		}
+		
+		return result;
 	}
 	
 	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices) {
@@ -117,12 +171,180 @@ namespace LouiEriksson::Engine::Graphics {
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
 		}
 		
 		return result;
 	}
  
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents, const GLenum& _format) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(_format));
+		
+		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_VertexCount = _vertices.size();
+			result-> m_IndexCount =  _indices.size();
+			
+			glGenVertexArrays(1, &result->m_VAO_ID);
+			
+			Mesh::Bind(*result);
+			
+			glGenBuffers(1, &result->m_PositionVBO_ID);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+			
+			if (!_indices.empty()) {
+				
+				glGenBuffers(1, &result->m_IndexVBO_ID);
+				
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+			}
+			
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glEnableVertexAttribArray(0);
+			
+			if (!_normals.empty()) {
+				
+				glGenBuffers(1, &result->m_NormalVBO_ID);
+
+				glBindBuffer(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+				
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+				glEnableVertexAttribArray(1);
+			}
+			
+			if (!_UVs.empty()) {
+				
+				glGenBuffers(1, &result->m_TexCoordVBO_ID);
+				
+				glBindBuffer(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+				
+				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+				glEnableVertexAttribArray(2);
+			}
+			
+			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
+			if (_generateTangents) {
+				
+				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				const auto& t = tb[0];
+				const auto& b = tb[1];
+				
+				if (!t.empty() && !b.empty()) {
+				
+					// TODO: Perform tangent averaging / smoothing.
+					
+				    glGenBuffers(1, &result->m_TangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+				
+					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(3);
+					
+				    glGenBuffers(1, &result->m_BitangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					
+					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(4);
+				}
+			}
+			
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+		
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents, const GLenum& _format) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(_format));
+		
+		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_VertexCount = _vertices.size();
+			result-> m_IndexCount =  _indices.size();
+			
+			glGenVertexArrays(1, &result->m_VAO_ID);
+			
+			Mesh::Bind(*result);
+			
+			glGenBuffers(1, &result->m_PositionVBO_ID);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+			
+			if (!_indices.empty()) {
+				
+				glGenBuffers(1, &result->m_IndexVBO_ID);
+				
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+			}
+			
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glEnableVertexAttribArray(0);
+			
+			if (!_normals.empty()) {
+				
+				glGenBuffers(1, &result->m_NormalVBO_ID);
+
+				glBindBuffer(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+				
+				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+				glEnableVertexAttribArray(1);
+			}
+			
+			if (!_UVs.empty()) {
+				
+				glGenBuffers(1, &result->m_TexCoordVBO_ID);
+				
+				glBindBuffer(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+				
+				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+				glEnableVertexAttribArray(2);
+			}
+			
+			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
+			if (_generateTangents) {
+				
+				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				const auto& t = tb[0];
+				const auto& b = tb[1];
+				
+				if (!t.empty() && !b.empty()) {
+				
+					// TODO: Perform tangent averaging / smoothing.
+					
+				    glGenBuffers(1, &result->m_TangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+				
+					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(3);
+					
+				    glGenBuffers(1, &result->m_BitangentVBO_ID);
+				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					
+					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(4);
+				}
+			}
+			
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+		
+		return result;
+	}
+	
 	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents, const GLenum& _format) {
 		
 		auto result = std::make_shared<Mesh>(Mesh(_format));
@@ -146,7 +368,7 @@ namespace LouiEriksson::Engine::Graphics {
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
 			}
 			
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -241,7 +463,7 @@ namespace LouiEriksson::Engine::Graphics {
 		const auto& nY = _resolution.y;
 		
 	    /* VERTICES */
-	    std::vector<glm::vec3> vertices(static_cast<std::size_t>((nX + 1) * (nY + 1)));
+	    std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
 		
 	    for (auto i = 0; i <= nX; i++) {
         for (auto j = 0; j <= nY; j++) {
@@ -254,7 +476,7 @@ namespace LouiEriksson::Engine::Graphics {
         }}
 		
 	    /* INDICES */
-	    std::vector<GLuint> indices(static_cast<std::size_t>(6 * nX * nY));
+	    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
 		
 	    for (auto i = 0; i < nX; i++) {
         for (auto j = 0; j < nY; j++) {
@@ -278,6 +500,36 @@ namespace LouiEriksson::Engine::Graphics {
         }}
 		
 		return Mesh::Create(vertices, indices, {}, {}, false, GL_TRIANGLES);
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Primitives::PointCloud::Create(const std::vector<glm::vec3>& _vertices) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
+		
+		if (!_vertices.empty()) {
+			
+			const size_t limit32 = std::numeric_limits<GLuint>::infinity();
+			
+			Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", Debug::LogType::Warning);
+			
+			result->m_VertexCount = std::min(_vertices.size(), limit32);
+			
+			// Buffers to store mesh data:
+			glGenVertexArrays(1, &result->m_VAO_ID);
+			
+			glGenBuffers(1, &result->m_PositionVBO_ID);
+			glGenBuffers(1, &result->m_IndexVBO_ID);
+			
+			Mesh::Bind(*result);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+			
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+		}
+		
+		return result;
 	}
 	
 	void Mesh::Bind(const Mesh& _mesh) {
@@ -304,7 +556,7 @@ namespace LouiEriksson::Engine::Graphics {
 	const GLuint& Mesh::TangentVBO_ID()    const noexcept { return   m_TangentVBO_ID; }
 	const GLuint& Mesh::BitangentVBO_ID()  const noexcept { return m_BitangentVBO_ID; }
 	
-	const std::size_t& Mesh::VertexCount() const noexcept { return m_VertexCount; }
-	const std::size_t& Mesh:: IndexCount() const noexcept { return  m_IndexCount; }
+	const size_t& Mesh::VertexCount() const noexcept { return m_VertexCount; }
+	const size_t& Mesh:: IndexCount() const noexcept { return  m_IndexCount; }
 	
 } // LouiEriksson::Engine::Graphics

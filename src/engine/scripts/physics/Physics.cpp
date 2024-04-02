@@ -1,15 +1,18 @@
 #include "Physics.h"
 
 #include "../core/Time.h"
+#include "../core/Debug.h"
 
-#include "LinearMath/btScalar.h"
-#include "LinearMath/btVector3.h"
+#include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
+
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+
 #include <glm/common.hpp>
 #include <glm/ext/vector_float3.hpp>
 
@@ -141,12 +144,19 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
 	void Physics::Dispose() {
 	
+		try {
+		
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, Debug::LogType::Critical);
+		}
+		
 	}
 	
 } // LouiEriksson::Engine::Physics

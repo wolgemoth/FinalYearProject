@@ -13,6 +13,8 @@
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "Debug.h"
+
 #endif
 
 #include <assimp/Importer.hpp>
@@ -33,6 +35,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -325,14 +328,47 @@ namespace LouiEriksson::Engine {
 								
 								const auto* faces = mesh->mFaces;
 								
-						        std::vector<GLuint> indices(mesh->mNumFaces * 3);
+								// Determine if the mesh should use 8, 16, or 32-bit indices:
+								if (mesh->mNumVertices > std::numeric_limits<GLushort>::infinity()) {
+									
+									const size_t limit32 = std::numeric_limits<GLuint>::infinity();
+									
+									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated.", Debug::LogType::Warning);
+									
+									// 32-bit:
+									std::vector<GLuint> indices(mesh->mNumVertices);
+									
+									for (auto j = 0; j < mesh->mNumFaces; ++j) {
+									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+										indices.emplace_back(faces[j].mIndices[k]);
+									}}
+									
+									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+								}
+								else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::infinity()) {
+									
+									// 16-bit:
+									std::vector<GLushort> indices(mesh->mNumVertices);
+									
+									for (auto j = 0; j < mesh->mNumFaces; ++j) {
+									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+										indices.emplace_back(faces[j].mIndices[k]);
+									}}
+									
+									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+								}
+								else {
+									
+									// 8-bit:
+									std::vector<GLubyte> indices(mesh->mNumVertices);
+									
+									for (auto j = 0; j < mesh->mNumFaces; ++j) {
+									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+										indices.emplace_back(faces[j].mIndices[k]);
+									}}
 								
-								for (auto j = 0; j < mesh->mNumFaces; ++j) {
-								for (auto k = 0; k < faces[j].mNumIndices; ++k) {
-									indices.emplace_back(faces[j].mIndices[k]);
-								}}
-								
-								_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+								}
 								
 								break;
 						    }
