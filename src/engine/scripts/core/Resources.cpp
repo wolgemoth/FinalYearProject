@@ -2,6 +2,7 @@
 
 #include "../core/utils/Hashmap.h"
 
+#include "Debug.h"
 #include "File.h"
 
 #include <GL/glew.h>
@@ -54,7 +55,7 @@ namespace LouiEriksson::Engine {
 					else if (type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
 				}
 				else {
-					std::cout << "Unable to determine the type of asset with extension " << item.extension() << '\n';
+					Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), LogType::Warning);
 				}
 			}
 		}
@@ -75,7 +76,7 @@ namespace LouiEriksson::Engine {
 			
 			for (const auto& dependency : dependencies) {
 			
-				std::cout << "Loading Shader Dependency \"" << dependency.c_str() << "\"... " << std::flush;
+				Debug::Log("Loading Shader Dependency \"" + dependency.string() + "\"... ", LogType::Info, true);
 				
 				try {
 					const auto name = "/" + dependency.string();
@@ -90,13 +91,11 @@ namespace LouiEriksson::Engine {
 						contents.c_str()
 					);
 					
-					std::cout << "Done.\n";
+					Debug::Log("Done.", LogType::Info);
 				}
 				catch (const std::exception& e) {
-					
-					std::cout << "Failed.\n";
-					
-					std::cerr << e.what() << std::endl;
+					Debug::Log("Failed.", LogType::Error);
+					Debug::Log(e);
 				}
 			}
 		}

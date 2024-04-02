@@ -1,5 +1,6 @@
 #include "Rigidbody.h"
 
+#include "../core/Debug.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
 #include "../ecs/Component.h"
@@ -143,11 +144,11 @@ namespace LouiEriksson::Engine::Physics {
 				
 			}
 			else {
-				std::cout << "Couldn't lock _collider!\n";
+				Debug::Log("Couldn't lock _collider!", LogType::Error);
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -225,7 +226,7 @@ namespace LouiEriksson::Engine::Physics {
 			}}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -296,7 +297,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	

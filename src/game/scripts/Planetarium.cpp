@@ -127,7 +127,7 @@ namespace LouiEriksson::Game::Scripts {
 		
 		for (const auto& path : _athyg_paths) {
 			
-			std::cout << "Loading \"" << path.string() << "\"... " << std::flush;
+			Debug::Log("Loading \"" + path.string() + "\"... ", LogType::Info, true);
 			
 			try {
 			
@@ -137,18 +137,19 @@ namespace LouiEriksson::Game::Scripts {
 					
 					std::move(data.begin(), data.end(), std::back_inserter(lines));
 					
-					std::cout << "Done." << std::endl;
+					Debug::Log("Done.", LogType::Info);
 				}
 				else {
 					throw std::runtime_error("Path is not valid.");
 				}
 			}
 			catch (const std::exception& e) {
-				std::cerr << "Failed.\n" << e.what() << std::endl;
+				Debug::Log("Failed.", LogType::Error);
+				Debug::Log(e);
 			}
 		}
 		
-		std::cout << "Parsing " << (!lines.empty() ? lines.size() - 1 : lines.size()) << " lines... " << std::flush;
+		Debug::Log("Parsing " + std::to_string(!lines.empty() ? lines.size() - 1 : lines.size()) + " lines... ", LogType::Info, true);
 		
 		std::vector<glm::vec3> star_positions;
 		
@@ -170,7 +171,8 @@ namespace LouiEriksson::Game::Scripts {
 			}
 		}
 		
-		std::cout << "Done.\nSpawning " << star_positions.size() << " stars... " << std::flush;
+		Debug::Log("Done.", LogType::Info);
+		Debug::Log("Spawning " + std::to_string(star_positions.size()) + " stars... ", LogType::Info, true);
 		
 		try {
 			
@@ -197,10 +199,11 @@ namespace LouiEriksson::Game::Scripts {
 				}}
 			}}
 			
-			std::cout << "Done." << std::endl;
+			Debug::Log("Done.", LogType::Info);
 		}
 		catch (const std::exception& e) {
-			std::cerr << "Failed.\n" << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 	}
 	

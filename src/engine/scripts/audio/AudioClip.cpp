@@ -1,4 +1,5 @@
 #include "AudioClip.h"
+#include "../core/Debug.h"
 
 #include <al.h>
 #include <SDL_audio.h>
@@ -26,7 +27,7 @@ namespace LouiEriksson::Engine::Audio {
 		        case AUDIO_U16MSB:
 		        case AUDIO_S16MSB: { result = AL_FORMAT_MONO16; break; }
 		        default: {
-					std::cout << "Unimplemented format.\n";
+					Debug::Log("Unimplemented format: " + std::to_string(m_Specification.format), LogType::Error);
 				}
 			}
 		}
@@ -39,7 +40,7 @@ namespace LouiEriksson::Engine::Audio {
 		        case AUDIO_U16MSB:
 		        case AUDIO_S16MSB: { result = AL_FORMAT_STEREO16; break; }
 		        default: {
-					std::cout << "Unimplemented format.\n";
+					Debug::Log("Unimplemented format:" + std::to_string(m_Specification.format), LogType::Error);
 				}
 			}
 		}
@@ -58,10 +59,10 @@ namespace LouiEriksson::Engine::Audio {
 		}
 		catch (const std::exception& e) {
 			
-			std::cerr <<
-				"Exception occurred when freeing allocated audio data. " <<
-				"This is a potential memory leak!\n" <<
-				e.what() << std::endl;
+			Debug::Log(
+				std::string("Exception occurred when freeing allocated audio data. This is a potential memory leak! ") + e.what(),
+				LogType::Critical
+			);
 		}
 	}
 	

@@ -11,7 +11,6 @@
 #include <SDL_audio.h>
 
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 
@@ -19,19 +18,18 @@ namespace LouiEriksson::Engine::Audio {
 	
 	void Sound::Init() {
 		
-		std::cout << "Initialising audio subsystems...\n";
+		Debug::Log("Initialising audio subsystems...", LogType::Info);
 		
 		try {
 			
 			// Init SDL audio subsystem (as fallback).
 			try {
-				
-				std::cout << "\tSDL...";
+				Debug::Log("\tSDL...", LogType::Info, true);
 				SDL_InitSubSystem(SDL_INIT_AUDIO);
-				std::cout << "Done.\n";
+				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
-				std::cout << "Failed.\n";
+				Debug::Log("Failed.", LogType::Error);
 				
 				throw e;
 			}
@@ -39,7 +37,7 @@ namespace LouiEriksson::Engine::Audio {
 			// Init OpenAL audio subsystem.
 			try {
 				
-				std::cout << "\tOpenAL...";
+				Debug::Log("\tSDL...", LogType::Info, true);
 			
 				// Initialise audio device.
 				if (s_Device == nullptr) {
@@ -73,10 +71,10 @@ namespace LouiEriksson::Engine::Audio {
 				DopplerFactor(1.0f);
 				SpeedOfSound(343.3f);
 				
-				std::cout << "Done.\n";
+				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
-				std::cout << "Failed.\n";
+				Debug::Log("Failed.", LogType::Error);
 				
 				throw e;
 			}
@@ -90,7 +88,7 @@ namespace LouiEriksson::Engine::Audio {
 			
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -143,7 +141,7 @@ namespace LouiEriksson::Engine::Audio {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -186,7 +184,6 @@ namespace LouiEriksson::Engine::Audio {
 		catch (const std::exception& e) {
 			Debug::Log(e, LogType::Critical);
 		}
-		
 	}
 	
 } // LouiEriksson::Engine::Audio

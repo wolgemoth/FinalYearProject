@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_GAMEOBJECT_H
 #define FINALYEARPROJECT_GAMEOBJECT_H
 
+#include "../core/Debug.h"
 #include "../core/Script.h"
 #include "../core/utils/Hashmap.h"
 
@@ -180,7 +181,7 @@ namespace LouiEriksson::Engine::ECS {
 						s->Detach<Component>(*itr);
 					}
 					else {
-						std::cout << "No scene to detach component from.\n";
+						Debug::Log("No scene to detach component from.", LogType::Error);
 					}
 					
 					// Remove component from collection.

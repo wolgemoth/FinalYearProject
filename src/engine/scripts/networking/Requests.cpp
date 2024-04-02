@@ -54,7 +54,7 @@ namespace LouiEriksson::Engine::Networking {
 			r.m_Status = curl_easy_perform(Handle().get());
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 		
 		return r;
@@ -73,7 +73,7 @@ namespace LouiEriksson::Engine::Networking {
 			m_Handle.reset();
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -85,9 +85,11 @@ namespace LouiEriksson::Engine::Networking {
 		
 		const bool result = _response.Status() == CURLE_OK;
 		
-		if (!result && _verbose) {
-			std::cerr << "Request failed. Status code: " << _response.Status() << ". Meaning: \"" << curl_easy_strerror(_response.Status()) << "\"";
-		}
+		Debug::Assert(
+			result && !_verbose,
+			"Request failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
+			LogType::Error
+		);
 		
 		return result;
 	}

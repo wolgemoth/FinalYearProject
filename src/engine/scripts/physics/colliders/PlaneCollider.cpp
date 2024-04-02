@@ -1,5 +1,6 @@
 #include "PlaneCollider.h"
 
+#include "../../core/Debug.h"
 #include "../../core/Transform.h"
 #include "../../ecs/GameObject.h"
 #include "../Collider.h"
@@ -32,7 +33,7 @@ namespace LouiEriksson::Engine::Physics {
 				);
 			}
 			catch (const std::exception& e) {
-				std::cerr << e.what() << std::endl;
+				Debug::Log(e);
 			}
 		}
 		

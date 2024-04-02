@@ -1,5 +1,7 @@
 #include "Texture.h"
 
+#include "../core/Debug.h"
+
 #include <GL/glew.h>
 
 #include <iostream>
@@ -123,7 +125,7 @@ namespace LouiEriksson::Engine::Graphics {
 			_textureFormat = GL_NONE;
 			_channels      = 0;
 			
-		    std::cout << "Unknown format \"" << _pixelFormat << "\"\n";
+			Debug::Log("Unknown format \"" + std::to_string(_pixelFormat) + "\"", LogType::Error);
 		}
 	}
 	

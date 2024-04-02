@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "../audio/AudioListener.h"
+#include "../core/Debug.h"
 #include "../core/File.h"
 #include "../core/Script.h"
 #include "../core/Serialisation.h"
@@ -80,7 +81,7 @@ namespace LouiEriksson::Engine::ECS {
 						camera->PostRender();
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -100,7 +101,7 @@ namespace LouiEriksson::Engine::ECS {
 						std::dynamic_pointer_cast<Script>(l)->Begin();
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -122,7 +123,7 @@ namespace LouiEriksson::Engine::ECS {
 						rigidbody->Interpolate();
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -138,7 +139,7 @@ namespace LouiEriksson::Engine::ECS {
 						std::dynamic_pointer_cast<Script>(l)->Tick();
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -148,7 +149,7 @@ namespace LouiEriksson::Engine::ECS {
 			Draw(_flags);
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -167,7 +168,7 @@ namespace LouiEriksson::Engine::ECS {
 						rigidbody->Sync();
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -202,14 +203,14 @@ namespace LouiEriksson::Engine::ECS {
 											script->OnCollision(collision);
 										}
 										catch (const std::exception& e) {
-											std::cerr << e.what() << std::endl;
+											Debug::Log(e);
 										}
 									}
 								}}
 							}
 						}
 						catch (const std::exception& e) {
-							std::cerr << e.what() << std::endl;
+							Debug::Log(e);
 						}
 						
 						try {
@@ -217,11 +218,11 @@ namespace LouiEriksson::Engine::ECS {
 							script->FixedTick();
 						}
 						catch (const std::exception& e) {
-							std::cerr << e.what() << std::endl;
+							Debug::Log(e);
 						}
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 			}
@@ -234,8 +235,8 @@ namespace LouiEriksson::Engine::ECS {
 	
 	void Scene::Save(const std::filesystem::path& _path) {
 	
-		std::cout << "Saving Scene... ";
-	
+		Debug::Log("Saving Scene... ", LogType::Info, true);
+		
 		try {
 			auto ofStream = std::ofstream(_path);
 	
@@ -335,20 +336,19 @@ namespace LouiEriksson::Engine::ECS {
 			
 			xml.finishNode();
 			
-			std::cout << "Done.\n";
+			Debug::Log("Done.", LogType::Info);
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n"; // Debug output.
-			
-			std::cerr << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 	
-		std::cout << "Output:\n" << File::ReadAllText(_path); // Debug output.
+		Debug::Log("Output: " + File::ReadAllText(_path), LogType::Info);
 	}
 	
 	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 	
-		std::cout << "Loading Scene \"" << _path.c_str() << "\"... ";
+		Debug::Log("Loading Scene \"" + _path.string() + "\"... ", LogType::Info, true);
 		
 		auto result = std::make_shared<Scene>();
 		
@@ -366,17 +366,14 @@ namespace LouiEriksson::Engine::ECS {
 			int gameObjectCount = 0;
 			xml.loadSize(gameObjectCount);
 		
-			if (log) {
-				std::cout << "GameObjects: " << gameObjectCount<< '\n';
-			}
+			Debug::Assert(!log, "GameObjects: " + std::to_string(gameObjectCount), LogType::Info);
+			
 			for (size_t i = 0; i < gameObjectCount; ++i) {
 		
 				const auto *goName = xml.getNodeName();
 				
-				if (log) {
-					std::cout << "\tName: \"" << goName << "\"\n";
-				}
-				
+				Debug::Assert(!log, "\tName: \"" + std::string(goName) + "\"", LogType::Info);
+
 				// Create GameObject to populate.
 				auto go = GameObject::Create(result->shared_from_this(), goName);
 		
@@ -384,18 +381,14 @@ namespace LouiEriksson::Engine::ECS {
 		
 				int count = 0;
 				xml.loadSize(count);
-		
-				if (log) {
-					std::cout << "\tComponents: " << count<< '\n';
-				}
+				
+				Debug::Assert(!log, "\tComponents: " + std::to_string(count), LogType::Info);
 				
 				for (size_t j = 0; j < count; j++) {
 		
 					const auto* name = xml.getNodeName();
 					
-					if (log) {
-						std::cout << "\t\t" << name<< '\n';
-					}
+					Debug::Assert(!log, "\t\t" + std::string(name), LogType::Info);
 					
 					if (strcmp(name, typeid(Transform).name()) == 0) {			// Deserialise Transform.
 		
@@ -455,10 +448,8 @@ namespace LouiEriksson::Engine::ECS {
 		
 						std::string type;
 						xml(type);
-		
-						if (log) {
-							std::cout << "\t\t\t\"" << type << "\"\n";
-						}
+						
+						Debug::Assert(!log, "\t\t\t\"" + std::string(type) + "\"", LogType::Info);
 						
 						try {
 						
@@ -480,7 +471,7 @@ namespace LouiEriksson::Engine::ECS {
 							
 						}
 						catch (const std::exception& e) {
-							std::cerr << e.what() << std::endl;
+							Debug::Log(e);
 						}
 		
 						xml.finishNode();
@@ -492,13 +483,11 @@ namespace LouiEriksson::Engine::ECS {
 		
 			xml.finishNode();
 			
-			std::cout << "Done."<< '\n';
+			Debug::Log("Done.", LogType::Info);
 		}
 		catch (const std::exception& e) {
-			
-			std::cout << "Failed.\n";
-			
-			std::cerr << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 		
 		return result;

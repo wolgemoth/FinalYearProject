@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include "../Debug.h"
 
 #include <al.h>
 #include <GL/glew.h>
@@ -41,23 +42,21 @@ namespace LouiEriksson::Engine {
 	
 	void Utils::ALDumpError(const bool& _silent) {
 	
-	const auto error = alGetError();
-    if (error != AL_NO_ERROR) {
-	   
-		std::cout << "OpenAL Error: \"";
-		
-	    switch (error) {
-		    case AL_INVALID_NAME:      { std::cout << "AL_INVALID_NAME\"\n";      break; }
-			case AL_INVALID_ENUM:      { std::cout << "AL_INVALID_ENUM\"\n";      break; }
-			case AL_INVALID_VALUE:     { std::cout << "AL_INVALID_VALUE\"\n";     break; }
-			case AL_INVALID_OPERATION: { std::cout << "AL_INVALID_OPERATION\"\n"; break; }
-			case AL_OUT_OF_MEMORY:     { std::cout << "AL_OUT_OF_MEMORY\"\n";     break; }
-			default: {
-				std::cout << "Unknown.\"\n";
-			}
+		const auto error = alGetError();
+	    if (error != AL_NO_ERROR) {
+		   
+		    switch (error) {
+				case AL_INVALID_NAME:      { Debug::Log("OpenAL Error \"AL_INVALID_NAME\"",      LogType::Error); break; }
+				case AL_INVALID_ENUM:      { Debug::Log("OpenAL Error \"AL_INVALID_ENUM\"",      LogType::Error); break; }
+				case AL_INVALID_VALUE:     { Debug::Log("OpenAL Error \"AL_INVALID_VALUE\"",     LogType::Error); break; }
+				case AL_INVALID_OPERATION: { Debug::Log("OpenAL Error \"AL_INVALID_OPERATION\"", LogType::Error); break; }
+				case AL_OUT_OF_MEMORY:     { Debug::Log("OpenAL Error \"AL_OUT_OF_MEMORY\"",     LogType::Error); break; }
+				default: {
+					Debug::Log("OpenAL Error \"Unknown\"", LogType::Error);
+				}
+		    }
 	    }
-    }
-}
+	}
 	
 	void Utils::GLDumpError(const bool& _silent) {
 		
@@ -65,8 +64,11 @@ namespace LouiEriksson::Engine {
 		
 		if ((glError != GL_NONE) && !_silent) {
 			
-			std::cout << "OpenGL Error \"" << glError << "\": "
-				<< glewGetErrorString(glError) << '\n';
+			std::stringstream ss;
+			ss << "OpenGL Error \"" << glError << "\": " <<
+				glewGetErrorString(glError);
+			
+			Debug::Log(ss.str(), LogType::Error);
 		}
 	}
 	

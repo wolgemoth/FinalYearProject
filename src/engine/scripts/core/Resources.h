@@ -110,7 +110,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			catch (const std::exception& e) {
-				std::cerr << e.what() << std::endl;
+				Debug::Log(e);
 			}
 		}
 		
@@ -157,7 +157,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			catch (const std::exception& e) {
-				std::cerr << "Error accessing resource \"" << _name << "\". Reason : " << e.what() << std::endl;
+				Debug::Log("Error accessing resource \"" + _name + "\". Reason : " + std::string(e.what()), LogType::Error);
 			}
 			
 			return result;
@@ -208,7 +208,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 			
 			m_Status = Error;
 		}
@@ -233,7 +233,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 			
 			m_Status = Error;
 		}
@@ -258,7 +258,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 			
 			m_Status = Error;
 		}
@@ -297,7 +297,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 			
 			m_Status = Error;
 		}
@@ -322,7 +322,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 			
 			m_Status = Error;
 		}

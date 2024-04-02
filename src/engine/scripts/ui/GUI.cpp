@@ -51,7 +51,7 @@ namespace LouiEriksson::Engine::UI {
 			case GUI::Parameters::Style::Light: { ImGui::StyleColorsLight(); break; }
 			case GUI::Parameters::Style::Dark:  { ImGui::StyleColorsDark();  break; }
 			default: {
-				std::cout << "Unknown GUI style selection.\n";
+				Debug::Log("Unknown GUI style selection: " + std::to_string(_style), LogType::Error);
 			}
 		}
 	}

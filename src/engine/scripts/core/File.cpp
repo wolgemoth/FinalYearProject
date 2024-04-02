@@ -125,21 +125,21 @@ namespace LouiEriksson::Engine {
 	
 	bool File::TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output) {
 		
-		bool result = false;
+		bool result;
 		
-		std::cout << "Loading AudioClip \"" << _path.c_str() << "\"... ";
+		Debug::Log("Loading AudioClip \"" + _path.string() + "\"...", LogType::Info, true);
 		
 		try {
 			_output.reset(new Audio::AudioClip(_path));
-			
-			std::cout << "Done.\n";
+			Debug::Log("Done.", LogType::Info);
 			
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n\n";
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 			
-			std::cerr << e.what() << std::endl;
+			result = false;
 		}
 		
 		return result;
@@ -153,7 +153,7 @@ namespace LouiEriksson::Engine {
 		
 		bool result = false;
 		
-		std::cout << "Loading Texture \"" << _path.c_str() << "\"... ";
+		Debug::Log("Loading Texture \"" + _path.string() + "\"... ", LogType::Info, true);
 		
 		try {
 			
@@ -235,7 +235,7 @@ namespace LouiEriksson::Engine {
 							}
 							default: {
 								
-								std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
+								Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\".", LogType::Warning);
 								
 								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 								break;
@@ -256,15 +256,16 @@ namespace LouiEriksson::Engine {
 					
 					result = true;
 					
-					std::cout << "Done.\n";
+					Debug::Log("Done.", LogType::Info);
 				}
 				else {
-					throw std::runtime_error("Failed.");
+					throw std::runtime_error("Failed loading texture data!");
 				}
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 		
 		return result;
@@ -274,7 +275,7 @@ namespace LouiEriksson::Engine {
 		
 		bool result = false;
 		
-		std::cout << "Loading Mesh \"" << _path.c_str() << "\"... " << std::flush;
+		Debug::Log("Loading Mesh \"" + _path.string() + "\"... ", LogType::Info, true);
 		
 		/*
 		 * Implementation derived from Mesh.cpp and Mesh.h
@@ -389,14 +390,13 @@ namespace LouiEriksson::Engine {
 				throw std::runtime_error("No scene!");
 			}
 			
-			std::cout << "Done." << std::endl;
+			Debug::Log("Done.", LogType::Info);
 			
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cout << "Failed.\n" << std::endl;
-			
-			std::cerr << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 		
 		return result;
@@ -406,7 +406,7 @@ namespace LouiEriksson::Engine {
 		
 		bool result = false;
 		
-		std::cout << "Loading Material \"" << _path.c_str() << "\"... ";
+		Debug::Log("Loading Material \"" + _path.string() + "\"... ", LogType::Info, true);
 		
 		try {
 			
@@ -428,7 +428,7 @@ namespace LouiEriksson::Engine {
 						const auto& key = subStrings.at(0);
 						
 						if (key == "Ka") {
-							std::cout << "Ambient color loading not implemented... ";
+							Debug::Log("Ambient color loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "Kd") {
 							
@@ -447,10 +447,10 @@ namespace LouiEriksson::Engine {
 							_output->m_Albedo_Color.a = 1.0 - std::clamp(std::stof(subStrings.at(1)), 0.0f, 1.0f);
 						}
 						else if (key == "Ks") {
-							std::cout << "Specular color loading not implemented... ";
+							Debug::Log("Specular color loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "illum") {
-							std::cout << "Support for different lighting models is not implemented... ";
+							Debug::Log("Support for different lighting models is not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "Ao") {
 							_output->m_AO = std::stof(subStrings.at(1));
@@ -467,7 +467,7 @@ namespace LouiEriksson::Engine {
 							};
 						}
 						else if (key == "Ni") {
-							std::cout << "Optical density loading not implemented... ";
+							Debug::Log("Optical density loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "map_Kd") {
 							
@@ -481,13 +481,13 @@ namespace LouiEriksson::Engine {
 							}
 						}
 						else if (key == "map_Ks") {
-							std::cout << "Specular map loading not implemented... ";
+							Debug::Log("Specular map loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "map_Tr" || key == "map_d") {
-							std::cout << "Transparency map loading not implemented... ";
+							Debug::Log("Transparency map loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "bump" || key == "map_bump" || key == "bm") {
-							std::cout << "Bump map loading not implemented... ";
+							Debug::Log("Bump map loading not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "disp") {
 							
@@ -562,17 +562,15 @@ namespace LouiEriksson::Engine {
 				
 				result = true;
 				
-				std::cout << "Done.\n";
+				Debug::Log("Done.", LogType::Info);
 			}
 			else {
 				throw std::runtime_error("Couldn't open filestream.");
 			}
 		}
 		catch (const std::exception& e) {
-			
-			std::cout << "Failed.\n";
-			
-			std::cerr << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 		
 		return result;
@@ -662,7 +660,7 @@ namespace LouiEriksson::Engine {
 						}
 					}
 					catch (const std::exception& e) {
-						std::cerr << e.what() << std::endl;
+						Debug::Log(e);
 					}
 				}
 				
@@ -688,8 +686,7 @@ namespace LouiEriksson::Engine {
 							break;
 						}
 						default: {
-							
-							std::cout << "Unknown (possibly unsupported) mipmap filtering value \"" << min << "\".";
+							Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\".", LogType::Warning);
 							
 							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 							break;
@@ -713,7 +710,7 @@ namespace LouiEriksson::Engine {
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 		
 		return result;
@@ -729,7 +726,7 @@ namespace LouiEriksson::Engine {
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 		
 		return result;
@@ -745,7 +742,7 @@ namespace LouiEriksson::Engine {
 			result = true;
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 		
 		return result;

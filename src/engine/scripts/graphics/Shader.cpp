@@ -3,6 +3,7 @@
 #include "../core/File.h"
 #include "../core/utils/Hashmap.h"
 #include "../core/utils/Utils.h"
+#include "../core/Debug.h"
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_float2x2.hpp>
@@ -60,9 +61,9 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			for (const auto& shader: _subShaders) {
 				
-				std::cout << "Loading Shader Asset \"" << shader.m_Path << "\"... ";
+				Debug::Log("Loading Shader Asset \"" + std::string(shader.m_Path) + "\"... ", LogType::Info, true);
 					const auto src = File::ReadAllText(shader.m_Path);
-				std::cout << "Done.\n";
+				Debug::Log("Done.", LogType::Info);
 				
 				Compile(src, shader.m_Type);
 			}
@@ -74,7 +75,7 @@ namespace LouiEriksson::Engine::Graphics {
 			DetachShaders();
 		}
 		else {
-			std::cout << "Attempted to create a shader object with no subshaders.\n";
+			Debug::Log("Attempted to create a shader object with no subshaders.", LogType::Error);
 		}
 	}
 	
@@ -120,7 +121,7 @@ namespace LouiEriksson::Engine::Graphics {
 				err << buff;
 			}
 			
-			std::cout << err.str()<< '\n';
+			Debug::Log(err.str(), LogType::Error);
 		}
 	}
 	
@@ -138,7 +139,7 @@ namespace LouiEriksson::Engine::Graphics {
 				type_string = "UNKNOWN TYPE";
 			}
 			
-			std::cout << "Compiling Shader \"" << m_Name << "\" (" << type_string << ")... ";
+			Debug::Log("Compiling Shader \"" + m_Name + "\" (" + type_string + ")... ", LogType::Info, true);
 		}
 		
 		const auto* const src = _src.c_str();
@@ -149,7 +150,7 @@ namespace LouiEriksson::Engine::Graphics {
 		glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);
 		
 		if (success != 0) {
-			std::cout << "Done.\n";
+			Debug::Log("Done.", LogType::Info);
 		}
 		else {
 			
@@ -167,9 +168,8 @@ namespace LouiEriksson::Engine::Graphics {
 				err << error;
 			}
 			
-			std::cout << "Failed.\n";
-			
-			std::cout << err.str() << '\n';
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(err.str(), LogType::Error);
 		}
 	}
 	
@@ -264,10 +264,10 @@ namespace LouiEriksson::Engine::Graphics {
 		const GLenum errorCode(glGetError());
 		if (errorCode != 0u) {
 			
-			std::cout << "Shader \"" <<
-			    Name() << "\": Attempt at binding attribute \"" <<
-			    _name  << "\", to location (" << _pos << ") failed. " <<
-			              "GL Error Code: " << errorCode << '\n';
+			Debug::Log("Shader \"" +
+			    Name() + "\": Attempt at binding attribute \"" +
+			    _name  + "\", to location (" + std::to_string(_pos) + ") failed. " +
+			              "GL Error Code: " + std::to_string(errorCode), LogType::Error);
 		}
 	}
 	

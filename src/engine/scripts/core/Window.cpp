@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include "../graphics/Camera.h"
+#include "Debug.h"
 
 #include <SDL_error.h>
 #include <SDL_pixels.h>
@@ -45,18 +46,20 @@ namespace LouiEriksson::Engine {
 				SDL_PIXELFORMAT_RGB24;
 		
 		if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
-			std::cout << SDL_GetError() << '\n';
+			Debug::Log(SDL_GetError(), LogType::Error);
 		}
 		else {
-			std::cout <<
-				"Output Format: \"" << SDL_GetPixelFormatName(displayMode.format) << "\" (" <<
-				SDL_BITSPERPIXEL(displayMode.format) << "bpp)\n";
+			Debug::Log(
+				"Output Format: \"" + std::string(SDL_GetPixelFormatName(displayMode.format)) + "\" (" +
+					std::to_string(SDL_BITSPERPIXEL(displayMode.format)) + "bpp)",
+				LogType::Info
+			);
 		}
 		
 		m_Context = SDL_GL_CreateContext(m_Window.get());
 		
 		if (m_Context == nullptr) {
-			std::cout << SDL_GetError() << '\n';
+			Debug::Log("SDL failed to create GL context! " + std::string(SDL_GetError()), LogType::Error);
 		}
 	}
 	
@@ -72,10 +75,13 @@ namespace LouiEriksson::Engine {
 	std::weak_ptr<Window> Window::Get(const int& _id) {
 	
 		std::shared_ptr<Window> result;
-		if (!m_Windows.Get(_id, result)) {
-			std::cout << "Failed getting window with ID: \"" << _id << "\"\n";
-		}
-	
+		
+		Debug::Assert(
+			m_Windows.Get(_id, result),
+			"Failed getting window with ID: \"" + std::to_string(_id) + "\"",
+			LogType::Error
+		);
+		
 		return result;
 	}
 	
@@ -97,7 +103,7 @@ namespace LouiEriksson::Engine {
 				window.reset();
 			}
 			else {
-				std::cout << "Failed to destroy window with ID: \"" << _id << "\"\n";
+				Debug::Log("Failed to destroy window with ID: \"" + std::to_string(_id) + "\"", LogType::Error);
 			}
 		}
 	}

@@ -4,6 +4,7 @@
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
+#include "../core/Debug.h"
 #include "Texture.h"
 #include "textures/RenderTexture.h"
 
@@ -30,7 +31,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Transform = p->GetComponent<Transform>();
 		}
 		else {
-			std::cout << "Light has no Transform!\n";
+			Debug::Log("Light has no Transform!", LogType::Error);
 		}
 		
 		Type(m_Type);
@@ -82,7 +83,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				m_Shadow.m_Projection = glm::mat4(1.0);
 				
-				std::cout << "Not implemented!\n";
+				Debug::Log("Not implemented!", LogType::Error);
 			}
 		}
 		

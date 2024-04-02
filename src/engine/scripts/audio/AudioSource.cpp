@@ -1,6 +1,7 @@
 #include "AudioSource.h"
 
 #include "../audio/AudioClip.h"
+#include "../core/Debug.h"
 #include "../core/Script.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
@@ -151,7 +152,7 @@ namespace LouiEriksson::Engine::Audio {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -220,7 +221,7 @@ namespace LouiEriksson::Engine::Audio {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	

@@ -17,12 +17,13 @@ namespace LouiEriksson::Engine {
 	
 	struct Debug final {
 		
-		static void Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept;
+		static void Assert(const bool& _condition, const std::string& _message, const LogType& _type, const bool& _inline = false) noexcept;
 		
-		static void Log(const std::exception& e, const LogType& _type = LogType::Error) noexcept;
+		static void Log(const std::exception& e, const LogType& _type = LogType::Error, const bool& _inline = false) noexcept;
 		
-		static void Log(const std::string& _message, const LogType& _type = LogType::Debug) noexcept;
+		static void Log(const std::string& _message, const LogType& _type = LogType::Debug, const bool& _inline = false) noexcept;
 		
+		static void Flush() noexcept;
 	};
 	
 } // LouiEriksson::Engine

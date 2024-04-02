@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+#include "../core/Debug.h"
 #include "../core/utils/Hashmap.h"
 
 #include "Scene.h"
@@ -64,7 +65,7 @@ namespace LouiEriksson::Engine::ECS {
 			
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	

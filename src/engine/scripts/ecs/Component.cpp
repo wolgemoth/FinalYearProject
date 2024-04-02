@@ -1,6 +1,7 @@
 #include "Component.h"
 
 #include "GameObject.h"
+#include "../core/Debug.h"
 
 #include <iostream>
 #include <memory>
@@ -11,9 +12,7 @@ namespace LouiEriksson::Engine::ECS {
 			m_GameObject(_parent),
 			m_Index(0u)
 	{
-		if (_parent.expired()) {
-			std::cout << "Warning: Component initialised with no valid parent!\n";
-		}
+		Debug::Assert(!_parent.expired(), "Warning: Component initialised with no valid parent!", LogType::Error);
 	}
 	
 	Component::~Component() = default;

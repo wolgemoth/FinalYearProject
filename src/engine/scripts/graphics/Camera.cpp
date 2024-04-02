@@ -93,7 +93,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -116,7 +116,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		else {
-			std::cout << "Camera is not bound to a valid Window!\n";
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 	}
 	
@@ -541,7 +541,7 @@ namespace LouiEriksson::Engine::Graphics {
 						case Light::Parameters::Directional: { p = Resources::Get<Shader>("shadowDepth"    ).lock(); break; }
 						case Light::Parameters::Spot:        { p = Resources::Get<Shader>("shadowDepthSpot").lock(); break; }
 						default: {
-							std::cout << "Unknown Light Type!\n";
+							Debug::Log("Unknown Light type!", LogType::Error);
 						}
 					}
 					
@@ -689,7 +689,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glViewport(0, 0, dimensions[0], dimensions[1]);
 		}
 		else {
-			std::cout << "Camera is not bound to a valid Window!\n";
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 		
 		// Bind quad mesh:
@@ -1165,7 +1165,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		else {
-			std::cout << "Camera is not bound to a valid Window!\n";
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 	}
 	
@@ -1372,7 +1372,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}}}}}
 		}
 		else {
-			std::cout << "Camera is not bound to a valid Window!\n";
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 	}
 	
@@ -1383,7 +1383,7 @@ namespace LouiEriksson::Engine::Graphics {
 			Blit(_src, _dest, p);
 		}
 		else {
-			std::cout << "Couldn't get passthrough shader!\n";
+			Debug::Log("Couldn't get passthrough shader!", LogType::Error);
 		}
 	}
 	
@@ -1429,7 +1429,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		else {
-			std::cout << "Couldn't lock _shader!\n";
+			Debug::Log("Couldn't lock _shader!", LogType::Error);
 		}
 	}
 	
@@ -1439,7 +1439,7 @@ namespace LouiEriksson::Engine::Graphics {
 			w->Link(*this);
 		}
 		else {
-			std::cout << "Provided Window is invalid!\n";
+			Debug::Log("Provided Window is invalid!", LogType::Error);
 		}
 	}
 	const std::weak_ptr<Window>& Camera::GetWindow() const noexcept {
@@ -1463,7 +1463,7 @@ namespace LouiEriksson::Engine::Graphics {
 		else {
 			result = 1.0f;
 			
-			std::cout << "Camera is not bound to a valid Window!\n";
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 		
 		return result;
@@ -1550,7 +1550,7 @@ namespace LouiEriksson::Engine::Graphics {
 		else {
 			result = glm::mat4(1.0f);
 			
-			std::cout << "No valid Transform Component on Camera!\n";
+			Debug::Log("No valid Transform Component on Camera!", LogType::Error);
 		}
 		
 		return result;

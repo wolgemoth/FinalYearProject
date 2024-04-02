@@ -1,5 +1,7 @@
 #include "ISA.h"
 
+#include "../../core/Debug.h"
+
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
@@ -41,7 +43,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 		
 		return result;

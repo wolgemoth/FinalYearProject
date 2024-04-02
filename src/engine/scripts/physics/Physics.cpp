@@ -33,7 +33,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
@@ -46,74 +46,111 @@ namespace LouiEriksson::Engine::Physics {
 			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
+			Debug::Log(e);
 		}
 	}
 	
 	void Physics::Debugger::drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 	}
 	
 	void Physics::Debugger::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 	}
 	
 	void Physics::Debugger::reportErrorWarning(const char* warningString) {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 	}
 	
 	void Physics::Debugger::draw3dText(const btVector3& location, const char* textString) {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 	}
 	
 	void Physics::Debugger::setDebugMode(int debugMode) {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 	}
 	
 	int Physics::Debugger::getDebugMode() const {
-		std::cout << "Not implemented!\n";
+		Debug::Log("Not implemented", LogType::Error);
 		
 		return -1;
 	}
 	
 	void Physics::Init() {
 	
-		std::cout << "Initialising Bullet Physics Engine... \n\t";
+		Debug::Log("Initialising Bullet Physics Engine...", LogType::Info);
 		
 		try {
 			
 			// Initialise the configuration of the physics system.
-			std::cout << "Initialising Default Configuration... ";
+			Debug::Log("\tInitialising Default Configuration... ", LogType::Info, true);
+			try {
 				s_Configuration.reset(new btDefaultCollisionConfiguration());
-			std::cout << "Done.\n\t";
+				Debug::Log("Done.", LogType::Info);
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				throw e;
+			}
 			
 			// Initialise the collision dispatcher.
-			std::cout << "Initialising Dispatcher... ";
+			Debug::Log("\tInitialising Dispatcher... ", LogType::Info, true);
+			try {
 				s_Dispatcher.reset(new btCollisionDispatcher(s_Configuration.get()));
-			std::cout << "Done.\n\t";
+				Debug::Log("Done.", LogType::Info);
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				throw e;
+			}
 			
 			// Initialise the broadphase.
-			std::cout << "Initialising Broadphase... ";
+			Debug::Log("\tInitialising Broadphase... ", LogType::Info, true);
+			try {
 				s_Broadphase.reset(new btDbvtBroadphase());
-			std::cout << "Done.\n\t";
+				Debug::Log("Done.", LogType::Info);
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				throw e;
+			}
 			
 			// Initialise the solver.
-			std::cout << "Initialising Solver... ";
+			Debug::Log("\tInitialising Solver... ", LogType::Info, true);
+			try {
 				s_Solver.reset(new btSequentialImpulseConstraintSolver());
-			std::cout << "Done.\n\t";
+				Debug::Log("Done.", LogType::Info);
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				throw e;
+			}
 			
 			// Initialise the dynamics world.
-			std::cout << "Initialising Dynamics World... ";
+			Debug::Log("\tInitialising Dynamics World... ", LogType::Info, true);
+			try {
 				s_DynamicsWorld.reset(new btDiscreteDynamicsWorld(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get()));
-			std::cout << "Done.\n";
+				Debug::Log("Done.", LogType::Info);
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				throw e;
+			}
 			
-			//// Create and initialise an instance of the visual debugging class.
-			//std::cout << "Initialising Debug Drawer... ";
-			//	s_Debugger.reset(new Debugger(s_DynamicsWorld));
-			//std::cout << "Done.\n";
+//			// Create and initialise an instance of the visual debugging class.
+//			Debug::Log("\tInitialising Debug Drawer... ", LogType::Info, true);
+//			try {
+//				s_Debugger.reset(new Debugger(s_DynamicsWorld));
+//				Debug::Log("Done.", LogType::Info);
+//			}
+//			catch (const std::exception& e) {
+//				Debug::Log("Failed.", LogType::Error);
+//				throw e;
+//			}
 		}
 		catch (const std::exception& e) {
-			std::cerr << "Failed.\n" << e.what() << std::endl;
+			Debug::Log("Failed.", LogType::Error);
+			Debug::Log(e);
 		}
 	}
 	

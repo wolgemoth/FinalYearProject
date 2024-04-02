@@ -1,9 +1,13 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "performance-avoid-endl"
+
 #include "Debug.h"
 
 #ifdef _WIN32
 	#include <windows.h>
 #endif
 
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -11,7 +15,7 @@ namespace LouiEriksson::Engine {
 	
 	struct Print final {
 		
-		static std::string GetName(const LogType& _type) noexcept {
+		static std::string ToString(const LogType& _type) noexcept {
 			
 			std::string result;
 			
@@ -29,7 +33,7 @@ namespace LouiEriksson::Engine {
 					}
 				}
 				catch (const std::exception& e) {
-					std::cerr << e.what() << std::endl;
+					Debug::Log(e);
 					
 					throw e;
 				}
@@ -43,7 +47,7 @@ namespace LouiEriksson::Engine {
 		
 #if __linux__ | __APPLE__
 		
-		static void ANSI(const std::string& _message, const LogType& _type) noexcept {
+		static void ANSI(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
 			
 			/* ANSI TEXT COLORS */
 			#define ANSI_RESET   "\033[0m"
@@ -71,31 +75,83 @@ namespace LouiEriksson::Engine {
 					switch (_type) {
 						
 						case Critical: {
-							std::cerr << ANSI_MAGENTA << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_MAGENTA << _message << ANSI_RESET << '\a';
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Error: {
-							std::cerr << ANSI_RED << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_RED << _message << ANSI_RESET;
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Warning: {
-							std::clog << ANSI_YELLOW << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_YELLOW << _message << ANSI_RESET;
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Info: {
-							std::cout << ANSI_CYAN << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_CYAN << _message << ANSI_RESET;
+							
+							if (!_inline) {
+								std::cout << '\n';
+							}
+							
 							break;
 						}
 						case Debug: {
-							std::clog << ANSI_WHITE << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_WHITE << _message << ANSI_RESET;
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Trace: {
-							std::cerr << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						default: {
-							std::cerr << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET << '\n';
+							std::cout << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET;
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
 						}
 					}
 				}
@@ -131,7 +187,7 @@ namespace LouiEriksson::Engine {
 
 #elif _WIN32
 
-		static void WIN32(const std::string& _message, const LogType& _type) noexcept {
+		static void WIN32(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
 		
 			try {
 				try {
@@ -142,44 +198,102 @@ namespace LouiEriksson::Engine {
 					switch (_type) {
 						case Critical: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_MAGENTA);
-							std::cerr << _message << '\n';
+							std::cout << _message << '\a';
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Error: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_RED);
-							std::cerr << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Warning: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_YELLOW);
-							std::clog << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Info: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_CYAN);
-							std::cout << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (!_inline) {
+								std::cout << '\n';
+							}
+							
 							break;
 						}
 						case Debug: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_WHITE);
-							std::clog << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						case Trace: {
                             SetConsoleTextAttribute(h, BACKGROUND_WHITE | FOREGROUND_BLACK);
-							std::cerr << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
+							
 							break;
 						}
 						default: {
                             SetConsoleTextAttribute(h, BACKGROUND_MAGENTA | FOREGROUND_BLACK);
-							std::cerr << _message << '\n';
+							std::cout << _message;
+                            SetConsoleTextAttribute(h, previous_attr);
+							
+							if (_inline) {
+								std::cout << std::flush;
+							}
+							else {
+								std::cout << std::endl;
+							}
 						}
 					}
 					
-                    SetConsoleTextAttribute(h, previous_attr);
 				}
 				catch (const std::exception& e) {
-					std::cerr << e.what() << std::endl;
+					std::cerr << "WIN32_LOG_ERR: " << e.what() << std::endl;
 					
 					throw e;
 				}
@@ -193,30 +307,38 @@ namespace LouiEriksson::Engine {
 	
 	};
 	
-	void Debug::Assert(const bool& _condition, const std::string& _message, const LogType& _type) noexcept {
+	void Debug::Assert(const bool& _condition, const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
 		
 		if (!_condition) {
-			Debug::Log(_message, _type);
+			Debug::Log(_message, _type, _inline);
 		}
 	}
 	
-	void Debug::Log(const std::exception& e, const LogType& _type) noexcept {
-		Debug::Log(e.what(), _type);
+	void Debug::Log(const std::exception& e, const LogType& _type, const bool& _inline) noexcept {
+		Debug::Log(e.what(), _type, _inline);
 	}
 	
-	void Debug::Log(const std::string& _message, const LogType& _type) noexcept {
+	void Debug::Log(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
 	
 		try {
 			try {
 				
 				#ifdef __linux__
-			        Print::ANSI(_message, _type);
+			        Print::ANSI(_message, _type, _inline);
 			    #elif _WIN32
-			        Print::WIN32(_message, _type);
+			        Print::WIN32(_message, _type, _inline);
 			    #elif __APPLE__
-			        Print::ANSI(_message, _type);
+			        Print::ANSI(_message, _type, _inline);
 				#else
-					std::cout << Print::ToString(_type) << ": " << _message << std::endl;
+					std::cout << Print::ToString(_type) << ": " << _message;
+				
+					if (_inline) {
+						std::cout << std::flush;
+					}
+					else {
+						std::cout << std::endl;
+					}
+				
 			    #endif
 			}
 			catch (const std::exception& e) {
@@ -226,4 +348,19 @@ namespace LouiEriksson::Engine {
 		catch (...) {}
 	}
 	
+	void Debug::Flush() noexcept {
+		
+		try {
+			try {
+				std::cout << std::flush;
+			}
+			catch (std::exception& e) {
+				std::cerr << e.what() << std::endl;
+			}
+		}
+		catch (...) {}
+	}
+	
 } // LouiEriksson::Engine
+
+#pragma clang diagnostic pop

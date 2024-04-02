@@ -1,5 +1,6 @@
 #include "RenderTexture.h"
 
+#include "../../core/Debug.h"
 #include "../Texture.h"
 
 #include <GL/glew.h>
@@ -80,8 +81,8 @@ namespace LouiEriksson::Engine::Graphics {
 					break;
 				}
 				default: {
-					
-					std::cout << "Unknown Depth Mode \"" << m_DepthMode << "\".";
+					Debug::Log("Unknown Depth Mode \"" + std::to_string(m_DepthMode) + "\".", LogType::Error);
+
 					break;
 				}
 			}
@@ -93,7 +94,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_DepthMode = _depthMode;
 		}
 		else {
-			std::cout << "Failed generating Frame Buffer Object for new RenderTexture!\n";
+			Debug::Log("Failed generating Frame Buffer Object for new RenderTexture!", LogType::Error);
 		}
 	}
 	
