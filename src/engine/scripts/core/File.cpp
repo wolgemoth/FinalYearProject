@@ -34,7 +34,6 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <limits>
 #include <memory>
 #include <sstream>
@@ -235,7 +234,7 @@ namespace LouiEriksson::Engine {
 							}
 							default: {
 								
-								Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\".", LogType::Warning);
+								Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", LogType::Warning, true);
 								
 								glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 								break;
@@ -330,11 +329,11 @@ namespace LouiEriksson::Engine {
 								const auto* faces = mesh->mFaces;
 								
 								// Determine if the mesh should use 8, 16, or 32-bit indices:
-								if (mesh->mNumVertices > std::numeric_limits<GLushort>::infinity()) {
+								if (mesh->mNumVertices > std::numeric_limits<GLushort>::max()) {
 									
-									const size_t limit32 = std::numeric_limits<GLuint>::infinity();
+									const size_t limit32 = std::numeric_limits<GLuint>::max();
 									
-									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated.", LogType::Warning);
+									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated. ", LogType::Warning, true);
 									
 									// 32-bit:
 									std::vector<GLuint> indices(mesh->mNumVertices);
@@ -346,7 +345,7 @@ namespace LouiEriksson::Engine {
 									
 									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
 								}
-								else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::infinity()) {
+								else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::max()) {
 									
 									// 16-bit:
 									std::vector<GLushort> indices(mesh->mNumVertices);
@@ -686,7 +685,7 @@ namespace LouiEriksson::Engine {
 							break;
 						}
 						default: {
-							Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\".", LogType::Warning);
+							Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", LogType::Warning);
 							
 							glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 							break;

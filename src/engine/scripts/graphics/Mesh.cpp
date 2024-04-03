@@ -28,7 +28,7 @@ namespace LouiEriksson::Engine::Graphics {
 		m_BitangentVBO_ID(GL_NONE),
 		    m_VertexCount(0),
 		     m_IndexCount(0),
-			 m_IndexSize (0){}
+			m_IndexFormat(GL_NONE){}
 			  
 	Mesh::~Mesh() {
 		
@@ -89,9 +89,11 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices) {
 		
-		auto result = std::make_shared<Mesh>(Mesh(GL_TRIANGLES));
+		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
 		
 		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_IndexFormat = GL_UNSIGNED_BYTE;
 			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
@@ -111,7 +113,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
 		return result;
@@ -123,6 +125,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (!_vertices.empty() && !_indices.empty()) {
 			
+			result->m_IndexFormat = GL_UNSIGNED_SHORT;
+			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
 			
@@ -141,7 +145,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
 		return result;
@@ -153,6 +157,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (!_vertices.empty() && !_indices.empty()) {
 			
+			result->m_IndexFormat = GL_UNSIGNED_INT;
+			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
 			
@@ -171,7 +177,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
 		return result;
@@ -182,6 +188,8 @@ namespace LouiEriksson::Engine::Graphics {
 		auto result = std::make_shared<Mesh>(Mesh(_format));
 		
 		if (!_vertices.empty() && !_indices.empty()) {
+			
+			result->m_IndexFormat = GL_UNSIGNED_BYTE;
 			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
@@ -200,7 +208,7 @@ namespace LouiEriksson::Engine::Graphics {
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -267,6 +275,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (!_vertices.empty() && !_indices.empty()) {
 			
+			result->m_IndexFormat = GL_UNSIGNED_SHORT;
+			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
 			
@@ -284,7 +294,7 @@ namespace LouiEriksson::Engine::Graphics {
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -351,6 +361,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (!_vertices.empty() && !_indices.empty()) {
 			
+			result->m_IndexFormat = GL_UNSIGNED_INT;
+			
 			result->m_VertexCount = _vertices.size();
 			result-> m_IndexCount =  _indices.size();
 			
@@ -368,7 +380,7 @@ namespace LouiEriksson::Engine::Graphics {
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * (result->m_IndexSize = sizeof(_indices[0]))), _indices.data(), GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -508,7 +520,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (!_vertices.empty()) {
 			
-			const size_t limit32 = std::numeric_limits<GLuint>::infinity();
+			const size_t limit32 = std::numeric_limits<GLuint>::max();
 			
 			Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", LogType::Warning);
 			
@@ -546,7 +558,8 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	const GLenum& Mesh::Format() const noexcept { return m_Format; }
+	const GLenum& Mesh::     Format() const noexcept { return m_Format;      }
+	const GLenum& Mesh::IndexFormat() const noexcept { return m_IndexFormat; }
 	
 	const GLuint& Mesh::VAO_ID()           const noexcept { return          m_VAO_ID; }
 	const GLuint& Mesh::PositionVBO_ID()   const noexcept { return  m_PositionVBO_ID; }

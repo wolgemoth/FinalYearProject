@@ -8,7 +8,6 @@
 #include <glm/ext/vector_float3.hpp>
 
 #include <cstddef>
-#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>

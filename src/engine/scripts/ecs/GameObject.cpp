@@ -6,7 +6,6 @@
 #include "Scene.h"
 
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <ostream>
 #include <string>

@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include "../core/Debug.h"
 
-#include <iostream>
 #include <memory>
 
 namespace LouiEriksson::Engine::ECS {

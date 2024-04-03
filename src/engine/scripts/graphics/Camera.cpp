@@ -35,7 +35,6 @@
 #include <cmath>
 #include <cstddef>
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <queue>
 #include <stdexcept>
@@ -158,9 +157,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto ma = r->GetMaterial().lock() ) {
 				if (const auto me = r->GetMesh().lock()     ) {
 					
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
 					
 					// Assign textures:
@@ -172,7 +168,7 @@ namespace LouiEriksson::Engine::Graphics {
 					p->Assign(p->AttributeID("u_Model"), t->TRS());
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
 					
 				}}}}
 			}
@@ -195,14 +191,11 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto  t = r->GetTransform().lock()) {
 				if (const auto me = r->GetMesh().lock()     ) {
 					
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
 					
 				}}}
 			}
@@ -243,9 +236,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto ma = r->GetMaterial().lock() ) {
 				if (const auto me = r->GetMesh().lock()     ) {
 				
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
@@ -257,7 +247,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
 					
 				}}}}
 			}
@@ -298,9 +288,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto ma = r->GetMaterial().lock() ) {
 				if (const auto me = r->GetMesh().lock()     ) {
 				
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
@@ -312,7 +299,8 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
+					
 				}}}}
 			}
 			
@@ -343,10 +331,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 				// Bind VAO.
 				if (const auto c = Resources::Get<Mesh>("cube").lock()) {
-					
-					Mesh::Bind(*c);
-		
-					glDrawElements(c->Format(), static_cast<GLsizei>(c->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*c);
 				}
 				
 				// Restore culling and depth options.
@@ -403,9 +388,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto ma = r->GetMaterial().lock() ) {
 				if (const auto me = r->GetMesh().lock()     ) {
 				
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL */
 					
@@ -431,7 +413,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
 					
 				}}}}
 			}
@@ -472,9 +454,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto ma = r->GetMaterial().lock() ) {
 				if (const auto me = r->GetMesh().lock()     ) {
 				
-					// Bind VAO.
-					Mesh::Bind(*me);
-					
 					// Assign matrices.
 					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
 					
@@ -488,7 +467,7 @@ namespace LouiEriksson::Engine::Graphics {
 					);
 					
 					/* DRAW */
-					glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+					Draw(*me);
 					
 				}}}}
 			}
@@ -625,14 +604,10 @@ namespace LouiEriksson::Engine::Graphics {
 							if (r->Shadows() &&
 							    me->Format() == GL_TRIANGLES
 							) {
-								
-								// Bind VAO.
-								Mesh::Bind(*me);
-								
 								p->Assign(p->AttributeID("u_Model"), t->TRS());
 								
 								/* DRAW */
-								glDrawElements(me->Format(), static_cast<GLsizei>(me->IndexCount()), GL_UNSIGNED_INT, nullptr);
+								Draw(*me);
 							}
 						}}}
 					}
@@ -694,8 +669,6 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		// Bind quad mesh:
 		if (const auto m = Mesh::Primitives::Quad::Instance().lock()) {
-			
-			Mesh::Bind(*m);
 			
 			/* SHADING */
 			
@@ -878,7 +851,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 						/* DRAW */
 						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+							Draw(*q);
 						}
 					}
 				}
@@ -1009,7 +982,7 @@ namespace LouiEriksson::Engine::Graphics {
 		// DRAW:
 		Shader::Bind(Resources::Get<Shader>("passthrough").lock()->ID());
 		if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-			glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+			Draw(*q);
 		}
 		
 		// Reset gamma correction.
@@ -1235,7 +1208,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Draw
 			RenderTexture::Bind(ao_rt);
 			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-				glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+				Draw(*q);
 			}
 			
 			// Blur the AO.
@@ -1345,7 +1318,7 @@ namespace LouiEriksson::Engine::Graphics {
 				RenderTexture::Bind(m_RT);
 				
 				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-					glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+					Draw(*q);
 				}
 				
 				RenderTexture::Unbind();
@@ -1364,7 +1337,7 @@ namespace LouiEriksson::Engine::Graphics {
 						// Blit to main render target:
 						RenderTexture::Bind(m_RT);
 						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+							Draw(*q);
 						}
 					}
 				}
@@ -1419,7 +1392,7 @@ namespace LouiEriksson::Engine::Graphics {
 			RenderTexture::Bind(_dest);
 			
 			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-				glDrawArrays(q->Format(), 0, static_cast<GLsizei>(q->VertexCount()));
+				Draw(*q);
 			}
 
 			if (dimensionsDirty) {
@@ -1558,6 +1531,20 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Camera::SetDirty() noexcept {
 		m_IsDirty = true;
+	}
+	
+	void Camera::Draw(Mesh& _mesh) {
+		
+		// Bind VAO.
+		Mesh::Bind(_mesh);
+		
+		if (_mesh.IndexFormat() == GL_NONE) {
+			glDrawArrays(_mesh.Format(), 0, static_cast<GLsizei>(_mesh.VertexCount()));
+		}
+		else {
+			glDrawElements(_mesh.Format(), static_cast<GLsizei>(_mesh.IndexCount()), _mesh.IndexFormat(), nullptr);
+		}
+		
 	}
 	
 } // LouiEriksson::Engine::Graphics

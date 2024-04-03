@@ -10,7 +10,6 @@
 #include <cstring>
 #include <exception>
 #include <filesystem>
-#include <iostream>
 #include <memory>
 #include <string>
 #include <typeindex>

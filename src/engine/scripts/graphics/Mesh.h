@@ -32,7 +32,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Currently bound mesh. </summary>
 		inline static auto s_CurrentVAO { GL_NONE };
 		
-		GLenum m_Format;
+		GLenum m_Format, m_IndexFormat;
 		
 		GLuint          m_VAO_ID,
 		        m_PositionVBO_ID,
@@ -43,8 +43,7 @@ namespace LouiEriksson::Engine::Graphics {
 		       m_BitangentVBO_ID;
 		
 		size_t m_VertexCount,
-		        m_IndexCount,
-				m_IndexSize;
+		        m_IndexCount;
 		
 		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs);
 
@@ -73,7 +72,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
-				Debug::Assert(_polyline.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polyline.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
 				// TODO: Make this better.
 				
@@ -94,7 +93,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
-				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::infinity(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
 				// TODO: Make this better.
 				
@@ -165,7 +164,8 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
 		
-		[[nodiscard]] const GLenum& Format() const noexcept;
+		[[nodiscard]] const GLenum&      Format() const noexcept;
+		[[nodiscard]] const GLenum& IndexFormat() const noexcept;
 		
 		[[nodiscard]] const GLuint&          VAO_ID() const noexcept;
 		[[nodiscard]] const GLuint&  PositionVBO_ID() const noexcept;
@@ -177,6 +177,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		[[nodiscard]] const size_t& VertexCount() const noexcept;
 		[[nodiscard]] const size_t&  IndexCount() const noexcept;
+		
 	};
 	
 } // LouiEriksson::Engine::Graphics

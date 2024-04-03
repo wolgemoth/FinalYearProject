@@ -13,7 +13,6 @@
 #include <glm/trigonometric.hpp>
 
 #include <cmath>
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 

@@ -27,7 +27,6 @@
 #include <chrono>
 #include <cstdlib>
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -295,11 +294,12 @@ NestedBreak:
 		catch (const std::exception& e) {
 			Debug::Log(e, LogType::Critical);
 		}
+		
+		Debug::Flush();
 	}
 	
 	void Application::OnTerminate() {
 		
-		Debug::Flush();
 		Debug::Log("Application terminated unexpectedly!", LogType::Critical);
 		
 		try {
@@ -309,7 +309,6 @@ NestedBreak:
 			Debug::Log(e, LogType::Critical);
 		}
 		
-		Debug::Flush();
 		std::exit(1);
 	}
 	

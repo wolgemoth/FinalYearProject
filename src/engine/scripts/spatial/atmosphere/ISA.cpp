@@ -6,7 +6,6 @@
 #include <cmath>
 #include <cstddef>
 #include <exception>
-#include <iostream>
 #include <stdexcept>
 
 namespace LouiEriksson::Engine::Spatial::Atmosphere {

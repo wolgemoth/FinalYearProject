@@ -5,7 +5,6 @@
 
 #include <GL/glew.h>
 
-#include <iostream>
 #include <stdexcept>
 
 namespace LouiEriksson::Engine::Graphics {

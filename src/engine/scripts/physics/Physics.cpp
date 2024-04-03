@@ -17,7 +17,6 @@
 #include <glm/ext/vector_float3.hpp>
 
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 

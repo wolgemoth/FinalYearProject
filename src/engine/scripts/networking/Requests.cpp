@@ -9,7 +9,6 @@
 #include <cstddef>
 #include <exception>
 #include <future>
-#include <iostream>
 #include <memory>
 #include <sstream>
 #include <stdexcept>

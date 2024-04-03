@@ -7,8 +7,8 @@
 	#include <windows.h>
 #endif
 
-#include <exception>
 #include <iostream>
+#include <exception>
 #include <string>
 
 namespace LouiEriksson::Engine {

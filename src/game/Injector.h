@@ -12,7 +12,6 @@
 #include "scripts/Planetarium.h"
 
 #include <exception>
-#include <iostream>
 #include <memory>
 #include <string>
 
