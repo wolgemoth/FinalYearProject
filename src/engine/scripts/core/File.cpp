@@ -75,10 +75,10 @@ namespace LouiEriksson::Engine {
 			bool append;
 			
 			if (item.is_directory()) {
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0u);
 			}
 			else {
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0u);
 			}
 			
 			if (append) { result.emplace_back(item); }
@@ -102,10 +102,10 @@ namespace LouiEriksson::Engine {
 				// Append all subdirectories to a vector.
 				subDirectories.emplace_back(item);
 				
-				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::DIRECTORY) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0u);
 			}
 			else {
-				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::FILE) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0u);
 			}
 			
 			// Append entries of requested type to result.

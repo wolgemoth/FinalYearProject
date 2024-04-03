@@ -37,7 +37,6 @@
 #include <exception>
 #include <memory>
 #include <queue>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -100,18 +99,18 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto w = GetWindow().lock()) {
 		
-			if ((_flags & RenderFlags::REINITIALISE) != 0u) {
+			if ((static_cast<unsigned int>(_flags) & static_cast<unsigned int>(RenderFlags::REINITIALISE)) != 0u) {
 				
 				// Reinitialise the g-buffer:
-				auto dimensions = w->Dimensions();
+				const auto& dimensions = w->Dimensions();
 				
-				              m_RT.Reinitialise(dimensions[0], dimensions[1]);
-				  m_Albedo_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-				m_Emission_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-				m_Material_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-				m_Position_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-				  m_Normal_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
-				m_TexCoord_gBuffer.Reinitialise(dimensions[0], dimensions[1]);
+				              m_RT.Reinitialise(dimensions.x, dimensions.y);
+				  m_Albedo_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				m_Emission_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				m_Material_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				m_Position_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				  m_Normal_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				m_TexCoord_gBuffer.Reinitialise(dimensions.x, dimensions.y);
 			}
 		}
 		else {

@@ -121,11 +121,11 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange);
+                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange);
                 break;
             }
             case 2: {
-                result = ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0f, u_LightRange, fract(u_Time), u_ShadowSamples);
+                result = ShadowCalculationDisk3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange, fract(u_Time), u_ShadowSamples);
                 break;
             }
             case 3: {
@@ -164,11 +164,11 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f);
+                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0);
                 break;
             }
             case 2: {
-                result = ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0f, fract(u_Time), u_ShadowSamples);
+                result = ShadowCalculationDisk2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0, fract(u_Time), u_ShadowSamples);
                 break;
             }
             case 3: {
@@ -251,17 +251,14 @@
 
             if (u_LightType == 1) {
 
-                lighting = (
-                    Lambert(normal, u_LightDirection) +
-                    BlinnPhong(normal, u_LightDirection, viewDir, roughness)
-                );
+                mediump float lambert = Lambert(normal, u_LightDirection);
+
+                lighting = lambert + (lambert * BlinnPhong(normal, u_LightDirection, viewDir, roughness));
             }
             else {
+                mediump float lambert = Lambert(normal, lightDir);
 
-                lighting = (
-                    Lambert(normal, lightDir) +
-                    BlinnPhong(normal, lightDir, viewDir, roughness)
-                ) * attenuation;
+                lighting = lambert + (lambert * BlinnPhong(normal, lightDir, viewDir, roughness)) * attenuation;
             }
 
             directLighting += (visibility * lighting * u_LightIntensity) * u_LightColor;
