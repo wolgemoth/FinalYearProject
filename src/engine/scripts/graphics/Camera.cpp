@@ -44,28 +44,28 @@
 namespace LouiEriksson::Engine::Graphics {
 
 	Camera::Camera(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
+	
+		// Initialise default values for perspective matrix:
+		m_FOV(90.0f),
+		m_NearClip(0.1f),
+		m_FarClip(60.0f),
 		
-			// Initialise default values for perspective matrix:
-			m_FOV(90.0f),
-			m_NearClip(0.1f),
-			m_FarClip(60.0f),
-			
-			// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
-			m_Projection(1.0f),
-			m_IsDirty(true),
+		// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
+		m_Projection(1.0f),
+		m_IsDirty(true),
+	
+		// Set exposure level from settings.
+		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
 		
-			// Set exposure level from settings.
-			m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
-			
-			// Init g-buffer:
-			              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
-			  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::FRAME_BUFFER),
-			  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {
-		
+		// Init g-buffer:
+		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
+		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
+		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {
+	
 // TODO:
 //			File::TryLoad(
 //				{
@@ -279,8 +279,8 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			
 			RenderTexture::Bind(m_Emission_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			glClear(GL_DEPTH_BUFFER_BIT);
+			
 			for (const auto& renderer : _renderers) {
 				
 				if (const auto  r = renderer.lock()         ) {
@@ -330,7 +330,7 @@ namespace LouiEriksson::Engine::Graphics {
 				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
 	
 				// Bind VAO.
-				if (const auto c = Resources::Get<Mesh>("cube").lock()) {
+				if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
 					Draw(*c);
 				}
 				
@@ -494,7 +494,8 @@ namespace LouiEriksson::Engine::Graphics {
 					// Set the viewport resolution to that of the shadow map.
 					glViewport(0, 0, l->m_Shadow.m_Resolution, l->m_Shadow.m_Resolution);
 					
-					glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = l->m_Shadow.m_ShadowMap_FBO);
+					RenderTexture::Bind(l->m_Shadow.m_ShadowMap_FBO);
+					
 					glClear(GL_DEPTH_BUFFER_BIT);
 					
 					/* CONFIGURE CULLING */
@@ -621,10 +622,6 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					glCullFace(cullMode);
-					
-					       Shader::Unbind(); // Unbind the program.
-					      Texture::Unbind(); // Unbind the texture.
-					RenderTexture::Unbind(); // Unbind the FBO
 				}
 			}
 		}
@@ -1486,7 +1483,6 @@ namespace LouiEriksson::Engine::Graphics {
 		// Set the clear color to the provided.
 		glClearColor(_color[0], _color[1], _color[2], _color[3]);
 	}
-	
 	glm::vec4 Camera::ClearColor() {
 		
 		glm::vec4 result;
@@ -1533,7 +1529,7 @@ namespace LouiEriksson::Engine::Graphics {
 		m_IsDirty = true;
 	}
 	
-	void Camera::Draw(Mesh& _mesh) {
+	void Camera::Draw(const Mesh& _mesh) {
 		
 		// Bind VAO.
 		Mesh::Bind(_mesh);

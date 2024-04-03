@@ -80,7 +80,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Blit one RenderTexture into another with a specified shader. </summary>
 		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) ;
 
-		static void Draw(Graphics::Mesh& _mesh);
+		static void Draw(const Graphics::Mesh& _mesh);
 		
 		/* POST PROCESSING */
 		

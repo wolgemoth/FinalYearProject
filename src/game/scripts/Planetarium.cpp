@@ -14,7 +14,7 @@ namespace LouiEriksson::Game::Scripts {
 			m_Transform = p->GetComponent<Transform>();
 			
 			// Create GameObjects to represent the different planets in the VSOP87 model...
-			auto default_mesh     = Resources::Get<Graphics::Mesh>    ("sphere");
+			auto default_mesh     = Graphics::Mesh::Primitives::Sphere::Instance();
 			auto default_material = Resources::Get<Graphics::Material>("sphere");
 		
 			for (const auto& item : m_Positions_From.Names()) {

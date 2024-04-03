@@ -79,6 +79,7 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	Shader::~Shader() {
+		Shader::Unbind();
 		glDeleteProgram(m_ProgramID);
 	}
 	

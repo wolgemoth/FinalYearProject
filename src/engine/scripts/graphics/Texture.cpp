@@ -80,7 +80,10 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	void Texture::Discard() const {
-		if (m_TextureID > 0) { glDeleteTextures(1, &m_TextureID); }
+		if (m_TextureID != GL_NONE) {
+			Texture::Unbind();
+			glDeleteTextures(1, &m_TextureID);
+		}
 	}
 	
 	const GLuint& Texture::ID() const noexcept {

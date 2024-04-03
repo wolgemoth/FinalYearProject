@@ -46,21 +46,21 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Bind the provided RenderTexture. </summary>
 		static void Bind(const RenderTexture& _rt);
 		
+		/// <summary> Bind the provided RenderTexture. </summary>
+		static void Bind(const GLuint& _fbo);
+		
 		/// <summary> Unbind the currently bound RenderTexture. </summary>
 		static void Unbind();
 		
 		/// <summary> Discard the RenderTexture. </summary>
 		void Discard() const override;
 		
-		/// <summary> Make the RenderTexture share the depth attachment of another RenderTexture. </summary>
-		void ShareDepthAttachment(const RenderTexture& _other);
-		
 		/// <summary> Get the ID of the depth attachment. </summary>
 		[[nodiscard]] GLuint DepthID() const noexcept;
 	
 	private:
 		
-		/// <summary> Currently bound FBO. </summary>
+		/// <summary> Currently bound FBOs. </summary>
 		inline static GLuint s_CurrentFBO { GL_NONE };
 		
 		GLuint m_FBO_ID,
@@ -71,11 +71,11 @@ namespace LouiEriksson::Engine::Graphics {
 		Parameters::DepthMode m_DepthMode;
 		
 		void Create(
-				const int& _width, const int& _height,
-				const Texture::Parameters::Format&             _format,
-				const Texture::Parameters::FilterMode&     _filterMode,
-				const Texture::Parameters::WrapMode&         _wrapMode,
-				const RenderTexture::Parameters::DepthMode& _depthMode
+			const int& _width, const int& _height,
+			const Texture::Parameters::Format&             _format,
+			const Texture::Parameters::FilterMode&     _filterMode,
+			const Texture::Parameters::WrapMode&         _wrapMode,
+			const RenderTexture::Parameters::DepthMode& _depthMode
 		);
 		
 	};

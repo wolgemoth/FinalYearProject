@@ -32,7 +32,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Currently bound VAO. </summary>
 		inline static GLuint s_CurrentVAO { GL_NONE };
 		
-		/// <summary> Currently bound VBO. </summary>
+		/// <summary> Currently bound VBOs. </summary>
 		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
 		
 		GLenum m_Format, m_IndexFormat;

@@ -105,12 +105,20 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	Light::Parameters::Shadow::~Shadow() {
 	
-		RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-		      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
+		/* Delete FBO and texture. */
 		
-		// Delete the FBO and texture.
-		if (m_ShadowMap_FBO     > 0) { glDeleteFramebuffers (1, &m_ShadowMap_FBO);     }
-		if (m_ShadowMap_Texture > 0) { glDeleteTextures     (1, &m_ShadowMap_Texture); }
+		if (m_ShadowMap_FBO != GL_NONE) {
+			RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
+			
+			glDeleteFramebuffers(1, &m_ShadowMap_FBO);
+			m_ShadowMap_FBO = GL_NONE;
+		}
+		if (m_ShadowMap_Texture != GL_NONE) {
+			Texture::Unbind(); // Unbind the texture as a precaution before deletion.
+			
+			glDeleteTextures(1, &m_ShadowMap_Texture);
+			m_ShadowMap_Texture = GL_NONE;
+		}
 	}
 	
 	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
@@ -126,7 +134,7 @@ namespace LouiEriksson::Engine::Graphics {
 					GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
 			
 			// Check to see if the shadow map is already initialised.
-			if (m_ShadowMap_Texture != 0) {
+			if (m_ShadowMap_Texture != GL_NONE) {
 				
 				glBindTexture(target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
 				
@@ -134,29 +142,27 @@ namespace LouiEriksson::Engine::Graphics {
 				int curr_resolution;
 				glGetTexLevelParameteriv(_type == Light::Parameters::Type::Point ? GL_TEXTURE_CUBE_MAP_POSITIVE_X : GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
 				
-				Texture::Unbind();
-				
 				// Check if the texture's parameters have changed.
 				if (curr_resolution != m_Resolution) {
 					
-					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-					
 					if (m_ShadowMap_FBO != GL_NONE) {
+						RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
+					
 						glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
-						
 						m_ShadowMap_FBO = GL_NONE;
 					}
 					
 					if (m_ShadowMap_Texture != GL_NONE) {
-						glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
+						Texture::Unbind();
 						
+						glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
 						m_ShadowMap_Texture = GL_NONE;
 					}
 				}
 			}
 			
 			// Check to see if the shadow map doesn't exist.
-			if (m_ShadowMap_Texture == 0) {
+			if (m_ShadowMap_Texture == GL_NONE) {
 				
 				// Initialise the texture.
 				glGenTextures(1, &m_ShadowMap_Texture);
@@ -190,40 +196,34 @@ namespace LouiEriksson::Engine::Graphics {
 					glTexParameterfv(target, GL_TEXTURE_BORDER_COLOR, borderColor);
 				}
 				
-				Texture::Unbind();
-				
 				// Create FBO for depth.
 				glGenFramebuffers(1, &m_ShadowMap_FBO);
-					
+				
 				// Bind shadow texture to FBO.
-				glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = m_ShadowMap_FBO);
+				RenderTexture::Bind(m_ShadowMap_FBO);
 				
 				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_ShadowMap_Texture, 0);
 				
 				// Explicitly tell opengl that we're not rendering any color data in this FBO.
 				glDrawBuffer(GL_NONE);
 				glReadBuffer(GL_NONE);
-				
-				RenderTexture::Unbind();
 			}
 		}
 		else {
 			
 			// If shadows are not enabled, dispose of the shadow map.
-			if (m_ShadowMap_Texture != 0) {
-				
-				RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-				      Texture::Unbind(); // Unbind the texture as a precaution before deletion.
+			if (m_ShadowMap_Texture != GL_NONE) {
 				
 				if (m_ShadowMap_FBO != GL_NONE) {
-					glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
+					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
 					
+					glDeleteFramebuffers(1, &m_ShadowMap_FBO);
 					m_ShadowMap_FBO = GL_NONE;
 				}
-				
 				if (m_ShadowMap_Texture != GL_NONE) {
-					glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
+					Texture::Unbind(); // Unbind the texture as a precaution before deletion.
 					
+					glDeleteTextures(1, &m_ShadowMap_Texture);
 					m_ShadowMap_Texture = GL_NONE;
 				}
 			}

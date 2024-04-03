@@ -107,7 +107,7 @@ namespace LouiEriksson::Engine {
 //						bounds,
 //						10U,
 //						[](const Networking::Requests::Response& _response) {
-//							std::cout << _response.Content().ToStream().str() << std::endl;
+//							Debug::Log(_response.Content().ToStream().str(), LogType::Info);
 //						}
 //					);
 //
@@ -123,7 +123,7 @@ namespace LouiEriksson::Engine {
 //								ss << item << '\n';
 //							}
 //
-//							std::cout << ss.str() << std::endl;
+//							Debug::Log(ss.str(), LogType::Info);
 //						}
 //					);
 				}

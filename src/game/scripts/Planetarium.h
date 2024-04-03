@@ -48,7 +48,7 @@ namespace LouiEriksson::Game::Scripts {
 				{ "Neptune", 0.0003308871 },
 			};
 			
-			void Time(const double& _TT);
+			void Time(const double& _tt);
 			
 			[[nodiscard]] const double& Time() const noexcept;
 			
@@ -115,9 +115,9 @@ namespace LouiEriksson::Game::Scripts {
 	};
 	
 	template<typename T, glm::precision P>
-	void Planetarium::Planets<T, P>::Time(const double& _time) {
+	void Planetarium::Planets<T, P>::Time(const double& _tt) {
 		
-		m_Time = _time;
+		m_Time = _tt;
 
 #define POS Spatial::VSOP<T, P>::V87::A
 #define ROT glm::quat(glm::radians(Spatial::WGCCRE::GetOrientationVSOP87<T, P>

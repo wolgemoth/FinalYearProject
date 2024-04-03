@@ -75,10 +75,10 @@ namespace LouiEriksson::Engine {
 			bool append;
 			
 			if (item.is_directory()) {
-				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::DIRECTORY) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0);
 			}
 			else {
-				append = (((unsigned int)_type & (unsigned int)File::Directory::EntryType::FILE) != 0);
+				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0);
 			}
 			
 			if (append) { result.emplace_back(item); }
@@ -249,8 +249,6 @@ namespace LouiEriksson::Engine {
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-					
-					Graphics::Texture::Unbind();
 					
 					Utils::GLDumpError();
 					
@@ -703,8 +701,6 @@ namespace LouiEriksson::Engine {
 				
 				_output->m_Width  = cubemap_resolution;
 				_output->m_Height = cubemap_resolution;
-				
-				Graphics::Cubemap::Unbind();
 			}
 			
 			result = true;

@@ -569,9 +569,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Mesh::BindVBO(const GLenum& _type, const GLuint& _vbo) {
 		
-		GLuint curr_vbo = _vbo;
+		GLuint curr = _vbo;
 		
-		if (!s_CurrentVBOs.Get(_type, curr_vbo) || curr_vbo != _vbo) {
+		if (!s_CurrentVBOs.Get(_type, curr) || curr != _vbo) {
 			s_CurrentVBOs.Assign(_type, _vbo);
 			
 			glBindBuffer(_type, _vbo);
@@ -580,9 +580,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Mesh::UnbindVBO(const GLenum& _type) {
 		
-		GLuint curr_vbo = GL_NONE;
+		GLuint curr = GL_NONE;
 		
-		if (s_CurrentVBOs.Get(_type, curr_vbo) && curr_vbo != GL_NONE) {
+		if (s_CurrentVBOs.Get(_type, curr) && curr != GL_NONE) {
 			s_CurrentVBOs.Assign(_type, GL_NONE);
 			
 			glBindBuffer(_type, GL_NONE);

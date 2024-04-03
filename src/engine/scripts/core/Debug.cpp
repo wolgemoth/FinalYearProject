@@ -202,8 +202,10 @@ namespace LouiEriksson::Engine {
 					switch (_type) {
 						case Critical: {
                             SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_MAGENTA);
-							std::cout << _message << '\a';
+							std::cout << _message;
                             SetConsoleTextAttribute(h, previous_attr);
+							
+							Beep(800, 200);
 							
 							if (_inline) {
 								std::cout << std::flush;

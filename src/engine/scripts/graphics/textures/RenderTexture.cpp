@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 
 #include <stdexcept>
+#include <string>
 
 namespace LouiEriksson::Engine::Graphics {
 	
@@ -29,8 +30,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (m_FBO_ID != GL_NONE) {
 			
-			RenderTexture::Unbind();
-			RenderTexture::Bind(*this);
+			Bind(*this);
 			
 			// COLOR
 			glGenTextures(1, &m_TextureID);
@@ -43,7 +43,6 @@ namespace LouiEriksson::Engine::Graphics {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapMode.WrapS()));
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapMode.WrapT()));
 			
-			Texture::Unbind();
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_TextureID, 0);
 			
 			// DEPTH
@@ -74,7 +73,6 @@ namespace LouiEriksson::Engine::Graphics {
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapMode.WrapS()));
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapMode.WrapT()));
 					
-					Texture::Unbind();
 					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
 					
 					break;
@@ -85,8 +83,6 @@ namespace LouiEriksson::Engine::Graphics {
 					break;
 				}
 			}
-
-			RenderTexture::Unbind();
 			
 			m_Width     = _width;
 			m_Height    = _height;
@@ -110,54 +106,45 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	void RenderTexture::Bind(const RenderTexture& _rt) {
+		Bind(_rt.m_FBO_ID);
+	}
+	
+	void RenderTexture::Bind(const GLuint& _fbo) {
 		
-		if (RenderTexture::s_CurrentFBO != _rt.m_FBO_ID) {
-			glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = _rt.m_FBO_ID);
+		if (s_CurrentFBO != _fbo) {
+			glBindFramebuffer(GL_FRAMEBUFFER, s_CurrentFBO = _fbo);
 		}
 	}
 	
 	void RenderTexture::Unbind() {
 		
-		if (RenderTexture::s_CurrentFBO != GL_NONE) {
-			glBindFramebuffer(GL_FRAMEBUFFER, RenderTexture::s_CurrentFBO = GL_NONE);
+		if (s_CurrentFBO != GL_NONE) {
+			glBindFramebuffer(GL_FRAMEBUFFER, s_CurrentFBO = GL_NONE);
 		}
 	}
 	
 	void RenderTexture::Discard() const {
 		
-		if (m_FBO_ID   > 0) { glDeleteFramebuffers (1, &m_FBO_ID); }
-		if (m_RBO_ID   > 0) { glDeleteRenderbuffers(1, &m_RBO_ID); }
-		if (m_Depth_ID > 0) { glDeleteTextures(1, &m_Depth_ID);    }
+		if (m_FBO_ID != GL_NONE) {
+			RenderTexture::Unbind();
+			glDeleteFramebuffers (1, &m_FBO_ID);
+		}
+		
+		if (m_RBO_ID != GL_NONE) {
+			glBindRenderbuffer(GL_RENDERBUFFER, GL_NONE);
+			glDeleteRenderbuffers(1, &m_RBO_ID);
+		}
+		
+		if (m_Depth_ID != GL_NONE) {
+			Texture::Unbind();
+			glDeleteTextures(1, &m_Depth_ID);
+		}
 		
 		Texture::Discard();
 	}
 	
 	GLuint RenderTexture::DepthID() const noexcept {
 		return m_Depth_ID;
-	}
-	
-	void RenderTexture::ShareDepthAttachment(const RenderTexture& _other) {
-		
-		switch (_other.m_DepthMode) {
-			
-			case RenderTexture::Parameters::NONE: {
-				break;
-			}
-			case RenderTexture::Parameters::RENDER_BUFFER: {
-				m_RBO_ID = _other.m_RBO_ID;
-		
-				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO_ID);
-				
-				break;
-			}
-			case RenderTexture::Parameters::FRAME_BUFFER: {
-				m_FBO_ID = _other.m_FBO_ID;
-		
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_Depth_ID, 0);
-				
-				break;
-			}
-		}
 	}
 	
 } // LouiEriksson::Engine::Graphics
