@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine::Networking {
 		
 		const auto len = _stride * _count;
 	 
-		const auto* addr = reinterpret_cast<char*>(_data);
+		const auto* const addr = reinterpret_cast<char*>(_data);
 		_userData->insert(_userData->end(), addr, addr + len);
 		
 		return len;

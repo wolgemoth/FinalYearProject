@@ -385,7 +385,7 @@ namespace LouiEriksson::Engine::ECS {
 				
 				for (size_t j = 0; j < count; j++) {
 		
-					const auto* name = xml.getNodeName();
+					const auto* const name = xml.getNodeName();
 					
 					Debug::Assert(!log, "\t\t" + std::string(name), LogType::Info);
 					

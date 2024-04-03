@@ -8,12 +8,12 @@
 #include "../graphics/Texture.h"
 #include "../graphics/textures/Cubemap.h"
 
+#include "Debug.h"
 #include "Resources.h"
 
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include "Debug.h"
 
 #endif
 
@@ -27,6 +27,7 @@
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include <ios>
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -293,7 +294,7 @@ namespace LouiEriksson::Engine {
 					aiProcess_OptimizeMeshes;
 			
 			Assimp::Importer importer;
-			const auto* scene = importer.ReadFile(_path, flags);
+			const auto* const scene = importer.ReadFile(_path, flags);
 			
 			if (scene != nullptr) {
 				
@@ -305,7 +306,7 @@ namespace LouiEriksson::Engine {
 							
 							for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
 								
-						        const auto* mesh = scene->mMeshes[i];
+						        const auto* const mesh = scene->mMeshes[i];
 						        
 								/* VERTEX DATA */
 								
@@ -326,7 +327,7 @@ namespace LouiEriksson::Engine {
 								
 								/* INDEX DATA */
 								
-								const auto* faces = mesh->mFaces;
+								const auto* const faces = mesh->mFaces;
 								
 								// Determine if the mesh should use 8, 16, or 32-bit indices:
 								if (mesh->mNumVertices > std::numeric_limits<GLushort>::max()) {

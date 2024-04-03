@@ -106,7 +106,7 @@ namespace LouiEriksson::Engine::Physics {
 					// Compute the continuous sphere radius using the collider's AABB.
 					float sweep_sphere_radius = 0.01f;
 					{
-						const auto* col = m_Rigidbody->getCollisionShape();
+						const auto* const col = m_Rigidbody->getCollisionShape();
 					
 						const btTransform t;
 						btVector3 min;
@@ -263,14 +263,14 @@ namespace LouiEriksson::Engine::Physics {
 			    const auto numManifolds = Physics::s_DynamicsWorld->getDispatcher()->getNumManifolds();
 			    for (auto i = 0; i < numManifolds; ++i) {
 					
-			        auto* contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+			        const auto* const contactManifold = Physics::s_DynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			
 			        // Get and iterate through every contact in the manifold.
 			        const auto numContacts = contactManifold->getNumContacts();
 			        for (auto j = 0; j < numContacts; j++) {
 						
 						// Get a pointer to the btRigidbody associated with this rigidbody.
-						const auto* rbThis = m_Parameters.m_BulletRigidbody->m_Rigidbody.get();
+						const auto* const rbThis = m_Parameters.m_BulletRigidbody->m_Rigidbody.get();
 						
 						// Validate the pointer. If is fails the null check we will throw.
 						if (rbThis != nullptr) {

@@ -7,6 +7,7 @@
 #include <glm/gtx/projection.hpp>
 
 #include "../../src/engine/scripts/core/Application.h"
+#include "../../src/engine/scripts/core/Debug.h"
 #include "../../src/engine/scripts/core/File.h"
 #include "../../src/engine/scripts/core/Resources.h"
 #include "../../src/engine/scripts/core/Screen.h"

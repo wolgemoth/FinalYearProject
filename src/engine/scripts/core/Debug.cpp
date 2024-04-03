@@ -192,8 +192,12 @@ namespace LouiEriksson::Engine {
 			try {
 				try {
 					
-					const auto* h = GetStdHandle(STD_OUTPUT_HANDLE);
-					const auto previous_attr = GetConsoleTextAttribute(h);
+					const auto* const h = GetStdHandle(STD_OUTPUT_HANDLE);
+					
+					CONSOLE_SCREEN_BUFFER_INFO cinfo;
+					GetConsoleScreenBufferInfo(h, &cinfo);
+					
+					const auto& previous_attr = cinfo.wAttributes;
 					
 					switch (_type) {
 						case Critical: {
@@ -332,7 +336,7 @@ namespace LouiEriksson::Engine {
 				#else
 					std::cout << Print::ToString(_type) << ": " << _message;
 				
-					if (_inline) {
+					if (_inline && _type != LogType::Info) {
 						std::cout << std::flush;
 					}
 					else {

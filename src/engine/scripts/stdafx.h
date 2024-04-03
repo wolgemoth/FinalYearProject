@@ -29,6 +29,7 @@
 
 /* INTERNAL */
 #include "core/utils/Hashmap.h"
+#include "core/Debug.h"
 
 /* STL */
 #include <algorithm>
