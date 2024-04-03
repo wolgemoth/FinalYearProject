@@ -359,7 +359,6 @@ namespace LouiEriksson::Engine::ECS {
 			auto ifStream = std::ifstream(_path, std::ifstream::in);
 		
 			auto xml = cereal::XMLInputArchive(ifStream);
-		
 			xml.startNode();
 		
 			int gameObjectCount = 0;

@@ -1257,19 +1257,24 @@ namespace LouiEriksson::Engine::Graphics {
 		
 				// Mip chain. (currently hard-coded). TODO: Dynamically-sized mip chain.
 				const int scalingPasses = 6;
-				const RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				const RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				const RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				const RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				const RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				const RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				
 				// Downscale passes:
+				const RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(tmp,  mip0, downscale_shader);
+				
+				const RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(mip0, mip1, downscale_shader);
+				
+				const RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(mip1, mip2, downscale_shader);
+				
+				const RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(mip2, mip3, downscale_shader);
+				
+				const RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(mip3, mip4, downscale_shader);
+				
+				const RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 				Blit(mip4, mip5, downscale_shader);
 		
 				/* UPSCALING */
@@ -1370,7 +1375,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Determine if the viewport dimensions need to change.
 			const bool dimensionsDirty = viewport[2] != _dest.Width() ||
 			                             viewport[3] != _dest.Height();
-	
+			
 			if (dimensionsDirty) {
 				
 				// Set new viewport dimensions.

@@ -71,11 +71,12 @@ namespace LouiEriksson::Engine::Graphics {
 		Parameters::DepthMode m_DepthMode;
 		
 		void Create(
-			const int& _width, const int& _height,
-			const Texture::Parameters::Format&             _format,
-			const Texture::Parameters::FilterMode&     _filterMode,
-			const Texture::Parameters::WrapMode&         _wrapMode,
-			const RenderTexture::Parameters::DepthMode& _depthMode
+			const int& _width,
+			const int& _height,
+			const       Texture::Parameters::Format&         _format,
+			const       Texture::Parameters::FilterMode& _filterMode,
+			const       Texture::Parameters::WrapMode&     _wrapMode,
+			const RenderTexture::Parameters::DepthMode&   _depthMode
 		);
 		
 	};

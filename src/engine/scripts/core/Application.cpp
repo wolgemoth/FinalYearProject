@@ -101,8 +101,8 @@ namespace LouiEriksson::Engine {
 				float physics_step = 0.0f;
 				
 				{
-					auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({ 22.2829, 114.1736, 0.0 }, 0.05);
-					
+//					auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({ 22.2829, 114.1736, 0.0 }, 0.05);
+//
 //					auto task1 = Spatial::OSM::QueryOverpassBoundingBoxAsync(
 //						bounds,
 //						10U,
@@ -118,7 +118,6 @@ namespace LouiEriksson::Engine {
 //						[](const std::vector<float>& _values) {
 //
 //							std::stringstream ss;
-//
 //							for (const auto& item : _values) {
 //								ss << item << '\n';
 //							}
@@ -129,7 +128,7 @@ namespace LouiEriksson::Engine {
 				}
 				
 				// Load a scene and run:
-				auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 				
 				if (scene != nullptr) {
 					scene->Begin();
