@@ -953,7 +953,9 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					Blit(m_RT, m_RT, shader);
 					
-					RenderTexture::Unbind();
+					if (!effects.empty()) {
+						RenderTexture::Unbind();
+					}
 				}
 			}
 			else {
@@ -969,10 +971,10 @@ namespace LouiEriksson::Engine::Graphics {
 		/* RENDER TO SCREEN */
 		RenderTexture::Unbind();
 		
-		// de Vries, J. (n.d.). LearnOpenGL - Gamma Correction. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Gamma-Correction [Accessed 15 Dec. 2023].
-		
 		// Check if gamma correction is enabled in settings.
 		if (Settings::Graphics::s_GammaCorrection) {
+			
+			// de Vries, J. (n.d.). LearnOpenGL - Gamma Correction. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Gamma-Correction [Accessed 15 Dec. 2023].
 			glEnable(GL_FRAMEBUFFER_SRGB); // Enable gamma correction.
 		}
 	 
@@ -1321,7 +1323,7 @@ namespace LouiEriksson::Engine::Graphics {
 				RenderTexture::Unbind();
 				
 				/* LENS DIRT */
-				if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0f) {
+				if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0) {
 					
 					if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
 						
