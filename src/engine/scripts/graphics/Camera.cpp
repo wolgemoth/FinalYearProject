@@ -63,24 +63,7 @@ namespace LouiEriksson::Engine::Graphics {
 		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
 		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {
-	
-// TODO:
-//			File::TryLoad(
-//				{
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_px.hdr",
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_nx.hdr",
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_py.hdr",
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_ny.hdr",
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_pz.hdr",
-//					"textures/linear/cubemaps/abandoned_workshop_02_1k/abandoned_workshop_02_1k_nz.hdr",
-//				},
-//				m_Sky,
-//				GL_RGB32F,
-//				true
-//			);
-		
-	}
+		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {}
 	
 	Camera::~Camera() {
 	
@@ -322,9 +305,16 @@ namespace LouiEriksson::Engine::Graphics {
 				s->Assign(s->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
 				s->Assign(s->AttributeID("u_Model"),                         trs); /* MODEL      */
 				
-				// Assign textures.
-				s->Assign(s->AttributeID("u_Texture"), Settings::Graphics::Skybox::s_Skybox.lock()->ID(), 0, GL_TEXTURE_2D);
-
+				// Assign texture:
+				if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
+					s->Assign(
+						s->AttributeID("u_Texture"),
+						sky->ID(),
+						0,
+						GL_TEXTURE_CUBE_MAP
+					);
+				}
+				
 				s->Assign(s->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
 				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
 	
@@ -332,6 +322,8 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
 					Draw(*c);
 				}
+				
+				glBindTexture(GL_TEXTURE_CUBE_MAP, GL_NONE);
 				
 				// Restore culling and depth options.
 				glCullFace ( cullMode);
@@ -628,230 +620,231 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Camera::Render(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights) {
 		
-		// Enable culling and depth.
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_DEPTH_TEST);
-		
-		// Set the preferred culling and depth modes:
-		const auto  cullMode = GL_BACK;
-		const auto depthMode = GL_LEQUAL;
-		
-		glCullFace(cullMode);
-		glDepthFunc(depthMode);
-		
-		glEnable(GL_POINT_SPRITE);       // Enable the rendering of points as sprites.
-		glEnable(GL_PROGRAM_POINT_SIZE); // Allow variable point sizes from within shader programs.
-		
-		// Set point sprite to use texture coordinates.
-		glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-		
-		/* GEOMETRY PASS */
-		{
-			GeometryPass(_renderers);
-		}
-		
-		/* SHADOW PASS */
 		if (const auto w = m_Window.lock()) {
-
+			
+			// Enable culling and depth.
+			glEnable(GL_CULL_FACE);
+			glEnable(GL_DEPTH_TEST);
+			
+			// Set the preferred culling and depth modes:
+			const auto  cullMode = GL_BACK;
+			const auto depthMode = GL_LEQUAL;
+			
+			glCullFace(cullMode);
+			glDepthFunc(depthMode);
+			
+			glEnable(GL_POINT_SPRITE);       // Enable the rendering of points as sprites.
+			glEnable(GL_PROGRAM_POINT_SIZE); // Allow variable point sizes from within shader programs.
+			
+			// Set point sprite to use texture coordinates.
+			glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
+			
+			/* GEOMETRY PASS */
+			GeometryPass(_renderers);
+		
+			/* SHADOW PASS */
 			ShadowPass(_renderers, _lights);
 
 			// Reset resolution after shadow pass.
 			auto dimensions = w->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
-		}
-		else {
-			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
-		}
-		
-		// Bind quad mesh:
-		if (const auto m = Mesh::Primitives::Quad::Instance().lock()) {
-			
+
 			/* SHADING */
+			if (const auto m = Mesh::Primitives::Quad::Instance().lock()) {
+				
+				// Bind the main FBO.
+				RenderTexture::Bind(m_RT);
+				
+				/* DRAW OBJECTS */
+				if (const auto p = Settings::Graphics::Material::s_Shader.lock()) {
 			
-			// Bind the main FBO.
-			RenderTexture::Bind(m_RT);
-			
-			/* DRAW OBJECTS */
-			if (const auto p = Settings::Graphics::Material::s_Shader.lock()) {
+					// Bind program.
+					Shader::Bind(p->ID());
 		
-				// Bind program.
-				Shader::Bind(p->ID());
-	
-				// Assign g-buffers:
-				p->Assign(
-					p->AttributeID("u_Albedo_gBuffer"),
-					m_Albedo_gBuffer.ID(),
-					0,
-					GL_TEXTURE_2D
-				);
-				
-				p->Assign(
-					p->AttributeID("u_Emission_gBuffer"),
-					m_Emission_gBuffer.ID(),
-					1,
-					GL_TEXTURE_2D
-				);
-				
-				p->Assign(
-					p->AttributeID("u_Material_gBuffer"),
-					m_Material_gBuffer.ID(),
-					2,
-					GL_TEXTURE_2D
-				);
-				
-				p->Assign(
-					p->AttributeID("u_Position_gBuffer"),
-					m_Position_gBuffer.ID(),
-					3,
-					GL_TEXTURE_2D
-				);
-				
-				p->Assign(
-					p->AttributeID("u_Normal_gBuffer"),
-					m_Normal_gBuffer.ID(),
-					4,
-					GL_TEXTURE_2D
-				);
-				
-				p->Assign(
-					p->AttributeID("u_Depth_gBuffer"),
-					m_Position_gBuffer.DepthID(),
-					5,
-					GL_TEXTURE_2D
-				);
-				
-				// Assign other material parameters:
-				p->Assign(p->AttributeID("u_Time"), Time::Elapsed());
-				
-				{
-					const auto t = GetTransform().lock();
-					
-					p->Assign(p->AttributeID("u_CameraPosition"),
-						t != nullptr ?
-							t->m_Position :
-							glm::vec3(0.0f)
+					// Assign g-buffers:
+					p->Assign(
+						p->AttributeID("u_Albedo_gBuffer"),
+						m_Albedo_gBuffer.ID(),
+						0,
+						GL_TEXTURE_2D
 					);
-				}
-				
-				{
-					const auto w = GetWindow().lock();
 					
-					p->Assign(p->AttributeID("u_ScreenDimensions"),
-						w != nullptr ?
-							(glm::vec2)w->Dimensions() :
-							 glm::vec2(1.0f)
+					p->Assign(
+						p->AttributeID("u_Emission_gBuffer"),
+						m_Emission_gBuffer.ID(),
+						1,
+						GL_TEXTURE_2D
 					);
-				}
-				
-				// Assign ambient texture:
-				if (const auto s = Settings::Graphics::Skybox::s_Skybox.lock()) {
-					p->Assign(p->AttributeID("u_Ambient"), s->ID(), 98, GL_TEXTURE_2D);
-				}
-	
-				p->Assign(p->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
-	
-				// For the time being, there is only one light. TODO: Introduce a lighting buffer.
-				for (const auto& light : _lights) {
 					
-					using target_light = Settings::Graphics::Material;
+					p->Assign(
+						p->AttributeID("u_Material_gBuffer"),
+						m_Material_gBuffer.ID(),
+						2,
+						GL_TEXTURE_2D
+					);
 					
-					if (const auto l = light.lock()) {
+					p->Assign(
+						p->AttributeID("u_Position_gBuffer"),
+						m_Position_gBuffer.ID(),
+						3,
+						GL_TEXTURE_2D
+					);
+					
+					p->Assign(
+						p->AttributeID("u_Normal_gBuffer"),
+						m_Normal_gBuffer.ID(),
+						4,
+						GL_TEXTURE_2D
+					);
+					
+					p->Assign(
+						p->AttributeID("u_Depth_gBuffer"),
+						m_Position_gBuffer.DepthID(),
+						5,
+						GL_TEXTURE_2D
+					);
+					
+					// Assign other material parameters:
+					p->Assign(p->AttributeID("u_Time"), Time::Elapsed());
+					
+					{
+						const auto t = GetTransform().lock();
 						
-						// TODO: Placeholder code for settings.
-						{
-							bool isDirty;
-							
-							{
-								auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
-								
-								auto newBias       = target_light::s_ShadowBias;
-								auto newNormalBias = target_light::s_ShadowNormalBias;
-								
-								isDirty = newResolution != l->m_Shadow.m_Resolution             ||
-										  newBias       != l->m_Shadow.m_Bias                   ||
-										  newNormalBias != l->m_Shadow.m_NormalBias             ||
-										  target_light::s_LightRange              != l->m_Range ||
-										  target_light::s_LightAngle              != l->m_Angle ||
-										  target_light::s_CurrentLightType        != l->m_Type;
-								
-								l->m_Shadow.m_Resolution = newResolution;
-								l->m_Shadow.m_Bias       = newBias;
-								l->m_Shadow.m_NormalBias = newNormalBias;
-							}
-							
-							if (const auto t = l->m_Transform.lock()) {
-								t->m_Position = target_light::s_LightPosition;
-								t->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
-							}
-							
-							l->m_Range     = target_light::s_LightRange;
-							l->m_Intensity = target_light::s_LightIntensity;
-							l->m_Color     = target_light::s_LightColor;
-							l->m_Size      = target_light::s_LightSize;
-							l->m_Angle     = target_light::s_LightAngle;
-							l->m_Type      = (Light::Parameters::Type)target_light::s_CurrentLightType;
-							
-							if (isDirty) {
-								l->m_Shadow.UpdateShadowMap(l->Type());
-							}
-						}
-						
-						if (l->Type() == Light::Parameters::Type::Point) {
-		
-							p->Assign(
-								p->AttributeID("u_ShadowMap3D"),
-								l->m_Shadow.m_ShadowMap_Texture,
-								100,
-								GL_TEXTURE_CUBE_MAP
-							);
-						}
-						else {
-		
-							p->Assign(
-								p->AttributeID("u_ShadowMap2D"),
-								l->m_Shadow.m_ShadowMap_Texture,
-								99,
-								GL_TEXTURE_2D
-							);
-						}
-		
-						p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
-						
-						p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias                    );
-						p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias              );
-						p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples         );
-						p->Assign(p->AttributeID("u_ShadowTechnique" ), target_light::s_CurrentShadowTechnique);
-						
-						p->Assign(p->AttributeID("u_LightType"), l->m_Type);
-						p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
-						
-						p->Assign(p->AttributeID("u_LightAngle"),
-							glm::cos(glm::radians(
-								l->Type() == Light::Parameters::Type::Spot ?
-									l->m_Angle * 0.5f :
-									180.0f
-								)
-							)
+						p->Assign(p->AttributeID("u_CameraPosition"),
+							t != nullptr ?
+								t->m_Position :
+								glm::vec3(0.0f)
 						);
-		
-						p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
-		
-						if (const auto t = l->m_Transform.lock()) {
-							p->Assign(p->AttributeID("u_LightPosition" ), t->m_Position);
-							p->Assign(p->AttributeID("u_LightDirection"), t->FORWARD   );
-						}
+					}
+					
+					{
+						const auto w = GetWindow().lock();
 						
-						p->Assign(p->AttributeID("u_LightRange"    ), l->m_Range    );
-						p->Assign(p->AttributeID("u_LightIntensity"), l->m_Intensity);
-						p->Assign(p->AttributeID("u_LightColor"    ), l->m_Color    );
+						p->Assign(p->AttributeID("u_ScreenDimensions"),
+							w != nullptr ?
+								(glm::vec2)w->Dimensions() :
+								 glm::vec2(1.0f)
+						);
+					}
+					
+					// Assign ambient texture:
+					if (const auto s =  Settings::Graphics::Skybox::s_Skybox.lock()) {
+						p->Assign(
+							p->AttributeID("u_Ambient"),
+							s->ID(),
+							98,
+							GL_TEXTURE_CUBE_MAP
+						);
+					}
 		
-						/* DRAW */
-						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							Draw(*q);
+					p->Assign(p->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
+		
+					// For the time being, there is only one light. TODO: Introduce a lighting buffer.
+					for (const auto& light : _lights) {
+						
+						using target_light = Settings::Graphics::Material;
+						
+						if (const auto l = light.lock()) {
+							
+							// TODO: Placeholder code for settings.
+							{
+								bool isDirty;
+								
+								{
+									auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
+									
+									auto newBias       = target_light::s_ShadowBias;
+									auto newNormalBias = target_light::s_ShadowNormalBias;
+									
+									isDirty = newResolution != l->m_Shadow.m_Resolution             ||
+											  newBias       != l->m_Shadow.m_Bias                   ||
+											  newNormalBias != l->m_Shadow.m_NormalBias             ||
+											  target_light::s_LightRange              != l->m_Range ||
+											  target_light::s_LightAngle              != l->m_Angle ||
+											  target_light::s_CurrentLightType        != l->m_Type;
+									
+									l->m_Shadow.m_Resolution = newResolution;
+									l->m_Shadow.m_Bias       = newBias;
+									l->m_Shadow.m_NormalBias = newNormalBias;
+								}
+								
+								if (const auto t = l->m_Transform.lock()) {
+									t->m_Position = target_light::s_LightPosition;
+									t->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
+								}
+								
+								l->m_Range     = target_light::s_LightRange;
+								l->m_Intensity = target_light::s_LightIntensity;
+								l->m_Color     = target_light::s_LightColor;
+								l->m_Size      = target_light::s_LightSize;
+								l->m_Angle     = target_light::s_LightAngle;
+								l->m_Type      = (Light::Parameters::Type)target_light::s_CurrentLightType;
+								
+								if (isDirty) {
+									l->m_Shadow.UpdateShadowMap(l->Type());
+								}
+							}
+							
+							if (l->Type() == Light::Parameters::Type::Point) {
+			
+								p->Assign(
+									p->AttributeID("u_ShadowMap3D"),
+									l->m_Shadow.m_ShadowMap_Texture,
+									100,
+									GL_TEXTURE_CUBE_MAP
+								);
+							}
+							else {
+			
+								p->Assign(
+									p->AttributeID("u_ShadowMap2D"),
+									l->m_Shadow.m_ShadowMap_Texture,
+									99,
+									GL_TEXTURE_2D
+								);
+							}
+			
+							p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
+							
+							p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias                    );
+							p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias              );
+							p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples         );
+							p->Assign(p->AttributeID("u_ShadowTechnique" ), target_light::s_CurrentShadowTechnique);
+							
+							p->Assign(p->AttributeID("u_LightType"), l->m_Type);
+							p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
+							
+							p->Assign(p->AttributeID("u_LightAngle"),
+								glm::cos(glm::radians(
+									l->Type() == Light::Parameters::Type::Spot ?
+										l->m_Angle * 0.5f :
+										180.0f
+									)
+								)
+							);
+			
+							p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
+			
+							if (const auto t = l->m_Transform.lock()) {
+								p->Assign(p->AttributeID("u_LightPosition" ), t->m_Position);
+								p->Assign(p->AttributeID("u_LightDirection"), t->FORWARD   );
+							}
+							
+							p->Assign(p->AttributeID("u_LightRange"    ), l->m_Range    );
+							p->Assign(p->AttributeID("u_LightIntensity"), l->m_Intensity);
+							p->Assign(p->AttributeID("u_LightColor"    ), l->m_Color    );
+			
+							/* DRAW */
+							if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+								Draw(*q);
+							}
 						}
 					}
 				}
 			}
+		}
+		else {
+			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
 	}
 	

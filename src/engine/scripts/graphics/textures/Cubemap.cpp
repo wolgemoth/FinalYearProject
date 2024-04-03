@@ -12,4 +12,18 @@ namespace LouiEriksson::Engine::Graphics {
 		Discard();
 	}
 	
+	void Cubemap::Bind(const Cubemap& _cubemap) {
+		
+		if (Cubemap::s_CurrentCubemap != _cubemap.m_TextureID) {
+			glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = static_cast<GLint>(_cubemap.m_TextureID));
+		}
+	}
+	
+	void Cubemap::Unbind() {
+		
+		if (Cubemap::s_CurrentCubemap != GL_NONE) {
+			glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = GL_NONE);
+		}
+	}
+	
 } // LouiEriksson::Engine::Graphics

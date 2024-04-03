@@ -41,7 +41,7 @@ namespace LouiEriksson::Engine {
 	
 	void Settings::Graphics::Skybox::UpdateSkybox(const int& _index) {
 		
-		if (const auto item = Resources::Get<Engine::Graphics::Texture>(s_AvailableSkyboxes.at(_index)).lock()) {
+		if (const auto item = Resources::Get<Engine::Graphics::Cubemap>(s_AvailableSkyboxes.at(_index)).lock()) {
 			s_Skybox = item;
 			
 			s_CurrentSkyboxSelection = _index;

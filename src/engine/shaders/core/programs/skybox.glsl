@@ -33,17 +33,11 @@
 
     in mediump vec3 v_TexCoord;
 
-    //#define SAMPLER_CUBE
-
-    #ifdef SAMPLER_CUBE
-        layout (location = 0) uniform samplerCube u_Texture;
-    #else
-        layout (location = 0) uniform sampler2D u_Texture;
-    #endif
+    layout (location = 0) uniform samplerCube u_Texture;
 
     uniform mediump float u_Exposure = 1.0;
     uniform mediump float u_Blur     = 0.0;
 
     void main() {
-        gl_FragColor = vec4(SampleAmbient(u_Texture, v_TexCoord, 0.0), 1.0) * u_Exposure;
+        gl_FragColor = vec4(SampleAmbient(u_Texture, v_TexCoord, u_Blur), 1.0) * u_Exposure;
     }

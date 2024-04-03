@@ -3,6 +3,7 @@
 
 #include "../ecs/Component.h"
 
+#include "textures/Cubemap.h"
 #include "textures/RenderTexture.h"
 
 #include <glm/ext/matrix_float4x4.hpp>

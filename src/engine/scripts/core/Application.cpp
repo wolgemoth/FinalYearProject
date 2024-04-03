@@ -39,6 +39,42 @@
 
 namespace LouiEriksson::Engine {
 	
+	void Application::Finalise() {
+		
+		Debug::Log("Finalising.", LogType::Info);
+		
+		Input::Cursor::Reset();
+		
+		      UI::     GUI::Dispose();
+		 Physics:: Physics::Dispose();
+		   Input::   Input::Dispose();
+		   Audio::   Sound::Dispose();
+	  Networking::Requests::Dispose();
+		
+	    try {
+			SDL_Quit();
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, LogType::Critical);
+		}
+		
+		Debug::Flush();
+	}
+	
+	void Application::OnTerminate() {
+		
+		Debug::Log("Application terminated unexpectedly!", LogType::Critical);
+		
+		try {
+			Finalise();
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, LogType::Critical);
+		}
+		
+		std::exit(1);
+	}
+	
 	int Application::Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
 		
 		// Restrict Main() to one instance.
@@ -270,45 +306,9 @@ NestedBreak:
 	
 	void Application::Quit() noexcept {
 		
-		Debug::Log("Quit() called!", LogType::Info);
+		Debug::Log("Application::Quit() called!", LogType::Info);
 		
 		Application::s_Quit = true;
-	}
-	
-	void Application::Finalise() {
-		
-		Debug::Log("Finalising.", LogType::Info);
-		
-		Input::Cursor::Reset();
-		
-		      UI::     GUI::Dispose();
-		 Physics:: Physics::Dispose();
-		   Input::   Input::Dispose();
-		   Audio::   Sound::Dispose();
-	  Networking::Requests::Dispose();
-		
-	    try {
-			SDL_Quit();
-		}
-		catch (const std::exception& e) {
-			Debug::Log(e, LogType::Critical);
-		}
-		
-		Debug::Flush();
-	}
-	
-	void Application::OnTerminate() {
-		
-		Debug::Log("Application terminated unexpectedly!", LogType::Critical);
-		
-		try {
-			Finalise();
-		}
-		catch (const std::exception& e) {
-			Debug::Log(e, LogType::Critical);
-		}
-		
-		std::exit(1);
 	}
 	
 } // LouiEriksson::Engine

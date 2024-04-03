@@ -10,6 +10,7 @@
 namespace LouiEriksson::Engine::Graphics {
 	
 	class Texture;
+	class Cubemap;
 	class Shader;
 	
 } // LouiEriksson::Engine::Graphics
@@ -55,22 +56,12 @@ namespace LouiEriksson::Engine {
 				
 			};
 			
-			/// <summary> Container for the settings of the OrbitCam script. </summary>
+			/// <summary> Container for the settings of the camera. </summary>
 			struct Perspective {
 				
 				inline static float      s_FOV { 60.0f };
 				inline static float s_NearClip { 0.01f };
 				inline static float  s_FarClip { 60.0f };
-				
-				struct Orbit {
-					
-					inline static bool s_Enabled { true };
-					
-					inline static glm::vec3 s_Speed  { -0.25f, 0.33f,   0.5f };
-					inline static glm::vec3 s_Amount {   0.0f,  3.0f,   5.0f };
-					inline static glm::vec3 s_Offset {   0.0f,  6.0f, -12.0f };
-				};
-				
 			};
 			
 			/// <summary> Container for the settings of the application's skybox. </summary>
@@ -78,15 +69,15 @@ namespace LouiEriksson::Engine {
 				
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes {
-					"8k_stars_milky_way",
-					"little_paris_eiffel_tower_1k",
-					"abandoned_workshop_02_1k",
-					"blue_photo_studio_1k",
+					"assets/textures/linear/cubemaps/8k_stars_milky_way/",
+					"assets/textures/linear/cubemaps/abandoned_workshop_02_1k/",
+					"assets/textures/linear/cubemaps/blue_photo_studio_1k/",
+					"assets/textures/linear/cubemaps/little_paris_eiffel_tower_1k/",
 				};
 				
 				inline static int s_CurrentSkyboxSelection { 0 };
 				
-				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Texture> s_Skybox;
+				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Cubemap> s_Skybox;
 				
 				static void UpdateSkybox(const int& _index);
 				

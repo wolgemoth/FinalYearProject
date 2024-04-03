@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine::Graphics {
 		static void Assign(const GLint& _id, const glm::mat4& _mat);
 		
 		/// <summary> Assign a texture to the shader. </summary>
-		static void Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target);
+		void Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target);
 		
 		/// <summary> Get the ID of the Shader. </summary>
 		[[nodiscard]] GLint ID() const noexcept;

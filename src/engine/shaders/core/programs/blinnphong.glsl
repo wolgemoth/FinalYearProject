@@ -41,15 +41,7 @@
     layout (location = 5) uniform sampler2D    u_Depth_gBuffer;
 
     /* AMBIENT LIGHTING */
-
-    //#define SAMPLER_CUBE
-
-    // Ambient lighting texture.
-    #ifdef SAMPLER_CUBE
-        layout (location = 98) uniform samplerCube u_Ambient;
-    #else
-        layout (location = 98) uniform sampler2D u_Ambient;
-    #endif
+    layout (location = 98) uniform samplerCube u_Ambient;
 
     /* SHADOWS */
     layout (location =  99) uniform sampler2D   u_ShadowMap2D;

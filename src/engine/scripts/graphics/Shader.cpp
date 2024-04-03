@@ -285,12 +285,12 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (result == -1) {
 //
-//			std::stringstream ss;
-//				ss << "No parameter with name \"" << _name
-//				<< "\" exists in program with ID \"" << ID() <<
-//				"\"\n If you are sure this parameter exists, check that it is used in the shader. It could have been optimised-out.\n";
-//
-//			std::cout << ss.str();
+//			Debug::Log(
+//				"No parameter with name \"" + std::string(_name) +
+//				"\" exists in program with ID \"" + std::to_string(ID()) +
+//				"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
+//				LogType::Info
+//			);
 		}
 		
 		return result;

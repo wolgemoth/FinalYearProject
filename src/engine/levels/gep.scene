@@ -1291,7 +1291,7 @@
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts5PlaneEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
 		</Floor>
-		<Orbit_Camera>
+		<Player>
 			<N12LouiEriksson6Engine6ScriptE>
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts6FlyCamEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
@@ -1300,6 +1300,6 @@
 				<Rotation>0.300706 0 0 0.953717</Rotation>
 				<Scale>1 1 1</Scale>
 			</N12LouiEriksson6Engine9TransformE>
-		</Orbit_Camera>
+		</Player>
 	</Entities>
 </cereal>

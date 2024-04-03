@@ -631,16 +631,6 @@ namespace LouiEriksson::Engine::UI {
 				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1f, 0.005f, 65535.0f);
 				ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1f, target_perspective::s_NearClip, 65535.0f);
 				
-				// Toggle for orbit.
-			    ImGui::Checkbox("Orbit", &target_perspective::Orbit::s_Enabled);
-				
-			    if (target_perspective::Orbit::s_Enabled) {
-					
-					ImGui::DragFloat3("Speed",  &target_perspective::Orbit::s_Speed [0], 0.001f, -65535.0f, 65535.0f);
-					ImGui::DragFloat3("Amount", &target_perspective::Orbit::s_Amount[0], 0.001f, -65535.0f, 65535.0f);
-					ImGui::DragFloat3("Offset", &target_perspective::Orbit::s_Offset[0], 0.001f, -65535.0f, 65535.0f);
-			    }
-				
 		        ImGui::TreePop(); // END CAMERA SECTION.
 		    }
 			

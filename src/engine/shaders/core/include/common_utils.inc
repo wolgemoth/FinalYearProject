@@ -134,31 +134,8 @@
         return texture(_texture, _dir, _lod).r;
     }
 
-    /// <summary> Sample a panoramic image using a direction vector, with optional blurring. </summary>
-    vec3 SampleAmbient(in sampler2D _samplerTexture, in vec3 _dir, in float _blur) {
-
-        // Compute the mip level to sample at for 'blurring':
-        float      s = textureSize(_samplerTexture, 0).x;
-        float levels = log2(s);
-
-        int b = int(pow(_blur, 2.0) * levels);
-
-        // Normalise the direction, or the coordinate will be wrong.
-        vec3 d = normalize(_dir);
-
-        // Sample the texture2d by converting the direction to a uv coordinate.
-        // See the example given on: https://en.wikipedia.org/wiki/UV_mapping
-
-        vec2 uv = vec2(
-            0.5 + ((atan(d.z, d.x) / PI) / 2.0),
-            0.5 - (asin(d.y) / PI)
-        );
-
-        return Sample3(_samplerTexture, uv, b);
-    }
-
     /// <summary> Sample a cubemap using a direction vector, with optional blurring. </summary>
-    mediump vec3 SampleAmbient(in samplerCube _samplerTexture, in vec3 _dir, in float _blur) {
+    vec3 SampleAmbient(in samplerCube _samplerTexture, in vec3 _dir, in float _blur) {
 
         float      s = textureSize(_samplerTexture, 0).x;
         float levels = log2(s);
@@ -166,7 +143,7 @@
         int b = int(pow(_blur, 2.0) * levels);
 
         // Sample the cubemap using the direction directly.
-        return Sample3(_samplerTexture, _dir, b);
+        return Sample3(_samplerTexture, _dir.zyx, b);
     }
 
     /// Penov, F. and Slayden, G. (2016). image - Formula to determine perceived brightness of RGB color. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color [Accessed 15 Dec. 2023].

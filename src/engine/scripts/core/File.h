@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_FILE_H
 
 #include "../graphics/Texture.h"
+#include "../graphics/textures/Cubemap.h"
 
 #include <GL/glew.h>
 
@@ -65,8 +66,11 @@ namespace LouiEriksson::Engine {
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Material>& _output);
 		
-		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format = GL_RGBA, bool _generateMipmaps = true);
-	
+		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output,
+				const Graphics::Texture::Parameters::Format&     _format     = { GL_RGBA,   true      },
+				const Graphics::Texture::Parameters::FilterMode& _filterMode = { GL_LINEAR, GL_LINEAR },
+				const Graphics::Texture::Parameters::WrapMode&   _wrapMode   = { GL_REPEAT, GL_REPEAT });
+		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output);
 
 		static bool TryLoad(const std::vector<Graphics::SubShader>& _subshaders, std::shared_ptr<Graphics::Shader>& _output);

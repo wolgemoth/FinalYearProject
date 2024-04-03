@@ -163,7 +163,7 @@ namespace LouiEriksson::Engine {
 			
 			glGenTextures(1, &_output->m_TextureID);
 			
-			if (_output->m_TextureID > 0) {
+			if (_output->m_TextureID != GL_NONE) {
 				
 				int channels;
 				GLenum texture_format;
@@ -583,95 +583,97 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output, GLenum _format, bool _generateMipmaps) {
+	bool File::TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output,
+			const Graphics::Texture::Parameters::Format&     _format,
+			const Graphics::Texture::Parameters::FilterMode& _filterMode,
+			const Graphics::Texture::Parameters::WrapMode&   _wrapMode
+		) {
 		
 		bool result = false;
 		
-		_output.reset(
-			new Graphics::Cubemap(
-				-1, -1, 0,
-				Graphics::Texture::Parameters::Format(_format, _generateMipmaps),
-				Graphics::Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
-				Graphics::Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE)
-			)
-		);
+		Debug::Log("Loading Cubemap... ", LogType::Info, true);
 		
 		try {
+			
+			_output.reset(
+				new Graphics::Cubemap(-1, -1, 0, _format, _filterMode, _wrapMode)
+			);
 			
 			// de Vries, J. (n.d.). LearnOpenGL - Cubemaps. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-OpenGL/Cubemaps [Accessed 15 Dec. 2023].
 			
 			glGenTextures(1, &_output->m_TextureID);
 			
-			if (_output->m_TextureID > 0) {
-				
-				Graphics::Cubemap::Bind(*_output);
+			if (_output->m_TextureID != GL_NONE) {
 				
 				int cubemap_resolution = -1;
 				
+				Graphics::Cubemap::Bind(*_output);
+				
 				for (auto i = 0; i < _paths.size(); ++i) {
 					
-					try {
+					glm::ivec2 loaded_resolution = { -1, -1 };
+					
+					int channels;
+					GLenum texture_format;
+					
+					Graphics::Texture::GetFormatData(_format.PixelFormat(), texture_format, channels);
+					
+					void* data;
+					GLenum data_format;
+			
+					if (strcmp(_paths[i].extension().string().c_str(), ".hdr") == 0 ||
+					    strcmp(_paths[i].extension().string().c_str(), ".exr") == 0
+					) {
+						data_format = GL_FLOAT;
+						data = stbi_loadf(
+							_paths[i].string().c_str(),
+							&loaded_resolution.x,
+							&loaded_resolution.y,
+							nullptr,
+							_output->Format().Channels()
+						);
+					}
+					else {
+						data_format = GL_UNSIGNED_BYTE;
+						data = stbi_load(
+							_paths[i].string().c_str(),
+							&loaded_resolution.x,
+							&loaded_resolution.y,
+							nullptr,
+							_output->Format().Channels()
+						);
+					}
+					
+					cubemap_resolution = glm::max(
+						glm::max(
+							loaded_resolution.x,
+							loaded_resolution.y
+						),
+						cubemap_resolution
+					);
+					
+					if (data != nullptr) {
 						
-						glm::ivec2 loaded_resolution = { -1, -1 };
-						
-						void* data;
-						GLenum data_format;
-						
-						if (strcmp(_paths[i].extension().string().c_str(), ".hdr") == 0) {
-							data_format = GL_FLOAT;
-							data = stbi_loadf(
-								_paths[i].string().c_str(),
-								&loaded_resolution.x,
-								&loaded_resolution.y,
-								nullptr,
-								_output->Format().Channels()
-							);
-						}
-						else {
-							data_format = GL_UNSIGNED_BYTE;
-							data = stbi_load(
-								_paths[i].string().c_str(),
-								&loaded_resolution.x,
-								&loaded_resolution.y,
-								nullptr,
-								_output->Format().Channels()
-							);
-						}
-						
-						cubemap_resolution = glm::max(
-							glm::max(
-								loaded_resolution.x,
-								loaded_resolution.y
-							),
-							cubemap_resolution
+						glTexImage2D(
+							GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+							0,
+							static_cast<GLint>(_output->Format().PixelFormat()),
+							loaded_resolution.x,
+							loaded_resolution.y,
+							0,
+							_output->Format().TextureFormat(),
+							data_format,
+							data
 						);
 						
-						if (data != nullptr) {
-							
-							glTexImage2D(
-								GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-								0,
-								static_cast<GLint>(_output->Format().PixelFormat()),
-								loaded_resolution.x,
-								loaded_resolution.y,
-								0,
-								_output->Format().TextureFormat(),
-								data_format,
-								data
-							);
-							
-							stbi_image_free(data);
-						}
-						else {
-							throw std::runtime_error("Failed to load texture at path \"" + _paths[i].string() + "\".");
-						}
+						stbi_image_free(data);
 					}
-					catch (const std::exception& e) {
-						Debug::Log(e);
+					else {
+						throw std::runtime_error("Failed to load texture at path \"" + _paths[i].string() + "\".");
 					}
 				}
 				
-				if (_generateMipmaps) {
+				if (_format.Mips()) {
 					glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 					
 					const auto min = _output->FilterMode().Min();
@@ -713,8 +715,11 @@ namespace LouiEriksson::Engine {
 			}
 			
 			result = true;
+			
+			Debug::Log("Done.", LogType::Info);
 		}
 		catch (const std::exception& e) {
+			Debug::Log("Failed.", LogType::Error);
 			Debug::Log(e);
 		}
 		

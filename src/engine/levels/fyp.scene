@@ -11,7 +11,7 @@
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts11PlanetariumEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
 		</Planetarium>
-		<Orbit_Camera>
+		<Player>
 			<N12LouiEriksson6Engine6ScriptE>
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts6FlyCamEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
@@ -20,6 +20,6 @@
 				<Rotation>0 0 0 1</Rotation>
 				<Scale>1 1 1</Scale>
 			</N12LouiEriksson6Engine9TransformE>
-		</Orbit_Camera>
+		</Player>
 	</Entities>
 </cereal>

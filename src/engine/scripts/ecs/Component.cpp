@@ -11,7 +11,7 @@ namespace LouiEriksson::Engine::ECS {
 			m_GameObject(_parent),
 			m_Index(0u)
 	{
-		Debug::Assert(!_parent.expired(), "Warning: Component initialised with no valid parent!", LogType::Error);
+		Debug::Assert(!_parent.expired(), "Component initialised with no valid parent!", LogType::Warning);
 	}
 	
 	Component::~Component() = default;

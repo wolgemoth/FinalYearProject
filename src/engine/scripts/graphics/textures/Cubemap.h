@@ -21,11 +21,17 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	private:
 		
+		inline static GLuint s_CurrentCubemap { GL_NONE };
+		
 		Cubemap(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
 		
 	public:
 		
 		~Cubemap();
+		
+		static void Bind(const Cubemap& _cubemap);
+		
+		static void Unbind();
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;
