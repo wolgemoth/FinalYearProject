@@ -129,7 +129,7 @@ namespace LouiEriksson::Engine {
 				}
 				
 				// Load a scene and run:
-				auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+				auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 				
 				if (scene != nullptr) {
 					scene->Begin();

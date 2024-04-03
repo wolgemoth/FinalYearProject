@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	private:
 		
-		inline static auto s_CurrentProgram { GL_NONE };
+		inline static GLint s_CurrentProgram { GL_NONE };
 		
 		Hashmap<std::string, GLint> m_ParameterIDs;
 		

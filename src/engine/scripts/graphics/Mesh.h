@@ -29,8 +29,11 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	private:
 		
-		/// <summary> Currently bound mesh. </summary>
-		inline static auto s_CurrentVAO { GL_NONE };
+		/// <summary> Currently bound VAO. </summary>
+		inline static GLuint s_CurrentVAO { GL_NONE };
+		
+		/// <summary> Currently bound VBO. </summary>
+		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
 		
 		GLenum m_Format, m_IndexFormat;
 		
@@ -112,11 +115,22 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				return mapbox::earcut<N>(polygon);
 			}
-			
 		};
 		
 		/// <summary> Container for various primitive mesh types. </summary>
 		struct Primitives final {
+			
+			struct Sphere final {
+			
+				static std::weak_ptr<Mesh> Instance();
+				
+			};
+			
+			struct Cube final {
+			
+				static std::weak_ptr<Mesh> Instance();
+				
+			};
 			
 			/// <summary> Information for a quad primitive. </summary>
 			struct Quad final {
@@ -163,6 +177,10 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		/// <summary> Unbind the currently bound mesh. </summary>
 		static void Unbind();
+		
+		static void BindVBO(const GLenum& _type, const GLuint& _vbo);
+		
+		static void UnbindVBO(const GLenum& _type);
 		
 		[[nodiscard]] const GLenum&      Format() const noexcept;
 		[[nodiscard]] const GLenum& IndexFormat() const noexcept;

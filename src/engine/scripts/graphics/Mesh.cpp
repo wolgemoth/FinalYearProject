@@ -2,6 +2,7 @@
 
 #include "../core/utils/Utils.h"
 #include "../core/Debug.h"
+#include "../core/Resources.h"
 
 #include <GL/glew.h>
 #include <glm/ext/vector_float2.hpp>
@@ -104,15 +105,15 @@ namespace LouiEriksson::Engine::Graphics {
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			glGenBuffers(1, &result->m_IndexVBO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
@@ -136,15 +137,15 @@ namespace LouiEriksson::Engine::Graphics {
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			glGenBuffers(1, &result->m_IndexVBO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
@@ -168,15 +169,15 @@ namespace LouiEriksson::Engine::Graphics {
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			glGenBuffers(1, &result->m_IndexVBO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 			
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 		}
 		
@@ -196,18 +197,18 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			glGenVertexArrays(1, &result->m_VAO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			if (!_indices.empty()) {
 				
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
@@ -218,7 +219,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_NormalVBO_ID);
 
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -229,7 +230,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_TexCoordVBO_ID);
 				
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -248,14 +249,14 @@ namespace LouiEriksson::Engine::Graphics {
 					// TODO: Perform tangent averaging / smoothing.
 					
 				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
 				
 					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 					glEnableVertexAttribArray(3);
 					
 				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
 					
 					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -263,7 +264,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            BindVBO(GL_ARRAY_BUFFER, 0);
 		}
 		
 		return result;
@@ -282,18 +283,18 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			glGenVertexArrays(1, &result->m_VAO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			if (!_indices.empty()) {
 				
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
@@ -304,7 +305,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_NormalVBO_ID);
 
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -315,7 +316,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_TexCoordVBO_ID);
 				
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -334,14 +335,14 @@ namespace LouiEriksson::Engine::Graphics {
 					// TODO: Perform tangent averaging / smoothing.
 					
 				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
 				
 					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 					glEnableVertexAttribArray(3);
 					
 				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
 					
 					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -349,7 +350,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            BindVBO(GL_ARRAY_BUFFER, 0);
 		}
 		
 		return result;
@@ -368,18 +369,18 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			glGenVertexArrays(1, &result->m_VAO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			if (!_indices.empty()) {
 				
 				glGenBuffers(1, &result->m_IndexVBO_ID);
 				
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 			}
 			
@@ -390,7 +391,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_NormalVBO_ID);
 
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -401,7 +402,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				glGenBuffers(1, &result->m_TexCoordVBO_ID);
 				
-				glBindBuffer(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
 				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
 				
 				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -420,14 +421,14 @@ namespace LouiEriksson::Engine::Graphics {
 					// TODO: Perform tangent averaging / smoothing.
 					
 				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
 				
 					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 					glEnableVertexAttribArray(3);
 					
 				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    glBindBuffer(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
 				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
 					
 					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -435,10 +436,18 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            BindVBO(GL_ARRAY_BUFFER, 0);
 		}
 		
 		return result;
+	}
+	
+	std::weak_ptr<Mesh> Mesh::Primitives::Sphere::Instance() {
+		return Resources::Get<Mesh>("sphere");
+	}
+	
+	std::weak_ptr<Mesh> Mesh::Primitives::Cube::Instance() {
+		return Resources::Get<Mesh>("cube");
 	}
 	
 	std::weak_ptr<Mesh> Mesh::Primitives::Quad::Instance() {
@@ -450,11 +459,11 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			glGenVertexArrays(1, &s_Instance->m_VAO_ID);
 			
-			Mesh::Bind(*s_Instance);
+			Bind(*s_Instance);
 			
 			glGenBuffers(1, &s_Instance->m_PositionVBO_ID);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, s_Instance->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, s_Instance->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(s_Instance->m_VertexCount), &Mesh::Primitives::Quad::s_VertexData, GL_STATIC_DRAW);
 			
 			// Positions, triangles (encoded within winding order):
@@ -532,9 +541,9 @@ namespace LouiEriksson::Engine::Graphics {
 			glGenBuffers(1, &result->m_PositionVBO_ID);
 			glGenBuffers(1, &result->m_IndexVBO_ID);
 			
-			Mesh::Bind(*result);
+			Bind(*result);
 			
-			glBindBuffer(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
 			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
 			
 			glEnableVertexAttribArray(0);
@@ -555,6 +564,28 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (s_CurrentVAO != GL_NONE) {
 			glBindVertexArray(s_CurrentVAO = GL_NONE);
+		}
+	}
+	
+	void Mesh::BindVBO(const GLenum& _type, const GLuint& _vbo) {
+		
+		GLuint curr_vbo = _vbo;
+		
+		if (!s_CurrentVBOs.Get(_type, curr_vbo) || curr_vbo != _vbo) {
+			s_CurrentVBOs.Assign(_type, _vbo);
+			
+			glBindBuffer(_type, _vbo);
+		}
+	}
+	
+	void Mesh::UnbindVBO(const GLenum& _type) {
+		
+		GLuint curr_vbo = GL_NONE;
+		
+		if (s_CurrentVBOs.Get(_type, curr_vbo) && curr_vbo != GL_NONE) {
+			s_CurrentVBOs.Assign(_type, GL_NONE);
+			
+			glBindBuffer(_type, GL_NONE);
 		}
 	}
 	

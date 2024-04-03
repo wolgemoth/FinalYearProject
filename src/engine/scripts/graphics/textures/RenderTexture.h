@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine::Graphics {
 	private:
 		
 		/// <summary> Currently bound FBO. </summary>
-		inline static auto s_CurrentFBO { GL_NONE };
+		inline static GLuint s_CurrentFBO { GL_NONE };
 		
 		GLuint m_FBO_ID,
 			   m_RBO_ID,
