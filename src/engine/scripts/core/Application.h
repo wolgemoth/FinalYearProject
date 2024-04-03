@@ -42,8 +42,8 @@ namespace LouiEriksson::Engine {
 		
 		/// <summary> Quits the application. </summary>
 		static void Quit() noexcept;
-	
 	};
+	
 } // LouiEriksson::Engine
 
 #endif //FINALYEARPROJECT_APPLICATION_H

@@ -173,7 +173,9 @@ namespace LouiEriksson::Engine {
 				void* data;
 				GLenum data_format;
 				
-				if (strcmp(_path.extension().string().c_str(), ".hdr") == 0) {
+				if (strcmp(_path.extension().string().c_str(), ".hdr") == 0 ||
+				    strcmp(_path.extension().string().c_str(), ".exr") == 0
+				) {
 					data_format = GL_FLOAT;
 					data = stbi_loadf(
 						_path.string().c_str(),
@@ -249,6 +251,13 @@ namespace LouiEriksson::Engine {
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+					
+					// Get maximum possible anisotropy:
+					GLfloat maxAnisotropy;
+					glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+					
+					// Set texture anisotropy:
+					glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
 					
 					Utils::GLDumpError();
 					
