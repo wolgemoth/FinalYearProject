@@ -44,6 +44,8 @@ namespace LouiEriksson::Engine::Audio {
 	
 	void AudioSource::Sync() {
 		
+		// TODO: Some sort of caching so these values aren't changed unnecessarily.
+		
 		// Set values that do not change depending on if the source is global or not:
 		alSourcef(m_Source, AL_PITCH,          m_Parameters.m_Pitch);
 		alSourcef(m_Source, AL_GAIN,           m_Parameters.m_GainModifier);

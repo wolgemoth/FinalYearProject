@@ -8,8 +8,8 @@
 namespace LouiEriksson::Engine::ECS {
 	
 	Component::Component(const std::weak_ptr<GameObject>& _parent) noexcept :
-			m_GameObject(_parent),
-			m_Index(0u)
+		m_GameObject(_parent),
+		m_Index(0u)
 	{
 		Debug::Assert(!_parent.expired(), "Component initialised with no valid parent!", LogType::Warning);
 	}
