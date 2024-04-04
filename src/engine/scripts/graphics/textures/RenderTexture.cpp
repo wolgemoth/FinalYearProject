@@ -105,20 +105,23 @@ namespace LouiEriksson::Engine::Graphics {
 		Create(_width, _height, _format, _filterMode, _wrapMode, _depthMode);
 	}
 	
-	void RenderTexture::Bind(const RenderTexture& _rt) {
-		Bind(_rt.m_FBO_ID);
+	void RenderTexture::Bind(const RenderTexture& _rt, const bool& _force) {
+		
+		if (_force || s_CurrentFBO != _rt.m_FBO_ID) {
+			glBindFramebuffer(GL_FRAMEBUFFER, s_CurrentFBO = _rt.m_FBO_ID);
+		}
 	}
 	
-	void RenderTexture::Bind(const GLuint& _fbo) {
+	void RenderTexture::Bind(const GLuint& _fbo, const bool& _force) {
 		
-		if (s_CurrentFBO != _fbo) {
+		if (_force || s_CurrentFBO != _fbo) {
 			glBindFramebuffer(GL_FRAMEBUFFER, s_CurrentFBO = _fbo);
 		}
 	}
 	
-	void RenderTexture::Unbind() {
+	void RenderTexture::Unbind(const bool& _force) {
 		
-		if (s_CurrentFBO != GL_NONE) {
+		if (_force || s_CurrentFBO != GL_NONE) {
 			glBindFramebuffer(GL_FRAMEBUFFER, s_CurrentFBO = GL_NONE);
 		}
 	}

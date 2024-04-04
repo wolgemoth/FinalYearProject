@@ -143,7 +143,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					// Assign textures:
 					if (const auto d = ma->GetDisplacementTexture().lock()) {
-						p->Assign(p->AttributeID("u_Displacement"), d->ID(), 0, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Displacement"), *d, 0);
 					}
 					
 					// Assign matrices.
@@ -203,9 +203,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			p->Assign(
 				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer.ID(),
-				1,
-				GL_TEXTURE_2D
+				m_TexCoord_gBuffer,
+				1
 			);
 			
 			RenderTexture::Bind(m_Albedo_gBuffer);
@@ -225,7 +224,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 					// Assign textures:
 					if (const auto a = ma->GetAlbedoTexture().lock()) {
-						p->Assign(p->AttributeID("u_Albedo"), a->ID(), 0, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Albedo"), *a, 0);
 					}
 					
 					/* DRAW */
@@ -245,9 +244,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			p->Assign(
 				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer.ID(),
-				1,
-				GL_TEXTURE_2D
+				m_TexCoord_gBuffer,
+				1
 			);
 			
 			{
@@ -277,7 +275,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 					// Assign textures:
 					if (const auto e = ma->GetEmissionTexture().lock()) {
-						p->Assign(p->AttributeID("u_Emission"), e->ID(), 0, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Emission"), *e, 0);
 					}
 					
 					/* DRAW */
@@ -295,7 +293,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 				Shader::Bind(s->ID());
 	
-				auto trs = glm::scale(
+				const static auto trs = glm::scale(
 					glm::mat4(1.0),
 					glm::vec3(2.0)
 				);
@@ -309,9 +307,8 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
 					s->Assign(
 						s->AttributeID("u_Texture"),
-						sky->ID(),
-						0,
-						GL_TEXTURE_CUBE_MAP
+						*sky,
+						0
 					);
 				}
 				
@@ -322,8 +319,6 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
 					Draw(*c);
 				}
-				
-				glBindTexture(GL_TEXTURE_CUBE_MAP, GL_NONE);
 				
 				// Restore culling and depth options.
 				glCullFace ( cullMode);
@@ -341,9 +336,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			p->Assign(
 				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer.ID(),
-				4,
-				GL_TEXTURE_2D
+				m_TexCoord_gBuffer,
+				4
 			);
 
 			p->Assign(p->AttributeID("u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
@@ -388,19 +382,19 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					// Assign textures:
 					if (const auto ro = ma->GetRoughnessTexture().lock()) {
-						p->Assign(p->AttributeID("u_Roughness"), ro->ID(), 0, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Roughness"), *ro, 0);
 					}
 					
 					if (const auto met = ma->GetMetallicTexture().lock()) {
-						p->Assign(p->AttributeID("u_Metallic"), met->ID(), 1, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Metallic"), *met, 1);
 					}
 					
 					if (const auto a = ma->GetAOTexture().lock()) {
-						p->Assign(p->AttributeID("u_AO"), a->ID(), 2, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_AO"), *a, 2);
 					}
 					
 					if (const auto d = ma->GetDisplacementTexture().lock()) {
-						p->Assign(p->AttributeID("u_Displacement"), d->ID(), 3, GL_TEXTURE_2D);
+						p->Assign(p->AttributeID("u_Displacement"), *d, 3);
 					}
 					
 					/* DRAW */
@@ -420,9 +414,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			p->Assign(
 				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer.ID(),
-				1,
-				GL_TEXTURE_2D
+				m_TexCoord_gBuffer,
+				1
 			);
 			
 			{
@@ -452,9 +445,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 					p->Assign(
 						p->AttributeID("u_Normals"),
-							ma->GetNormalTexture().lock()->ID(),
-						0,
-						GL_TEXTURE_2D
+							*ma->GetNormalTexture().lock(),
+						0
 					);
 					
 					/* DRAW */
@@ -480,8 +472,9 @@ namespace LouiEriksson::Engine::Graphics {
 				l->m_Shadow.UpdateShadowMap(l->m_Type);
 				
 				// Check if the light has shadows enabled:
-				if (l->m_Shadow.m_Resolution > 0) {
-					
+				if (l->m_Shadow.m_Target != GL_NONE &&
+				    l->m_Shadow.m_Resolution > 0
+				) {
 					// Set the viewport resolution to that of the shadow map.
 					glViewport(0, 0, l->m_Shadow.m_Resolution, l->m_Shadow.m_Resolution);
 					
@@ -664,44 +657,38 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign g-buffers:
 					p->Assign(
 						p->AttributeID("u_Albedo_gBuffer"),
-						m_Albedo_gBuffer.ID(),
-						0,
-						GL_TEXTURE_2D
+						m_Albedo_gBuffer,
+						0
 					);
 					
 					p->Assign(
 						p->AttributeID("u_Emission_gBuffer"),
-						m_Emission_gBuffer.ID(),
-						1,
-						GL_TEXTURE_2D
+						m_Emission_gBuffer,
+						1
 					);
 					
 					p->Assign(
 						p->AttributeID("u_Material_gBuffer"),
-						m_Material_gBuffer.ID(),
-						2,
-						GL_TEXTURE_2D
+						m_Material_gBuffer,
+						2
 					);
 					
 					p->Assign(
 						p->AttributeID("u_Position_gBuffer"),
-						m_Position_gBuffer.ID(),
-						3,
-						GL_TEXTURE_2D
+						m_Position_gBuffer,
+						3
 					);
 					
 					p->Assign(
 						p->AttributeID("u_Normal_gBuffer"),
-						m_Normal_gBuffer.ID(),
-						4,
-						GL_TEXTURE_2D
+						m_Normal_gBuffer,
+						4
 					);
 					
-					p->Assign(
+					p->AssignDepth(
 						p->AttributeID("u_Depth_gBuffer"),
-						m_Position_gBuffer.DepthID(),
-						5,
-						GL_TEXTURE_2D
+						m_Position_gBuffer,
+						5
 					);
 					
 					// Assign other material parameters:
@@ -731,9 +718,8 @@ namespace LouiEriksson::Engine::Graphics {
 					if (const auto s =  Settings::Graphics::Skybox::s_Skybox.lock()) {
 						p->Assign(
 							p->AttributeID("u_Ambient"),
-							s->ID(),
-							98,
-							GL_TEXTURE_CUBE_MAP
+							*s,
+							98
 						);
 					}
 		
@@ -785,31 +771,37 @@ namespace LouiEriksson::Engine::Graphics {
 								}
 							}
 							
-							if (l->Type() == Light::Parameters::Type::Point) {
-			
-								p->Assign(
-									p->AttributeID("u_ShadowMap3D"),
-									l->m_Shadow.m_ShadowMap_Texture,
-									100,
-									GL_TEXTURE_CUBE_MAP
-								);
+							if (l->m_Shadow.m_Target != GL_NONE) {
+								
+								if (l->Type() == Light::Parameters::Type::Point) {
+				
+									p->Assign(
+										p->AttributeID("u_ShadowMap3D"),
+										l->m_Shadow,
+										100
+									);
+								}
+								else {
+				
+									p->Assign(
+										p->AttributeID("u_ShadowMap2D"),
+										l->m_Shadow,
+										99
+									);
+								}
 							}
-							else {
-			
-								p->Assign(
-									p->AttributeID("u_ShadowMap2D"),
-									l->m_Shadow.m_ShadowMap_Texture,
-									99,
-									GL_TEXTURE_2D
-								);
-							}
-			
+							
 							p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
 							
-							p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias                    );
-							p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias              );
-							p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples         );
-							p->Assign(p->AttributeID("u_ShadowTechnique" ), target_light::s_CurrentShadowTechnique);
+							p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias      );
+							p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias);
+							
+							p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples);
+							p->Assign(p->AttributeID("u_ShadowTechnique" ),
+								l->m_Shadow.m_Target != GL_NONE ?
+								target_light::s_CurrentShadowTechnique :
+								-1
+							);
 							
 							p->Assign(p->AttributeID("u_LightType"), l->m_Type);
 							p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
@@ -898,7 +890,7 @@ namespace LouiEriksson::Engine::Graphics {
 				if (const auto aa = Resources::Get<Shader>("fxaa").lock()) {
 					
 					Shader::Bind(aa->ID());
-					aa->Assign(aa->AttributeID("u_Texture"), m_RT.ID(), 0, GL_TEXTURE_2D);
+					aa->Assign(aa->AttributeID("u_Texture"), m_RT, 0);
 					
 					aa->Assign(aa->AttributeID("u_ContrastThreshold"    ), Settings::PostProcessing::AntiAliasing::s_ContrastThreshold    );
 					aa->Assign(aa->AttributeID("u_RelativeThreshold"    ), Settings::PostProcessing::AntiAliasing::s_RelativeThreshold    );
@@ -990,8 +982,8 @@ namespace LouiEriksson::Engine::Graphics {
 		if (const auto v = Resources::Get<Shader>("blur_vertical"  ).lock()) {
 			
 			// Assign target texture to both shader programs:
-			h->Assign(h->AttributeID("u_Texture"), _rt.ID(), 0, GL_TEXTURE_2D);
-			v->Assign(v->AttributeID("u_Texture"), _rt.ID(), 0, GL_TEXTURE_2D);
+			h->Assign(h->AttributeID("u_Texture"), _rt, 0);
+			v->Assign(v->AttributeID("u_Texture"), _rt, 0);
 			  
 			// Optionally, use a multiplier proportional to the screen's resolution to
 			// keep the blur effect consistent across a range of different resolutions.
@@ -1073,7 +1065,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					// Generate the luminosity texture:
 					Shader::Bind(s->ID());
-					s->Assign(s->AttributeID("u_Weights"), mask->ID(), 1, GL_TEXTURE_2D);
+					s->Assign(s->AttributeID("u_Weights"), *mask, 1);
 				}
 				
 				Blit(m_RT, luma_out, s);
@@ -1172,25 +1164,22 @@ namespace LouiEriksson::Engine::Graphics {
 			);
 			
 			/* ASSIGN G-BUFFERS */
-			ao->Assign(
+			ao->AssignDepth(
 				ao->AttributeID("u_Position_gBuffer"),
-				m_Position_gBuffer.DepthID(),
-				0,
-				GL_TEXTURE_2D
+				m_Position_gBuffer,
+				0
 			);
 			
 			ao->Assign(
 				ao->AttributeID("u_Position_gBuffer"),
-				m_Position_gBuffer.ID(),
-				1,
-				GL_TEXTURE_2D
+				m_Position_gBuffer,
+				1
 			);
 			
 			ao->Assign(
 				ao->AttributeID("u_Normal_gBuffer"),
-				m_Normal_gBuffer.ID(),
-				2,
-				GL_TEXTURE_2D
+				m_Normal_gBuffer,
+				2
 			);
 			
 			// Set the viewport resolution to the scale of the AO render target.
@@ -1307,8 +1296,8 @@ namespace LouiEriksson::Engine::Graphics {
 				/* COMBINE */
 				Shader::Bind(combine_shader->ID());
 				combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)scalingPasses, 1.0f));
-				combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-				combine_shader->Assign(combine_shader->AttributeID("u_Texture1"),  tmp.ID(), 1, GL_TEXTURE_2D);
+				combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT, 0);
+				combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), tmp,  1);
 		
 				// Blit to main render target:
 				RenderTexture::Bind(m_RT);
@@ -1326,9 +1315,9 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						Shader::Bind(lens_dirt_shader->ID());
 						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT.ID(), 0, GL_TEXTURE_2D);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),     tmp.ID(), 1, GL_TEXTURE_2D);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),       t->ID(), 2, GL_TEXTURE_2D);
+						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT, 0);
+						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),     tmp, 1);
+						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),       *t, 2);
 						
 						// Blit to main render target:
 						RenderTexture::Bind(m_RT);

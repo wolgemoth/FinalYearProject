@@ -44,13 +44,13 @@ namespace LouiEriksson::Engine::Graphics {
 		void Reinitialise(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode);
 		
 		/// <summary> Bind the provided RenderTexture. </summary>
-		static void Bind(const RenderTexture& _rt);
+		static void Bind(const RenderTexture& _rt, const bool& _force = false);
 		
 		/// <summary> Bind the provided RenderTexture. </summary>
-		static void Bind(const GLuint& _fbo);
+		static void Bind(const GLuint& _fbo, const bool& _force = false);
 		
 		/// <summary> Unbind the currently bound RenderTexture. </summary>
-		static void Unbind();
+		static void Unbind(const bool& _force = false);
 		
 		/// <summary> Discard the RenderTexture. </summary>
 		void Discard() const override;

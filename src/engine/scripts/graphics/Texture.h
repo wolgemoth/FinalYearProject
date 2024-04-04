@@ -120,10 +120,13 @@ namespace LouiEriksson::Engine::Graphics {
 		static void GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels);
 		
 		/// <summary> Bind the provided Texture. </summary>
-		static void Bind(const Texture& _texture);
+		static void Bind(const Texture& _texture, const bool& _force = false);
+		
+		/// <summary> Bind the provided Texture. </summary>
+		static void Bind(const GLuint& _texture, const bool& _force = false);
 		
 		/// <summary> Unbind the currently bound Texture. </summary>
-		static void Unbind();
+		static void Unbind(const bool& _force = false);
 		
 		/// <summary> Discard the Texture. </summary>
 		virtual void Discard() const;

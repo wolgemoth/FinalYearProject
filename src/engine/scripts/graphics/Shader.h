@@ -3,6 +3,8 @@
 
 #include "../core/utils/Hashmap.h"
 
+#include "Light.h"
+
 #include <GL/glew.h>
 #include <glm/fwd.hpp>
 
@@ -20,6 +22,10 @@ namespace LouiEriksson::Engine {
 
 namespace LouiEriksson::Engine::Graphics {
 
+	struct Texture;
+	struct RenderTexture;
+	struct Cubemap;
+	
 	struct SubShader {
 		
 		const char* m_Path;
@@ -120,15 +126,28 @@ namespace LouiEriksson::Engine::Graphics {
 		static void Assign(const GLint& _id, const glm::mat4& _mat);
 		
 		/// <summary> Assign a texture to the shader. </summary>
-		void Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target);
+		static void Assign(const GLint& _id, const Texture& _texture, const GLint& _imageUnit);
+		
+		/// <summary> Assign a texture to the shader. </summary>
+		static void Assign(const GLint& _id, const Cubemap& _texture, const GLint& _imageUnit);
+		
+		/// <summary> Assign a texture to the shader. </summary>
+		static void Assign(const GLint& _id, const Light::Parameters::ShadowMap& _texture, const GLint& _imageUnit);
+		
+		/// <summary>
+		/// Assign a RenderTexture's depth attachment to the shader.
+		/// <remarks>
+		/// Will be deprecated in the future. Only works if the depth attachment is a frame buffer.
+		/// </remarks>
+		/// </summary>
+		static void AssignDepth(const GLint& _id, const RenderTexture& _texture, const GLint& _imageUnit);
 		
 		/// <summary> Get the ID of the Shader. </summary>
 		[[nodiscard]] GLint ID() const noexcept;
 		
 		explicit operator GLint() const noexcept { return ID(); }
-		
 	};
-	
+
 } // LouiEriksson::Engine::Graphics
 
 #endif //FINALYEARPROJECT_SHADER_H

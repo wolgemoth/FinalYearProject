@@ -259,8 +259,6 @@ namespace LouiEriksson::Engine {
 					// Set texture anisotropy:
 					glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
 					
-					Utils::GLDumpError();
-					
 					result = true;
 					
 					Debug::Log("Done.", LogType::Info);

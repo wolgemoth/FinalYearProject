@@ -1,9 +1,11 @@
 #include "Shader.h"
 
+#include "../core/Debug.h"
 #include "../core/File.h"
 #include "../core/utils/Hashmap.h"
 #include "../core/utils/Utils.h"
-#include "../core/Debug.h"
+#include "Texture.h"
+#include "textures/RenderTexture.h"
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_float2x2.hpp>
@@ -262,7 +264,7 @@ namespace LouiEriksson::Engine::Graphics {
 		glBindAttribLocation(this->ID(), _pos, _name);
 		
 		const GLenum errorCode(glGetError());
-		if (errorCode != 0u) {
+		if (errorCode != GL_NONE) {
 			
 			Debug::Log("Shader \"" +
 			    Name() + "\": Attempt at binding attribute \"" +
@@ -321,12 +323,49 @@ namespace LouiEriksson::Engine::Graphics {
 	void Shader::Assign(const GLint& _id, const glm::mat3& _mat) { glUniformMatrix3fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 	void Shader::Assign(const GLint& _id, const glm::mat4& _mat) { glUniformMatrix4fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 	
-	void Shader::Assign(const GLint& _id, const GLuint& _textureID, const GLint& _imageUnit, const GLenum& _target) {
+	void Shader::Assign(const GLint& _id, const Texture& _texture, const GLint& _imageUnit) {
 		
 		glActiveTexture(GL_TEXTURE0 + _imageUnit);
-		glEnable(_target);
+		glEnable(GL_TEXTURE_2D);
 		glUniform1i(_id, _imageUnit);
-		glBindTexture(_target, _textureID);
+		
+		Texture::Bind(_texture, true);
+	}
+	
+	void Shader::Assign(const GLint& _id, const Cubemap& _texture, const GLint& _imageUnit) {
+		
+		glActiveTexture(GL_TEXTURE0 + _imageUnit);
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		glUniform1i(_id, _imageUnit);
+		
+		Cubemap::Bind(_texture, true);
+	}
+	
+	void Shader::Assign(const GLint& _id, const Light::Parameters::ShadowMap& _texture, const GLint& _imageUnit) {
+		
+		glActiveTexture(GL_TEXTURE0 + _imageUnit);
+		glEnable(_texture.m_Target);
+		glUniform1i(_id, _imageUnit);
+	
+		// TODO: Refactoring ShadowMap into "RenderCube" can improve this!
+		switch (_texture.m_Target) {
+			case GL_TEXTURE_2D:       { Texture::Bind(_texture.m_ShadowMap_Texture, true); break; }
+			case GL_TEXTURE_CUBE_MAP: { Cubemap::Bind(_texture.m_ShadowMap_Texture, true); break; }
+			default: {
+				Debug::Log("Unknown target \"" + std::to_string(_texture.m_Target) + "\"", LogType::Error);
+			}
+		}
+	}
+	
+	void Shader::AssignDepth(const GLint& _id, const RenderTexture& _texture, const GLint& _imageUnit) {
+		
+		// TODO: Refactoring the way depth attachments are represented can improve this!
+		
+		glActiveTexture(GL_TEXTURE0 + _imageUnit);
+		glEnable(GL_TEXTURE_2D);
+		glUniform1i(_id, _imageUnit);
+		
+		Texture::Bind(_texture.DepthID(), true);
 	}
 	
 	GLint Shader::ID() const noexcept {

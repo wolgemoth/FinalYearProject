@@ -29,9 +29,11 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		~Cubemap();
 		
-		static void Bind(const Cubemap& _cubemap);
+		static void Bind(const Cubemap& _cubemap, const bool& _force = false);
 		
-		static void Unbind();
+		static void Bind(const GLuint& _cubemap, const bool& _force = false);
+		
+		static void Unbind(const bool& _force = false);
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;

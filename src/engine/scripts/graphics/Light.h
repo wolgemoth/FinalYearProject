@@ -19,6 +19,7 @@ namespace LouiEriksson::Engine {
 namespace LouiEriksson::Engine::Graphics {
 	
 	class Camera;
+	class Shader;
 	
 	class Light final : public ECS::Component {
 	
@@ -30,6 +31,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			friend Camera;
 			friend Light;
+			friend Shader;
 			
 		public:
 			
@@ -48,16 +50,18 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		private:
 			
-			struct Shadow {
+			class ShadowMap {
 
+			public:
+				
 				GLuint m_ShadowMap_Texture;
 				GLuint m_ShadowMap_FBO;
+				GLenum m_Target;
 				
 				int m_Resolution;
 				
 				float m_Bias;
 				float m_NormalBias;
-				
 				float m_NearPlane;
 				
 				bool m_TwoSided;
@@ -65,13 +69,15 @@ namespace LouiEriksson::Engine::Graphics {
 				glm::mat4 m_Projection;
 				glm::mat4 m_ViewProjection;
 				
-				 Shadow() noexcept;
-				~Shadow();
+				 ShadowMap() noexcept;
+				~ShadowMap();
 				
 				void UpdateShadowMap(const Light::Parameters::Type& _type);
 				
+			private:
+				
+				void Dispose();
 			};
-			
 		};
 		
 		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
@@ -87,8 +93,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		std::weak_ptr<Transform> m_Transform;
 		
-		Light::Parameters::Type   m_Type;
-		Light::Parameters::Shadow m_Shadow;
+		Light::Parameters::Type      m_Type;
+		Light::Parameters::ShadowMap m_Shadow;
 		
 		float m_Intensity;
 		float m_Range;

@@ -65,16 +65,23 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	const int& Texture::Height() const noexcept { return m_Height; }
 	
-	void Texture::Bind(const Texture& _texture) {
+	void Texture::Bind(const Texture& _texture, const bool& _force) {
 		
-		if (Texture::s_CurrentTexture != _texture.m_TextureID) {
+		if (_force || Texture::s_CurrentTexture != _texture.m_TextureID) {
 			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = static_cast<GLint>(_texture.m_TextureID));
 		}
 	}
 	
-	void Texture::Unbind() {
+	void Texture::Bind(const GLuint& _texture, const bool& _force) {
 		
-		if (Texture::s_CurrentTexture != GL_NONE) {
+		if (_force || Texture::s_CurrentTexture != _texture) {
+			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = static_cast<GLint>(_texture));
+		}
+	}
+	
+	void Texture::Unbind(const bool& _force) {
+		
+		if (_force || Texture::s_CurrentTexture != GL_NONE) {
 			glBindTexture(GL_TEXTURE_2D, s_CurrentTexture = GL_NONE);
 		}
 	}
@@ -122,8 +129,15 @@ namespace LouiEriksson::Engine::Graphics {
 		    _textureFormat = GL_RGBA;
 			_channels      = 4;
 		}
+		else if (_pixelFormat == GL_DEPTH_COMPONENT) {
+			_textureFormat = GL_DEPTH_COMPONENT;
+			_channels      = 1;
+		}
+		else if (_pixelFormat == GL_DEPTH_COMPONENT16) {
+			_textureFormat = GL_DEPTH_COMPONENT16;
+			_channels      = 1;
+		}
 		else {
-			
 			_textureFormat = GL_NONE;
 			_channels      = 0;
 			

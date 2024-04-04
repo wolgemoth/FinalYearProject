@@ -12,16 +12,23 @@ namespace LouiEriksson::Engine::Graphics {
 		Discard();
 	}
 	
-	void Cubemap::Bind(const Cubemap& _cubemap) {
+	void Cubemap::Bind(const Cubemap& _cubemap, const bool& _force) {
 		
-		if (Cubemap::s_CurrentCubemap != _cubemap.m_TextureID) {
+		if (_force || Cubemap::s_CurrentCubemap != _cubemap.m_TextureID) {
 			glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = static_cast<GLint>(_cubemap.m_TextureID));
 		}
 	}
 	
-	void Cubemap::Unbind() {
+	void Cubemap::Bind(const GLuint& _cubemap, const bool& _force) {
 		
-		if (Cubemap::s_CurrentCubemap != GL_NONE) {
+		if (_force || Cubemap::s_CurrentCubemap != _cubemap) {
+			glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = static_cast<GLint>(_cubemap));
+		}
+	}
+	
+	void Cubemap::Unbind(const bool& _force) {
+		
+		if (_force || Cubemap::s_CurrentCubemap != GL_NONE) {
 			glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = GL_NONE);
 		}
 	}

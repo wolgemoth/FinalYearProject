@@ -182,7 +182,7 @@ namespace LouiEriksson::Engine {
 						const auto frame_start = std::chrono::high_resolution_clock::now();
 						
 						// Clear the AL error state by dumping the error at the start of the frame.
-						Utils::GLDumpError(true);
+						Utils::ALDumpError(true);
 						
 						// Clear the GL error state by dumping the error at the start of the frame.
 						Utils::GLDumpError(true);

@@ -1,10 +1,10 @@
 #include "Light.h"
 
+#include "../core/Debug.h"
 #include "../core/Transform.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
-#include "../core/Debug.h"
 #include "Texture.h"
 #include "textures/RenderTexture.h"
 
@@ -92,9 +92,10 @@ namespace LouiEriksson::Engine::Graphics {
 		return m_Type;
 	}
 	
-	Light::Parameters::Shadow::Shadow() noexcept :
-			m_ShadowMap_Texture(  0    ),
-			m_ShadowMap_FBO    (  0    ),
+	Light::Parameters::ShadowMap::ShadowMap() noexcept :
+			m_ShadowMap_Texture(GL_NONE),
+			m_ShadowMap_FBO    (GL_NONE),
+			m_Target           (GL_NONE),
 			m_Resolution       (128    ),
 			m_Bias             (  0.01f),
 			m_NormalBias       (  0.02f),
@@ -103,25 +104,11 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Projection       (  1.0f ),
 			m_ViewProjection   (  1.0f ) {}
 	
-	Light::Parameters::Shadow::~Shadow() {
-	
-		/* Delete FBO and texture. */
-		
-		if (m_ShadowMap_FBO != GL_NONE) {
-			RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-			
-			glDeleteFramebuffers(1, &m_ShadowMap_FBO);
-			m_ShadowMap_FBO = GL_NONE;
-		}
-		if (m_ShadowMap_Texture != GL_NONE) {
-			Texture::Unbind(); // Unbind the texture as a precaution before deletion.
-			
-			glDeleteTextures(1, &m_ShadowMap_Texture);
-			m_ShadowMap_Texture = GL_NONE;
-		}
+	Light::Parameters::ShadowMap::~ShadowMap() {
+		Dispose();
 	}
 	
-	void Light::Parameters::Shadow::UpdateShadowMap(const Light::Parameters::Type& _type) {
+	void Light::Parameters::ShadowMap::UpdateShadowMap(const Light::Parameters::Type& _type) {
 		
 		// Shadow implementation is very heavily modified derivative of implementations by Learn OpenGL:
         //  - de Vries, J. (n.d.). LearnOpenGL - Shadow Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping [Accessed 15 Dec. 2023].
@@ -130,34 +117,28 @@ namespace LouiEriksson::Engine::Graphics {
 		// Check if shadows are enabled.
 		if (m_Resolution > 0) {
 		
-			const GLenum target = _type == Light::Parameters::Type::Point ?
+			const GLenum new_target = _type == Light::Parameters::Type::Point ?
 					GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
 			
-			// Check to see if the shadow map is already initialised.
-			if (m_ShadowMap_Texture != GL_NONE) {
-				
-				glBindTexture(target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
+			/*
+			 * Check for differences between the desired parameters
+			 * and the shadow map's current state.
+			 */
+			if (m_Target != new_target) {
+				Dispose();
+				m_Target = new_target;
+			}
+			else if (m_ShadowMap_Texture != GL_NONE) {
+			
+				glBindTexture(m_Target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
 				
 				// Check the texture's resolution.
 				int curr_resolution;
 				glGetTexLevelParameteriv(_type == Light::Parameters::Type::Point ? GL_TEXTURE_CUBE_MAP_POSITIVE_X : GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &curr_resolution);
 				
-				// Check if the texture's parameters have changed.
 				if (curr_resolution != m_Resolution) {
-					
-					if (m_ShadowMap_FBO != GL_NONE) {
-						RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-					
-						glDeleteFramebuffers(1, &m_ShadowMap_FBO); // Delete the FBO.
-						m_ShadowMap_FBO = GL_NONE;
-					}
-					
-					if (m_ShadowMap_Texture != GL_NONE) {
-						Texture::Unbind();
-						
-						glDeleteTextures(1, &m_ShadowMap_Texture); // Delete the texture.
-						m_ShadowMap_Texture = GL_NONE;
-					}
+					Dispose();
+					m_Target = new_target;
 				}
 			}
 			
@@ -168,9 +149,9 @@ namespace LouiEriksson::Engine::Graphics {
 				glGenTextures(1, &m_ShadowMap_Texture);
 			
 				// Generate texture for shadow map (will bind it to the FBO).
-				glBindTexture(target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
+				glBindTexture(m_Target, Texture::s_CurrentTexture = static_cast<GLint>(m_ShadowMap_Texture));
 				
-				if (_type == Light::Parameters::Type::Point) {
+				if (m_Target == GL_TEXTURE_CUBE_MAP) {
 					
 					// Generate all six faces of a cubemap (for omnidirectional shadows).
 					for (auto i = 0; i < 6; ++i) {
@@ -180,20 +161,20 @@ namespace LouiEriksson::Engine::Graphics {
 				else {
 					
 					// Generate a single face (for directional shadows).
-					glTexImage2D(target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
+					glTexImage2D(m_Target, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 				}
 				
 				// Set the texture's parameters.
-				glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-				glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-				glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-				glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-				glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER);
+				glTexParameteri(m_Target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(m_Target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glTexParameteri(m_Target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+				glTexParameteri(m_Target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+				glTexParameteri(m_Target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER);
 				
 				if (_type != Light::Parameters::Type::Point) {
 					
 					float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-					glTexParameterfv(target, GL_TEXTURE_BORDER_COLOR, borderColor);
+					glTexParameterfv(m_Target, GL_TEXTURE_BORDER_COLOR, borderColor);
 				}
 				
 				// Create FBO for depth.
@@ -212,22 +193,35 @@ namespace LouiEriksson::Engine::Graphics {
 		else {
 			
 			// If shadows are not enabled, dispose of the shadow map.
-			if (m_ShadowMap_Texture != GL_NONE) {
-				
-				if (m_ShadowMap_FBO != GL_NONE) {
-					RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
-					
-					glDeleteFramebuffers(1, &m_ShadowMap_FBO);
-					m_ShadowMap_FBO = GL_NONE;
-				}
-				if (m_ShadowMap_Texture != GL_NONE) {
-					Texture::Unbind(); // Unbind the texture as a precaution before deletion.
-					
-					glDeleteTextures(1, &m_ShadowMap_Texture);
-					m_ShadowMap_Texture = GL_NONE;
-				}
-			}
+			Dispose();
 		}
 	}
-
+	
+	void Light::Parameters::ShadowMap::Dispose() {
+		
+		/* Delete FBO and texture. */
+		
+		if (m_ShadowMap_FBO != GL_NONE) {
+			RenderTexture::Unbind(); // Unbind FBO as a precaution before deleting.
+			
+			glDeleteFramebuffers(1, &m_ShadowMap_FBO);
+			m_ShadowMap_FBO = GL_NONE;
+		}
+		if (m_ShadowMap_Texture != GL_NONE) {
+			
+			switch (m_Target) {
+				case GL_TEXTURE_2D:       { Texture::Unbind(); break; }
+				case GL_TEXTURE_CUBE_MAP: { Cubemap::Unbind(); break; }
+				default: {
+					Debug::Log("Unknown target \"" + std::to_string(m_Target) + "\"", LogType::Error);
+				}
+			}
+			
+			glDeleteTextures(1, &m_ShadowMap_Texture);
+			
+			m_ShadowMap_Texture = GL_NONE;
+			m_Target            = GL_NONE;
+		}
+	}
+	
 } // LouiEriksson::Engine::Graphics
