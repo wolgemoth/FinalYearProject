@@ -60,14 +60,17 @@ namespace LouiEriksson::Engine::Graphics {
 		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
 		
 		// Init g-buffer:
-		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
-		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
-		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-			       m_AO_RT(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ) {}
+		               m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
+		   m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
+		   m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 
+		// Effects buffers:
+		            m_AO_RT( 1,  1, Texture::Parameters::Format(GL_RGB, false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
+		m_AutoExposure_Luma(32, 32, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE) {}
 	
 	Camera::~Camera() {
 	
@@ -1010,6 +1013,12 @@ namespace LouiEriksson::Engine::Graphics {
 	            aspectCorrection = glm::sqrt(dimensions.x / (float)dimensions.y);
 	        }
 	
+			static RenderTexture tmp(1, 1, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
+			
+			if (_highQuality) {
+				tmp.Reinitialise((int)dimensions.x, (int)dimensions.y);
+			}
+			
 			// Perform a blur pass:
 	        for (auto i = 0; i < _passes; ++i) {
 	            
@@ -1029,14 +1038,15 @@ namespace LouiEriksson::Engine::Graphics {
 	                height = (int)glm::ceil(dimensions.y / glm::pow(2.0f, (float)i / 2.0f * scalar) * aspectCorrection);
 	                
 	                size = (float)i * rootIntensity;
+					
+					tmp.Reinitialise(width, height);
 	            }
 	            
 				// Assign step value to both shader programs.
 				h->Assign(h->AttributeID("u_Step"), dpiFactor * size);
 				v->Assign(v->AttributeID("u_Step"), dpiFactor * size);
-				  
+				
 				// Blit into a temporary texture, and blur that once on the x, and once on the y.
-				const RenderTexture tmp(width, height, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 		        Blit(_rt, tmp, h);
 		        Blit(tmp, tmp, v);
 				
@@ -1060,11 +1070,6 @@ namespace LouiEriksson::Engine::Graphics {
 			// Load shader program:
 			if (const auto s = Resources::Get<Shader>("auto_exposure").lock()) {
 				
-				// Create a 32 by 32 render texture for the luminosity calculations.
-				const glm::ivec2 luma_res(32, 32);
-				
-				const RenderTexture luma_out(luma_res.x, luma_res.y, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				
 				// Load a mask for the average luminosity calculation.
 				if (const auto mask = Resources::Get<Texture>("exposure_weights").lock()) {
 					
@@ -1073,23 +1078,23 @@ namespace LouiEriksson::Engine::Graphics {
 					s->Assign(s->AttributeID("u_Weights"), *mask, 1);
 				}
 				
-				Blit(m_RT, luma_out, s);
+				Blit(m_RT, m_AutoExposure_Luma, s);
 				
 				// Create a buffer for the luminosity samples:
-				std::vector<float> pixels(static_cast<size_t>(luma_res.x * luma_res.y * luma_out.Format().Channels()));
+				static std::vector<float> pixels(static_cast<size_t>(m_AutoExposure_Luma.Width() * m_AutoExposure_Luma.Height() * m_AutoExposure_Luma.Format().Channels()));
 				
 				// Load the luminosity samples into the buffer.
-				RenderTexture::Bind(luma_out);
-				glReadPixels(0, 0, luma_res.x, luma_res.y, luma_out.Format().TextureFormat(), GL_HALF_FLOAT, pixels.data());
+				RenderTexture::Bind(m_AutoExposure_Luma);
+				glReadPixels(0, 0, m_AutoExposure_Luma.Width(), m_AutoExposure_Luma.Height(), m_AutoExposure_Luma.Format().TextureFormat(), GL_HALF_FLOAT, pixels.data());
 				
 				// Compute the average luminosity:
 				int avg_count = 0;
 				auto avg = 0.0f;
 				
-				for (auto y = 0; y < luma_res.y; y++) {
-				for (auto x = 0; x < luma_res.x; x++) {
+				for (auto y = 0; y < m_AutoExposure_Luma.Height(); y++) {
+				for (auto x = 0; x < m_AutoExposure_Luma.Width(); x++) {
 					
-					const auto l = pixels.at((y * luma_res.x) + x);
+					const auto& l = pixels.at(Utils::To1D({x, y}, m_AutoExposure_Luma.Width()));
 					
 					if (l > 0) {
 						avg += l;
@@ -1114,8 +1119,8 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Determine the speed to change exposure by:
 				const float speed = (diff - m_Exposure) >= 0 ?
-						target::s_SpeedUp :
-						target::s_SpeedDown;
+					target::s_SpeedUp :
+					target::s_SpeedDown;
 				
 				// Set a new exposure value:
 				m_Exposure = glm::mix(
@@ -1148,15 +1153,7 @@ namespace LouiEriksson::Engine::Graphics {
 				const auto height = glm::max(viewport[3] / (downscale + 1), 1);
 				
 				if (m_AO_RT.m_FBO_ID == GL_NONE || width != m_AO_RT.m_Width || height != m_AO_RT.m_Height) {
-					
-					m_AO_RT.Reinitialise(
-						width,
-						height,
-						Texture::Parameters::Format(GL_RGB, false),
-						Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
-						m_RT.WrapMode(),
-						RenderTexture::Parameters::DepthMode::NONE
-					);
+					m_AO_RT.Reinitialise(width, height);
 				}
 			}
 			

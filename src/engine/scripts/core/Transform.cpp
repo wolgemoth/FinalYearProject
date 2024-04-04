@@ -24,13 +24,17 @@ namespace LouiEriksson::Engine {
 	}
 	
 	glm::mat4 Transform::TRS() const {
-		return
-			glm::scale(
-				glm::translate(glm::mat4(1.0f), m_Position) *
-				glm::mat4_cast(glm::inverse(m_Rotation)
-			),
-			m_Scale
-		);
+		
+		const auto& p = m_Position;
+		const auto& r = m_Rotation;
+		const auto& s = m_Scale;
+		
+		return glm::mat4 {
+			s.x,   0,   0,   0,
+			  0, s.y,   0,   0,
+			  0,   0, s.z,   0,
+			p.x, p.y, p.z,   1
+		} * glm::mat4_cast(glm::inverse(r));
 	}
 	
 } // LouiEriksson::Engine

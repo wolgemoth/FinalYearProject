@@ -43,6 +43,9 @@ Doxyfile
 /cmake-build-releasewindows/
 /cmake-build-releasewindows/**
 
+/cmake-build-release-coverage/
+/cmake-build-release-coverage/**
+
 /src/game/resources/ATHYG-Database-main/
 
 #WHITELIST /src/engine

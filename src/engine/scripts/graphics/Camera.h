@@ -75,6 +75,9 @@ namespace LouiEriksson::Engine::Graphics {
 		// Render texture for AO effect.
 		RenderTexture m_AO_RT;
 		
+		// Render texture for auto-exposure luma detection.
+		RenderTexture m_AutoExposure_Luma;
+		
 		/* METHODS */
 		
 		/// <summary> Deferred rendering geometry pass. </summary>
