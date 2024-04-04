@@ -1,5 +1,6 @@
 #include "Camera.h"
 
+#include "../core/Debug.h"
 #include "../core/File.h"
 #include "../core/Resources.h"
 #include "../core/Settings.h"
@@ -1284,11 +1285,13 @@ namespace LouiEriksson::Engine::Graphics {
 					// Create the diffusion vector for the bloom algorithm:
 					{
 						const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
+					
+						const auto d = std::min((1.0 / std::log2(target::s_Diffusion + 1.0)), 1.0) * 6.0;
 						
 						// Imitate anamorphic artifacts by morphing the shape of the diffusion vector:
 						const glm::vec2 diffusionVec(
-								glm::mix(0.0, 3.0,       t),
-								glm::mix(0.0, 3.0, 1.0 - t)
+							glm::mix(0.0, d,       t),
+							glm::mix(0.0, d, 1.0 - t)
 						);
 						
 						upscale_shader->Assign(
