@@ -113,357 +113,341 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Camera::GeometryPass(const std::vector<std::weak_ptr<Renderer>>& _renderers) {
 		
-		// Get the current culling and depth modes and cache them here.
-		GLint cullMode, depthMode;
-		glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
-		glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
-		
-		// Texture Coordinates:
-		if (const auto p = Resources::Get<Shader>("pass_texcoords").lock()) {
+		if (const auto w = m_Window.lock()) {
 			
-			// Bind program.
-			Shader::Bind(p->ID());
+			// Get the current culling and depth modes and cache them here.
+			GLint cullMode, depthMode;
+			glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
+			glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
 			
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			p->Assign(p->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
-			
-			{
-				const auto t = GetTransform().lock();
+			// Texture Coordinates:
+			if (const auto p = Resources::Get<Shader>("pass_texcoords").lock()) {
 				
-				p->Assign(p->AttributeID("u_CameraPosition"),
-					t != nullptr ?
-						t->m_Position :
-						glm::vec3(0.0f)
-				);
-			}
-			
-			RenderTexture::Bind(m_TexCoord_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			for (const auto& renderer : _renderers) {
+				// Bind program.
+				Shader::Bind(p->ID());
 				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto ma = r->GetMaterial().lock() ) {
-				if (const auto me = r->GetMesh().lock()     ) {
-					
-					p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
-					
-					// Assign textures:
-					if (const auto d = ma->GetDisplacementTexture().lock()) {
-						p->Assign(p->AttributeID("u_Displacement"), *d, 0);
-					}
-					
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS());
-					
-					/* DRAW */
-					Draw(*me);
-					
-				}}}}
-			}
-		}
-		
-		// Positions:
-		if (const auto p = Resources::Get<Shader>("pass_positions").lock()) {
-			
-			// Bind program.
-			Shader::Bind(p->ID());
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			RenderTexture::Bind(m_Position_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			for (const auto& renderer : _renderers) {
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
 				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto me = r->GetMesh().lock()     ) {
-					
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-					
-					/* DRAW */
-					Draw(*me);
-					
-				}}}
-			}
-		}
-		
-		// Albedo:
-		if (const auto p = Resources::Get<Shader>("pass_albedo").lock()) {
-			
-			// Bind program.
-			Shader::Bind(p->ID());
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			{
-				const auto w = m_Window.lock();
+				p->Assign(p->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
 				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-			}
-			
-			p->Assign(
-				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer,
-				1
-			);
-			
-			RenderTexture::Bind(m_Albedo_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			for (const auto& renderer : _renderers) {
-				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto ma = r->GetMaterial().lock() ) {
-				if (const auto me = r->GetMesh().lock()     ) {
-				
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
+				{
+					const auto t = GetTransform().lock();
 					
-					p->Assign(p->AttributeID("u_AlbedoColor"), ma->GetAlbedoColor());
-			
-					// Assign textures:
-					if (const auto a = ma->GetAlbedoTexture().lock()) {
-						p->Assign(p->AttributeID("u_Albedo"), *a, 0);
-					}
-					
-					/* DRAW */
-					Draw(*me);
-					
-				}}}}
-			}
-		}
-		
-		// Emission:
-		if (const auto p = Resources::Get<Shader>("pass_emission").lock()) {
-			
-			// Bind program.
-			Shader::Bind(p->ID());
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			p->Assign(
-				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer,
-				1
-			);
-			
-			{
-				const auto w = m_Window.lock();
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-			}
-			
-			RenderTexture::Bind(m_Emission_gBuffer);
-			glClear(GL_DEPTH_BUFFER_BIT);
-			
-			for (const auto& renderer : _renderers) {
-				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto ma = r->GetMaterial().lock() ) {
-				if (const auto me = r->GetMesh().lock()     ) {
-				
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-					
-					p->Assign(p->AttributeID("u_EmissionColor"), ma->GetEmissionColor());
-			
-					// Assign textures:
-					if (const auto e = ma->GetEmissionTexture().lock()) {
-						p->Assign(p->AttributeID("u_Emission"), *e, 0);
-					}
-					
-					/* DRAW */
-					Draw(*me);
-					
-				}}}}
-			}
-			
-			/* DRAW SKY */
-			if (const auto s = Resources::Get<Shader>("skybox").lock()) {
-				
-				// Change culling and depth options for skybox rendering.
-				glCullFace (GL_FRONT);
-				glDepthFunc(GL_LEQUAL);
-	
-				Shader::Bind(s->ID());
-	
-				const static auto trs = glm::scale(
-					glm::mat4(1.0),
-					glm::vec3(2.0)
-				);
-	
-				// Assign matrices.
-				s->Assign(s->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
-				s->Assign(s->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
-				s->Assign(s->AttributeID("u_Model"),                         trs); /* MODEL      */
-				
-				// Assign texture:
-				if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
-					s->Assign(
-						s->AttributeID("u_Texture"),
-						*sky,
-						0
+					p->Assign(p->AttributeID("u_CameraPosition"),
+						t != nullptr ?
+							t->m_Position :
+							glm::vec3(0.0f)
 					);
 				}
 				
-				s->Assign(s->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
-				s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
+				RenderTexture::Bind(m_TexCoord_gBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-				// Bind VAO.
-				if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
-					Draw(*c);
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto ma = r->GetMaterial().lock() ) {
+					if (const auto me = r->GetMesh().lock()     ) {
+						
+						p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
+						
+						// Assign textures:
+						if (const auto d = ma->GetDisplacementTexture().lock()) {
+							p->Assign(p->AttributeID("u_Displacement"), *d, 0);
+						}
+						
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS());
+						
+						/* DRAW */
+						Draw(*me);
+					}}}}
+				}
+			}
+			
+			// Positions:
+			if (const auto p = Resources::Get<Shader>("pass_positions").lock()) {
+				
+				// Bind program.
+				Shader::Bind(p->ID());
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
+				
+				RenderTexture::Bind(m_Position_gBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto me = r->GetMesh().lock()     ) {
+						
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
+						
+						/* DRAW */
+						Draw(*me);
+					}}}
+				}
+			}
+			
+			// Albedo:
+			if (const auto p = Resources::Get<Shader>("pass_albedo").lock()) {
+				
+				// Bind program.
+				Shader::Bind(p->ID());
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
+				
+				p->Assign(p->AttributeID("u_ScreenDimensions"),
+					w != nullptr ?
+						(glm::vec2)w->Dimensions() :
+						 glm::vec2(1.0f)
+				);
+				
+				p->Assign(
+					p->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer,
+					1
+				);
+				
+				RenderTexture::Bind(m_Albedo_gBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto ma = r->GetMaterial().lock() ) {
+					if (const auto me = r->GetMesh().lock()     ) {
+					
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
+						
+						p->Assign(p->AttributeID("u_AlbedoColor"), ma->GetAlbedoColor());
+				
+						// Assign textures:
+						if (const auto a = ma->GetAlbedoTexture().lock()) {
+							p->Assign(p->AttributeID("u_Albedo"), *a, 0);
+						}
+						
+						/* DRAW */
+						Draw(*me);
+					}}}}
+				}
+			}
+			
+			// Emission:
+			if (const auto p = Resources::Get<Shader>("pass_emission").lock()) {
+				
+				// Bind program.
+				Shader::Bind(p->ID());
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
+				
+				p->Assign(
+					p->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer,
+					1
+				);
+				
+				p->Assign(p->AttributeID("u_ScreenDimensions"),
+					w != nullptr ?
+						(glm::vec2)w->Dimensions() :
+						 glm::vec2(1.0f)
+				);
+				
+				RenderTexture::Bind(m_Emission_gBuffer);
+				glClear(GL_DEPTH_BUFFER_BIT);
+				
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto ma = r->GetMaterial().lock() ) {
+					if (const auto me = r->GetMesh().lock()     ) {
+					
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
+						
+						p->Assign(p->AttributeID("u_EmissionColor"), ma->GetEmissionColor());
+				
+						// Assign textures:
+						if (const auto e = ma->GetEmissionTexture().lock()) {
+							p->Assign(p->AttributeID("u_Emission"), *e, 0);
+						}
+						
+						/* DRAW */
+						Draw(*me);
+					}}}}
 				}
 				
-				// Restore culling and depth options.
-				glCullFace ( cullMode);
-				glDepthFunc(depthMode);
-			}
-		}
+				/* DRAW SKY */
+				if (const auto s = Resources::Get<Shader>("skybox").lock()) {
+					
+					// Change culling and depth options for skybox rendering.
+					glCullFace (GL_FRONT);
+					glDepthFunc(GL_LEQUAL);
 		
-		// Surface properties Roughness, Metallic, AO, Parallax Shadows:
-		if (const auto p = Resources::Get<Shader>("pass_material").lock()) {
-			
-			// Bind program.
-			Shader::Bind(p->ID());
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			p->Assign(
-				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer,
-				4
-			);
-
-			p->Assign(p->AttributeID("u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
-			
-			if (const auto t = GetTransform().lock()) {
-				
-				const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
-				
-				auto lightPos = lightType == Light::Parameters::Type::Directional ?
-						t->m_Position + (VEC_FORWARD * glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation)) * 65535.0f) :
-						Settings::Graphics::Material::s_LightPosition;
-				
-				p->Assign(p->AttributeID("u_LightPosition"), lightPos);
-			}
-			
-			{
-				const auto w = m_Window.lock();
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-			}
-			
-			RenderTexture::Bind(m_Material_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			for (const auto& renderer : _renderers) {
-				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto ma = r->GetMaterial().lock() ) {
-				if (const auto me = r->GetMesh().lock()     ) {
-				
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL */
-					
-					p->Assign(p->AttributeID(   "u_Roughness_Amount"), ma->GetRoughnessAmount()   );
-					p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
-					p->Assign(p->AttributeID(          "u_AO_Amount"), ma->GetAOAmount()          );
-					
-					// Assign textures:
-					if (const auto ro = ma->GetRoughnessTexture().lock()) {
-						p->Assign(p->AttributeID("u_Roughness"), *ro, 0);
-					}
-					
-					if (const auto met = ma->GetMetallicTexture().lock()) {
-						p->Assign(p->AttributeID("u_Metallic"), *met, 1);
-					}
-					
-					if (const auto a = ma->GetAOTexture().lock()) {
-						p->Assign(p->AttributeID("u_AO"), *a, 2);
-					}
-					
-					if (const auto d = ma->GetDisplacementTexture().lock()) {
-						p->Assign(p->AttributeID("u_Displacement"), *d, 3);
-					}
-					
-					/* DRAW */
-					Draw(*me);
-					
-				}}}}
-			}
-		}
+					Shader::Bind(s->ID());
 		
-		// Normals:
-		if (const auto p = Resources::Get<Shader>("pass_normals").lock()) {
-			
-			// Bind program.
-			Shader::Bind(p->ID());
-			p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-			p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-			
-			p->Assign(
-				p->AttributeID("u_TexCoord_gBuffer"),
-				m_TexCoord_gBuffer,
-				1
-			);
-			
-			{
-				const auto w = m_Window.lock();
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-			}
-			
-			RenderTexture::Bind(m_Normal_gBuffer);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			for (const auto& renderer : _renderers) {
-				
-				if (const auto  r = renderer.lock()         ) {
-				if (const auto  t = r->GetTransform().lock()) {
-				if (const auto ma = r->GetMaterial().lock() ) {
-				if (const auto me = r->GetMesh().lock()     ) {
-				
-					// Assign matrices.
-					p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-					
-					p->Assign(p->AttributeID("u_NormalAmount"), ma->GetNormalAmount());
-			
-					p->Assign(
-						p->AttributeID("u_Normals"),
-							*ma->GetNormalTexture().lock(),
-						0
+					const static auto trs = glm::scale(
+						glm::mat4(1.0),
+						glm::vec3(2.0)
 					);
+		
+					// Assign matrices.
+					s->Assign(s->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
+					s->Assign(s->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
+					s->Assign(s->AttributeID("u_Model"),                         trs); /* MODEL      */
 					
-					/* DRAW */
-					Draw(*me);
+					// Assign texture:
+					if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
+						s->Assign(
+							s->AttributeID("u_Texture"),
+							*sky,
+							0
+						);
+					}
 					
-				}}}}
+					s->Assign(s->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
+					s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
+		
+					// Bind VAO.
+					if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
+						Draw(*c);
+					}
+					
+					// Restore culling and depth options.
+					glCullFace ( cullMode);
+					glDepthFunc(depthMode);
+				}
 			}
+			
+			// Surface properties Roughness, Metallic, AO, Parallax Shadows:
+			if (const auto p = Resources::Get<Shader>("pass_material").lock()) {
+				
+				// Bind program.
+				Shader::Bind(p->ID());
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
+				
+				p->Assign(
+					p->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer,
+					4
+				);
+	
+				p->Assign(p->AttributeID("u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
+				
+				if (const auto t = GetTransform().lock()) {
+					
+					const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
+					
+					auto lightPos = lightType == Light::Parameters::Type::Directional ?
+							t->m_Position + (VEC_FORWARD * glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation)) * 65535.0f) :
+							Settings::Graphics::Material::s_LightPosition;
+					
+					p->Assign(p->AttributeID("u_LightPosition"), lightPos);
+				}
+				
+				p->Assign(p->AttributeID("u_ScreenDimensions"),
+					w != nullptr ?
+						(glm::vec2)w->Dimensions() :
+						 glm::vec2(1.0f)
+				);
+				
+				RenderTexture::Bind(m_Material_gBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto ma = r->GetMaterial().lock() ) {
+					if (const auto me = r->GetMesh().lock()     ) {
+					
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL */
+						
+						p->Assign(p->AttributeID(   "u_Roughness_Amount"), ma->GetRoughnessAmount()   );
+						p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
+						p->Assign(p->AttributeID(          "u_AO_Amount"), ma->GetAOAmount()          );
+						
+						// Assign textures:
+						if (const auto ro = ma->GetRoughnessTexture().lock()) {
+							p->Assign(p->AttributeID("u_Roughness"), *ro, 0);
+						}
+						
+						if (const auto met = ma->GetMetallicTexture().lock()) {
+							p->Assign(p->AttributeID("u_Metallic"), *met, 1);
+						}
+						
+						if (const auto a = ma->GetAOTexture().lock()) {
+							p->Assign(p->AttributeID("u_AO"), *a, 2);
+						}
+						
+						if (const auto d = ma->GetDisplacementTexture().lock()) {
+							p->Assign(p->AttributeID("u_Displacement"), *d, 3);
+						}
+						
+						/* DRAW */
+						Draw(*me);
+					}}}}
+				}
+			}
+			
+			// Normals:
+			if (const auto p = Resources::Get<Shader>("pass_normals").lock()) {
+				
+				// Bind program.
+				Shader::Bind(p->ID());
+				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
+				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
+				
+				p->Assign(
+					p->AttributeID("u_TexCoord_gBuffer"),
+					m_TexCoord_gBuffer,
+					1
+				);
+				
+				p->Assign(p->AttributeID("u_ScreenDimensions"),
+					w != nullptr ?
+						(glm::vec2)w->Dimensions() :
+						 glm::vec2(1.0f)
+				);
+				
+				RenderTexture::Bind(m_Normal_gBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+				for (const auto& renderer : _renderers) {
+					
+					if (const auto  r = renderer.lock()         ) {
+					if (const auto  t = r->GetTransform().lock()) {
+					if (const auto ma = r->GetMaterial().lock() ) {
+					if (const auto me = r->GetMesh().lock()     ) {
+					
+						// Assign matrices.
+						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
+						
+						p->Assign(p->AttributeID("u_NormalAmount"), ma->GetNormalAmount());
+				
+						p->Assign(
+							p->AttributeID("u_Normals"),
+								*ma->GetNormalTexture().lock(),
+							0
+						);
+						
+						/* DRAW */
+						Draw(*me);
+					}}}}
+				}
+			}
+		}
+		else {
+			Debug::Log("Camera is not bound to a valid window!", LogType::Error);
 		}
 	}
 	
