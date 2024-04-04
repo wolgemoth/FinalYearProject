@@ -60,13 +60,14 @@ namespace LouiEriksson::Engine::Graphics {
 		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
 		
 		// Init g-buffer:
-		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
+		              m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
 		  m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
 		  m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER) {}
+		m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+			       m_AO_RT(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ) {}
 	
 	Camera::~Camera() {
 	
@@ -99,7 +100,7 @@ namespace LouiEriksson::Engine::Graphics {
 				m_TexCoord_gBuffer.Reinitialise(dimensions.x, dimensions.y);
 				
 				// Clear the mip chain:
-				m_MipChain.clear();
+				m_Bloom_MipChain.clear();
 			}
 		}
 		else {
@@ -711,8 +712,6 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 					
 					{
-						const auto w = GetWindow().lock();
-						
 						p->Assign(p->AttributeID("u_ScreenDimensions"),
 							w != nullptr ?
 								(glm::vec2)w->Dimensions() :
@@ -1131,7 +1130,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	void Camera::AmbientOcclusion() const {
+	void Camera::AmbientOcclusion() {
 		
 		// Get shader program:
 		if (const auto ao = Resources::Get<Shader>("ao").lock()) {
@@ -1140,76 +1139,90 @@ namespace LouiEriksson::Engine::Graphics {
 			glm::ivec4 viewport;
 			glGetIntegerv(GL_VIEWPORT, &viewport[0]);
 			
-			Shader::Bind(ao->ID());
-			
-			// Assign program values:
-			ao->Assign(ao->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
-			
-			ao->Assign(ao->AttributeID("u_Strength"),           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
-			ao->Assign(ao->AttributeID("u_Bias"    ), -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
-			ao->Assign(ao->AttributeID("u_Radius"  ),           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
-			
-			ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip     );
-			ao->Assign(ao->AttributeID("u_FarClip" ), m_FarClip      );
-			ao->Assign(ao->AttributeID("u_Time"    ), Time::Elapsed());
-			
-			ao->Assign(ao->AttributeID("u_VP"  ), m_Projection * View());
-			ao->Assign(ao->AttributeID("u_View"),                View());
-			
-			// Create a render texture for the AO. Optionally, downscale the texture
-			// to save performance by computing AO at a lower resolution.
-			const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
-			
-			const RenderTexture ao_rt(
-				glm::max(viewport[2] / (downscale + 1), 1),
-				glm::max(viewport[3] / (downscale + 1), 1),
-				Texture::Parameters::Format(GL_RGB, false),
-				Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
-				m_RT.WrapMode(),
-				RenderTexture::Parameters::DepthMode::NONE
-			);
-			
-			/* ASSIGN G-BUFFERS */
-			ao->AssignDepth(
-				ao->AttributeID("u_Position_gBuffer"),
-				m_Position_gBuffer,
-				0
-			);
-			
-			ao->Assign(
-				ao->AttributeID("u_Position_gBuffer"),
-				m_Position_gBuffer,
-				1
-			);
-			
-			ao->Assign(
-				ao->AttributeID("u_Normal_gBuffer"),
-				m_Normal_gBuffer,
-				2
-			);
-			
-			// Set the viewport resolution to the scale of the AO render target.
-			glViewport(viewport[0], viewport[1], ao_rt.Width(), ao_rt.Height());
-			
-			// Draw
-			RenderTexture::Bind(ao_rt);
-			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-				Draw(*q);
+			{
+				// Create a render texture for the AO. Optionally, downscale the texture
+				// to save performance by computing AO at a lower resolution.
+				const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
+				
+				const auto  width = glm::max(viewport[2] / (downscale + 1), 1);
+				const auto height = glm::max(viewport[3] / (downscale + 1), 1);
+				
+				if (m_AO_RT.m_FBO_ID == GL_NONE || width != m_AO_RT.m_Width || height != m_AO_RT.m_Height) {
+					
+					m_AO_RT.Reinitialise(
+						width,
+						height,
+						Texture::Parameters::Format(GL_RGB, false),
+						Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
+						m_RT.WrapMode(),
+						RenderTexture::Parameters::DepthMode::NONE
+					);
+				}
 			}
 			
-			// Blur the AO.
-			Blur(ao_rt, 1.0f, 1, true, false);
-	
-			// Reset the viewport.
-			glViewport(viewport[0], viewport[1], m_RT.Width(), m_RT.Height());
-			
-			// Apply the colors of the AO image to the main image using multiply blending:
-		    glEnable(GL_BLEND);
-		    glBlendFunc(GL_DST_COLOR, GL_ZERO);
-	
-			Copy(ao_rt, m_RT);
-			
-			glDisable(GL_BLEND);
+			if (m_AO_RT.m_FBO_ID != GL_NONE) {
+				
+				Shader::Bind(ao->ID());
+				
+				// Assign program values:
+				ao->Assign(ao->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
+				
+				ao->Assign(ao->AttributeID("u_Strength"),           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
+				ao->Assign(ao->AttributeID("u_Bias"    ), -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
+				ao->Assign(ao->AttributeID("u_Radius"  ),           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
+				
+				ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip     );
+				ao->Assign(ao->AttributeID("u_FarClip" ), m_FarClip      );
+				ao->Assign(ao->AttributeID("u_Time"    ), Time::Elapsed());
+				
+				ao->Assign(ao->AttributeID("u_VP"  ), m_Projection * View());
+				ao->Assign(ao->AttributeID("u_View"),                View());
+				
+				/* ASSIGN G-BUFFERS */
+				ao->AssignDepth(
+					ao->AttributeID("u_Position_gBuffer"),
+					m_Position_gBuffer,
+					0
+				);
+				
+				ao->Assign(
+					ao->AttributeID("u_Position_gBuffer"),
+					m_Position_gBuffer,
+					1
+				);
+				
+				ao->Assign(
+					ao->AttributeID("u_Normal_gBuffer"),
+					m_Normal_gBuffer,
+					2
+				);
+				
+				// Set the viewport resolution to the scale of the AO render target.
+				glViewport(viewport[0], viewport[1], m_AO_RT.Width(), m_AO_RT.Height());
+				
+				// Draw
+				RenderTexture::Bind(m_AO_RT);
+				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+					Draw(*q);
+				}
+				
+				// Blur the AO.
+				Blur(m_AO_RT, 1.0f, 1, true, false);
+		
+				// Reset the viewport.
+				glViewport(viewport[0], viewport[1], m_RT.Width(), m_RT.Height());
+				
+				// Apply the colors of the AO image to the main image using multiply blending:
+			    glEnable(GL_BLEND);
+			    glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		
+				Copy(m_AO_RT, m_RT);
+				
+				glDisable(GL_BLEND);
+			}
+			else {
+				Debug::Log("Error initialising the render target!", LogType::Error);
+			}
 		}
 	}
 	
@@ -1234,9 +1247,9 @@ namespace LouiEriksson::Engine::Graphics {
 					static_cast<size_t>(1)
 				)) + 1;
 				
-				if (m_MipChain.empty() || m_MipChain.size() < target_length) {
+				if (m_Bloom_MipChain.empty() || m_Bloom_MipChain.size() < target_length) {
 					
-					const auto offset = std::max(m_MipChain.size(), static_cast<size_t>(1)) - 1;
+					const auto offset = std::max(m_Bloom_MipChain.size(), static_cast<size_t>(1)) - 1;
 					
 					for (auto i = 0; i < target_length; ++i) {
 						
@@ -1244,7 +1257,7 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						if (size.x > 1 && size.y > 1) {
 							
-							m_MipChain.emplace_back(
+							m_Bloom_MipChain.emplace_back(
 								size.x,
 								size.y,
 								m_RT.Format(),
@@ -1258,25 +1271,25 @@ namespace LouiEriksson::Engine::Graphics {
 						}
 					}
 				}
-				else if (m_MipChain.size() > target_length) {
-					m_MipChain.erase(m_MipChain.begin() + target_length, m_MipChain.end());
+				else if (m_Bloom_MipChain.size() > target_length) {
+					m_Bloom_MipChain.erase(m_Bloom_MipChain.begin() + target_length, m_Bloom_MipChain.end());
 				}
 				
-				if (m_MipChain.size() > 1) {
+				if (m_Bloom_MipChain.size() > 1) {
 				
 					/* THRESHOLD PASS */
 					Shader::Bind(threshold_shader->ID());
 					threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), target::s_Threshold);
 					threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
 					
-					Blit(m_RT, m_MipChain[0], threshold_shader);
+					Blit(m_RT, m_Bloom_MipChain[0], threshold_shader);
 					
 					/* DOWNSCALING */
 					Shader::Bind(downscale_shader->ID());
 					downscale_shader->Assign(downscale_shader->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
 					
-					for (auto i = 1; i < m_MipChain.size(); ++i) {
-						Blit(m_MipChain[i - 1], m_MipChain[i], downscale_shader);
+					for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
+						Blit(m_Bloom_MipChain[i - 1], m_Bloom_MipChain[i], downscale_shader);
 					}
 					
 					/* UPSCALING */
@@ -1305,8 +1318,8 @@ namespace LouiEriksson::Engine::Graphics {
 					glBlendFunc(GL_ONE, GL_ONE);
 					glBlendEquation(GL_FUNC_ADD);
 					
-					for (auto i = m_MipChain.size() - 1; i > 0; --i) {
-						Blit(m_MipChain[i], m_MipChain[i - 1], upscale_shader);
+					for (auto i = m_Bloom_MipChain.size() - 1; i > 0; --i) {
+						Blit(m_Bloom_MipChain[i], m_Bloom_MipChain[i - 1], upscale_shader);
 					}
 					
 					// Disable additive blending
@@ -1314,9 +1327,9 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					/* COMBINE */
 					Shader::Bind(combine_shader->ID());
-					combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)m_MipChain.size() - 1, 1.0f));
+					combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)m_Bloom_MipChain.size() - 1, 1.0f));
 					combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT,          0);
-					combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), m_MipChain[0], 1);
+					combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), m_Bloom_MipChain[0], 1);
 					
 					// Blit to main render target:
 					RenderTexture::Bind(m_RT);
@@ -1335,7 +1348,7 @@ namespace LouiEriksson::Engine::Graphics {
 							Shader::Bind(lens_dirt_shader->ID());
 							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
 							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT,          0);
-							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),    m_MipChain[0], 1);
+							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),    m_Bloom_MipChain[0], 1);
 							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),                *t, 2);
 							
 							// Blit to main render target:

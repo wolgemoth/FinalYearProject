@@ -48,7 +48,7 @@ namespace LouiEriksson::Engine::Graphics {
 		size_t m_VertexCount,
 		        m_IndexCount;
 		
-		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs);
+		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _UVs);
 
 		explicit Mesh(const GLenum& _format) noexcept;
 		

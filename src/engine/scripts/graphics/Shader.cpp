@@ -4,6 +4,8 @@
 #include "../core/File.h"
 #include "../core/utils/Hashmap.h"
 #include "../core/utils/Utils.h"
+
+#include "Light.h"
 #include "Texture.h"
 #include "textures/RenderTexture.h"
 

@@ -35,7 +35,7 @@ namespace LouiEriksson::Engine {
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Transform); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
 		
 		/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
 		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const;

@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine::Graphics {
 		if (m_BitangentVBO_ID != GL_NONE) { glDeleteBuffers     (1, &m_BitangentVBO_ID); }
 	}
 	
-	std::array<std::vector<glm::vec3>, 2> Mesh::GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs) {
+	std::array<std::vector<glm::vec3>, 2> Mesh::GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _UVs) {
 		
 		auto result = std::array<std::vector<glm::vec3>, 2>();
 		
@@ -240,7 +240,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
 			if (_generateTangents) {
 				
-				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				const auto tb = GenerateTangents(_vertices, _UVs);
 				const auto& t = tb[0];
 				const auto& b = tb[1];
 				
@@ -326,7 +326,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
 			if (_generateTangents) {
 				
-				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				const auto tb = GenerateTangents(_vertices, _UVs);
 				const auto& t = tb[0];
 				const auto& b = tb[1];
 				
@@ -412,7 +412,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
 			if (_generateTangents) {
 				
-				const auto tb = GenerateTangents(_vertices, _normals, _UVs);
+				const auto tb = GenerateTangents(_vertices, _UVs);
 				const auto& t = tb[0];
 				const auto& b = tb[1];
 				

@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine::Graphics {
 		explicit Renderer(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Renderer() override;
 	
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Renderer); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Renderer); };
 		
 		/// <summary> Set whether or not the Renderer should cast shadows. </summary>
 		void Shadows(const bool& _enable) noexcept;

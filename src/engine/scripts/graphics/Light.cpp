@@ -15,6 +15,7 @@
 #include <cmath>
 #include <memory>
 #include <stdexcept>
+#include <string>
 
 namespace LouiEriksson::Engine::Graphics {
 	

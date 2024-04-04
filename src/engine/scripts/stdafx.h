@@ -1,6 +1,9 @@
 #ifndef FINALYEARPROJECT_STDAFX_H
 #define FINALYEARPROJECT_STDAFX_H
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-include-cleaner"
+
 /* EXTERNAL */
 #include <al.h>                     // AL ...
 #include <alc.h>
@@ -59,5 +62,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+
+#pragma clang diagnostic pop
 
 #endif //FINALYEARPROJECT_STDAFX_H

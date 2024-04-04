@@ -40,7 +40,7 @@ namespace LouiEriksson::Engine::Audio {
 		 explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~AudioListener() override;
 		
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
 		
 		/// <summary> Initialise the AudioListener. </summary>
 		void Begin() override;

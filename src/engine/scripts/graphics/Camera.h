@@ -70,7 +70,10 @@ namespace LouiEriksson::Engine::Graphics {
 		float m_Exposure; // Camera exposure for tonemapping.
 		
 		// Mip chain for bloom effect.
-		std::vector<RenderTexture> m_MipChain;
+		std::vector<RenderTexture> m_Bloom_MipChain;
+		
+		// Render texture for AO effect.
+		RenderTexture m_AO_RT;
 		
 		/* METHODS */
 		
@@ -97,7 +100,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void AutoExposure();
 		
 		/// <summary> Ambient occlusion effect. </summary>
-		void AmbientOcclusion() const;
+		void AmbientOcclusion();
 		
 		/// <summary> Physically-based bloom effect using 13-tap sampling method. </summary>
 		void Bloom();
@@ -117,7 +120,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Camera() override;
 	
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Camera); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
 		/// <summary> Called before rendering. </summary>
 		void PreRender(const RenderFlags& _flags);

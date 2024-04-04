@@ -4,6 +4,7 @@
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include <cstddef>
 #include <queue>
 #include <string>
 #include <type_traits>

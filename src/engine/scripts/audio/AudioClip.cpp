@@ -6,6 +6,7 @@
 
 #include <exception>
 #include <filesystem>
+#include <string>
 
 namespace LouiEriksson::Engine::Audio {
 	

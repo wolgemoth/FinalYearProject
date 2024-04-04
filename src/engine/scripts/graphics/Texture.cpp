@@ -4,6 +4,7 @@
 
 #include <GL/glew.h>
 
+#include <string>
 #include <utility>
 
 namespace LouiEriksson::Engine::Graphics {

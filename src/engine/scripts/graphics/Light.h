@@ -83,7 +83,7 @@ namespace LouiEriksson::Engine::Graphics {
 		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
 		~Light() override;
 		
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Light); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Light); };
 		
 		void Type(const Light::Parameters::Type& _type);
 		

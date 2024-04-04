@@ -34,7 +34,7 @@ namespace LouiEriksson::Engine::ECS {
 	public:
 	
 		/// <summary> Return the type_index of this Component's derived type. </summary>
-		[[nodiscard]] virtual const std::type_index TypeID() const noexcept = 0;
+		[[nodiscard]] virtual std::type_index TypeID() const noexcept = 0;
 		
 		/// <summary> Get the Component's parent GameObject. </summary>
 		[[nodiscard]] virtual const std::weak_ptr<GameObject>& Parent() const noexcept;

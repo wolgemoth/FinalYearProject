@@ -17,6 +17,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <typeindex>
 #include <typeinfo>
 #include <utility>
 
