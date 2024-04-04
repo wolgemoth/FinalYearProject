@@ -30,12 +30,14 @@ namespace LouiEriksson::Engine::Graphics {
 			
 		};
 		
-		RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode);
-		
+		 RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode);
 		~RenderTexture();
 		
 		RenderTexture(             const RenderTexture& _other) = delete;
 		RenderTexture& operator = (const RenderTexture& _other) = delete;
+		
+		RenderTexture             (RenderTexture&& _other) noexcept;
+		RenderTexture& operator = (RenderTexture&& _other) noexcept;
 		
 		/// <summary> Reinitialise the texture with a given width and height. </summary>
 		void Reinitialise(const int& _width, const int& _height);

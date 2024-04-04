@@ -56,10 +56,6 @@ namespace LouiEriksson::Engine::Graphics {
 		float m_NearClip;   // Near clipping plane.
 		float m_FarClip;    // Far clipping plane.
 		
-		/* EFFECTS */
-		
-		float m_Exposure;   // Camera exposure for tonemapping.
-		
 		/* G-BUFFER: */
 		
 		RenderTexture   m_Albedo_gBuffer; // Albedo channel.
@@ -68,6 +64,15 @@ namespace LouiEriksson::Engine::Graphics {
 		RenderTexture m_Position_gBuffer; // World-space surface positions.
 		RenderTexture   m_Normal_gBuffer; // Surface normals.
 		RenderTexture m_TexCoord_gBuffer; // Texture coordinates.
+		
+		/* EFFECTS */
+		
+		float m_Exposure; // Camera exposure for tonemapping.
+		
+		// Mip chain for bloom effect.
+		std::vector<RenderTexture> m_MipChain;
+		
+		/* METHODS */
 		
 		/// <summary> Deferred rendering geometry pass. </summary>
 		void GeometryPass(const std::vector<std::weak_ptr<Renderer>>& _renderers);
@@ -95,7 +100,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void AmbientOcclusion() const;
 		
 		/// <summary> Physically-based bloom effect using 13-tap sampling method. </summary>
-		void Bloom() const;
+		void Bloom();
 		
 	public:
 	

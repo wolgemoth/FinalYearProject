@@ -31,6 +31,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/trigonometric.hpp>
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -38,6 +39,7 @@
 #include <memory>
 #include <queue>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::Graphics {
@@ -94,6 +96,9 @@ namespace LouiEriksson::Engine::Graphics {
 				m_Position_gBuffer.Reinitialise(dimensions.x, dimensions.y);
 				  m_Normal_gBuffer.Reinitialise(dimensions.x, dimensions.y);
 				m_TexCoord_gBuffer.Reinitialise(dimensions.x, dimensions.y);
+				
+				// Clear the mip chain:
+				m_MipChain.clear();
 			}
 		}
 		else {
@@ -1207,7 +1212,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	void Camera::Bloom() const {
+	void Camera::Bloom() {
 		
 		using target = Settings::PostProcessing::Bloom;
 		
@@ -1223,110 +1228,124 @@ namespace LouiEriksson::Engine::Graphics {
 			if (const auto   combine_shader = Resources::Get<Shader>("combine"  ).lock()) {
 			if (const auto lens_dirt_shader = Resources::Get<Shader>("lens_dirt").lock()) {
 				
-				/* THRESHOLD PASS */
-				Shader::Bind(threshold_shader->ID());
-				threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), target::s_Threshold);
-				threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
+				const auto target_length = static_cast<size_t>(std::max(
+					static_cast<size_t>(target::s_Diffusion * 2),
+					static_cast<size_t>(1)
+				)) + 1;
 				
-				const RenderTexture tmp(dimensions.x / 2, dimensions.y / 2, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				
-				Blit(m_RT, tmp, threshold_shader);
-				
-				/* DOWNSCALING */
-				Shader::Bind(downscale_shader->ID());
-				downscale_shader->Assign(downscale_shader->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-		
-				// Mip chain. (currently hard-coded). TODO: Dynamically-sized mip chain.
-				const int scalingPasses = 6;
-				
-				// Downscale passes:
-				const RenderTexture mip0(dimensions.x /   4, dimensions.y /   4, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(tmp,  mip0, downscale_shader);
-				
-				const RenderTexture mip1(dimensions.x /   8, dimensions.y /   8, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(mip0, mip1, downscale_shader);
-				
-				const RenderTexture mip2(dimensions.x /  16, dimensions.y /  16, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(mip1, mip2, downscale_shader);
-				
-				const RenderTexture mip3(dimensions.x /  32, dimensions.y /  32, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(mip2, mip3, downscale_shader);
-				
-				const RenderTexture mip4(dimensions.x /  64, dimensions.y /  64, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(mip3, mip4, downscale_shader);
-				
-				const RenderTexture mip5(dimensions.x / 128, dimensions.y / 128, m_RT.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
-				Blit(mip4, mip5, downscale_shader);
-		
-				/* UPSCALING */
-				Shader::Bind(upscale_shader->ID());
-		
-				// Create the diffusion vector for the bloom algorithm:
-				{
-					const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
-				
-					// Imitate anamorphic artifacts by morphing the shape of the diffusion vector:
-					const glm::vec2 diffusionVec(
-						glm::mix(0.0f, target::s_Diffusion,        t),
-						glm::mix(0.0f, target::s_Diffusion, 1.0f - t)
-					);
+				if (m_MipChain.empty() || m_MipChain.size() < target_length) {
 					
-					upscale_shader->Assign(
-						upscale_shader->AttributeID("u_Diffusion"),
-						diffusionVec
-					);
-				}
-				
-			    // Enable additive blending
-			    glEnable(GL_BLEND);
-			    glBlendFunc(GL_ONE, GL_ONE);
-			    glBlendEquation(GL_FUNC_ADD);
-				
-				// Upscale passes:
-				Blit(mip5, mip4, upscale_shader);
-				Blit(mip4, mip3, upscale_shader);
-				Blit(mip3, mip2, upscale_shader);
-				Blit(mip2, mip1, upscale_shader);
-				Blit(mip1, mip0, upscale_shader);
-				Blit(mip0, tmp,  upscale_shader);
-		
-			    // Disable additive blending
-			    glDisable(GL_BLEND);
-		
-				/* COMBINE */
-				Shader::Bind(combine_shader->ID());
-				combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)scalingPasses, 1.0f));
-				combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT, 0);
-				combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), tmp,  1);
-		
-				// Blit to main render target:
-				RenderTexture::Bind(m_RT);
-				
-				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-					Draw(*q);
-				}
-				
-				RenderTexture::Unbind();
-				
-				/* LENS DIRT */
-				if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0) {
+					const auto offset = std::max(m_MipChain.size(), static_cast<size_t>(1)) - 1;
 					
-					if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
+					for (auto i = 0; i < target_length; ++i) {
 						
-						Shader::Bind(lens_dirt_shader->ID());
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT, 0);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),     tmp, 1);
-						lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),       *t, 2);
+						const auto size = dimensions / static_cast<int>(std::pow(2.0, i + offset));
 						
-						// Blit to main render target:
-						RenderTexture::Bind(m_RT);
-						if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-							Draw(*q);
+						if (size.x > 1 && size.y > 1) {
+							
+							m_MipChain.emplace_back(
+								size.x,
+								size.y,
+								m_RT.Format(),
+								Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR),
+								m_RT.WrapMode(),
+								RenderTexture::Parameters::DepthMode::NONE
+							);
+						}
+						else {
+							break;
 						}
 					}
 				}
+				else if (m_MipChain.size() > target_length) {
+					m_MipChain.erase(m_MipChain.begin() + target_length, m_MipChain.end());
+				}
 				
+				if (m_MipChain.size() > 1) {
+				
+					/* THRESHOLD PASS */
+					Shader::Bind(threshold_shader->ID());
+					threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), target::s_Threshold);
+					threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
+					
+					Blit(m_RT, m_MipChain[0], threshold_shader);
+					
+					/* DOWNSCALING */
+					Shader::Bind(downscale_shader->ID());
+					downscale_shader->Assign(downscale_shader->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
+					
+					for (auto i = 1; i < m_MipChain.size(); ++i) {
+						Blit(m_MipChain[i - 1], m_MipChain[i], downscale_shader);
+					}
+					
+					/* UPSCALING */
+					Shader::Bind(upscale_shader->ID());
+					
+					// Create the diffusion vector for the bloom algorithm:
+					{
+						const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
+						
+						// Imitate anamorphic artifacts by morphing the shape of the diffusion vector:
+						const glm::vec2 diffusionVec(
+								glm::mix(0.0, 3.0,       t),
+								glm::mix(0.0, 3.0, 1.0 - t)
+						);
+						
+						upscale_shader->Assign(
+							upscale_shader->AttributeID("u_Diffusion"),
+							diffusionVec
+						);
+					}
+					
+					// Enable additive blending
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_ONE, GL_ONE);
+					glBlendEquation(GL_FUNC_ADD);
+					
+					for (auto i = m_MipChain.size() - 1; i > 0; --i) {
+						Blit(m_MipChain[i], m_MipChain[i - 1], upscale_shader);
+					}
+					
+					// Disable additive blending
+					glDisable(GL_BLEND);
+					
+					/* COMBINE */
+					Shader::Bind(combine_shader->ID());
+					combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)m_MipChain.size() - 1, 1.0f));
+					combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT,          0);
+					combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), m_MipChain[0], 1);
+					
+					// Blit to main render target:
+					RenderTexture::Bind(m_RT);
+					
+					if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+						Draw(*q);
+					}
+					
+					RenderTexture::Unbind();
+					
+					/* LENS DIRT */
+					if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0) {
+						
+						if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
+							
+							Shader::Bind(lens_dirt_shader->ID());
+							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
+							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT,          0);
+							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),    m_MipChain[0], 1);
+							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),                *t, 2);
+							
+							// Blit to main render target:
+							RenderTexture::Bind(m_RT);
+							if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+								Draw(*q);
+							}
+						}
+					}
+				}
+				else {
+					Debug::Log("Error creating mip chain!", LogType::Error);
+				}
 			}}}}}
 		}
 		else {

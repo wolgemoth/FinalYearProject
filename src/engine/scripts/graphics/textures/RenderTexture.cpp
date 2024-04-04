@@ -11,16 +11,47 @@
 namespace LouiEriksson::Engine::Graphics {
 	
 	RenderTexture::RenderTexture(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode) : Texture(_width, _height, 0, _format, _filterMode, _wrapMode),
-			m_FBO_ID   (GL_NONE),
-			m_RBO_ID   (GL_NONE),
-			m_Depth_ID (GL_NONE),
-			m_DepthMode(RenderTexture::Parameters::DepthMode::NONE)
+		m_FBO_ID   (GL_NONE),
+		m_RBO_ID   (GL_NONE),
+		m_Depth_ID (GL_NONE),
+		m_DepthMode(RenderTexture::Parameters::DepthMode::NONE)
 	{
 		Create(_width, _height, _format, _filterMode, _wrapMode, _depthMode);
 	}
 	
 	RenderTexture::~RenderTexture() {
 		Discard();
+	}
+	
+	RenderTexture::RenderTexture(RenderTexture&& _other) noexcept :
+		Texture    (std::move(_other            )),
+	    m_FBO_ID   (std::move(_other.m_FBO_ID   )),
+		m_RBO_ID   (std::move(_other.m_RBO_ID   )),
+		m_Depth_ID (std::move(_other.m_Depth_ID )),
+		m_DepthMode(std::move(_other.m_DepthMode))
+	{
+		if (&_other != this) {
+		
+			_other.m_FBO_ID    = GL_NONE;
+			_other.m_RBO_ID    = GL_NONE;
+			_other.m_Depth_ID  = GL_NONE;
+			_other.m_DepthMode = Parameters::DepthMode::NONE;
+		}
+	}
+	
+	RenderTexture& RenderTexture::operator = (RenderTexture&& _other) noexcept {
+		
+		if (this != &_other) {
+			
+			m_FBO_ID    = _other.m_FBO_ID;
+			m_RBO_ID    = _other.m_RBO_ID;
+			m_Depth_ID  = _other.m_Depth_ID;
+			m_DepthMode = _other.m_DepthMode;
+			
+			Texture::operator =(std::move(_other));
+		}
+		
+		return *this;
 	}
 	
 	void RenderTexture::Create(const int& _width, const int& _height, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode, const RenderTexture::Parameters::DepthMode& _depthMode) {

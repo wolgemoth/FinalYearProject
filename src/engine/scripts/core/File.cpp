@@ -309,7 +309,7 @@ namespace LouiEriksson::Engine {
 						
 						if (scene->HasMeshes()) {
 							
-							for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
+							for (auto i = 0; i < scene->mNumMeshes; i++) {
 								
 						        const auto* const mesh = scene->mMeshes[i];
 						        

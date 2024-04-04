@@ -45,11 +45,11 @@ namespace LouiEriksson::Engine {
 		
 		Input::Cursor::Reset();
 		
-		      UI::     GUI::Dispose();
-		 Physics:: Physics::Dispose();
-		   Input::   Input::Dispose();
-		   Audio::   Sound::Dispose();
-	  Networking::Requests::Dispose();
+		        UI::     GUI::Dispose();
+		   Physics:: Physics::Dispose();
+		     Input::   Input::Dispose();
+		     Audio::   Sound::Dispose();
+		Networking::Requests::Dispose();
 		
 	    try {
 			SDL_Quit();
@@ -161,6 +161,7 @@ namespace LouiEriksson::Engine {
 //							Debug::Log(ss.str(), LogType::Info);
 //						}
 //					);
+
 				}
 				
 				// Load a scene and run:
@@ -277,14 +278,14 @@ namespace LouiEriksson::Engine {
 						
 						/* UPDATE TIMERS */
 						Time::s_UnscaledDeltaTime = static_cast<float>(
-								std::chrono::duration_cast<std::chrono::microseconds>(
-										std::chrono::high_resolution_clock::now() -
-												frame_start
-								).count() / 1000000.0); // Calculate delta time.
+							std::chrono::duration_cast<std::chrono::microseconds>(
+									std::chrono::high_resolution_clock::now() -
+											frame_start
+							).count() / 1000000.0); // Calculate delta time.
 						
-						Time::s_Elapsed += Time::UnscaledDeltaTime(); // Increment total elapsed time.
+						            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
 						Physics::Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.
-						physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
+						                physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
 					}
 					catch (const std::exception& e) {
 						Debug::Log(e, LogType::Critical);
