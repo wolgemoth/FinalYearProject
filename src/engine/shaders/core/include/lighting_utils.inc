@@ -161,7 +161,7 @@
 
             vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1);
 
-            dir *= float(i + 1.0) * _texelSize;
+            dir *= Random1S(dir.xy + vec2(i + 1), _seed, 0.2);
 
             float occluderDepth = Sample1(_shadowMap, _fragPos.xy + dir);
 
