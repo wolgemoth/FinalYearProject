@@ -30,8 +30,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
             inline static constexpr auto s_RMinor = 6356752.3142;
             inline static constexpr auto s_Ratio  = s_RMinor / s_RMajor;
 
-            inline static auto s_Eccent = std::sqrt(1.0 - (s_Ratio * s_Ratio));
-            inline static auto s_Com    = 0.5 * s_Eccent;
+            inline static const auto s_Eccent = std::sqrt(1.0 - (s_Ratio * s_Ratio));
+            inline static const auto s_Com    = 0.5 * s_Eccent;
 
 		public:
 			
