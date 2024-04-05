@@ -3,7 +3,6 @@
 
 #include "../ecs/Component.h"
 
-#include "textures/Cubemap.h"
 #include "textures/RenderTexture.h"
 
 #include <glm/ext/matrix_float4x4.hpp>
@@ -34,6 +33,8 @@ namespace LouiEriksson::Engine::Graphics {
 		friend LouiEriksson::Engine::Window;
 	
 	private:
+		
+		inline static std::weak_ptr<Shader> s_Passthrough{};
 		
 		// Main render target:
 		RenderTexture m_RT;

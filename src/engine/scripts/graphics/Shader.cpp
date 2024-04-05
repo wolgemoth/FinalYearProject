@@ -27,7 +27,7 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	SubShader::SubShader(const char* _path, GLenum _type) noexcept :
+	SubShader::SubShader(const char* _path, const GLenum& _type) noexcept :
 			m_Path(_path),
 			m_Type(static_cast<GLint>(_type)) {}
 	
@@ -262,25 +262,15 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	void Shader::BindAttribute(const GLint& _pos, const char* _name) const {
-		
-		glBindAttribLocation(this->ID(), _pos, _name);
-		
-		const GLenum errorCode(glGetError());
-		if (errorCode != GL_NONE) {
-			
-			Debug::Log("Shader \"" +
-			    Name() + "\": Attempt at binding attribute \"" +
-			    _name  + "\", to location (" + std::to_string(_pos) + ") failed. " +
-			              "GL Error Code: " + std::to_string(errorCode), LogType::Error);
-		}
+		glBindAttribLocation(ID(), _pos, _name);
 	}
 	
-	GLint Shader::AttributeID(const char* _name) {
+	GLint Shader::AttributeID(const std::string& _name) {
 		
 		GLint result = -1;
 		
 		if (!m_ParameterIDs.Get(_name, result)) {
-			result = glGetUniformLocation(this->ID(), _name);
+			result = glGetUniformLocation(ID(), _name.c_str());
 			
 			if (result != -1) {
 				m_ParameterIDs.Assign(_name, result);

@@ -7,6 +7,7 @@
 
 #include "Texture.h"
 #include "textures/RenderTexture.h"
+#include "textures/Cubemap.h"
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_clip_space.hpp>

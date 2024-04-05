@@ -28,7 +28,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Plane() override;
 	
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Plane); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Plane); };
 	};
 	
 } // LouiEriksson::Game::Scripts

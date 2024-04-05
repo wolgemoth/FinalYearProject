@@ -70,7 +70,15 @@ namespace LouiEriksson::Engine::Graphics {
 		 
 		// Effects buffers:
 		            m_AO_RT( 1,  1, Texture::Parameters::Format(GL_RGB, false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
-		m_AutoExposure_Luma(32, 32, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE) {}
+		m_AutoExposure_Luma(32, 32, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE)
+	{
+		if (s_Passthrough.expired()) {
+			s_Passthrough = Resources::Get<Shader>("passthrough");
+		}
+		else {
+			Debug::Log("Couldn't bind passthrough texture!", LogType::Error);
+		}
+	}
 	
 	Camera::~Camera() {
 	
@@ -115,335 +123,380 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto w = m_Window.lock()) {
 			
-			// Get the current culling and depth modes and cache them here.
-			GLint cullMode, depthMode;
-			glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
-			glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
+			if (const auto t = GetTransform().lock()) {
 			
-			// Texture Coordinates:
-			if (const auto p = Resources::Get<Shader>("pass_texcoords").lock()) {
+				// Get the current culling and depth modes and cache them here.
+				GLint cullMode, depthMode;
+				glGetIntegerv(GL_CULL_FACE_MODE, &cullMode);
+				glGetIntegerv(GL_DEPTH_FUNC,     &depthMode);
 				
-				// Bind program.
-				Shader::Bind(p->ID());
-				
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				p->Assign(p->AttributeID("u_ST"), Settings::Graphics::Material::s_TextureScaleTranslate);
-				
-				{
-					const auto t = GetTransform().lock();
+				// Texture Coordinates:
+				if (const auto p = Resources::Get<Shader>("pass_texcoords").lock()) {
 					
-					p->Assign(p->AttributeID("u_CameraPosition"),
+					// Bind program.
+					Shader::Bind(p->ID());
+					
+					const static auto          u_Projection = p->AttributeID("u_Projection");
+					const static auto                u_View = p->AttributeID("u_View");
+					const static auto               u_Model = p->AttributeID("u_Model");
+					const static auto      u_CameraPosition = p->AttributeID("u_CameraPosition");
+					const static auto        u_Displacement = p->AttributeID("u_Displacement");
+					const static auto u_Displacement_Amount = p->AttributeID("u_Displacement_Amount");
+					const static auto                  u_ST = p->AttributeID("u_ST");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					p->Assign(u_ST, Settings::Graphics::Material::s_TextureScaleTranslate);
+					
+					p->Assign(u_CameraPosition,
 						t != nullptr ?
 							t->m_Position :
 							glm::vec3(0.0f)
 					);
-				}
-				
-				RenderTexture::Bind(m_TexCoord_gBuffer);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-				for (const auto& renderer : _renderers) {
 					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto ma = r->GetMaterial().lock() ) {
-					if (const auto me = r->GetMesh().lock()     ) {
-						
-						p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
-						
-						// Assign textures:
-						if (const auto d = ma->GetDisplacementTexture().lock()) {
-							p->Assign(p->AttributeID("u_Displacement"), *d, 0);
-						}
-						
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS());
-						
-						/* DRAW */
-						Draw(*me);
-					}}}}
-				}
-			}
-			
-			// Positions:
-			if (const auto p = Resources::Get<Shader>("pass_positions").lock()) {
-				
-				// Bind program.
-				Shader::Bind(p->ID());
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				RenderTexture::Bind(m_Position_gBuffer);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-				for (const auto& renderer : _renderers) {
-					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto me = r->GetMesh().lock()     ) {
-						
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-						
-						/* DRAW */
-						Draw(*me);
-					}}}
-				}
-			}
-			
-			// Albedo:
-			if (const auto p = Resources::Get<Shader>("pass_albedo").lock()) {
-				
-				// Bind program.
-				Shader::Bind(p->ID());
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-				
-				p->Assign(
-					p->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer,
-					1
-				);
-				
-				RenderTexture::Bind(m_Albedo_gBuffer);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-				for (const auto& renderer : _renderers) {
-					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto ma = r->GetMaterial().lock() ) {
-					if (const auto me = r->GetMesh().lock()     ) {
-					
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-						
-						p->Assign(p->AttributeID("u_AlbedoColor"), ma->GetAlbedoColor());
-				
-						// Assign textures:
-						if (const auto a = ma->GetAlbedoTexture().lock()) {
-							p->Assign(p->AttributeID("u_Albedo"), *a, 0);
-						}
-						
-						/* DRAW */
-						Draw(*me);
-					}}}}
-				}
-			}
-			
-			// Emission:
-			if (const auto p = Resources::Get<Shader>("pass_emission").lock()) {
-				
-				// Bind program.
-				Shader::Bind(p->ID());
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				p->Assign(
-					p->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer,
-					1
-				);
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-				
-				RenderTexture::Bind(m_Emission_gBuffer);
-				glClear(GL_DEPTH_BUFFER_BIT);
-				
-				for (const auto& renderer : _renderers) {
-					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto ma = r->GetMaterial().lock() ) {
-					if (const auto me = r->GetMesh().lock()     ) {
-					
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-						
-						p->Assign(p->AttributeID("u_EmissionColor"), ma->GetEmissionColor());
-				
-						// Assign textures:
-						if (const auto e = ma->GetEmissionTexture().lock()) {
-							p->Assign(p->AttributeID("u_Emission"), *e, 0);
-						}
-						
-						/* DRAW */
-						Draw(*me);
-					}}}}
-				}
-				
-				/* DRAW SKY */
-				if (const auto s = Resources::Get<Shader>("skybox").lock()) {
-					
-					// Change culling and depth options for skybox rendering.
-					glCullFace (GL_FRONT);
-					glDepthFunc(GL_LEQUAL);
+					RenderTexture::Bind(m_TexCoord_gBuffer);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-					Shader::Bind(s->ID());
+					for (const auto& renderer : _renderers) {
+						
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto ma = r->GetMaterial().lock() ) {
+						if (const auto me = r->GetMesh().lock()     ) {
+							
+							p->Assign(u_Displacement_Amount, ma->GetDisplacementAmount());
+							
+							// Assign textures:
+							if (const auto d = ma->GetDisplacementTexture().lock()) {
+								p->Assign(u_Displacement, *d, 0);
+							}
+							
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS());
+							
+							/* DRAW */
+							Draw(*me);
+						}}}}
+					}
+				}
+				
+				// Positions:
+				if (const auto p = Resources::Get<Shader>("pass_positions").lock()) {
+					
+					// Bind program.
+					Shader::Bind(p->ID());
+					
+					const static auto u_Projection = p->AttributeID("u_Projection");
+					const static auto       u_View = p->AttributeID("u_View");
+					const static auto      u_Model = p->AttributeID("u_Model");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					RenderTexture::Bind(m_Position_gBuffer);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-					const static auto trs = glm::scale(
-						glm::mat4(1.0),
-						glm::vec3(2.0)
+					for (const auto& renderer : _renderers) {
+						
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto me = r->GetMesh().lock()     ) {
+							
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS()); /* MODEL      */
+							
+							/* DRAW */
+							Draw(*me);
+						}}}
+					}
+				}
+				
+				// Albedo:
+				if (const auto p = Resources::Get<Shader>("pass_albedo").lock()) {
+					
+					// Bind program.
+					Shader::Bind(p->ID());
+					
+					const static auto       u_Projection = p->AttributeID("u_Projection");
+					const static auto             u_View = p->AttributeID("u_View");
+					const static auto            u_Model = p->AttributeID("u_Model");
+					const static auto           u_Albedo = p->AttributeID("u_Albedo");
+					const static auto u_TexCoord_gBuffer = p->AttributeID("u_TexCoord_gBuffer");
+					const static auto u_ScreenDimensions = p->AttributeID("u_ScreenDimensions");
+					const static auto      u_AlbedoColor = p->AttributeID("u_AlbedoColor");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					p->Assign(u_ScreenDimensions,
+						w != nullptr ?
+							(glm::vec2)w->Dimensions() :
+							 glm::vec2(1.0f)
 					);
+					
+					p->Assign(
+						u_TexCoord_gBuffer,
+						m_TexCoord_gBuffer,
+						1
+					);
+					
+					RenderTexture::Bind(m_Albedo_gBuffer);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-					// Assign matrices.
-					s->Assign(s->AttributeID("u_Projection"),           Projection()); /* PROJECTION */
-					s->Assign(s->AttributeID("u_View"), glm::mat4(glm::mat3(View()))); /* VIEW       */
-					s->Assign(s->AttributeID("u_Model"),                         trs); /* MODEL      */
+					for (const auto& renderer : _renderers) {
+						
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto ma = r->GetMaterial().lock() ) {
+						if (const auto me = r->GetMesh().lock()     ) {
+						
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS()); /* MODEL      */
+							
+							p->Assign(u_AlbedoColor, ma->GetAlbedoColor());
 					
-					// Assign texture:
-					if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
-						s->Assign(
-							s->AttributeID("u_Texture"),
-							*sky,
-							0
-						);
+							// Assign textures:
+							if (const auto a = ma->GetAlbedoTexture().lock()) {
+								p->Assign(u_Albedo, *a, 0);
+							}
+							
+							/* DRAW */
+							Draw(*me);
+						}}}}
 					}
-					
-					s->Assign(s->AttributeID("u_Exposure"), Settings::Graphics::Skybox::s_Exposure);
-					s->Assign(s->AttributeID("u_Blur"    ), Settings::Graphics::Skybox::s_Blur);
-		
-					// Bind VAO.
-					if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
-						Draw(*c);
-					}
-					
-					// Restore culling and depth options.
-					glCullFace ( cullMode);
-					glDepthFunc(depthMode);
 				}
-			}
+				
+				// Emission:
+				if (const auto p = Resources::Get<Shader>("pass_emission").lock()) {
+					
+					// Bind program.
+					Shader::Bind(p->ID());
+					
+					const static auto       u_Projection = p->AttributeID("u_Projection");
+					const static auto             u_View = p->AttributeID("u_View");
+					const static auto            u_Model = p->AttributeID("u_Model");
+					const static auto         u_Emission = p->AttributeID("u_Emission");
+					const static auto u_TexCoord_gBuffer = p->AttributeID("u_TexCoord_gBuffer");
+					const static auto u_ScreenDimensions = p->AttributeID("u_ScreenDimensions");
+					const static auto    u_EmissionColor = p->AttributeID("u_EmissionColor");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					p->Assign(
+						u_TexCoord_gBuffer,
+						m_TexCoord_gBuffer,
+						1
+					);
+					
+					p->Assign(u_ScreenDimensions,
+						w != nullptr ?
+							(glm::vec2)w->Dimensions() :
+							 glm::vec2(1.0f)
+					);
+					
+					RenderTexture::Bind(m_Emission_gBuffer);
+					glClear(GL_DEPTH_BUFFER_BIT);
+					
+					for (const auto& renderer : _renderers) {
+						
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto ma = r->GetMaterial().lock() ) {
+						if (const auto me = r->GetMesh().lock()     ) {
+						
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS()); /* MODEL      */
+							
+							p->Assign(u_EmissionColor, ma->GetEmissionColor());
+					
+							// Assign textures:
+							if (const auto e = ma->GetEmissionTexture().lock()) {
+								p->Assign(u_Emission, *e, 0);
+							}
+							
+							/* DRAW */
+							Draw(*me);
+						}}}}
+					}
+					
+					/* DRAW SKY */
+					if (const auto s = Resources::Get<Shader>("skybox").lock()) {
+						
+						// Change culling and depth options for skybox rendering.
+						glCullFace (GL_FRONT);
+						glDepthFunc(GL_LEQUAL);
 			
-			// Surface properties Roughness, Metallic, AO, Parallax Shadows:
-			if (const auto p = Resources::Get<Shader>("pass_material").lock()) {
+						Shader::Bind(s->ID());
+			
+						const static auto sky_u_Projection = s->AttributeID("u_Projection");
+						const static auto sky_u_View       = s->AttributeID("u_View");
+						const static auto sky_u_Model      = s->AttributeID("u_Model");
+						const static auto sky_u_Texture    = s->AttributeID("u_Texture");
+						const static auto sky_u_Exposure   = s->AttributeID("u_Exposure");
+						const static auto sky_u_Blur       = s->AttributeID("u_Blur");
+						
+						const static auto sky_TRS = glm::scale(
+							glm::mat4(1.0),
+							glm::vec3(2.0)
+						);
+			
+						// Assign matrices.
+						s->Assign(sky_u_Projection,           Projection()); /* PROJECTION */
+						s->Assign(sky_u_View, glm::mat4(glm::mat3(View()))); /* VIEW       */
+						s->Assign(sky_u_Model,                     sky_TRS); /* MODEL      */
+						
+						// Assign texture:
+						if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
+							s->Assign(sky_u_Texture, *sky, 0);
+						}
+						
+						s->Assign(sky_u_Exposure, Settings::Graphics::Skybox::s_Exposure);
+						s->Assign(sky_u_Blur,     Settings::Graphics::Skybox::s_Blur);
+			
+						// Bind VAO.
+						if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
+							Draw(*c);
+						}
+						
+						// Restore culling and depth options.
+						glCullFace ( cullMode);
+						glDepthFunc(depthMode);
+					}
+				}
 				
-				// Bind program.
-				Shader::Bind(p->ID());
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				p->Assign(
-					p->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer,
-					4
-				);
-	
-				p->Assign(p->AttributeID("u_ParallaxShadows"), Settings::Graphics::Material::s_ParallaxShadows);
-				
-				if (const auto t = GetTransform().lock()) {
+				// Surface properties Roughness, Metallic, AO, Parallax Shadows:
+				if (const auto p = Resources::Get<Shader>("pass_material").lock()) {
+					
+					// Bind program.
+					Shader::Bind(p->ID());
+					
+					const static auto          u_Projection = p->AttributeID("u_Projection");
+					const static auto                u_View = p->AttributeID("u_View");
+					const static auto               u_Model = p->AttributeID("u_Model");
+					const static auto       u_LightPosition = p->AttributeID("u_LightPosition");
+					const static auto           u_Roughness = p->AttributeID("u_Roughness");
+					const static auto            u_Metallic = p->AttributeID("u_Metallic");
+					const static auto                  u_AO = p->AttributeID("u_AO");
+					const static auto        u_Displacement = p->AttributeID("u_Displacement");
+					const static auto           u_TexCoords = p->AttributeID("u_TexCoord_gBuffer");
+					const static auto    u_ScreenDimensions = p->AttributeID("u_ScreenDimensions");
+					const static auto     u_ParallaxShadows = p->AttributeID("u_ParallaxShadows");
+					const static auto    u_Roughness_Amount = p->AttributeID("u_Roughness_Amount");
+					const static auto           u_AO_Amount = p->AttributeID("u_AO_Amount");
+					const static auto u_Displacement_Amount = p->AttributeID("u_Displacement_Amount");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					p->Assign(u_TexCoords, m_TexCoord_gBuffer, 4);
+		
+					p->Assign(u_ParallaxShadows, Settings::Graphics::Material::s_ParallaxShadows);
 					
 					const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
 					
-					auto lightPos = lightType == Light::Parameters::Type::Directional ?
+					const auto lightPos = lightType == Light::Parameters::Type::Directional ?
 							t->m_Position + (VEC_FORWARD * glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation)) * 65535.0f) :
 							Settings::Graphics::Material::s_LightPosition;
 					
-					p->Assign(p->AttributeID("u_LightPosition"), lightPos);
+					p->Assign(u_LightPosition, lightPos);
+					
+					p->Assign(u_ScreenDimensions,
+						w != nullptr ?
+							(glm::vec2)w->Dimensions() :
+							 glm::vec2(1.0f)
+					);
+					
+					RenderTexture::Bind(m_Material_gBuffer);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					
+					for (const auto& renderer : _renderers) {
+						
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto ma = r->GetMaterial().lock() ) {
+						if (const auto me = r->GetMesh().lock()     ) {
+						
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS()); /* MODEL */
+							
+							p->Assign(u_Roughness_Amount, ma->GetRoughnessAmount()   );
+							p->Assign(u_Displacement_Amount, ma->GetDisplacementAmount());
+							p->Assign(u_AO_Amount, ma->GetAOAmount()          );
+							
+							// Assign textures:
+							if (const auto ro = ma->GetRoughnessTexture().lock()) {
+								p->Assign(u_Roughness, *ro, 0);
+							}
+							
+							if (const auto met = ma->GetMetallicTexture().lock()) {
+								p->Assign(u_Metallic, *met, 1);
+							}
+							
+							if (const auto a = ma->GetAOTexture().lock()) {
+								p->Assign(u_AO, *a, 2);
+							}
+							
+							if (const auto d = ma->GetDisplacementTexture().lock()) {
+								p->Assign(u_Displacement, *d, 3);
+							}
+							
+							/* DRAW */
+							Draw(*me);
+						}}}}
+					}
 				}
 				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-				
-				RenderTexture::Bind(m_Material_gBuffer);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-				
-				for (const auto& renderer : _renderers) {
+				// Normals:
+				if (const auto p = Resources::Get<Shader>("pass_normals").lock()) {
 					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto ma = r->GetMaterial().lock() ) {
-					if (const auto me = r->GetMesh().lock()     ) {
+					// Bind program.
+					Shader::Bind(p->ID());
 					
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL */
+					const static auto       u_Projection = p->AttributeID("u_Projection");
+					const static auto             u_View = p->AttributeID("u_View");
+					const static auto            u_Model = p->AttributeID("u_Model");
+					const static auto          u_Normals = p->AttributeID("u_Normals");
+					const static auto u_TexCoord_gBuffer = p->AttributeID("u_TexCoord_gBuffer");
+					const static auto     u_NormalAmount = p->AttributeID("u_NormalAmount");
+					const static auto u_ScreenDimensions = p->AttributeID("u_ScreenDimensions");
+					
+					p->Assign(u_Projection, Projection()); /* PROJECTION */
+					p->Assign(u_View,             View()); /* VIEW       */
+					
+					p->Assign(u_TexCoord_gBuffer, m_TexCoord_gBuffer, 1);
+					
+					p->Assign(u_ScreenDimensions,
+						w != nullptr ?
+							(glm::vec2)w->Dimensions() :
+							 glm::vec2(1.0f)
+					);
+					
+					RenderTexture::Bind(m_Normal_gBuffer);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+					for (const auto& renderer : _renderers) {
 						
-						p->Assign(p->AttributeID(   "u_Roughness_Amount"), ma->GetRoughnessAmount()   );
-						p->Assign(p->AttributeID("u_Displacement_Amount"), ma->GetDisplacementAmount());
-						p->Assign(p->AttributeID(          "u_AO_Amount"), ma->GetAOAmount()          );
+						if (const auto  r = renderer.lock()         ) {
+						if (const auto tr = r->GetTransform().lock()) {
+						if (const auto ma = r->GetMaterial().lock() ) {
+						if (const auto me = r->GetMesh().lock()     ) {
 						
-						// Assign textures:
-						if (const auto ro = ma->GetRoughnessTexture().lock()) {
-							p->Assign(p->AttributeID("u_Roughness"), *ro, 0);
-						}
-						
-						if (const auto met = ma->GetMetallicTexture().lock()) {
-							p->Assign(p->AttributeID("u_Metallic"), *met, 1);
-						}
-						
-						if (const auto a = ma->GetAOTexture().lock()) {
-							p->Assign(p->AttributeID("u_AO"), *a, 2);
-						}
-						
-						if (const auto d = ma->GetDisplacementTexture().lock()) {
-							p->Assign(p->AttributeID("u_Displacement"), *d, 3);
-						}
-						
-						/* DRAW */
-						Draw(*me);
-					}}}}
+							// Assign matrices.
+							p->Assign(u_Model, tr->TRS()); /* MODEL */
+							
+							p->Assign(u_NormalAmount, ma->GetNormalAmount());
+							p->Assign(u_Normals, *ma->GetNormalTexture().lock(), 0);
+							
+							/* DRAW */
+							Draw(*me);
+						}}}}
+					}
 				}
 			}
-			
-			// Normals:
-			if (const auto p = Resources::Get<Shader>("pass_normals").lock()) {
-				
-				// Bind program.
-				Shader::Bind(p->ID());
-				p->Assign(p->AttributeID("u_Projection"), Projection()); /* PROJECTION */
-				p->Assign(p->AttributeID("u_View"),             View()); /* VIEW       */
-				
-				p->Assign(
-					p->AttributeID("u_TexCoord_gBuffer"),
-					m_TexCoord_gBuffer,
-					1
-				);
-				
-				p->Assign(p->AttributeID("u_ScreenDimensions"),
-					w != nullptr ?
-						(glm::vec2)w->Dimensions() :
-						 glm::vec2(1.0f)
-				);
-				
-				RenderTexture::Bind(m_Normal_gBuffer);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-				for (const auto& renderer : _renderers) {
-					
-					if (const auto  r = renderer.lock()         ) {
-					if (const auto  t = r->GetTransform().lock()) {
-					if (const auto ma = r->GetMaterial().lock() ) {
-					if (const auto me = r->GetMesh().lock()     ) {
-					
-						// Assign matrices.
-						p->Assign(p->AttributeID("u_Model"), t->TRS()); /* MODEL      */
-						
-						p->Assign(p->AttributeID("u_NormalAmount"), ma->GetNormalAmount());
-				
-						p->Assign(
-							p->AttributeID("u_Normals"),
-								*ma->GetNormalTexture().lock(),
-							0
-						);
-						
-						/* DRAW */
-						Draw(*me);
-					}}}}
-				}
+			else {
+				Debug::Log("Camera has no valid transform!", LogType::Error);
 			}
 		}
 		else {
@@ -503,92 +556,98 @@ namespace LouiEriksson::Engine::Graphics {
 						}
 					}
 					
-					Shader::Bind(p->ID());
+					if (p != nullptr) {
 					
-					// Compute the size of a texel in world space.
-					// We can round the light's position to these coordinates
-					// to reduce an artifact known as "shimmering".
-					const float texelSize = l->m_Range / static_cast<float>((l->m_Shadow.m_Resolution / 4));
-					
-					const auto lightDir = VEC_FORWARD * l->m_Transform.lock()->m_Rotation;
-					
-					glm::vec3 lightPos;
-					{
-						const auto t = GetTransform().lock();
+						Shader::Bind(p->ID());
 						
-						if (l->Type() == Light::Parameters::Type::Directional &&
-						    t != nullptr
-						) {
+						// Compute the size of a texel in world space.
+						// We can round the light's position to these coordinates
+						// to reduce an artifact known as "shimmering".
+						const float texelSize = l->m_Range / static_cast<float>((l->m_Shadow.m_Resolution / 4));
+						
+						const auto lightDir = VEC_FORWARD * l->m_Transform.lock()->m_Rotation;
+						
+						glm::vec3 lightPos;
+						{
+							const auto t = GetTransform().lock();
 							
-							// Compute the position of the light.
-							const glm::vec3 truncatedCamPos = glm::floor(
-								t->m_Position / texelSize) * texelSize;
+							if (l->Type() == Light::Parameters::Type::Directional &&
+							    t != nullptr
+							) {
+								
+								// Compute the position of the light.
+								const glm::vec3 truncatedCamPos = glm::floor(
+									t->m_Position / texelSize) * texelSize;
+								
+								lightPos = truncatedCamPos + (lightDir * (l->m_Range / 2.0f));
+							}
+							else {
+								lightPos = l->m_Transform.lock()->m_Position;
+							}
+						}
+						
+						if (l->Type() == Light::Parameters::Type::Point) {
 							
-							lightPos = truncatedCamPos + (lightDir * (l->m_Range / 2.0f));
+							// Collection of shadow transforms for each face of the cubemap.
+							const std::array<glm::mat4, 6> shadowTransforms {
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
+								l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
+							};
+							
+							// Assign the transforms to the shader.
+							glUniformMatrix4fv(
+								p->AttributeID("u_Matrices"),
+								shadowTransforms.size(),
+								GL_FALSE,
+								glm::value_ptr(shadowTransforms[0])
+							);
+							
+							p->Assign(p->AttributeID("u_LightPosition"), lightPos  );
+							p->Assign(p->AttributeID("u_FarPlane"     ), l->m_Range);
+							
+							l->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
 						}
 						else {
-							lightPos = l->m_Transform.lock()->m_Position;
+							
+							glm::mat4 lightView;
+							
+							lightView = glm::lookAt(
+								lightPos,
+								lightPos + -lightDir,
+								VEC_UP
+							);
+							
+							l->m_Shadow.m_ViewProjection = l->m_Shadow.m_Projection * lightView;
+						}
+						
+						if (l->Type() != Light::Parameters::Type::Point) {
+							p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
+						}
+						
+						// We need to render the scene from the light's perspective.
+						for (const auto& renderer : _renderers) {
+							
+							if (const auto  r = renderer.lock()         ) {
+							if (const auto  t = r->GetTransform().lock()) {
+							if (const auto me = r->GetMesh().lock()     ) {
+								
+								if (r->Shadows() &&
+								    me->Format() == GL_TRIANGLES
+								) {
+									p->Assign(p->AttributeID("u_Model"), t->TRS());
+									
+									/* DRAW */
+									Draw(*me);
+								}
+							}}}
 						}
 					}
-					
-					if (l->Type() == Light::Parameters::Type::Point) {
-						
-						// Collection of shadow transforms for each face of the cubemap.
-						const std::array<glm::mat4, 6> shadowTransforms {
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
-							l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
-						};
-						
-						// Assign the transforms to the shader.
-						glUniformMatrix4fv(
-							p->AttributeID("u_Matrices"),
-							shadowTransforms.size(),
-							GL_FALSE,
-							glm::value_ptr(shadowTransforms[0])
-						);
-						
-						p->Assign(p->AttributeID("u_LightPosition"), lightPos  );
-						p->Assign(p->AttributeID("u_FarPlane"     ), l->m_Range);
-						
-						l->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
-					}
 					else {
-						
-						glm::mat4 lightView;
-						
-						lightView = glm::lookAt(
-							lightPos,
-							lightPos + -lightDir,
-							VEC_UP
-						);
-						
-						l->m_Shadow.m_ViewProjection = l->m_Shadow.m_Projection * lightView;
-					}
-					
-					if (l->Type() != Light::Parameters::Type::Point) {
-						p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
-					}
-					
-					// We need to render the scene from the light's perspective.
-					for (const auto& renderer : _renderers) {
-						
-						if (const auto  r = renderer.lock()         ) {
-						if (const auto  t = r->GetTransform().lock()) {
-						if (const auto me = r->GetMesh().lock()     ) {
-							
-							if (r->Shadows() &&
-							    me->Format() == GL_TRIANGLES
-							) {
-								p->Assign(p->AttributeID("u_Model"), t->TRS());
-								
-								/* DRAW */
-								Draw(*me);
-							}
-						}}}
+						Debug::Log("Couldn't lock shadow shader program!", LogType::Error);
 					}
 					
 					// Restore original culling settings:
@@ -614,8 +673,8 @@ namespace LouiEriksson::Engine::Graphics {
 			glEnable(GL_DEPTH_TEST);
 			
 			// Set the preferred culling and depth modes:
-			const auto  cullMode = GL_BACK;
-			const auto depthMode = GL_LEQUAL;
+			const static auto  cullMode = GL_BACK;
+			const static auto depthMode = GL_LEQUAL;
 			
 			glCullFace(cullMode);
 			glDepthFunc(depthMode);
@@ -649,41 +708,13 @@ namespace LouiEriksson::Engine::Graphics {
 					Shader::Bind(p->ID());
 		
 					// Assign g-buffers:
-					p->Assign(
-						p->AttributeID("u_Albedo_gBuffer"),
-						m_Albedo_gBuffer,
-						0
-					);
+					p->Assign(p->AttributeID(  "u_Albedo_gBuffer"),   m_Albedo_gBuffer, 0);
+					p->Assign(p->AttributeID("u_Emission_gBuffer"), m_Emission_gBuffer, 1);
+					p->Assign(p->AttributeID("u_Material_gBuffer"), m_Material_gBuffer, 2);
+					p->Assign(p->AttributeID("u_Position_gBuffer"), m_Position_gBuffer, 3);
+					p->Assign(p->AttributeID(  "u_Normal_gBuffer"),   m_Normal_gBuffer, 4);
 					
-					p->Assign(
-						p->AttributeID("u_Emission_gBuffer"),
-						m_Emission_gBuffer,
-						1
-					);
-					
-					p->Assign(
-						p->AttributeID("u_Material_gBuffer"),
-						m_Material_gBuffer,
-						2
-					);
-					
-					p->Assign(
-						p->AttributeID("u_Position_gBuffer"),
-						m_Position_gBuffer,
-						3
-					);
-					
-					p->Assign(
-						p->AttributeID("u_Normal_gBuffer"),
-						m_Normal_gBuffer,
-						4
-					);
-					
-					p->AssignDepth(
-						p->AttributeID("u_Depth_gBuffer"),
-						m_Position_gBuffer,
-						5
-					);
+					p->AssignDepth(p->AttributeID("u_Depth_gBuffer"), m_Position_gBuffer, 5);
 					
 					// Assign other material parameters:
 					p->Assign(p->AttributeID("u_Time"), Time::Elapsed());
@@ -708,11 +739,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					// Assign ambient texture:
 					if (const auto s =  Settings::Graphics::Skybox::s_Skybox.lock()) {
-						p->Assign(
-							p->AttributeID("u_Ambient"),
-							*s,
-							98
-						);
+						p->Assign(p->AttributeID("u_Ambient"), *s, 98);
 					}
 		
 					p->Assign(p->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
@@ -724,103 +751,105 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						if (const auto l = light.lock()) {
 							
-							// TODO: Placeholder code for settings.
-							{
-								bool isDirty;
-								
-								{
-									auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
-									
-									auto newBias       = target_light::s_ShadowBias;
-									auto newNormalBias = target_light::s_ShadowNormalBias;
-									
-									isDirty = newResolution != l->m_Shadow.m_Resolution             ||
-											  newBias       != l->m_Shadow.m_Bias                   ||
-											  newNormalBias != l->m_Shadow.m_NormalBias             ||
-											  target_light::s_LightRange              != l->m_Range ||
-											  target_light::s_LightAngle              != l->m_Angle ||
-											  target_light::s_CurrentLightType        != l->m_Type;
-									
-									l->m_Shadow.m_Resolution = newResolution;
-									l->m_Shadow.m_Bias       = newBias;
-									l->m_Shadow.m_NormalBias = newNormalBias;
-								}
-								
-								if (const auto t = l->m_Transform.lock()) {
-									t->m_Position = target_light::s_LightPosition;
-									t->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
-								}
-								
-								l->m_Range     = target_light::s_LightRange;
-								l->m_Intensity = target_light::s_LightIntensity;
-								l->m_Color     = target_light::s_LightColor;
-								l->m_Size      = target_light::s_LightSize;
-								l->m_Angle     = target_light::s_LightAngle;
-								l->m_Type      = (Light::Parameters::Type)target_light::s_CurrentLightType;
-								
-								if (isDirty) {
-									l->m_Shadow.UpdateShadowMap(l->Type());
-								}
-							}
-							
-							if (l->m_Shadow.m_Target != GL_NONE) {
-								
-								if (l->Type() == Light::Parameters::Type::Point) {
-				
-									p->Assign(
-										p->AttributeID("u_ShadowMap3D"),
-										l->m_Shadow,
-										100
-									);
-								}
-								else {
-				
-									p->Assign(
-										p->AttributeID("u_ShadowMap2D"),
-										l->m_Shadow,
-										99
-									);
-								}
-							}
-							
-							p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
-							
-							p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias      );
-							p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias);
-							
-							p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples);
-							p->Assign(p->AttributeID("u_ShadowTechnique" ),
-								l->m_Shadow.m_Target != GL_NONE ?
-								target_light::s_CurrentShadowTechnique :
-								-1
-							);
-							
-							p->Assign(p->AttributeID("u_LightType"), l->m_Type);
-							p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
-							
-							p->Assign(p->AttributeID("u_LightAngle"),
-								glm::cos(glm::radians(
-									l->Type() == Light::Parameters::Type::Spot ?
-										l->m_Angle * 0.5f :
-										180.0f
-									)
-								)
-							);
-			
-							p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
-			
 							if (const auto t = l->m_Transform.lock()) {
+							
+								// TODO: Placeholder code for settings.
+								{
+									bool isDirty;
+									
+									{
+										const auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
+										
+										const auto newBias       = target_light::s_ShadowBias;
+										const auto newNormalBias = target_light::s_ShadowNormalBias;
+										
+										isDirty = newResolution != l->m_Shadow.m_Resolution             ||
+												  newBias       != l->m_Shadow.m_Bias                   ||
+												  newNormalBias != l->m_Shadow.m_NormalBias             ||
+												  target_light::s_LightRange              != l->m_Range ||
+												  target_light::s_LightAngle              != l->m_Angle ||
+												  target_light::s_CurrentLightType        != l->m_Type;
+										
+										l->m_Shadow.m_Resolution = newResolution;
+										l->m_Shadow.m_Bias       = newBias;
+										l->m_Shadow.m_NormalBias = newNormalBias;
+									
+										t->m_Position = target_light::s_LightPosition;
+										t->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
+									}
+									
+									l->m_Range     = target_light::s_LightRange;
+									l->m_Intensity = target_light::s_LightIntensity;
+									l->m_Color     = target_light::s_LightColor;
+									l->m_Size      = target_light::s_LightSize;
+									l->m_Angle     = target_light::s_LightAngle;
+									l->m_Type      = (Light::Parameters::Type)target_light::s_CurrentLightType;
+									
+									if (isDirty) {
+										l->m_Shadow.UpdateShadowMap(l->Type());
+									}
+								}
+								
+								if (l->m_Shadow.m_Target != GL_NONE) {
+									
+									if (l->Type() == Light::Parameters::Type::Point) {
+					
+										p->Assign(
+											p->AttributeID("u_ShadowMap3D"),
+											l->m_Shadow,
+											100
+										);
+									}
+									else {
+					
+										p->Assign(
+											p->AttributeID("u_ShadowMap2D"),
+											l->m_Shadow,
+											99
+										);
+									}
+								}
+								
+								p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
+								
+								p->Assign(p->AttributeID("u_ShadowBias"      ), l->m_Shadow.m_Bias      );
+								p->Assign(p->AttributeID("u_ShadowNormalBias"), l->m_Shadow.m_NormalBias);
+								
+								p->Assign(p->AttributeID("u_ShadowSamples"   ), target_light::s_ShadowSamples);
+								p->Assign(p->AttributeID("u_ShadowTechnique" ),
+									l->m_Shadow.m_Target != GL_NONE ?
+									target_light::s_CurrentShadowTechnique :
+									-1
+								);
+								
+								p->Assign(p->AttributeID("u_LightType"), l->m_Type);
+								p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
+								
+								p->Assign(p->AttributeID("u_LightAngle"),
+									glm::cos(glm::radians(
+										l->Type() == Light::Parameters::Type::Spot ?
+											l->m_Angle * 0.5f :
+											180.0f
+										)
+									)
+								);
+				
+								p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
+				
 								p->Assign(p->AttributeID("u_LightPosition" ), t->m_Position);
 								p->Assign(p->AttributeID("u_LightDirection"), t->FORWARD   );
+								
+								p->Assign(p->AttributeID("u_LightRange"    ), l->m_Range    );
+								p->Assign(p->AttributeID("u_LightIntensity"), l->m_Intensity);
+								p->Assign(p->AttributeID("u_LightColor"    ), l->m_Color    );
+				
+								/* DRAW */
+								if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+									Draw(*q);
+								}
 							}
-							
-							p->Assign(p->AttributeID("u_LightRange"    ), l->m_Range    );
-							p->Assign(p->AttributeID("u_LightIntensity"), l->m_Intensity);
-							p->Assign(p->AttributeID("u_LightColor"    ), l->m_Color    );
-			
-							/* DRAW */
-							if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
-								Draw(*q);
+							else {
+								Debug::Log("Light has no valid transform!", LogType::Error);
 							}
 						}
 					}
@@ -861,12 +890,18 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::ToneMapping::IsActiveAndEnabled()) {
 				
-				if (const auto t = Resources::Get<Shader>("aces").lock()) {
+				const static auto aces = Resources::Get<Shader>("aces");
+				
+				if (const auto t = aces.lock()) {
 					
 					Shader::Bind(t->ID());
-					t->Assign(t->AttributeID("u_Gain"), Settings::PostProcessing::ToneMapping::s_Gain);
 					
-					t->Assign(t->AttributeID("u_Exposure"),
+					const static auto     u_Gain = t->AttributeID("u_Gain"    );
+					const static auto u_Exposure = t->AttributeID("u_Exposure");
+					
+					t->Assign(u_Gain, Settings::PostProcessing::ToneMapping::s_Gain);
+					
+					t->Assign(u_Exposure,
 						Settings::PostProcessing::ToneMapping::AutoExposure::IsActiveAndEnabled() ?
 						m_Exposure :
 						m_Exposure = Settings::PostProcessing::ToneMapping::s_Exposure
@@ -879,16 +914,26 @@ namespace LouiEriksson::Engine::Graphics {
 			// Perform anti-aliasing after tonemapping as FXAA suffers in the HDR range.
 			if (Settings::PostProcessing::AntiAliasing::IsActiveAndEnabled()) {
 				
-				if (const auto aa = Resources::Get<Shader>("fxaa").lock()) {
+				const static auto fxaa = Resources::Get<Shader>("fxaa");
+				
+				if (const auto aa = fxaa.lock()) {
 					
 					Shader::Bind(aa->ID());
-					aa->Assign(aa->AttributeID("u_Texture"), m_RT, 0);
 					
-					aa->Assign(aa->AttributeID("u_ContrastThreshold"    ), Settings::PostProcessing::AntiAliasing::s_ContrastThreshold    );
-					aa->Assign(aa->AttributeID("u_RelativeThreshold"    ), Settings::PostProcessing::AntiAliasing::s_RelativeThreshold    );
-					aa->Assign(aa->AttributeID("u_SubpixelBlending"     ), Settings::PostProcessing::AntiAliasing::s_SubpixelBlending     );
-					aa->Assign(aa->AttributeID("u_EdgeBlending"         ), Settings::PostProcessing::AntiAliasing::s_EdgeBlending         );
-					aa->Assign(aa->AttributeID("u_LocalContrastModifier"), Settings::PostProcessing::AntiAliasing::s_LocalContrastModifier);
+					const static auto u_Texture               = aa->AttributeID("u_Texture");
+					const static auto u_ContrastThreshold     = aa->AttributeID("u_ContrastThreshold"    );
+					const static auto u_RelativeThreshold     = aa->AttributeID("u_RelativeThreshold"    );
+					const static auto u_SubpixelBlending      = aa->AttributeID("u_SubpixelBlending"     );
+					const static auto u_EdgeBlending          = aa->AttributeID("u_EdgeBlending"         );
+					const static auto u_LocalContrastModifier = aa->AttributeID("u_LocalContrastModifier");
+					
+					aa->Assign(u_Texture, m_RT, 0);
+					
+					aa->Assign(    u_ContrastThreshold, Settings::PostProcessing::AntiAliasing::s_ContrastThreshold    );
+					aa->Assign(    u_RelativeThreshold, Settings::PostProcessing::AntiAliasing::s_RelativeThreshold    );
+					aa->Assign(     u_SubpixelBlending, Settings::PostProcessing::AntiAliasing::s_SubpixelBlending     );
+					aa->Assign(         u_EdgeBlending, Settings::PostProcessing::AntiAliasing::s_EdgeBlending         );
+					aa->Assign(u_LocalContrastModifier, Settings::PostProcessing::AntiAliasing::s_LocalContrastModifier);
 					
 					effects.push(aa);
 				}
@@ -896,11 +941,17 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::Grain::IsActiveAndEnabled()) {
 				
-				if (const auto g = Resources::Get<Shader>("grain").lock()) {
+				const static auto grain = Resources::Get<Shader>("grain");
+				
+				if (const auto g = grain.lock()) {
 					
 					Shader::Bind(g->ID());
-					g->Assign(g->AttributeID("u_Amount"), Settings::PostProcessing::Grain::s_Intensity);
-					g->Assign(g->AttributeID("u_Time"), Time::Elapsed());
+					
+					const static auto u_Amount = g->AttributeID("u_Amount"    );
+					const static auto   u_Time = g->AttributeID("u_Smoothness");
+					
+					g->Assign(u_Amount, Settings::PostProcessing::Grain::s_Intensity);
+					g->Assign(  u_Time, Time::Elapsed());
 					
 					effects.push(g);
 				}
@@ -908,11 +959,17 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (Settings::PostProcessing::Vignette::IsActiveAndEnabled()) {
 				
-				if (const auto v = Resources::Get<Shader>("vignette").lock()) {
+				const static auto vignette = Resources::Get<Shader>("vignette");
+				
+				if (const auto v = vignette.lock()) {
 					
 					Shader::Bind(v->ID());
-					v->Assign(v->AttributeID("u_Amount"    ), Settings::PostProcessing::Vignette::s_Intensity );
-					v->Assign(v->AttributeID("u_Smoothness"), Settings::PostProcessing::Vignette::s_Smoothness);
+					
+					const static auto     u_Amount = v->AttributeID("u_Amount"    );
+					const static auto u_Smoothness = v->AttributeID("u_Smoothness");
+					
+					v->Assign(    u_Amount, Settings::PostProcessing::Vignette::s_Intensity );
+					v->Assign(u_Smoothness, Settings::PostProcessing::Vignette::s_Smoothness);
 					
 					effects.push(v);
 				}
@@ -924,14 +981,12 @@ namespace LouiEriksson::Engine::Graphics {
 				// Render post-processing effects stack:
 				while (!effects.empty()) {
 					
-					const auto shader = effects.front();
+					const auto& shader = effects.front();
 					effects.pop();
 					
 					Blit(m_RT, m_RT, shader);
 					
-					if (!effects.empty()) {
-						RenderTexture::Unbind();
-					}
+					RenderTexture::Unbind();
 				}
 			}
 			else {
@@ -953,9 +1008,9 @@ namespace LouiEriksson::Engine::Graphics {
 			// de Vries, J. (n.d.). LearnOpenGL - Gamma Correction. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Gamma-Correction [Accessed 15 Dec. 2023].
 			glEnable(GL_FRAMEBUFFER_SRGB); // Enable gamma correction.
 		}
-	 
+		
 		// DRAW:
-		Shader::Bind(Resources::Get<Shader>("passthrough").lock()->ID());
+		Shader::Bind(s_Passthrough.lock()->ID());
 		if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
 			Draw(*q);
 		}
@@ -970,12 +1025,20 @@ namespace LouiEriksson::Engine::Graphics {
 		const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
 		
 		// Horizontal and vertical blur passes.
-		if (const auto h = Resources::Get<Shader>("blur_horizontal").lock()) {
-		if (const auto v = Resources::Get<Shader>("blur_vertical"  ).lock()) {
+		const static auto blur_h = Resources::Get<Shader>("blur_horizontal");
+		const static auto blur_v = Resources::Get<Shader>("blur_vertical"  );
+		
+		if (const auto h = blur_h.lock()) {
+		if (const auto v = blur_v.lock()) {
+			
+			const static auto h_u_Texture = h->AttributeID("u_Texture");
+			const static auto v_u_Texture = v->AttributeID("u_Texture");
+			const static auto h_u_Step    = h->AttributeID("u_Step"   );
+			const static auto v_u_Step    = v->AttributeID("u_Step"   );
 			
 			// Assign target texture to both shader programs:
-			h->Assign(h->AttributeID("u_Texture"), _rt, 0);
-			v->Assign(v->AttributeID("u_Texture"), _rt, 0);
+			h->Assign(h_u_Texture, _rt, 0);
+			v->Assign(v_u_Texture, _rt, 0);
 			  
 			// Optionally, use a multiplier proportional to the screen's resolution to
 			// keep the blur effect consistent across a range of different resolutions.
@@ -1027,8 +1090,8 @@ namespace LouiEriksson::Engine::Graphics {
 	            }
 	            
 				// Assign step value to both shader programs.
-				h->Assign(h->AttributeID("u_Step"), dpiFactor * size);
-				v->Assign(v->AttributeID("u_Step"), dpiFactor * size);
+				h->Assign(h_u_Step, dpiFactor * size);
+				v->Assign(v_u_Step, dpiFactor * size);
 				
 				// Blit into a temporary texture, and blur that once on the x, and once on the y.
 		        Blit(_rt, tmp, h);
@@ -1051,15 +1114,21 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto w = GetWindow().lock()) {
 			
+			const static auto autoExposure = Resources::Get<Shader>("auto_exposure");
+			const static auto         mask = Resources::Get<Texture>("exposure_weights");
+			
 			// Load shader program:
-			if (const auto s = Resources::Get<Shader>("auto_exposure").lock()) {
+			if (const auto s = autoExposure.lock()) {
 				
 				// Load a mask for the average luminosity calculation.
-				if (const auto mask = Resources::Get<Texture>("exposure_weights").lock()) {
+				if (const auto m = mask.lock()) {
 					
 					// Generate the luminosity texture:
 					Shader::Bind(s->ID());
-					s->Assign(s->AttributeID("u_Weights"), *mask, 1);
+					
+					const static auto u_Weights = s->AttributeID("u_Weights");
+					
+					s->Assign(u_Weights, *m, 1);
 				}
 				
 				Blit(m_RT, m_AutoExposure_Luma, s);
@@ -1121,8 +1190,10 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Camera::AmbientOcclusion() {
 		
+		const static auto as = Resources::Get<Shader>("ao");
+		
 		// Get shader program:
-		if (const auto ao = Resources::Get<Shader>("ao").lock()) {
+		if (const auto ao = as.lock()) {
 			
 			// Get viewport dimensions:
 			glm::ivec4 viewport;
@@ -1131,10 +1202,9 @@ namespace LouiEriksson::Engine::Graphics {
 			{
 				// Create a render texture for the AO. Optionally, downscale the texture
 				// to save performance by computing AO at a lower resolution.
-				const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
-				
-				const auto  width = glm::max(viewport[2] / (downscale + 1), 1);
-				const auto height = glm::max(viewport[3] / (downscale + 1), 1);
+				const static auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
+				const static auto  width = glm::max(viewport[2] / (downscale + 1), 1);
+				const static auto height = glm::max(viewport[3] / (downscale + 1), 1);
 				
 				if (m_AO_RT.m_FBO_ID == GL_NONE || width != m_AO_RT.m_Width || height != m_AO_RT.m_Height) {
 					m_AO_RT.Reinitialise(width, height);
@@ -1145,38 +1215,35 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				Shader::Bind(ao->ID());
 				
+				const static auto u_Position_gBuffer = ao->AttributeID("u_Position_gBuffer");
+				const static auto   u_Normal_gBuffer = ao->AttributeID("u_Normal_gBuffer"  );
+				const static auto          u_Samples = ao->AttributeID("u_Samples" );
+				const static auto         u_Strength = ao->AttributeID("u_Strength");
+				const static auto             u_Bias = ao->AttributeID("u_Bias"    );
+				const static auto           u_Radius = ao->AttributeID("u_Radius"  );
+				const static auto         u_NearClip = ao->AttributeID("u_NearClip");
+				const static auto          u_FarClip = ao->AttributeID("u_FarClip" );
+				const static auto             u_Time = ao->AttributeID("u_Time"    );
+				const static auto               u_VP = ao->AttributeID("u_VP"      );
+				const static auto             u_View = ao->AttributeID("u_View"    );
+				
 				// Assign program values:
-				ao->Assign(ao->AttributeID("u_Samples"), Settings::PostProcessing::AmbientOcclusion::s_Samples);
+				ao->Assign( u_Samples, Settings::PostProcessing::AmbientOcclusion::s_Samples);
+				ao->Assign(u_Strength,           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
+				ao->Assign(    u_Bias, -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
+				ao->Assign(  u_Radius,           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
 				
-				ao->Assign(ao->AttributeID("u_Strength"),           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
-				ao->Assign(ao->AttributeID("u_Bias"    ), -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
-				ao->Assign(ao->AttributeID("u_Radius"  ),           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
+				ao->Assign(u_NearClip, m_NearClip     );
+				ao->Assign( u_FarClip, m_FarClip      );
+				ao->Assign(    u_Time, Time::Elapsed());
 				
-				ao->Assign(ao->AttributeID("u_NearClip"), m_NearClip     );
-				ao->Assign(ao->AttributeID("u_FarClip" ), m_FarClip      );
-				ao->Assign(ao->AttributeID("u_Time"    ), Time::Elapsed());
-				
-				ao->Assign(ao->AttributeID("u_VP"  ), m_Projection * View());
-				ao->Assign(ao->AttributeID("u_View"),                View());
+				ao->Assign(      u_VP, m_Projection * View());
+				ao->Assign(    u_View,                View());
 				
 				/* ASSIGN G-BUFFERS */
-				ao->AssignDepth(
-					ao->AttributeID("u_Position_gBuffer"),
-					m_Position_gBuffer,
-					0
-				);
-				
-				ao->Assign(
-					ao->AttributeID("u_Position_gBuffer"),
-					m_Position_gBuffer,
-					1
-				);
-				
-				ao->Assign(
-					ao->AttributeID("u_Normal_gBuffer"),
-					m_Normal_gBuffer,
-					2
-				);
+				ao->AssignDepth(u_Position_gBuffer, m_Position_gBuffer, 0);
+				ao->Assign(u_Position_gBuffer, m_Position_gBuffer, 1);
+				ao->Assign(u_Normal_gBuffer, m_Normal_gBuffer, 2);
 				
 				// Set the viewport resolution to the scale of the AO render target.
 				glViewport(viewport[0], viewport[1], m_AO_RT.Width(), m_AO_RT.Height());
@@ -1216,12 +1283,18 @@ namespace LouiEriksson::Engine::Graphics {
 			// Get screen dimensions.
 			const auto dimensions = w->Dimensions();
 			
+			const static auto ts = Resources::Get<Shader>("threshold");
+			const static auto ds = Resources::Get<Shader>("downscale");
+			const static auto us = Resources::Get<Shader>("upscale"  );
+			const static auto cs = Resources::Get<Shader>("combine"  );
+			const static auto ls = Resources::Get<Shader>("lens_dirt");
+			
 			// Get each shader used for rendering the effect.
-			if (const auto threshold_shader = Resources::Get<Shader>("threshold").lock()) {
-			if (const auto downscale_shader = Resources::Get<Shader>("downscale").lock()) {
-			if (const auto   upscale_shader = Resources::Get<Shader>("upscale"  ).lock()) {
-			if (const auto   combine_shader = Resources::Get<Shader>("combine"  ).lock()) {
-			if (const auto lens_dirt_shader = Resources::Get<Shader>("lens_dirt").lock()) {
+			if (const auto threshold_shader = ts.lock()) {
+			if (const auto downscale_shader = ds.lock()) {
+			if (const auto   upscale_shader = us.lock()) {
+			if (const auto   combine_shader = cs.lock()) {
+			if (const auto lens_dirt_shader = ls.lock()) {
 				
 				const auto target_length = static_cast<size_t>(std::max(
 					static_cast<size_t>(target::s_Diffusion * 2),
@@ -1258,26 +1331,39 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				if (m_Bloom_MipChain.size() > 1) {
 				
-					/* THRESHOLD PASS */
-					Shader::Bind(threshold_shader->ID());
-					threshold_shader->Assign(threshold_shader->AttributeID("u_Threshold"), target::s_Threshold);
-					threshold_shader->Assign(threshold_shader->AttributeID("u_Clamp"    ), target::s_Clamp    );
-					
-					Blit(m_RT, m_Bloom_MipChain[0], threshold_shader);
-					
-					/* DOWNSCALING */
-					Shader::Bind(downscale_shader->ID());
-					downscale_shader->Assign(downscale_shader->AttributeID("u_Resolution"), glm::vec2(dimensions[0], dimensions[1]));
-					
-					for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
-						Blit(m_Bloom_MipChain[i - 1], m_Bloom_MipChain[i], downscale_shader);
+					{
+						/* THRESHOLD PASS */
+						Shader::Bind(threshold_shader->ID());
+						
+						const static auto u_Threshold = threshold_shader->AttributeID("u_Threshold");
+						const static auto     u_Clamp = threshold_shader->AttributeID("u_Clamp"    );
+						
+						threshold_shader->Assign(u_Threshold, target::s_Threshold);
+						threshold_shader->Assign(    u_Clamp, target::s_Clamp    );
+						
+						Blit(m_RT, m_Bloom_MipChain[0], threshold_shader);
 					}
 					
-					/* UPSCALING */
-					Shader::Bind(upscale_shader->ID());
-					
-					// Create the diffusion vector for the bloom algorithm:
+					/* DOWNSCALING */
 					{
+						Shader::Bind(downscale_shader->ID());
+						
+						const static auto u_Resolution = downscale_shader->AttributeID("u_Resolution");
+						
+						downscale_shader->Assign(u_Resolution, glm::vec2(dimensions[0], dimensions[1]));
+						
+						for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
+							Blit(m_Bloom_MipChain[i - 1], m_Bloom_MipChain[i], downscale_shader);
+						}
+					}
+					
+					{
+						/* UPSCALING */
+						Shader::Bind(upscale_shader->ID());
+						
+						// Create the diffusion vector for the bloom algorithm:
+						const static auto u_Diffusion = upscale_shader->AttributeID("u_Diffusion");
+						
 						const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
 					
 						const auto d = std::min((1.0 / std::log2(target::s_Diffusion + 1.0)), 1.0) * 6.0;
@@ -1288,10 +1374,7 @@ namespace LouiEriksson::Engine::Graphics {
 							glm::mix(0.0, d, 1.0 - t)
 						);
 						
-						upscale_shader->Assign(
-							upscale_shader->AttributeID("u_Diffusion"),
-							diffusionVec
-						);
+						upscale_shader->Assign(u_Diffusion, diffusionVec);
 					}
 					
 					// Enable additive blending
@@ -1306,11 +1389,18 @@ namespace LouiEriksson::Engine::Graphics {
 					// Disable additive blending
 					glDisable(GL_BLEND);
 					
-					/* COMBINE */
-					Shader::Bind(combine_shader->ID());
-					combine_shader->Assign(combine_shader->AttributeID("u_Strength"), target::s_Intensity / glm::max((float)m_Bloom_MipChain.size() - 1, 1.0f));
-					combine_shader->Assign(combine_shader->AttributeID("u_Texture0"), m_RT,          0);
-					combine_shader->Assign(combine_shader->AttributeID("u_Texture1"), m_Bloom_MipChain[0], 1);
+					{
+						/* COMBINE */
+						Shader::Bind(combine_shader->ID());
+						
+						const static auto u_Strength = combine_shader->AttributeID("u_Strength");
+						const static auto u_Texture0 = combine_shader->AttributeID("u_Texture0");
+						const static auto u_Texture1 = combine_shader->AttributeID("u_Texture1");
+						
+						combine_shader->Assign(u_Strength, target::s_Intensity / glm::max((float)m_Bloom_MipChain.size() - 1, 1.0f));
+						combine_shader->Assign(u_Texture0, m_RT, 0);
+						combine_shader->Assign(u_Texture1, m_Bloom_MipChain[0], 1);
+					}
 					
 					// Blit to main render target:
 					RenderTexture::Bind(m_RT);
@@ -1327,10 +1417,16 @@ namespace LouiEriksson::Engine::Graphics {
 						if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
 							
 							Shader::Bind(lens_dirt_shader->ID());
-							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Strength"), target::s_LensDirt * target::s_Intensity);
-							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Texture0"), m_RT,          0);
-							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Bloom"),    m_Bloom_MipChain[0], 1);
-							lens_dirt_shader->Assign(lens_dirt_shader->AttributeID("u_Dirt"),                *t, 2);
+							
+							const static auto u_Strength = lens_dirt_shader->AttributeID("u_Strength");
+							const static auto u_Texture0 = lens_dirt_shader->AttributeID("u_Texture0");
+							const static auto    u_Bloom = lens_dirt_shader->AttributeID("u_Bloom");
+							const static auto     u_Dirt = lens_dirt_shader->AttributeID("u_Dirt");
+							
+							lens_dirt_shader->Assign(u_Strength, target::s_LensDirt * target::s_Intensity);
+							lens_dirt_shader->Assign(u_Texture0, m_RT,          0);
+							lens_dirt_shader->Assign(   u_Bloom, m_Bloom_MipChain[0], 1);
+							lens_dirt_shader->Assign(    u_Dirt,            *t, 2);
 							
 							// Blit to main render target:
 							RenderTexture::Bind(m_RT);
@@ -1353,7 +1449,7 @@ namespace LouiEriksson::Engine::Graphics {
 	void Camera::Copy(const RenderTexture& _src, const RenderTexture& _dest) {
 		
 		// Simply blit _src to _dest using a passthrough shader.
-		if (const auto p = Resources::Get<Shader>("passthrough").lock()) {
+		if (const auto p = s_Passthrough.lock()) {
 			Blit(_src, _dest, p);
 		}
 		else {

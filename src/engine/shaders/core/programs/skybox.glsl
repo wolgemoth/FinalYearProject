@@ -24,8 +24,7 @@
 
     #version 330 core
 
-    #extension GL_ARB_explicit_uniform_location : enable
-    #extension GL_ARB_texture_query_levels      : enable
+    #extension GL_ARB_texture_query_levels : enable
 
     #extension GL_ARB_shading_language_include : require
 
@@ -33,7 +32,7 @@
 
     in mediump vec3 v_TexCoord;
 
-    layout (location = 0) uniform samplerCube u_Texture;
+    uniform samplerCube u_Texture;
 
     uniform mediump float u_Exposure = 1.0;
     uniform mediump float u_Blur     = 0.0;

@@ -41,7 +41,7 @@ namespace LouiEriksson::Engine {
 	
 	void Application::Finalise() {
 		
-		Debug::Log("Finalising.", LogType::Info);
+		Debug::Log("Application::Finalise()", LogType::Info);
 		
 		Input::Cursor::Reset();
 		
@@ -63,9 +63,12 @@ namespace LouiEriksson::Engine {
 	
 	void Application::OnTerminate() {
 		
-		Debug::Log("Application terminated unexpectedly!", LogType::Critical);
+		Debug::Log("Application::OnTerminate()", LogType::Critical);
 		
 		try {
+			Utils::ALDumpError();
+			Utils::GLDumpError();
+			
 			Finalise();
 		}
 		catch (const std::exception& e) {
@@ -93,41 +96,28 @@ namespace LouiEriksson::Engine {
 				
 				srand(0u); // Use a constant seed (like '0') for deterministic behaviour.
 				
-				/* CREATE A MAIN WINDOW */
+				/* INIT */
 				auto main_window = Window::Create(1280, 720, "FinalYearProject");
 				
-				/* INIT RENDER FLAGS */
-				auto renderFlags = Graphics::Camera::RenderFlags::REINITIALISE;
-				
-				/* INIT CURSOR STATE */
-				Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
-				
-				// Capture the mouse on startup.
-				SDL_CaptureMouse(SDL_TRUE);
-				
-				/* INIT GLEW */
 				if (glewInit() != GLEW_OK) {
 					
 					// Throw error if GLEW fails to initialise correctly.
 					throw std::runtime_error("Failed to initialize GLEW!");
 				}
 				
-				/* INIT SOUND */
-				Audio::Sound::Init();
+				auto renderFlags = Graphics::Camera::RenderFlags::REINITIALISE;
 				
-				/* INIT NETWORKING */
-				Networking::Requests::Init();
+				Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
 				
-				/* INIT RESOURCES */
-				Resources::Init();
+				// Capture the mouse on startup.
+				SDL_CaptureMouse(SDL_TRUE);
 				
-				/* INIT SETTINGS */
-				Settings::Init();
+				     Audio::    Sound::Init();
+				            Resources::Init();
+				             Settings::Init();
+				   Physics::  Physics::Init();
+				Networking:: Requests::Init();
 				
-				/* INIT PHYSICS */
-				Physics::Physics::Init();
-				
-				/* INIT GUI */
 				UI::GUI::Init(main_window, "#version 330");
 				UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 				
@@ -136,36 +126,8 @@ namespace LouiEriksson::Engine {
 				
 				float physics_step = 0.0f;
 				
-				{
-//					auto bounds = Spatial::Maths::Coords::GPS::GPSToBounds({ 22.2829, 114.1736, 0.0 }, 0.05);
-//
-//					auto task1 = Spatial::OSM::QueryOverpassBoundingBoxAsync(
-//						bounds,
-//						10U,
-//						[](const Networking::Requests::Response& _response) {
-//							Debug::Log(_response.Content().ToStream().str(), LogType::Info);
-//						}
-//					);
-//
-//					auto task2 = Spatial::Elevation::LoadElevationAsync(
-//						bounds,
-//						Spatial::Elevation::ElevationProvider::OpenElevation,
-//						{ 2, 2 },
-//						[](const std::vector<float>& _values) {
-//
-//							std::stringstream ss;
-//							for (const auto& item : _values) {
-//								ss << item << '\n';
-//							}
-//
-//							Debug::Log(ss.str(), LogType::Info);
-//						}
-//					);
-
-				}
-				
 				// Load a scene and run:
-				auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 				
 				if (scene != nullptr) {
 					scene->Begin();
@@ -182,11 +144,8 @@ namespace LouiEriksson::Engine {
 						// Get the beginning of the frame for timing purposes.
 						const auto frame_start = std::chrono::high_resolution_clock::now();
 						
-						// Clear the AL error state by dumping the error at the start of the frame.
-						Utils::ALDumpError(true);
-						
-						// Clear the GL error state by dumping the error at the start of the frame.
-						Utils::GLDumpError(true);
+						Utils::ALDumpError();
+						Utils::GLDumpError();
 						
 						// Update (apply) the cursor's state.
 						Input::Cursor::Update();
@@ -196,7 +155,7 @@ namespace LouiEriksson::Engine {
 						//  0 = Disable
 						//  1 = Enable
 						{
-							auto selected = Settings::Graphics::VSync::s_CurrentSelection - 1;
+							const auto selected = Settings::Graphics::VSync::s_CurrentSelection - 1;
 							
 							if (selected != SDL_GL_GetSwapInterval()) { SDL_GL_SetSwapInterval(selected); }
 						}
@@ -211,7 +170,7 @@ namespace LouiEriksson::Engine {
 							// Process window resize event:
 							if (Input::Input::Event::Get(SDL_WINDOWEVENT, items)) {
 								
-								for (auto item : items) {
+								for (const auto& item : items) {
 									
 									if (const auto w = Window::Get(static_cast<int>(item.window.windowID)).lock()) {
 										
@@ -265,15 +224,12 @@ namespace LouiEriksson::Engine {
 						UI::GUI::OnGUI(main_window);
 						
 						/* UPDATE WINDOWS */
-						auto windows = Window::m_Windows.Values();
+						const auto& windows = Window::m_Windows.Values();
 						for (const auto& window : windows) {
 							window->Update();
 						}
 						
-						// Dump latest AL error log to the console.
 						Utils::ALDumpError();
-						
-						// Dump latest GL error log to the console.
 						Utils::GLDumpError();
 						
 						/* UPDATE TIMERS */
@@ -307,7 +263,7 @@ NestedBreak:
 	
 	void Application::Quit() noexcept {
 		
-		Debug::Log("Application::Quit() called!", LogType::Info);
+		Debug::Log("Application::Quit()", LogType::Info);
 		
 		Application::s_Quit = true;
 	}

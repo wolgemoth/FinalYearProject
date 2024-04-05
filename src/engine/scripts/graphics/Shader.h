@@ -32,7 +32,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		GLint m_Type;
 		
-		SubShader(const char* _path, GLenum _type) noexcept;
+		SubShader(const char* _path, const GLenum& _type) noexcept;
 		
 	};
 	
@@ -84,7 +84,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void BindAttribute(const GLint& _pos, const char* _name) const;
 		
 		/// <summary> Get the ID of an attribute by name. Returns -1 if none found. </summary>
-		GLint AttributeID(const char* _name);
+		GLint AttributeID(const std::string& _name);
 		
 		/// <summary> Assign a boolean to the Shader. </summary>
 		static void Assign(const GLint& _id, const bool& _value);

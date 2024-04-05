@@ -64,20 +64,17 @@ namespace LouiEriksson::Game::Scripts {
 		if (const auto p = Parent().lock()) {
 		if (const auto t = p->GetComponent<Transform>().lock()) {
 			
-			if (t != nullptr) {
+			// 'Reset' balls which fall beneath a certain height.
+			if (t->m_Position.y <= -100.0f) {
 				
-				// 'Reset' balls which fall beneath a certain height.
-				if (t->m_Position.y <= -100.0f) {
+				if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+			
+					// Reset position.
+					rb->Position(m_StartingPosition);
 					
-					if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
-				
-						// Reset position.
-						rb->Position(m_StartingPosition);
-						
-						// Reset motion.
-						rb->Velocity       (glm::vec3(0.0f));
-						rb->AngularVelocity(glm::vec3(0.0f));
-					}
+					// Reset motion.
+					rb->Velocity       (glm::vec3(0.0f));
+					rb->AngularVelocity(glm::vec3(0.0f));
 				}
 			}
 		}}
