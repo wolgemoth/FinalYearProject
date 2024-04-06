@@ -13,6 +13,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -20,8 +21,8 @@ namespace LouiEriksson::Engine::Networking {
 	
 	Requests::Client::Client() : m_Handle() {}
 	
-	Requests::Client::Client(const std::string& _uri) : m_Handle() {
-		Set(CURLOPT_URL, _uri.c_str());
+	Requests::Client::Client(const std::string_view& _uri) : m_Handle() {
+		Set(CURLOPT_URL, _uri.data());
 	}
 	
 	Requests::Response::Data::Data() : m_Raw() {}

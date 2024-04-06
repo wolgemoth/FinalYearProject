@@ -2,7 +2,7 @@
 #define FINALYEARPROJECT_DEBUG_H
 
 #include <exception>
-#include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine {
 
@@ -17,11 +17,11 @@ namespace LouiEriksson::Engine {
 	
 	struct Debug final {
 		
-		static void Assert(const bool& _condition, const std::string& _message, const LogType& _type, const bool& _inline = false) noexcept;
+		static void Assert(const bool& _condition, const std::string_view& _message, const LogType& _type, const bool& _inline = false) noexcept;
 		
 		static void Log(const std::exception& e, const LogType& _type = LogType::Error, const bool& _inline = false) noexcept;
 		
-		static void Log(const std::string& _message, const LogType& _type = LogType::Debug, const bool& _inline = false) noexcept;
+		static void Log(const std::string_view& _message, const LogType& _type = LogType::Debug, const bool& _inline = false) noexcept;
 		
 		static void Flush() noexcept;
 	};

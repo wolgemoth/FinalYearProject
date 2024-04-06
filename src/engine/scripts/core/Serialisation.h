@@ -8,6 +8,7 @@
 #include <glm/ext/vector_float3.hpp>
 
 #include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine {
 	
@@ -35,13 +36,13 @@ namespace LouiEriksson::Engine {
 		static std::string Serialise(const glm::quat& _value, const Format& _method = Format::XML);
 	
 		template <typename T>
-		static T Deserialise(const std::string& _str, const Format& _method = Format::XML) {
+		static T Deserialise(const std::string_view& _str, const Format& _method = Format::XML) {
 			
 			T result;
 	
 			const char delimiter = ' ';
 	
-			auto split = Utils::Split(_str, delimiter);
+			const auto split = Utils::Split(_str, delimiter);
 			for (auto i = 0; i < split.size(); ++i) {
 				result[i] = std::stof(split[i]);
 			}
@@ -51,8 +52,8 @@ namespace LouiEriksson::Engine {
 	};
 	
 	template<>
-	inline float Serialisation::Deserialise(const std::string& _str, const Serialisation::Format& _method) {
-		return std::stof(_str);
+	inline float Serialisation::Deserialise(const std::string_view& _str, const Serialisation::Format& _method) {
+		return std::stof(_str.data());
 	}
 
 } // LouiEriksson::Engine

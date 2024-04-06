@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine::Networking {
 			
 		public:
 			
-			[[nodiscard]]        const Handle_t& Handle();
+			[[nodiscard]]  const Handle_t& Handle();
 			[[nodiscard]] static Header_t  Header();
 			
 			template <typename T>
@@ -96,7 +96,7 @@ namespace LouiEriksson::Engine::Networking {
 			void Dispose();
 			
 			Client();
-			Client(const std::string& _uri);
+			Client(const std::string_view& _uri);
 			
 		};
 		

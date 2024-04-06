@@ -14,6 +14,7 @@
 #include <cstddef>
 #include <functional>
 #include <memory>
+#include <string>
 #include <sstream>
 #include <stdexcept>
 
@@ -47,13 +48,13 @@ namespace LouiEriksson::Engine {
 		if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
 			Debug::Log(SDL_GetError(), LogType::Error);
 		}
-		else
+		else {
 			Debug::Log(
 				"Output Format: \"" + std::string(SDL_GetPixelFormatName(displayMode.format)) + "\" (" +
 						std::to_string(SDL_BITSPERPIXEL(displayMode.format)) + "bpp)",
 				LogType::Info
 			);
-		
+		}
 		
 		m_Context = SDL_GL_CreateContext(m_Window.get());
 		

@@ -26,10 +26,10 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	RenderTexture::RenderTexture(RenderTexture&& _other) noexcept :
 		Texture    (std::move(_other) ),
-	    m_FBO_ID   (std::move(_other.m_FBO_ID   )),
-		m_RBO_ID   (std::move(_other.m_RBO_ID   )),
-		m_Depth_ID (std::move(_other.m_Depth_ID )),
-		m_DepthMode(std::move(_other.m_DepthMode))
+	    m_FBO_ID   (_other.m_FBO_ID   ),
+		m_RBO_ID   (_other.m_RBO_ID   ),
+		m_Depth_ID (_other.m_Depth_ID ),
+		m_DepthMode(_other.m_DepthMode)
 	{
 		
 		if (&_other != this) {

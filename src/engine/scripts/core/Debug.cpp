@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine {
 		
 #if __linux__ | __APPLE__
 		
-		static void ANSI(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
+		static void ANSI(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
 			
 			/* ANSI TEXT COLORS */
 			#define ANSI_RESET   "\033[0m"
@@ -187,7 +187,7 @@ namespace LouiEriksson::Engine {
 
 #elif _WIN32
 
-		static void WIN32(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
+		static void WIN32(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
 		
 			try {
 				try {
@@ -313,7 +313,7 @@ namespace LouiEriksson::Engine {
 	
 	};
 	
-	void Debug::Assert(const bool& _condition, const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
+	void Debug::Assert(const bool& _condition, const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
 		
 		if (!_condition) {
 			Debug::Log(_message, _type, _inline);
@@ -324,7 +324,7 @@ namespace LouiEriksson::Engine {
 		Debug::Log(e.what(), _type, _inline);
 	}
 	
-	void Debug::Log(const std::string& _message, const LogType& _type, const bool& _inline) noexcept {
+	void Debug::Log(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
 	
 		try {
 			try {

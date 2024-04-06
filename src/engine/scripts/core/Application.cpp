@@ -87,7 +87,7 @@ namespace LouiEriksson::Engine {
 		else {
 			s_Initialised = true;
 			
-			Debug::Log("Initialising.", LogType::Info);
+			Debug::Log("Application Initialising.", LogType::Info);
 		
 			// Set custom termination behaviour:
 			std::set_terminate(OnTerminate);
@@ -256,6 +256,8 @@ NestedBreak:
 			
 			/* FINALISE */
 			Finalise();
+			
+			Debug::Log("Application Terminated Safely.", LogType::Info);
 		}
 		
 		return 0;

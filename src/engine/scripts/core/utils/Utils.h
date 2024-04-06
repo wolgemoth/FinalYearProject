@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <queue>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <vector>
 
@@ -19,7 +20,7 @@ namespace LouiEriksson::Engine {
 		/// <summary>
 		/// Split a string in a collection of substrings using a divider.
 		/// </summary>
-		static std::vector<std::string> Split(const std::string& _string, const char& _divider);
+		static std::vector<std::string> Split(const std::string_view& _string, const char& _divider);
 		
 		/// <summary>
 		/// Trim leading and trailing whitespace characters from a string.

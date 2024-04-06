@@ -129,7 +129,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	void Shader::Compile(const std::string& _src, const GLenum& _type) {
+	void Shader::Compile(const std::string_view& _src, const GLenum& _type) {
 		
 		GLint success = 0;
 		
@@ -146,7 +146,7 @@ namespace LouiEriksson::Engine::Graphics {
 			Debug::Log("Compiling Shader \"" + m_Name + "\" (" + type_string + ")... ", LogType::Info, true);
 		}
 		
-		const auto* const src = _src.c_str();
+		const auto* const src = _src.data();
 
 		m_SubShaders.emplace_back(glCreateShader(_type));
 		glShaderSource(m_SubShaders.back(), 1, &src, nullptr);
@@ -165,15 +165,15 @@ namespace LouiEriksson::Engine::Graphics {
 			std::vector<GLchar> errorLog(maxLength);
 			glGetShaderInfoLog(m_SubShaders.back(), maxLength, &maxLength, errorLog.data());
 			
-			std::stringstream err;
-			err << "Shader compilation error:\n\t";
+			std::stringstream ss;
+			ss << "Shader compilation error:\n\t";
 			
 			for (const auto& error : errorLog) {
-				err << error;
+				ss << error;
 			}
 			
 			Debug::Log("Failed.", LogType::Error);
-			Debug::Log(err.str(), LogType::Error);
+			Debug::Log(ss.str(), LogType::Error);
 		}
 	}
 	
@@ -182,7 +182,7 @@ namespace LouiEriksson::Engine::Graphics {
 		Hashmap<GLenum, std::string> result;
 		
 		// Get the individual lines of the shader.
-		auto lines = Utils::Split(_src, '\n');
+		const auto lines = Utils::Split(_src, '\n');
 		
 		std::stringstream ss;
 		
@@ -190,19 +190,19 @@ namespace LouiEriksson::Engine::Graphics {
 		// shader types, and use that to change the context of which shader type
 		// is being read. Write the data to a stream, and copy that data on
 		// context change.
-		GLenum curr = GL_NONE;
-		for (auto& line : lines) {
+		auto curr = GL_NONE;
+		for (const auto& line : lines) {
 			
-			line = Utils::Trim(line); // Trim leading and trailing whitespace from text.
+			const auto l = Utils::Trim(line); // Trim leading and trailing whitespace from text.
 			
-			GLenum type = curr;
+			auto type = curr;
 			
-			     if (line == "#pragma vertex"  ) { type =   GL_VERTEX_SHADER; }
-			else if (line == "#pragma geometry") { type = GL_GEOMETRY_SHADER; }
-			else if (line == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
+			     if (l == "#pragma vertex"  ) { type =   GL_VERTEX_SHADER; }
+			else if (l == "#pragma geometry") { type = GL_GEOMETRY_SHADER; }
+			else if (l == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
 			
 			if (type == curr) {
-				ss << line << '\n';
+				ss << l << '\n';
 			}
 			else {
 				
@@ -257,7 +257,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	const std::string& Shader::Name() const noexcept {
+	std::string_view Shader::Name() const noexcept {
 		return m_Name;
 	}
 	
@@ -295,17 +295,9 @@ namespace LouiEriksson::Engine::Graphics {
 	void Shader::Assign(const GLint& _id, const GLuint&  _value) { glUniform1ui(_id, _value); }
 	void Shader::Assign(const GLint& _id, const GLfloat& _value) { glUniform1f (_id, _value); }
 	
-	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y) {
-		glUniform2f(_id, _x, _y);
-	}
-	
-	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z) {
-		glUniform3f(_id, _x, _y, _z);
-	}
-	
-	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z, const GLfloat& _w) {
-		glUniform4f(_id, _x, _y, _z, _w);
-	}
+	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y)                                       { glUniform2f(_id, _x, _y);         }
+	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z)                    { glUniform3f(_id, _x, _y, _z);     }
+	void Shader::Assign(const GLint& _id, const GLfloat& _x, const GLfloat& _y, const GLfloat& _z, const GLfloat& _w) { glUniform4f(_id, _x, _y, _z, _w); }
 	
 	void Shader::Assign(const GLint& _id, const glm::vec2& _value) { glUniform2fv(_id, 1, glm::value_ptr(_value)); }
 	void Shader::Assign(const GLint& _id, const glm::vec3& _value) { glUniform3fv(_id, 1, glm::value_ptr(_value)); }

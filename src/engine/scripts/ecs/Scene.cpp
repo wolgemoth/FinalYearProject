@@ -246,7 +246,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 			for (const auto& entity : m_Entities) { // Only serialise things attached to GameObject.
 
-				xml.setNextName(entity->Name().c_str());
+				xml.setNextName(std::string(entity->Name()).c_str());
 				xml.startNode();
 
 				for (const auto& kvp : entity->Components().GetAll()) {

@@ -10,16 +10,17 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace LouiEriksson::Engine {
 	
-	std::vector<std::string> Utils::Split(const std::string& _string, const char& _divider) {
+	std::vector<std::string> Utils::Split(const std::string_view& _string, const char& _divider) {
 		
 		std::vector<std::string> result;
 		
 		// Init string stream.
-		std::istringstream iss(_string);
+		std::istringstream iss(_string.data());
 		
 		std::string substring;
 		

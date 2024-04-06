@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <typeindex>
 #include <vector>
@@ -80,16 +81,16 @@ namespace LouiEriksson::Engine::ECS {
 	public:
 	
 		/// <summary> Set the name of the GameObject. </summary>
-		void Name(const std::string& _name) noexcept;
+		void Name(const std::string_view& _name) noexcept;
 	
 		/// <summary> Get the name of the GameObject. </summary>
-		const std::string& Name() const noexcept;
+		std::string_view Name() const noexcept;
 	
 		/// <summary> Get the Scene the GameObject belongs to. </summary>
 		const std::weak_ptr<Scene>& GetScene() const noexcept;
 		
 		/// <summary> Factory function which creates a GameObject within a Scene. </summary>
-		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string& _name = "");
+		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string_view& _name = "");
 		
 		void Destroy();
 		

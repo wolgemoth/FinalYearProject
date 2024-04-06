@@ -10,6 +10,7 @@
 
 #include <filesystem>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace LouiEriksson::Engine {
@@ -60,7 +61,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		void LinkShaders() const;
 		
-		void Compile(const std::string& _src, const GLenum& _type);
+		void Compile(const std::string_view& _src, const GLenum& _type);
 		
 		static Hashmap<GLenum, std::string> ExtractSubshaders(const std::string& _src);
 		
@@ -79,7 +80,7 @@ namespace LouiEriksson::Engine::Graphics {
 		static void Unbind();
 		
 		/// <summary> Get the name of the Shader. </summary>
-		[[nodiscard]] const std::string& Name() const noexcept;
+		[[nodiscard]] std::string_view Name() const noexcept;
 		
 		void BindAttribute(const GLint& _pos, const char* _name) const;
 		
@@ -145,7 +146,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/// <summary> Get the ID of the Shader. </summary>
 		[[nodiscard]] GLint ID() const noexcept;
 		
-		explicit operator GLint() const noexcept { return ID(); }
+		explicit inline operator GLint() const noexcept { return ID(); }
 	};
 
 } // LouiEriksson::Engine::Graphics
