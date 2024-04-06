@@ -727,16 +727,41 @@ namespace LouiEriksson::Engine::Graphics {
 					Shader::Bind(p->ID());
 		
 					// Assign g-buffers:
-					p->Assign(p->AttributeID(  "u_Albedo_gBuffer"),   m_Albedo_gBuffer, 0);
-					p->Assign(p->AttributeID("u_Emission_gBuffer"), m_Emission_gBuffer, 1);
-					p->Assign(p->AttributeID("u_Material_gBuffer"), m_Material_gBuffer, 2);
-					p->Assign(p->AttributeID("u_Position_gBuffer"), m_Position_gBuffer, 3);
-					p->Assign(p->AttributeID(  "u_Normal_gBuffer"),   m_Normal_gBuffer, 4);
+					const auto u_Albedo_gBuffer = p->AttributeID("u_Albedo_gBuffer");
+					if (u_Albedo_gBuffer != -1) {
+						p->Assign(u_Albedo_gBuffer, m_Albedo_gBuffer, 0);
+					}
 					
-					p->AssignDepth(p->AttributeID("u_Depth_gBuffer"), m_Position_gBuffer, 5);
+					const auto u_Emission_gBuffer = p->AttributeID("u_Emission_gBuffer");
+					if (u_Emission_gBuffer != -1) {
+						p->Assign(u_Emission_gBuffer, m_Emission_gBuffer, 1);
+					}
+					
+					const auto u_Material_gBuffer = p->AttributeID("u_Material_gBuffer");
+					if (u_Material_gBuffer != -1) {
+						p->Assign(u_Material_gBuffer, m_Material_gBuffer, 2);
+					}
+					
+					const auto u_Position_gBuffer = p->AttributeID("u_Position_gBuffer");
+					if (u_Position_gBuffer != -1) {
+						p->Assign(u_Position_gBuffer, m_Position_gBuffer, 3);
+					}
+					
+					const auto u_Normal_gBuffer = p->AttributeID("u_Normal_gBuffer");
+					if (u_Normal_gBuffer != -1) {
+						p->Assign(u_Normal_gBuffer, m_Normal_gBuffer, 4);
+					}
+					
+					const auto u_Depth_gBuffer = p->AttributeID("u_Depth_gBuffer");
+					if (u_Depth_gBuffer != -1) {
+						p->AssignDepth(u_Depth_gBuffer, m_Position_gBuffer, 5);
+					}
 					
 					// Assign other material parameters:
-					p->Assign(p->AttributeID("u_Time"), Time::Elapsed());
+					const auto u_Time = p->AttributeID("u_Time");
+					if (u_Time != -1) {
+						p->Assign(u_Time, Time::Elapsed());
+					}
 					
 					{
 						const auto t = GetTransform().lock();
@@ -748,16 +773,8 @@ namespace LouiEriksson::Engine::Graphics {
 						);
 					}
 					
-					{
-						p->Assign(p->AttributeID("u_ScreenDimensions"),
-							w != nullptr ?
-								(glm::vec2)w->Dimensions() :
-								 glm::vec2(1.0f)
-						);
-					}
-					
 					// Assign ambient texture:
-					if (const auto s =  Settings::Graphics::Skybox::s_Skybox.lock()) {
+					if (const auto s = Settings::Graphics::Skybox::s_Skybox.lock()) {
 						p->Assign(p->AttributeID("u_Ambient"), *s, 98);
 					}
 		
@@ -966,8 +983,8 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					Shader::Bind(g->ID());
 					
-					static const auto u_Amount = g->AttributeID("u_Amount"    );
-					static const auto   u_Time = g->AttributeID("u_Smoothness");
+					static const auto u_Amount = g->AttributeID("u_Amount");
+					static const auto   u_Time = g->AttributeID("u_Time");
 					
 					g->Assign(u_Amount, Settings::PostProcessing::Grain::s_Intensity);
 					g->Assign(  u_Time, Time::Elapsed());
@@ -1244,7 +1261,6 @@ namespace LouiEriksson::Engine::Graphics {
 				static const auto          u_FarClip = ao->AttributeID("u_FarClip" );
 				static const auto             u_Time = ao->AttributeID("u_Time"    );
 				static const auto               u_VP = ao->AttributeID("u_VP"      );
-				static const auto             u_View = ao->AttributeID("u_View"    );
 				
 				// Assign program values:
 				ao->Assign( u_Samples, Settings::PostProcessing::AmbientOcclusion::s_Samples);
@@ -1252,12 +1268,10 @@ namespace LouiEriksson::Engine::Graphics {
 				ao->Assign(    u_Bias, -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
 				ao->Assign(  u_Radius,           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
 				
-				ao->Assign(u_NearClip, m_NearClip     );
-				ao->Assign( u_FarClip, m_FarClip      );
-				ao->Assign(    u_Time, Time::Elapsed());
-				
+				ao->Assign(u_NearClip, m_NearClip           );
+				ao->Assign( u_FarClip, m_FarClip            );
+				ao->Assign(    u_Time, Time::Elapsed()      );
 				ao->Assign(      u_VP, m_Projection * View());
-				ao->Assign(    u_View,                View());
 				
 				/* ASSIGN G-BUFFERS */
 				ao->AssignDepth(u_Position_gBuffer, m_Position_gBuffer, 0);
@@ -1366,10 +1380,6 @@ namespace LouiEriksson::Engine::Graphics {
 					/* DOWNSCALING */
 					{
 						Shader::Bind(downscale_shader->ID());
-						
-						static const auto u_Resolution = downscale_shader->AttributeID("u_Resolution");
-						
-						downscale_shader->Assign(u_Resolution, glm::vec2(dimensions[0], dimensions[1]));
 						
 						for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
 							Blit(m_Bloom_MipChain[i - 1], m_Bloom_MipChain[i], downscale_shader);

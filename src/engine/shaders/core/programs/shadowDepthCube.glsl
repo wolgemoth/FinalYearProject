@@ -2,6 +2,10 @@
 
     #version 330 core
 
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
+
     in mediump vec3 a_Position;
 
     uniform mediump mat4 u_Model;
@@ -17,6 +21,10 @@
 #pragma geometry
 
     #version 330 core
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
 
     layout (triangles) in;
     layout (triangle_strip, max_vertices=18) out;
@@ -49,6 +57,10 @@
 #pragma fragment
 
     #version 330 core
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
 
     in mediump vec4 FragPos;
 

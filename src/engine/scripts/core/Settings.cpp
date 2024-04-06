@@ -16,7 +16,7 @@ namespace LouiEriksson::Engine {
 	}
 	
 	bool Settings::PostProcessing::Bloom::IsActiveAndEnabled() noexcept {
-		return s_Enabled && s_Intensity > 0.0f && s_Threshold <= s_Clamp;
+		return s_Enabled && s_Intensity > 0.0f && s_Threshold <= s_Clamp && s_Diffusion > 0.0f;
 	}
 	
 	bool Settings::PostProcessing::ToneMapping::IsActiveAndEnabled() noexcept {

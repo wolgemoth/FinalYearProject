@@ -85,7 +85,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void BindAttribute(const GLint& _pos, const char* _name) const;
 		
 		/// <summary> Get the ID of an attribute by name. Returns -1 if none found. </summary>
-		GLint AttributeID(const std::string& _name);
+		GLint AttributeID(const std::string& _name, const bool& _verbose = false);
 		
 		/// <summary> Assign a boolean to the Shader. </summary>
 		static void Assign(const GLint& _id, const bool& _value);

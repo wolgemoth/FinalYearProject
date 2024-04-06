@@ -3,6 +3,9 @@
     #version 330 core
 
     #extension GL_ARB_explicit_uniform_location : enable
+    #extension GL_ARB_shading_language_include  : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
 
     in mediump vec3 a_Position;
     in mediump vec2 a_TexCoord;
@@ -24,6 +27,8 @@
     #extension GL_ARB_texture_query_levels      : enable
 
     #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
 
     #include "/assets/shaders/core/include/rand.inc"
     #include "/assets/shaders/core/include/constants.inc"
@@ -48,8 +53,6 @@
     layout (location = 100) uniform samplerCube u_ShadowMap3D;
 
     uniform mediump mat4 u_LightSpaceMatrix;
-
-    uniform mediump vec2 u_ScreenDimensions;
 
     uniform mediump float u_AmbientExposure = 1.0; // Brightness of ambient texture.
 

@@ -2,6 +2,10 @@
 
     #version 330 core
 
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
+
     in mediump vec3 a_Position;
 
     out mediump vec4 v_Position;
@@ -26,6 +30,7 @@
 
     #extension GL_ARB_shading_language_include : require
 
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
     #include "/assets/shaders/core/include/common_utils.inc"
 
     in mediump vec4 v_Position;

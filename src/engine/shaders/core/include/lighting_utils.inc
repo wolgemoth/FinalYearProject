@@ -19,6 +19,7 @@
 
     // Shadows for Parallax Occlusion Mapping. Implementation courtesy of "Rabbid76":
     // Rabbid76 (2019). Adding Shadows to Parallax Occlusion Map. [online] Stack Overflow. Available at: https://stackoverflow.com/questions/55089830/adding-shadows-to-parallax-occlusion-map [Accessed 15 Dec. 2023].
+    #pragma optionNV(unroll all)
     float ParallaxShadowsHard(in sampler2D _displacement, in vec3 _lightDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
         float minLayers = 0.0;
@@ -43,6 +44,7 @@
         return currentLayerDepth > currentDepthMapValue ? 1.0 : 0.0;
     }
 
+    #pragma optionNV(unroll all)
     float PCSS_GetOccluderDepth3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _seed, in int _samples) {
 
         float result = 0.0;
@@ -73,17 +75,22 @@
 
     float PCSS_Radius3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _lightSize, in float _seed, in int _samples) {
 
+        float result;
+
         float occluderDepth = PCSS_GetOccluderDepth3D(_shadowMap, _dir, _texelSize, _bias, _seed, _samples);
 
         if (occluderDepth == -1.0) {
-            return 1.0;
+            result = 1.0;
+        }
+        else {
+            float len = length(_dir);
+
+            float penumbraWidth = (len - occluderDepth) / occluderDepth;
+
+            result = penumbraWidth * _lightSize;
         }
 
-        float len = length(_dir);
-
-        float penumbraWidth = (len - occluderDepth) / occluderDepth;
-
-        return penumbraWidth * _lightSize;
+        return result;
     }
 
     float ShadowCalculationHard3D(in samplerCube _shadowMap, in vec3 _dir, in vec3 _offset, in float _bias, in float _lightRange) {
@@ -95,6 +102,7 @@
         return length(_dir) - _bias > shadowDepth ? 1.0 : 0.0;
     }
 
+    #pragma optionNV(unroll all)
     float ShadowCalculationPCF3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _radius, in float _lightRange) {
 
         float result = 0.0;
@@ -122,6 +130,7 @@
         return result / max(hits, 1.0);
     }
 
+    #pragma optionNV(unroll all)
     float ShadowCalculationDisk3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _radius, in float _lightRange, in float _seed, in int _samples) {
 
         float result = 0.0;
@@ -151,6 +160,7 @@
         return result;
     }
 
+    #pragma optionNV(unroll all)
     float PCSS_GetOccluderDepth2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _seed, in int _samples) {
 
         float result = 0.0;
@@ -181,15 +191,20 @@
 
     float PCSS_Radius2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _seed, in int _samples, in float _lightSize, in float _nearClip) {
 
+        float result;
+
         float occluderDepth = PCSS_GetOccluderDepth2D(_shadowMap, _fragPos, _texelSize, _bias, _seed, _samples);
 
         if (occluderDepth == -1.0) {
-            return 1.0;
+            result = 1.0;
+        }
+        else {
+            float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
+
+            result = penumbraWidth * _lightSize * (_nearClip / _fragPos.z);
         }
 
-        float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
-
-        return penumbraWidth * _lightSize * (_nearClip / _fragPos.z);
+        return result;
     }
 
     float ShadowCalculationHard2D(in sampler2D _shadowMap, in vec3 _fragPos, in vec2 _offset, in float _bias) {
@@ -202,6 +217,7 @@
             1.0 : 0.0;
     }
 
+    #pragma optionNV(unroll all)
     float ShadowCalculationPCF2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _radius) {
 
         float result = 0.0;
@@ -226,6 +242,7 @@
         return result / max(hits, 1.0);
     }
 
+    #pragma optionNV(unroll all)
     float ShadowCalculationDisk2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _radius, in float _seed, in int _samples) {
 
         float result = 0.0;

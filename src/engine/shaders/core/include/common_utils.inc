@@ -176,6 +176,7 @@
     /// Parallax Occlusion Mapping. Implementation courtesy of Learn OpenGL.
     /// de Vries, J. (n.d.). LearnOpenGL - Parallax Mapping. [online] learnopengl.com. Available at: https://learnopengl.com/Advanced-Lighting/Parallax-Mapping [Accessed 15 Dec. 2023].
     /// </summary>
+    #pragma optionNV(unroll all)
     vec2 ParallaxMapping(in sampler2D _displacement, in vec3 _viewDir, in vec2 _uv, in vec4 _st, in float _scale) {
 
         const float minLayers = 10.0;

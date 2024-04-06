@@ -129,9 +129,6 @@ namespace LouiEriksson::Engine {
 				switch (item.m_Status) {
 					case Unloaded: {
 						item.Load();
-						result = item.m_Item;
-						
-						break;
 					}
 					case Loaded: {
 						result = item.m_Item;
@@ -406,9 +403,6 @@ namespace LouiEriksson::Engine {
 			switch (item.m_Status) {
 				case Unloaded: {
 					item.Load();
-					result = item.m_Item;
-					
-					break;
 				}
 				case Loaded: {
 					result = item.m_Item;

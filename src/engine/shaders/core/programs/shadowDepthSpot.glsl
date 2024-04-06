@@ -2,6 +2,10 @@
 
     #version 330 core
 
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
+
     in mediump vec3 a_Position;
 
     uniform mediump mat4 u_LightSpaceMatrix;
@@ -18,5 +22,9 @@
 #pragma fragment
 
     #version 330 core
+
+    #extension GL_ARB_shading_language_include : require
+
+    #include "/assets/shaders/core/include/strict_optimisation_flags.inc"
 
     void main() {}

@@ -65,7 +65,9 @@ namespace LouiEriksson::Engine::Graphics {
 			for (const auto& shader: _subShaders) {
 				
 				Debug::Log("Loading Shader Asset \"" + std::string(shader.m_Path) + "\"... ", LogType::Info, true);
-					const auto src = File::ReadAllText(shader.m_Path);
+				
+				const auto src = File::ReadAllText(shader.m_Path);
+				
 				Debug::Log("Done.", LogType::Info);
 				
 				Compile(src, shader.m_Type);
@@ -219,7 +221,7 @@ namespace LouiEriksson::Engine::Graphics {
 					result.Assign(curr, source);
 					
 					// Clear the stream.
-					ss.str(std::string());
+					ss.str({});
 				}
 				
 				// Set current to type.
@@ -265,7 +267,7 @@ namespace LouiEriksson::Engine::Graphics {
 		glBindAttribLocation(ID(), _pos, _name);
 	}
 	
-	GLint Shader::AttributeID(const std::string& _name) {
+	GLint Shader::AttributeID(const std::string& _name, const bool& _verbose) {
 		
 		GLint result = -1;
 		
@@ -277,14 +279,14 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		
-		if (result == -1) {
-//
-//			Debug::Log(
-//				"No parameter with name \"" + std::string(_name) +
-//				"\" exists in program with ID \"" + std::to_string(ID()) +
-//				"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
-//				LogType::Info
-//			);
+		if (_verbose && result == -1) {
+
+			Debug::Log(
+				"No parameter with name \"" + std::string(_name) +
+				"\" exists in program with ID \"" + std::to_string(ID()) +
+				"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
+				LogType::Info
+			);
 		}
 		
 		return result;
