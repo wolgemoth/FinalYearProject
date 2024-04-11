@@ -5,6 +5,7 @@
 
 #include <cstdio>
 #include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine::Spatial {
 	
@@ -21,7 +22,7 @@ namespace LouiEriksson::Engine::Spatial {
 	public:
 		
 		template<typename T, glm::precision P>
-		static glm::vec<3, T, P> GetOrientationVSOP87(const std::string& _name, const double& _t);
+		static glm::vec<3, T, P> GetOrientationVSOP87(const std::string_view& _name, const double& _t);
 		
 		/// <summary>
 		/// https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2015reprint.pdf
@@ -87,7 +88,7 @@ namespace LouiEriksson::Engine::Spatial {
 	}
 	
 	template<typename T, glm::precision P>
-	glm::vec<3, T, P> WGCCRE::GetOrientationVSOP87(const std::string& _name, const double& _t) {
+	glm::vec<3, T, P> WGCCRE::GetOrientationVSOP87(const std::string_view& _name, const double& _t) {
 		
 		glm::dvec3 result;
 		

@@ -1016,13 +1016,12 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Render post-processing effects stack:
 				while (!effects.empty()) {
-					
+				
 					const auto& shader = effects.front();
 					effects.pop();
 					
-					Blit(m_RT, m_RT, shader);
-					
 					RenderTexture::Unbind();
+					Blit(m_RT, m_RT, shader);
 				}
 			}
 			else {
@@ -1181,7 +1180,7 @@ namespace LouiEriksson::Engine::Graphics {
 				auto avg = 0.0f;
 				
 				for (auto y = 0; y < m_AutoExposure_Luma.Height(); y++) {
-				for (auto x = 0; x < m_AutoExposure_Luma.Width(); x++) {
+				for (auto x = 0; x < m_AutoExposure_Luma.Width();  x++) {
 					
 					const auto& l = pixels.at(Utils::To1D({x, y}, m_AutoExposure_Luma.Width()));
 					
@@ -1377,8 +1376,8 @@ namespace LouiEriksson::Engine::Graphics {
 						Blit(m_RT, m_Bloom_MipChain[0], threshold_shader);
 					}
 					
-					/* DOWNSCALING */
 					{
+						/* DOWNSCALING */
 						Shader::Bind(downscale_shader->ID());
 						
 						for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
@@ -1510,9 +1509,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Enable texture channel.
 			glActiveTexture(GL_TEXTURE0);
 	
-			if (Texture::s_CurrentTexture != _src.ID()) {
-				glBindTexture(GL_TEXTURE_2D, Texture::s_CurrentTexture = static_cast<GLint>(_src.ID()));
-			}
+			Texture::Bind(_src);
 			
 			// Bind destination target:
 			RenderTexture::Bind(_dest);

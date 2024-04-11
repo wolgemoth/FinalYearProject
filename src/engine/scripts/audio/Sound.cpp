@@ -37,7 +37,7 @@ namespace LouiEriksson::Engine::Audio {
 			// Init OpenAL audio subsystem.
 			try {
 				
-				Debug::Log("\tSDL...", LogType::Info, true);
+				Debug::Log("\tOpenAL...", LogType::Info, true);
 			
 				// Initialise audio device.
 				if (s_Device == nullptr) {

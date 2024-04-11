@@ -32,11 +32,6 @@
 #include <string>
 #include <vector>
 
-// TEMP:
-#include "../spatial/osm/OSM.h"
-#include "../spatial/elevation/Elevation.h"
-#include "../spatial/maths/Coords.h"
-
 namespace LouiEriksson::Engine {
 	
 	void Application::Finalise() {
@@ -127,7 +122,7 @@ namespace LouiEriksson::Engine {
 				float physics_step = 0.0f;
 				
 				// Load a scene and run:
-				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 				
 				if (scene != nullptr) {
 					scene->Begin();
@@ -257,7 +252,7 @@ NestedBreak:
 			/* FINALISE */
 			Finalise();
 			
-			Debug::Log("Application Terminated Safely.", LogType::Info);
+			Debug::Log("Application Terminated Normally.", LogType::Info);
 		}
 		
 		return 0;

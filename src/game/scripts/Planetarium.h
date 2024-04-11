@@ -111,7 +111,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		~Planetarium() override;
 	
-		[[nodiscard]] const std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 	};
 	
 	template<typename T, glm::precision P>

@@ -4,6 +4,8 @@
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include <json.hpp>
+
 #include <cstddef>
 #include <queue>
 #include <string>
@@ -84,15 +86,18 @@ namespace LouiEriksson::Engine {
 		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
 		
 		template <typename T>
+		inline static T As(const nlohmann::json& _json);
+		
+		template <typename T>
 		inline static bool TryParse(const std::string& _str, T& _output) noexcept;
 		
 		template<typename T, glm::precision P>
 		static double SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
 						
-		    auto d = glm::dot  (_a, _b);
-		    auto p = glm::cross(_a, _b);
+		    const auto d = glm::dot  (_a, _b);
+		    const auto p = glm::cross(_a, _b);
 		    
-		    auto angle = glm::atan(glm::length(p), d);
+		    const auto angle = glm::atan(glm::length(p), d);
 		    
 		    return angle * glm::sign(dot(p, _axis));
 		}
@@ -169,6 +174,24 @@ namespace LouiEriksson::Engine {
 			};
 		}
 	};
+	
+	/// <summary>
+	/// Courtesy of gregmarr: (https://github.com/nlohmann/json/issues/642)
+	/// <summary>
+	template<>
+	inline std::string Utils::As(const nlohmann::json& _json) {
+		
+		std::string result;
+		
+		if (_json.type() == nlohmann::json::value_t::string) {
+		    result = _json.get<std::string>();
+		}
+		else {
+			result = _json.dump();
+		}
+	
+	    return result;
+	}
 	
 	template<>
 	inline bool Utils::TryParse(const std::string& _str, size_t& _output) noexcept {

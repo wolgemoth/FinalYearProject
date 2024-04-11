@@ -108,12 +108,12 @@ namespace LouiEriksson::Engine::Spatial::Maths {
         return result;
 	}
 	
-	glm::vec3 Coords::GPS::GPSToCartesian(const glm::vec3& _coord, const double& _lat) {
+	glm::vec3 Coords::GPS::GPSToCartesian(const glm::vec3& _coord) {
 		
 		return SphereToCartesian({
 			_coord.x * Conversions::Rotation::s_DegreesToRadians,
 			_coord.y * Conversions::Rotation::s_DegreesToRadians,
-			_coord.z + WGS84::WGS84EarthRadius(_lat)
+			_coord.z + WGS84::WGS84EarthRadius(_coord.x)
 		});
 	}
 	
