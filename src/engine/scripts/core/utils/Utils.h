@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <queue>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -100,6 +101,40 @@ namespace LouiEriksson::Engine {
 		    const auto angle = glm::atan(glm::length(p), d);
 		    
 		    return angle * glm::sign(dot(p, _axis));
+		}
+		
+		template<typename T, size_t N>
+		static std::array<T, N> ToArray(const std::vector<T>& _vector) {
+			
+		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
+
+			if (_vector.size() != N) {
+				throw std::runtime_error("Array size does not match vector size.");
+			}
+			
+			std::array<T, N> result{};
+			std::move(
+				_vector.begin(),
+				_vector.begin() + (_vector.size() > result.size() ? result.size() : _vector.size()),
+				    result.begin()
+			);
+			
+			return result;
+		}
+		
+		template<typename T, size_t N>
+		static std::vector<T> ToVector(const std::array<T, N>& _array) {
+			
+		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
+
+			std::vector<T> result(N);
+			std::move(
+				_array.begin(),
+				_array.begin() + (_array.size() > result.size() ? result.size() : _array.size()),
+				result.begin()
+			);
+			
+			return result;
 		}
 		
 		template<typename T, glm::precision P>

@@ -303,13 +303,13 @@ namespace LouiEriksson::Engine {
 			
 			if (scene != nullptr) {
 				
-				if (!(scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE)) {
+				if ((scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) == 0u) {
 					
 					if (scene->mRootNode != nullptr) {
 						
 						if (scene->HasMeshes()) {
 							
-							for (auto i = 0; i < scene->mNumMeshes; i++) {
+							for (size_t i = 0; i < scene->mNumMeshes; i++) {
 								
 						        const auto* const mesh = scene->mMeshes[i];
 						        
@@ -319,7 +319,7 @@ namespace LouiEriksson::Engine {
 						        std::vector<glm::vec3>   normals(mesh->mNumVertices);
 						        std::vector<glm::vec2> texCoords(mesh->mNumVertices);
 								
-								for (int j = 0; j < vertices.size(); ++j) {
+								for (size_t j = 0; j < vertices.size(); ++j) {
 									
 									const auto vert = mesh->mVertices        [j];
 									const auto norm = mesh->mNormals         [j];
@@ -344,8 +344,8 @@ namespace LouiEriksson::Engine {
 									// 32-bit:
 									std::vector<GLuint> indices(mesh->mNumVertices);
 									
-									for (auto j = 0; j < mesh->mNumFaces; ++j) {
-									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
 										indices.emplace_back(faces[j].mIndices[k]);
 									}}
 									
@@ -356,8 +356,8 @@ namespace LouiEriksson::Engine {
 									// 16-bit:
 									std::vector<GLushort> indices(mesh->mNumVertices);
 									
-									for (auto j = 0; j < mesh->mNumFaces; ++j) {
-									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
 										indices.emplace_back(faces[j].mIndices[k]);
 									}}
 									
@@ -368,8 +368,8 @@ namespace LouiEriksson::Engine {
 									// 8-bit:
 									std::vector<GLubyte> indices(mesh->mNumVertices);
 									
-									for (auto j = 0; j < mesh->mNumFaces; ++j) {
-									for (auto k = 0; k < faces[j].mNumIndices; ++k) {
+									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
 										indices.emplace_back(faces[j].mIndices[k]);
 									}}
 								
@@ -607,7 +607,7 @@ namespace LouiEriksson::Engine {
 				
 				Graphics::Cubemap::Bind(*_output);
 				
-				for (auto i = 0; i < _paths.size(); ++i) {
+				for (size_t i = 0; i < _paths.size(); ++i) {
 					
 					glm::ivec2 loaded_resolution = { -1, -1 };
 					

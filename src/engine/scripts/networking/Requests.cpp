@@ -86,7 +86,7 @@ namespace LouiEriksson::Engine::Networking {
 		const bool result = _response.Status() == CURLE_OK;
 		
 		Debug::Assert(
-			result && !_verbose,
+			result || !_verbose,
 			"Request failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
 			LogType::Error
 		);

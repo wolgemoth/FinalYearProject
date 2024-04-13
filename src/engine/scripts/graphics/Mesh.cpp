@@ -92,29 +92,46 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
+		
+			if (!_vertices.empty()) {
+				
+				if (!_indices.empty()) {
+				
+					result->m_IndexFormat = GL_UNSIGNED_BYTE;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					// Buffers to store mesh data:
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					Bind(*result);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glEnableVertexAttribArray(0);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+		            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-			result->m_IndexFormat = GL_UNSIGNED_BYTE;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			// Buffers to store mesh data:
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			glGenBuffers(1, &result->m_IndexVBO_ID);
-			
-			Bind(*result);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			
-			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+			result.reset();
 		}
 		
 		return result;
@@ -124,29 +141,46 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
+		
+			if (!_vertices.empty()) {
+				
+				if (!_indices.empty()) {
+				
+					result->m_IndexFormat = GL_UNSIGNED_SHORT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					// Buffers to store mesh data:
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					Bind(*result);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glEnableVertexAttribArray(0);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+		            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-			result->m_IndexFormat = GL_UNSIGNED_SHORT;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			// Buffers to store mesh data:
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			glGenBuffers(1, &result->m_IndexVBO_ID);
-			
-			Bind(*result);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			
-			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+			result.reset();
 		}
 		
 		return result;
@@ -156,29 +190,46 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(GL_POINTS));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
+		
+			if (!_vertices.empty()) {
+				
+				if (!_indices.empty()) {
+				
+					result->m_IndexFormat = GL_UNSIGNED_INT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					// Buffers to store mesh data:
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					Bind(*result);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glEnableVertexAttribArray(0);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+		            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-			result->m_IndexFormat = GL_UNSIGNED_INT;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			// Buffers to store mesh data:
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			glGenBuffers(1, &result->m_IndexVBO_ID);
-			
-			Bind(*result);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			
-			BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+			result.reset();
 		}
 		
 		return result;
@@ -188,83 +239,98 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(_format));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
 			
-			result->m_IndexFormat = GL_UNSIGNED_BYTE;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			Bind(*result);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			if (!_indices.empty()) {
+			if (!_vertices.empty()) {
 				
-				glGenBuffers(1, &result->m_IndexVBO_ID);
-				
-				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
-			}
-			
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			glEnableVertexAttribArray(0);
-			
-			if (!_normals.empty()) {
-				
-				glGenBuffers(1, &result->m_NormalVBO_ID);
-
-				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(1);
-			}
-			
-			if (!_UVs.empty()) {
-				
-				glGenBuffers(1, &result->m_TexCoordVBO_ID);
-				
-				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(2);
-			}
-			
-			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
-			if (_generateTangents) {
-				
-				const auto tb = GenerateTangents(_vertices, _UVs);
-				const auto& t = tb[0];
-				const auto& b = tb[1];
-				
-				if (!t.empty() && !b.empty()) {
-				
-					// TODO: Perform tangent averaging / smoothing.
+				if (! _indices.empty()) {
 					
-				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
-				
-					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(3);
+					result->m_IndexFormat = GL_UNSIGNED_BYTE;
 					
-				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
 					
-					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(4);
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+					
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
+					
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
+					
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
+						if (_generateTangents) {
+							
+							const auto tb = GenerateTangents(_vertices, _UVs);
+							const auto& t = tb[0];
+							const auto& b = tb[1];
+							
+							if (!t.empty() && !b.empty()) {
+							
+							    glGenBuffers(1, &result->m_TangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+							
+								glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(3);
+								
+							    glGenBuffers(1, &result->m_BitangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+								
+								glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(4);
+							}
+						}
+					}
+					else if (_generateTangents) {
+						throw std::runtime_error("Cannot generate tangents for mesh without UVs!");
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
 				}
 			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-            BindVBO(GL_ARRAY_BUFFER, 0);
+			result.reset();
 		}
 		
 		return result;
@@ -274,83 +340,98 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(_format));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
 			
-			result->m_IndexFormat = GL_UNSIGNED_SHORT;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			Bind(*result);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			if (!_indices.empty()) {
+			if (!_vertices.empty()) {
 				
-				glGenBuffers(1, &result->m_IndexVBO_ID);
-				
-				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
-			}
-			
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			glEnableVertexAttribArray(0);
-			
-			if (!_normals.empty()) {
-				
-				glGenBuffers(1, &result->m_NormalVBO_ID);
-
-				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(1);
-			}
-			
-			if (!_UVs.empty()) {
-				
-				glGenBuffers(1, &result->m_TexCoordVBO_ID);
-				
-				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(2);
-			}
-			
-			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
-			if (_generateTangents) {
-				
-				const auto tb = GenerateTangents(_vertices, _UVs);
-				const auto& t = tb[0];
-				const auto& b = tb[1];
-				
-				if (!t.empty() && !b.empty()) {
-				
-					// TODO: Perform tangent averaging / smoothing.
+				if (! _indices.empty()) {
 					
-				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+					result->m_IndexFormat = GL_UNSIGNED_SHORT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 				
-					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(3);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
 					
-				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
 					
-					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(4);
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
+						if (_generateTangents) {
+							
+							const auto tb = GenerateTangents(_vertices, _UVs);
+							const auto& t = tb[0];
+							const auto& b = tb[1];
+							
+							if (!t.empty() && !b.empty()) {
+							
+							    glGenBuffers(1, &result->m_TangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+							
+								glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(3);
+								
+							    glGenBuffers(1, &result->m_BitangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+								
+								glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(4);
+							}
+						}
+					}
+					else if (_generateTangents) {
+						throw std::runtime_error("Cannot generate tangents for mesh without UVs!");
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
 				}
 			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-            BindVBO(GL_ARRAY_BUFFER, 0);
+			result.reset();
 		}
 		
 		return result;
@@ -360,83 +441,377 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		auto result = std::make_shared<Mesh>(Mesh(_format));
 		
-		if (!_vertices.empty() && !_indices.empty()) {
+		try {
 			
-			result->m_IndexFormat = GL_UNSIGNED_INT;
-			
-			result->m_VertexCount = _vertices.size();
-			result-> m_IndexCount =  _indices.size();
-			
-			glGenVertexArrays(1, &result->m_VAO_ID);
-			
-			Bind(*result);
-			
-			glGenBuffers(1, &result->m_PositionVBO_ID);
-			
-			BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
-			glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
-			
-			if (!_indices.empty()) {
+			if (!_vertices.empty()) {
 				
-				glGenBuffers(1, &result->m_IndexVBO_ID);
-				
-				BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
-			}
-			
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-			glEnableVertexAttribArray(0);
-			
-			if (!_normals.empty()) {
-				
-				glGenBuffers(1, &result->m_NormalVBO_ID);
-
-				BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(1);
-			}
-			
-			if (!_UVs.empty()) {
-				
-				glGenBuffers(1, &result->m_TexCoordVBO_ID);
-				
-				BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
-				glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
-				
-				glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-				glEnableVertexAttribArray(2);
-			}
-			
-			// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
-			if (_generateTangents) {
-				
-				const auto tb = GenerateTangents(_vertices, _UVs);
-				const auto& t = tb[0];
-				const auto& b = tb[1];
-				
-				if (!t.empty() && !b.empty()) {
-				
-					// TODO: Perform tangent averaging / smoothing.
+				if (! _indices.empty()) {
 					
-				    glGenBuffers(1, &result->m_TangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+					result->m_IndexFormat = GL_UNSIGNED_INT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
 				
-					glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(3);
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
 					
-				    glGenBuffers(1, &result->m_BitangentVBO_ID);
-				    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
-				    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
 					
-					glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-					glEnableVertexAttribArray(4);
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						// If the mesh has both texture coordinates and _normals, compute the tangents and bitangents.
+						if (_generateTangents) {
+							
+							const auto tb = GenerateTangents(_vertices, _UVs);
+							const auto& t = tb[0];
+							const auto& b = tb[1];
+							
+							if (!t.empty() && !b.empty()) {
+							
+							    glGenBuffers(1, &result->m_TangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+							
+								glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(3);
+								
+							    glGenBuffers(1, &result->m_BitangentVBO_ID);
+							    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+							    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+								
+								glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+								glEnableVertexAttribArray(4);
+							}
+						}
+					}
+					else if (_generateTangents) {
+						throw std::runtime_error("Cannot generate tangents for mesh without UVs!");
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
 				}
 			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
 			
-            BindVBO(GL_ARRAY_BUFFER, 0);
+			result.reset();
+		}
+		
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(_format));
+		
+		try {
+			
+			if (!_vertices.empty()) {
+				
+				if (! _indices.empty()) {
+					
+					result->m_IndexFormat = GL_UNSIGNED_BYTE;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+					
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
+					
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
+					
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						const auto& t = _tangents[0];
+						const auto& b = _tangents[1];
+						
+						if (!t.empty() && !b.empty()) {
+						
+						    glGenBuffers(1, &result->m_TangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+						
+							glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(3);
+							
+						    glGenBuffers(1, &result->m_BitangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+							
+							glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(4);
+						}
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
+			
+			result.reset();
+		}
+		
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(_format));
+		
+		try {
+			
+			if (!_vertices.empty()) {
+				
+				if (! _indices.empty()) {
+					
+					result->m_IndexFormat = GL_UNSIGNED_SHORT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+				
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
+					
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
+					
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						const auto& t = _tangents[0];
+						const auto& b = _tangents[1];
+						
+						if (!t.empty() && !b.empty()) {
+						
+						    glGenBuffers(1, &result->m_TangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+						
+							glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(3);
+							
+						    glGenBuffers(1, &result->m_BitangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+							
+							glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(4);
+						}
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
+			
+			result.reset();
+		}
+		
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format) {
+		
+		auto result = std::make_shared<Mesh>(Mesh(_format));
+		
+		try {
+			
+			if (!_vertices.empty()) {
+				
+				if (! _indices.empty()) {
+					
+					result->m_IndexFormat = GL_UNSIGNED_INT;
+					
+					result->m_VertexCount = _vertices.size();
+					result-> m_IndexCount =  _indices.size();
+					
+					glGenVertexArrays(1, &result->m_VAO_ID);
+					
+					Bind(*result);
+					
+					glGenBuffers(1, &result->m_PositionVBO_ID);
+					
+					BindVBO(GL_ARRAY_BUFFER, result->m_PositionVBO_ID);
+					glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_vertices.size() * sizeof(_vertices[0])), _vertices.data(), GL_STATIC_DRAW);
+					
+					glGenBuffers(1, &result->m_IndexVBO_ID);
+					
+					BindVBO(GL_ELEMENT_ARRAY_BUFFER, result->m_IndexVBO_ID);
+	                glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizei>(_indices.size() * sizeof(_indices[0])), _indices.data(), GL_STATIC_DRAW);
+				
+					glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+					glEnableVertexAttribArray(0);
+					
+					if (!_normals.empty()) {
+						
+						glGenBuffers(1, &result->m_NormalVBO_ID);
+		
+						BindVBO(GL_ARRAY_BUFFER, result->m_NormalVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_normals.size() * sizeof(_normals[0])), _normals.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(1);
+					}
+					
+					if (!_UVs.empty()) {
+						
+						glGenBuffers(1, &result->m_TexCoordVBO_ID);
+						
+						BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+						
+						glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+						glEnableVertexAttribArray(2);
+						
+						const auto& t = _tangents[0];
+						const auto& b = _tangents[1];
+						
+						if (!t.empty() && !b.empty()) {
+						
+						    glGenBuffers(1, &result->m_TangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_TangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(t.size() * sizeof(t[0])), t.data(), GL_STATIC_DRAW);
+						
+							glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(3);
+							
+						    glGenBuffers(1, &result->m_BitangentVBO_ID);
+						    BindVBO(GL_ARRAY_BUFFER, result->m_BitangentVBO_ID);
+						    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(b.size() * sizeof(b[0])), b.data(), GL_STATIC_DRAW);
+							
+							glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+							glEnableVertexAttribArray(4);
+						}
+					}
+					
+		            BindVBO(GL_ARRAY_BUFFER, 0);
+				}
+				else {
+					throw std::runtime_error("Mesh has no indices!");
+				}
+			}
+			else {
+				throw std::runtime_error("Mesh has no vertices!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
+			
+			result.reset();
 		}
 		
 		return result;
@@ -480,47 +855,160 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution) {
 	
-		const auto& nX = _resolution.x;
-		const auto& nY = _resolution.y;
+		std::shared_ptr<Mesh> result;
 		
-	    /* VERTICES */
-	    std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
-		
-	    for (auto i = 0; i <= nX; i++) {
-        for (auto j = 0; j <= nY; j++) {
+		try {
 			
-	        vertices[i * (nY + 1) + j] = {
-				static_cast<float>(i) / static_cast<float>(nX),
-				static_cast<float>(j) / static_cast<float>(nY),
-				0
-			};
-        }}
+			const auto& nX = _resolution.x;
+			const auto& nY = _resolution.y;
 		
-	    /* INDICES */
-	    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
+			if (nX > 0 && nY > 0) {
+				
+			    /* VERTEX DATA */
+			          std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
+				      std::vector<glm::vec2> uvs     (vertices.size());
+				const std::vector<glm::vec3> normals (vertices.size(), {0.0, 1.0, 0.0});
+				
+				std::array<std::vector<glm::vec3>, 2> tangents = {
+					std::vector<glm::vec3>(vertices.size()),
+					std::vector<glm::vec3>(vertices.size())
+				};
+				
+		        for (auto j = 0; j <= nY; j++) {
+			    for (auto i = 0; i <= nX; i++) {
+					
+					const auto idx = Utils::To1D({i, j}, nX + 1);
+					
+			        vertices[idx] = {
+					    (static_cast<float>(j) / static_cast<float>(nY)) - 0.5,
+				        0,
+				        (static_cast<float>(i) / static_cast<float>(nX)) - 0.5,
+					};
+					
+		            uvs[idx] = {
+						static_cast<float>(j) / static_cast<float>(nY),
+						static_cast<float>(i) / static_cast<float>(nX),
+					};
+					
+					tangents[0][idx] = { 1.0, 0.0, 0.0 };
+					tangents[1][idx] = { 0.0, 1.0, 0.0 };
+		        }}
+				
+			    /* INDEX DATA */
+			    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
+				
+	            auto t = 0;
+		        for (auto j = 0; j < nY; j++) {
+			    for (auto i = 0; i < nX; i++) {
+					
+					const auto v1 = Utils::To1D({j, i}, nX + 1);
+		            const auto v2 = v1 + 1;
+		            const auto v3 = Utils::To1D({j, i + 1}, nX + 1);
+		            const auto v4 = v3 + 1;
+					
+					indices[t    ] = v1;
+		            indices[t + 1] = v2;
+		            indices[t + 2] = v3;
+		            indices[t + 3] = v3;
+		            indices[t + 4] = v2;
+		            indices[t + 5] = v4;
+					
+					t += 6;
+		        }}
+				
+				result = Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
+			}
+			else {
+				throw std::runtime_error("Cannot construct a grid mesh with a resolution of less than 1 on the x or y axes!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
+		}
 		
-	    for (auto i = 0; i < nX; i++) {
-        for (auto j = 0; j < nY; j++) {
-			
-			const auto v1 = i * (nY + 1) + j;
-            const auto v2 = v1 + 1;
-            const auto v3 = (i + 1) * (nY + 1) + j;
-            const auto v4 = v3 + 1;
-
-			auto idx = Utils::To1D({i, j}, nY);
-			
-            const auto t1 =  (2 * idx)      * 3;
-            const auto t2 = ((2 * idx) + 1) * 3;
-			
-			indices[t1    ] = v1;
-            indices[t1 + 1] = v2;
-            indices[t1 + 2] = v3;
-            indices[t2    ] = v2;
-            indices[t2 + 1] = v4;
-            indices[t2 + 2] = v3;
-        }}
+		return result;
+	}
+	
+	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const std::vector<float>& _heights) {
+	
+		std::shared_ptr<Mesh> result;
 		
-		return Mesh::Create(vertices, indices, {}, {}, false, GL_TRIANGLES);
+		try {
+			
+			const auto& nX = _resolution.x;
+			const auto& nY = _resolution.y;
+		
+			if (nX > 0 && nY > 0) {
+				
+				if (nX * nY == _heights.size()) {
+					
+				    /* VERTEX DATA */
+				          std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
+					      std::vector<glm::vec2> uvs     (vertices.size());
+					const std::vector<glm::vec3> normals (vertices.size(), {0.0, 1.0, 0.0});
+					
+					std::array<std::vector<glm::vec3>, 2> tangents = {
+						std::vector<glm::vec3>(vertices.size()),
+						std::vector<glm::vec3>(vertices.size())
+					};
+					
+			        for (auto j = 0; j <= nY; j++) {
+				    for (auto i = 0; i <= nX; i++) {
+						
+						const auto idx = Utils::To1D({i, j}, nX + 1);
+						
+				        vertices[idx] = {
+						    (static_cast<float>(j) / static_cast<float>(nY)) - 0.5,
+					        0,
+					        (static_cast<float>(i) / static_cast<float>(nX)) - 0.5,
+						};
+						
+			            uvs[idx] = {
+							static_cast<float>(j) / static_cast<float>(nY),
+							static_cast<float>(i) / static_cast<float>(nX),
+						};
+						
+						tangents[0][idx] = { 1.0, 0.0, 0.0 };
+						tangents[1][idx] = { 0.0, 1.0, 0.0 };
+			        }}
+					
+				    /* INDEX DATA */
+				    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
+					
+		            auto t = 0;
+			        for (auto j = 0; j < nY; j++) {
+				    for (auto i = 0; i < nX; i++) {
+						
+						const auto v1 = Utils::To1D({j, i}, nX + 1);
+			            const auto v2 = v1 + 1;
+			            const auto v3 = Utils::To1D({j, i + 1}, nX + 1);
+			            const auto v4 = v3 + 1;
+						
+						indices[t    ] = v1;
+			            indices[t + 1] = v2;
+			            indices[t + 2] = v3;
+			            indices[t + 3] = v3;
+			            indices[t + 4] = v2;
+			            indices[t + 5] = v4;
+						
+						t += 6;
+			        }}
+					
+					result = Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
+				}
+				else {
+					throw std::runtime_error("Length of provided vector does not match grid resolution.");
+				}
+			}
+			else {
+				throw std::runtime_error("Cannot construct a grid mesh with a resolution of less than 1 on the x or y axes!");
+			}
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e);
+		}
+		
+		return result;
 	}
 	
 	std::shared_ptr<Mesh> Mesh::Primitives::PointCloud::Create(const std::vector<glm::vec3>& _vertices) {

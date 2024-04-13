@@ -10,7 +10,7 @@ namespace LouiEriksson::Engine::Input {
 	void Cursor::State::Apply() const {
 		
 		// Disable SDL influencing the mouse capture because when buttons are pressed.
-		SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, m_LockMode == LockMode::Absolute ? "1" : "0");
+		SDL_SetHint("SDL_HINT_MOUSE_AUTO_CAPTURE", m_LockMode == LockMode::Absolute ? "1" : "0");
 		
 		/*
 		 * Make SDL's relative mode use warping, as the mouse seems
@@ -23,7 +23,7 @@ namespace LouiEriksson::Engine::Input {
 		 * must be re-centered to the window's midpoint each frame.
 		 * we can achieve this using an SDL hint.
 		 */
-		SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_CENTER, m_LockMode == LockMode::Centered ? "1" : "0");
+		SDL_SetHint("SDL_HINT_MOUSE_RELATIVE_MODE_CENTER", m_LockMode == LockMode::Centered ? "1" : "0");
 		
 		// Determine whether or not the cursor should be relative to a window.
 	    SDL_SetRelativeMouseMode(m_LockMode == LockMode::Absolute ? SDL_FALSE : SDL_TRUE);

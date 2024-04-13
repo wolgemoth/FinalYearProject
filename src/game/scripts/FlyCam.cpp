@@ -85,7 +85,7 @@ namespace LouiEriksson::Game::Scripts {
 						 0.0f
 					);
 					
-					mouse_input *= m_Camera.lock()->FOV() * Time::DeltaTime();
+					mouse_input *= m_Camera.lock()->FOV() * Time::UnscaledDeltaTime();
 					
 					movement_input = glm::vec3(
 						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_A     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_D    ))),
@@ -105,7 +105,7 @@ namespace LouiEriksson::Game::Scripts {
 				
 				// Rotate the camera:
 				{
-					m_Rotation = Utils::WrapAngle(m_Rotation + (mouse_input * Time::DeltaTime() * m_LookSpeed));
+					m_Rotation = Utils::WrapAngle(m_Rotation + (mouse_input * m_LookSpeed));
 					m_Rotation.x = glm::clamp(m_Rotation.x, -89.999f, 89.999f);
 					
 					const auto direction = glm::vec3(

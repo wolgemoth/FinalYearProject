@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine {
 		
 		// Restrict Main() to one instance.
 		if (s_Initialised) {
-			Debug::Log("\"Attempted to call Application::Main() while it is already running! Do you have multiple instances?", LogType::Warning);
+			Debug::Log("Attempted to call Application::Main() while it is already running! Do you have multiple instances?", LogType::Warning);
 		}
 		else {
 			s_Initialised = true;
@@ -122,14 +122,8 @@ namespace LouiEriksson::Engine {
 				float physics_step = 0.0f;
 				
 				// Load a scene and run:
-				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
-				
-				if (scene != nullptr) {
-					scene->Begin();
-				}
-				else {
-					throw std::runtime_error("Scene is nullptr!");
-				}
+				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				scene->Begin();
 				
 				/* LOOP */
 				while (!Application::s_Quit) {
@@ -141,9 +135,6 @@ namespace LouiEriksson::Engine {
 						
 						Utils::ALDumpError();
 						Utils::GLDumpError();
-						
-						// Update (apply) the cursor's state.
-						Input::Cursor::Update();
 						
 						// Configure V-sync:
 						// -1 = Adaptive
@@ -230,8 +221,7 @@ namespace LouiEriksson::Engine {
 						/* UPDATE TIMERS */
 						Time::s_UnscaledDeltaTime = static_cast<float>(
 							std::chrono::duration_cast<std::chrono::microseconds>(
-									std::chrono::high_resolution_clock::now() -
-											frame_start
+									std::chrono::high_resolution_clock::now() - frame_start
 							).count() / 1000000.0); // Calculate delta time.
 						
 						            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.

@@ -51,6 +51,8 @@ namespace LouiEriksson::Engine {
 	
 		static std::weak_ptr<Window> Get(const int& _id);
 	
+		static std::weak_ptr<Window> GetFocused();
+		
 		static void Destroy(const int& _id);
 	
 		[[nodiscard]] const int& ID() const noexcept;

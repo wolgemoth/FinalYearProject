@@ -1,7 +1,9 @@
 #include "Input.h"
 
-#include "../ui/GUI.h"
 #include "../core/Debug.h"
+#include "../core/Time.h"
+#include "../core/Window.h"
+#include "../ui/GUI.h"
 
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
@@ -89,7 +91,7 @@ namespace LouiEriksson::Engine::Input {
 	}
 	
 	bool Input::Mouse::Get(const Uint8& _button) noexcept {
-		return (s_RelativeState & SDL_BUTTON(_button)) != 0u;
+		return (s_MouseState & SDL_BUTTON(_button)) != 0u;
 	}
 	
 	bool Input::Mouse::GetDown(const Uint8& _button) {
@@ -197,15 +199,12 @@ namespace LouiEriksson::Engine::Input {
 			Input::Event::s_Events.Assign(event.type, bucket);
 		}
 		
-		/* HANDLE MOUSE INPUT */
+		/* HANDLE MOUSE STATE */
 		{
-			/* MOTION */
-			{
-				glm::ivec2 motion;
-				
-				Input::Mouse::s_RelativeState = SDL_GetRelativeMouseState(&motion.x, &motion.y);
-				Input::Mouse::s_Motion = static_cast<glm::vec2>(motion);
-			}
+			glm::ivec2 delta;
+			
+			Input::Mouse::s_MouseState = SDL_GetRelativeMouseState(&delta.x, &delta.y);
+			Input::Mouse::s_Motion = (static_cast<glm::vec2>(delta) / Time::UnscaledDeltaTime() / 1000.0f) * 0.1f;
 		}
 		
 		/* HANDLE KEYBOARD STATES */

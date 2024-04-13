@@ -3,6 +3,7 @@
 
 #include "../core/utils/Hashmap.h"
 
+#include <glm/ext/vector_int2.hpp>
 #include <glm/ext/vector_float2.hpp>
 
 #include <SDL_events.h>
@@ -15,6 +16,7 @@
 namespace LouiEriksson::Engine {
 	
 	class Application;
+	class Window;
 	
 } // LouiEriksson::Engine
 
@@ -107,14 +109,15 @@ namespace LouiEriksson::Engine::Input {
 		struct Mouse {
 		
 			friend Input;
+			friend Application;
 		
 		private:
 			
 			/// <summary> SDL mouse relative state. </summary>
-			inline static Uint32 s_RelativeState { 0u };
+			inline static Uint32 s_MouseState { 0u };
 			
-			/// <summary> Reinitialise the mouse has moved since previous tick. </summary>
-			inline static glm::vec2 s_Motion { 0.0f, 0.0f };
+			/// <summary> Pixels the mouse has moved since previous tick. </summary>
+			inline static glm::vec2 s_Motion { 0.0, 0.0 };
 			
 		public:
 			

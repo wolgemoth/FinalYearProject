@@ -68,6 +68,12 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
 		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
+		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
+		
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
+		
 		struct Earcut final {
 		
 			template <typename N>
@@ -163,6 +169,8 @@ namespace LouiEriksson::Engine::Graphics {
 			struct Grid final {
 			
 				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution);
+				
+				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const std::vector<float>& _heights);
 			};
 			
 			struct PointCloud final {

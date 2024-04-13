@@ -7,6 +7,7 @@
 #include <SDL_pixels.h>
 #include <SDL_stdinc.h>
 #include <SDL_video.h>
+#include <SDL_keyboard.h>
 
 #include <GL/glew.h>
 #include <glm/ext/vector_int2.hpp>
@@ -81,6 +82,19 @@ namespace LouiEriksson::Engine {
 			"Failed getting window with ID: \"" + std::to_string(_id) + "\"",
 			LogType::Error
 		);
+		
+		return result;
+	}
+	
+	std::weak_ptr<Window> Window::GetFocused() {
+		
+		std::weak_ptr<Window> result;
+		
+		auto* const focused = SDL_GetKeyboardFocus();
+		
+		if (focused != nullptr) {
+			 result = Get(SDL_GetWindowID(focused));
+		}
 		
 		return result;
 	}
