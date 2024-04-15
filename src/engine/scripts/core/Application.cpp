@@ -48,6 +48,8 @@ namespace LouiEriksson::Engine {
 		
 	    try {
 			SDL_Quit();
+			
+			Utils::SDLDumpError();
 		}
 		catch (const std::exception& e) {
 			Debug::Log(e, LogType::Critical);
@@ -63,6 +65,7 @@ namespace LouiEriksson::Engine {
 		try {
 			Utils::ALDumpError();
 			Utils::GLDumpError();
+			Utils::SDLDumpError();
 			
 			Finalise();
 		}
@@ -95,10 +98,14 @@ namespace LouiEriksson::Engine {
 				/* INIT */
 				auto main_window = Window::Create(1280, 720, "FinalYearProject");
 				
-				if (glewInit() != GLEW_OK) {
+				{
+					const auto glew_status = glewInit();
 					
-					// Throw error if GLEW fails to initialise correctly.
-					throw std::runtime_error("Failed to initialise GLEW!");
+					if (glew_status != GLEW_OK) {
+						
+						// Throw error if GLEW fails to initialise correctly.
+						throw std::runtime_error("Failed to initialise GLEW! Status: [" + std::to_string(glew_status) + "]");
+					}
 				}
 				
 				auto renderFlags = Graphics::Camera::RenderFlags::REINITIALISE;
@@ -136,6 +143,7 @@ namespace LouiEriksson::Engine {
 						
 						Utils::ALDumpError();
 						Utils::GLDumpError();
+						Utils::SDLDumpError();
 						
 						// Configure V-sync:
 						// -1 = Adaptive
@@ -168,7 +176,7 @@ namespace LouiEriksson::Engine {
 											
 											// Raise the reinitialisation flag.
 											renderFlags = static_cast<Graphics::Camera::RenderFlags>(
-													(unsigned)renderFlags | (unsigned)Graphics::Camera::RenderFlags::REINITIALISE);
+												(unsigned)renderFlags | (unsigned)Graphics::Camera::RenderFlags::REINITIALISE);
 										}
 									}
 								}
@@ -218,6 +226,7 @@ namespace LouiEriksson::Engine {
 						
 						Utils::ALDumpError();
 						Utils::GLDumpError();
+						Utils::SDLDumpError();
 						
 						/* UPDATE TIMERS */
 						

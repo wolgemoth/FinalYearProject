@@ -1,9 +1,12 @@
 #include "Utils.h"
+
 #include "../Debug.h"
 
 #include <al.h>
 #include <GL/glew.h>
 #include <glm/ext/vector_float3.hpp>
+
+#include <SDL_error.h>
 
 #include <cmath>
 #include <regex>
@@ -60,14 +63,27 @@ namespace LouiEriksson::Engine {
 	void Utils::GLDumpError(const bool& _silent) {
 		
 		const auto glError = glGetError();
-		
 		if ((glError != GL_NONE) && !_silent) {
 			
 			std::stringstream ss;
-			ss << "OpenGL Error \"" << glError << "\": " <<
-				glewGetErrorString(glError);
+			ss << "OpenGL Error [" << glError << "]: \"" <<
+				glewGetErrorString(glError) << "\"";
 			
 			Debug::Log(ss.str(), LogType::Error);
+		}
+	}
+	
+	void Utils::SDLDumpError() {
+		
+		const auto* const sdlError = SDL_GetError();
+		if (sdlError != nullptr && *sdlError != '\0') {
+			
+			std::stringstream ss;
+			ss << "SDL Error \"" << sdlError << "\"";
+			
+			Debug::Log(ss.str(), LogType::Error);
+			
+		    SDL_ClearError();
 		}
 	}
 	

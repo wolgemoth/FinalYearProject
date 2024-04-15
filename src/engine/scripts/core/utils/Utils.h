@@ -19,6 +19,11 @@
 
 namespace LouiEriksson::Engine {
 	
+	/**
+	 * @file Utils.hpp
+	 *
+	 * @brief Contains various utility functions.
+	 */
 	class Utils final {
 	
 	public:
@@ -96,12 +101,19 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Dumps the latest OpenGL error to the console.
 		 *
-		 * This static function retrieves the latest OpenGL error using glGetError() and logs the corresponding error message to the console.
+		 * This function retrieves the latest OpenGL error using glGetError() and logs the corresponding error message to the console.
 		 * If the _silent parameter is set to true, the error message will not be logged.
 		 *
 		 * @param[in] _silent (optional) Flag indicating whether the error message should be logged or not. Defaults to false.
 		 */
 		static void GLDumpError(const bool& _silent = false);
+		
+		/**
+		 * @brief Dumps the latest SDL error to the console.
+		 *
+		 * This function retrieves the latest SDL error using SDL_GetError() and logs the corresponding error message to the console.		 *
+		 */
+		static void SDLDumpError();
 		
 		/**
 		 * @brief Minimises a string by stripping out line endings, tabs, and spaces.
