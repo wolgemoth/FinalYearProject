@@ -7,9 +7,10 @@
 	#include <windows.h>
 #endif
 
-#include <iostream>
 #include <exception>
+#include <iostream>
 #include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine {
 	
@@ -45,6 +46,18 @@ namespace LouiEriksson::Engine {
 			return result;
 		}
 		
+		static void Fallback(const std::string_view& _message, const LogType& _type, const bool& _inline) {
+			
+			std::cout << Print::ToString(_type) << ": " << _message;
+			
+			if (_inline && _type != LogType::Info) {
+				std::cout << std::flush;
+			}
+			else {
+				std::cout << std::endl;
+			}
+		}
+		
 #if __linux__ | __APPLE__
 		
 		static void ANSI(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
@@ -71,98 +84,93 @@ namespace LouiEriksson::Engine {
 			#define ANSI_BG_WHITE   "\033[47m"
 			
 			try {
-				try {
-					switch (_type) {
+				switch (_type) {
+					
+					case Critical: {
+						std::cout << ANSI_MAGENTA << _message << ANSI_RESET << '\a';
 						
-						case Critical: {
-							std::cout << ANSI_MAGENTA << _message << ANSI_RESET << '\a';
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
+						if (_inline) {
+							std::cout << std::flush;
 						}
-						case Error: {
-							std::cout << ANSI_RED << _message << ANSI_RESET;
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
+						else {
+							std::cout << std::endl;
 						}
-						case Warning: {
-							std::cout << ANSI_YELLOW << _message << ANSI_RESET;
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
+						
+						break;
+					}
+					case Error: {
+						std::cout << ANSI_RED << _message << ANSI_RESET;
+						
+						if (_inline) {
+							std::cout << std::flush;
 						}
-						case Info: {
-							std::cout << ANSI_CYAN << _message << ANSI_RESET;
-							
-							if (!_inline) {
-								std::cout << '\n';
-							}
-							
-							break;
+						else {
+							std::cout << std::endl;
 						}
-						case Debug: {
-							std::cout << ANSI_WHITE << _message << ANSI_RESET;
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
+						
+						break;
+					}
+					case Warning: {
+						std::cout << ANSI_YELLOW << _message << ANSI_RESET;
+						
+						if (_inline) {
+							std::cout << std::flush;
 						}
-						case Trace: {
-							std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
+						else {
+							std::cout << std::endl;
 						}
-						default: {
-							std::cout << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET;
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
+						
+						break;
+					}
+					case Info: {
+						std::cout << ANSI_CYAN << _message << ANSI_RESET;
+						
+						if (!_inline) {
+							std::cout << '\n';
+						}
+						
+						break;
+					}
+					case Debug: {
+						std::cout << ANSI_WHITE << _message << ANSI_RESET;
+						
+						if (_inline) {
+							std::cout << std::flush;
+						}
+						else {
+							std::cout << std::endl;
+						}
+						
+						break;
+					}
+					case Trace: {
+						std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
+						
+						if (_inline) {
+							std::cout << std::flush;
+						}
+						else {
+							std::cout << std::endl;
+						}
+						
+						break;
+					}
+					default: {
+						std::cout << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET;
+						
+						if (_inline) {
+							std::cout << std::flush;
+						}
+						else {
+							std::cout << std::endl;
 						}
 					}
 				}
-				catch (const std::exception& e) {
-					std::cerr << "ANSI_LOG_ERR: " << e.what() << std::endl;
-					
-					throw e;
-				}
 			}
-			catch (...) {
-				std::cout << _message << std::endl;
+			catch (const std::exception& e) {
+				std::cerr << "ANSI_LOG_ERR: " << e.what() << std::endl;
+				
+				throw e;
 			}
 			
 			#undef ANSI_RESET
@@ -187,125 +195,137 @@ namespace LouiEriksson::Engine {
 
 #elif _WIN32
 
+		void SetCAttr(const HANDLE* const _h, const WORD& _attribute) {
+			
+		    if (!SetConsoleTextAttribute(_h, _attribute)) {
+		        throw std::runtime_error("Failed to set the console text attribute.");
+		    }
+		}
+
 		static void WIN32(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
 		
 			try {
-				try {
-					
-					const auto* const h = GetStdHandle(STD_OUTPUT_HANDLE);
+				
+				const auto* const h = GetStdHandle(STD_OUTPUT_HANDLE);
+				
+				if (h != nullptr && h != INVALID_HANDLE_VALUE) {
 					
 					CONSOLE_SCREEN_BUFFER_INFO cinfo;
-					GetConsoleScreenBufferInfo(h, &cinfo);
-					
-					const auto& previous_attr = cinfo.wAttributes;
-					
-					switch (_type) {
-						case Critical: {
-                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_MAGENTA);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							Beep(800, 200);
-							
-							if (_inline) {
-								std::cout << std::flush;
+					if (GetConsoleScreenBufferInfo(h, &cinfo)) {
+						
+						const auto& previous_attr = cinfo.wAttributes;
+						
+						switch (_type) {
+							case Critical: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_MAGENTA);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								Beep(800, 200);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+								
+								break;
 							}
-							else {
-								std::cout << std::endl;
+							case Error: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_RED);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+								
+								break;
 							}
-							
-							break;
+							case Warning: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_YELLOW);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+								
+								break;
+							}
+							case Info: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_CYAN);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (!_inline) {
+									std::cout << '\n';
+								}
+								
+								break;
+							}
+							case Debug: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_WHITE);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+								
+								break;
+							}
+							case Trace: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_WHITE | FOREGROUND_BLACK);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+								
+								break;
+							}
+							default: {
+	                            SetConsoleTextAttribute(h, BACKGROUND_MAGENTA | FOREGROUND_BLACK);
+								std::cout << _message;
+	                            SetConsoleTextAttribute(h, previous_attr);
+								
+								if (_inline) {
+									std::cout << std::flush;
+								}
+								else {
+									std::cout << std::endl;
+								}
+							}
 						}
-						case Error: {
-                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_RED);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
-						}
-						case Warning: {
-                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_YELLOW);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
-						}
-						case Info: {
-                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_CYAN);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (!_inline) {
-								std::cout << '\n';
-							}
-							
-							break;
-						}
-						case Debug: {
-                            SetConsoleTextAttribute(h, BACKGROUND_BLACK | FOREGROUND_WHITE);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
-						}
-						case Trace: {
-                            SetConsoleTextAttribute(h, BACKGROUND_WHITE | FOREGROUND_BLACK);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-							
-							break;
-						}
-						default: {
-                            SetConsoleTextAttribute(h, BACKGROUND_MAGENTA | FOREGROUND_BLACK);
-							std::cout << _message;
-                            SetConsoleTextAttribute(h, previous_attr);
-							
-							if (_inline) {
-								std::cout << std::flush;
-							}
-							else {
-								std::cout << std::endl;
-							}
-						}
+						
 					}
-					
+					else {
+						throw std::runtime_error("Failed to get the console screen buffer info.");
+					}
 				}
-				catch (const std::exception& e) {
-					std::cerr << "WIN32_LOG_ERR: " << e.what() << std::endl;
-					
-					throw e;
+				else {
+					throw std::runtime_error("Failed to get the standard output handle.");
 				}
 			}
-			catch (...) {
-				std::cout << _message << std::endl;
+			catch (const std::exception& e) {
+				std::cerr << "WIN32_LOG_ERR: " << e.what() << std::endl;
+				
+				throw e;
 			}
 		}
 		
@@ -330,20 +350,31 @@ namespace LouiEriksson::Engine {
 			try {
 				
 				#ifdef __linux__
-			        Print::ANSI(_message, _type, _inline);
+					try {
+			            Print::ANSI(_message, _type, _inline);
+					}
+					catch (const std::exception& e) {
+						Print::Fallback(_message, _type, _inline);
+						throw e;
+					}
 			    #elif _WIN32
-			        Print::WIN32(_message, _type, _inline);
+					try {
+			            Print::WIN32(_message, _type, _inline);
+					}
+					catch (const std::exception& e) {
+						Print::Fallback(_message, _type, _inline);
+						throw e;
+					}
 			    #elif __APPLE__
-			        Print::ANSI(_message, _type, _inline);
+					try {
+			            Print::ANSI(_message, _type, _inline);
+					}
+					catch (const std::exception& e) {
+						Print::Fallback(_message, _type, _inline);
+						throw e;
+					}
 				#else
-					std::cout << Print::ToString(_type) << ": " << _message;
-				
-					if (_inline && _type != LogType::Info) {
-						std::cout << std::flush;
-					}
-					else {
-						std::cout << std::endl;
-					}
+					Print::Fallback(_message, _type, _inline);
 			    #endif
 			}
 			catch (const std::exception& e) {

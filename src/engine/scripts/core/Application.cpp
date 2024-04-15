@@ -32,10 +32,6 @@
 #include <string>
 #include <vector>
 
-// TEMP:
-#include "../spatial/maths/Coords.h"
-#include "../spatial/elevation/Elevation.h"
-
 namespace LouiEriksson::Engine {
 	
 	void Application::Finalise() {
@@ -84,7 +80,8 @@ namespace LouiEriksson::Engine {
 			Debug::Log("Attempted to call Application::Main() while it is already running! Do you have multiple instances?", LogType::Warning);
 		}
 		else {
-			s_Initialised = true;
+			s_Quit        = false;
+			s_Initialised =  true;
 			
 			Debug::Log("Application Initialising.", LogType::Info);
 		
@@ -123,10 +120,10 @@ namespace LouiEriksson::Engine {
 				// Set the delta time of the physics simulation.
 				Time::FixedDeltaTime(1.0f / 60.0f);
 				
-				float physics_step = 0.0f;
+				auto physics_step = 0.0f;
 				
 				// Load a scene and run:
-				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 				scene->Begin();
 				
 				/* LOOP */
@@ -171,7 +168,7 @@ namespace LouiEriksson::Engine {
 											
 											// Raise the reinitialisation flag.
 											renderFlags = static_cast<Graphics::Camera::RenderFlags>(
-													renderFlags | Graphics::Camera::RenderFlags::REINITIALISE);
+													(unsigned)renderFlags | (unsigned)Graphics::Camera::RenderFlags::REINITIALISE);
 										}
 									}
 								}
@@ -223,10 +220,12 @@ namespace LouiEriksson::Engine {
 						Utils::GLDumpError();
 						
 						/* UPDATE TIMERS */
-						Time::s_UnscaledDeltaTime = static_cast<float>(
-							std::chrono::duration_cast<std::chrono::microseconds>(
-									std::chrono::high_resolution_clock::now() - frame_start
-							).count() / 1000000.0); // Calculate delta time.
+						
+						Time::s_UnscaledDeltaTime =
+							std::chrono::duration_cast<std::chrono::duration<float>>(
+								std::chrono::high_resolution_clock::now() -
+								frame_start
+							).count(); // Calculate delta time.
 						
 						            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
 						Physics::Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.

@@ -3,6 +3,7 @@
 
 #include "utils/Hashmap.h"
 
+#include <atomic>
 #include <memory>
 #include <string>
 
@@ -26,8 +27,8 @@ namespace LouiEriksson::Engine {
 	
 	private:
 	
-		inline static bool s_Quit        { false }; // Is Application scheduled to quit?
-		inline static bool s_Initialised { false }; // Is Application initialised?
+		inline static std::atomic<bool> s_Quit        { false }; // Is Application scheduled to quit?
+		inline static std::atomic<bool> s_Initialised { false }; // Is Application initialised?
 		
 		/**
 		 * @brief Finalises the application.
