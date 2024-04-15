@@ -93,7 +93,7 @@ namespace LouiEriksson::Engine {
 		std::vector<std::filesystem::path> subDirectories;
 		
 		// Get all entries.
-		for (const auto& item : GetEntries(_path, (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY))) {
+		for (const auto& item : GetEntries(_path, (File::Directory::EntryType)((unsigned)File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY))) {
 			
 			bool append;
 			
@@ -102,10 +102,10 @@ namespace LouiEriksson::Engine {
 				// Append all subdirectories to a vector.
 				subDirectories.emplace_back(item);
 				
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0u);
+				append = (((unsigned)_type & (unsigned)File::Directory::EntryType::DIRECTORY) != 0u);
 			}
 			else {
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0u);
+				append = (((unsigned)_type & (unsigned)File::Directory::EntryType::FILE) != 0u);
 			}
 			
 			// Append entries of requested type to result.
@@ -245,10 +245,10 @@ namespace LouiEriksson::Engine {
 						}
 					}
 					else {
-						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _output->FilterMode().Min());
+						glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(_output->FilterMode().Min()));
 					}
 					
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _output->FilterMode().Mag());
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(_output->FilterMode().Mag()));
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 					

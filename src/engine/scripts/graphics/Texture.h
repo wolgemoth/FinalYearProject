@@ -173,7 +173,7 @@ namespace LouiEriksson::Engine::Graphics {
 	private:
 		
 		/** @brief ID of currently bound texture. */
-		inline static GLint s_CurrentTexture { GL_NONE };
+		inline static GLuint s_CurrentTexture { GL_NONE };
 		
 	protected:
 		

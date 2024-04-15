@@ -118,10 +118,10 @@ namespace LouiEriksson::Engine::Physics {
 		 * @see btIDebugDraw
 		 * @see https://pybullet.org/Bullet/BulletFull/classbtIDebugDraw.html
 		 */
-		static void Debug(const int& _debugMode = btIDebugDraw::DBG_DrawWireframe     |
-				                                  btIDebugDraw::DBG_DrawAabb          |
-												  btIDebugDraw::DBG_DrawContactPoints |
-												  btIDebugDraw::DBG_DrawNormals       );
+		static void Debug(const int& _debugMode = (unsigned)btIDebugDraw::DBG_DrawWireframe     |
+				                                  (unsigned)btIDebugDraw::DBG_DrawAabb          |
+												  (unsigned)btIDebugDraw::DBG_DrawContactPoints |
+												  (unsigned)btIDebugDraw::DBG_DrawNormals       );
 		
 		/** @brief Finalise the physics simulation. */
 		static void Dispose();

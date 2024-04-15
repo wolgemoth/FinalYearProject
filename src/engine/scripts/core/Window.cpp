@@ -24,7 +24,7 @@ namespace LouiEriksson::Engine {
 		m_Window = std::shared_ptr<SDL_Window>(
 			SDL_CreateWindow(_name,
 				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-				_width, _height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_OPENGL
+				_width, _height, (unsigned)SDL_WINDOW_RESIZABLE | (unsigned)SDL_WINDOW_ALLOW_HIGHDPI | (unsigned)SDL_WINDOW_OPENGL
 			),
 			[](SDL_Window* _ptr) { SDL_DestroyWindow(_ptr); } // Custom deleter calls SDL_DestroyWindow();
 		);
@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine {
 		return result;
 	}
 	
-	std::weak_ptr<Window> Window::Get(const int& _id) {
+	std::weak_ptr<Window> Window::Get(const size_t& _id) {
 	
 		std::shared_ptr<Window> result;
 		
@@ -91,13 +91,13 @@ namespace LouiEriksson::Engine {
 		auto* const focused = SDL_GetKeyboardFocus();
 		
 		if (focused != nullptr) {
-			 result = Get(SDL_GetWindowID(focused));
+			 result = Get(static_cast<size_t>(SDL_GetWindowID(focused)));
 		}
 		
 		return result;
 	}
 	
-	void Window::Destroy(const int& _id) {
+	void Window::Destroy(const size_t& _id) {
 	
 		if (auto window = Get(_id).lock()) {
 	
@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine {
 		}
 	}
 	
-	const int& Window::ID() const noexcept {
+	const size_t& Window::ID() const noexcept {
 		return m_ID;
 	}
 	

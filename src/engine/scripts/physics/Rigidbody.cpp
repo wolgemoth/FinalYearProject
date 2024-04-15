@@ -72,8 +72,8 @@ namespace LouiEriksson::Engine::Physics {
 					
 					// Set the collision flags to kinematic, if specified.
 					m_Rigidbody->setCollisionFlags(
-						m_Rigidbody->getCollisionFlags() |
-						btCollisionObject::CF_KINEMATIC_OBJECT
+						(unsigned)(m_Rigidbody->getCollisionFlags()) |
+						(unsigned)btCollisionObject::CF_KINEMATIC_OBJECT
 					);
 					
 					// Restrict all motion.

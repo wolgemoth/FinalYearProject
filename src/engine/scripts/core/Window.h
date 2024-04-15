@@ -29,7 +29,7 @@ namespace LouiEriksson::Engine {
 		
 		inline static Hashmap<int, std::shared_ptr<Window>> m_Windows;
 	
-		int m_ID;
+		size_t m_ID;
 		SDL_GLContext m_Context;
 	
 		std::shared_ptr<SDL_Window> m_Window;
@@ -50,13 +50,13 @@ namespace LouiEriksson::Engine {
 	
 		static std::shared_ptr<Window> Create(const int& _width, const int& _height, const char* _name);
 	
-		static std::weak_ptr<Window> Get(const int& _id);
+		static std::weak_ptr<Window> Get(const size_t& _id);
 	
 		static std::weak_ptr<Window> GetFocused();
 		
-		static void Destroy(const int& _id);
+		static void Destroy(const size_t& _id);
 	
-		[[nodiscard]] const int& ID() const noexcept;
+		[[nodiscard]] const size_t& ID() const noexcept;
 		[[nodiscard]] SDL_GLContext Context() const noexcept;
 		
 		void Update() const;

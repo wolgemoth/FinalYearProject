@@ -54,7 +54,7 @@ namespace LouiEriksson::Engine::Graphics {
 		auto&   tangents = result[0];
 		auto& bitangents = result[1];
 		
-		for (auto i = 0; i < _vertices.size(); i += 3) {
+		for (size_t i = 0; i < _vertices.size(); i += 3) {
 		
 			// Shortcuts for _vertices
 	        const auto& pos0 = _vertices[  i  ];

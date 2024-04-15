@@ -1335,7 +1335,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					const auto offset = std::max(m_Bloom_MipChain.size(), static_cast<size_t>(1)) - 1;
 					
-					for (auto i = 0; i < target_length; ++i) {
+					for (size_t i = 0; i < target_length; ++i) {
 						
 						const auto size = dimensions / static_cast<int>(std::pow(2.0, i + offset));
 						
@@ -1356,7 +1356,7 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 				}
 				else if (m_Bloom_MipChain.size() > target_length) {
-					m_Bloom_MipChain.erase(m_Bloom_MipChain.begin() + target_length, m_Bloom_MipChain.end());
+					m_Bloom_MipChain.erase(m_Bloom_MipChain.begin() + static_cast<std::vector<RenderTexture>::difference_type>(target_length), m_Bloom_MipChain.end());
 				}
 				
 				if (m_Bloom_MipChain.size() > 1) {
@@ -1378,7 +1378,7 @@ namespace LouiEriksson::Engine::Graphics {
 						/* DOWNSCALING */
 						Shader::Bind(downscale_shader->ID());
 						
-						for (auto i = 1; i < m_Bloom_MipChain.size(); ++i) {
+						for (size_t i = 1; i < m_Bloom_MipChain.size(); ++i) {
 							Blit(m_Bloom_MipChain[i - 1], m_Bloom_MipChain[i], downscale_shader);
 						}
 					}
