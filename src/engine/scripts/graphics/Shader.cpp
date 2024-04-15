@@ -195,7 +195,7 @@ namespace LouiEriksson::Engine::Graphics {
 		auto curr = GL_NONE;
 		for (const auto& line : lines) {
 			
-			const auto l = Utils::Trim(line); // Trim leading and trailing whitespace from text.
+			const auto l = line; // Trim leading and trailing whitespace from text.
 			
 			auto type = curr;
 			

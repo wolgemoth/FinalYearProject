@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine {
 		
 		// Use a regex pattern to trim the leading and trailing whitespace characters from the string.
 		std::smatch sm;
-		return std::regex_search(_string, sm, std::regex(R"(^(\S)(.+))")) ?
+		return std::regex_search(_string, sm, std::regex(R"((\S+))")) ?
 			sm[0] : _string;
 	}
 	
