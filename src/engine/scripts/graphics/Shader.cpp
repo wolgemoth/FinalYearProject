@@ -195,16 +195,14 @@ namespace LouiEriksson::Engine::Graphics {
 		auto curr = GL_NONE;
 		for (const auto& line : lines) {
 			
-			const auto l = line; // Trim leading and trailing whitespace from text.
-			
 			auto type = curr;
 			
-			     if (l == "#pragma vertex"  ) { type =   GL_VERTEX_SHADER; }
-			else if (l == "#pragma geometry") { type = GL_GEOMETRY_SHADER; }
-			else if (l == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
+			     if (line == "#pragma vertex"  ) { type =   GL_VERTEX_SHADER; }
+			else if (line == "#pragma geometry") { type = GL_GEOMETRY_SHADER; }
+			else if (line == "#pragma fragment") { type = GL_FRAGMENT_SHADER; }
 			
 			if (type == curr) {
-				ss << l << '\n';
+				ss << line << '\n';
 			}
 			else {
 				

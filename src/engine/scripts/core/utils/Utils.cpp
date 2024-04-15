@@ -36,10 +36,21 @@ namespace LouiEriksson::Engine {
 	
 	std::string Utils::Trim(const std::string& _string) {
 		
-		// Use a regex pattern to trim the leading and trailing whitespace characters from the string.
-		std::smatch sm;
-		return std::regex_search(_string, sm, std::regex(R"((\S+))")) ?
-			sm[0] : _string;
+		std::string result;
+		
+		const auto first = _string.find_first_not_of(" \t\r\n");
+		
+		if (std::string::npos != first) {
+			
+			const auto last = _string.find_last_not_of(" \t\r\n");
+			
+			result = _string.substr(first, (last - first + 1));
+		}
+		else {
+			result = _string;
+		}
+		
+		return result;
 	}
 	
 	void Utils::ALDumpError(const bool& _silent) {
