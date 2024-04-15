@@ -22,17 +22,17 @@
 namespace LouiEriksson::Engine::Graphics {
 	
 	Mesh::Mesh(const GLenum& _format) noexcept :
-		         m_Format(_format),
-		         m_IndexFormat(GL_NONE),
-		 m_VAO_ID(GL_NONE),
-		 m_PositionVBO_ID(GL_NONE),
-		    m_TexCoordVBO_ID(GL_NONE),
-		   m_IndexVBO_ID(GL_NONE),
-		  m_NormalVBO_ID(GL_NONE),
-		m_TangentVBO_ID(GL_NONE),
-		    m_BitangentVBO_ID(GL_NONE),
-		     m_VertexCount(0),
-			m_IndexCount(0){}
+		m_Format         (_format),
+		m_IndexFormat    (GL_NONE),
+		m_VAO_ID         (GL_NONE),
+		m_PositionVBO_ID (GL_NONE),
+		m_TexCoordVBO_ID (GL_NONE),
+		m_IndexVBO_ID    (GL_NONE),
+		m_NormalVBO_ID   (GL_NONE),
+		m_TangentVBO_ID  (GL_NONE),
+		m_BitangentVBO_ID(GL_NONE),
+		m_VertexCount(0),
+		m_IndexCount (0){}
 			  
 	Mesh::~Mesh() {
 		
@@ -963,9 +963,12 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					const auto idx = Utils::To1D({i, j}, nX + 1);
 					
+					const auto fi = static_cast<float>(i);
+					const auto fj = static_cast<float>(j);
+					
 					const glm::vec2 uv {
-                        (static_cast<float>(j) / static_cast<float>(nY)),
-						(static_cast<float>(i) / static_cast<float>(nX)),
+                        (fj / static_cast<float>(nY)),
+						(fi / static_cast<float>(nX)),
 					};
 					
 			        vertices[idx] = {
@@ -975,9 +978,6 @@ namespace LouiEriksson::Engine::Graphics {
 					};
 					
 		            uvs[idx] = uv;
-					
-					const auto fi = static_cast<float>(i);
-					const auto fj = static_cast<float>(j);
 					
 					// Extract normals from heightmap:
 					normals[idx] = glm::normalize(
