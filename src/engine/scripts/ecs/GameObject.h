@@ -117,11 +117,11 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * This function creates a new GameObject and attaches it to the specified Scene.
 		 *
-		 * @param _scene The Scene to attach the GameObject to.
+		 * @param[in] _scene The Scene to attach the GameObject to.
 		 * @param[in] _name The optional name of the GameObject.
 		 * @return A shared pointer to the newly created GameObject.
 		 */
-		[[nodiscard]] static std::shared_ptr<GameObject> Create(std::shared_ptr<Scene> _scene, const std::string_view& _name = "");
+		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::weak_ptr<Scene>& _scene, const std::string_view& _name = "");
 		
 		/**
 		 * @fn void GameObject::Destroy()
