@@ -17,57 +17,84 @@ namespace LouiEriksson::Engine::Physics {
 	
 	class Rigidbody;
 	
+	/**
+	 * @class Collider
+	 * @brief Represents a Collider Component that can be attached to a GameObject.
+	 */
 	class Collider : public ECS::Component {
 	
 		friend Rigidbody;
 		
 	public:
-	
-		/// <summary> The type of the collider. </summary>
+		
+		/**
+		 * @enum Type
+		 * @brief The type of the collider.
+		 */
 		enum Type : char {
-			
-			/// <summary> Collider is a Sphere Collider. </summary>
-			Sphere,
-			
-			/// <summary> Collider is a Plane Collider. </summary>
-			Plane
+			Sphere, /**< @brief Collider is a Sphere Collider. */
+			Plane   /**< @brief Collider is a Plane Collider. */
 		};
 	
 		explicit Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		
+		/** @inheritdoc */
 		~Collider() override = default;
-	
-		/// <summary> Set the Transform of the Collider. </summary>
+		
+		/**
+		 * @brief Set the Transform of the Collider.
+		 * @param[in] _transform The Transform to set.
+		 */
 		virtual void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
 	
-		/// <summary> Get the Transform of the Collider. </summary>
+		/**
+		 * @brief Retrieve the Transform associated with the Collider.
+		 * @return A weak pointer to the Transform.
+		 */
 		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
 	
-		/// <summary> Set the Rigidbody of the Collider. </summary>
-		void SetRigidbody(const std::weak_ptr<Rigidbody>& _transform) noexcept;
+		/**
+		 * @brief Set the Rigidbody of the Collider.
+		 * @param[in] _rigidbody The Transform to set.
+		 */
+		void SetRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody) noexcept;
 	
-		/// <summary> Get the Rigidbody of the Collider. </summary>
+		/**
+		 * @brief Retrieve the Rigidbody associated with the Collider.
+		 * @return A weak pointer to the Transform.
+		 */
 		[[nodiscard]] const std::weak_ptr<Rigidbody>& GetRigidbody() const noexcept;
-	
-		/// <summary> Set the Collider's TypeID. </summary>
+		
+		/**
+		 * @brief Set the type of the Collider.
+		 *
+		 * This function is used to set the type of the Collider/
+		 *
+		 * @param[in] _type The type of the Collider to be set.
+		 */
 		void SetType(const Type& _type) noexcept;
 		
-		/// <summary> Get the Collider's TypeID. </summary>
+		/**
+		 * @brief Retrieve the type of the Collider.
+		 *
+		 * This function is used to get the type of the Collider.
+		 *
+		 * @return A reference to the type of the Collider.
+		 */
 		[[nodiscard]] const Type& GetType() const noexcept;
 	
 	protected:
 		
-		/* TYPE */
+		/** @brief Type of the collider. */
 		Type m_Type;
 	
-		/* REFERENCES */
-	
-		/// <summary> (Bullet Physics Engine) Shape of collider. </summary>
+		/** @brief (Bullet Physics Engine) Shape of collider. */
 		std::shared_ptr<btCollisionShape> m_CollisionShape;
 		
-		/// <summary> Transform of the Collider. </summary>
+		/** @brief Transform associated with collider. */
 		std::weak_ptr<Transform> m_Transform;
 	
-		/// <summary> Rigidbody of the Collider. </summary>
+		/** @brief Rigidbody associated with collider. */
 		std::weak_ptr<Rigidbody> m_Rigidbody;
 		
 	};

@@ -14,7 +14,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class Transform;
+	struct Transform;
 	class Window;
 	
 } // LouiEriksson::Engine
@@ -27,7 +27,10 @@ namespace LouiEriksson::Engine::Graphics {
 	class Shader;
 	class Texture;
 	
-	/// <summary> Camera class for 3D rendering of a scene from a perspective. </summary>
+	/**
+	 * @class Camera
+	 * @brief Represents a Camera component that can be attached to a GameObject.
+	 */
 	class Camera final : public ECS::Component {
 	
 		friend LouiEriksson::Engine::Window;
@@ -36,21 +39,21 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		inline static std::weak_ptr<Shader> s_Passthrough{};
 		
-		// Main render target:
+		/** @brief Main render target. */
 		RenderTexture m_RT;
 		
-		/// <summary> Window of the Camera. </summary>
+		/** @brief Window of the camera. */
 		std::weak_ptr<Window> m_Window;
 	
-		/// <summary> Transform of the Camera. </summary>
+		/** @brief Camera Transform. */
 		std::weak_ptr<Transform> m_Transform;
 		
 		/* PERSPECTIVE */
 		
-		/// <summary> Projection matrix. </summary>.
+		/** @brief Projection matrix. */
 		glm::mat4 m_Projection;
 		
-		/// <summary> Flag that indicates if the projection matrix needs to be rebuilt or not. </summary>.
+		/** @brief Flag that indicates if the projection matrix needs to be recalculated or not. */
 		bool m_IsDirty;
 		
 		float m_FOV;        // Field of view.
@@ -70,118 +73,225 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		float m_Exposure; // Camera exposure for tonemapping.
 		
-		// Mip chain for bloom effect.
+		/** @brief Mip chain for bloom effect. */
 		std::vector<RenderTexture> m_Bloom_MipChain;
 		
-		// Render texture for AO effect.
+		/** @brief RenderTexture for AO effect. */
 		RenderTexture m_AO_RT;
 		
-		// Render texture for auto-exposure luma detection.
+		/** @brief RenderTexture for Auto-Exposure luminance detection. */
 		RenderTexture m_AutoExposure_Luma;
 		
 		/* METHODS */
 		
-		/// <summary> Deferred rendering geometry pass. </summary>
+		/**
+		 * \brief Deferred-rendering geometry pass.
+		 *
+		 * \param[in] _renderers The list of renderers to perform the geometry pass for.
+		 */
 		void GeometryPass(const std::vector<std::weak_ptr<Renderer>>& _renderers);
 		
-		/// <summary> Deferred rendering shadow pass. </summary>
+		/**
+		 * \brief Deferred-rendering shadow pass.
+		 *
+		 * \param[in] _renderers The list of renderers to perform the geometry pass for.
+		 */
 		void ShadowPass(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights) const;
 		
-		/// <summary> Copies one RenderTexture into another. </summary>
+		/**
+		 * @brief Copies the contents of one RenderTexture to another.
+		 *
+		 * This function uses a passthrough shader to perform the copy operation.
+		 *
+		 * @param[in] _src The source RenderTexture to copy from.
+		 * @param[in] _dest The destination RenderTexture to copy to.
+		 */
 		static void Copy(const RenderTexture& _src, const RenderTexture& _dest) ;
 		
-		/// <summary> Blit one RenderTexture into another with a specified shader. </summary>
+		/**
+		 * @brief Blits the contents of one RenderTexture to another using a specific shader.
+		 *
+		 * @param[in] _src The source RenderTexture to blit from.
+		 * @param[in] _dest The destination RenderTexture to blit to.
+		 * @param[in] _shader The shader to use for the blit operation.
+		 */
 		static void Blit(const RenderTexture& _src, const RenderTexture& _dest, const std::weak_ptr<Shader>& _shader) ;
-
+		
+		/**
+		 * @fn void Draw(const Graphics::Mesh& _mesh)
+		 * @brief Draws the given mesh using the current camera.
+		 *
+		 * This function is a static member of the Camera struct and is used to draw
+		 * the given mesh using the current camera. It determine whether to call
+		 * glDrawArrays or glDrawElements by checking the index format of the mesh.
+		 *
+		 * @param[in] _mesh The mesh to draw.
+		 */
 		static void Draw(const Graphics::Mesh& _mesh);
 		
 		/* POST PROCESSING */
 		
-		/// <summary> Blur the contents of a RenderTexture. </summary>
+		/**
+		 * @brief Apply a blur effect to the given RenderTexture.
+		 *
+		 * @param[in] _rt The RenderTexture to apply the blur effect to.
+		 * @param[in] _intensity The intensity of the blur effect. Higher values result in a stronger blur effect.
+		 * @param[in] _passes The number of blur passes to perform.
+		 * @param[in] _highQuality Flag indicating whether to use high-quality settings for the blur effect.
+		 * @param[in] _consistentDPI Flag indicating whether to keep the blur effect consistent across different resolutions.
+		 */
 		static void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) ;
-
-		/// <summary> Auto exposure effect for use in conjunction with tonemapping. </summary>
+		
+		/**
+		 * @brief Auto exposure effect for use in conjunction with tonemapping.
+		 *
+		 * This method calculates the average luminosity of the image and adjusts the exposure value accordingly to
+		 * compensate for overexposure or underexposure. The calculation is done using a shader program and a mask texture.
+		 */
 		void AutoExposure();
 		
-		/// <summary> Ambient occlusion effect. </summary>
+		/** @brief Ambient occlusion post-processing effect using SSAO technique. */
 		void AmbientOcclusion();
 		
-		/// <summary> Physically-based bloom effect using 13-tap sampling method. </summary>
+		/** @brief Physically-based bloom effect using 13-tap sampling method. */
 		void Bloom();
 		
+		/** @brief Set the Camera as dirty, so that a new projection matrix is computed when requested. */
+		void SetDirty() noexcept;
+		
 	public:
-	
-		/// <summary> Represents different actions that can taken during the rendering process. </summary>
+		
+		/** @brief Represents different actions that can be taken during the rendering process. */
 		enum RenderFlags : char {
-			
-			/// <summary> No special action to be taken. </summary>
-			NONE,
-			
-			/// <summary> Reinitialise the g-buffer. </summary>
-			REINITIALISE
+			        NONE, /**< @brief No special action to be taken. */
+			REINITIALISE  /**< @brief Reinitialise the g-buffer. */
 		};
 		
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
+		 
+		/** @inheritdoc */
 		~Camera() override;
 	
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
-		/// <summary> Called before rendering. </summary>
+		/**
+		 * @brief Pre-render stage of the rendering pipeline.
+		 *
+		 * This function is called before rendering the frame. It performs tasks such as
+		 * reinitializing the g-buffer and clearing the mip chain.
+		 *
+		 * @param[in] _flags The render flags indicating any which actions should be taken.
+		 */
 		void PreRender(const RenderFlags& _flags);
 		
-		/// <summary> Renders each Renderer using the Camera. </summary>
+		/**
+		 * \brief Renders each Renderer using the Camera.
+		 * \param[in] _renderers The list of Renderers to be rendered.
+		 * \param[in] _lights The list of Lights to be used during rendering.
+		 */
 		void Render(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights);
 		
-		/// <summary> Called after rendering. </summary>
+		/**
+		 * @brief Called after rendering.
+		 *
+		 * This function is called after the rendering process and performs any
+		 * post-processing effects before the final image is presented.
+		 *
+		 * @see Settings::PostProcessing, Settings::Graphics, Draw(), Blit(), Shader::Bind(), RenderTexture::Unbind(), glEnable(), glDisable(), GL_FRAMEBUFFER_SRGB, Mesh::Primitives::Quad::Instance()
+		 */
 		void PostRender();
 		
-		/// <summary> Set the Camera's Window. </summary>
+		/**
+		 * @brief Set the window associated with the camera.
+		 *
+		 * @param[in] _window The weak pointer to the window.
+		 */
 		void SetWindow(const std::weak_ptr<Window>& _window);
 		
-		/// <summary> Get the Camera's Window. </summary>
+		/**
+		 * @brief Get the window associated with the camera.
+		 * @return The weak pointer to the window.
+		 */
 		[[nodiscard]] const std::weak_ptr<Window>& GetWindow() const noexcept;
 		
-		/// <summary> Set the Camera's Transform. </summary>
+		/**
+		 * @brief Get the Camera's Transform.
+		 * @param[in] _transform The weak pointer to the transform.
+		 */
 		void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
 		
-		/// <summary> Get the Camera's Transform. </summary>
+		/**
+		 * @brief Get the Camera's Transform.
+		 * @return The weak pointer to the transform.
+		 */
 		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
 		
-		/// <summary> Get the Camera's Aspect. </summary>
+		/**
+		 * @brief Get the Camera's aspect.
+		 * @return The aspect of window the camera is bound to, or -1.0 if no valid window is bound.
+		 */
 		[[nodiscard]] float Aspect() const;
 		
-		/// <summary> Set the Camera's field of view. </summary>
+		/**
+		 * @brief Set the Camera's field of view.
+		 * @param[in] _fov The new field of view.
+		 */
 		void FOV(const float& _fov) noexcept;
 		
-		/// <summary> Get the Camera's field of view. </summary>
+		/**
+		 * @brief Get the Camera's field of view.
+		 * @return The Camera's field of view.
+		 */
 		[[nodiscard]] const float& FOV() const noexcept;
 		
-		/// <summary> Set the Camera's near clip plane. </summary>
+		/**
+		 * @brief Set the Camera's near-clipping distance.
+		 * @param[in] _nearClip The new near-clipping distance.
+		 */
 		void NearClip(const float& _nearClip) noexcept;
 		
-		/// <summary> Get the Camera's near clip plane. </summary>
+		/**
+		 * @brief Get the Camera's near-clipping distance.
+		 * @return The Camera's near-clipping distance.
+		 */
 		[[nodiscard]] const float& NearClip() const noexcept;
 		
-		/// <summary> Set the Camera's far clip plane. </summary>
+		/**
+		 * @brief Set the Camera's far-clipping distance.
+		 * @param[in] _farClip The new far-clipping distance.
+		 */
 		void FarClip(const float& _farClip) noexcept;
 		
-		/// <summary> Get the Camera's far clip plane. </summary>
+		/**
+		 * @brief Get the Camera's far-clipping distance.
+		 * @return The Camera's far-clipping distance.
+		 */
 		[[nodiscard]] const float& FarClip() const noexcept;
 		
-		/// <summary> Set the Camera's clear color. </summary>
+		/**
+		 * @brief Set the Camera's clear color.
+		 * @param[in] _color The new clear color.
+		 */
 		static void ClearColor(glm::vec4 _color);
 		
-		/// <summary> Get the Camera's clear color. </summary>
-		[[nodiscard]] static glm::vec4 ClearColor() ;
+		/**
+		 * @brief Get the Camera's clear color.
+		 * @return The Camera's clear color.
+		 */
+		[[nodiscard]] static glm::vec4 ClearColor();
 		
-		/// <summary> Get the Camera's projection matrix. </summary>
+		/**
+		 * @brief Get the Camera's projection matrix.
+		 * @return The Camera's projection matrix.
+		 */
 		const glm::mat4& Projection();
 		
-		/// <summary> Get the Camera's view matrix. </summary>
+		/**
+		 * @brief Get the Camera's view matrix.
+		 * @return The Camera's view matrix.
+		 */
 		[[nodiscard]] glm::mat4 View() const;
-		
-		/// <summary> Set the Camera dirty, so that it computes a new projection matrix. </summary>
-		void SetDirty() noexcept;
 		
 	};
 	

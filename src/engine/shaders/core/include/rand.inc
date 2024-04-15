@@ -20,7 +20,17 @@
 
     /* SIGNED */
 
-    /// <summary> Random Noise. 1-Dimensional. Signed. </summary>
+    /*!
+     * \brief Random Noise. 1-Dimensional. Signed.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return random float value between -1 and 1
+     */
     float Random1S(in vec2 _xy, in float _seed, in float _offset) {
         return clamp(
             (gold_noise(_xy * 1000.0, _seed + _offset) - 0.5) * 2.0,
@@ -29,7 +39,17 @@
         );
     }
 
-    /// <summary> Random Noise. 2-Dimensional. Signed. </summary>
+    /*!
+     * \brief Random Noise. 2-Dimensional. Signed.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return Vector of random float values between -1 and 1
+     */
     vec2 Random2S(in vec2 _xy, in float _seed, in float _offset) {
 
         return vec2(
@@ -38,7 +58,17 @@
         );
     }
 
-    /// <summary> Random Noise. 3-Dimensional. Signed. </summary>
+    /*!
+     * \brief Random Noise. 3-Dimensional. Signed.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return Vector of random float values between -1 and 1
+     */
     vec3 Random3S(in vec3 _xyz, in float _seed, in float _offset) {
 
         return vec3(
@@ -50,7 +80,17 @@
 
     /* UNSIGNED */
 
-    /// <summary> Random Noise. 1-Dimensional. Unsigned. </summary>
+    /*!
+     * \brief Random Noise. 1-Dimensional. Unigned.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return random float value between 0 and 1
+     */
     float Random1U(in vec2 _xy, in float _seed, in float _offset) {
         return clamp(
             gold_noise(_xy * 1000.0, _seed + _offset),
@@ -58,8 +98,17 @@
             1.0
         );
     }
-
-    /// <summary> Random Noise. 2-Dimensional. Unsigned. </summary>
+/*!
+     * \brief Random Noise. 2-Dimensional. Unigned.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return Vector of random float values between 0 and 1
+     */
     vec2 Random2U(in vec2 _xy, in float _seed, in float _offset) {
 
         return vec2(
@@ -67,8 +116,17 @@
             Random1U(_xy, _seed, _offset + 0.2)
         );
     }
-
-    /// <summary> Random Noise. 3-Dimensional. Unsigned. </summary>
+/*!
+     * \brief Random Noise. 3-Dimensional. Unigned.
+     *
+     * This function uses Golden Ratio Noise function to generate random values with a 2D vector as input, a seed and an offset.
+     *
+     * \param[in] _xy Vector2 input to the Golden Noise function.
+     * \param[in] _seed Float value for seeding the Golden Noise function.
+     * \param[in] _offset Float value offset for the Golden Noise function.
+     *
+     * \return Vector of random float values between 0 and 1
+     */
     vec3 Random3U(in vec3 _xyz, in float _seed, in float _offset) {
 
         return vec3(

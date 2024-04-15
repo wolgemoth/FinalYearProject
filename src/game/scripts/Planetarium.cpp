@@ -156,7 +156,7 @@ namespace LouiEriksson::Game::Scripts {
 		for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
 			
 			try {
-				const auto star = Engine::Spatial::ATHYG::V3(Utils::ToArray<std::string, 34>(Utils::Split(*line, ',')));
+				const auto star = Engine::Spatial::ATHYG::V3(Utils::MoveToArray<std::string, 34>(Utils::Split(*line, ',')));
 				
 				if (star.mag <= _threshold_magnitude) {
 					star_positions.emplace_back(star.x0, star.y0, star.z0);

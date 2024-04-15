@@ -248,8 +248,8 @@ namespace LouiEriksson::Engine::ECS {
 
 				xml.setNextName(std::string(entity->Name()).c_str());
 				xml.startNode();
-
-				for (const auto& kvp : entity->Components().GetAll()) {
+				
+				for (const auto& kvp : entity->Components()) {
 
 					const auto& components = kvp.second;
 

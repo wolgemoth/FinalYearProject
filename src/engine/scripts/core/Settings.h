@@ -23,6 +23,13 @@ namespace LouiEriksson::Engine::UI {
 
 namespace LouiEriksson::Engine {
 	
+	/**
+	 * @class Settings
+	 * @brief Container for application settings.
+	 *
+	 * This class is responsible for storing and providing access to the various settings of the
+	 * application
+	 */
 	class Settings {
 	
 		friend class Application;
@@ -31,15 +38,24 @@ namespace LouiEriksson::Engine {
 		
 	public:
 		
-		/// <summary> Initialise settings on application start. </summary>
+		/**
+		 * @brief Initializes the settings.
+		 *
+		 * This function is used to initialize the application settings. It updates the skybox and material shader
+		 * based on the current selection values.
+		 *
+		 * @note This function should be called before using any other settings functions.
+		 *
+		 * @sa Settings::Graphics::Skybox::UpdateSkybox, Settings::Graphics::Material::UpdateShader
+		 */
 		static void Init();
 		
-		/// <summary> Container for the application's graphics settings. </summary>
+		/** @brief Container for the application's graphics settings. */
 		struct Graphics {
 			
 			inline static bool s_GammaCorrection { true };
 			
-			/// <summary> Container for the application's v-sync settings. </summary>
+			/** @brief Container for the application's v-sync settings. */
 			struct VSync {
 				
 				/* SKYBOX TEXTURE */
@@ -56,15 +72,15 @@ namespace LouiEriksson::Engine {
 				
 			};
 			
-			/// <summary> Container for the settings of the camera. </summary>
+			/** @brief Container for the settings of the camera. */
 			struct Perspective {
 				
-				inline static float      s_FOV { 60.0f };
-				inline static float s_NearClip { 0.01f };
-				inline static float  s_FarClip { 60.0f };
+				inline static float      s_FOV { 60.0 };
+				inline static float s_NearClip { 0.01 };
+				inline static float  s_FarClip { 60.0 };
 			};
 			
-			/// <summary> Container for the settings of the application's skybox. </summary>
+			/** @brief Container for the settings of the application's skybox. */
 			struct Skybox {
 				
 				/* SKYBOX TEXTURE */
@@ -82,12 +98,12 @@ namespace LouiEriksson::Engine {
 				static void UpdateSkybox(const int& _index);
 				
 				/* PARAMETERS */
-				inline static float s_Blur     { 0.0f };
-				inline static float s_Exposure { 1.0f };
+				inline static float s_Blur     { 0.0 };
+				inline static float s_Exposure { 1.0 };
 				
 			};
 			
-			/// <summary> Container for the settings of the application's "pbr" and "blinnphong" materials. </summary>
+			/** @brief Container for the settings of the application's materials. */
 			struct Material {
 				
 				/* SHADER */
@@ -102,7 +118,7 @@ namespace LouiEriksson::Engine {
 				
 				static void UpdateShader(const int& _index);
 				
-				inline static glm::vec4 s_TextureScaleTranslate { 1.0f, 1.0f, 0.0f, 0.0f };
+				inline static glm::vec4 s_TextureScaleTranslate { 1.0, 1.0, 0.0, 0.0 };
 			
 				/* SHADOWS */
 				inline static std::vector<const char*> s_ShadowTechniques {
@@ -131,8 +147,8 @@ namespace LouiEriksson::Engine {
 				
 				inline static int s_ShadowSamples { 12 };
 				
-				inline static float s_ShadowBias       { 0.01f };
-				inline static float s_ShadowNormalBias { 0.02f };
+				inline static float s_ShadowBias       { 0.01 };
+				inline static float s_ShadowNormalBias { 0.02 };
 				
 				inline static bool s_ParallaxShadows { true };
 				
@@ -145,24 +161,24 @@ namespace LouiEriksson::Engine {
 				
 				inline static int s_CurrentLightType { 0 };
 				
-			    inline static glm::vec3 s_LightPosition   {    0.0f,   2.5f,  0.0f   }; // Position of light in world-space.
-			    inline static glm::vec3 s_LightRotation   { -125.0f, 225.0f,  0.0f   }; // Position of light in world-space.
-			    inline static glm::vec3 s_LightColor      {    1.0f,  0.91f,  0.874f }; // Color of light.
-				inline static     float s_LightIntensity  {    3.0f };                  // Brightness of light.
-			    inline static     float s_LightRange      {  100.0f };                  // Range of light.
-			    inline static     float s_LightAngle      {  120.0f };                  // Cos of light's FOV (for spot lights).
-				inline static     float s_LightSize       {    0.2f };                  // Size of the light (PCSS only).
+			    inline static glm::vec3 s_LightPosition   {   0.0,  2.5,  0.0   }; /**< @brief Position of light in world-space.     */
+			    inline static glm::vec3 s_LightRotation   { -45.0, 45.0,  0.0   }; /**< @brief Position of light in world-space.     */
+			    inline static glm::vec3 s_LightColor      {   1.0,  0.91, 0.874 }; /**< @brief Color of light.                       */
+				inline static     float s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
+			    inline static     float s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
+			    inline static     float s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
+				inline static     float s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
 			
 			};
 			
 		};
 		
-		/// <summary> Container for the settings of the application's post-processing effects. </summary>
+		/** @brief Container for the settings of the application's post-processing effects. */
 		struct PostProcessing {
 			
 			inline static bool s_Enabled { true };
 			
-			/// <summary> Container for the settings of the AmbientOcclusion post-processing effect. </summary>
+			/** @brief Container for the settings of the AmbientOcclusion post-processing effect. */
 			struct AmbientOcclusion {
 			
 				inline static bool s_Enabled { true };
@@ -170,88 +186,88 @@ namespace LouiEriksson::Engine {
 				inline static int s_Samples   { 12 };
 				inline static int s_Downscale {  1 };
 				
-				inline static float s_Intensity { 1.0f };
-				inline static float s_Radius    { 0.2f };
+				inline static float s_Intensity { 1.0 };
+				inline static float s_Radius    { 0.2 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
-			/// <summary> Container for the settings of the Bloom post-processing effect. </summary>
+			/** @brief Container for the settings of the Bloom post-processing effect. */
 			struct Bloom {
 			
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Intensity   {  0.5f };
-				inline static float s_Threshold   {  1.2f };
-				inline static float s_Clamp       { 25.0f };
-				inline static float s_LensDirt    {  0.2f };
-				inline static float s_Anamorphism {  0.0f };
-				inline static float s_Diffusion   {  3.0f };
+				inline static float s_Intensity   {  0.5 };
+				inline static float s_Threshold   {  1.2 };
+				inline static float s_Clamp       { 25.0 };
+				inline static float s_LensDirt    {  0.2 };
+				inline static float s_Anamorphism {  0.0 };
+				inline static float s_Diffusion   {  3.0 };
 			
 				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
-			/// <summary> Container for the settings of the "aces" post-processing effect. </summary>
+			/** @brief Container for the settings of the "aces" post-processing effect. */
 			struct ToneMapping {
 				
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Gain     { 0.0f };
-				inline static float s_Exposure { 1.0f };
+				inline static float s_Gain     { 0.0 };
+				inline static float s_Exposure { 1.0 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
-				/// <summary> Container for the settings of the AutoExposure post-processing effect. </summary>
+				/** @brief Container for the settings of the AutoExposure post-processing effect. */
 				struct AutoExposure {
 					
 					inline static bool s_Enabled { true };
 					
-					inline static float s_MinEV        {  0.2f };
-					inline static float s_MaxEV        {  4.0f };
-					inline static float s_Compensation { -0.2f };
-					inline static float s_SpeedDown    {  1.0f };
-					inline static float s_SpeedUp      {  2.0f };
+					inline static float s_MinEV        {  0.2 };
+					inline static float s_MaxEV        {  4.0 };
+					inline static float s_Compensation { -0.2 };
+					inline static float s_SpeedDown    {  1.0 };
+					inline static float s_SpeedUp      {  1.0 };
 					
 					static bool IsActiveAndEnabled() noexcept;
 				};
 				
 			};
 			
-			/// <summary> Container for the settings of the "fxaa" post-processing effect. </summary>
+			/** @brief Container for the settings of the "fxaa" post-processing effect. */
 			struct AntiAliasing {
 			
 				inline static bool s_Enabled { true };
 			
-				inline static float s_ContrastThreshold     { 0.0312f };
-				inline static float s_RelativeThreshold     { 0.063f  };
-				inline static float s_SubpixelBlending      { 0.75f   };
-				inline static float s_EdgeBlending          { 1.0f    };
-				inline static float s_LocalContrastModifier { 0.5f    };
+				inline static float s_ContrastThreshold     { 0.0312 };
+				inline static float s_RelativeThreshold     { 0.063  };
+				inline static float s_SubpixelBlending      { 0.75   };
+				inline static float s_EdgeBlending          { 1.0    };
+				inline static float s_LocalContrastModifier { 0.5    };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
 			};
 			
-			/// <summary> Container for the settings of the "grain" post-processing effect. </summary>
+			/** @brief Container for the settings of the "grain" post-processing effect. */
 			struct Grain {
 			
 				inline static bool s_Enabled { true };
 			
-				inline static float s_Intensity { 0.001f };
+				inline static float s_Intensity { 0.001 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
 			};
-			
-			/// <summary> Container for the settings of the "vignette" post-processing effect. </summary>
+
+			/** @brief Container for the settings of the "vignette" post-processing effect. */
 			struct Vignette {
 			
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Intensity  { 0.667f };
-				inline static float s_Smoothness { 0.333f };
+				inline static float s_Intensity  { 0.667 };
+				inline static float s_Smoothness { 0.333 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				

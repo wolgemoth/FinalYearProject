@@ -14,20 +14,23 @@
 
 namespace LouiEriksson::Engine {
 	
-	std::string Serialisation::ParseNext(cereal::XMLInputArchive& _xml, int _log) {
+	std::string Serialisation::ParseNext(cereal::XMLInputArchive& _xml, const int& _log) {
 	
-		const auto* const name = _xml.getNodeName();
-		
 		std::string result;
 		_xml(result);
 	
 		if (_log >= 0) {
 	
-			for (size_t i = 0; i < _log; ++i) {
-				Debug::Log("\t", LogType::Info, true);
+			const auto* const name = _xml.getNodeName();
+			
+			if (name != nullptr) {
+				
+				for (auto i = 0; i < _log; ++i) {
+					Debug::Log("\t", LogType::Info, true);
+				}
+			
+				Debug::Log(std::string(name) + " " + "\"" + result + "\"", LogType::Info);
 			}
-	
-			Debug::Log(std::string(name) + " " + "\"" + result + "\"", LogType::Info);
 		}
 	
 		return result;

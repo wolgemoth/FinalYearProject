@@ -22,6 +22,8 @@ namespace LouiEriksson::Engine {
 } // LouiEriksson::Engine
 
 namespace LouiEriksson::Engine::Graphics {
+
+	class TextureCPU;
 	
 	class Mesh {
 	
@@ -29,13 +31,14 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	private:
 		
-		/// <summary> Currently bound VAO. </summary>
+		/** @brief Currently bound VAO. */
 		inline static GLuint s_CurrentVAO { GL_NONE };
 		
-		/// <summary> Currently bound VBOs. </summary>
+		/** @brief Currently bound VBOs. */
 		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
 		
-		GLenum m_Format, m_IndexFormat;
+		GLenum      m_Format,
+		       m_IndexFormat;
 		
 		GLuint          m_VAO_ID,
 		        m_PositionVBO_ID,
@@ -48,8 +51,6 @@ namespace LouiEriksson::Engine::Graphics {
 		size_t m_VertexCount,
 		        m_IndexCount;
 		
-		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _UVs);
-
 		explicit Mesh(const GLenum& _format) noexcept;
 		
 	public:
@@ -74,6 +75,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
 		
+		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _UVs);
+
 		struct Earcut final {
 		
 			template <typename N>
@@ -123,27 +126,37 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		};
 		
-		/// <summary> Container for various primitive mesh types. </summary>
+		/**
+		* @brief Container for various primitive mesh types.
+		*/
 		struct Primitives final {
 			
+			/**
+			* @brief Represents a sphere primitive.
+			*/
 			struct Sphere final {
 			
 				static std::weak_ptr<Mesh> Instance();
 				
 			};
 			
+			/**
+			* @brief Represents a cube primitive.
+			*/
 			struct Cube final {
 			
 				static std::weak_ptr<Mesh> Instance();
 				
 			};
 			
-			/// <summary> Information for a quad primitive. </summary>
+			/**
+			* @brief Represents a quad primitive.
+			*/
 			struct Quad final {
 	
 			private:
 				
-				/// <summary> Every screen and texture coordinate for every vertex in the mesh. </summary>
+				/** @brief Every screen and texture coordinate for every vertex in the mesh. */
 				static constexpr glm::vec4 s_VertexData[] {
 					glm::vec4(-1.0f, -1.0f, 0.0f, 0.0f),
 					glm::vec4( 1.0f, -1.0f, 1.0f, 0.0f),
@@ -153,15 +166,15 @@ namespace LouiEriksson::Engine::Graphics {
 					glm::vec4( 1.0f,  1.0f, 1.0f, 1.0f),
 				};
 		
-				/// <summary> Number of vertices in the mesh. </summary>
+				/** @brief Number of vertices in the mesh. */
 				static constexpr auto s_VertexCount = sizeof(s_VertexData);
 				
-				/// <summary> Static Quad instance. </summary>
+				/** @brief Static instance. */
 				inline static std::shared_ptr<Mesh> s_Instance;
 				
 			public:
 				
-				/// <summary> Returns a pointer to the static instance of the mesh. </summary>
+				/** @brief Returns a pointer to the static instance of the mesh. */
 				static std::weak_ptr<Mesh> Instance();
 				
 			};
@@ -170,7 +183,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution);
 				
-				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const std::vector<float>& _heights);
+				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const Graphics::TextureCPU& _heights);
 			};
 			
 			struct PointCloud final {
@@ -180,14 +193,41 @@ namespace LouiEriksson::Engine::Graphics {
 			};
 		};
 		
-		/// <summary> Bind the provided mesh. </summary>
+		/**
+		 * @brief Binds the provided mesh.
+		 *
+		 * This function binds the vertex array object (VAO) of the given mesh, if it is not already bound.
+		 *
+		 * @param[in] _mesh The mesh to bind.
+		 */
 		static void Bind(const Mesh& _mesh);
 		
-		/// <summary> Unbind the currently bound mesh. </summary>
+		/**
+		 * @brief Unbinds the currently bound mesh.
+		 *
+		 * This static function unbinds the currently bound mesh by setting the current VAO to GL_NONE.
+		 *
+		 * @sa Bind(const Mesh &_mesh)
+		 */
 		static void Unbind();
 		
+		/**
+		 * @brief Binds the specified VBO.
+		 *
+		 * This static function binds the given VBO of the specified type, if it is not already bound.
+		 *
+		 * @param[in] _type The type of the VBO.
+		 * @param[in] _vbo The ID of the VBO to bind.
+		 */
 		static void BindVBO(const GLenum& _type, const GLuint& _vbo);
 		
+		/**
+		 * @brief Unbinds the specified VBO.
+		 *
+		 * This static function unbinds the specified VBO of the given type by setting the current VBO ID for that type to GL_NONE.
+		 *
+		 * @param[in] _type The type of the VBO to unbind.
+		 */
 		static void UnbindVBO(const GLenum& _type);
 		
 		[[nodiscard]] const GLenum&      Format() const noexcept;

@@ -35,7 +35,16 @@
 
     uniform mediump float u_Step = 2.0;
 
-    /// <summary> Simple box blur horizontal pass. </summary>
+    /**
+     * @brief Blurs an image horizontally.
+     *
+     * This function applies a horizontal blur to an input texture using the given coordinate and blur dispersion.
+     *
+     * @param[in] _coordinate The coordinates, as a 2-component vector, of the texture to be blurred.
+     * @param[in] _diffusion The amount of dispersion in the blur effect.
+     *
+     * @returns The resulting 4-component vector (color) after applying blur.
+     */
     vec4 BlurHorizontal(in vec2 _coordinate, const float _diffusion) {
 
         mediump vec2 l = (vec2(1.0) / textureSize(u_Texture, 0)) * _diffusion;

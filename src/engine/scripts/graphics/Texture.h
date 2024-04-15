@@ -13,6 +13,10 @@ namespace LouiEriksson::Engine {
 
 namespace LouiEriksson::Engine::Graphics {
 	
+	/**
+	 * @class Texture
+	 * @brief Represents a texture.
+	 */
 	class Texture {
 		
 		friend LouiEriksson::Engine::File;
@@ -25,11 +29,13 @@ namespace LouiEriksson::Engine::Graphics {
 		friend class RenderTexture;
 		
 	public:
-	
-		struct Parameters {
+		
+		struct Parameters final {
 			
-			/// <summary> Container specifying a Texture's format. </summary>
-			struct Format {
+			/**
+			 * @brief Specifies a Texture's format.
+			 */
+			struct Format final {
 			
 			private:
 				GLenum m_PixelFormat;
@@ -55,7 +61,9 @@ namespace LouiEriksson::Engine::Graphics {
 				[[nodiscard]] const   bool&          Mips() const noexcept;
 			};
 			
-			/// <summary> Container specifying a Texture's filter mode. </summary>
+			/**
+			 * @brief Specifies a Texture's filter mode.
+			 */
 			struct FilterMode {
 			
 			private:
@@ -76,7 +84,9 @@ namespace LouiEriksson::Engine::Graphics {
 				[[nodiscard]] const GLenum& Mag() const noexcept;
 			};
 			
-			/// <summary> Container specifying a Texture's wrap mode. </summary>
+			/**
+			 * @brief Specifies a Texture's wrap mode.
+			 */
 			struct WrapMode {
 			
 			private:
@@ -116,29 +126,53 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] const Parameters::FilterMode& FilterMode() const noexcept;
 		[[nodiscard]] const Parameters::WrapMode&     WrapMode() const noexcept;
 		
-		/// <summary> Determine a Texture's format and number of channels using its pixel format. </summary>
+		/**
+		 * @brief Determine a Texture's format and number of channels using its pixel format
+		 *
+		 * @param[in] _pixelFormat The pixel format of the texture
+		 * @param[out] _textureFormat The texture format (updated by the function)
+		 * @param[out] _channels The number of channels (updated by the function)
+		 */
 		static void GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels);
 		
-		/// <summary> Bind the provided Texture. </summary>
+		/**
+		 * @brief Binds the provided Texture.
+		 *
+		 * @param[in] _texture The Texture to bind
+		 * @param[in] _force Flag indicating whether the underlying graphics API should bind the Texture regardless of which Texture is currently bound.
+		 */
 		static void Bind(const Texture& _texture, const bool& _force = false);
-		
-		/// <summary> Bind the provided Texture. </summary>
+		/**
+		 * @brief Binds the provided Texture.
+		 *
+		 * @param[in] _texture The Texture to bind
+		 * @param[in] _force Flag indicating whether the underlying graphics API should bind the Texture regardless of which Texture is currently bound.
+		 */
 		static void Bind(const GLuint& _texture, const bool& _force = false);
 		
-		/// <summary> Unbind the currently bound Texture. </summary>
+		/**
+		 * @brief Unbind the currently bound texture.
+		 *
+		 * @param[in] _texture The Texture object to bind
+		 * @param[in] _force Flag indicating whether the underlying graphics API should unbind the Texture regardless of which Texture is currently bound.
+		 */
 		static void Unbind(const bool& _force = false);
 		
-		/// <summary> Discard the Texture. </summary>
+		/**
+		 * @brief Discard the Texture.
+		 */
 		virtual void Discard() const;
 		
-		/// <summary> Get the Texture's ID. </summary>
+		/**
+		* @brief Get the Texture's ID.
+		*/
 		[[nodiscard]] const GLuint& ID() const noexcept;
 		
 		explicit operator GLuint() const noexcept { return this->ID(); }
 	
 	private:
 		
-		/// <summary> ID of currently bound texture. </summary>
+		/** @brief ID of currently bound texture. */
 		inline static GLint s_CurrentTexture { GL_NONE };
 		
 	protected:
@@ -148,14 +182,9 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		GLuint m_TextureID;
 		
-		/// <summary> Texture's formatting parameters. </summary>
-		Parameters::Format m_Format;
-		
-		/// <summary> Texture's filtering parameters. </summary>
-		Parameters::FilterMode m_FilterMode;
-		
-		/// <summary> Texture's wrapping parameters. </sum  mary>
-		Parameters::WrapMode m_WrapMode;
+		Parameters::Format         m_Format; /**< @brief Texture format.      */
+		Parameters::FilterMode m_FilterMode; /**< @brief Texture filter mode. */
+		Parameters::WrapMode     m_WrapMode; /**< @brief Texture wrap mode.   */
 		
 		explicit Texture(const int& _width, const int& _height, const GLuint& _textureID, Texture::Parameters::Format  _format, Texture::Parameters::FilterMode  _filterMode, Texture::Parameters::WrapMode  _wrapMode) noexcept;
 	

@@ -10,19 +10,21 @@
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 				
-	struct Coords {
-	
+	struct Coords final {
+		
+		/** @brief Origin coordinate of the coordinate system (in latitude, longitude, and altitude). */
         inline static glm::vec3 s_Origin{};
 		
-		/// <summary>
-        /// Globally-average Earth radius in metres, according to the International System of Units.
-        /// </summary>
+        /** @brief Globally-average Earth radius in metres, according to the International System of Units. */
         inline static constexpr auto SI_EarthRadius = 6371000.0;
-
-        /// <summary>
-        /// WGS84 Implementation, courtesy of OpenStreetMap (https://wiki.openstreetmap.org/wiki/Mercator#Elliptical_(true)_Mercator_Projection).
-        /// </summary>
-		class WGS84 {
+		
+		/**
+		 * @class WGS84
+		 * @brief WGS84 Implementation, courtesy of OpenStreetMap.
+		 *
+		 * @see OpenStreetMap, 2024. Mercator - OpenStreetMap Wiki [online]. wiki.openstreetmap.org. Available from: https://wiki.openstreetmap.org/wiki/Mercator#Elliptical_(true)_Mercator_Projection [Accessed 17 Mar 2024].
+		 */
+		class WGS84 final {
 		
 		private:
 			
@@ -49,9 +51,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
             static double CalculateEquatorialStretchFactor(const double& _latitude);
 		};
 		
-		class GPS {
-			
-		public:
+		struct GPS final {
 			
 			static glm::vec4 GPSToBounds(const glm::vec3& _coord, const double& _sizeKm);
 			

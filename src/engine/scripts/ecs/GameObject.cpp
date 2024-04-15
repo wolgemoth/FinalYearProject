@@ -19,7 +19,7 @@ namespace LouiEriksson::Engine::ECS {
 			m_Scene(_scene),
 			m_Name (std::move(_name)) {}
 	
-	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene>& _scene, const std::string_view& _name) {
+	std::shared_ptr<GameObject> GameObject::Create(const std::shared_ptr<Scene> _scene, const std::string_view& _name) {
 		
 		// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
 		const std::shared_ptr<GameObject> result(new GameObject(_scene, _name.data()), [](GameObject* _ptr) { delete _ptr; });
@@ -48,9 +48,7 @@ namespace LouiEriksson::Engine::ECS {
 			
 			if (auto scene = m_Scene.lock()) {
 				
-				auto buckets = Components().GetAll();
-				
-				for (const auto& bucket : buckets) {
+				for (const auto& bucket : Components()) {
 					
 					for (const auto& item : bucket.second) {
 						scene->Detach<Component>(item);

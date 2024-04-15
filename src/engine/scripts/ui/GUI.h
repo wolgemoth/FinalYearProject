@@ -31,12 +31,8 @@ namespace LouiEriksson::Engine::UI {
 		struct Parameters {
 			
 			enum Style : char {
-				
-				/// <summary> Dark theme. </summary>
-				Dark,
-				
-				/// <summary> Light theme. </summary>
-				Light
+				Dark, /**< @brief  Dark theme. */
+				Light /**< @brief Light theme. */
 			};
 			
 		};
@@ -47,7 +43,7 @@ namespace LouiEriksson::Engine::UI {
 			
 		private:
 			
-			// Constant for the margins between the window and screen edge.
+			/** @brief Constant for the margins between the window and screen edge. */
 			inline static const ImVec2 s_WindowMargin { 16, 16 };
 			
 			static void DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw = true);
@@ -60,19 +56,45 @@ namespace LouiEriksson::Engine::UI {
 		
 		inline static bool s_DrawDebugWindows { false };
 		
-		/// <summary> Initialise the GUI. </summary>
+		/**
+		 * @brief Initialises the GUI.
+		 *
+		 * This function is responsible for initialising the GUI using the ImGui library.
+		 * It creates the ImGui context, initializes the ImGui backends for the specified window, and sets up the OpenGL bindings.
+		 *
+		 * @param[in] _window The weak pointer to the Window object.
+		 * @param[in] _glsl_version The GLSL version to use.
+		 */
 		static void Init(const std::weak_ptr<Window>& _window, const char* _glsl_version);
 		
-		/// <summary> Set the GUI to a specific color palette. </summary>
+		/**
+		 * @brief Set the GUI to a specific color palette.
+		 *
+		 * This function sets the GUI to a specific color palette based on the given style parameter.
+		 *
+		 * @param[in] _style The style parameter to set the GUI color palette.
+		 */
 		static void Style(const GUI::Parameters::Style& _style);
 		
-		/// <summary> Processes a given SDL_Event. </summary>
+		/**
+		 * @brief Processes a given SDL_Event.
+		 *
+		 * @param[in] _event The SDL_Event to process.
+		 */
 		static void ProcessEvent(const SDL_Event& _event);
 		
-		/// <summary> Main loop. </summary>
+		/**
+		* @brief Main GUI loop.
+		* @param[in] _window The weak pointer to the Window object.
+		*/
 		static void OnGUI(const std::weak_ptr<Window>& _window);
 		
-		/// <summary> Reset of the GUI. </summary>
+		/**
+		 * @brief Dispose of the GUI.
+		 *
+		 * This function is responsible for disposing the GUI, freeing up any resources that were allocated during initialization.
+		 * It safely disposes of the IMGUI context, shuts down the ImGui backends, and destroys the context.
+		 */
 		static void Dispose();
 		
 	};

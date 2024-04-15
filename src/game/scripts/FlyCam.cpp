@@ -122,10 +122,10 @@ namespace LouiEriksson::Game::Scripts {
 					m_Motion = glm::mix(
 						m_Motion,
 						movement_input * m_MoveSpeed * t->m_Rotation,
-						Time::DeltaTime() * 5.0f
+						Time::UnscaledDeltaTime() * 5.0f
 					);
 					
-					t->m_Position += (m_Motion * Time::DeltaTime());
+					t->m_Position += (m_Motion * Time::UnscaledDeltaTime());
 				}
 			}
 			

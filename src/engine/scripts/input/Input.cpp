@@ -180,7 +180,7 @@ namespace LouiEriksson::Engine::Input {
 		/* HANDLE EVENTS */
 		Input::Event::s_Events.Clear(); // Reset collection of events.
 		
-		SDL_Event event = { 0 };
+		SDL_Event event { 0 };
 		
 		// Poll for pending events. Calling SDL_PollEvent also updates the internal keyboard state.
 		while (SDL_PollEvent(&event) != 0) {

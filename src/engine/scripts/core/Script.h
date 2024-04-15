@@ -14,7 +14,7 @@ namespace LouiEriksson::Engine::ECS {
 namespace LouiEriksson::Engine::Physics {
 	
 	class Camera;
-	class Collision;
+	struct Collision;
 	
 } // LouiEriksson::Engine::Physics
 
@@ -25,30 +25,52 @@ namespace LouiEriksson::Game::Core {
 } // LouiEriksson::Game::Core
 
 namespace LouiEriksson::Engine {
-
-	/// <summary>
-	/// Base class to be inherited by scriptable types.
-	/// </summary>
+	
+	/**
+	 * @class Script
+	 * @brief Base class to be inherited by scriptable types.
+	 * @details Script is a base class for scriptable types which can be attached to a GameObject.
+	 * It inherits from the Component class and provides virtual functions that can be overridden by derived classes.
+	 *
+	 * @see Component
+	 * @see ECS::Scene
+	 */
 	class Script : public ECS::Component {
 	
 		friend ECS::Scene;
 		friend LouiEriksson::Game::Core::ScriptInjector;
 	
 	protected:
-	
+		
+		/**
+		 * @brief Construct a new Script object and bind to a GameObject.
+		 *
+		 * @param[in] _parent A weak pointer to the parent ECS::GameObject that the
+		 *                    Script will be associated with.
+		 */
 		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		
+		/** @inheritdoc */
 		~Script() override = default;
 	
-		/// <summary> Called at the beginning of the first frame. </summary>
+		/** @brief Called at the beginning of the first frame. */
 		virtual void Begin();
-	
-		/// <summary> Called every frame. </summary>
+		
+		/** @brief Called every frame. */
 		virtual void Tick();
 		
-		/// <summary> Called every tick of the physics engine. </summary>
+		/** @brief Called every tick of the physics engine. */
 		virtual void FixedTick();
 		
-		/// <summary> Called every time a collision event occurs. </summary>
+		/**
+		 * @brief Called every time a collision event occurs.
+		 *
+		 * This function is called whenever a collision event occurs in the physics engine.
+		 * It receives a constant reference to a Collision object containing information about the collision.
+		 *
+		 * @param[in] _collision A constant reference to a Collision object representing the collision event.
+		 * @see Physics::Collision
+		 */
 		virtual void OnCollision(const Physics::Collision& _collision);
 	};
 	

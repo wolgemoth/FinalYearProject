@@ -40,7 +40,7 @@ namespace LouiEriksson::Engine::Audio {
 				const auto f = t->FORWARD;
 				const auto u = t->UP;
 				
-				const ALfloat orientation[] = { f.x, f.y, f.z, u.x, u.y, u.z };
+				const ALfloat orientation[] { f.x, f.y, f.z, u.x, u.y, u.z };
 				alListenerfv(AL_ORIENTATION, orientation);
 			}
 			

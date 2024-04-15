@@ -7,6 +7,7 @@
 #include <SDL_stdinc.h>
 #include <SDL_video.h>
 
+#include <cstddef>
 #include <functional>
 #include <memory>
 
@@ -33,7 +34,7 @@ namespace LouiEriksson::Engine {
 	
 		std::shared_ptr<SDL_Window> m_Window;
 	
-		Hashmap<int, std::reference_wrapper<Graphics::Camera>> m_Cameras;
+		Hashmap<size_t, std::reference_wrapper<Graphics::Camera>> m_Cameras;
 	
 		void   Link(Graphics::Camera& _camera);
 		void Unlink(Graphics::Camera& _camera) noexcept;
@@ -57,10 +58,16 @@ namespace LouiEriksson::Engine {
 	
 		[[nodiscard]] const int& ID() const noexcept;
 		[[nodiscard]] SDL_GLContext Context() const noexcept;
-	
+		
 		void Update() const;
-	
+		
 		void Dimensions(const int& _width, const int& _height);
+		
+		/**
+		 * @brief Returns the window's x,y dimensions as a c-style array.
+		 *
+		 * @return glm::ivec2 The window dimensions as a glm::ivec2 object.
+		 */
 		[[nodiscard]] glm::ivec2 Dimensions() const;
 	
 		[[nodiscard]] float Aspect() const;

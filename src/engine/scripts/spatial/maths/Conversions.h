@@ -31,7 +31,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 				{ "k/h",   KilometreHour },
 				{ "km/h",  KilometreHour },
 				{ "kph",   KilometreHour },
@@ -51,7 +51,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "c",     Lightspeed    },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ KilometreHour, "km/h" },
 				{ FeetSecond,    "f/s"  },
 				{ MileHour,      "mph"  },
@@ -61,10 +61,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ Lightspeed,    "c"    },
 			};
 			
-			/// <summary>
-			/// Conversions between common speed units and m/s.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common speed units and m/s. */
+			inline static Hashmap<Unit, double> s_Conversion {
 				{ KilometreHour, 0.2777778   },
 				{ FeetSecond,    0.3048      },
 				{ MileHour,      0.44704     },
@@ -100,27 +98,40 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 
 			static std::string Symbol(const Unit& _unit);
 			
-	        /// <summary>
-	        /// Convert arc-seconds to metres.
-	        /// Courtesy of: https://opendem.info/arc2meters.html
-	        /// </summary>
-	        /// <param name="_arcSeconds">Arc-seconds to convert.</param>
-	        /// <param name="_lat">(Optional) latitude of the arc.</param>
-	        /// <returns></returns>
+			/**
+			 * @brief Convert arc-seconds to metres.
+			 *
+			 * This function converts a given value in arc-seconds to its equivalent value in metres.
+			 * The conversion is calculated using the formula:
+			 *   metres = arcSeconds * abs(cos(lat) * (1852 / 60)),
+			 * where lat is the latitude in degrees.
+			 *
+			 * @param[in] _arcSeconds The value in arc-seconds to convert.
+			 * @param[in] _lat (Optional) The latitude in degrees. Defaults to 0.0.
+			 * @return The equivalent value in metres.
+			 *
+			 * @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
+			 */
 	        static double ArcSecondsToMetres(const double& _arcSeconds, const double& _lat = 0.0f);
 			
-	        /// <summary>
-	        /// Convert metres to arc-seconds given a latitude.
-	        /// Courtesy of: https://opendem.info/arc2meters.html
-	        /// </summary>
-	        /// <param name="_metres">Metres to convert.</param>
-	        /// <param name="_lat">(Optional) latitude of the arc.</param>
-	        /// <returns></returns>
+			/**
+			* @brief Convert metres to arc-seconds given a latitude.
+			*
+			* This function converts a given value in metres to its equivalent value in arc-seconds. The conversion takes into account the latitude using the formula:
+			*   arc-seconds = metres * abs(cos(lat) / (1852 / 60)),
+			* where lat is the latitude in degrees.
+			*
+			* @param[in] _metres The value in metres to convert.
+			* @param[in] _lat (Optional) The latitude in degrees. Defaults to 0.0.
+			* @return The equivalent value in arc-seconds.
+			*
+			* @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
+			*/
 	        static double MetresToArcSeconds(const double& _metres, const double& _lat = 0.0f);
 	        
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 	            { "mm",         Millimetre       },
 	            { "cm",         Centimetre       },
 	            { "\"",         Inch             },
@@ -144,7 +155,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	            { "parsecs",    Parsec           },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Millimetre,       "mm"  },
 				{ Centimetre,       "cm"  },
 				{ Inch,             "in"  },
@@ -159,10 +170,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ Parsec,           "pc"  },
 			};
 			
-			/// <summary>
-			/// Conversions between common lateral distance units and metres.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common lateral distance units and metres. */
+			inline static Hashmap<Unit, double> s_Conversion {
 	            { Millimetre,                       0.001      },
 	            { Centimetre,                       0.01       },
 	            { Inch,                             0.0254     },
@@ -190,9 +199,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Turn,
 			};
 			
-			inline static constexpr double s_DegreesToRadians = M_PI / 180.0f;
+			inline static constexpr double s_DegreesToRadians = M_PI / 180.0;
 			
-			inline static constexpr double s_RadiansToDegrees = 180.0f / M_PI;
+			inline static constexpr double s_RadiansToDegrees = 180.0 / M_PI;
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
@@ -202,7 +211,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 				{ "grad",     Gradian },
 				{ "gradians", Gradian },
 	            { "°",        Degree  },
@@ -220,17 +229,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "tr",       Turn    },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Gradian, "grad" },
 				{ Degree,  "deg"  },
 				{ Radian,  "rad"  },
 				{ Turn,    "tr"   },
 			};
 			
-			/// <summary>
-			/// Conversions between common rotational units and degrees.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common rotational distance units and degrees. */
+			inline static Hashmap<Unit, double> s_Conversion {
 				{ Gradian,  0.9     },
 	            { Degree,   1.0     },
 	            { Radian,  57.29578 },
@@ -260,7 +267,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 			    { "nanosecond",   Nanosecond  },
 	            { "nanoseconds",  Nanosecond  },
 	            { "ns",           Nanosecond  },
@@ -287,7 +294,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "days",         Day         },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Nanosecond,  "ns" },
 				{ Microsecond, "µs" },
 				{ Millisecond, "ms" },
@@ -297,10 +304,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ Day,          "d" },
 			};
 			
-			/// <summary>
-			/// Conversions between common time units and seconds.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common time units and seconds. */
+			inline static Hashmap<Unit, double> s_Conversion {
 	            { Nanosecond,      0.000000001 },
 				{ Microsecond,     0.000001    },
 	            { Millisecond,     0.001       },
@@ -334,7 +339,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 	            { "celsius",     Celsius    },
 	            { "c",           Celsius    },
 	            { "°c",          Celsius    },
@@ -348,7 +353,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	            { "K",           Kelvin     },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Celsius,    "C" },
 				{ Fahrenheit, "F" },
 				{ Kelvin,     "K" },
@@ -396,7 +401,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 				{ "dyn/cm²",      DyneSquareCentimetre          },
 				{ "dyn/cm^2",     DyneSquareCentimetre          },
 				{ "dyn/cm2",      DyneSquareCentimetre          },
@@ -456,7 +461,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "tsi_long",     TonneSquareInch_Long          },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ DyneSquareCentimetre,    "dyn/cm2",   },
 				{ MilliTorr,               "mTorr",     },
 				{ Pascal,                  "Pa",        },
@@ -484,11 +489,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ TonneSquareInch_Long,    "tsi_long",  },
 			};
 
-			/// <summary>
-			/// Conversions between common pressure units and "atmospheres".
-			/// Source: https://www.sensorsone.com/atm-standard-atmosphere-pressure-unit/
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/**
+			 * @brief Conversions between common pressure units and atmospheres.
+			 * @see SensorsONE, 2019. atm – Standard Atmosphere Pressure Unit [online]. Sensorsone.com. Available from: https://www.sensorsone.com/atm-standard-atmosphere-pressure-unit/ [Accessed 12 Mar 2024].
+			 */
+			inline static Hashmap<Unit, double> s_Conversion {
 				{ DyneSquareCentimetre,       0.000000987 },
 				{ MilliTorr,                  0.000001316 },
 				{ Pascal,                     0.000009869 },
@@ -544,7 +549,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 					{ "nanogram",     Nanogram  },
 					{ "nanogramme",   Nanogram  },
 					{ "nanogrammes",  Nanogram  },
@@ -596,7 +601,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 					{ "Gt",           Gigaton   },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Nanogram,  "ng" },
 				{ Microgram, "μg" },
 				{ Milligram, "mg" },
@@ -610,10 +615,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ Gigaton,   "Gt" },
 			};
 			
-			/// <summary>
-			/// Conversions between common mass units and kilograms.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common mass units and kilograms. */
+			inline static Hashmap<Unit, double> s_Conversion {
 					{ Nanogram,              0.000000000001 },
 					{ Microgram,             0.000000001    },
 					{ Milligram,             0.000001       },
@@ -652,7 +655,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 				{ "mm2",     SquareMillimetre },
 				{ "mm^2",    SquareMillimetre },
 				{ "mm²",     SquareMillimetre },
@@ -679,7 +682,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "hectare", Hectare          },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ SquareMillimetre, "mm2" },
 				{ SquareCentimetre, "cm2" },
 				{ SquareInch,       "in2" },
@@ -690,10 +693,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ SquareYard,       "yd2" },
 			};
 			
-			/// <summary>
-			/// Conversions between common mass units and square metres.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between area units and square metres. */
+			inline static Hashmap<Unit, double> s_Conversion {
 				{ SquareMillimetre,    0.000001     },
 				{ SquareCentimetre,    0.0001       },
 				{ SquareInch,          0.00064516   },
@@ -734,7 +735,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup = {
+			inline static Hashmap<std::string, Unit> s_Lookup {
 				{ "milliliter", Millilitre },
 				{ "millilitre", Millilitre },
 				{ "ml",         Millilitre },
@@ -804,7 +805,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "m³",         CubicMetre },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol = {
+			inline static Hashmap<Unit, std::string> s_Symbol {
 				{ Millilitre,      "ml"     },
 				{ Centilitre,      "cl"     },
 				{ CubicInch,       "in3"    },
@@ -820,10 +821,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ CubicMetre,      "m3"     },
 			};
 			
-			/// <summary>
-			/// Conversions between common mass units and cubic metres.
-			/// </summary>
-			inline static Hashmap<Unit, double> s_Conversion = {
+			/** @brief Conversions between common mass units and cubic metres. */
+			inline static Hashmap<Unit, double> s_Conversion {
 				{ Millilitre, 0.000001       },
 				{ Centilitre, 0.00001        },
 				{ CubicInch,  0.000016387064 },

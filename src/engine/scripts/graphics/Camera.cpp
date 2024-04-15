@@ -412,7 +412,7 @@ namespace LouiEriksson::Engine::Graphics {
 						const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
 						
 						const auto lightPos = lightType == Light::Parameters::Type::Directional ?
-								t->m_Position + (VEC_FORWARD * glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation)) * 65535.0f) :
+								t->m_Position + (VEC_FORWARD * glm::inverse(glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation))) * 65535.0f) :
 								Settings::Graphics::Material::s_LightPosition;
 						
 						p->Assign(u_LightPosition, lightPos);
@@ -811,7 +811,7 @@ namespace LouiEriksson::Engine::Graphics {
 										l->m_Shadow.m_NormalBias = newNormalBias;
 									
 										t->m_Position = target_light::s_LightPosition;
-										t->m_Rotation = glm::quat(glm::radians(target_light::s_LightRotation));
+										t->m_Rotation = glm::inverse(glm::quat(glm::radians(target_light::s_LightRotation)));
 									}
 									
 									l->m_Range     = target_light::s_LightRange;
@@ -1557,7 +1557,7 @@ namespace LouiEriksson::Engine::Graphics {
 			result = w->Aspect();
 		}
 		else {
-			result = 1.0f;
+			result = -1.0f;
 			
 			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}

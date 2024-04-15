@@ -19,8 +19,8 @@ namespace LouiEriksson::Engine::Physics {
 		return m_Transform;
 	}
 	
-	void Collider::SetRigidbody(const std::weak_ptr<Rigidbody>& _transform) noexcept {
-		m_Rigidbody = _transform;
+	void Collider::SetRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody) noexcept {
+		m_Rigidbody = _rigidbody;
 	}
 	const std::weak_ptr<Rigidbody>& Collider::GetRigidbody() const noexcept {
 		return m_Rigidbody;

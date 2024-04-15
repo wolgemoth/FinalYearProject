@@ -35,17 +35,14 @@ namespace LouiEriksson::Engine::Graphics {
 			
 		public:
 			
-			/// <summary> TypeID of the Light. </summary>
+			/**
+			 * @enum Type
+			 * @brief Enum representing different types of lights.
+			 */
 			enum Type : char {
-				
-				/// <summary> Light is a Point Light. </summary>
-				Point,
-				
-				/// <summary> Light is a Directional Light. </summary>
-				Directional,
-				
-				/// <summary> Light is a Spot Light. </summary>
-				Spot,
+				      Point, /**< @brief Light is a Point Light. */
+				Directional, /**< @brief Light is a Directional Light. */
+				       Spot, /**< @brief Light is a Spot Light.  */
 			};
 		
 		private:
@@ -81,8 +78,11 @@ namespace LouiEriksson::Engine::Graphics {
 		};
 		
 		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
+		
+		/** @inheritdoc */
 		~Light() override;
 		
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Light); };
 		
 		void Type(const Light::Parameters::Type& _type);

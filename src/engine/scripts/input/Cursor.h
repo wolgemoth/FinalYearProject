@@ -21,37 +21,19 @@ namespace LouiEriksson::Engine::Input {
 			
 		public:
 			
-			/// <summary> Enum representing different ways the Cursor's movement can be restricted. </summary>
+			/**
+			 * @brief Enumeration representing different ways the Cursor's movement can be restricted.
+			 */
 			enum LockMode : char {
-				
-				/// <summary>
-				/// The Cursor is free to move without restriction.
-				/// </summary>
-				Absolute,
-				
-				/// <summary>
-				/// The Cursor's position is confined to the window.
-				/// </summary>
-				Relative,
-				
-				/// <summary>
-				/// The Cursor's position is locked to the center of the window.
-				/// </summary>
-				Centered
+				Absolute, /**< @brief The Cursor is free to move without restriction. */
+				Relative, /**< @brief The Cursor's position is confined to the window. */
+				Centered  /**< @brief The Cursor's position is locked to the center of the window. */
 			};
 			
-			/// <summary> The lock mode of the Cursor. </summary>
+			/** @brief The lock mode of the Cursor. */
 			LockMode m_LockMode;
 		
-			/// <summary>
-			/// Whether or not to hide the Cursor.
-			/// <remarks>
-			/// TODO: A bug in SDL2 causes the cursor to always be hidden while is it set
-			/// to relative. An official fix may be available in the near-future, but a
-			/// temporary solution may be to use this pull request:
-			/// https://github.com/libsdl-org/SDL/pull/7947/files
-			/// </remarks>
-			/// </summary>
+			/** @brief Whether or not to hide the Cursor. */
 			bool m_Visible;
 		
 			State(const LockMode& _lockMode, const bool& _visible);
@@ -64,37 +46,36 @@ namespace LouiEriksson::Engine::Input {
 			
 		};
 		
-		/// <summary>
-		/// Set the pending state of the Cursor.
-		/// <remarks>
-		/// Please note: Your changes will not take effect until the beginning of the
-		/// next frame, and may be overridden by subsequent calls to this function.
-		/// </remarks>
-		/// </summary>
+		/**
+		 * @brief Set the pending state of the Cursor.
+		 * @param[in] _state The new state of the Cursor.
+		 *
+		 * @note Your changes will not take effect until the beginning of the next frame, and may be overridden by subsequent calls to this function.
+		 */
 		static void SetState(const State& _state);
 		
-		/// <summary>
-		/// Return the current state of the Cursor.
-		/// <remarks>
-		/// Please note: The result of GetState() may not always match the value
-		/// provided to SetState(). This is because the Cursor's state does not
-		/// get applied until the beginning of the next frame. When GetState()
-		/// is called, it returns the current state of the Cursor, regardless
-		/// of whatever state changes may be pending.
-		/// </remarks>
-		/// </summary>
+		/**
+		 * @brief Returns the current state of the Cursor.
+		 *
+		 * @note The result of GetState() may not always match the value provided to SetState().
+		 * This is because the Cursor's state does not get applied until the beginning of the next frame.
+		 * When GetState() is called, it returns the current state of the Cursor, regardless of whatever state
+		 * changes may be pending.
+		 *
+		 * @return The current state of the Cursor.
+		 */
 		static const State& GetState();
 		
 	private:
 		
-		inline const static Cursor::State s_Default{}; // Default Cursor state.
-		inline       static Cursor::State s_Pending{}; // Pending Cursor state. Will be applied next frame.
-		inline       static Cursor::State s_Current{}; // The actual current state of the Cursor.
+		inline const static Cursor::State s_Default{}; /**< @brief Default Cursor state. */
+		inline       static Cursor::State s_Pending{}; /**< @brief Pending Cursor state. Will be applied next frame. */
+		inline       static Cursor::State s_Current{}; /**< @brief The actual current state of the Cursor. */
 		
-		/// <summary> Update the state of the Cursor, applying any pending changes. </summary>
+		/** @brief Update the state of the Cursor, applying any pending changes. */
 		static void Update();
 		
-		/// <summary> Reset the Cursor to its default state. </summary>
+		/** @brief Reset the Cursor to its default state. */
 		static void Reset();
 		
 	};

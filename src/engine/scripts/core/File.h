@@ -37,8 +37,8 @@ namespace LouiEriksson::Engine {
 		struct Directory {
 			
 			enum EntryType : char {
-				FILE      = 1u << 0u,
-				DIRECTORY = 1u << 1u
+				FILE      = 1u << 0u, /**< @brief File entries. */
+				DIRECTORY = 1u << 1u  /**< @brief Directory entries. */
 			};
 			
 			static std::vector<std::filesystem::path> GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type = (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY));

@@ -13,7 +13,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Shader              (Resources::Get<Shader> ("pbr"   )),
 			m_Albedo_Texture      (Resources::Get<Texture>("white" )),
 			m_AO_Texture          (Resources::Get<Texture>("white" )),
-			m_Displacement_Texture(Resources::Get<Texture>("black" )),
+			m_Displacement_Texture(Resources::Get<Texture>("white" )),
 			m_Emission_Texture    (Resources::Get<Texture>("white" )),
 			m_Metallic_Texture    (Resources::Get<Texture>("black" )),
 			m_Normal_Texture      (Resources::Get<Texture>("normal")),

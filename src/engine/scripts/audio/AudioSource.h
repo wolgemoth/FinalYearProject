@@ -14,92 +14,108 @@ namespace LouiEriksson::Engine::Audio {
 	
 	class AudioClip;
 	
+	/**
+	 * @class AudioSource
+	 * @brief Represents an audio source in the scene.
+	 *
+	 * This class is responsible for managing the state and properties of an audio source.
+	 *
+	 * @see Please kindly refer to the <a href="https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide">OpenAL-Soft spec</a> for more information on OpenAL.
+	 */
 	class AudioSource final : public Script {
 	
-		/*
-		 * Please refer to OpenAL-Soft spec:
-		 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
-		 */
-		
 	private:
 		
+		/**
+		 * @struct Parameters
+		 * @brief Represents the parameters for an AudioSource.
+		 *
+		 * This struct stores various properties related to audio playback.
+		 */
 		struct Parameters {
 		
-			/// <summary>
-			/// Determines whether the AudioSource is global or not.
-			/// Global AudioSources do not play positional audio.
-			/// </summary>
+			/**
+			 * @brief Determines whether the AudioSource is global or not.
+			 * @note Global AudioSources do not play positional audio.
+			 */
 			bool m_IsGlobal;
 			
-			/// <summary>
-			/// Determines whether or not the AudioSource should loop the current clip.
-			/// </summary>
+			/**
+			 * @brief Determines whether or not the AudioSource should loop the current clip.
+			 */
 			bool m_Loop;
 			
-			/// <summary>
-			/// Panning of audio emitted from the AudioSource.
-			/// Please note that this only applies if the source is global.
-			/// </summary>
+			/**
+			 * @brief Panning of audio emitted from the AudioSource.
+			 * @note This only has an effect on global sources.
+			 */
 			glm::vec3 m_Panning;
 			
-			/// <summary>
-			/// Minimum distance for this AudioSource.
-			/// Must be a value greater than zero.
-			/// If the distance between the listener and the AudioSource is below this level,
-			/// audio will be emitted from this AudioSource at the maximum gain value.
-			/// </summary>
+			/**
+			 * @brief Minimum distance for this AudioSource.
+			 *
+			 * If the distance between the listener and the AudioSource is below this level,
+			 * audio will be emitted from this AudioSource at the maximum gain value.
+			 *
+			 * @note Must be a value greater than zero.
+			 */
 			float m_MinDistance;
 			
-			/// <summary>
-			/// Maximum distance for this AudioSource.
-			/// Must be a value greater than or equal to the minimum distance.
-			/// If the distance between the listener and the AudioSource is above this level,
-			/// audio will be emitted from this AudioSource at the minimum gain value.
-			/// </summary>
+			/**
+			 * @brief Maximum distance for this AudioSource.
+			 *
+			 * If the distance between the listener and the AudioSource is above this level,
+			 * audio will be emitted from this AudioSource at the minimum gain value.
+			 *
+			 * @note Must be a value greater than or equal to the minimum distance.
+			 */
 			float m_MaxDistance;
 			
-			/// <summary>
-			/// Pitch multiplier of this AudioSource.
-			/// Must be a value greater than zero.
-			/// </summary>
+			/**
+			 * @brief Pitch multiplier of this AudioSource.
+			 * @note Must be a value greater than zero.
+			 */
 			float m_Pitch;
 			
-			/// <summary>
-			/// Gain modifier for this AudioSource.
-			/// Must be a value greater than or equal to zero.
-			/// </summary>
+			/**
+			 * @brief Gain modifier for this AudioSource.
+			 * @note Must be a value greater than or equal to zero.
+			 */
 			float m_GainModifier;
 			
-			/// <summary>
-			/// Minimum gain for this AudioSource.
-			/// Must be a value greater than or equal to zero.
-			/// </summary>
+			/**
+			 * @brief Minimum gain for this AudioSource.
+			 * @note Must be a value greater than or equal to zero.
+			 */
 			float m_MinGain;
 			
-			/// <summary>
-			/// Maximum gain for this AudioSource.
-			/// Must be a value greater than or equal to the minimum gain.
-			/// </summary>
+			/**
+			 * @brief Maximum gain for this AudioSource.
+			 * @note Must be a value greater than or equal to the minimum gain.
+			 */
 			float m_MaxGain;
 			
-			/// <summary>
-			/// Rolloff factor of this AudioSource.
-			/// </summary>
+			/**
+			 * @brief Rolloff factor of this AudioSource.
+			 */
 			float m_Rolloff;
 			
-			/// <summary>
-			/// Minimum angle of the AudioSource.
-			/// Must be a value greater than or equal to zero.
-			/// By default this value is 360 degrees, for omnidirectional playback.
-			/// Values less than 360 degrees cause the AudioSource to play directionally.
-			/// </summary>
+			/**
+			 * @brief Minimum angle of the AudioSource.
+			 *
+			 * By default this value is 360 degrees, for omnidirectional playback.
+			 * Values less than 360 degrees cause the AudioSource to play directionally.
+			 *
+			 * @note Must be a value greater than or equal to zero.
+			 */
 			float m_MinAngle;
 			
-			/// <summary>
-			/// Maximum angle of the AudioSource.
-			/// Must be a value greater than or equal to the minimum angle.
-			/// By default this value is 360 degrees.
-			/// </summary>
+			/**
+			 * @brief Maximum angle of the AudioSource.
+			 * By default this value is 360 degrees.
+			 *
+			 * @note Must be a value greater than or equal to the minimum angle.
+			 */
 			float m_MaxAngle;
 			
 			 Parameters() noexcept;
@@ -107,135 +123,346 @@ namespace LouiEriksson::Engine::Audio {
 			
 		};
 		
-		/// <summary>
-		/// Identifier of this source as used by OpenAL.
-		/// Please note that a value of 0u (or AL_NONE) indicates that
-		/// the source has not yet initialised or initialised incorrectly.
-		/// </summary>
+		/**
+		 * @brief Identifier of this source as used by OpenAL.
+		 * @note A value of 0u (or AL_NONE) indicates that the source has not yet initialised or initialised incorrectly.
+		 */
 		ALuint m_Source;
 		
+		/** @brief Parameters of the source. */
 		Parameters m_Parameters;
 		
-		/// <summary> Weak reference to most recently played AudioClip. </summary>
+		/** @brief Most recently played AudioClip. */
 		std::weak_ptr<AudioClip> m_Clip;
 		
-		/// <summary> Last position of the AudioSource (for computing transform-based velocity). </summary>
+		/** @brief Last position of the AudioSource (for computing transform-based velocity). */
 		glm::vec3 m_LastPosition;
 		
-		/// <summary> Synchronise the AudioSource with the internal audio engine. </summary>
+		/** @brief Synchronise the AudioSource with the internal audio engine. */
 		void Sync();
 		
 	public:
 		
 		 explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
+		 
+		/** @inheritdoc */
 		~AudioSource() override;
 		
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
 		
-		/// <summary> Initialise the AudioSource.</summary>
+		/** @brief Initialise the AudioSource. */
 		void Begin() override;
 		
-		/// <summary> Updates the AudioSource every frame.</summary>
+		/** @brief Updates the AudioSource every frame. */
 		void Tick() override;
 		
-		/// <summary> Play this AudioSource.</summary>
+		/**
+		 * @brief Plays the audio clip associated with the AudioSource.
+		 *
+		 * @param[in] _allowFallback Determines whether to allow fallback playback if the audio clip's buffer is not available.
+		 * If set to true and the buffer is not available, the clip will be played globally using a fallback method.
+		 * If set to false and the buffer is not available, no playback will occur.
+		 */
 		void Play(const bool& _allowFallback = true);
 		
-		/// <summary> Pause this AudioSource.</summary>
+		/** @brief Pause this AudioSource. */
 		void Pause() const;
 		
-		/// <summary> Stop this AudioSource.</summary>
+		/** @brief Stop this AudioSource. */
 		void Stop() const;
 		
-		/// <summary> Set this AudioSource's AudioClip. </summary>
+		/**
+		 * @brief Sets the AudioClip for the AudioSource.
+		 *
+		 * This function sets the AudioClip for the AudioSource. The AudioClip is stored as a weak pointer, which allows
+		 * the AudioSource to access the AudioClip without taking ownership of it.
+		 *
+		 * @param[in] _value The AudioClip to set for the AudioSource.
+		 */
 		void Clip(const std::weak_ptr<AudioClip>& _value) noexcept;
 		
-		/// <summary> Get weak reference to the currently used AudioClip. </summary>
+		/**
+		 * @brief Returns the AudioClip associated with the AudioSource.
+		 *
+		 * This function returns a weak pointer to the AudioClip associated with the AudioSource.
+		 *
+		 * @return A weak pointer to the AudioClip.
+		 */
 		[[nodiscard]] const std::weak_ptr<AudioClip>& Clip() const noexcept;
 		
-		/// <summary> Get the current state of the AudioSource. </summary>
+		/**
+		 * @brief Returns the state of the AudioSource.
+		 *
+		 * This function retrieves the state of the AudioSource, which indicates whether it is playing, paused, or stopped.
+		 * The state is returned as an ALenum value.
+		 *
+		 * @return The state of the AudioSource.
+		 */
 		[[nodiscard]] ALenum State() const;
 		
-		/// <summary> Sets whether this AudioSource is global or not. </summary>
+		/**
+		 * @brief Sets the global flag of the AudioSource.
+		 *
+		 * This function sets the global flag of the AudioSource. A global AudioSource does not play positional audio.
+		 *
+		 * @param[in] _value The value to set the global flag to.
+		 */
 		void Global(const bool& _value);
 		
-		/// <summary> Gets whether this AudioSource is global or not. </summary>
+		/**
+		 * @brief Returns the global flag of the AudioSource.
+		 *
+		 * This function returns a const reference to the global flag of the AudioSource.
+		 * A global AudioSource does not play positional audio.
+		 *
+		 * @return A const reference to the global flag of the AudioSource.
+		 */
 		[[nodiscard]] const bool& Global() const noexcept;
 		
-		/// <summary> Sets whether this AudioSource should loop or not. </summary>
+		/**
+		 * @brief Sets whether the audio source should loop or not.
+		 *
+		 * This function sets whether the audio source should loop or not based on the provided value.
+		 * When the audio source is set to loop, it will continuously play the audio until explicitly stopped.
+		 *
+		 * @param[in] _value The value indicating whether the audio source should loop or not.
+		 *        - true to enable looping.
+		 *        - false to disable looping.
+		 *
+		 * @see AudioSource::Sync()
+		 */
 		void Loop(const bool& _value);
 		
-		/// <summary> Gets whether this AudioSource loops or not. </summary>
+		/**
+		 * @brief Get the loop flag of the audio source.
+		 *
+		 * This function returns a const reference to the loop flag of the audio source.
+		 * The loop flag determines whether the audio source should loop playback or not.
+		 *
+		 * @return A const reference to the loop flag. True if loop is enabled, false otherwise.
+		 */
 		[[nodiscard]] const bool& Loop() const noexcept;
 		
-		/// <summary> Sets the minimum distance for this AudioSource. </summary>
+		/**
+		 * @brief Sets the minimum distance of the audio source.
+		 *
+		 * The minimum distance determines the distance at which the audio starts to attenuate.
+		 * If the listener is closer to the audio source than the minimum distance, the volume of the audio will be at its maximum.
+		 * When the listener moves farther away, the volume will start to attenuate.
+		 *
+		 * @param[in] _value The new minimum distance value to set.
+		 * @note The value should be within the range of FLT_EPSILON to the maximum distance.
+		 */
 		void MinDistance(const float& _value);
 		
-		/// <summary> Gets the minimum distance for this AudioSource. </summary>
+		/**
+		 * @brief Gets the minimum distance for the audio source.
+		 *
+		 * The minimum distance determines the distance at which the audio starts to attenuate.
+		 * If the listener is closer to the audio source than the minimum distance, the volume of the audio will be at its maximum.
+		 * When the listener moves farther away, the volume will start to attenuate.
+		 *
+		 * @note This function is noexcept and will not throw any exceptions.
+		 *
+		 * @return A const reference to the minimum distance.
+		 */
 		[[nodiscard]] const float& MinDistance() const noexcept;
 		
-		/// <summary> Sets the maximum distance for this AudioSource. <summary>
+		/**
+		 * @brief Sets the maximum distance for audio source.
+		 *
+		 * This function sets the maximum distance for the audio source. The maximum distance is the point at which the sound starts to attenuate and become quieter.
+		 *
+		 * @param[in] _value The new maximum distance.
+		 *
+		 * @note The _value is clamped to be greater than or equal to the minimum distance. If _value is smaller than the minimum distance, the maximum distance is set to be the same as the minimum distance.
+		 */
 		void MaxDistance(const float& _value);
 		
-		/// <summary> Gets the minimum distance for this AudioSource. </summary>
+		/**
+		 * @brief Get the maximum distance of the audio source.
+		 *
+		 * This function returns the maximum distance at which the audio source can be heard.
+		 * The maximum distance is a constant value and cannot be modified.
+		 *
+		 * @return const float& The maximum distance of the audio source.
+		 */
 		[[nodiscard]] const float& MaxDistance() const noexcept;
 		
-		/// <summary> Sets the pitch multiplier of this AudioSource. <summary>
+		/**
+		 * @brief Sets the pitch of the audio source.
+		 *
+		 * The pitch determines the speed at which the audio is played.
+		 *
+		 * @param[in] _value The pitch value to be set. Must be a positive float.
+		 */
 		void Pitch(const float& _value);
 		
-		/// <summary> Gets the pitch multiplier of this AudioSource. </summary>
+		/**
+		 * @brief Get the pitch of the audio source.
+		 *
+		 * This function returns a constant reference to the pitch of the audio source.
+		 *
+		 * @note The pitch determines the playback speed of the audio source. A pitch of 1.0
+		 *       represents normal speed, while a pitch greater than 1.0 increases the speed,
+		 *       and a pitch less than 1.0 decreases the speed.
+		 *
+		 * @return A constant reference to the pitch of the audio source.
+		 */
 		[[nodiscard]] const float& Pitch() const noexcept;
 		
-		/// <summary> Sets the gain modifier of this AudioSource. <summary>
+		/**
+		 * @brief Sets the gain modifier of the audio source.
+		 *
+		 * This function allows you to adjust the volume of the audio source
+		 * by applying a gain modifier. The gain modifier represents a scaling factor,
+		 * with a value of 1.0 being the original volume. Values less than 1.0 will decrease
+		 * the volume, while values greater than 1.0 will increase the volume.
+		 *
+		 * @param[in] _value The gain modifier to set. Must be a positive value.
+		 */
 		void Gain(const float& _value);
 		
-		/// <summary> Gets the gain modifier of this AudioSource. </summary>
+		/**
+		 * @brief Getter function for the gain modifier of the audio source.
+		 *
+		 * This function returns the current gain modifier of the audio source. The gain modifier determines the volume at which the audio source is played.
+		 *
+		 * @return A constant reference to the gain modifier.
+		 */
 		[[nodiscard]] const float& Gain() const noexcept;
 		
-		/// <summary> Sets the minimum gain of this AudioSource. <summary>
+		/**
+		 * @brief Set the minimum gain value for the audio source.
+		 *
+		 * This function sets the minimum gain value for the audio source. The minimum gain
+		 * value determines the lowest volume level at which the audio source can be played.
+		 * The specified value is clamped to be between 0.0 and the current maximum gain value
+		 * of the audio source.
+		 *
+		 * @param[in] _value The new minimum gain value for the audio source.
+		 */
 		void MinGain(const float& _value);
 		
-		/// <summary> Gets the minimum gain of this AudioSource. </summary>
+		/**
+		 * @brief Get the minimum gain of the audio source.
+		 *
+		 * This function returns the minimum gain value of the audio source. The minimum gain
+		 * represents the minimum amplification that can be applied to the audio data.
+		 *
+		 * @return const float& - The minimum gain value.
+		 */
 		[[nodiscard]] const float& MinGain() const noexcept;
 		
-		/// <summary> Sets the maximum gain of this AudioSource. <summary>
+		/**
+		 * @brief Sets the maximum gain value for the audio source.
+		 *
+		 * This function is used to set the maximum gain value for the audio source. The maximum gain value determines the maximum volume at which the audio source can be played.
+		 *
+		 * @param[in] _value The maximum gain value to set.
+		 */
 		void MaxGain(const float& _value);
 		
-		/// <summary> Gets the maximum gain of this AudioSource. </summary>
+		/**
+		 * @brief Gets the maximum gain of the audio source.
+		 *
+		 * @return The maximum gain of the audio source.
+		 */
 		[[nodiscard]] const float& MaxGain() const noexcept;
 		
-		/// <summary> Sets the rolloff factor of this AudioSource. <summary>
+		/**
+		 * @brief Sets the rolloff value for the audio source.
+		 *
+		 * This function sets the rolloff value for the audio source. The rolloff value
+		 * determines how quickly the audio attenuates as the listener moves farther away
+		 * from the audio source.
+		 *
+		 * @param[in] _value The rolloff value to set.
+		 */
 		void Rolloff(const float& _value);
 		
-		/// <summary> Gets the rolloff factor of this AudioSource. </summary>
+		/**
+		 * @brief Get the rolloff value of the audio source.
+		 *
+		 * @return const float& The rolloff value.
+		 */
 		[[nodiscard]] const float& Rolloff() const noexcept;
 		
-		/// <summary> Sets the minimum angle of this AudioSource. <summary>
+		/**
+		 * @brief Sets the minimum angle of the audio source for playback of directional audio.
+		 *
+		 * @param[in] _value The value of the minimum angle. It must be between 0.0 and 360.0.
+		 *
+		 * @note The function also updates the maximum angle if the specified value is greater than the current maximum angle.
+		 */
 		void MinAngle(const float& _value);
 		
-		/// <summary> Gets the minimum angle of this AudioSource. </summary>
+		/**
+		 * @brief Get the minimum angle of the audio source.
+		 *
+		 * @return A constant reference to the minimum angle of the audio source.
+		 */
 		[[nodiscard]] const float& MinAngle() const noexcept;
 		
-		/// <summary> Sets the maximum angle of this AudioSource. <summary>
+		/**
+		 * @brief Sets the maximum angle for audio source for playback of directional audio.
+		 *
+		 * @param[in] _value The maximum angle in degrees.
+		 */
 		void MaxAngle(const float& _value);
 		
-		/// <summary> Gets the maximum angle of this AudioSource. </summary>
+		/**
+		 * @brief Gets the maximum angle of the audio source.
+		 *
+		 * @return A constant reference to the maximum angle of the audio source.
+		 */
 		[[nodiscard]] const float& MaxAngle() const noexcept;
 		
-		/// <summary> Sets the playback position of the AudioSource in seconds. <summary>
+		/**
+		 * @brief Sets the playback position of the audio source.
+		 *
+		 * This function allows you to set the audio playback position of the audio source.
+		 * The position is specified in seconds from the start of the audio file.
+		 *
+		 * @param[in] _value The desired playback position in seconds.
+		 */
 		void PlaybackPosition(const float& _value) const;
 		
-		/// <summary> Gets the playback position of the AudioSource expressed in seconds. </summary>
+		/**
+		 * @brief Get the current playback position of the audio source.
+		 *
+		 * This function returns the current playback position of the audio source in seconds.
+		 * The position is calculated based on the current time since the audio started playing.
+		 *
+		 * @return The current playback position in seconds.
+		 */
 		[[nodiscard]] float PlaybackPosition() const;
 		
-		/// <summary>
-		/// Sets the playback position of the AudioSource in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
-		/// </summary>
+		/**
+		 * @brief Sets the playback position of the AudioSource in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
+		 *
+		 * This function sets the playback position of the AudioSource based on the specified parameter and value.
+		 *
+		 * @param[in] _param The parameter specifying the type of playback position to set. Must be either AL_SAMPLE_OFFSET or AL_BYTE_OFFSET.
+		 * @param[in] _value The value indicating the playback position to set. The interpretation of this value depends on the specified parameter.
+		 *
+		 * @note This function does not validate the parameter and value inputs. It is the caller's responsibility to ensure that valid inputs are passed.
+		 *
+		 * @see AL_SAMPLE_OFFSET
+		 * @see AL_BYTE_OFFSET
+		 */
 		void PlaybackPosition(const ALenum& _param, const int& _value) const;
 		
-		/// <summary>
-		/// Gets the playback position of the AudioSource expressed in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
-		/// </summary>
+		/**
+		 * @brief Gets the playback position of the AudioSource.
+		 *
+		 * This method retrieves the playback position of the AudioSource.
+		 * The position can be expressed in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
+		 *
+		 * @param[in] _param The parameter specifying the type of playback position to retrieve.
+		 * @return The playback position as an integer value.
+		 */
 		[[nodiscard]] int PlaybackPosition(const ALenum& _param) const;
 	};
 	

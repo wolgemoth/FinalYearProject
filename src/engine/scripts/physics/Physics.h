@@ -22,7 +22,11 @@ namespace LouiEriksson::Engine {
 
 namespace LouiEriksson::Engine::Physics {
 	
-	class Physics {
+	/**
+	 * @class Physics
+	 * @brief Manages the physics engine of the Application.
+	 */
+	class Physics final {
 	
 		friend LouiEriksson::Engine::Application;
 		
@@ -30,87 +34,96 @@ namespace LouiEriksson::Engine::Physics {
 		
 	private:
 		
-		/// <summary>
-		/// Implementation of the abstract btIDebugDraw class.
-		/// </summary>
+		/**
+		 * @class Debugger
+		 * @brief Implementation of the abstract btIDebugDraw class.
+		 */
 		class Debugger final : public btIDebugDraw {
 		
 		private:
-			
-			/// <summary> Weak pointer to the btDynamicsWorld linked to this debugger. </summary>
+
+			/** @brief Weak pointer to the btDynamicsWorld linked to this debugger. */
 			std::weak_ptr<btDynamicsWorld> m_DynamicsWorld;
 			
 		public:
 			
 			 explicit Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld);
+			 
+			/** @inheritdoc */
 			~Debugger() override;
 			
-			/// <inheritdoc/>
-			void drawLine(const btVector3 &from, const btVector3 &to, const btVector3 &color) override;
+			/** @inheritdoc */
+			void drawLine(const btVector3 &_from, const btVector3 &_to, const btVector3 &_color) override;
 			
-			/// <inheritdoc/>
-			void drawContactPoint(const btVector3 &PointOnB, const btVector3 &normalOnB, btScalar distance, int lifeTime, const btVector3 &color) override;
+			/** @inheritdoc */
+			void drawContactPoint(const btVector3 &_PointOnB, const btVector3 &_normalOnB, btScalar _distance, int _lifeTime, const btVector3 &_color) override;
 			
-			/// <inheritdoc/>
-			void reportErrorWarning(const char *warningString) override;
+			/** @inheritdoc */
+			void reportErrorWarning(const char *_warningString) override;
 			
-			/// <inheritdoc/>
-			void draw3dText(const btVector3 &location, const char *textString) override;
+			/** @inheritdoc */
+			void draw3dText(const btVector3 &_location, const char *_textString) override;
 			
-			/// <inheritdoc/>
-			void setDebugMode(int debugMode) override;
+			/** @inheritdoc */
+			void setDebugMode(int _debugMode) override;
 			
-			/// <inheritdoc/>
+			/** @inheritdoc */
 			[[nodiscard]] int getDebugMode() const override;
 			
 		};
 		
-		/// <summary> Instance of class used to visualise the state of the physics engine for debugging purposes. </summary>
+		/**< @brief Instance of class used to visualise the state of the physics engine for debugging purposes. */
 		inline static std::shared_ptr<Debugger> s_Debugger;
 		
-		/// <summary> (Bullet Physics) Configuration of the simulation. </summary>
-		inline static std::shared_ptr<btDefaultCollisionConfiguration> s_Configuration;
+		inline static std::shared_ptr<btDefaultCollisionConfiguration>     s_Configuration; /**< @brief (Bullet Physics) Configuration of the simulation. */
+		inline static std::shared_ptr<btCollisionDispatcher>                  s_Dispatcher; /**< @brief (Bullet Physics) Collision dispatcher instance.   */
+		inline static std::shared_ptr<btBroadphaseInterface>                  s_Broadphase; /**< @brief (Bullet Physics) Broadphase instance.             */
+		inline static std::shared_ptr<btSequentialImpulseConstraintSolver>        s_Solver; /**< @brief (Bullet Physics) Solver instance.                 */
+		inline static std::shared_ptr<btDiscreteDynamicsWorld>             s_DynamicsWorld; /**< @brief (Bullet Physics) Dynamics world instance.         */
 		
-		/// <summary> (Bullet Physics) Collision dispatcher instance. </summary>
-		inline static std::shared_ptr<btCollisionDispatcher> s_Dispatcher;
+ 		/** @brief Value of gravity. */
+ 		inline static glm::vec3 s_Gravity { 0.0f, -9.82f, 0.0f };
 		
-		/// <summary> (Bullet Physics) Broadphase instance. </summary>
-		inline static std::shared_ptr<btBroadphaseInterface> s_Broadphase;
-		
-		/// <summary> (Bullet Physics) Solver instance. </summary>
-		inline static std::shared_ptr<btSequentialImpulseConstraintSolver> s_Solver;
-		
-		/// <summary> (Bullet Physics) Dynamics world instance. </summary>
-		inline static std::shared_ptr<btDiscreteDynamicsWorld> s_DynamicsWorld;
-		
-		/// <summary> Value of gravity. </summary>
-		inline static glm::vec3 s_Gravity { 0.0f, -9.82f, 0.0f };
-		
-		/// <summary> Time in seconds since the physics engine was last updated. </summary>
+		/** @brief Time in seconds since the physics engine was last updated. */
 		inline static float s_LastTick { 0.0f };
 		
-		/// <summary> Initialise the physics engine. </summary>
+		/** @brief Initialise the physics engine.*/
 		static void Init();
 		
-		/// <summary> Update the physics simulation by one step. </summary>
+		/** @brief Update the physics simulation by one step. */
 		static void Tick(const float& _step);
 		
-		/// <summary> Set the value of gravity within the simulation. </summary>
+		/**
+		 * @brief Set the value of gravity within the simulation.
+		 * @param[in] _value The new value of gravity as a glm::vec3 object.
+		 */
 		static void Gravity(const glm::vec3& _value) noexcept;
 		
-		/// <summary> Get the value of gravity within the simulation. </summary>
+		/**
+		 * @brief Get the value of gravity within the simulation.
+		 * @return The value of gravity as a glm::vec3 object.
+		 */
 		static const glm::vec3& Gravity() noexcept;
 		
-		/// <summary>
-		/// Render debugging information associated with the state of the physics engine.
-		/// See also: <see href="https://pybullet.org/Bullet/BulletFull/classbtIDebugDraw.html">btIDebugDraw</see>
-		/// </summary>
+		/**
+		 * @brief Render debugging information associated with the state of the physics engine.
+		 *
+		 * This function allows you to render debugging information such as wireframes, bounding boxes,
+		 * contact points and normals for the physics engine. It uses the Bullet Physics library's
+		 * btIDebugDraw interface to draw the debug information.
+		 *
+		 * @param[in] _debugMode (optional) The debug drawing mode. It specifies which types of debug shapes and information
+		 *                       should be rendered. Defaults to drawing wireframes, AABBs, contact points, and normals.
+		 *
+		 * @see btIDebugDraw
+		 * @see https://pybullet.org/Bullet/BulletFull/classbtIDebugDraw.html
+		 */
 		static void Debug(const int& _debugMode = btIDebugDraw::DBG_DrawWireframe     |
 				                                  btIDebugDraw::DBG_DrawAabb          |
 												  btIDebugDraw::DBG_DrawContactPoints |
 												  btIDebugDraw::DBG_DrawNormals       );
 		
-		/// <summary> Finalise the physics simulation. </summary>
+		/** @brief Finalise the physics simulation. */
 		static void Dispose();
 		
 	};

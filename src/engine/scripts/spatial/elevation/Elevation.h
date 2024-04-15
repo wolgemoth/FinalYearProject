@@ -20,33 +20,9 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	public:
 		
-		struct Heightmap {
-		
-		private:
-			
-			std::vector<float> m_Pixels;
-			
-			size_t m_Width,
-			       m_Height;
-			
-			[[nodiscard]] size_t GetIndex(const glm::ivec2& _pixel) const;
-			
-		public:
-			
-			[[nodiscard]] size_t  Width() const noexcept;
-			[[nodiscard]] size_t Height() const noexcept;
-			
-			[[nodiscard]] float GetPixel        (const glm::ivec2& _pixel) const;
-			[[nodiscard]] float GetPixelBilinear(const glm:: vec2& _uv   ) const;
-			
-			[[nodiscard]] const std::vector<float>& Pixels() const noexcept;
-			
-			Heightmap(const std::vector<float>& _pixels, const size_t& _width, const size_t& _height);
-		};
-		
         enum ElevationProvider : char {
-            OpenElevation,
-            OpenTopoData
+            OpenElevation, /**< @brief <a href="https://open-elevation.com/">OpenElevation</a> */
+            OpenTopoData   /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
         };
 		
         static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<float>&)>& _callback);

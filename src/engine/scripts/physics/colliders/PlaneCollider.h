@@ -25,10 +25,14 @@ namespace LouiEriksson::Engine::Physics {
 	public:
 		
 		explicit PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		
+		/** @inheritdoc */
 		~PlaneCollider() override;
 		
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(PlaneCollider); };
 		
+		/** @inheritdoc */
 		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override;
 		
 	};

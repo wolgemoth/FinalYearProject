@@ -23,48 +23,89 @@ namespace LouiEriksson::Engine::ECS {
 	class Component;
 	class GameObject;
 	
+	/**
+	 * @class Scene
+	 * @brief Represents a scene in the application.
+	 *
+	 * The Scene class is responsible for managing entities and components within a scene.
+	 */
 	class Scene final : public std::enable_shared_from_this<Scene> {
 	
 		friend LouiEriksson::Engine::Application;
 		friend GameObject;
 	
 	private:
-	
-		/// <summary> Render the Scene. </summary>
+		
+		/**
+		 * @fn void Scene::Draw(const LouiEriksson::Engine::Graphics::Camera::RenderFlags& _flags)
+		 * @brief Render the Scene.
+		 *
+		 * @param[in] _flags The render flags specifying what actions to take during the render process.
+		 */
 		void Draw(const LouiEriksson::Engine::Graphics::Camera::RenderFlags& _flags);
 		
 	protected:
 	
-		/// <summary> Entities within the Scene. </summary>
+		/** @brief Entities within the Scene. */
 		std::vector<std::shared_ptr<GameObject>> m_Entities;
 		
-		/// <summary> Components (linked to entities) within the Scene. </summary>
+		/** @brief Components (linked to entities) within the Scene. */
 		Hashmap<std::type_index, std::vector<std::weak_ptr<Component>>> m_Components;
-	
-		/// <summary> Called at the beginning of the first frame. </summary>
+		
+		/** @brief Called at the beginning of the first frame. */
 		virtual void Begin();
 	
-		/// <summary> Called every frame. </summary>
+		/**
+		 * @brief Called every frame.
+		 * @param[in] _flags The render flags specifying what actions to take during the render process.
+		 */
 		virtual void Tick(const Graphics::Camera::RenderFlags& _flags);
 	
-		/// <summary> Called every physics update. </summary>
+		/** @brief Called every physics update. */
 		virtual void FixedTick();
 		
 	public:
 	
 		Scene() = default;
 		virtual ~Scene();
-	
-		/// <summary> Get the components within the Scene. </summary>
+		
+		/**
+		 * @brief Get the components within the Scene.
+		 *
+		 * This function returns a reference to a hashmap containing the components within the scene.
+		 *
+		 * @return const Hashmap<std::type_index, std::vector<std::weak_ptr<Component>>>& - a reference to the hashmap containing the components
+		 */
 		const Hashmap<std::type_index, std::vector<std::weak_ptr<Component>>>& Components() noexcept;
-	
-		/// <summary> Save the Scene in xml format at a given path. </summary>
+		
+		/**
+		 * @fn void Scene::Save(const path &_path)
+		 * @brief Save the Scene in XML format at a given path.
+		 *
+		 * @param[in] _path - The path to save the Scene in xml format.
+		 */
 		void Save(const std::filesystem::path& _path);
-	
-		/// <summary> TryLoad the Scene from xml format at a given path. </summary>
+		
+		/**
+		 * @brief Loads a scene from a file.
+		 *
+		 * @param[in] _path - The path to the scene file.
+		 * @param[in] _initialisers - A Hashmap of scripts types and their initialisers.
+		 * @return std::shared_ptr<Scene> - A shared pointer to the loaded scene.
+		 */
 		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)>& _initialisers);
-	
-		/// <summary> Attach an instance of a type to the Scene. </summary>
+		
+		/**
+		 * @brief Attach an instance of a type to the Scene.
+		 *
+		 * This function attaches an instance of a type to the Scene. The provided type must derive from the "Component" class.
+		 *
+		 * @tparam T The type of the instance to be attached.
+		 * @param _entity A shared pointer to the instance to be attached.
+		 * @return A shared pointer to the attached instance.
+		 *
+		 * @relates Scene
+		 */
 		template<class T>
 		std::shared_ptr<T> Attach(std::shared_ptr<T> _entity) {
 	
@@ -79,7 +120,19 @@ namespace LouiEriksson::Engine::ECS {
 			return _entity;
 		}
 		
-		/// <summary> Detach an instance of a type from the Scene. </summary>
+		/**
+		 * @fn void Scene::Detach(const std::weak_ptr<T>& _entity)
+		 * @brief Detach an instance of a type from the Scene.
+		 *
+		 * This function detaches an instance of a type from the Scene. The provided type must derive from the "Component" class.
+		 *
+		 * @tparam T The type of the instance to be detached.
+		 * @param _entity A weak pointer to the instance to be detached.
+		 *
+		 * @remark If the provided weak pointer is expired or if the instance is not found within the Scene, no action is taken.
+		 *
+		 * @relates Scene
+		 */
 		template<typename T>
 		void Detach(const std::weak_ptr<T>& _entity) {
 			

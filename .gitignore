@@ -37,6 +37,9 @@ Doxyfile
 /cmake-build-debug
 /cmake-build-debug/**
 
+/cmake-build-nosanitizers/
+/cmake-build-nosanitizers/**
+
 /cmake-build-release/
 /cmake-build-release/**
 

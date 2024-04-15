@@ -18,7 +18,6 @@ namespace LouiEriksson::Engine {
 			m_Rotation(QUAT_IDENTITY),
 			m_Scale   (VEC_ONE      ) { }
 
-	/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
 	glm::vec3 Transform::ToWorld(const glm::vec3& _vector) const {
 		return _vector * m_Rotation;
 	}

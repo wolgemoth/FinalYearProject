@@ -8,6 +8,7 @@
 #include "../../src/engine/scripts/graphics/Renderer.h"
 #include "../../src/engine/scripts/graphics/Shader.h"
 #include "../../src/engine/scripts/graphics/Texture.h"
+#include "../../src/engine/scripts/graphics/TextureCPU.h"
 #include "../../src/engine/scripts/graphics/textures/Cubemap.h"
 #include "../../src/engine/scripts/graphics/textures/RenderTexture.h"
 

@@ -93,7 +93,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 
             auto radius = Coords::WGS84::WGS84EarthRadius(_coord.x);
             auto pradius = radius * std::cos(latitudeRadians);
-
+			
             result = {
                 Conversions::Rotation::s_RadiansToDegrees * ( latitudeRadians - (halfSide /  radius)),
                 Conversions::Rotation::s_RadiansToDegrees * (longitudeRadians - (halfSide / pradius)),

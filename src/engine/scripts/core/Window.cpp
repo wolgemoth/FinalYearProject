@@ -140,10 +140,6 @@ namespace LouiEriksson::Engine {
 		SetDirty();
 	}
 	
-	/// <summary>
-	/// Returns the window's x,y dimensions as a c-style array.
-	/// <remarks>The size of the returned array is 2.</remarks>
-	/// </summary>
 	glm::ivec2 Window::Dimensions() const {
 	
 		glm::ivec2 result(-1, -1);
@@ -160,8 +156,13 @@ namespace LouiEriksson::Engine {
 	}
 	
 	void Window::Link(Graphics::Camera& _camera) {
-		_camera.m_Window = Get(ID());
-		m_Cameras.Add((int)(size_t)&_camera, std::reference_wrapper(_camera));
+		
+		if (m_Cameras.Add(std::move(reinterpret_cast<size_t>(&_camera)), std::move(std::reference_wrapper(_camera)))) {
+			_camera.m_Window = Get(ID());
+		}
+		else {
+			Debug::Log("Failed to link camera to window.", LogType::Error);
+		}
 	}
 	
 	void Window::Unlink(Graphics::Camera& _camera) noexcept {

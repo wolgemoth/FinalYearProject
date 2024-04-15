@@ -43,10 +43,10 @@ namespace LouiEriksson::Engine {
 	private:
 		
 		enum Status : char {
-			Unloaded,
-			Loaded,
-			Missing,
-			Error
+			Unloaded, /**< @brief File is not yet loaded into memory. */
+			  Loaded, /**< @brief File is currently loaded into memory. */
+			 Missing, /**< @brief File not found. */
+			   Error  /**< @brief Error loading file. */
 		};
 	
 		template <typename T>
@@ -71,7 +71,18 @@ namespace LouiEriksson::Engine {
 				m_Path(std::move(_path)),
 				m_Status(Unloaded),
 				m_Item() {}
-	
+			
+			/**
+			 * @brief Loads the asset.
+			 *
+			 * This function is responsible for loading the asset.
+			 * It checks if the file exists and attempts to load the asset if it does.
+			 * If the asset is successfully loaded, the status is set to "Loaded".
+			 * If the file does not exist, the status is set to "Missing".
+			 * If any error occurs during loading, the error message is logged and the status is set to "Error".
+			 *
+			 * @note This function is specific to the Asset class and is not intended to be called directly by the user.
+			 */
 			void Load();
 		};
 		
@@ -87,20 +98,43 @@ namespace LouiEriksson::Engine {
 		
 		static bool GetType(const std::string& _extension, std::type_index& _output);
 		
-		/// <summary>
-		/// Index all of the assets the application has access to.
-		/// </summary>
+		/**
+		 * @brief Index all of the assets the application has access to.
+		 *
+		 * This function indexes all assets in the "assets/" directory and assigns them to the appropriate asset bucket based on their type.
+		 * The assets are assigned to the asset buckets using the stem of their file name as the key.
+		 *
+		 * @note Assets with unsupported file extensions are logged as warnings.
+		 * @see Asset
+		 */
 		static void IndexAssets();
 		
-		/// <summary>
-		/// Index items which may other assets may be dependent on.
-		/// </summary>
+		/**
+		 * @brief Index items which other assets may be dependent on.
+		 *
+		 * @note This function should be called before loading any assets that may have dependencies.
+		 */
 		static void IndexDependencies();
 		
 	public:
 	
+		/**
+		 * @brief Initialises the Resources system.
+		 */
 		static void Init();
 		
+		/**
+		 * @brief Loads a specified asset if not already loaded.
+		 *
+		 * @tparam T The type of asset to load.
+		 * @param[in] _name The key name of the asset to preload.
+		 *
+		 * @note This function uses the following external code: GetBucket<T>(), Asset<T>::Load(), Debug::Log(std::exception&)
+		 *
+		 * @see GetBucket()
+		 * @see Asset<T>::Load()
+		 * @see Debug::Log()
+		 */
 		template<typename T>
 		static void Preload(const std::string _name) {
 			
@@ -117,6 +151,22 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		
+		/**
+		 * @brief Retrieves the asset with the specified name.
+		 *
+		 * This function returns a std::weak_ptr to the asset with the specified name.
+		 * If the asset is not loaded, it will be loaded and the status will be set to Loaded.
+		 * If the asset is already loaded, the function simply returns the existing std::weak_ptr.
+		 * If the asset is missing or in an error state, and fallback is set to true, the function will attempt to load the "missing" or "error" asset respectively.
+		 * If the asset is missing or in an error state, and fallback is set to false, the function will return an empty std::weak_ptr.
+		 *
+		 * @tparam T The type of asset to retrieve.
+		 * @param[in] _name The name of the asset to retrieve.
+		 * @param[in] _fallback Whether to fallback to the "missing" or "error" asset if the requested asset is missing or in an error state.
+		 * @return std::weak_ptr<T> A weak pointer to the requested asset.
+		 *
+		 * @note This function logs an error message if there is an exception while accessing the resource.
+		 */
 		template<typename T>
 		inline static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
 			
@@ -124,7 +174,7 @@ namespace LouiEriksson::Engine {
 			
 			try {
 				
-				auto& item = GetBucket<T>().Return(_name);
+				auto& item = GetBucket<T>()[_name];
 				
 				switch (item.m_Status) {
 					case Unloaded: {

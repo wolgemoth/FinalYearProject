@@ -30,7 +30,7 @@
 
 namespace LouiEriksson::Engine::UI {
 	
-	void GUI::Init(const std::weak_ptr<Window>& _window, const char* _glsl_version) {
+	void GUI::Init(const std::weak_ptr<Window>& _window, const char* const _glsl_version) {
 		
 		// Initialise IMGUI:
 		IMGUI_CHECKVERSION();
@@ -284,7 +284,7 @@ namespace LouiEriksson::Engine::UI {
 			 *     - Polling-rate for some consumer peripherals.
 			 *     - Likely pointless in most consumer use-cases.
 			 */
-			const std::vector<float> fps_ticks = {
+			const std::vector<float> fps_ticks {
 				   1.0f,   3.0f,   6.0f,  12.0f,  24.0f,   30.0f,
 				  50.0f,  60.0f,  72.0f,  90.0f, 100.0f,  120.0f,
 				 144.0f, 240.0f, 360.0f, 480.0f, 500.0f, 1000.0f,
@@ -354,8 +354,8 @@ namespace LouiEriksson::Engine::UI {
 						{
 					        ImGui::SetCursorPos(plot_cursor);
 						
-							float tick[] = { val, val };
-							ImGui::PlotLines("", tick, 2, 0, nullptr, min_fps, max_fps, plot_size);
+							std::array<float, 2> tick { val, val };
+							ImGui::PlotLines("", tick.data(), tick.size(), 0, nullptr, min_fps, max_fps, plot_size);
 						}
 						
 						// Add a label:
@@ -381,8 +381,8 @@ namespace LouiEriksson::Engine::UI {
 				{
 					ImGui::SetCursorPos(plot_cursor);
 					
-					float tick[] = { avg_fps, avg_fps };
-				    ImGui::PlotLines("", tick, 2, 0, nullptr, min_fps, max_fps, plot_size);
+					std::array<float, 2> tick { avg_fps, avg_fps };
+				    ImGui::PlotLines("", tick.data(), tick.size(), 0, nullptr, min_fps, max_fps, plot_size);
 				}
 				
 				ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLinesHovered

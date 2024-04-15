@@ -6,10 +6,20 @@
 #include <string>
 
 namespace LouiEriksson::Engine::Spatial {
-
-	struct ATHYG {
+	
+	/**
+	 * @struct ATHYG
+	 * @brief Contains utilities for deserialising astronomical data from the <a href="https://github.com/astronexus/ATHYG-Database/tree/main">ATHYG dataset</a>.
+	 */
+	struct ATHYG final {
 		
-		struct V1 {
+		/**
+		 * @struct V1
+		 * @brief Utility for deserialising version 1 of the <a href="https://github.com/astronexus/ATHYG-Database/tree/main">ATHYG dataset</a>.
+		 *
+		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
+		 */
+		struct V1 final {
 		
 			  size_t      id;
 			  std::string tyc;
@@ -38,6 +48,12 @@ namespace LouiEriksson::Engine::Spatial {
 			  explicit V1(const std::array<std::string, 23>& _values);
 		};
 		
+		/**
+		 * @struct V2
+		 * @brief Utility for deserialising version 2 of the <a href="https://github.com/astronexus/ATHYG-Database/tree/main">ATHYG dataset</a>.
+		 *
+		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
+		 */
 		struct V2 {
 		
 			  size_t      id;
@@ -77,6 +93,12 @@ namespace LouiEriksson::Engine::Spatial {
 			  explicit V2(const std::array<std::string, 33>& _values);
 		};
 		
+		/**
+		 * @struct V3
+		 * @brief Utility for deserialising version 3 of the <a href="https://github.com/astronexus/ATHYG-Database/tree/main">ATHYG dataset</a>.
+		 *
+		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
+		 */
 		struct V3 {
 		
 			  size_t      id;

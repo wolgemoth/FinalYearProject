@@ -18,6 +18,7 @@
 #include <glm/ext/vector_float4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <array>
 #include <exception>
 #include <filesystem>
 #include <sstream>
@@ -41,7 +42,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			m_Name = _path.stem().string();
 			
-			for (const auto& kvp : subShaders.GetAll()) {
+			for (const auto& kvp : subShaders) {
 				Compile(kvp.second, kvp.first);
 			}
 			
@@ -119,12 +120,12 @@ namespace LouiEriksson::Engine::Graphics {
 				m_Name << "\", " << glGetError()<< '\n';
 			
 			{
-				char buff[4096] = { 0 };
-				int buff_length = 0;
+				std::array<char, 4096> buff{};
 				
-				glGetProgramInfoLog(m_ProgramID, sizeof(buff) / sizeof(buff[0]), &buff_length, buff);
+				int ctr = 0;
+				glGetProgramInfoLog(m_ProgramID, buff.size(), &ctr, buff.data());
 			
-				err << buff;
+				err << buff.data();
 			}
 			
 			Debug::Log(err.str(), LogType::Error);

@@ -1,9 +1,10 @@
 #include "engine/scripts/core/Application.h" // Engine runtime.
-#include "game/Injector.h"              // User scripts.
+#include "game/Injector.h"                   // User scripts.
 
-/// <summary>
-/// Entry point for the program.
-/// </summary>
+/**
+ * @file main.cpp
+ * @brief Global entry point.
+ */
 int main([[maybe_unused]] int _argc, [[maybe_unused]] char* _argv[]) {
 	
 	/*

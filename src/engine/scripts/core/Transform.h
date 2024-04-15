@@ -18,33 +18,39 @@
 #define QUAT_IDENTITY glm::quat(1.0f, 0.0f, 0.0f, 0.0f)
 
 namespace LouiEriksson::Engine {
-
-	/// <summary>
-	/// Component representing a Transform.
-	/// </summary>
+	
+	/**
+	 * @class Transform
+	 * @brief Component representing a Transform.
+	 *
+	 * This class represents a Transform component, which is responsible for storing the position, rotation, and scale of an object in a 3D space. It inherits from the ECS::Component class.
+	 */
 	struct Transform final : public ECS::Component {
 		
-		/// <summary> Position of the Transform. </summary>
-		glm::vec3 m_Position;
-		
-		/// <summary> Rotation of the Transform. </summary>
-		glm::quat m_Rotation;
-		
-		/// <summary> Scale of the Transform. </summary>
-		glm::vec3 m_Scale;
+		glm::vec3 m_Position; /**< @brief Position of the Transform */
+		glm::quat m_Rotation; /**< @brief Rotation of the Transform */
+		glm::vec3 m_Scale;    /**< @brief    Scale of the Transform */
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
 		
-		/// <summary> Get the given vector (local to this transform) as it exists in world space.</summary>
+		/**
+		 * @brief Get the given vector (local to this transform) as it exists in world space.
+		 * @param[in] _vector The vector to transform.
+		 * @return The vector transformed to world space.
+		 */
 		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const;
 		
 #define RIGHT   ToWorld(VEC_RIGHT)
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
 		
-		/// <summary> Get this Transform as a Transform, Rotation, Scale matrix.</summary>
+		/**
+		 * @brief Get this Transform as a Transform, Rotation, Scale matrix.
+		 * @return The TRS matrix of the Transform.
+		 */
 		[[nodiscard]] glm::mat4 TRS() const;
 		
 	};

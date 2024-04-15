@@ -32,6 +32,10 @@
 #include <string>
 #include <vector>
 
+// TEMP:
+#include "../spatial/maths/Coords.h"
+#include "../spatial/elevation/Elevation.h"
+
 namespace LouiEriksson::Engine {
 	
 	void Application::Finalise() {

@@ -313,70 +313,106 @@ namespace LouiEriksson::Engine {
 								
 						        const auto* const mesh = scene->mMeshes[i];
 						        
-								/* VERTEX DATA */
-								
-						        std::vector<glm::vec3>  vertices(mesh->mNumVertices);
-						        std::vector<glm::vec3>   normals(mesh->mNumVertices);
-						        std::vector<glm::vec2> texCoords(mesh->mNumVertices);
-								
-								for (size_t j = 0; j < vertices.size(); ++j) {
+								if (mesh->HasPositions()) {
 									
-									const auto vert = mesh->mVertices        [j];
-									const auto norm = mesh->mNormals         [j];
-									const auto   uv = mesh->mTextureCoords[i][j];
-									
-									 vertices[j] = { vert.x, vert.y, vert.z };
-									  normals[j] = { norm.x, norm.y, norm.z };
-									texCoords[j] = {   uv.x,   uv.y };
-								}
-								
-								/* INDEX DATA */
-								
-								const auto* const faces = mesh->mFaces;
-								
-								// Determine if the mesh should use 8, 16, or 32-bit indices:
-								if (mesh->mNumVertices > std::numeric_limits<GLushort>::max()) {
-									
-									const size_t limit32 = std::numeric_limits<GLuint>::max();
-									
-									Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated. ", LogType::Warning, true);
-									
-									// 32-bit:
-									std::vector<GLuint> indices(mesh->mNumVertices);
-									
-									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
-									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
-										indices.emplace_back(faces[j].mIndices[k]);
-									}}
-									
-									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
-								}
-								else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::max()) {
-									
-									// 16-bit:
-									std::vector<GLushort> indices(mesh->mNumVertices);
-									
-									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
-									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
-										indices.emplace_back(faces[j].mIndices[k]);
-									}}
-									
-									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+									if (mesh->HasNormals()) {
+										
+										/* VERTEX DATA */
+										
+										// Get vertices, normals, and texture coordinates:
+								        std::vector<glm::vec3>vertices(mesh->mNumVertices);
+								        std::vector<glm::vec3> normals(mesh->mNumVertices);
+								        std::vector<glm::vec2>     uvs(mesh->mNumVertices);
+										
+										for (size_t j = 0; j < vertices.size(); ++j) {
+											
+											const auto vert = mesh->mVertices        [j];
+											const auto norm = mesh->mNormals         [j];
+											const auto   uv = mesh->mTextureCoords[i][j];
+											
+											 vertices[j] = { vert.x, vert.y, vert.z };
+											  normals[j] = { norm.x, norm.y, norm.z };
+											      uvs[j] = {   uv.x,   uv.y         };
+										}
+										
+										// Get or compute tangents:
+										std::array<std::vector<glm::vec3>, 2> tangents;
+										
+										if (mesh->HasTangentsAndBitangents()) {
+											
+											tangents = {
+												std::vector<glm::vec3>(mesh->mNumVertices),
+												std::vector<glm::vec3>(mesh->mNumVertices)
+											};
+											
+											for (size_t j = 0; j < vertices.size(); ++j) {
+												
+												const auto  tan = mesh->mTangents  [j];
+												const auto btan = mesh->mBitangents[j];
+													
+												 tangents[0][j] = {  tan.x,  tan.y,  tan.z };
+												 tangents[1][j] = { btan.x, btan.y, btan.z };
+											}
+										}
+										else {
+											tangents = Graphics::Mesh::GenerateTangents(vertices, uvs);
+										}
+										
+										/* INDEX DATA */
+										
+										const auto* const faces = mesh->mFaces;
+										
+										// Determine if the mesh should use 8, 16, or 32-bit indices:
+										if (mesh->mNumVertices > std::numeric_limits<GLushort>::max()) {
+											
+											const size_t limit32 = std::numeric_limits<GLuint>::max();
+											
+											Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated. ", LogType::Warning, true);
+											
+											// 32-bit:
+											std::vector<GLuint> indices(mesh->mNumVertices);
+											
+											for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+											for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
+												indices.emplace_back(faces[j].mIndices[k]);
+											}}
+											
+											_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
+										}
+										else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::max()) {
+											
+											// 16-bit:
+											std::vector<GLushort> indices(mesh->mNumVertices);
+											
+											for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+											for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
+												indices.emplace_back(faces[j].mIndices[k]);
+											}}
+											
+											_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
+										}
+										else {
+											
+											// 8-bit:
+											std::vector<GLubyte> indices(mesh->mNumVertices);
+											
+											for (size_t j = 0; j < mesh->mNumFaces; ++j) {
+											for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
+												indices.emplace_back(faces[j].mIndices[k]);
+											}}
+										
+											_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
+										}
+										
+										break;
+									}
+									else {
+										throw std::runtime_error("Mesh has no normals!");
+									}
 								}
 								else {
-									
-									// 8-bit:
-									std::vector<GLubyte> indices(mesh->mNumVertices);
-									
-									for (size_t j = 0; j < mesh->mNumFaces; ++j) {
-									for (size_t k = 0; k < faces[j].mNumIndices; ++k) {
-										indices.emplace_back(faces[j].mIndices[k]);
-									}}
-								
-									_output = Graphics::Mesh::Create(vertices, indices, normals, texCoords, true, GL_TRIANGLES);
+									throw std::runtime_error("Mesh has no vertices!");
 								}
-								
-								break;
 						    }
 						}
 						else {
@@ -609,7 +645,7 @@ namespace LouiEriksson::Engine {
 				
 				for (size_t i = 0; i < _paths.size(); ++i) {
 					
-					glm::ivec2 loaded_resolution = { -1, -1 };
+					glm::ivec2 loaded_resolution { -1, -1 };
 					
 					int channels;
 					GLenum texture_format;

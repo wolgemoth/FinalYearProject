@@ -8,51 +8,59 @@ using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {
 	
-	/// <summary>
-	/// Free-fly camera.
-	/// </summary>
+	/**
+	 * \class FlyCam
+	 *
+	 * \brief Free-fly camera.
+	 *
+	 * FlyCam is a class that represents a free-fly camera.
+	 * It inherits from the Script class and provides functionality for controlling the camera's position and rotation.
+	 */
 	class FlyCam final : public Script {
 	
 	protected:
 	
-		/// <summary> Camera of the FlyCam. </summary>
+		/** @brief Camera of the FlyCam. */
 		std::weak_ptr<Graphics::Camera> m_Camera;
 	
-		/// <summary> Transform of the FlyCam. </summary>
+		/** @brief Transform of the FlyCam. */
 		std::weak_ptr<Transform> m_Transform;
 		
-		/// <summary> AudioListener component. </summary>
+		/** @brief AudioListener component. */
 		std::weak_ptr<Audio::AudioListener> m_AudioListener;
 		
-		/// <summary> AudioSource component for gun sounds. </summary>
+		/** @brief AudioSource component for gun sounds. */
 		std::weak_ptr<Audio::AudioSource> m_GunSound;
 		
-		/// <summary> SinceEpoch motion vector of the FlyCam. </summary>
+		/** @brief Motion vector of the FlyCam. */
 		glm::vec3 m_Motion;
 		
-		/// <summary> Speed of FlyCam along each axis. </summary>
+		/** @brief Speed of FlyCam along each axis. */
 		float m_MoveSpeed;
 		
-		/// <summary> Speed of FlyCam rotation. </summary>
+		/** @brief Speed of FlyCam rotation. */
 		float m_LookSpeed;
 		
-		// Current rotation of the flycam in degrees.
+		/** @brief Current rotation of the flycam in degrees. */
 		glm::vec3 m_Rotation;
 		
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void Begin() override;
 	
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void Tick() override;
 		
-		/// <summary> Synchronise the camera's parameters with the ones defined in Settings. </summary>
+		/** @brief Synchronise the camera's parameters with the ones defined in Settings. */
 		void SyncCameraSettings() noexcept;
 		
 	public:
 	
 		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		
+		/** @inheritdoc */
 		~FlyCam() override;
 	
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(FlyCam); };
 	};
 	

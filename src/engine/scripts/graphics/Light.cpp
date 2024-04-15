@@ -175,7 +175,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				if (_type != Light::Parameters::Type::Point) {
 					
-					float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+					const float borderColor[] { 1.0f, 1.0f, 1.0f, 1.0f };
 					glTexParameterfv(m_Target, GL_TEXTURE_BORDER_COLOR, borderColor);
 				}
 				

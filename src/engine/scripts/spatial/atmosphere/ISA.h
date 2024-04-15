@@ -33,36 +33,52 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	For more information, please refer to <https://unlicense.org>
 	 */
 
-    /// <summary>
-    /// https://github.com/maxbernard3/International_Standard_Atmosphere
-    /// </summary>
+	/**
+	 * @class ISA
+	 * @brief Class that represents the International Standard Atmosphere (ISA)
+	 *
+	 * The ISA class provides a model of the atmosphere at different altitudes.
+	 * It includes calculations for pressure, density, and temperature at a given altitude.
+	 *
+	 * @remarks Derived from a C# implementaion provided by Max Bernard.
+	 * Bernard, M., 2023. International_Standard_Atmosphere/International_Standard_Atmosphere/Algorithm.cs at main · maxbernard3/International_Standard_Atmosphere [online].
+	 * GitHub. Available from: https://github.com/maxbernard3/International_Standard_Atmosphere/blob/main/International_Standard_Atmosphere/Algorithm.cs [Accessed 14 Mar 2024].
+	 */
 	class ISA {
  
 	public:
-	
+		
+		/**
+		 * @struct State
+		 * @brief Represents the state of the atmosphere
+		 * Includes pressure, density and temperature
+		 */
 		struct State {
 			
-			float m_Pressure,
-			      m_Density,
-			      m_Temperature;
+			float m_Pressure,    /**< @brief Represents Pressure in Pascals */
+			      m_Density,     /**< @brief Represents Density in kilograms per cubic metre */
+			      m_Temperature; /**< @brief Represents Temperature in Kelvin */
 		};
 		
-		static constexpr State s_DefaultState = { 101325.0f, 1.225f, 288.15f };
+		static constexpr State s_DefaultState { 101325.0f, 1.225f, 288.15f };
 		
-		/// <summary>
-		/// A wrapper function to hide calculate's extra input and output.
-		/// </summary>
+		/**
+		 * @brief Wrapper function for calculate() and pause()
+		 * @param[in] _height The altitude in meters
+		 * @param[in,out] _state The atmospheric state at the given altitude
+		 * @return true if able to calculate, else false
+		 */
 	    static bool TrySolve(const float& _height, State& _state) noexcept;
 		
 	private:
 		
-        // Constants
+        /* CONSTANTS */
         inline static constexpr float s_G = 9.80665f; // Acceleration due to gravity
         inline static constexpr float s_R = 287.0f;   // Molar gas constant for air
         inline static constexpr float s_E = 2.71828f; // Euler's constant
 
-        // Temperature gradient in Kelvin per metre
-        inline static constexpr const std::array<float, 8> s_A_Val = {
+		/** @brief Temperature gradient in Kelvin per metre. */
+        inline static constexpr const std::array<float, 8> s_A_Val {
 			-0.0065f,
 			 0,
 			 0.0010f,
@@ -73,8 +89,8 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			 0
 		};
 
-        // Altitudes Step
-        inline static const std::array<float, 9> s_Alt = {
+		/** @brief Altitude steps. */
+        inline static const std::array<float, 9> s_Alt {
 			11000,
 			20000,
 			32000,
@@ -85,10 +101,28 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 			90000,
 			    0
 		};
-
-	    static void Calculate(const float& _height, State& _state, size_t& _counter);
 		
-	    static void Pause(const float& _height, State& _state, size_t& _counter);
+		/**
+		 * @brief Calculate the atmospheric properties at a given altitude.
+		 *
+		 * This function calculates the pressure, density, and temperature of the atmosphere at a specific altitude.
+		 *
+		 * @param[in] _height The altitude in meters.
+		 * @param[in] _state The atmospheric state at the given altitude.
+		 * @param[in] _counter The index of the altitude step.
+		 */
+		static void Calculate(const float& _height, State& _state, size_t& _counter);
+		
+		/**
+		 * @brief Pause function
+		 *
+		 * This function updates the atmospheric state by pausing at a given altitude. It calculates the pressure and density based on the altitude.
+		 *
+		 * @param[in] _height The altitude in meters.
+		 * @param[in] _state The atmospheric state at the given altitude.
+		 * @param[in] _counter The index of the altitude step.
+		 */
+		static void Pause(const float& _height, State& _state, size_t& _counter);
 		
 	};
 	

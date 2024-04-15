@@ -4,7 +4,10 @@
 #include "../core/Debug.h"
 #include "../core/Resources.h"
 
+#include "TextureCPU.h"
+
 #include <GL/glew.h>
+#include <glm/geometric.hpp>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -869,7 +872,7 @@ namespace LouiEriksson::Engine::Graphics {
 				      std::vector<glm::vec2> uvs     (vertices.size());
 				const std::vector<glm::vec3> normals (vertices.size(), {0.0, 1.0, 0.0});
 				
-				std::array<std::vector<glm::vec3>, 2> tangents = {
+				std::array<std::vector<glm::vec3>, 2> tangents {
 					std::vector<glm::vec3>(vertices.size()),
 					std::vector<glm::vec3>(vertices.size())
 				};
@@ -879,19 +882,21 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					const auto idx = Utils::To1D({i, j}, nX + 1);
 					
-			        vertices[idx] = {
-					    (static_cast<float>(j) / static_cast<float>(nY)) - 0.5,
-				        0,
-				        (static_cast<float>(i) / static_cast<float>(nX)) - 0.5,
+					const glm::vec2 uv {
+                        (static_cast<float>(j) / static_cast<float>(nY)),
+						(static_cast<float>(i) / static_cast<float>(nX)),
 					};
 					
-		            uvs[idx] = {
-						static_cast<float>(j) / static_cast<float>(nY),
-						static_cast<float>(i) / static_cast<float>(nX),
+			        vertices[idx] = {
+					    uv.x - 0.5,
+				        0.0,
+				        uv.y - 0.5,
 					};
+					
+		            uvs[idx] = uv;
 					
 					tangents[0][idx] = { 1.0, 0.0, 0.0 };
-					tangents[1][idx] = { 0.0, 1.0, 0.0 };
+					tangents[1][idx] = { 0.0, 0.0, 1.0 };
 		        }}
 				
 			    /* INDEX DATA */
@@ -901,9 +906,9 @@ namespace LouiEriksson::Engine::Graphics {
 		        for (auto j = 0; j < nY; j++) {
 			    for (auto i = 0; i < nX; i++) {
 					
-					const auto v1 = Utils::To1D({j, i}, nX + 1);
+					const auto v1 = Utils::To1D({i, j}, nX + 1);
 		            const auto v2 = v1 + 1;
-		            const auto v3 = Utils::To1D({j, i + 1}, nX + 1);
+		            const auto v3 = Utils::To1D({i, j + 1}, nX + 1);
 		            const auto v4 = v3 + 1;
 					
 					indices[t    ] = v1;
@@ -929,7 +934,7 @@ namespace LouiEriksson::Engine::Graphics {
 		return result;
 	}
 	
-	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const std::vector<float>& _heights) {
+	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const Graphics::TextureCPU& _heights) {
 	
 		std::shared_ptr<Mesh> result;
 		
@@ -939,66 +944,74 @@ namespace LouiEriksson::Engine::Graphics {
 			const auto& nY = _resolution.y;
 		
 			if (nX > 0 && nY > 0) {
+			
+			    /* VERTEX DATA */
+			    std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
+				std::vector<glm::vec2> uvs     (vertices.size());
+				std::vector<glm::vec3> normals (vertices.size());
 				
-				if (nX * nY == _heights.size()) {
+				std::array<std::vector<glm::vec3>, 2> tangents {
+					std::vector<glm::vec3>(vertices.size()),
+					std::vector<glm::vec3>(vertices.size())
+				};
+				
+				// Texel size:
+				const auto ts = glm::vec2(_heights.Width(), _heights.Height()) / static_cast<glm::vec2>(_resolution);
+				
+		        for (auto j = 0; j <= nY; j++) {
+			    for (auto i = 0; i <= nX; i++) {
 					
-				    /* VERTEX DATA */
-				          std::vector<glm::vec3> vertices(static_cast<size_t>((nX + 1) * (nY + 1)));
-					      std::vector<glm::vec2> uvs     (vertices.size());
-					const std::vector<glm::vec3> normals (vertices.size(), {0.0, 1.0, 0.0});
+					const auto idx = Utils::To1D({i, j}, nX + 1);
 					
-					std::array<std::vector<glm::vec3>, 2> tangents = {
-						std::vector<glm::vec3>(vertices.size()),
-						std::vector<glm::vec3>(vertices.size())
+					const glm::vec2 uv {
+                        (static_cast<float>(j) / static_cast<float>(nY)),
+						(static_cast<float>(i) / static_cast<float>(nX)),
 					};
 					
-			        for (auto j = 0; j <= nY; j++) {
-				    for (auto i = 0; i <= nX; i++) {
-						
-						const auto idx = Utils::To1D({i, j}, nX + 1);
-						
-				        vertices[idx] = {
-						    (static_cast<float>(j) / static_cast<float>(nY)) - 0.5,
-					        0,
-					        (static_cast<float>(i) / static_cast<float>(nX)) - 0.5,
-						};
-						
-			            uvs[idx] = {
-							static_cast<float>(j) / static_cast<float>(nY),
-							static_cast<float>(i) / static_cast<float>(nX),
-						};
-						
-						tangents[0][idx] = { 1.0, 0.0, 0.0 };
-						tangents[1][idx] = { 0.0, 1.0, 0.0 };
-			        }}
+			        vertices[idx] = {
+					    uv.x - 0.5,
+				        _heights.GetPixelBilinear(uv),
+				        uv.y - 0.5,
+					};
 					
-				    /* INDEX DATA */
-				    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
+		            uvs[idx] = uv;
 					
-		            auto t = 0;
-			        for (auto j = 0; j < nY; j++) {
-				    for (auto i = 0; i < nX; i++) {
-						
-						const auto v1 = Utils::To1D({j, i}, nX + 1);
-			            const auto v2 = v1 + 1;
-			            const auto v3 = Utils::To1D({j, i + 1}, nX + 1);
-			            const auto v4 = v3 + 1;
-						
-						indices[t    ] = v1;
-			            indices[t + 1] = v2;
-			            indices[t + 2] = v3;
-			            indices[t + 3] = v3;
-			            indices[t + 4] = v2;
-			            indices[t + 5] = v4;
-						
-						t += 6;
-			        }}
+					// Extract normals from heightmap:
+					normals[idx] = glm::normalize(
+						glm::vec3(
+							(_heights.GetPixelBilinear({i + ts.x, j}) - _heights.GetPixelBilinear({i - ts.x, j})) / 2.0,
+							1.0,
+							(_heights.GetPixelBilinear({i, j + ts.y}) - _heights.GetPixelBilinear({i, j - ts.y})) / 2.0
+						)
+					);
 					
-					result = Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
-				}
-				else {
-					throw std::runtime_error("Length of provided vector does not match grid resolution.");
-				}
+					tangents[0][idx] = { 1.0, 0.0, 0.0 };
+					tangents[1][idx] = { 0.0, 0.0, 1.0 };
+		        }}
+				
+			    /* INDEX DATA */
+			    std::vector<GLuint> indices(static_cast<size_t>(6 * nX * nY));
+				
+	            auto t = 0;
+		        for (auto j = 0; j < nY; j++) {
+			    for (auto i = 0; i < nX; i++) {
+					
+					const auto v1 = Utils::To1D({i, j}, nX + 1);
+		            const auto v2 = v1 + 1;
+		            const auto v3 = Utils::To1D({i, j + 1}, nX + 1);
+		            const auto v4 = v3 + 1;
+					
+					indices[t    ] = v1;
+		            indices[t + 1] = v2;
+		            indices[t + 2] = v3;
+		            indices[t + 3] = v3;
+		            indices[t + 4] = v2;
+		            indices[t + 5] = v4;
+					
+					t += 6;
+		        }}
+				
+				result = Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
 			}
 			else {
 				throw std::runtime_error("Cannot construct a grid mesh with a resolution of less than 1 on the x or y axes!");

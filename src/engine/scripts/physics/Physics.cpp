@@ -49,23 +49,23 @@ namespace LouiEriksson::Engine::Physics {
 		}
 	}
 	
-	void Physics::Debugger::drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {
+	void Physics::Debugger::drawLine(const btVector3& _from, const btVector3& _to, const btVector3& _color) {
 		Debug::Log("Not implemented", LogType::Error);
 	}
 	
-	void Physics::Debugger::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {
+	void Physics::Debugger::drawContactPoint(const btVector3& _PointOnB, const btVector3& _normalOnB, btScalar _distance, int _lifeTime, const btVector3& _color) {
 		Debug::Log("Not implemented", LogType::Error);
 	}
 	
-	void Physics::Debugger::reportErrorWarning(const char* warningString) {
+	void Physics::Debugger::reportErrorWarning(const char* _warningString) {
 		Debug::Log("Not implemented", LogType::Error);
 	}
 	
-	void Physics::Debugger::draw3dText(const btVector3& location, const char* textString) {
+	void Physics::Debugger::draw3dText(const btVector3& _location, const char* _textString) {
 		Debug::Log("Not implemented", LogType::Error);
 	}
 	
-	void Physics::Debugger::setDebugMode(int debugMode) {
+	void Physics::Debugger::setDebugMode(int _debugMode) {
 		Debug::Log("Not implemented", LogType::Error);
 	}
 	

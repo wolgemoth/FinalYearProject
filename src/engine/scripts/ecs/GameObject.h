@@ -19,7 +19,12 @@ namespace LouiEriksson::Engine::ECS {
 	
 	class Component;
 	
-	/// <summary> An Entity which exists in a Scene and can contain Components. </summary>
+	/**
+	 * @class GameObject
+	 * @brief An Entity which exists in a Scene and can contain Components.
+	 *
+	 * The GameObject class represents an entity that exists in a Scene and can contain Components.
+	 */
 	class GameObject final : public std::enable_shared_from_this<GameObject> {
 		
 		friend Component;
@@ -27,20 +32,26 @@ namespace LouiEriksson::Engine::ECS {
 	
 	private:
 	
-		/// <summary> Scene the GameObject belongs to. </summary>
+		/** @brief Scene the GameObject belongs to. */
 		const std::weak_ptr<Scene> m_Scene;
 	
-		/// <summary> Name of the GameObject. </summary>
+		/** @brief Name of the GameObject. */
 		std::string m_Name;
 	
-		/// <summary> Components attached to the GameObject. </summary>
+		/** @brief Components attached to the GameObject. */
 		Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>> m_Components;
 	
-		/// <summary>
-		/// Attach a component to the GameObject.
-		/// </summary>
+		/**
+		 * @brief Attaches a component to the GameObject.
+		 *
+		 * This function attaches a component of type T to the GameObject. The provided type T must derive from the Component class.
+		 *
+		 * @tparam T The type of the component to attach.
+		 * @param[in] _type The type index of the component.
+		 * @param _component A shared pointer to the component to attach.
+		 */
 		template <typename T>
-		void Attach(const std::type_index _type, const std::shared_ptr<T>& _component) {
+		void Attach(const std::type_index& _type, const std::shared_ptr<T> _component) {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
@@ -80,30 +91,59 @@ namespace LouiEriksson::Engine::ECS {
 		
 	public:
 	
-		/// <summary> Set the name of the GameObject. </summary>
+		/**
+		 * @brief Set the name of the GameObject.
+		 *
+		 * This function sets the name of the GameObject.
+		 *
+		 * @param[in] _name The name to set.
+		 */
 		void Name(const std::string_view& _name) noexcept;
 	
-		/// <summary> Get the name of the GameObject. </summary>
+		/** @brief Get the name of the GameObject. */
 		std::string_view Name() const noexcept;
 	
-		/// <summary> Get the Scene the GameObject belongs to. </summary>
+		/**
+		 * @brief Get the scene to which the GameObject belongs.
+		 *
+		 * This function returns a weak pointer to the scene to which the GameObject belongs.
+		 *
+		 * @return A weak pointer to the scene.
+		 */
 		const std::weak_ptr<Scene>& GetScene() const noexcept;
 		
-		/// <summary> Factory function which creates a GameObject within a Scene. </summary>
-		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::shared_ptr<Scene>& _scene, const std::string_view& _name = "");
+		/**
+		 * @brief Creates a new GameObject and attaches it to the specified Scene.
+		 *
+		 * This function creates a new GameObject and attaches it to the specified Scene.
+		 *
+		 * @param _scene The Scene to attach the GameObject to.
+		 * @param[in] _name The optional name of the GameObject.
+		 * @return A shared pointer to the newly created GameObject.
+		 */
+		[[nodiscard]] static std::shared_ptr<GameObject> Create(std::shared_ptr<Scene> _scene, const std::string_view& _name = "");
 		
+		/**
+		 * @fn void GameObject::Destroy()
+		 * @brief Destroys the GameObject.
+		 */
 		void Destroy();
 		
-		/// <summary>
-		/// Get the Components attached to the GameObject.
-		/// </summary>
+		/**
+		 * @brief Get the Components attached to the GameObject.
+		 * @return The Components attached to the GameObject.
+		 */
 		const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Components() const noexcept;
-	
-		/// <summary>
-		/// Get Components of type attached to GameObject.
-		/// </summary>
-		/// <typeparam name="T">TypeID to be searched.</typeparam>
-		/// <returns>Vector of std::shared_ptr<T> wrapping a std::shared_ptr<T></returns>
+		
+		/**
+		 * @brief Get Components of type attached to GameObject.
+		 *
+		 * This function returns a vector of weak_ptr<T> objects containing shared_ptr<T> components of type T that are attached to the GameObject.
+		 * The provided type T must derive from the Component class.
+		 *
+		 * @tparam T The type of components to be searched.
+		 * @return A vector of weak_ptr<T> objects.
+		 */
 		template <typename T>
 		std::vector<std::weak_ptr<T>> GetComponents() const {
 	
@@ -118,14 +158,19 @@ namespace LouiEriksson::Engine::ECS {
 			return result;
 		}
 		
-		/// <summary>
-		/// Get a Component of type in the GameObject by index.
-		/// </summary>
-		/// <typeparam name="T">TypeID to be searched.</typeparam>
-		/// <param name="_index">IndexAssets of the Component.</param>
-		/// <returns>const std::weak_ptr<T> Referencing the Component if successful. std::weak_ptr<T> referencing a nullptr if unsuccessful.</returns>
+		/**
+		 * @fn template<typename T> std::weak_ptr<T> GameObject::GetComponent(size_t _index) const
+		 * @brief Get a Component of type in the GameObject by index.
+		 *
+		 * This function returns a const std::weak_ptr<T> referencing the Component of type T in the GameObject, specified by the index. If the Component is not found, it returns a std::weak_ptr<T> referencing a nullptr.
+		 * The template parameter T must be a type derived from the Component class.
+		 *
+		 * @tparam T TypeID to be searched.
+		 * @param[in] _index Index of the Component.
+		 * @return const std::weak_ptr<T> Referencing the Component if successful, std::weak_ptr<T> referencing a nullptr if unsuccessful.
+		 */
 		template<typename T>
-		std::weak_ptr<T> GetComponent(size_t _index = 0) const {
+		std::weak_ptr<T> GetComponent(const size_t& _index = 0) const {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
@@ -138,12 +183,17 @@ namespace LouiEriksson::Engine::ECS {
 			
 			return result;
 		}
-	
-		/// <summary>
-		/// Add a Component of type to the GameObject.
-		/// </summary>
-		/// <typeparam name="T">TypeID to be added.</typeparam>
-		/// <returns>const::weak_ptr<T>& referencing the created type.</returns>
+		
+		/**
+		 * @brief Add a Component of type to the GameObject.
+		 *
+		 * This function adds a Component of type T to the GameObject. The type T must derive from the Component class.
+		 *
+		 * @tparam T The type of the Component to add.
+		 * @return A const std::weak_ptr<T>& referencing the created type.
+		 *
+		 * @note The provided type must derive from the Component class.
+		 */
 		template <typename T>
 		std::weak_ptr<T> AddComponent() {
 			
@@ -159,13 +209,14 @@ namespace LouiEriksson::Engine::ECS {
 			return result;
 		}
 		
-		/// <summary>
-		/// Remove a Component of type from the GameObject, using an index.
-		/// </summary>
-		/// <typeparam name="T">TypeID to be searched.</typeparam>
-		/// <param name="_index">IndexAssets of the component.</param>
+		/**
+		 * @brief Remove a Component from the GameObject by type and index.
+		 *
+		 * @tparam T The type of the Component to remove.
+		 * @param[in] _index The index of the Component to remove if there are multiple instances of the same type. The default value is 0.
+		 */
 		template <typename T>
-		void RemoveComponent(size_t _index = 0) {
+		void RemoveComponent(const size_t& _index = 0) {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			

@@ -8,41 +8,45 @@ using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {
 	
-	/// <summary>
-	/// Ball object with Rigidbody physics.
-	/// </summary>
+	/**
+	 * @class Ball
+	 * @brief Ball object with Rigidbody physics.
+	 */
 	class Ball final : public Script {
 	
 	private:
 		
-		/// <summary> AudioSource component. </summary>
+		/** @brief AudioSource of the ball. */
 		std::weak_ptr<Audio::AudioSource> m_AudioSource;
 		
-		/// <summary> Position of the ball when it spawned. </summary>
+		/** @brief Position of the ball when it was first spawned. */
 		glm::vec3 m_StartingPosition;
 		
-		/// <summary> Radius of the ball. </summary>
+		/** @brief Radius of the ball. */
 		float m_Radius;
 		
 	protected:
 	
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void Begin() override;
 	
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void Tick() override;
 	
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void FixedTick() override;
 		
-		/// <inheritdoc/>
+		/** @inheritdoc */
 		void OnCollision(const Physics::Collision& _collision) override;
 		
 	public:
 	
 		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		
+		/** @inheritdoc */
 		~Ball() override;
 		
+		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Ball); };
 	
 	};

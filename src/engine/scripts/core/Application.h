@@ -16,18 +16,49 @@ namespace LouiEriksson::Engine {
 
 	class Script;
 	
-	/// <summary> Main class for the application. </summary>
+	/**
+	 * @class Application
+	 * @brief Represents the application.
+	 *
+	 * The Application class is responsible for managing the main execution flow of the program and handling the termination of the application.
+	 */
 	class Application {
 	
 	private:
 	
 		inline static bool s_Quit        { false }; // Is Application scheduled to quit?
 		inline static bool s_Initialised { false }; // Is Application initialised?
-	
-		/// <summary> Invoked when the Application is finalising. </summary>
+		
+		/**
+		 * @brief Finalizes the application.
+		 *
+		 * Releases allocated resources.
+		 *
+		 * @see Debug::Log(std::string_view, LogType, bool)
+		 * @see Input::Cursor::Reset()
+		 * @see UI::GUI::Dispose()
+		 * @see Physics::Physics::Dispose()
+		 * @see Input::Input::Dispose()
+		 * @see Audio::Sound::Dispose()
+		 * @see Networking::Requests::Dispose()
+		 * @see SDL_Quit()
+		 * @see Debug::Flush()
+		 *
+		 * @note This function should only be called when the application is about to terminate.
+		 */
 		static void Finalise();
 		
-		/// <summary> Invoked when the Application unexpectedly terminates. </summary>
+		/**
+		 * @brief Called when the application unexpectedly terminates.
+		 *
+		 * Perform finalisation and then exit the application.
+		 *
+		 * @see Debug::Log(const std::string_view&, const LogType&, const bool&)
+		 * @see Utils::ALDumpError(const bool&)
+		 * @see Utils::GLDumpError(const bool&)
+		 * @see Application::Finalise()
+		 * @see std::exit()
+		 */
 		static void OnTerminate();
 		
 	public:
@@ -38,11 +69,25 @@ namespace LouiEriksson::Engine {
 		
 		Application& operator = (const Application&  _other) = delete;
 		Application& operator =       (Application&& _other) = delete;
-	
-		/// <summary> Main function of the application. </summary>
+		
+		/**
+		 * @brief Entry point of the application.
+		 *
+		 * This function is the main entry point of the application, and contains the main loop.
+		 *
+		 * @param[in] _values A hashmap containing function pointers to initialize different user scripts
+		 * @return An integer error code (0 for successful execution)
+		 */
 		static int Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _values);
 		
-		/// <summary> Quits the application. </summary>
+		/**
+		 * @brief Quit function.
+		 *
+		 * This function is responsible for quitting the application.
+		 *
+		 * @see Application::s_Quit
+		 * @see Debug::Log(const std::string_view&, const LogType&, const bool&)
+		 */
 		static void Quit() noexcept;
 	};
 	

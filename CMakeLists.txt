@@ -2,17 +2,35 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION})
 project(FinalYearProject)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -flto -DNDEBUG")
 
-# ADD GLEW:
-set(GLEW_DIR         ${PROJECT_SOURCE_DIR}/contrib/glew)
-set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
-set(GLEW_LIB_DIR     ${GLEW_DIR}/lib)
+# DETECT ARHICTECTURE FOR SIMD OPTIMISATION
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86|AMD64)$")
+    set(ARCH_SSE2_FLAGS "-msse2")
+    set(ARCH_AVX_FLAGS "-mavx")
+    set(ARCH_AVX2_FLAGS "-mavx2")
+    set(ARCH_AVX512_FLAGS "-mavx512f -mavx512dq -mavx512bw -mavx512vl")
+endif()
 
-# ADD SDL:
-set(SDL2_DIR         ${PROJECT_SOURCE_DIR}/contrib/SDL2)
-set(SDL2_INCLUDE_DIR ${SDL2_DIR}/include)
-set(SDL2_LIB_DIR     ${SDL2_DIR}/lib/x86/)
+# APPEND ARCHITECTURE-SPECIFIC FLAGS FOR SIMD OPTIMISATION
+if(ARCH_SSE2_FLAGS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${ARCH_SSE2_FLAGS}")
+endif()
+if(ARCH_AVX_FLAGS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${ARCH_AVX_FLAGS}")
+endif()
+if(ARCH_AVX2_FLAGS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${ARCH_AVX2_FLAGS}")
+endif()
+if(ARCH_AVX512_FLAGS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${ARCH_AVX512_FLAGS}")
+endif()
+
+# DIFFERENT BUILD MODES:
+set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address,leak,undefined -Wall -Wextra -fno-omit-frame-pointer -g -O0")
+
+set(CMAKE_CXX_FLAGS_NOSANITIZERS "-Wall -Wextra -fno-omit-frame-pointer -g -O0")
+
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -funroll-loops -DNDEBUG")
 
 # ADD IMGUI:
 set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/contrib/imgui)
@@ -24,191 +42,23 @@ add_library(IMGUI STATIC
         ${IMGUI_DIR}/imgui_draw.cpp
         ${IMGUI_DIR}/imgui_tables.cpp
         ${IMGUI_DIR}/imgui_widgets.cpp
-
         ${IMGUI_BACKENDS_DIR}/imgui_impl_opengl3.cpp
         ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl2.cpp      # BACKENDS ...
 )
 
-# ADD PELLET:
-set(PELLET_DIR         ${PROJECT_SOURCE_DIR}/contrib/pellet/src/)
-set(PELLET_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/pellet/src/pellet)
-
-add_library(PELLET STATIC
-        ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3DynamicBvh.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3DynamicBvhBroadphase.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Collision/BroadPhaseCollision/b3OverlappingPairCache.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3ConvexUtility.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Collision/NarrowPhaseCollision/b3CpuNarrowPhase.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Common/b3AlignedAllocator.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Logging.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Common/b3Vector3.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/b3CpuRigidBodyPipeline.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3FixedConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Generic6DofConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3PgsJacobiSolver.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3Point2PointConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Dynamics/ConstraintSolver/b3TypedConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3ConvexHullComputer.cpp
-        ${PELLET_INCLUDE_DIR}/Bullet3Geometry/b3GeometryUtil.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btBroadphaseProxy.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btDbvt.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btDbvtBroadphase.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btDispatcher.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btOverlappingPairCache.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btQuantizedBvh.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/BroadphaseCollision/btSimpleBroadphase.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btBoxBoxDetector.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCollisionDispatcher.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCollisionObject.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCollisionWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCollisionWorldImporter.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCompoundCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btCompoundCompoundCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btConvexConcaveCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btConvexConvexAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btGhostObject.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btHashedSimplePairCache.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btInternalEdgeUtility.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btManifoldResult.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btSimulationIslandManager.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btSphereTriangleCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/btUnionFind.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionDispatch/SphereTriangleDetector.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btBox2dShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btBoxShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btCapsuleShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btCollisionShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btCompoundShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConcaveShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConeShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvex2dShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexHullShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexInternalShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexPointCloudShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexPolyhedron.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btCylinderShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btEmptyShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btMinkowskiSumShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btMultimaterialTriangleMeshShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btMultiSphereShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btOptimizedBvh.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btPolyhedralConvexShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btShapeHull.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btSphereShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btStaticPlaneShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btStridingMeshInterface.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTetrahedronShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleBuffer.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleCallback.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleIndexVertexMaterialArray.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleMesh.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btTriangleMeshShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/CollisionShapes/btUniformScalingShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btContactProcessing.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btGenericPoolAllocator.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btGImpactBvh.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btGImpactCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btGImpactQuantizedBvh.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btGImpactShape.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/btTriangleShapeEx.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/gim_box_set.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/gim_contact.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/gim_memory.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/Gimpact/gim_tri_collision.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btContinuousConvexCollision.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btConvexCast.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btGjkConvexCast.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btGjkEpa2.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btPersistentManifold.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btPolyhedralContactClipping.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btRaycastCallback.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btSubSimplexConvexCast.cpp
-        ${PELLET_INCLUDE_DIR}/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Character/btKinematicCharacterController.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btConeTwistConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btContactConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btFixedConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btGearConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btGeneric6DofSpring2Constraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btHinge2Constraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btHingeConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btNNCGConstraintSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btSliderConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btSolve2LinearConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btTypedConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/ConstraintSolver/btUniversalConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Dynamics/btDiscreteDynamicsWorldMt.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Dynamics/btRigidBody.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Dynamics/btSimpleDynamicsWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Dynamics/btSimulationIslandManagerMt.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBody.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyConstraintSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyDynamicsWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyFixedConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyJointLimitConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyJointMotor.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodyPoint2Point.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Featherstone/btMultiBodySliderConstraint.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/MLCPSolvers/btDantzigLCP.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/MLCPSolvers/btLemkeAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/MLCPSolvers/btMLCPSolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btRaycastVehicle.cpp
-        ${PELLET_INCLUDE_DIR}/BulletDynamics/Vehicle/btWheelInfo.cpp
-        ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeImpl.cpp
-        ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/details/MultiBodyTreeInitCache.cpp
-        ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/IDMath.cpp
-        ${PELLET_INCLUDE_DIR}/BulletInverseDynamics/MultiBodyTree.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btDefaultSoftBodySolver.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBody.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBodyConcaveCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBodyHelpers.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftMultiBodyDynamicsWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftRigidDynamicsWorld.cpp
-        ${PELLET_INCLUDE_DIR}/BulletSoftBody/btSoftSoftCollisionAlgorithm.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btAlignedAllocator.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHull.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btConvexHullComputer.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btGeometryUtil.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btPolarDecomposition.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btQuickprof.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btSerializer.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btThreads.cpp
-        ${PELLET_INCLUDE_DIR}/LinearMath/btVector3.cpp
-)
-
-# ADD OPENAL:
+# FIND PACKAGES:
+find_package(GLEW   REQUIRED)
+find_package(SDL2   REQUIRED)
+find_package(Bullet REQUIRED)
 find_package(OpenAL REQUIRED)
+find_package(CURL   REQUIRED)
+find_package(assimp REQUIRED)
 
-# ADD CURL:
-find_package(CURL REQUIRED)
+# ADD JSON:
+set(JSON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/nlohmann/)
+
+# ADD MAPBOX:
+set(MAPBOX_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/mapbox/)
 
 # ADD VSOP87:
 set(VSOP87_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib/greg-miller/vsop87/)
@@ -220,17 +70,17 @@ add_library(VSOP87 STATIC
 
 # LINK:
 include_directories(
-        ${GLEW_INCLUDE_DIR}
+        ${CURL_INCLUDE_DIRS}
         ${IMGUI_DIR}
-        ${PELLET_INCLUDE_DIR}
+        ${JSON_INCLUDE_DIR}
+        ${OPENAL_INCLUDE_DIR}
+        ${BULLET_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/contrib/cereal/include
         ${PROJECT_SOURCE_DIR}/contrib/glm
         ${PROJECT_SOURCE_DIR}/contrib/stb/include
-        ${PROJECT_SOURCE_DIR}/contrib/wavefront/include
-        ${SDL2_INCLUDE_DIR}
-        ${OPENAL_INCLUDE_DIR}
+        ${SDL2_INCLUDE_DIRS}
         ${VSOP87_INCLUDE_DIR}
-        ${CURL_INCLUDE_DIRS}
+        ${MAPBOX_INCLUDE_DIR}
 )
 
 # ADD FINALYEARPROJECT:
@@ -245,6 +95,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/audio/Sound.h
         src/engine/scripts/core/Application.cpp
         src/engine/scripts/core/Application.h
+        src/engine/scripts/core/Debug.cpp
+        src/engine/scripts/core/Debug.h
         src/engine/scripts/core/File.cpp
         src/engine/scripts/core/File.h
         src/engine/scripts/core/Resources.cpp
@@ -294,6 +146,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/input/Cursor.h
         src/engine/scripts/input/Input.cpp
         src/engine/scripts/input/Input.h
+        src/engine/scripts/networking/Requests.cpp
+        src/engine/scripts/networking/Requests.h
         src/engine/scripts/physics/Collider.cpp
         src/engine/scripts/physics/Collider.h
         src/engine/scripts/physics/colliders/PlaneCollider.cpp
@@ -308,52 +162,64 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/physics/Rigidbody.h
         src/engine/scripts/spatial/atmosphere/ISA.cpp
         src/engine/scripts/spatial/atmosphere/ISA.h
+        src/engine/scripts/spatial/elevation/Elevation.cpp
+        src/engine/scripts/spatial/elevation/Elevation.h
+        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.cpp
+        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h
         src/engine/scripts/spatial/maths/Conversions.cpp
         src/engine/scripts/spatial/maths/Conversions.h
         src/engine/scripts/spatial/maths/Coords.cpp
         src/engine/scripts/spatial/maths/Coords.h
-        src/engine/scripts/spatial/osm/features/Point.h
-        src/engine/scripts/spatial/osm/utils/OSM_Utils.cpp
-        src/engine/scripts/spatial/osm/utils/OSM_Utils.h
+        src/engine/scripts/spatial/meshing/Builder.cpp
+        src/engine/scripts/spatial/meshing/Builder.h
+        src/engine/scripts/spatial/osm/OSM.cpp
+        src/engine/scripts/spatial/osm/OSM.h
+        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.cpp
+        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
+        src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/planets/WGCCRE.cpp
         src/engine/scripts/spatial/planets/WGCCRE.h
-        src/engine/scripts/ui/GUI.cpp
-        src/engine/scripts/ui/GUI.h
-        src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/stars/ATHYG.cpp
         src/engine/scripts/spatial/stars/ATHYG.h
-        src/engine/scripts/networking/Requests.cpp
-        src/engine/scripts/networking/Requests.h
-        src/engine/scripts/spatial/elevation/Elevation.cpp
-        src/engine/scripts/spatial/elevation/Elevation.h
-        src/engine/scripts/spatial/osm/serialisation/OSM.cpp
-        src/engine/scripts/spatial/osm/serialisation/OSM.h
+        src/engine/scripts/ui/GUI.cpp
+        src/engine/scripts/ui/GUI.h
+        src/engine/scripts/graphics/TextureCPU.cpp
+        src/engine/scripts/graphics/TextureCPU.h
 )
 
-link_directories(FinalYearProject
-        ${GLEW_LIB_DIR}
-        ${SDL2_LIB_DIR}
-)
+target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
+
+# Set libs to compile with release flags and no sanitizers or rtti.
+set(LIB_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -fno-rtti")
+
+string(STRIP "${LIB_FLAGS}" LIB_FLAGS)
+string(REPLACE " " ";" LIB_FLAGS "${LIB_FLAGS}")
+
+target_compile_options(IMGUI  PRIVATE ${LIB_FLAGS})
+target_compile_options(VSOP87 PRIVATE ${LIB_FLAGS})
+
+# LINK LIBS:
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_link_options(FinalYearProject PRIVATE -flto=auto -Wl,--strip-all -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
+else()
+    target_link_options(FinalYearProject PRIVATE -flto=auto -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
+endif()
 
 target_link_libraries(FinalYearProject
 
         # CORE:
+        assimp::assimp
+        CURL::libcurl
         GL
         GLEW
         IMGUI
         OpenAL::OpenAL
-        PELLET
-        SDL2
-        SDL2main
-
-        # NETWORKING:
-        CURL::libcurl
+        ${BULLET_LIBRARIES}
+        ${SDL2_LIBRARIES}
 
         # SPATIAL:
         VSOP87
 )
-
-target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
 
 # ADD GAME:
 add_executable(Game
@@ -364,16 +230,12 @@ add_executable(Game
         src/game/scripts/Ball.h
         src/game/scripts/FlyCam.cpp
         src/game/scripts/FlyCam.h
-        src/game/scripts/OrbitCam.cpp
-        src/game/scripts/OrbitCam.h
         src/game/scripts/Plane.cpp
         src/game/scripts/Plane.h
         src/game/scripts/Planetarium.cpp
         src/game/scripts/Planetarium.h
-)
-
-target_link_libraries(Game PRIVATE
-        FinalYearProject
+        src/game/scripts/Map.cpp
+        src/game/scripts/Map.h
 )
 
 target_precompile_headers(Game PRIVATE
@@ -386,6 +248,14 @@ target_precompile_headers(Game PRIVATE
         src/game/include/engine_spatial.h
         src/game/include/engine_ui.h
 )
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_link_options(Game PRIVATE  -flto=auto -Wl,--strip-all -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
+else()
+    target_link_options(Game PRIVATE -flto=auto -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
+endif()
+
+target_link_libraries(Game PRIVATE FinalYearProject)
 
 # COPY FILES:
 set(    AUDIO_DIR ${PROJECT_SOURCE_DIR}/src/engine/audio    )

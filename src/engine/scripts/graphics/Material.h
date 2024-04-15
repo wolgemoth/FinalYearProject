@@ -50,7 +50,11 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		~Material();
 		
-		/// <summary> Get the currently assigned Shader. </summary>
+		/**
+		 * \brief Get the currently assigned Shader.
+		 *
+		 * \return A weak pointer to the currently assigned Shader.
+		 */
 		[[nodiscard]] const std::weak_ptr<Shader>& GetShader() const noexcept;
 		
 		[[nodiscard]] const std::weak_ptr<Texture>& GetAlbedoTexture()       const noexcept;

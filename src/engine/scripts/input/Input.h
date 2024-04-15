@@ -22,42 +22,55 @@ namespace LouiEriksson::Engine {
 
 namespace LouiEriksson::Engine::Input {
 	
-	class Input {
+	/**
+	 * @class Input
+	 * @brief Provides an interface for accessing and managing device input.
+	 */
+	class Input final {
 	
 		friend LouiEriksson::Engine::Application;
 	
 	private:
 	
 	public:
-	
-		/// <summary> Provides an interface for detecting SDL_Events. </summary>
-		struct Event {
+		
+		/**
+		 * @class Event
+		 * @brief Provides an interface for detecting SDL_Events.
+		 */
+		class Event final {
 		
 			friend Input;
 		
 		private:
 		
-			/// <summary> Hashmap of all SDL_Events for this frame. </summary>
+			/** @brief Hashmap of all SDL_Events for this frame. */
 			inline static Hashmap<Uint32, std::vector<SDL_Event>> s_Events;
 
 		public:
 		
-			/// <summary> Get all events of a certain type which occurred this frame. </summary>
+			/** @brief et all events of a certain type which occurred this frame. */
 			static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept;
 			
-			/// <summary> Check if an event occurred this frame. </summary>
+			/** @brief Check if an event occurred this frame. */
 			static bool Get(const Uint32& _event) noexcept;
 			
 		};
-	
-		/// <summary> Provides an interface for detecting key presses. </summary>
-		struct Key {
+		
+		/**
+		 * @class Key
+		 * @brief Provides an interface for detecting key presses.
+		 */
+		class Key final {
 		
 			friend Input;
 		
 		private:
 			
-			/// <summary> Wraps a c-style pointer representing the state of the keyboard. </summary>
+			/**
+			 * @class State
+			 * @brief Wraps a c-style pointer representing the state of the keyboard.
+			 */
 			struct State {
 			
 				friend Input;
@@ -72,40 +85,85 @@ namespace LouiEriksson::Engine::Input {
 				 State() noexcept;
 				~State();
 				
-				/// <summary> Returns the state of the keyboard at the provided SDL_KeyCode. </summary>
+				/** @brief  Returns the state of the keyboard at the provided SDL_KeyCode. */
 				[[nodiscard]] bool Get(const SDL_Keycode& _value) const;
 				
-				/// <summary> Returns the state of the keyboard at the provided SDL_Scancode. </summary>
+				/** @brief Returns the state of the keyboard at the provided SDL_Scancode. */
 				[[nodiscard]] bool Get(const SDL_Scancode& _value) const;
 				
 			};
 			
-			inline static State s_PreviousKeyboardState{}; // Keyboard state previous tick.
-			inline static State  s_CurrentKeyboardState{}; // Keyboard state current tick.
+			inline static State s_PreviousKeyboardState{}; /**< @brief Keyboard state previous tick. */
+			inline static State  s_CurrentKeyboardState{}; /**< @brief Keyboard state current tick. */
 		
 		public:
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) is held. </summary>
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Scancode) is held.
+			 *
+			 * This function checks if the provided key is currently being held.
+			 *
+			 * @param[in] _key The SDL_Scancode of the key to check.
+			 * @return True if the key is pressed, false otherwise.
+			 */
 			static bool Get(const SDL_Scancode& _key);
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) is held. </summary>
-			static bool Get(const SDL_Keycode& _key);
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Keycode) is held.
+			 *
+			 * This function checks if the provided key is currently being held.
+			 *
+			 * @param[in] _key The SDL_Keycode of the key to check.
+			 * @return True if the key is pressed, false otherwise.
+			 */
+			 static bool Get(const SDL_Keycode& _key);
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) was pressed. </summary>
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Scancode) was pressed.
+			 *
+			 * This function checks if the provided key was released.
+			 *
+			 * @param[in] _key The SDL_Scancode of the key to check.
+			 * @return True if the key is pressed, false otherwise.
+			 */
 			static bool GetDown(const SDL_Scancode& _key);
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) was pressed. </summary>
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Keycode) was pressed.
+			 *
+			 * This function checks if the provided key was released.
+			 *
+			 * @param[in] _key The SDL_Keycode of the key to check.
+			 * @return True if the key is pressed, false otherwise.
+			 */
 			static bool GetDown(const SDL_Keycode& _key);
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Scancode) was released. </summary>
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Scancode) was released.
+			 *
+			 * This function checks if the provided key was previously pressed and is now released.
+			 *
+			 * @param[in] _key The SDL_Scancode of the key to check.
+			 * @return True if the key is released, false otherwise.
+			 */
 			static bool GetUp(const SDL_Scancode& _key);
 			
-			/// <summary> Returns true if the provided key (in the form of SDL_Keycode) was released. </summary>
+			/**
+			 * @brief Returns true if the provided key (in the form of SDL_Keycode) was released.
+			 *
+			 * This function checks if the provided key was previously pressed and is now released.
+			 *
+			 * @param[in] _key The SDL_Keycode of the key to check.
+			 * @return True if the key is released, false otherwise.
+			 */
 			static bool GetUp(const SDL_Keycode& _key);
 			
 		};
 		
-		/// <summary> Provides an interface for detecting mouse input. </summary>
+		/**
+		 * @class Mouse
+		 * @brief Provides an interface for detecting mouse input.
+		 */
 		struct Mouse {
 		
 			friend Input;
@@ -113,24 +171,55 @@ namespace LouiEriksson::Engine::Input {
 		
 		private:
 			
-			/// <summary> SDL mouse relative state. </summary>
+			/** @brief SDL mouse relative state.*/
 			inline static Uint32 s_MouseState { 0u };
 			
-			/// <summary> Pixels the mouse has moved since previous tick. </summary>
+			/** @brief Pixels the mouse has moved since previous tick. */
 			inline static glm::vec2 s_Motion { 0.0, 0.0 };
 			
 		public:
 			
-			/// <summary> Returns the relative motion of the mouse. </summary>
+			/**
+			 * @fn const glm::vec2& Input::Mouse::Motion() noexcept
+			 * @brief Retrieves the motion of the mouse.
+			 * @return The pixels the mouse has moved since the previous frame.
+			 */
 			static const glm::vec2& Motion() noexcept;
 			
-			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) is held. </summary>
+			/**
+			 * @fn static bool Input::Mouse::Get(const Uint8& _button) noexcept
+			 * @brief Returns true if the provided mouse button is held.
+			 *
+			 * This function checks if the specified mouse button is currently being held down.
+			 * The mouse button is represented by an SDL button constant, such as SDL_BUTTON_LEFT.
+			 *
+			 * @param[in] _button The mouse button to check.
+			 * @return true if the mouse button is currently held down, false otherwise.
+			 */
 			static bool Get(const Uint8& _button) noexcept;
 			
-			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was pressed. </summary>
+			/**
+			 * @fn static bool Input::Mouse::GetDown(const Uint8& _button)
+			 * @brief Returns true if the provided mouse button was pressed.
+			 *
+			 * This function checks if the specified mouse button was pressed.
+			 * The mouse button is represented by an SDL button constant, such as SDL_BUTTON_LEFT.
+			 *
+			 * @param[in] _button The mouse button to check.
+			 * @return true if the mouse button was pressed, false otherwise.
+			 */
 			static bool GetDown(const Uint8& _button);
 			
-			/// <summary> Returns true if the provided mouse button (i.e SDL_BUTTON_LEFT) was released. </summary>
+			/**
+			 * @fn bool Mouse::GetUp(const Uint8& _button)
+			 * @brief Returns true if the provided mouse button was released.
+			 *
+			 * This function checks if the specified mouse button was released.
+			 * The mouse button is represented by an SDL button constant, such as SDL_BUTTON_LEFT.
+			 *
+			 * @param[in] _button The mouse button to check.
+			 * @return true if the mouse button was released, false otherwise.
+			 */
 			static bool GetUp(const Uint8& _button);
 			
 		};
@@ -142,10 +231,10 @@ namespace LouiEriksson::Engine::Input {
 		Input& operator = (const Input&  _other) = delete;
 		Input& operator = (      Input&& _other) = delete;
 		
-		/// <summary> Refresh the input. </summary>
+		/** @brief Refresh the input. */
 		static void Tick();
 		
-		/// <summary> Finalise input. </summary>
+		/** @brief Finalise input. */
 		static void Dispose();
 		
 	};

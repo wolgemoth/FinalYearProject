@@ -31,7 +31,10 @@
 #include <curl/curl.h>              // CURL
 
 /* INTERNAL */
+
+#define HASHMAP_SUPPRESS_EXCEPTION_WARNING
 #include "core/utils/Hashmap.h"
+
 #include "core/Debug.h"
 
 /* STL */
@@ -54,6 +57,7 @@
 #include <memory>
 #include <queue>
 #include <regex>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 #include <string>

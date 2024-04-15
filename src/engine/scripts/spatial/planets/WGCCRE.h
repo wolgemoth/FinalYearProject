@@ -9,11 +9,37 @@
 
 namespace LouiEriksson::Engine::Spatial {
 	
-	struct WGCCRE {
+	/**
+	 * @brief The WGCCRE class provides functions for calculating orientations of astronomical objects as outlined in the WGCCRE reports.
+	 *
+	 * @remarks A utility is provided for retrieving orientations for use with the the VSOP87 model.
+	 *
+	 * @note The orientations are provided based on the
+	 * <a href="https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2015reprint.pdf">2015 WGCCRE report</a>
+	 * and the
+	 * <a href="https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2009reprint.pdf">2009 WGCCRE report</a>.
+	 *
+	 * @see <a href="https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2015reprint.pdf">WGCCRE2015</a>
+	 * @see <a href="https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2009reprint.pdf">WGCCRE2009</a>
+	 */
+	struct WGCCRE final {
 	
 	private:
 		
+		/**
+		 * @brief Calculates the sine of an angle in degrees.
+		 *
+		 * @param[in] _x The input angle in degrees.
+		 * @return The sine value of the input angle in degrees.
+		 */
 		static double sin_d(const double& _x);
+		
+		/**
+		 * @brief Calculates the cosine of an angle in degrees.
+		 *
+		 * @param[in] _x The input angle in degrees.
+		 * @return The cosine value of the input angle in degrees.
+		 */
 		static double cos_d(const double& _x);
 		
 		template<typename T, glm::precision P>
@@ -24,10 +50,12 @@ namespace LouiEriksson::Engine::Spatial {
 		template<typename T, glm::precision P>
 		static glm::vec<3, T, P> GetOrientationVSOP87(const std::string_view& _name, const double& _t);
 		
-		/// <summary>
-		/// https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2015reprint.pdf
-		/// </summary>
-		struct Report_2015 {
+		/**
+		 * @brief Provides orientations of astronomical objects as outlined in the 2015 WGCCRE report.
+		 *
+		 * @see https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2015reprint.pdf
+		 */
+		struct Report_2015 final {
 		
 			template<typename T, glm::precision P>
 			static glm::vec<3, T, P> Sol(const double& _t);
@@ -55,9 +83,11 @@ namespace LouiEriksson::Engine::Spatial {
 			
 		};
 		
-		/// <summary>
-		/// https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2009reprint.pdf
-		/// </summary>
+		/**
+		 * @brief Provides orientations of astronomical objects as outlined in the 2009 WGCCRE report.
+		 *
+		 * @see https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2009reprint.pdf
+		 */
 		struct Report_2009 {
 			
 			template<typename T, glm::precision P>
