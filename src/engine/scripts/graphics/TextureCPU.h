@@ -7,7 +7,7 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	class TextureCPU {
+	class TextureCPU final {
 		
 	private:
 		

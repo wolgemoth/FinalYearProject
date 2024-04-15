@@ -7,7 +7,6 @@
 #include <glm/ext/quaternion_float.hpp>
 #include <glm/ext/vector_float3.hpp>
 
-#include <cstddef>
 #include <sstream>
 #include <stdexcept>
 #include <string>

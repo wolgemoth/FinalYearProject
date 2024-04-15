@@ -16,7 +16,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
         inline static glm::vec3 s_Origin{};
 		
         /** @brief Globally-average Earth radius in metres, according to the International System of Units. */
-        inline static constexpr auto SI_EarthRadius = 6371000.0;
+        static constexpr auto SI_EarthRadius = 6371000.0;
 		
 		/**
 		 * @class WGS84
@@ -28,9 +28,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		private:
 			
-			inline static constexpr auto s_RMajor = 6378137.0;
-            inline static constexpr auto s_RMinor = 6356752.3142;
-            inline static constexpr auto s_Ratio  = s_RMinor / s_RMajor;
+			static constexpr auto s_RMajor = 6378137.0;
+            static constexpr auto s_RMinor = 6356752.3142;
+            static constexpr auto s_Ratio  = s_RMinor / s_RMajor;
 
             inline static const auto s_Eccent = std::sqrt(1.0 - (s_Ratio * s_Ratio));
             inline static const auto s_Com    = 0.5 * s_Eccent;

@@ -54,7 +54,7 @@ namespace LouiEriksson::Engine::Spatial {
 		 *
 		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
 		 */
-		struct V2 {
+		struct V2 final {
 		
 			  size_t      id;
 			  std::string tyc;
@@ -99,7 +99,7 @@ namespace LouiEriksson::Engine::Spatial {
 		 *
 		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
 		 */
-		struct V3 {
+		struct V3 final {
 		
 			  size_t      id;
 			  std::string tyc;

@@ -16,7 +16,7 @@ namespace LouiEriksson::Engine {
 	 * @class Serialisation
 	 * @brief The Serialisation class provides methods for serializing and deserializing data.
 	 */
-	class Serialisation {
+	class Serialisation final {
 	
 	public:
 		

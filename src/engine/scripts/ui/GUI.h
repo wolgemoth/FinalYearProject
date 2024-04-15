@@ -21,14 +21,14 @@ namespace LouiEriksson::Engine::Input {
 
 namespace LouiEriksson::Engine::UI {
 	
-	class GUI {
+	class GUI final {
 		
 		friend LouiEriksson::Engine::Application;
 		friend LouiEriksson::Engine::Input::Input;
 		
 	private:
 	
-		struct Parameters {
+		struct Parameters final {
 			
 			enum Style : char {
 				Dark, /**< @brief  Dark theme. */
@@ -37,7 +37,7 @@ namespace LouiEriksson::Engine::UI {
 			
 		};
 		
-		class GUIWindows {
+		class GUIWindows final {
 			
 			friend GUI;
 			
@@ -60,7 +60,7 @@ namespace LouiEriksson::Engine::UI {
 		 * @brief Initialises the GUI.
 		 *
 		 * This function is responsible for initialising the GUI using the ImGui library.
-		 * It creates the ImGui context, initializes the ImGui backends for the specified window, and sets up the OpenGL bindings.
+		 * It creates the ImGui context, initialises the ImGui backends for the specified window, and sets up the OpenGL bindings.
 		 *
 		 * @param[in] _window The weak pointer to the Window object.
 		 * @param[in] _glsl_version The GLSL version to use.
@@ -92,7 +92,7 @@ namespace LouiEriksson::Engine::UI {
 		/**
 		 * @brief Dispose of the GUI.
 		 *
-		 * This function is responsible for disposing the GUI, freeing up any resources that were allocated during initialization.
+		 * This function is responsible for disposing the GUI, freeing up any resources that were allocated during initialisation.
 		 * It safely disposes of the IMGUI context, shuts down the ImGui backends, and destroys the context.
 		 */
 		static void Dispose();

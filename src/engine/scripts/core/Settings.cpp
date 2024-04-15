@@ -2,7 +2,6 @@
 
 #include "Resources.h"
 
-#include <stdexcept>
 
 namespace LouiEriksson::Engine {
 	

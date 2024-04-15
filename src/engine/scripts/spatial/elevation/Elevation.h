@@ -3,9 +3,7 @@
 
 #include "serialisation/ElevationDeserialiser.h"
 
-#include "../../networking/Requests.h"
 
-#include <cstddef>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float4.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -16,7 +14,7 @@
 
 namespace LouiEriksson::Engine::Spatial {
 
-	class Elevation {
+	class Elevation final {
 	
 	public:
 		

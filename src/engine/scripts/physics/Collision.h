@@ -10,7 +10,7 @@ namespace LouiEriksson::Engine::Physics {
 	 * struct Collision
 	 * @brief Contains information describing a collision between a Rigidbody and a Collider.
 	 */
-	struct Collision {
+	struct Collision final {
 	
 	private:
 	

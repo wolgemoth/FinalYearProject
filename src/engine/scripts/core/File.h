@@ -30,11 +30,11 @@ namespace LouiEriksson::Engine::Graphics {
 
 namespace LouiEriksson::Engine {
 	
-	class File {
+	class File final {
 	
 	public:
 		
-		struct Directory {
+		struct Directory final {
 			
 			enum EntryType : char {
 				FILE      = 1u << 0u, /**< @brief File entries. */

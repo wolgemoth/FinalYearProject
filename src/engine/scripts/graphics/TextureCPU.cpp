@@ -9,7 +9,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::Graphics {

@@ -132,9 +132,9 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
-			m_LastPosition(   0.0f),
 			m_Source      (AL_NONE),
-			m_Parameters  ()
+			m_Parameters  (),
+			m_LastPosition(   0.0f)
 	{
 		try {
 			

@@ -19,7 +19,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <array>
-#include <exception>
 #include <filesystem>
 #include <sstream>
 #include <stdexcept>

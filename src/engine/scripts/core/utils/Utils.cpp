@@ -6,7 +6,6 @@
 #include <glm/ext/vector_float3.hpp>
 
 #include <cmath>
-#include <queue>
 #include <regex>
 #include <sstream>
 #include <string>

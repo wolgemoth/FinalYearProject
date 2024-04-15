@@ -65,7 +65,7 @@
         for (int i = 0; i < u_Samples; ++i) {
 
             mediump vec3 randomVec = normalize(
-                vec3((Random2S(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2.0, 1.0)
+                vec3((Random2S(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2, 1.0)
             );
 
             mediump vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));

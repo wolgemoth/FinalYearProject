@@ -19,7 +19,7 @@ namespace LouiEriksson::Game::Scripts {
 	protected:
 		
 		template<typename T, glm::precision P>
-		class Planets {
+		class Planets final {
 		
 		public:
 			
@@ -27,7 +27,7 @@ namespace LouiEriksson::Game::Scripts {
 			 * @struct Transform
 			 * @brief Represents the transform of a astronomical object.
 			 */
-			struct Transform {
+			struct Transform final {
 				
 				typename Engine::Spatial::VSOP<T, P>::Position m_Position;
 				
@@ -108,6 +108,8 @@ namespace LouiEriksson::Game::Scripts {
 			 */
 			[[nodiscard]] const std::vector<std::string> Names() const;
 			
+			Planets();
+			
 		private:
 			
 			/**
@@ -175,6 +177,9 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 	};
+	
+	template<typename T, glm::precision P>
+	Planetarium::Planets<T, P>::Planets() : m_Time(0) {}
 	
 	/**
 	 * @brief Sets the time of the planetarium.

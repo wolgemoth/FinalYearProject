@@ -44,7 +44,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	 * Bernard, M., 2023. International_Standard_Atmosphere/International_Standard_Atmosphere/Algorithm.cs at main · maxbernard3/International_Standard_Atmosphere [online].
 	 * GitHub. Available from: https://github.com/maxbernard3/International_Standard_Atmosphere/blob/main/International_Standard_Atmosphere/Algorithm.cs [Accessed 14 Mar 2024].
 	 */
-	class ISA {
+	class ISA final {
  
 	public:
 		
@@ -53,7 +53,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 * @brief Represents the state of the atmosphere
 		 * Includes pressure, density and temperature
 		 */
-		struct State {
+		struct State final {
 			
 			float m_Pressure,    /**< @brief Represents Pressure in Pascals */
 			      m_Density,     /**< @brief Represents Density in kilograms per cubic metre */
@@ -73,12 +73,12 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	private:
 		
         /* CONSTANTS */
-        inline static constexpr float s_G = 9.80665f; // Acceleration due to gravity
-        inline static constexpr float s_R = 287.0f;   // Molar gas constant for air
-        inline static constexpr float s_E = 2.71828f; // Euler's constant
+        static constexpr float s_G = 9.80665f; // Acceleration due to gravity
+        static constexpr float s_R = 287.0f;   // Molar gas constant for air
+        static constexpr float s_E = 2.71828f; // Euler's constant
 
 		/** @brief Temperature gradient in Kelvin per metre. */
-        inline static constexpr const std::array<float, 8> s_A_Val {
+        static constexpr const std::array<float, 8> s_A_Val {
 			-0.0065f,
 			 0,
 			 0.0010f,

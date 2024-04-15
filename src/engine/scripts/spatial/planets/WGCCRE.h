@@ -4,7 +4,6 @@
 #include <glm/detail/qualifier.hpp>
 
 #include <cstdio>
-#include <string>
 #include <string_view>
 
 namespace LouiEriksson::Engine::Spatial {
@@ -88,7 +87,7 @@ namespace LouiEriksson::Engine::Spatial {
 		 *
 		 * @see https://astropedia.astrogeology.usgs.gov/download/Docs/WGCCRE/WGCCRE2009reprint.pdf
 		 */
-		struct Report_2009 {
+		struct Report_2009 final {
 			
 			template<typename T, glm::precision P>
 			static glm::vec<3, T, P> Earth(const double& _t);

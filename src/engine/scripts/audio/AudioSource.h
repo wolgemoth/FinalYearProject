@@ -32,7 +32,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * This struct stores various properties related to audio playback.
 		 */
-		struct Parameters {
+		struct Parameters final {
 		
 			/**
 			 * @brief Determines whether the AudioSource is global or not.

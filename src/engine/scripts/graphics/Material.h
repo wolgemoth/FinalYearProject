@@ -18,7 +18,7 @@ namespace LouiEriksson::Engine::Graphics {
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	class Material {
+	class Material final {
 	
 		friend LouiEriksson::Engine::File;
 		

@@ -64,7 +64,7 @@ namespace LouiEriksson::Engine::Graphics {
 			/**
 			 * @brief Specifies a Texture's filter mode.
 			 */
-			struct FilterMode {
+			struct FilterMode final {
 			
 			private:
 				GLenum m_Min;
@@ -87,7 +87,7 @@ namespace LouiEriksson::Engine::Graphics {
 			/**
 			 * @brief Specifies a Texture's wrap mode.
 			 */
-			struct WrapMode {
+			struct WrapMode final {
 			
 			private:
 				GLenum m_WrapS;

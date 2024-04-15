@@ -6,23 +6,22 @@
 #include <glm/detail/qualifier.hpp>
 #include <vsop87a_full.h>
 
-#include <utility>
 
 namespace LouiEriksson::Engine::Spatial {
 	
 	template <typename T, glm::precision P>
-	struct VSOP {
+	struct VSOP final {
 	
-		struct Position {
+		struct Position final {
 			
 			glm::vec<3, T, P> m_Spherical;
 			glm::vec<3, T, P> m_Cartesian;
 			glm::qua<   T, P> m_Rotation;
 		};
 		
-		struct V87 {
+		struct V87 final {
 			
-			struct A {
+			struct A final {
 				
 				static Position GetSol(const double& _time) {
 					return {

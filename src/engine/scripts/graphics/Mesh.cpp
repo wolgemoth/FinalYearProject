@@ -23,16 +23,16 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	Mesh::Mesh(const GLenum& _format) noexcept :
 		         m_Format(_format),
-		         m_VAO_ID(GL_NONE),
+		         m_IndexFormat(GL_NONE),
+		 m_VAO_ID(GL_NONE),
 		 m_PositionVBO_ID(GL_NONE),
-		 m_TexCoordVBO_ID(GL_NONE),
-		    m_IndexVBO_ID(GL_NONE),
-		   m_NormalVBO_ID(GL_NONE),
-		  m_TangentVBO_ID(GL_NONE),
-		m_BitangentVBO_ID(GL_NONE),
-		    m_VertexCount(0),
-		     m_IndexCount(0),
-			m_IndexFormat(GL_NONE){}
+		    m_TexCoordVBO_ID(GL_NONE),
+		   m_IndexVBO_ID(GL_NONE),
+		  m_NormalVBO_ID(GL_NONE),
+		m_TangentVBO_ID(GL_NONE),
+		    m_BitangentVBO_ID(GL_NONE),
+		     m_VertexCount(0),
+			m_IndexCount(0){}
 			  
 	Mesh::~Mesh() {
 		
@@ -976,12 +976,15 @@ namespace LouiEriksson::Engine::Graphics {
 					
 		            uvs[idx] = uv;
 					
+					const auto fi = static_cast<float>(i);
+					const auto fj = static_cast<float>(j);
+					
 					// Extract normals from heightmap:
 					normals[idx] = glm::normalize(
 						glm::vec3(
-							(_heights.GetPixelBilinear({i + ts.x, j}) - _heights.GetPixelBilinear({i - ts.x, j})) / 2.0,
+							(_heights.GetPixelBilinear({fi + ts.x, fj}) - _heights.GetPixelBilinear({fi - ts.x, fj})) / 2,
 							1.0,
-							(_heights.GetPixelBilinear({i, j + ts.y}) - _heights.GetPixelBilinear({i, j - ts.y})) / 2.0
+							(_heights.GetPixelBilinear({fi, fj + ts.y}) - _heights.GetPixelBilinear({fi, fj - ts.y})) / 2
 						)
 					);
 					

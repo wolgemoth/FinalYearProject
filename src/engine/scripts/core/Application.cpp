@@ -101,7 +101,7 @@ namespace LouiEriksson::Engine {
 				if (glewInit() != GLEW_OK) {
 					
 					// Throw error if GLEW fails to initialise correctly.
-					throw std::runtime_error("Failed to initialize GLEW!");
+					throw std::runtime_error("Failed to initialise GLEW!");
 				}
 				
 				auto renderFlags = Graphics::Camera::RenderFlags::REINITIALISE;
@@ -126,7 +126,7 @@ namespace LouiEriksson::Engine {
 				float physics_step = 0.0f;
 				
 				// Load a scene and run:
-				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 				scene->Begin();
 				
 				/* LOOP */

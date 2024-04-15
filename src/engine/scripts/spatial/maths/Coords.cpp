@@ -35,7 +35,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	    con = std::pow(((1.0 - con) / (1.0 + con)), s_Com);
 	
-	    const auto ts = std::tan(0.5 * ((M_PI / 2.0) - phi)) / con;
+	    const auto ts = std::tan(0.5 * ((M_PI / 2) - phi)) / con;
 	
 	    return (0.0 - s_RMajor * std::log(ts));
 	}
@@ -43,7 +43,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	double Coords::WGS84::YToLatitude(const double& _y) {
 	
 	    const auto ts = std::exp(-_y / s_RMajor);
-	    auto phi  = (M_PI / 2.0) - 2.0 * std::atan(ts);
+	    auto phi  = (M_PI / 2) - 2.0 * std::atan(ts);
 		
 	    auto dphi = 1.0;
 	
@@ -52,7 +52,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	        const auto con = s_Eccent * std::sin(phi);
 	
-	        dphi = (M_PI / 2.0) - 2.0 * std::atan(ts * std::pow((1.0 - con) / (1.0 + con), s_Com)) - phi;
+	        dphi = (M_PI / 2) - 2.0 * std::atan(ts * std::pow((1.0 - con) / (1.0 + con), s_Com)) - phi;
 	        phi += dphi;
 	
 	        i++;

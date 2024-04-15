@@ -16,8 +16,6 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include <sstream>
-#include <stdexcept>
 
 namespace LouiEriksson::Engine {
 	
@@ -157,7 +155,7 @@ namespace LouiEriksson::Engine {
 	
 	void Window::Link(Graphics::Camera& _camera) {
 		
-		if (m_Cameras.Add(std::move(reinterpret_cast<size_t>(&_camera)), std::move(std::reference_wrapper(_camera)))) {
+		if (m_Cameras.Add(reinterpret_cast<size_t>(&_camera), std::reference_wrapper(_camera))) {
 			_camera.m_Window = Get(ID());
 		}
 		else {

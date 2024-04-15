@@ -20,10 +20,10 @@
 namespace LouiEriksson::Engine {
 	
 	/**
-	 * @class Transform
+	 * @struct Transform
 	 * @brief Component representing a Transform.
 	 *
-	 * This class represents a Transform component, which is responsible for storing the position, rotation, and scale of an object in a 3D space. It inherits from the ECS::Component class.
+	 * This struct represents a Transform component, which is responsible for storing the position, rotation, and scale of an object in a 3D space. It inherits from the ECS::Component class.
 	 */
 	struct Transform final : public ECS::Component {
 		

@@ -1,11 +1,9 @@
 #ifndef FINALYEARPROJECT_ELEVATIONDESERIALISER_H
 #define FINALYEARPROJECT_ELEVATIONDESERIALISER_H
 
-#include "../../../core/Debug.h"
 
 #include <json.hpp>
 
-#include <exception>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -14,7 +12,7 @@ using json = nlohmann::json;
 
 namespace LouiEriksson::Engine::Spatial::Serialisation {
 
-	class ElevationDeserialiser {
+	class ElevationDeserialiser final {
 	
 	private:
 		
@@ -101,7 +99,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		};
 		
 		template <typename T>
-	    inline static T Deserialise(std::istringstream _data) {
+	    static T Deserialise(std::istringstream _data) {
 			return { json::parse(_data) };
 		}
 	};

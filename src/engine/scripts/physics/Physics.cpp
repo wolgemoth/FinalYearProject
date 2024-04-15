@@ -18,7 +18,6 @@
 
 #include <exception>
 #include <memory>
-#include <stdexcept>
 
 namespace LouiEriksson::Engine::Physics {
 	
@@ -84,7 +83,7 @@ namespace LouiEriksson::Engine::Physics {
 			// Initialise the configuration of the physics system.
 			Debug::Log("\tInitialising Default Configuration... ", LogType::Info, true);
 			try {
-				s_Configuration.reset(new btDefaultCollisionConfiguration());
+				s_Configuration = std::make_shared<btDefaultCollisionConfiguration>();
 				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
@@ -95,7 +94,7 @@ namespace LouiEriksson::Engine::Physics {
 			// Initialise the collision dispatcher.
 			Debug::Log("\tInitialising Dispatcher... ", LogType::Info, true);
 			try {
-				s_Dispatcher.reset(new btCollisionDispatcher(s_Configuration.get()));
+				s_Dispatcher = std::make_shared<btCollisionDispatcher>(s_Configuration.get());
 				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
@@ -106,7 +105,7 @@ namespace LouiEriksson::Engine::Physics {
 			// Initialise the broadphase.
 			Debug::Log("\tInitialising Broadphase... ", LogType::Info, true);
 			try {
-				s_Broadphase.reset(new btDbvtBroadphase());
+				s_Broadphase = std::make_shared<btDbvtBroadphase>();
 				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
@@ -117,7 +116,7 @@ namespace LouiEriksson::Engine::Physics {
 			// Initialise the solver.
 			Debug::Log("\tInitialising Solver... ", LogType::Info, true);
 			try {
-				s_Solver.reset(new btSequentialImpulseConstraintSolver());
+				s_Solver = std::make_shared<btSequentialImpulseConstraintSolver>();
 				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {
@@ -128,7 +127,7 @@ namespace LouiEriksson::Engine::Physics {
 			// Initialise the dynamics world.
 			Debug::Log("\tInitialising Dynamics World... ", LogType::Info, true);
 			try {
-				s_DynamicsWorld.reset(new btDiscreteDynamicsWorld(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get()));
+				s_DynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get());
 				Debug::Log("Done.", LogType::Info);
 			}
 			catch (const std::exception& e) {

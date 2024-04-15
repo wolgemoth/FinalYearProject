@@ -39,9 +39,6 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		inline static std::weak_ptr<Shader> s_Passthrough{};
 		
-		/** @brief Main render target. */
-		RenderTexture m_RT;
-		
 		/** @brief Window of the camera. */
 		std::weak_ptr<Window> m_Window;
 	
@@ -59,6 +56,9 @@ namespace LouiEriksson::Engine::Graphics {
 		float m_FOV;        // Field of view.
 		float m_NearClip;   // Near clipping plane.
 		float m_FarClip;    // Far clipping plane.
+		
+		/** @brief Main render target. */
+		RenderTexture m_RT;
 		
 		/* G-BUFFER: */
 		
@@ -179,7 +179,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Pre-render stage of the rendering pipeline.
 		 *
 		 * This function is called before rendering the frame. It performs tasks such as
-		 * reinitializing the g-buffer and clearing the mip chain.
+		 * reinitialising the g-buffer and clearing the mip chain.
 		 *
 		 * @param[in] _flags The render flags indicating any which actions should be taken.
 		 */

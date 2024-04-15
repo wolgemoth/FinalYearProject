@@ -30,7 +30,7 @@ namespace LouiEriksson::Engine {
 	 * This class is responsible for storing and providing access to the various settings of the
 	 * application
 	 */
-	class Settings {
+	class Settings final {
 	
 		friend class Application;
 		
@@ -39,9 +39,9 @@ namespace LouiEriksson::Engine {
 	public:
 		
 		/**
-		 * @brief Initializes the settings.
+		 * @brief Initialises the settings.
 		 *
-		 * This function is used to initialize the application settings. It updates the skybox and material shader
+		 * This function is used to initialise the application settings. It updates the skybox and material shader
 		 * based on the current selection values.
 		 *
 		 * @note This function should be called before using any other settings functions.
@@ -51,12 +51,12 @@ namespace LouiEriksson::Engine {
 		static void Init();
 		
 		/** @brief Container for the application's graphics settings. */
-		struct Graphics {
+		struct Graphics final {
 			
 			inline static bool s_GammaCorrection { true };
 			
 			/** @brief Container for the application's v-sync settings. */
-			struct VSync {
+			struct VSync final {
 				
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableOptions {
@@ -73,7 +73,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the camera. */
-			struct Perspective {
+			struct Perspective final {
 				
 				inline static float      s_FOV { 60.0 };
 				inline static float s_NearClip { 0.01 };
@@ -81,7 +81,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the application's skybox. */
-			struct Skybox {
+			struct Skybox final {
 				
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes {
@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the application's materials. */
-			struct Material {
+			struct Material final {
 				
 				/* SHADER */
 				inline static std::vector<const char*> s_AvailableShaders {
@@ -174,12 +174,12 @@ namespace LouiEriksson::Engine {
 		};
 		
 		/** @brief Container for the settings of the application's post-processing effects. */
-		struct PostProcessing {
+		struct PostProcessing final {
 			
 			inline static bool s_Enabled { true };
 			
 			/** @brief Container for the settings of the AmbientOcclusion post-processing effect. */
-			struct AmbientOcclusion {
+			struct AmbientOcclusion final {
 			
 				inline static bool s_Enabled { true };
 			
@@ -194,7 +194,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the Bloom post-processing effect. */
-			struct Bloom {
+			struct Bloom final {
 			
 				inline static bool s_Enabled { true };
 				
@@ -210,7 +210,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the "aces" post-processing effect. */
-			struct ToneMapping {
+			struct ToneMapping final {
 				
 				inline static bool s_Enabled { true };
 				
@@ -220,7 +220,7 @@ namespace LouiEriksson::Engine {
 				static bool IsActiveAndEnabled() noexcept;
 				
 				/** @brief Container for the settings of the AutoExposure post-processing effect. */
-				struct AutoExposure {
+				struct AutoExposure final {
 					
 					inline static bool s_Enabled { true };
 					
@@ -236,7 +236,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the "fxaa" post-processing effect. */
-			struct AntiAliasing {
+			struct AntiAliasing final {
 			
 				inline static bool s_Enabled { true };
 			
@@ -251,7 +251,7 @@ namespace LouiEriksson::Engine {
 			};
 			
 			/** @brief Container for the settings of the "grain" post-processing effect. */
-			struct Grain {
+			struct Grain final {
 			
 				inline static bool s_Enabled { true };
 			
@@ -262,7 +262,7 @@ namespace LouiEriksson::Engine {
 			};
 
 			/** @brief Container for the settings of the "vignette" post-processing effect. */
-			struct Vignette {
+			struct Vignette final {
 			
 				inline static bool s_Enabled { true };
 				

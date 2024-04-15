@@ -15,7 +15,6 @@
 #include "../graphics/Renderer.h"
 #include "../graphics/Shader.h"
 #include "../graphics/Texture.h"
-#include "../graphics/textures/Cubemap.h"
 
 #include <GL/glew.h>
 #include <glm/common.hpp>
@@ -23,11 +22,11 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_float3x3.hpp>
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_common.hpp>
 #include <glm/ext/quaternion_float.hpp>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float4.hpp>
-#include <glm/ext/vector_int2.hpp>
 #include <glm/ext/vector_int4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/trigonometric.hpp>
@@ -40,7 +39,6 @@
 #include <memory>
 #include <queue>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::Graphics {
@@ -48,17 +46,14 @@ namespace LouiEriksson::Engine::Graphics {
 	Camera::Camera(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
 	
 		// Initialise default values for perspective matrix:
-		m_FOV(90.0f),
-		m_NearClip(0.1f),
-		m_FarClip(60.0f),
-		
-		// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
 		m_Projection(1.0f),
 		m_IsDirty(true),
-	
-		// Set exposure level from settings.
-		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
+		m_FOV(90.0f),
 		
+		// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
+		m_NearClip(0.1f),
+		m_FarClip(60.0f),
+	
 		// Init g-buffer:
 		               m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
 		   m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
@@ -68,6 +63,9 @@ namespace LouiEriksson::Engine::Graphics {
 		   m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		 m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		 
+		// Set exposure level from settings.
+		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
+		
 		// Effects buffers:
 		            m_AO_RT( 1,  1, Texture::Parameters::Format(GL_RGB, false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
 		m_AutoExposure_Luma(32, 32, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE)
@@ -598,7 +596,7 @@ namespace LouiEriksson::Engine::Graphics {
 								const glm::vec3 truncatedCamPos = glm::floor(
 									t->m_Position / texelSize) * texelSize;
 								
-								lightPos = truncatedCamPos + (lightDir * (l->m_Range / 2.0f));
+								lightPos = truncatedCamPos + (lightDir * (l->m_Range / 2));
 							}
 							else {
 								lightPos = l->m_Transform.lock()->m_Position;
@@ -1116,8 +1114,8 @@ namespace LouiEriksson::Engine::Graphics {
 	                size = (float)glm::pow(1.618f, i + 1) * _intensity;
 	            }
 	            else {
-	                width  = (int)glm::ceil(dimensions.x / glm::pow(2.0f, (float)i / 2.0f * scalar));
-	                height = (int)glm::ceil(dimensions.y / glm::pow(2.0f, (float)i / 2.0f * scalar) * aspectCorrection);
+	                width  = (int)glm::ceil(dimensions.x / glm::pow(2.0f, (float)i / 2 * scalar));
+	                height = (int)glm::ceil(dimensions.y / glm::pow(2.0f, (float)i / 2 * scalar) * aspectCorrection);
 	                
 	                size = (float)i * rootIntensity;
 					

@@ -8,7 +8,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class Transform;
+	struct Transform;
 	
 } // LouiEriksson::Engine
 

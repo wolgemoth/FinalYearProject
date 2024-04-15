@@ -43,7 +43,7 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * This class represents an internal Rigidbody component in the Bullet Physics Engine.
 		 */
-		class BulletRigidbody {
+		class BulletRigidbody final {
 			
 			friend Parameters;
 			
@@ -97,9 +97,9 @@ namespace LouiEriksson::Engine::Physics {
 		std::vector<Collision> m_Collisions;
 		
 		/**
-		 * @brief Reinitializes the BulletRigidbody component of the Rigidbody.
+		 * @brief Reinitialises the BulletRigidbody component of the Rigidbody.
 		 *
-		 * This method is used to reinitialize the BulletRigidbody component of the Rigidbody.
+		 * This method is used to reinitialise the BulletRigidbody component of the Rigidbody.
 		 * It creates a new BulletRigidbody using the current transform, collider, and parameters.
 		 */
 		void BulletReinitialise();

@@ -18,7 +18,6 @@
 #include <stdexcept>
 #include <string>
 #include <typeindex>
-#include <typeinfo>
 #include <utility>
 
 namespace LouiEriksson::Engine::Audio {
@@ -38,7 +37,7 @@ namespace LouiEriksson::Engine::Graphics {
 
 namespace LouiEriksson::Engine {
 	
-	class Resources {
+	class Resources final {
 	
 	private:
 		
@@ -168,7 +167,7 @@ namespace LouiEriksson::Engine {
 		 * @note This function logs an error message if there is an exception while accessing the resource.
 		 */
 		template<typename T>
-		inline static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
+		static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
 			
 			std::weak_ptr<T> result;
 			

@@ -13,7 +13,7 @@ namespace LouiEriksson::Engine::Audio {
 	class AudioClip;
 	class AudioSource;
 	
-	class Sound {
+	class Sound final {
 	
 		/*
 		 * Please refer to OpenAL-Soft spec:

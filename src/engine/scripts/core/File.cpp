@@ -130,7 +130,7 @@ namespace LouiEriksson::Engine {
 		Debug::Log("Loading AudioClip \"" + _path.string() + "\"...", LogType::Info, true);
 		
 		try {
-			_output.reset(new Audio::AudioClip(_path));
+			_output = std::make_shared<Audio::AudioClip>(_path);
 			Debug::Log("Done.", LogType::Info);
 			
 			result = true;
@@ -485,7 +485,7 @@ namespace LouiEriksson::Engine {
 							catch (...) {}
 						}
 						else if (key == "d" || key == "Tr") {
-							_output->m_Albedo_Color.a = 1.0 - std::clamp(std::stof(subStrings.at(1)), 0.0f, 1.0f);
+							_output->m_Albedo_Color.a = static_cast<float>(1.0 - std::clamp(std::stod(subStrings.at(1)), 0.0, 1.0));
 						}
 						else if (key == "Ks") {
 							Debug::Log("Specular color loading not implemented... ", LogType::Warning, true);
@@ -497,7 +497,7 @@ namespace LouiEriksson::Engine {
 							_output->m_AO = std::stof(subStrings.at(1));
 						}
 						else if (key == "Ns") {
-							_output->m_Roughness = 1.0 - (std::atan(std::stof(subStrings.at(1))) / (M_PI / 2));
+							_output->m_Roughness = static_cast<float>(1.0 - (std::atan(std::stof(subStrings.at(1))) / (M_PI / 2)));
 						}
 						else if (key == "Ke") {
 							

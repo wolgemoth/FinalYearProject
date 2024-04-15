@@ -7,7 +7,7 @@
 #include <future>
 #include <memory>
 #include <sstream>
-#include <string>
+#include <string_view>
 #include <vector>
 
 namespace LouiEriksson::Engine::Networking {
@@ -19,17 +19,17 @@ namespace LouiEriksson::Engine::Networking {
 	 *      Interrupting operation with Ctrl+D enables user to type a custom response.
 	 */
 	
-	struct Requests {
+	struct Requests final {
 		
 		class Client;
 		
-		struct Response {
+		struct Response final {
 			
 			friend Requests;
 			
 		public:
 			
-			class Data {
+			class Data final {
 			
 				friend Client;
 				
@@ -60,7 +60,7 @@ namespace LouiEriksson::Engine::Networking {
 			
 		};
 		
-		class Client {
+		class Client final {
 		
 		private:
 			

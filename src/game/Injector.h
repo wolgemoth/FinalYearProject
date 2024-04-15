@@ -25,9 +25,9 @@ namespace LouiEriksson::Game::Core {
 	 * @class Injector
 	 *
 	 * @brief The Injector class provides a mechanism for registering and retrieving function pointers
-	 * for custom script initialization.
+	 * for custom script initialisation.
 	 */
-	class Injector {
+	class Injector final {
 	
 	private:
 		
@@ -39,14 +39,14 @@ namespace LouiEriksson::Game::Core {
 		/**
 		 * @brief Returns function pointers for the initialisation of custom Scripts loosely-coupled from the engine runtime.
 		 *
-		 * @details This function checks if the static Hashmap of initializers (s_Initialisers) is empty.
-		 * If it is, it populates it with function pointers for the initialization of various user scripts,
+		 * @details This function checks if the static Hashmap of initialisers (s_Initialisers) is empty.
+		 * If it is, it populates it with function pointers for the initialisation of various user scripts,
 		 * each associated with the corresponding typeid name.
 		 *
-		 * If an exception is thrown during initialization, it is caught and logged using Debug::Log() without interrupting execution.
+		 * If an exception is thrown during initialisation, it is caught and logged using Debug::Log() without interrupting execution.
 		 *
 		 * @return A Hashmap<std::string, std::shared_ptr<Script>(*)(const std::weak_ptr<ECS::GameObject>&)> which contains
-		 * the typeid name of the game object as the key and corresponding function pointer for their initialization as the value.
+		 * the typeid name of the game object as the key and corresponding function pointer for their initialisation as the value.
 		 */
 		static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)> GetInitialisers() noexcept {
 			

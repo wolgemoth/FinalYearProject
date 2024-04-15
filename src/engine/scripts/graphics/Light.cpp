@@ -15,18 +15,17 @@
 
 #include <cmath>
 #include <memory>
-#include <stdexcept>
 #include <string>
 
 namespace LouiEriksson::Engine::Graphics {
 	
 	Light::Light(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
+			m_Type     (Light::Parameters::Type::Point),
 			m_Intensity(  3.0f),
 			m_Range    (200.0f),
 			m_Angle    (120.0f),
 			m_Size     (  0.2f),
-			m_Color    (glm::vec3(1, 1, 1)),
-			m_Type     (Light::Parameters::Type::Point)
+			m_Color    (glm::vec3(1, 1, 1))
 	{
 		if (const auto p = Parent().lock()) {
 			m_Transform = p->GetComponent<Transform>();
@@ -59,10 +58,10 @@ namespace LouiEriksson::Engine::Graphics {
 			case Light::Parameters::Type::Directional: {
 				
 				m_Shadow.m_Projection = glm::ortho(
-				   -m_Range / 2.0f,
-				    m_Range / 2.0f,
-				   -m_Range / 2.0f,
-				    m_Range / 2.0f,
+				   -m_Range / 2,
+				    m_Range / 2,
+				   -m_Range / 2,
+				    m_Range / 2,
 					m_Shadow.m_NearPlane,
 					m_Range
 				);

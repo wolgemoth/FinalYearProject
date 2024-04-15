@@ -3,7 +3,6 @@
 
 #include "../core/utils/Hashmap.h"
 
-#include <glm/ext/vector_int2.hpp>
 #include <glm/ext/vector_float2.hpp>
 
 #include <SDL_events.h>
@@ -71,7 +70,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @class State
 			 * @brief Wraps a c-style pointer representing the state of the keyboard.
 			 */
-			struct State {
+			struct State final {
 			
 				friend Input;
 				
@@ -164,7 +163,7 @@ namespace LouiEriksson::Engine::Input {
 		 * @class Mouse
 		 * @brief Provides an interface for detecting mouse input.
 		 */
-		struct Mouse {
+		struct Mouse final {
 		
 			friend Input;
 			friend Application;

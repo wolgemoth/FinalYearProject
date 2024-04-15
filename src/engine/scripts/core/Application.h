@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine {
 	 *
 	 * The Application class is responsible for managing the main execution flow of the program and handling the termination of the application.
 	 */
-	class Application {
+	class Application final {
 	
 	private:
 	
@@ -30,7 +30,7 @@ namespace LouiEriksson::Engine {
 		inline static bool s_Initialised { false }; // Is Application initialised?
 		
 		/**
-		 * @brief Finalizes the application.
+		 * @brief Finalises the application.
 		 *
 		 * Releases allocated resources.
 		 *
@@ -75,7 +75,7 @@ namespace LouiEriksson::Engine {
 		 *
 		 * This function is the main entry point of the application, and contains the main loop.
 		 *
-		 * @param[in] _values A hashmap containing function pointers to initialize different user scripts
+		 * @param[in] _values A hashmap containing function pointers to initialise different user scripts
 		 * @return An integer error code (0 for successful execution)
 		 */
 		static int Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _values);

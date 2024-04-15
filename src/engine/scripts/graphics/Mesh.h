@@ -25,7 +25,7 @@ namespace LouiEriksson::Engine::Graphics {
 
 	class TextureCPU;
 	
-	class Mesh {
+	class Mesh final {
 	
 		friend LouiEriksson::Engine::File;
 		

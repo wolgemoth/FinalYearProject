@@ -1,4 +1,5 @@
 #include "AudioClip.h"
+
 #include "../core/Debug.h"
 
 #include <al.h>

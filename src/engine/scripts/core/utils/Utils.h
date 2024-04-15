@@ -6,7 +6,10 @@
 
 #include <json.hpp>
 
+#include <array>
+#include <cmath>
 #include <cstddef>
+#include <limits>
 #include <queue>
 #include <stdexcept>
 #include <string>
@@ -16,7 +19,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class Utils {
+	class Utils final {
 	
 	public:
 		

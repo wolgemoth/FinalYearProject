@@ -18,13 +18,13 @@
 #include <SDL_scancode.h>
 #include <SDL_video.h>
 
+#include <array>
 #include <exception>
 #include <iomanip>
 #include <ios>
 #include <limits>
 #include <memory>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <vector>
 

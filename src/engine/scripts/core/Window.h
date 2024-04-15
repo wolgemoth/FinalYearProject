@@ -19,7 +19,7 @@ namespace LouiEriksson::Engine::Graphics {
 
 namespace LouiEriksson::Engine {
 
-	class Window {
+	class Window final {
 	
 		friend class Application;
 		

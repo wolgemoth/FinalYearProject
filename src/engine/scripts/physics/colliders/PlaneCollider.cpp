@@ -28,7 +28,7 @@ namespace LouiEriksson::Engine::Physics {
 			 * we can allow our plane to have edges, and not just be infinite. */
 			try {
 				m_CollisionShape.reset(
-					new btBoxShape({ s.x / 2.0f, 0.0001f, s.z / 2.0f })
+					new btBoxShape({ s.x / 2, 0.0001f, s.z / 2 })
 				);
 			}
 			catch (const std::exception& e) {

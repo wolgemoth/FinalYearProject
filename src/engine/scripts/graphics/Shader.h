@@ -312,7 +312,7 @@ namespace LouiEriksson::Engine::Graphics {
 		*/
 		[[nodiscard]] GLint ID() const noexcept;
 		
-		explicit inline operator GLint() const noexcept { return ID(); }
+		explicit operator GLint() const noexcept { return ID(); }
 	};
 
 } // LouiEriksson::Engine::Graphics

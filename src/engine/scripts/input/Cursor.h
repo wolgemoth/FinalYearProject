@@ -9,13 +9,13 @@ namespace LouiEriksson::Engine {
 
 namespace LouiEriksson::Engine::Input {
 	
-	class Cursor {
+	class Cursor final {
 		
 		friend LouiEriksson::Engine::Application;
 		
 	public:
 		
-		class State {
+		class State final {
 		
 			friend Cursor;
 			

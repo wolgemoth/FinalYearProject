@@ -17,7 +17,7 @@ namespace LouiEriksson::Engine::Audio {
  *
  * @see Please kindly refer to the <a href="https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide">OpenAL-Soft spec</a> for more information on OpenAL.
  */
-	class AudioClip {
+	class AudioClip final {
 	
 	public:
 		
@@ -50,7 +50,7 @@ namespace LouiEriksson::Engine::Audio {
 		/**
 		 * @brief Contains the samples of the audio clip.
 		 */
-		struct Samples {
+		struct Samples final {
 			
 			/** @brief Raw pointer to the underlying data of the sound file. */
 			Uint8* m_Data;

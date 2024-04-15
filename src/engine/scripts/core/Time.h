@@ -7,7 +7,7 @@ namespace LouiEriksson::Engine {
 	 * @class Time
 	 * @brief Provides multiple utility functions for accessing and manipulating time in the application.
 	 */
-	class Time {
+	class Time final {
 	
 		friend class Application;
 	

@@ -10,10 +10,8 @@
 #include <cstring>
 #include <exception>
 #include <filesystem>
-#include <memory>
 #include <string>
 #include <typeindex>
-#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine {

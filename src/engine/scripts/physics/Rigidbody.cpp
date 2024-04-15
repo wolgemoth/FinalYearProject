@@ -38,13 +38,11 @@ namespace LouiEriksson::Engine::Physics {
 			if (const auto c = _collider.lock()) {
 				
 				// Initialise the rigidbody.
-				m_Rigidbody.reset(
-					new btRigidBody(
-						_parameters.m_Mass,
-						m_MotionState.get(),
-						c->m_CollisionShape.get(),
-						_parameters.m_Inertia
-					)
+				m_Rigidbody = std::make_shared<btRigidBody>(
+					_parameters.m_Mass,
+					m_MotionState.get(),
+					c->m_CollisionShape.get(),
+					_parameters.m_Inertia
 				);
 				
 				// Assign the drag and angular drag coefficients.
@@ -215,12 +213,10 @@ namespace LouiEriksson::Engine::Physics {
 			if (const auto transform = m_Transform.lock()) {
 			if (const auto  collider =  m_Collider.lock()) {
 				
-				m_Parameters.m_BulletRigidbody.reset(
-					new BulletRigidbody(
-						m_Transform,
-						m_Collider,
-						m_Parameters
-					)
+				m_Parameters.m_BulletRigidbody = std::make_shared<BulletRigidbody>(
+					m_Transform,
+					m_Collider,
+					m_Parameters
 				);
 			}}
 		}

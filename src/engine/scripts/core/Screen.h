@@ -5,7 +5,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class Screen {
+	class Screen final {
 	
 	public:
 		

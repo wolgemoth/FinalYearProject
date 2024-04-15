@@ -344,7 +344,6 @@ namespace LouiEriksson::Engine {
 					else {
 						std::cout << std::endl;
 					}
-				
 			    #endif
 			}
 			catch (const std::exception& e) {

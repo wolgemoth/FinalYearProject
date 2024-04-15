@@ -7,9 +7,9 @@
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 
-	struct Conversions {
+	struct Conversions final {
 		
-		struct Speed {
+		struct Speed final {
 		
 		public:
 			
@@ -73,7 +73,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
-		struct Distance {
+		struct Distance final {
 		
 		public:
 			
@@ -188,7 +188,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 			
-		struct Rotation {
+		struct Rotation final {
 		
 		public:
 			
@@ -199,9 +199,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Turn,
 			};
 			
-			inline static constexpr double s_DegreesToRadians = M_PI / 180.0;
-			
-			inline static constexpr double s_RadiansToDegrees = 180.0 / M_PI;
+			static constexpr double s_DegreesToRadians = M_PI / 180.0;
+			static constexpr double s_RadiansToDegrees = 180.0 / M_PI;
 			
 			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
 			
@@ -245,7 +244,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
-		struct Time {
+		struct Time final {
 		
 		public:
 			
@@ -316,7 +315,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
-		struct Temperature {
+		struct Temperature final {
 		
 		public:
 			
@@ -361,7 +360,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
-		struct Pressure {
+		struct Pressure final {
 		
 		public:
 			
@@ -523,7 +522,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
-		struct Mass {
+		struct Mass final {
 		
 		public:
 			
@@ -632,7 +631,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
-		struct Area {
+		struct Area final {
 		
 		public:
 			
@@ -707,7 +706,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		};
 		
-		struct Volume {
+		struct Volume final {
 		
 		public:
 			

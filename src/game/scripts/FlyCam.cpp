@@ -6,9 +6,9 @@ namespace LouiEriksson::Game::Scripts {
 	
 	FlyCam::FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_Motion(0.0f),
-			m_Rotation(0.0f),
 			m_MoveSpeed(5.0f),
-			m_LookSpeed(30.0f) {}
+			m_LookSpeed(30.0f),
+			m_Rotation(0.0f) {}
 	
 	FlyCam::~FlyCam() = default;
 	

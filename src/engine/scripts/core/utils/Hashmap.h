@@ -482,7 +482,7 @@ namespace LouiEriksson::Engine {
 		 * @see Get(const Tk& _key, Tv& _out)
 		 */
 #ifndef HASHMAP_SUPPRESS_EXCEPTION_WARNING
-		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required. Supress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
+		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required. Suppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
 #endif
 		Tv& operator[](const Tk& _key) {
 		    return Return(_key);
@@ -494,12 +494,12 @@ namespace LouiEriksson::Engine {
 		 * @class const_iterator
 		 * @brief Represents an iterator to traverse through the elements in a Hashmap.
 		 */
-		class const_iterator {
+		class const_iterator final {
 		
 			friend Hashmap;
 			
-			typedef typename std::vector<std::vector<KeyValuePair>>::const_iterator outer_itr;
-			typedef typename             std::vector<KeyValuePair> ::const_iterator inner_itr;
+			using outer_itr = typename std::vector<std::vector<KeyValuePair>>::const_iterator;
+			using inner_itr = typename std::vector<KeyValuePair>::const_iterator;
 			
 		private:
 			
@@ -549,12 +549,12 @@ namespace LouiEriksson::Engine {
 		 * @class iterator
 		 * @brief Represents an iterator to traverse through the elements in a Hashmap.
 		 */
-		class iterator {
+		class iterator final {
 		
 			friend Hashmap;
 			
-			typedef typename std::vector<std::vector<KeyValuePair>>::iterator outer_itr;
-			typedef typename             std::vector<KeyValuePair> ::iterator inner_itr;
+			using outer_itr = typename std::vector<std::vector<KeyValuePair>>::iterator;
+			using inner_itr = typename std::vector<KeyValuePair>::iterator;
 			
 		private:
 			

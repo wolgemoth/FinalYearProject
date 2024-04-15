@@ -12,7 +12,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class Transform;
+	struct Transform;
 	
 } // LouiEriksson::Engine
 
@@ -27,7 +27,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	public:
 		
-		struct Parameters {
+		struct Parameters final {
 			
 			friend Camera;
 			friend Light;
@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		private:
 			
-			class ShadowMap {
+			class ShadowMap final {
 
 			public:
 				

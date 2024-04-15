@@ -14,7 +14,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	public:
 		
-		struct Parameters {
+		struct Parameters final {
 			
 			/**
 			 * @enum DepthMode
