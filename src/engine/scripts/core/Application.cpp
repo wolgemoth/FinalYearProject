@@ -130,8 +130,12 @@ namespace LouiEriksson::Engine {
 				auto physics_step = 0.0f;
 				
 				// Load a scene and run:
-				const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 				scene->Begin();
+				
+				Utils::ALDumpError();
+				Utils::GLDumpError();
+				Utils::SDLDumpError();
 				
 				/* LOOP */
 				while (!Application::s_Quit) {
@@ -140,10 +144,6 @@ namespace LouiEriksson::Engine {
 						
 						// Get the beginning of the frame for timing purposes.
 						const auto frame_start = std::chrono::high_resolution_clock::now();
-						
-						Utils::ALDumpError();
-						Utils::GLDumpError();
-						Utils::SDLDumpError();
 						
 						// Configure V-sync:
 						// -1 = Adaptive
@@ -160,14 +160,12 @@ namespace LouiEriksson::Engine {
 						
 						// Handle events:
 						{
-							std::vector<SDL_Event> items;
-							
 							// Process window resize event:
-							if (Input::Input::Event::Get(SDL_WINDOWEVENT, items)) {
+							if (const auto items = Input::Input::Event::Get(SDL_WINDOWEVENT)) {
 								
-								for (const auto& item : items) {
+								for (const auto& item : *items) {
 									
-									if (const auto w = Window::Get(static_cast<int>(item.window.windowID)).lock()) {
+									if (const auto w = Window::Get(static_cast<size_t>(item.window.windowID)).lock()) {
 										
 										if (item.window.event == SDL_WINDOWEVENT_RESIZED) {
 											

@@ -5,6 +5,7 @@
 #include "../graphics/Camera.h"
 
 #include <filesystem>
+#include <functional>
 #include <memory>
 #include <string>
 #include <type_traits>
@@ -107,14 +108,13 @@ namespace LouiEriksson::Engine::ECS {
 		 * @relates Scene
 		 */
 		template<class T>
-		std::shared_ptr<T> Attach(std::shared_ptr<T> _entity) {
+		std::shared_ptr<T> Attach(const std::shared_ptr<T> _entity) {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-			std::vector<std::weak_ptr<Component>> category;
-			m_Components.Get(typeid(T), category);
-	
+			auto category = m_Components.Get(typeid(T)).value_or({});
 			category.emplace_back(std::dynamic_pointer_cast<T>(_entity));
+			
 			m_Components.Assign(typeid(T), category);
 	
 			return _entity;
@@ -140,13 +140,14 @@ namespace LouiEriksson::Engine::ECS {
 	
 			if (const auto e = _entity.lock()) {
 				
-				std::vector<std::weak_ptr<Component>> category;
-				if (m_Components.Get(typeid(T), category)) {
+				if (const auto category = m_Components.Get(typeid(T))) {
 		
-					for (auto itr = category.begin(); itr < category.end(); ++itr) {
+					const auto __unsafe_c_ = const_cast<std::vector<std::reference_wrapper<T>>>(category);
+					
+					for (auto itr = __unsafe_c_.get().begin(); itr < __unsafe_c_.get().end(); ++itr) {
 		
-						if (std::dynamic_pointer_cast<T>(*itr).get() == e.get()) {
-							category.erase(itr);
+						if (std::dynamic_pointer_cast<T>(*itr).value() == e.get()) {
+							__unsafe_c_.get().erase(itr);
 							break;
 						}
 					}
@@ -157,7 +158,7 @@ namespace LouiEriksson::Engine::ECS {
 	};
 	
 	template<>
-	inline std::shared_ptr<GameObject> Scene::Attach(std::shared_ptr<GameObject> _entity) {
+	inline std::shared_ptr<GameObject> Scene::Attach(const std::shared_ptr<GameObject> _entity) {
 		
 		m_Entities.emplace_back(_entity);
 		

@@ -57,14 +57,14 @@ namespace LouiEriksson::Engine::ECS {
 			
 			std::type_index category = typeid(T);
 			
-			std::vector<std::shared_ptr<Component>> entries;
-			const bool exists = m_Components.Get(category, entries);
+			const auto existing = m_Components.Get(category);
 			
+			auto entries = existing.value_or(std::vector<std::shared_ptr<Component>>());
 			entries.emplace_back(_component);
 			
 			m_Components.Assign(category, entries);
 			
-			if (exists) {
+			if (existing.has_value()) {
 				_component->m_Index = entries.size() - 1;
 			}
 			else {
@@ -176,9 +176,8 @@ namespace LouiEriksson::Engine::ECS {
 			
 			std::shared_ptr<T> result;
 			
-			std::vector<std::shared_ptr<Component>> category;
-			if (m_Components.Get(typeid(T), category)) {
-				result = std::dynamic_pointer_cast<T>(category.at(_index));
+			if (const auto category = m_Components.Get(typeid(T))) {
+				result = std::dynamic_pointer_cast<T>((*category).at(_index));
 			}
 			
 			return result;
@@ -220,13 +219,12 @@ namespace LouiEriksson::Engine::ECS {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
-			std::vector<std::shared_ptr<Component>> entries;
-			if (m_Components.Get(typeid(T), entries)) {
+			if (const auto entries = m_Components.Get(typeid(T))) {
 	
 				// Bounds check.
-				if (_index < entries.size()) {
+				if (_index < entries->size()) {
 					
-					auto itr = entries.begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
+					auto itr = entries->begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
 					
 					// Detach from scene.
 					if (const auto s = GetScene().lock()) {
@@ -237,7 +235,8 @@ namespace LouiEriksson::Engine::ECS {
 					}
 					
 					// Remove component from collection.
-					entries.erase(itr);
+					const auto __unsafe_c_ = const_cast<std::vector<std::reference_wrapper<T>>>(entries);
+					__unsafe_c_.get().erase(itr);
 				}
 			}
 		}

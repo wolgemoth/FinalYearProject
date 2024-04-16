@@ -38,13 +38,11 @@ namespace LouiEriksson::Engine::ECS {
 	
 	void Scene::Draw(const Graphics::Camera::RenderFlags& _flags) {
 		
-		std::vector<std::weak_ptr<Component>> items;
-		
 		/* GET ALL RENDERERS */
 		std::vector<std::weak_ptr<Graphics::Renderer>> casted_renderers;
 		
-		if (m_Components.Get(typeid(Graphics::Renderer), items)) {
-			for (const auto& item: items) {
+		if (const auto items = m_Components.Get(typeid(Graphics::Renderer))) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					casted_renderers.emplace_back(std::dynamic_pointer_cast<Graphics::Renderer>(l));
@@ -55,8 +53,8 @@ namespace LouiEriksson::Engine::ECS {
 		/* GET ALL LIGHTS */
 		std::vector<std::weak_ptr<Graphics::Light>> casted_lights;
 		
-		if (m_Components.Get(typeid(Graphics::Light), items)) {
-			for (const auto& item: items) {
+		if (const auto items = m_Components.Get(typeid(Graphics::Light))) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					casted_lights.emplace_back(std::dynamic_pointer_cast<Graphics::Light>(l));
@@ -65,10 +63,10 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/* GET ALL CAMERAS */
-		if (m_Components.Get(typeid(Graphics::Camera), items)) {
+		if (const auto items = m_Components.Get(typeid(Graphics::Camera))) {
 			
 			/* RENDER */
-			for (const auto& item: items) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					
@@ -89,9 +87,10 @@ namespace LouiEriksson::Engine::ECS {
 	
 	void Scene::Begin() {
 		
-		std::vector<std::weak_ptr<Component>> items;
-		
-		if (m_Components.Get(typeid(Script), items)) {
+		if (const auto components = m_Components.Get(typeid(Script))) {
+			
+			const auto items = *components;
+			
 			for (const auto& item : items) {
 				
 				if (const auto l = item.lock()) {
@@ -109,11 +108,9 @@ namespace LouiEriksson::Engine::ECS {
 	
 	void Scene::Tick(const Graphics::Camera::RenderFlags& _flags) {
 		
-		std::vector<std::weak_ptr<Component>> items;
-		
 		/* INTERPOLATE RIGIDBODIES */
-		if (m_Components.Get(typeid(Physics::Rigidbody), items)) {
-			for (const auto& item : items) {
+		if (const auto items = m_Components.Get(typeid(Physics::Rigidbody))) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					
@@ -129,8 +126,8 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/* UPDATE SCRIPTS */
-		if (m_Components.Get(typeid(Script), items)) {
-			for (const auto& item : items) {
+		if (const auto items = m_Components.Get(typeid(Script))) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					
@@ -154,11 +151,9 @@ namespace LouiEriksson::Engine::ECS {
 	
 	void Scene::FixedTick() {
 	
-		std::vector<std::weak_ptr<Component>> items;
-		
 		/* UPDATE RIGIDBODIES */
-		if (m_Components.Get(typeid(Physics::Rigidbody), items)) {
-			for (const auto& item : items) {
+		if (const auto items = m_Components.Get(typeid(Physics::Rigidbody))) {
+			for (const auto& item : items.value()) {
 				
 				if (const auto l = item.lock()) {
 					
@@ -174,8 +169,8 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/* SCRIPT FIXED-TICK */
-		if (m_Components.Get(typeid(Script), items)) {
-			for (const auto& item : items) {
+		if (const auto items = m_Components.Get(typeid(Script))) {
+			for (const auto& item : *items) {
 				
 				if (const auto l = item.lock()) {
 					
@@ -451,12 +446,9 @@ namespace LouiEriksson::Engine::ECS {
 						
 						try {
 						
-							using FuncPtrType = std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>&);
-							
-							FuncPtrType fPtr;
-							if (_initialisers.Get(type, fPtr)) {
+							if (const auto fPtr = _initialisers.Get(type)) {
 								
-								const auto script = fPtr(go);
+								const auto script = (*fPtr)(go);
 								go->Attach(script->TypeID(), script);
 							}
 							else {

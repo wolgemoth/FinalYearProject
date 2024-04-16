@@ -6,7 +6,6 @@
 #include <glm/detail/qualifier.hpp>
 #include <vsop87a_full.h>
 
-
 namespace LouiEriksson::Engine::Spatial {
 	
 	template <typename T, glm::precision P>

@@ -73,10 +73,10 @@ namespace LouiEriksson::Engine {
 	
 	std::weak_ptr<Window> Window::Get(const size_t& _id) {
 	
-		std::shared_ptr<Window> result;
+		auto result = m_Windows.Get(_id).value_or({});
 		
 		Debug::Assert(
-			m_Windows.Get(_id, result),
+			result != nullptr,
 			"Failed getting window with ID: \"" + std::to_string(_id) + "\"",
 			LogType::Error
 		);

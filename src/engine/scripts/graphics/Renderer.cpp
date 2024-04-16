@@ -1,6 +1,7 @@
 #include "Renderer.h"
 
 #include "../core/Transform.h"
+#include "../core/Resources.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
@@ -25,9 +26,12 @@ namespace LouiEriksson::Engine::Graphics {
 	}
 	
 	void Renderer::SetMesh(const std::weak_ptr<Mesh>& _mesh) noexcept {
-		m_Mesh = _mesh;
+		
+		if (const auto m = _mesh.lock()) {
+			m_Mesh = m;
+		}
 	}
-	const std::weak_ptr<Mesh>& Renderer::GetMesh() noexcept {
+	const std::weak_ptr<Mesh> Renderer::GetMesh() noexcept {
 		return m_Mesh;
 	}
 	

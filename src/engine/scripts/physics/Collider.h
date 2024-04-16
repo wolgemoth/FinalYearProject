@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine::Physics {
 		/**
 		 * @brief Retrieve the type of the Collider.
 		 *
-		 * This function is used to get the type of the Collider.
+		 * This function is used to value the type of the Collider.
 		 *
 		 * @return A reference to the type of the Collider.
 		 */

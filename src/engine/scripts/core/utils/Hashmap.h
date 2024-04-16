@@ -29,6 +29,7 @@
 #include <cstddef>
 #include <functional>
 #include <initializer_list>
+#include <optional>
 #include <stdexcept>
 #include <vector>
 
@@ -192,6 +193,31 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		
+		struct optional final {
+		
+			friend Hashmap;
+			
+		private:
+			
+			using optional_t = std::optional<std::reference_wrapper<const Tv>>;
+		
+			const optional_t m_Optional;
+			
+			explicit optional(const optional_t& _optional) : m_Optional(_optional) {};
+			
+		public:
+			
+			[[nodiscard]] const Tv& value()                 const { return m_Optional.value(); }
+			[[nodiscard]] const Tv& value_or(const Tv&& _t) const { return m_Optional.value_or(_t); }
+			
+			[[nodiscard]] bool has_value() const { return m_Optional.has_value(); }
+			
+			[[nodiscard]] const Tv& operator  *() const { return  value(); }
+			[[nodiscard]] const Tv* operator ->() const { return &value(); }
+			
+			[[nodiscard]] operator bool() const { return has_value(); }
+		};
+		
 		/**
 		 * @brief Returns the number of items stored within the Hashmap.
 		 * @return The number of items stored within the Hashmap.
@@ -253,8 +279,8 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			size_t hash = GetHashcode(_key);
-			size_t i = hash % m_Buckets.size();
+			const size_t hash = GetHashcode(_key);
+			const size_t i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -291,8 +317,8 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			size_t hash = GetHashcode(_key);
-			size_t i = hash % m_Buckets.size();
+			const size_t hash = GetHashcode(_key);
+			const size_t i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -338,8 +364,8 @@ namespace LouiEriksson::Engine {
 			bool result = false;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			size_t hash = GetHashcode(_key);
-			size_t i = hash % m_Buckets.size();
+			const size_t hash = GetHashcode(_key);
+			const size_t i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -361,15 +387,14 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/**
-		 * @brief Retrieves a reference to the entry within the Hashmap with the given key, if one exists.
-		 *
-		 * @param[in] _key Key of the entry to retrieve.
-		 * @param[out] _out Out value result.
-		 * @return True if successful, false otherwise.
-		 */
-		bool Get(const Tk& _key, Tv& _out) const noexcept {
+		* @brief Retrieves a const reference to the entry within the Hashmap with the given key, if one exists.
+		*
+		* @param[in] _key Key of the entry to retrieve.
+		* @return An optional containing the value wrapped in a reference wrapper if it exists.
+		*/
+		optional Get(const Tk& _key) const noexcept {
 			
-			auto result = false;
+			typename optional::optional_t result = std::nullopt;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
 			size_t hash = GetHashcode(_key);
@@ -380,15 +405,12 @@ namespace LouiEriksson::Engine {
 			for (auto& kvp : bucket) {
 				
 				if (GetHashcode(kvp.first) == hash) {
-					result = true;
-					
-					_out = kvp.second;
-					
+					result = std::cref(kvp.second);
 					break;
 				}
 			}
 			
-			return result;
+			return optional(result);
 		}
 		
 		/**
@@ -544,66 +566,6 @@ namespace LouiEriksson::Engine {
 			bool operator ==(const const_iterator& other) const { return ((m_Outer == other.m_Outer) && (m_Outer == m_Outer_End || m_Inner == other.m_Inner)); }
 			bool operator !=(const const_iterator& other) const { return !operator ==(other); }
 		};
-		
-		/**
-		 * @class iterator
-		 * @brief Represents an iterator to traverse through the elements in a Hashmap.
-		 */
-		class iterator final {
-		
-			friend Hashmap;
-			
-			using outer_itr = typename std::vector<std::vector<KeyValuePair>>::iterator;
-			using inner_itr = typename std::vector<KeyValuePair>::iterator;
-			
-		private:
-			
-			outer_itr m_Outer;
-			outer_itr m_Outer_End;
-			inner_itr m_Inner;
-			
-			iterator(outer_itr _outer,
-			         outer_itr _outer_end,
-			         inner_itr _inner) :
-			    m_Outer(_outer),
-			m_Outer_End(_outer_end),
-			    m_Inner(_inner)
-			{
-				if (m_Outer != m_Outer_End && m_Inner == m_Outer->end()) {
-					++(*this);
-				}
-			}
-			
-		public:
-			
-			iterator& operator ++() {
-				
-				if (++m_Inner == m_Outer->end()) {
-					
-					while (++m_Outer != m_Outer_End) {
-						
-						if (!m_Outer->empty()) {
-							m_Inner = m_Outer->begin();
-							break;
-						}
-					}
-					if (m_Outer == m_Outer_End) {
-						m_Inner = inner_itr();
-					}
-				}
-				return *this;
-			}
-			
-			KeyValuePair& operator *() { return *m_Inner; }
-			
-			bool operator ==(const iterator& other) const { return ((m_Outer == other.m_Outer) && (m_Outer == m_Outer_End || m_Inner == other.m_Inner)); }
-			bool operator !=(const iterator& other) const { return !operator ==(other); }
-			
-			operator const_iterator() const { return const_iterator(m_Outer, m_Outer_End, m_Inner); }
-		};
-		
-		iterator begin() { return iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::iterator() : m_Buckets.begin()->begin()); }
-		iterator   end() { return iterator(m_Buckets.end(),   m_Buckets.end(), typename std::vector<KeyValuePair>::iterator()); }
 		
 		const_iterator begin() const { return const_iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::const_iterator() : m_Buckets.begin()->begin()); }
 		const_iterator   end() const { return const_iterator(m_Buckets.end(),   m_Buckets.end(), typename std::vector<KeyValuePair>::const_iterator()); }

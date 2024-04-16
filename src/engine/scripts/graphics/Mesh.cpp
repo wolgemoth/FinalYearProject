@@ -246,7 +246,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_BYTE;
 					
@@ -347,7 +347,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_SHORT;
 					
@@ -448,7 +448,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_INT;
 					
@@ -549,7 +549,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_BYTE;
 					
@@ -642,7 +642,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_SHORT;
 					
@@ -735,7 +735,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (!_vertices.empty()) {
 				
-				if (! _indices.empty()) {
+				if (!_indices.empty()) {
 					
 					result->m_IndexFormat = GL_UNSIGNED_INT;
 					
@@ -956,7 +956,7 @@ namespace LouiEriksson::Engine::Graphics {
 				};
 				
 				// Texel size:
-				const auto ts = glm::vec2(_heights.Width(), _heights.Height()) / static_cast<glm::vec2>(_resolution);
+				const auto ts = glm::vec2(_heights.Width(), _heights.Height()) / static_cast<glm::vec2>(_resolution + 1);
 				
 		        for (auto j = 0; j <= nY; j++) {
 			    for (auto i = 0; i <= nX; i++) {
@@ -1073,9 +1073,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Mesh::BindVBO(const GLenum& _type, const GLuint& _vbo) {
 		
-		GLuint curr = _vbo;
+		auto curr = s_CurrentVBOs.Get(_type);
 		
-		if (!s_CurrentVBOs.Get(_type, curr) || curr != _vbo) {
+		if (!curr.has_value() || *curr != _vbo) {
 			s_CurrentVBOs.Assign(_type, _vbo);
 			
 			glBindBuffer(_type, _vbo);
@@ -1084,9 +1084,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	void Mesh::UnbindVBO(const GLenum& _type) {
 		
-		GLuint curr = GL_NONE;
+		auto curr = s_CurrentVBOs.Get(_type);
 		
-		if (s_CurrentVBOs.Get(_type, curr) && curr != GL_NONE) {
+		if (!curr.has_value() || *curr != GL_NONE) {
 			s_CurrentVBOs.Assign(_type, GL_NONE);
 			
 			glBindBuffer(_type, GL_NONE);

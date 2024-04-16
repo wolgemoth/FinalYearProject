@@ -23,7 +23,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Lightspeed,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Speed::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 			
@@ -92,7 +92,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Parsec,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Distance::Unit>::optional TryGuessUnit(const std::string& _symbol);
 		
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -187,7 +187,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 		};
-			
+		
 		struct Rotation final {
 		
 		public:
@@ -202,7 +202,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			static constexpr double s_DegreesToRadians = M_PI / 180.0;
 			static constexpr double s_RadiansToDegrees = 180.0 / M_PI;
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Rotation::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -258,7 +258,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Day,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Time::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -328,7 +328,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			static constexpr double s_PlanckTemperature = 14200000000000000000000000000000000.0f;
 			static constexpr double s_AbsoluteZero      =                                   0.0f;
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Temperature::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -392,7 +392,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				TonneSquareInch_Long,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Pressure::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -540,7 +540,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Gigaton,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Mass::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -646,7 +646,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				SquareYard,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Area::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 
@@ -726,7 +726,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				CubicMetre,
 			};
 			
-			static bool TryGuessUnit(const std::string& _symbol, Unit& _result);
+			static Hashmap<std::string, Conversions::Volume::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
 			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
 

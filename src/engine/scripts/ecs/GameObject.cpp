@@ -23,7 +23,7 @@ namespace LouiEriksson::Engine::ECS {
 		
 		std::shared_ptr<GameObject> result;
 		
-		if (auto s = _scene.lock()) {
+		if (const auto s = _scene.lock()) {
 			
 			// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
 			result = s->Attach<ECS::GameObject>({
@@ -53,7 +53,7 @@ namespace LouiEriksson::Engine::ECS {
 		
 		try {
 			
-			if (auto scene = m_Scene.lock()) {
+			if (const auto scene = m_Scene.lock()) {
 				
 				for (const auto& bucket : Components()) {
 					

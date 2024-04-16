@@ -16,6 +16,7 @@
 #include <filesystem>
 #include <memory>
 #include <stdexcept>
+#include <optional>
 #include <string>
 #include <typeindex>
 #include <utility>
@@ -92,10 +93,23 @@ namespace LouiEriksson::Engine {
 		inline static Hashmap<std::string, Asset<Graphics::Texture  >> m_Textures;
 		inline static Hashmap<std::string, Asset<Graphics::Cubemap  >> m_Cubemaps;
 		
+		inline static const Hashmap<std::string, std::type_index> s_Types {
+			{ ".wav",  typeid(   Audio::AudioClip) },
+			{ ".obj",  typeid(Graphics::Mesh     ) },
+			{ ".mtl",  typeid(Graphics::Material ) },
+			{ ".jpg",  typeid(Graphics::Texture  ) },
+			{ ".png",  typeid(Graphics::Texture  ) },
+			{ ".tif",  typeid(Graphics::Texture  ) },
+			{ ".hdr",  typeid(Graphics::Texture  ) },
+			{ ".exr",  typeid(Graphics::Texture  ) },
+			{ ".vert", typeid(Graphics::Shader   ) },
+			{ ".geom", typeid(Graphics::Shader   ) },
+			{ ".frag", typeid(Graphics::Shader   ) },
+			{ ".glsl", typeid(Graphics::Shader   ) },
+		};
+		
 		template<typename T>
 		inline static Hashmap<std::string, Asset<T>>& GetBucket();
-		
-		static bool GetType(const std::string& _extension, std::type_index& _output);
 		
 		/**
 		 * @brief Index all of the assets the application has access to.
@@ -447,10 +461,7 @@ namespace LouiEriksson::Engine {
 		
 		try {
 			
-			Asset<Graphics::Cubemap> item;
-			if (!Resources::GetBucket<Graphics::Cubemap>().Get(_name, item)) {
-				item = { _name };
-			}
+			auto item = Resources::GetBucket<Graphics::Cubemap>().Get(_name).value_or({ _name });
 			
 			switch (item.m_Status) {
 				case Unloaded: {

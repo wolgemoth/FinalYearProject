@@ -11,6 +11,7 @@
 #include <SDL_stdinc.h>
 
 #include <vector>
+#include <optional>
 
 namespace LouiEriksson::Engine {
 	
@@ -48,11 +49,8 @@ namespace LouiEriksson::Engine::Input {
 
 		public:
 		
-			/** @brief et all events of a certain type which occurred this frame. */
-			static bool Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept;
-			
-			/** @brief Check if an event occurred this frame. */
-			static bool Get(const Uint32& _event) noexcept;
+			/** @brief Get all events of a certain type which occurred this frame. */
+			static Hashmap<Uint32, std::vector<SDL_Event>>::optional Get(const Uint32& _event) noexcept;
 			
 		};
 		

@@ -40,6 +40,7 @@
 /* STL */
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
@@ -55,6 +56,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <queue>
 #include <regex>
 #include <set>

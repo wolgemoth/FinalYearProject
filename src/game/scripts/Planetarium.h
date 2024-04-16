@@ -90,7 +90,7 @@ namespace LouiEriksson::Game::Scripts {
 			 * @param[in,out] _out The reference to the Transform object to store the result.
 			 * @return True if the transform is found, false otherwise.
 			 */
-			[[nodiscard]] bool TryGetTransform(const std::string& _name, const Transform& _out) const;
+			[[nodiscard]] typename Hashmap<std::string, Transform>::optional TryGetTransform(const std::string& _name) const;
 			
 			/**
 			 * @brief Retrieves the transforms of the stored astronomical objects.
@@ -181,13 +181,6 @@ namespace LouiEriksson::Game::Scripts {
 	template<typename T, glm::precision P>
 	Planetarium::Planets<T, P>::Planets() : m_Time(0) {}
 	
-	/**
-	 * @brief Sets the time of the planetarium.
-	 *
-	 * This function sets the time of the planetarium to the specified value.
-	 *
-	 * @param[in] _tt The new time value in terrestrial time.
-	 */
 	template<typename T, glm::precision P>
 	void Planetarium::Planets<T, P>::Time(const double& _tt) {
 		
@@ -215,74 +208,26 @@ namespace LouiEriksson::Game::Scripts {
 
 	}
 	
-	/**
-	 * @brief Retrieves the current time of the Planets class.
-	 *
-	 * This function returns the current time of the Planets class in terrestrial time.
-	 *
-	 * @return A constant reference to the current time value.
-	 */
 	template<typename T, glm::precision P>
 	const double& Planetarium::Planets<T, P>::Time() const noexcept {
 		return m_Time;
 	}
 	
-	/**
-	 * @brief Tries to retrieve the transform of an astronomical object by name.
-	 *
-	 * This function attempts to retrieve the transform of an astronomical object specified by its name.
-	 * The transform is returned through the reference parameter _out. If the transform is found, the function
-	 * returns true. Otherwise, it returns false.
-	 *
-	 * @param[in] _name The name of the astronomical object.
-	 * @param[in,out] _out The reference to the Transform object to store the result.
-	 * @return True if the transform is found, false otherwise.
-	 */
 	template<typename T, glm::precision P>
-	bool Planetarium::Planets<T, P>::TryGetTransform(const std::string& _name, const Planets<T, P>::Transform& _out) const {
-		return m_Transforms.Get(_name, const_cast<Planets<T, P>::Transform&>(_out) );
+	typename Hashmap<std::string, typename Planetarium::Planets<T, P>::Transform>::optional Planetarium::Planets<T, P>::TryGetTransform(const std::string& _name) const {
+		return m_Transforms.Get(_name);
 	}
 	
-	/**
-	 * @brief Retrieves the transforms of the stored astronomical objects.
-	 *
-	 * This function returns a vector containing the transformations of astronomical objects.
-	 *
-	 * @tparam T The type of the astronomical object.
-	 * @tparam P The precision of the astronomical object.
-	 * @return A vector containing the transformations of astronomical objects.
-	 */
 	template<typename T, glm::precision P>
 	const std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, P>::Transform>::KeyValuePair> Planetarium::Planets<T, P>::Transforms() const {
 		return m_Transforms.GetAll();
 	}
 	
-	/**
-	 * @brief Retrieves the names of the stored astronomical objects.
-	 *
-	 * This function returns a vector containing the names of the stored astronomical objects.
-	 *
-	 * @return A vector of strings representing the names of the astronomical objects.
-	 */
 	template<typename T, glm::precision P>
 	const std::vector<std::string> Planetarium::Planets<T, P>::Names() const {
 		return m_Transforms.Keys();
 	}
 	
-	/**
-	 * @brief Interpolates between two transforms.
-	 *
-	 * This function takes two transforms (_a and _b) and an interpolation parameter (_t) and returns
-	 * an interpolated transform between them. The interpolation is performed in a linear manner for
-	 * the position and using spherical linear interpolation (slerp) for the rotation.
-	 *
-	 * @tparam T The type of the elements in the transform.
-	 * @tparam P The precision of the transform.
-	 * @param[in] _a The first transform.
-	 * @param[in] _b The second transform.
-	 * @param[in] _t The interpolation parameter.
-	 * @return The interpolated transform.
-	 */
 	template<typename T, glm::precision P>
 	const typename Planetarium::Planets<T, P>::Transform Planetarium::Planets<T, P>::Transform::InterpolateTransform(const Planets<T, P>::Transform& _a, const Planets<T, P>::Transform& _b, const T& _t) {
 		
@@ -299,20 +244,6 @@ namespace LouiEriksson::Game::Scripts {
 		return result;
 	}
 	
-	/**
-	 * @brief Interpolates the transform of planets between two states.
-	 *
-	 * This function interpolates the position, rotation, and scale of planets between two sets of transforms.
-	 * It adjusts the position and rotation of the planet based on the planet's original position, the interpolated transform,
-	 * and the origin point. It also adjusts the scale of the planet based on the scale multiplier.
-	 *
-	 * @tparam T     The type for the planet's position, rotation, and scale components.
-	 * @tparam P     The precision for the planet's position, rotation, and scale components.
-	 * @param[in] _from  The set of transforms representing the initial state of the planets.
-	 * @param[in] _to    The set of transforms representing the final state of the planets.
-	 * @param[in] _t     The interpolation factor between the initial and final states of the planets.
-	 * @param[in] _origin The name of the planet to be used as the point of origin for the interpolation.
-	 */
 	template<typename T, glm::precision P>
 	void Planetarium::InterpolatePlanets(const Planets<T, P>& _from, const Planets<T, P>& _to, const double& _t, const std::string& _origin) {
 		
@@ -328,12 +259,10 @@ namespace LouiEriksson::Game::Scripts {
 		// Get position of earth to use as a point-of-origin.
 		typename Planets<T, P>::Transform origin{};
 		{
-			const typename Planets<T, P>::Transform origin_from{}, origin_to{};
+			auto origin_from = _from.TryGetTransform(_origin).value_or({});
+			auto origin_to   = _to.TryGetTransform(_origin).value_or({});
 			
-			_from.TryGetTransform(_origin, origin_from);
-			  _to.TryGetTransform(_origin, origin_to  );
-			  
-			  origin = Planets<T, P>::Transform::InterpolateTransform(origin_from, origin_to, _t);
+			origin = Planets<T, P>::Transform::InterpolateTransform(origin_from, origin_to, _t);
 		}
 		
 		auto positions_from = _from.Transforms();
@@ -345,12 +274,11 @@ namespace LouiEriksson::Game::Scripts {
 			auto from = positions_from[i].second;
 			auto   to =   positions_to[i].second;
 			
-			std::weak_ptr<ECS::GameObject> item;
-			if (m_Planets.Get(name, item)) {
+			if (const auto item = m_Planets.Get(name)) {
 				
-				if (const auto go = item.lock()) {
+				if (const auto go = item.value().lock()) {
 				
-					if (const auto t = go->GetComponent<Transform>().lock()) {
+					if (const auto t = go->template GetComponent<Transform>().lock()) {
 						
 						auto interpolated = Planets<T, P>::Transform::InterpolateTransform(from, to, _t);
 						
@@ -359,8 +287,7 @@ namespace LouiEriksson::Game::Scripts {
 						t->m_Rotation =  interpolated.m_Rotation;
 						
 						// Adjust the scale of the planet.
-						T scale;
-						if (Planets<T, P>::s_Scales_AU.Get(name, scale)) {
+						if (const auto scale = Planets<T, P>::s_Scales_AU.Get(name)) {
 							t->m_Scale = glm::vec<3, T, P>(au_to_m * scale * size_multiplier_au);
 						}
 					}

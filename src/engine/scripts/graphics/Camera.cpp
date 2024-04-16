@@ -640,7 +640,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							l->m_Shadow.m_ViewProjection = l->m_Shadow.m_Projection * lightView;
 						}
-						
+		
 						if (l->Type() != Light::Parameters::Type::Point) {
 							p->Assign(p->AttributeID("u_LightSpaceMatrix"), l->m_Shadow.m_ViewProjection);
 						}
@@ -775,7 +775,7 @@ namespace LouiEriksson::Engine::Graphics {
 					if (const auto s = Settings::Graphics::Skybox::s_Skybox.lock()) {
 						p->Assign(p->AttributeID("u_Ambient"), *s, 98);
 					}
-		
+					
 					p->Assign(p->AttributeID("u_AmbientExposure"), Settings::Graphics::Skybox::s_Exposure);
 		
 					// For the time being, there is only one light. TODO: Introduce a lighting buffer.
@@ -1479,7 +1479,7 @@ namespace LouiEriksson::Engine::Graphics {
 			Blit(_src, _dest, p);
 		}
 		else {
-			Debug::Log("Couldn't get passthrough shader!", LogType::Error);
+			Debug::Log("Couldn't value passthrough shader!", LogType::Error);
 		}
 	}
 	

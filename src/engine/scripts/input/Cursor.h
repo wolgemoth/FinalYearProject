@@ -58,7 +58,7 @@ namespace LouiEriksson::Engine::Input {
 		 * @brief Returns the current state of the Cursor.
 		 *
 		 * @note The result of GetState() may not always match the value provided to SetState().
-		 * This is because the Cursor's state does not get applied until the beginning of the next frame.
+		 * This is because the Cursor's state does not value applied until the beginning of the next frame.
 		 * When GetState() is called, it returns the current state of the Cursor, regardless of whatever state
 		 * changes may be pending.
 		 *
@@ -68,9 +68,9 @@ namespace LouiEriksson::Engine::Input {
 		
 	private:
 		
-		inline const static Cursor::State s_Default{}; /**< @brief Default Cursor state. */
-		inline       static Cursor::State s_Pending{}; /**< @brief Pending Cursor state. Will be applied next frame. */
-		inline       static Cursor::State s_Current{}; /**< @brief The actual current state of the Cursor. */
+		inline static const Cursor::State s_Default{}; /**< @brief Default Cursor state. */
+		inline static       Cursor::State s_Pending{}; /**< @brief Pending Cursor state. Will be applied next frame. */
+		inline static       Cursor::State s_Current{}; /**< @brief The actual current state of the Cursor. */
 		
 		/** @brief Update the state of the Cursor, applying any pending changes. */
 		static void Update();

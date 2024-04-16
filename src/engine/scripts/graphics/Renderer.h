@@ -25,9 +25,9 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	private:
 	
-		std::weak_ptr<Mesh>      m_Mesh;      /**< @brief The Mesh of the Renderer. */
-		std::weak_ptr<Material>  m_Material;  /**< @brief The Material of the Renderer. */
-		std::weak_ptr<Transform> m_Transform; /**< @brief The Transform of the Renderer. */
+		std::shared_ptr<Mesh>      m_Mesh;      /**< @brief The Mesh of the Renderer. */
+		std::  weak_ptr<Material>  m_Material;  /**< @brief The Material of the Renderer. */
+		std::  weak_ptr<Transform> m_Transform; /**< @brief The Transform of the Renderer. */
 	
 		/** @brief Whether or not the Renderer casts shadows. */
 		bool m_CastShadows;
@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @return A weak pointer to the Mesh object.
 		 */
-		const std::weak_ptr<Mesh>& GetMesh() noexcept;
+		const std::weak_ptr<Mesh> GetMesh() noexcept;
 		
 		/**
 		 * @brief Set the Material of the Renderer.

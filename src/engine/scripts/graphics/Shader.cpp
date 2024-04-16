@@ -209,8 +209,7 @@ namespace LouiEriksson::Engine::Graphics {
 				if (curr != GL_NONE) {
 					
 					// Get existing string (uses default if none).
-					std::string source;
-					result.Get(curr, source);
+					std::string source = result.Get(curr).value_or({});
 					
 					// Concatenate exiting with stream contents.
 					source += ss.str();
@@ -230,8 +229,7 @@ namespace LouiEriksson::Engine::Graphics {
 		if (curr != GL_NONE) {
 			
 			// Get existing string (uses default if none).
-			std::string source;
-			result.Get(curr, source);
+			std::string source = result.Get(curr).value_or({});
 			
 			// Concatenate exiting with stream contents.
 			source += ss.str();
@@ -267,24 +265,26 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	GLint Shader::AttributeID(const std::string& _name, const bool& _verbose) {
 		
-		GLint result = -1;
+		GLint result;
 		
-		if (!m_ParameterIDs.Get(_name, result)) {
+		if (const auto id = m_ParameterIDs.Get(_name)) {
+			result = *id;
+		}
+		else {
 			result = glGetUniformLocation(ID(), _name.c_str());
 			
 			if (result != -1) {
 				m_ParameterIDs.Assign(_name, result);
 			}
-		}
-		
-		if (_verbose && result == -1) {
-
-			Debug::Log(
-				"No parameter with name \"" + std::string(_name) +
-				"\" exists in program with ID \"" + std::to_string(ID()) +
-				"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
-				LogType::Info
-			);
+			if (_verbose && result == -1) {
+	
+				Debug::Log(
+					"No parameter with name \"" + std::string(_name) +
+					"\" exists in program with ID \"" + std::to_string(ID()) +
+					"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
+					LogType::Info
+				);
+			}
 		}
 		
 		return result;

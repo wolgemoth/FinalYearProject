@@ -10,31 +10,12 @@
 #include <cstring>
 #include <exception>
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <typeindex>
 #include <vector>
 
 namespace LouiEriksson::Engine {
-	
-	bool Resources::GetType(const std::string& _extension, std::type_index& _output) {
-		
-		const static Hashmap<std::string, std::type_index> lookup {
-			{ ".wav",  typeid(   Audio::AudioClip) },
-			{ ".obj",  typeid(Graphics::Mesh     ) },
-			{ ".mtl",  typeid(Graphics::Material ) },
-			{ ".jpg",  typeid(Graphics::Texture  ) },
-			{ ".png",  typeid(Graphics::Texture  ) },
-			{ ".tif",  typeid(Graphics::Texture  ) },
-			{ ".hdr",  typeid(Graphics::Texture  ) },
-			{ ".exr",  typeid(Graphics::Texture  ) },
-			{ ".vert", typeid(Graphics::Shader   ) },
-			{ ".geom", typeid(Graphics::Shader   ) },
-			{ ".frag", typeid(Graphics::Shader   ) },
-			{ ".glsl", typeid(Graphics::Shader   ) },
-		};
-		
-		return lookup.Get(_extension, _output);
-	}
 	
 	void Resources::IndexAssets() {
 		
@@ -42,14 +23,13 @@ namespace LouiEriksson::Engine {
 		
 			if (item.has_extension()) {
 			
-				std::type_index type { typeid(void) };
-				if (GetType(item.extension(), type)) {
+				if (const auto type = s_Types.Get(item.extension())) {
 					   
-					     if (type == typeid(   Audio::AudioClip)) {     m_Audio.Emplace(item.stem().string(), { item }); }
-					else if (type == typeid(Graphics::Material )) { m_Materials.Emplace(item.stem().string(), { item }); }
-					else if (type == typeid(Graphics::Mesh     )) {    m_Meshes.Emplace(item.stem().string(), { item }); }
-					else if (type == typeid(Graphics::Shader   )) {   m_Shaders.Emplace(item.stem().string(), { item }); }
-					else if (type == typeid(Graphics::Texture  )) {  m_Textures.Emplace(item.stem().string(), { item }); }
+					     if (*type == typeid(   Audio::AudioClip)) {     m_Audio.Emplace(item.stem().string(), { item }); }
+					else if (*type == typeid(Graphics::Material )) { m_Materials.Emplace(item.stem().string(), { item }); }
+					else if (*type == typeid(Graphics::Mesh     )) {    m_Meshes.Emplace(item.stem().string(), { item }); }
+					else if (*type == typeid(Graphics::Shader   )) {   m_Shaders.Emplace(item.stem().string(), { item }); }
+					else if (*type == typeid(Graphics::Texture  )) {  m_Textures.Emplace(item.stem().string(), { item }); }
 				}
 				else {
 					Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), LogType::Warning);

@@ -18,6 +18,7 @@
 
 #include <algorithm>
 #include <exception>
+#include <optional>
 #include <vector>
 
 namespace LouiEriksson::Engine::Input {
@@ -38,12 +39,8 @@ namespace LouiEriksson::Engine::Input {
 			   s_Data[static_cast<SDL_Scancode>(glm::min(static_cast<int>(_value), s_Length))] != 0u;
 	}
 	
-	bool Input::Event::Get(const Uint32& _event, std::vector<SDL_Event>& _results) noexcept {
-		return s_Events.Get(_event, _results);
-	}
-	
-	bool Input::Event::Get(const Uint32& _event) noexcept {
-		return s_Events.ContainsKey(_event);
+	Hashmap<Uint32, std::vector<SDL_Event>>::optional Input::Event::Get(const Uint32& _event) noexcept {
+		return s_Events.Get(_event);
 	}
 	
 	bool Input::Key::Get(const SDL_Scancode& _key) {
@@ -98,11 +95,9 @@ namespace LouiEriksson::Engine::Input {
 		
 		bool result = false;
 		
-		std::vector<SDL_Event> events;
-		
-		if (Input::Event::Get(SDL_MOUSEBUTTONDOWN, events)) {
+		if (const auto events = Input::Event::Get(SDL_MOUSEBUTTONDOWN)) {
 			
-			for (auto item : events) {
+			for (auto item : *events) {
 				
 				if (item.button.button == _button) {
 					
@@ -120,11 +115,9 @@ namespace LouiEriksson::Engine::Input {
 		
 		bool result = false;
 		
-		std::vector<SDL_Event> events;
-		
-		if (Input::Event::Get(SDL_MOUSEBUTTONUP, events)) {
+		if (const auto events = Input::Event::Get(SDL_MOUSEBUTTONUP)) {
 			
-			for (auto item : events) {
+			for (auto item : *events) {
 				
 				if (item.button.button == _button) {
 					
@@ -189,8 +182,7 @@ namespace LouiEriksson::Engine::Input {
 			UI::GUI::ProcessEvent(event);
 			
 			// Get list of events of the same type, if they exist.
-			std::vector<SDL_Event> bucket;
-			Input::Event::s_Events.Get(event.type, bucket);
+			auto bucket = Input::Event::s_Events.Get(event.type).value_or({});
 			
 			// Append the current event to the list.
 			bucket.emplace_back(event);

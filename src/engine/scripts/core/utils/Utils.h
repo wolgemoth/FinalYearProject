@@ -188,17 +188,19 @@ namespace LouiEriksson::Engine {
 		inline static T As(const nlohmann::json& _json);
 		
 		/**
-		 * @brief Try to parse a string into a value of type T.
+		 * @brief Attempts to parse a string into an optional value of type T.
 		 *
-		 * This template function attempts to parse a string into a value of type T.
+		 * This function attempts to convert the given string into a value of type T. If the conversion is successful, the resulting value is wrapped in an optional object and returned. If the conversion fails, an empty optional object is returned.
 		 *
-		 * @tparam T The type to parse the string into.
+		 * @tparam T The type of value to parse the string into.
 		 * @param[in] _str The string to parse.
-		 * @param[out] _output The output parameter where the parsed value is stored.
-		 * @return bool Returns true if the string was successfully parsed into a value of type T, false otherwise.
+		 * @return An optional value of type T, containing the parsed value if the conversion is successful, or an empty optional if the conversion fails.
+		 *
+		 * @note This function is a template function, enabling parsing of various types.
+		 * @note The type T must provide a specialize definition of this function in order to support parsing for that type.
 		 */
 		template <typename T>
-		inline static bool TryParse(const std::string& _str, T& _output) noexcept;
+		inline static std::optional<T> TryParse(const std::string& _str) noexcept;
 		
 		/**
 		 * @brief Calculate the signed angle between two vectors around a specified axis.
@@ -349,7 +351,7 @@ namespace LouiEriksson::Engine {
 		 */
 		template<typename T, glm::precision P>
 		static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec) {
-			return glm::vec3 { -_vec.x, _vec.z, _vec.y };
+			return { -_vec.x, _vec.z, _vec.y };
 		}
 		
 		/**
@@ -522,68 +524,38 @@ namespace LouiEriksson::Engine {
 	}
 	
 	template<>
-	inline bool Utils::TryParse(const std::string& _str, size_t& _output) noexcept {
-		
-		bool result;
-		
+	inline std::optional<size_t> Utils::TryParse(const std::string& _str) noexcept {
 		try {
-			_output = std::stoul(_str);
-			
-			result = true;
+			return std::stoul(_str);
 		}
 		catch (...) {
-			result = false;
-			
-			_output = {};
+			return std::nullopt;
 		}
-		
-		return result;
 	}
 	
 	template<>
-	inline bool Utils::TryParse(const std::string& _str, double& _output) noexcept {
-		
-		bool result;
-		
+	inline std::optional<double> Utils::TryParse(const std::string& _str) noexcept {
 		try {
-			_output = std::stod(_str);
-			
-			result = true;
+			return std::stod(_str);
 		}
 		catch (...) {
-			result = false;
-			
-			_output = {};
+			return std::nullopt;
 		}
-		
-		return result;
 	}
 	
 	template<>
-	inline bool Utils::TryParse(const std::string& _str, float& _output) noexcept {
-		
-		bool result;
-		
+	inline std::optional<float> Utils::TryParse(const std::string& _str) noexcept {
 		try {
-			_output = std::stof(_str);
-			
-			result = true;
+			return std::stof(_str);
 		}
 		catch (...) {
-			result = false;
-			
-			_output = {};
+			return std::nullopt;
 		}
-		
-		return result;
 	}
 	
 	template<>
-	inline bool Utils::TryParse(const std::string& _str, std::string& _output) noexcept {
-		
-		_output = _str;
-		
-		return true;
+	inline std::optional<std::string> Utils::TryParse(const std::string& _str) noexcept {
+		return _str;
 	}
 	
 } // LouiEriksson::Engine

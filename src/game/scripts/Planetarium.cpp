@@ -42,10 +42,9 @@ namespace LouiEriksson::Game::Scripts {
 		}}
 		
 		// Prevent the sun from casting shadows:
-		std::weak_ptr<ECS::GameObject> sol;
-		if (m_Planets.Get("Sol", sol)) {
+		if (const auto sol = m_Planets.Get("Sol")) {
 			
-			if (const auto go = sol.lock()                                   ) {
+			if (const auto go = sol->lock()                                  ) {
 			if (const auto t  = go->GetComponent<Transform>().lock()         ) {
 			if (const auto r  = go->GetComponent<Graphics::Renderer>().lock()) {
 				r->Shadows(false);
@@ -159,7 +158,7 @@ namespace LouiEriksson::Game::Scripts {
 				const auto star = Engine::Spatial::ATHYG::V3(Utils::MoveToArray<std::string, 34>(Utils::Split(*line, ',')));
 				
 				if (star.mag <= _threshold_magnitude) {
-					star_positions.emplace_back(star.x0, star.y0, star.z0);
+					star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
 				}
 			}
 			catch (const std::exception& e) {

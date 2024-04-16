@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine::Audio {
 	 * @brief Represents an audio listener in the scene.
 	 *
 	 * The AudioListener class is responsible for synchronizing the audio listener with the internal audio engine.
-	 * It provides functionalities to set and get the master gain of the audio listener. The position, orientation,
+	 * It provides functionalities to set and value the master gain of the audio listener. The position, orientation,
 	 * and velocity of the audio listener are automatically updated based on the parent GameObject's transform
 	 * and rigidbody (if available).
 	 *
