@@ -80,7 +80,7 @@ namespace LouiEriksson::Engine::Graphics {
 		struct Earcut final {
 		
 			template <typename N>
-			static std::vector<N> Triangulate(const std::vector<glm::vec3>& _polyline) {
+			static std::vector<N> TriangulateXY(const std::vector<glm::vec2>& _polyline) {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
@@ -92,8 +92,8 @@ namespace LouiEriksson::Engine::Graphics {
 				std::vector<std::vector<Point>> polygon;
 				
 				std::vector<Point> polyline;
-				for (auto& item : _polyline) {
-					polyline.push_back({item.x, item.y});
+				for (auto it = _polyline.rbegin(); it != _polyline.rend(); ++it) {
+					polyline.push_back({ it->x, it->y });
 				}
 				polygon.push_back(polyline);
 				
@@ -101,7 +101,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			
 			template <typename N>
-			static std::vector<N> Triangulate(const std::vector<std::vector<glm::vec3>>& _polygon) {
+			static std::vector<N> TriangulateXY(const std::vector<std::vector<glm::vec2>>& _polygon) {
 				
 				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
 				
@@ -115,10 +115,54 @@ namespace LouiEriksson::Engine::Graphics {
 				for (auto& item1 : _polygon) {
 					
 					std::vector<Point> polyline;
-					for (auto& item2 : item1) {
-						polyline.push_back({item2.x, item2.y});
+					for (auto it = item1.rbegin(); it != item1.rend(); ++it) {
+						polyline.push_back({ it->x, it->y });
 					}
+					polygon.push_back(polyline);
+				}
+				
+				return mapbox::earcut<N>(polygon);
+			}
+			
+			template <typename N>
+			static std::vector<N> TriangulateXZ(const std::vector<glm::vec3>& _polyline) {
+				
+				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
+				
+				Debug::Assert(_polyline.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				
+				// TODO: Make this better.
+				
+				using Point = std::array<float, 2>;
+				std::vector<std::vector<Point>> polygon;
+				
+				std::vector<Point> polyline;
+				for (auto it = _polyline.rbegin(); it != _polyline.rend(); ++it) {
+					polyline.push_back({ it->x, it->z });
+				}
+				polygon.push_back(polyline);
+				
+				return mapbox::earcut<N>(polygon);
+			}
+			
+			template <typename N>
+			static std::vector<N> TriangulateXZ(const std::vector<std::vector<glm::vec3>>& _polygon) {
+				
+				static_assert(std::is_integral_v<N>, "Type must be an integer type!");
+				
+				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				
+				// TODO: Make this better.
+				
+				using Point = std::array<float, 2>;
+				std::vector<std::vector<Point>> polygon;
+				
+				for (auto& item1 : _polygon) {
 					
+					std::vector<Point> polyline;
+					for (auto it = item1.rbegin(); it != item1.rend(); ++it) {
+						polyline.push_back({ it->x, it->z });
+					}
 					polygon.push_back(polyline);
 				}
 				
@@ -181,9 +225,9 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct Grid final {
 			
-				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution);
+				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const glm::vec2& _size);
 				
-				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const Graphics::TextureCPU& _heights);
+				static std::shared_ptr<Mesh> Create(const glm::ivec2& _resolution, const glm::vec2& _size, const Graphics::TextureCPU& _heights);
 			};
 			
 			struct PointCloud final {

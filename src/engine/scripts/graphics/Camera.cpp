@@ -1664,7 +1664,6 @@ namespace LouiEriksson::Engine::Graphics {
 		else {
 			glDrawElements(_mesh.Format(), static_cast<GLsizei>(_mesh.IndexCount()), _mesh.IndexFormat(), nullptr);
 		}
-		
 	}
 	
 } // LouiEriksson::Engine::Graphics

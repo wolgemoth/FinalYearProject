@@ -41,5 +41,15 @@
 
         mediump vec3 grain = Random3S(vec3(v_TexCoord.x, v_TexCoord.y, v_TexCoord.x + v_TexCoord.y), u_Time, 0.5);
 
-        gl_FragColor = vec4(Sample3(u_Texture, v_TexCoord) - (grain * u_Amount), 1.0);
+        gl_FragColor = vec4(
+            max(
+                mix(
+                    Sample3(u_Texture, v_TexCoord),
+                    grain,
+                    u_Amount
+                ),
+                0.0
+            ),
+            1.0
+        );
     }

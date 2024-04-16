@@ -55,11 +55,11 @@ namespace LouiEriksson::Engine::ECS {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
-			std::type_index category = typeid(T);
+			const std::type_index category = typeid(T);
 			
 			const auto existing = m_Components.Get(category);
 			
-			auto entries = existing.value_or(std::vector<std::shared_ptr<Component>>());
+			auto entries = existing.value_or({});
 			entries.emplace_back(_component);
 			
 			m_Components.Assign(category, entries);
@@ -67,21 +67,19 @@ namespace LouiEriksson::Engine::ECS {
 			if (existing.has_value()) {
 				_component->m_Index = entries.size() - 1;
 			}
-			else {
+			
+			// Attach to scene:
+			if (const auto s = GetScene().lock()) {
 				
-				// Attach to scene:
-				if (const auto s = GetScene().lock()) {
-					
-					/*
-					 * If type derives from script, attach it as a script.
-					 * Otherwise, attach it as current type.
-					 */
-					if (std::is_base_of<Script, T>::value) {
-						s->Attach<Script>(std::dynamic_pointer_cast<Script>(_component));
-					}
-					else {
-						s->Attach(_component);
-					}
+				/*
+				 * If type derives from script, attach it as a script.
+				 * Otherwise, attach it as current type.
+				 */
+				if (std::is_base_of<Script, T>::value) {
+					s->Attach<Script>(std::dynamic_pointer_cast<Script>(_component));
+				}
+				else {
+					s->Attach(_component);
 				}
 			}
 		}

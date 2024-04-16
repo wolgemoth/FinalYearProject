@@ -68,6 +68,8 @@ namespace LouiEriksson::Engine {
 					Debug::Log("OpenAL Error \"Unknown\"", LogType::Error);
 				}
 		    }
+			
+			Debug::Break("BREAK_AL_ERR");
 	    }
 	}
 	
@@ -81,6 +83,7 @@ namespace LouiEriksson::Engine {
 				glewGetErrorString(glError) << "\"";
 			
 			Debug::Log(ss.str(), LogType::Error);
+			Debug::Break("BREAK_GL_ERR");
 		}
 	}
 	
@@ -93,6 +96,7 @@ namespace LouiEriksson::Engine {
 			ss << "SDL Error \"" << sdlError << "\"";
 			
 			Debug::Log(ss.str(), LogType::Error);
+			Debug::Break("BREAK_SDL_ERR");
 			
 		    SDL_ClearError();
 		}

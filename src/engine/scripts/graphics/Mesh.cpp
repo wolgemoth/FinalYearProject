@@ -856,7 +856,7 @@ namespace LouiEriksson::Engine::Graphics {
 		return s_Instance;
 	}
 	
-	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution) {
+	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const glm::vec2& _size) {
 	
 		std::shared_ptr<Mesh> result;
 		
@@ -888,9 +888,9 @@ namespace LouiEriksson::Engine::Graphics {
 					};
 					
 			        vertices[idx] = {
-					    uv.x - 0.5,
+					    _size.x * (uv.x - 0.5),
 				        0.0,
-				        uv.y - 0.5,
+				        _size.y * (uv.y - 0.5),
 					};
 					
 		            uvs[idx] = uv;
@@ -934,7 +934,7 @@ namespace LouiEriksson::Engine::Graphics {
 		return result;
 	}
 	
-	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const Graphics::TextureCPU& _heights) {
+	std::shared_ptr<Mesh> Mesh::Primitives::Grid::Create(const glm::ivec2& _resolution, const glm::vec2& _size, const Graphics::TextureCPU& _heights) {
 	
 		std::shared_ptr<Mesh> result;
 		
@@ -971,23 +971,24 @@ namespace LouiEriksson::Engine::Graphics {
 						(fi / static_cast<float>(nX)),
 					};
 					
-			        vertices[idx] = {
-					    uv.x - 0.5,
+					vertices[idx] = {
+					    _size.x * (uv.x - 0.5),
 				        _heights.GetPixelBilinear(uv),
-				        uv.y - 0.5,
+				        _size.y * (uv.y - 0.5),
 					};
 					
 		            uvs[idx] = uv;
 					
 					// Extract normals from heightmap:
-					normals[idx] = glm::normalize(
-						glm::vec3(
-							(_heights.GetPixelBilinear({fi + ts.x, fj}) - _heights.GetPixelBilinear({fi - ts.x, fj})) / 2,
-							1.0,
-							(_heights.GetPixelBilinear({fi, fj + ts.y}) - _heights.GetPixelBilinear({fi, fj - ts.y})) / 2
-						)
-					);
-					
+				    {
+						normals[idx] = glm::normalize(
+							glm::vec3(
+								(_heights.GetPixelBilinear((glm::vec2(fi + 1, fj) + 1.0f) * ts) - _heights.GetPixelBilinear((glm::vec2(fi - 1, fj) + 1.0f) * ts)) / 2,
+								1.0,
+								(_heights.GetPixelBilinear((glm::vec2(fi, fj + 1) + 1.0f) * ts) - _heights.GetPixelBilinear((glm::vec2(fi, fj - 1) + 1.0f) * ts)) / 2
+							)
+						);
+				    }
 					tangents[0][idx] = { 1.0, 0.0, 0.0 };
 					tangents[1][idx] = { 0.0, 0.0, 1.0 };
 		        }}

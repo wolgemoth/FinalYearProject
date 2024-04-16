@@ -366,7 +366,6 @@ namespace LouiEriksson::Engine {
 										if (mesh->mNumVertices > std::numeric_limits<GLushort>::max()) {
 											
 											const size_t limit32 = std::numeric_limits<GLuint>::max();
-											
 											Debug::Assert(mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated. ", LogType::Warning, true);
 											
 											// 32-bit:
