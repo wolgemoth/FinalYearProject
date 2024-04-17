@@ -103,7 +103,9 @@ namespace LouiEriksson::Engine {
 	}
 	
 	std::string Utils::Minimise(const std::string& _string) {
-		return std::regex_replace(_string, std::regex(R"((\r\n)+|\r+|\n+|\t+|\s)"), "");
+		
+		static const auto ws = std::regex(R"((\r\n)+|\r+|\n+|\t+|\s)", std::regex::optimize);
+		return std::regex_replace(_string, ws, "");
 	}
 	
 	float Utils::Repeat(const float& _value, const float& _max) {

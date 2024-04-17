@@ -45,8 +45,12 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Triggers a breakpoint and logs a message.
 		 *
-		 * This static method is used to trigger a breakpoint and log a message with a specified log type.
+		 * This method is used to trigger a breakpoint and log a message with a specified log type.
 		 * The default message is "Breakpoint hit!" and the default log type is LogType::Trace.
+		 *
+		 * @note This function only has an effect on Debug builds.
+		 *
+		 * @warning Please note that if the function cannot identify the correct signal for a breakpoint, it will resort to raising SIGABRT as a fallback.
 		 *
 		 * @param[in] _message (optional) The message to log.
 		 * @param[in] _type (optional) The log type of the message.

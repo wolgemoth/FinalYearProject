@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Networking {
 	}
 	
 	Requests::Response::Response() :
-		m_Status(CURLcode(-1)),
+		m_Status(CURL_LAST),
 		m_Content() {}
 	
 	bool Requests::Response::Success(const Requests::Response& _response, const bool& _verbose) {

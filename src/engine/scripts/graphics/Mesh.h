@@ -34,16 +34,16 @@ namespace LouiEriksson::Engine::Graphics {
 		/** @brief Currently bound VAO. */
 		inline static GLuint s_CurrentVAO { GL_NONE };
 		
-		/** @brief Currently bound VBOs. */
-		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
+//		/** @brief Currently bound VBOs. */
+//		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
 		
 		GLenum      m_Format,
 		       m_IndexFormat;
 		
 		GLuint          m_VAO_ID,
+		                m_IBO_ID,
 		        m_PositionVBO_ID,
 		        m_TexCoordVBO_ID,
-		           m_IndexVBO_ID,
 		          m_NormalVBO_ID,
 		         m_TangentVBO_ID,
 		       m_BitangentVBO_ID;
@@ -258,21 +258,13 @@ namespace LouiEriksson::Engine::Graphics {
 		/**
 		 * @brief Binds the specified VBO.
 		 *
-		 * This static function binds the given VBO of the specified type, if it is not already bound.
+		 * This static function binds the given VBO to the target.
 		 *
 		 * @param[in] _type The type of the VBO.
 		 * @param[in] _vbo The ID of the VBO to bind.
 		 */
 		static void BindVBO(const GLenum& _type, const GLuint& _vbo);
 		
-		/**
-		 * @brief Unbinds the specified VBO.
-		 *
-		 * This static function unbinds the specified VBO of the given type by setting the current VBO ID for that type to GL_NONE.
-		 *
-		 * @param[in] _type The type of the VBO to unbind.
-		 */
-		static void UnbindVBO(const GLenum& _type);
 		
 		[[nodiscard]] const GLenum&      Format() const noexcept;
 		[[nodiscard]] const GLenum& IndexFormat() const noexcept;
