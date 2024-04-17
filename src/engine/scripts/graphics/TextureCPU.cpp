@@ -41,8 +41,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		const auto index = Utils::To1D(
 			{
-				 std::clamp(static_cast<size_t>(_pixel.x), static_cast<size_t>(0),  Width() - 1),
-				 std::clamp(static_cast<size_t>(_pixel.y), static_cast<size_t>(0), Height() - 1),
+				 std::clamp(static_cast<size_t>(               _pixel.x), static_cast<size_t>(0),  Width()),
+				 std::clamp(static_cast<size_t>(Height() - 1 - _pixel.y), static_cast<size_t>(0), Height()),
 			},
 			Width()
 		);
@@ -57,8 +57,8 @@ namespace LouiEriksson::Engine::Graphics {
 	float TextureCPU:: GetPixelBilinear(const glm::vec2& _uv) const {
 		
 		const glm::ivec2 p {
-			_uv.x * static_cast<float>( Width()),
-			_uv.y * static_cast<float>(Height())
+			(_uv.x * static_cast<float>( Width() - 1)),
+			(_uv.y * static_cast<float>(Height() - 1))
 		};
 		
 		const glm::vec2 d {

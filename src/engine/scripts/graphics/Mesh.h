@@ -34,9 +34,6 @@ namespace LouiEriksson::Engine::Graphics {
 		/** @brief Currently bound VAO. */
 		inline static GLuint s_CurrentVAO { GL_NONE };
 		
-//		/** @brief Currently bound VBOs. */
-//		inline static Hashmap<GLenum, GLuint> s_CurrentVBOs;
-		
 		GLenum      m_Format,
 		       m_IndexFormat;
 		
@@ -63,20 +60,20 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices);
 		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
-		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
-		
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, const bool& _generateTangents = true, const GLenum& _format = GL_TRIANGLES);
-		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
 		
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices, const std::vector<glm::vec3>& _normals, const std::vector<glm::vec2>& _UVs, std::array<std::vector<glm::vec3>, 2> _tangents, const GLenum& _format = GL_TRIANGLES);
 		
-		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _UVs);
+		static std::array<std::vector<glm::vec3>, 2> GenerateTangents(const std::vector<glm::vec3>& _vertices, const std::vector<glm::vec2>& _uvs);
 
+		static std::vector<glm::vec3> GenerateNormals(const std::vector<glm::vec3>& _vertices, const std::vector<GLuint>& _indices);
+		
+		static std::vector<glm::vec3> GenerateNormals(const std::vector<glm::vec3>& _vertices, const std::vector<GLushort>& _indices);
+		
+		static std::vector<glm::vec3> GenerateNormals(const std::vector<glm::vec3>& _vertices, const std::vector<GLubyte>& _indices);
+		
 		struct Earcut final {
 		
 			template <typename N>

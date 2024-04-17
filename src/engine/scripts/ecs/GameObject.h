@@ -13,6 +13,7 @@
 #include <string_view>
 #include <type_traits>
 #include <typeindex>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::ECS {
@@ -51,7 +52,7 @@ namespace LouiEriksson::Engine::ECS {
 		 * @param _component A shared pointer to the component to attach.
 		 */
 		template <typename T>
-		void Attach(const std::type_index& _type, const std::shared_ptr<T> _component) {
+		void Attach(const std::type_index& _type, std::shared_ptr<T>&& _component) {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
@@ -197,10 +198,12 @@ namespace LouiEriksson::Engine::ECS {
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
 			// Create a new instance of the component, taking a pointer to this gameobject.
-			auto result = std::shared_ptr<T>(new T(shared_from_this()));
+			auto ptr = std::shared_ptr<T>(new T(shared_from_this()));
+			
+			std::weak_ptr<T> result = ptr;
 			
 			// Attach the component to the GameObject.
-			Attach(typeid(T), result);
+			Attach(typeid(T), std::move(ptr));
 			
 			// Return a weak reference to the component.
 			return result;

@@ -10,6 +10,7 @@
 #include <string>
 #include <type_traits>
 #include <typeindex>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine {
@@ -115,7 +116,7 @@ namespace LouiEriksson::Engine::ECS {
 			auto category = m_Components.Get(typeid(T)).value_or({});
 			category.emplace_back(std::dynamic_pointer_cast<T>(_entity));
 			
-			m_Components.Assign(typeid(T), category);
+			m_Components.Emplace(typeid(T), std::move(category));
 	
 			return _entity;
 		}

@@ -215,7 +215,7 @@ namespace LouiEriksson::Engine::Graphics {
 					source += ss.str();
 					
 					// Assign back to the hashmap,
-					result.Assign(curr, source);
+					result.Emplace(curr, std::move(source));
 					
 					// Clear the stream.
 					ss.str({});
@@ -235,7 +235,7 @@ namespace LouiEriksson::Engine::Graphics {
 			source += ss.str();
 			
 			// Assign back to the hashmap,
-			result.Assign(curr, source);
+			result.Emplace(curr, std::move(source));
 		}
 		
 		return result;
@@ -274,7 +274,7 @@ namespace LouiEriksson::Engine::Graphics {
 			result = glGetUniformLocation(ID(), _name.c_str());
 			
 			if (result != -1) {
-				m_ParameterIDs.Assign(_name, result);
+				m_ParameterIDs.Assign(_name, std::move(result));
 			}
 			if (_verbose && result == -1) {
 	

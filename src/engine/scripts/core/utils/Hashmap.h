@@ -109,19 +109,17 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Reinitialise the Hashmap. An expensive operation that increases the Hashmap's capacity.
 		 */
-		void Resize() {
-			
-			const size_t resize_amount = size();
+		void Resize(const size_t& _newSize) {
 			
 			std::vector<std::vector<KeyValuePair>> shallowCopy(m_Buckets);
 			
 			m_Size = 0;
 			m_Buckets.clear();
-			m_Buckets.resize(size() + resize_amount);
+			m_Buckets.resize(_newSize);
 			
 			for (auto& bucket : shallowCopy) {
 				for (auto& kvp : bucket) {
-					Add(kvp.first, kvp.second);
+					Emplace(std::move(kvp.first), std::move(kvp.second));
 				}
 			}
 		}
@@ -189,7 +187,7 @@ namespace LouiEriksson::Engine {
 			m_Buckets.resize(auto_capacity);
 			
 			for (const auto& item : _items) {
-				Assign(std::move(item.first), std::move(item.second));
+				Assign(item.first, item.second);
 			}
 		}
 		
@@ -267,7 +265,7 @@ namespace LouiEriksson::Engine {
 		 * If you are trying to modify an existing key, see Hashmap::Assign.
 		 *
 		 * @param[in] _key Key of the entry.
-		 * @param[out] _value Value of the entry.
+		 * @param[in] _value Value of the entry.
 		 * @return True if successful, false otherwise.
 		 */
 		bool Add(const Tk& _key, const Tv& _value) {
@@ -275,7 +273,7 @@ namespace LouiEriksson::Engine {
 			auto result = true;
 			
 			if (size() >= m_Buckets.size()) {
-				Resize();
+				Resize(m_Buckets.size() * 2);
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
@@ -308,12 +306,12 @@ namespace LouiEriksson::Engine {
 		 * @brief Inserts or replaces an entry within the Hashmap with the given key.
 		 *
 		 * @param[in] _key Key of the entry.
-		 * @param[out] _value Value of the entry.
+		 * @param[in] _value Value of the entry.
 		 */
 		void Assign(const Tk& _key, const Tv& _value) {
 			
 			if (size() >= m_Buckets.size()) {
-				Resize();
+				Resize(m_Buckets.size() * 2);
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
@@ -342,15 +340,40 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/**
-		 * @brief Inserts or replaces an entry within the Hashmap with the given key using move semantics.
+		 * @brief Inserts or replaces an entry within the Hashmap with the given key using implicit move semantics.
 		 *
-		 * @param[in] _key Key of the entry.
-		 * @param[out] _value Value of the entry.
-		 *
-		 * @see Assign(const Tk& _key, const Tv& _value)
+		 * @param _key Key of the entry.
+		 * @param _value Value of the entry.
 		 */
-		void Emplace(const Tk&& _key, const Tv&& _value) {
-			Assign(std::move(_key), std::move(_value));
+		void Emplace(Tk&& _key, Tv&& _value) {
+			
+			if (size() >= m_Buckets.size()) {
+				Resize(m_Buckets.size() * 2);
+			}
+			
+			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+			const size_t hash = GetHashcode(_key);
+			const size_t i = hash % m_Buckets.size();
+			
+			auto& bucket = m_Buckets[i];
+			
+			auto exists = false;
+			for (auto& kvp : bucket) {
+				
+				if (GetHashcode(kvp.first) == hash) {
+					exists = true;
+					
+					kvp.second = _value;
+					
+					break;
+				}
+			}
+			
+			if (!exists) {
+				bucket.emplace_back(_key, _value);
+			}
+			
+			m_Size++;
 		}
 		
 		/**
@@ -483,6 +506,18 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/**
+		 * @brief Reserves memory for the container to have a minimum capacity of _newSize elements.
+		 *
+		 * @param[in] _newSize The minimum capacity to reserve for the container.
+		 */
+		void Reserve(const std::size_t& _newSize) {
+			
+			if (m_Size < _newSize) {
+				Resize(_newSize);
+			}
+		}
+		
+		/**
 		 * @brief Clears all entries from the Hashmap.
 		 *
 		 * @remarks This function is not responsible for memory management of items contained within the Hashmap.
@@ -511,62 +546,6 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/* ITERATORS */
-
-/**
- * @class iterator
- * @brief Represents an iterator to traverse through the elements in a Hashmap.
- */
-		class iterator final {
-			
-			friend Hashmap;
-			
-			using outer_itr = typename std::vector<std::vector < KeyValuePair>>:: iterator;
-			using inner_itr = typename std::vector<KeyValuePair>::iterator;
-		
-		private:
-			
-			outer_itr m_Outer;
-			outer_itr m_Outer_End;
-			inner_itr m_Inner;
-			
-			iterator(
-					const outer_itr& _outer,
-					const outer_itr& _outer_end,
-					const inner_itr& _inner ) :
-			    m_Outer(_outer),
-			m_Outer_End(_outer_end),
-			    m_Inner(_inner)
-			{
-				if (m_Outer != m_Outer_End && m_Inner == m_Outer->end()) {
-					++(*this);
-				}
-			}
-		
-		public:
-			
-			iterator& operator ++() {
-				
-				if (++m_Inner == m_Outer->end()) {
-					
-					while (++m_Outer != m_Outer_End) {
-						
-						if (!m_Outer->empty()) {
-							m_Inner = m_Outer->begin();
-							break;
-						}
-					}
-					if (m_Outer == m_Outer_End) {
-						m_Inner = inner_itr();
-					}
-				}
-				return *this;
-			}
-			
-			KeyValuePair& operator *() { return *m_Inner; }
-			
-			bool operator ==(const iterator& other) const { return ((m_Outer == other.m_Outer) && (m_Outer == m_Outer_End || m_Inner == other.m_Inner)); }
-			bool operator !=(const iterator& other) const { return !operator ==(other); }
-		};
 		
 		/**
 		 * @class const_iterator
@@ -597,11 +576,6 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			
-			const_iterator(const iterator& other) :
-				    m_Outer(other.m_Outer),
-                m_Outer_End(other.m_Outer_End),
-                    m_Inner(other.m_Inner) {}
-			
 		public:
 			
 			const const_iterator& operator ++() {
@@ -627,9 +601,6 @@ namespace LouiEriksson::Engine {
 			bool operator ==(const const_iterator& other) const { return ((m_Outer == other.m_Outer) && (m_Outer == m_Outer_End || m_Inner == other.m_Inner)); }
 			bool operator !=(const const_iterator& other) const { return !operator ==(other); }
 		};
-		
-		iterator begin() { return iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::iterator() : m_Buckets.begin()->begin()); }
-		iterator   end() { return iterator(m_Buckets.end(), m_Buckets.end(), typename std::vector<KeyValuePair>::iterator()); }
 		
 		const_iterator begin() const { return const_iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::const_iterator() : m_Buckets.begin()->begin()); }
 		const_iterator   end() const { return const_iterator(m_Buckets.end(),   m_Buckets.end(), typename std::vector<KeyValuePair>::const_iterator()); }

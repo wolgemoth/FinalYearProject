@@ -28,6 +28,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::ECS {
@@ -448,8 +449,8 @@ namespace LouiEriksson::Engine::ECS {
 						
 							if (const auto fPtr = _initialisers.Get(type)) {
 								
-								const auto script = (*fPtr)(go);
-								go->Attach(script->TypeID(), script);
+								auto script = (*fPtr)(go);
+								go->Attach(script->TypeID(), std::move(script));
 							}
 							else {
 								

@@ -192,16 +192,16 @@ namespace LouiEriksson::Game::Scripts {
 		auto earth = POS::GetEarth(m_Time);
 		auto moon  = POS::GetMoon(earth, POS::GetEMB(m_Time));
 		
-		m_Transforms.Assign("Sol"    , { POS::GetSol    (m_Time), ROT("Sol"    , m_Time))) });
-		m_Transforms.Assign("Mercury", { POS::GetMercury(m_Time), ROT("Mercury", m_Time))) });
-		m_Transforms.Assign("Venus"  , { POS::GetVenus  (m_Time), ROT("Venus"  , m_Time))) });
-		m_Transforms.Assign("Earth"  , { earth                  , ROT("Earth"  , m_Time))) });
-		m_Transforms.Assign("Moon"   , { moon                   , ROT("Moon"   , m_Time))) });
-		m_Transforms.Assign("Mars"   , { POS::GetMars   (m_Time), ROT("Mars"   , m_Time))) });
-		m_Transforms.Assign("Jupiter", { POS::GetJupiter(m_Time), ROT("Jupiter", m_Time))) });
-		m_Transforms.Assign("Saturn" , { POS::GetSaturn (m_Time), ROT("Saturn" , m_Time))) });
-		m_Transforms.Assign("Uranus" , { POS::GetUranus (m_Time), ROT("Uranus" , m_Time))) });
-		m_Transforms.Assign("Neptune", { POS::GetNeptune(m_Time), ROT("Neptune", m_Time))) });
+		m_Transforms.Emplace("Sol"    , { POS::GetSol    (m_Time), ROT("Sol"    , m_Time))) });
+		m_Transforms.Emplace("Mercury", { POS::GetMercury(m_Time), ROT("Mercury", m_Time))) });
+		m_Transforms.Emplace("Venus"  , { POS::GetVenus  (m_Time), ROT("Venus"  , m_Time))) });
+		m_Transforms.Emplace("Earth"  , { earth                  , ROT("Earth"  , m_Time))) });
+		m_Transforms.Emplace("Moon"   , { moon                   , ROT("Moon"   , m_Time))) });
+		m_Transforms.Emplace("Mars"   , { POS::GetMars   (m_Time), ROT("Mars"   , m_Time))) });
+		m_Transforms.Emplace("Jupiter", { POS::GetJupiter(m_Time), ROT("Jupiter", m_Time))) });
+		m_Transforms.Emplace("Saturn" , { POS::GetSaturn (m_Time), ROT("Saturn" , m_Time))) });
+		m_Transforms.Emplace("Uranus" , { POS::GetUranus (m_Time), ROT("Uranus" , m_Time))) });
+		m_Transforms.Emplace("Neptune", { POS::GetNeptune(m_Time), ROT("Neptune", m_Time))) });
 		
 #undef POS
 #undef ROT

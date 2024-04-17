@@ -1235,9 +1235,9 @@ namespace LouiEriksson::Engine::Graphics {
 			{
 				// Create a render texture for the AO. Optionally, downscale the texture
 				// to save performance by computing AO at a lower resolution.
-				static const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
-				static const auto  width = glm::max(viewport[2] / (downscale + 1), 1);
-				static const auto height = glm::max(viewport[3] / (downscale + 1), 1);
+				const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
+				const auto  width = glm::max(viewport[2] / (downscale + 1), 1);
+				const auto height = glm::max(viewport[3] / (downscale + 1), 1);
 				
 				if (m_AO_RT.m_FBO_ID == GL_NONE || width != m_AO_RT.m_Width || height != m_AO_RT.m_Height) {
 					m_AO_RT.Reinitialise(width, height);

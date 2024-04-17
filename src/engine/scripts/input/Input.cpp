@@ -18,7 +18,7 @@
 
 #include <algorithm>
 #include <exception>
-#include <optional>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::Input {
@@ -188,7 +188,7 @@ namespace LouiEriksson::Engine::Input {
 			bucket.emplace_back(event);
 			
 			// Update the list in the hashmap.
-			Input::Event::s_Events.Assign(event.type, bucket);
+			Input::Event::s_Events.Emplace(std::move(event.type), std::move(bucket));
 		}
 		
 		/* HANDLE MOUSE STATE */
@@ -225,7 +225,7 @@ namespace LouiEriksson::Engine::Input {
 			
 			// Ensure the copied keyboard state is disposed of.
 			if (Input::Key::s_PreviousKeyboardState.s_Data != nullptr) {
-				delete Input::Key::s_PreviousKeyboardState.s_Data;
+				delete[] Input::Key::s_PreviousKeyboardState.s_Data;
 				
 				Input::Key::s_PreviousKeyboardState.s_Data = nullptr;
 			}
