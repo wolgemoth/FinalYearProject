@@ -1,12 +1,13 @@
 #ifndef FINALYEARPROJECT_PLANETARIUM_H
 #define FINALYEARPROJECT_PLANETARIUM_H
 
-#include "../include/engine_core.h"
-#include "../include/engine_spatial.h"
+#include "../../include/engine_core.h"
+#include "../../include/engine_spatial.h"
 
 using namespace LouiEriksson::Engine;
+using namespace LouiEriksson::Engine::Spatial;
 
-namespace LouiEriksson::Game::Scripts {
+namespace LouiEriksson::Game::Scripts::Spatial {
 	
 	/**
 	 * @class Planetarium
@@ -143,15 +144,11 @@ namespace LouiEriksson::Game::Scripts {
 		/** @brief Hashmap containing planet GameObjects. */
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
-		std::shared_ptr<Graphics::Mesh> m_Stars;
-		
 		/** @inheritdoc */
 		void Begin() override;
 		
 		/** @inheritdoc */
 		void Tick() override;
-		
-		void LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude = std::numeric_limits<double>::infinity());
 		
 		/**
 		 * @brief Interpolates the transforms of planets from a starting state to an
@@ -169,7 +166,7 @@ namespace LouiEriksson::Game::Scripts {
 		
 	public:
 	
-		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
 		~Planetarium() override;
@@ -186,8 +183,8 @@ namespace LouiEriksson::Game::Scripts {
 		
 		m_Time = _tt;
 
-#define POS Spatial::VSOP<T, P>::V87::A
-#define ROT glm::quat(glm::radians(Spatial::WGCCRE::GetOrientationVSOP87<T, P>
+#define POS VSOP<T, P>::V87::A
+#define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, P>
 		
 		auto earth = POS::GetEarth(m_Time);
 		auto moon  = POS::GetMoon(earth, POS::GetEMB(m_Time));
@@ -247,7 +244,7 @@ namespace LouiEriksson::Game::Scripts {
 	template<typename T, glm::precision P>
 	void Planetarium::InterpolatePlanets(const Planets<T, P>& _from, const Planets<T, P>& _to, const double& _t, const std::string& _origin) {
 		
-		using DISTANCE = Spatial::Maths::Conversions::Distance;
+		using DISTANCE = Maths::Conversions::Distance;
 		
 		// Get the number of metres in an astronomical unit, to convert to 1:1 scale.
 		const double au_to_m = DISTANCE::Convert(1.0f, DISTANCE::Unit::AstronomicalUnit, DISTANCE::Unit::Metre);
@@ -303,6 +300,6 @@ namespace LouiEriksson::Game::Scripts {
 		Settings::Graphics::Material::s_LightIntensity = 1.0;
 	}
 	
-} // LouiEriksson::Game::Scripts
+} // LouiEriksson::Game::Scripts::Spatial
 
 #endif //FINALYEARPROJECT_PLANETARIUM_H

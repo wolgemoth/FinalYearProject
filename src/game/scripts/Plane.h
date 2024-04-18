@@ -26,7 +26,7 @@ namespace LouiEriksson::Game::Scripts {
 	
 	public:
 	
-		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
 		~Plane() override;

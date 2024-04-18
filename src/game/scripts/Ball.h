@@ -41,7 +41,7 @@ namespace LouiEriksson::Game::Scripts {
 		
 	public:
 	
-		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
 		~Ball() override;

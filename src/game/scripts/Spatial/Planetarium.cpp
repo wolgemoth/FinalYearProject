@@ -1,8 +1,8 @@
 #include "Planetarium.h"
 
-namespace LouiEriksson::Game::Scripts {
+namespace LouiEriksson::Game::Scripts::Spatial {
 	
-	Planetarium::Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent) {}
+	Planetarium::Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
 	Planetarium::~Planetarium() = default;
 	
 	void Planetarium::Begin() {
@@ -50,16 +50,6 @@ namespace LouiEriksson::Game::Scripts {
 				r->Shadows(false);
 			}}}
 		}
-		
-		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
-		Settings::Graphics::Skybox::s_Exposure = 0.05f;
-		
-//		LoadStars({
-//			"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
-//			"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
-//			},
-//			6.5
-//		);
 	}
 	
 	void Planetarium::Tick() {
@@ -120,88 +110,4 @@ namespace LouiEriksson::Game::Scripts {
 		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), 0.0, 1.0));
 	}
 	
-	void Planetarium::LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude) {
-	
-		std::vector<std::string> lines;
-		
-		for (const auto& path : _athyg_paths) {
-			
-			Debug::Log("Loading \"" + path.string() + "\"... ", LogType::Info, true);
-			
-			try {
-			
-				if (exists(path)) {
-					
-					auto data = Utils::Split(File::ReadAllText(path), '\n');
-					
-					std::move(data.begin(), data.end(), std::back_inserter(lines));
-					
-					Debug::Log("Done.", LogType::Info);
-				}
-				else {
-					throw std::runtime_error("Path is not valid.");
-				}
-			}
-			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
-				Debug::Log(e);
-			}
-		}
-		
-		Debug::Log("Parsing " + std::to_string(!lines.empty() ? lines.size() - 1 : lines.size()) + " lines... ", LogType::Info, true);
-		
-		std::vector<glm::vec3> star_positions;
-		
-		for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
-			
-			try {
-				const auto star = Engine::Spatial::ATHYG::V3(Utils::MoveToArray<std::string, 34>(Utils::Split(*line, ',')));
-				
-				if (star.mag <= _threshold_magnitude) {
-					star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
-				}
-			}
-			catch (const std::exception& e) {
-				Debug::Log(e);
-				
-				break;
-			}
-		}
-		
-		Debug::Log("Done.", LogType::Info);
-		Debug::Log("Spawning " + std::to_string(star_positions.size()) + " stars... ", LogType::Info, true);
-		
-		try {
-			
-			if (const auto p =      Parent().lock()) {
-			if (const auto s = p->GetScene().lock()) {
-			
-				const auto go = ECS::GameObject::Create(s, "Stars");
-				
-				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
-				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
-				
-					m_Stars = Engine::Graphics::Mesh::Primitives::PointCloud::Create(star_positions);
-					
-					// Set point size
-					glPointSize(2.0f);
-					
-					auto material = Resources::Get<Graphics::Material>("Stars");
-					
-					if (material.lock()) {
-						renderer->SetMesh(m_Stars);
-						renderer->SetMaterial(material);
-						renderer->SetTransform(transform);
-					}
-				}}
-			}}
-			
-			Debug::Log("Done.", LogType::Info);
-		}
-		catch (const std::exception& e) {
-			Debug::Log("Failed.", LogType::Error);
-			Debug::Log(e);
-		}
-	}
-	
-} // LouiEriksson::Game::Scripts
+} // LouiEriksson::Game::Scripts::Spatial

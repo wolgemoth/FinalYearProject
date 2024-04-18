@@ -245,7 +245,10 @@ namespace LouiEriksson::Engine {
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
 			if (_vector.size() != N) {
-				throw std::runtime_error("Array size does not match vector size.");
+				
+				Debug::Log("Vector -> Array size mismatch! (" + std::to_string(_vector.size()) + ", " + std::to_string(N) + ")");
+				
+				throw std::runtime_error("Vector -> Array size mismatch!");
 			}
 			
 			std::array<T, N> result{};

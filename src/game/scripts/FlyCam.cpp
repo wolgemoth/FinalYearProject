@@ -4,7 +4,7 @@ using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {
 	
-	FlyCam::FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
+	FlyCam::FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_Motion(0.0f),
 			m_MoveSpeed(5.0f),
 			m_LookSpeed(30.0f),
@@ -139,7 +139,7 @@ namespace LouiEriksson::Game::Scripts {
 		}}
 	}
 	
-	void FlyCam::SyncCameraSettings() noexcept {
+	void FlyCam::SyncCameraSettings() {
 		
 		if (const auto c = m_Camera.lock()) {
 			

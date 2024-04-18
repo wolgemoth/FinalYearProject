@@ -6,7 +6,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	Script::Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
+	Script::Script(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent) {}
 	
 	void Script::Begin() {}
 	void Script::Tick() {}

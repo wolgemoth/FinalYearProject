@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Game Directory" pattern="file[FinalYearProject]:src/game//*" />
+</component>

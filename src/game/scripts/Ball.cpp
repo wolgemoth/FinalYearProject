@@ -4,7 +4,7 @@ using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {
 	
-	Ball::Ball(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
+	Ball::Ball(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_StartingPosition(0.0f),
 			m_Radius(0.0f) {}
 	

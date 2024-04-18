@@ -118,15 +118,19 @@ namespace LouiEriksson::Engine::Graphics {
 				const auto iB = i + 1;
 				const auto iC = i + 2;
 				
-		        const auto& v1 = _vertices[std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1)];
-		        const auto& v2 = _vertices[std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1)];
-		        const auto& v3 = _vertices[std::min(static_cast<size_t>(_indices[iC]), _vertices.size() - 1)];
+				const auto idxA = std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1);
+				const auto idxB = std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1);
+				const auto idxC = std::min(static_cast<size_t>(_indices[iC]), _vertices.size() - 1);
+				
+		        const auto& v1 = _vertices[idxA];
+		        const auto& v2 = _vertices[idxB];
+		        const auto& v3 = _vertices[idxC];
 		
 		        const auto n = glm::normalize(glm::cross((v2 - v1), (v3 - v1)));
 				
-		        result[std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1)] += n;
-		        result[std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1)] += n;
-		        result[std::min(static_cast<size_t>(_indices[iC]), _vertices.size() - 1)] += n;
+		        result[idxA] += n;
+		        result[idxB] += n;
+		        result[idxC] += n;
 		    }
 			
 			for (auto& item : result) {

@@ -8,9 +8,10 @@
 
 #include "scripts/Ball.h"
 #include "scripts/FlyCam.h"
-#include "scripts/Map.h"
 #include "scripts/Plane.h"
-#include "scripts/Planetarium.h"
+#include "scripts/Spatial/Map.h"
+#include "scripts/Spatial/Planetarium.h"
+#include "scripts/Spatial/Stars.h"
 
 #include <exception>
 #include <memory>
@@ -76,13 +77,6 @@ namespace LouiEriksson::Game::Core {
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Map>).name(),
-						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Map(_parent));
-						}
-					);
-					
-					s_Initialisers.Add(
 						typeid(std::shared_ptr<Plane>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new Plane(_parent));
@@ -90,12 +84,25 @@ namespace LouiEriksson::Game::Core {
 					);
 					
 					s_Initialisers.Add(
-						typeid(std::shared_ptr<Planetarium>).name(),
+						typeid(std::shared_ptr<Scripts::Spatial::Map>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
-							return std::shared_ptr<Script>(new Planetarium(_parent));
+							return std::shared_ptr<Script>(new Scripts::Spatial::Map(_parent));
 						}
 					);
 					
+					s_Initialisers.Add(
+						typeid(std::shared_ptr<Scripts::Spatial::Planetarium>).name(),
+						[](const std::weak_ptr<ECS::GameObject>& _parent) {
+							return std::shared_ptr<Script>(new Scripts::Spatial::Planetarium(_parent));
+						}
+					);
+					
+					s_Initialisers.Add(
+						typeid(std::shared_ptr<Scripts::Spatial::Stars>).name(),
+						[](const std::weak_ptr<ECS::GameObject>& _parent) {
+							return std::shared_ptr<Script>(new Scripts::Spatial::Stars(_parent));
+						}
+					);
 				}
 			}
 			catch (const std::exception& e) {

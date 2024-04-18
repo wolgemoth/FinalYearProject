@@ -48,7 +48,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _parent A weak pointer to the parent ECS::GameObject that the
 		 *                    Script will be associated with.
 		 */
-		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
 		~Script() override = default;

@@ -51,11 +51,11 @@ namespace LouiEriksson::Game::Scripts {
 		void Tick() override;
 		
 		/** @brief Synchronise the camera's parameters with the ones defined in Settings. */
-		void SyncCameraSettings() noexcept;
+		void SyncCameraSettings();
 		
 	public:
 	
-		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit FlyCam(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
 		~FlyCam() override;

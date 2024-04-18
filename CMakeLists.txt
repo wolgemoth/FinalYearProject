@@ -232,10 +232,12 @@ add_executable(Game
         src/game/scripts/FlyCam.h
         src/game/scripts/Plane.cpp
         src/game/scripts/Plane.h
-        src/game/scripts/Planetarium.cpp
-        src/game/scripts/Planetarium.h
-        src/game/scripts/Map.cpp
-        src/game/scripts/Map.h
+        src/game/scripts/Spatial/Planetarium.cpp
+        src/game/scripts/Spatial/Planetarium.h
+        src/game/scripts/Spatial/Map.cpp
+        src/game/scripts/Spatial/Map.h
+        src/game/scripts/Spatial/Stars.cpp
+        src/game/scripts/Spatial/Stars.h
 )
 
 target_precompile_headers(Game PRIVATE
