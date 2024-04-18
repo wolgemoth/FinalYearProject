@@ -184,7 +184,7 @@ namespace LouiEriksson::Engine::Graphics {
 		Hashmap<GLenum, std::string> result;
 		
 		// Get the individual lines of the shader.
-		const auto lines = Utils::Split(_src, '\n');
+		const auto lines = Utils::Split<std::string_view>(_src, '\n');
 		
 		std::stringstream ss;
 		

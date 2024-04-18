@@ -9,32 +9,32 @@
 
 namespace LouiEriksson::Engine::Spatial {
 	
-	ATHYG::V1::V1(std::array<std::string, s_ElementCount>&& _values) :
+	ATHYG::V1::V1(const std::array<std::string, s_ElementCount>& _values) noexcept :
 		 id      (Utils::TryParse<size_t>(_values[ 0])),
-		 tyc     (              std::move(_values[ 1])),
+		 tyc     (                        _values[ 1] ),
 		 gaia    (Utils::TryParse<size_t>(_values[ 2])),
 		 hyg     (Utils::TryParse<size_t>(_values[ 3])),
 		 hip     (Utils::TryParse<size_t>(_values[ 4])),
 		 hd      (Utils::TryParse<size_t>(_values[ 5])),
 		 hr      (Utils::TryParse<size_t>(_values[ 6])),
-		 gl      (              std::move(_values[ 7])),
-		 bayer   (              std::move(_values[ 8])),
-		 flam    (              std::move(_values[ 9])),
-		 con     (              std::move(_values[10])),
-		 proper  (              std::move(_values[11])),
+		 gl      (                        _values[ 7] ),
+		 bayer   (                        _values[ 8] ),
+		 flam    (                        _values[ 9] ),
+		 con     (                        _values[10] ),
+		 proper  (                        _values[11] ),
 		 ra      (Utils::TryParse<double>(_values[12])),
 		 dec     (Utils::TryParse<double>(_values[13])),
-		 pos_src (              std::move(_values[14])),
+		 pos_src (                        _values[14] ),
 		 dist    (Utils::TryParse<double>(_values[15])),
 		 x0      (Utils::TryParse<double>(_values[16])),
 		 y0      (Utils::TryParse<double>(_values[17])),
 		 z0      (Utils::TryParse<double>(_values[18])),
-		 dist_src(              std::move(_values[19])),
+		 dist_src(                        _values[19] ),
 		 mag     (Utils::TryParse<double>(_values[20])),
 		 absmag  (Utils::TryParse<double>(_values[21])),
-		 mag_src (              std::move(_values[22])) {}
-	
-	ATHYG::V1::V1(const std::array<std::string, s_ElementCount>& _values) :
+		 mag_src (                        _values[22]) {}
+		 
+	ATHYG::V1::V1(const std::array<std::string_view, s_ElementCount>& _values) noexcept :
 		 id      (Utils::TryParse<size_t>(_values[ 0])),
 		 tyc     (                        _values[ 1] ),
 		 gaia    (Utils::TryParse<size_t>(_values[ 2])),
@@ -59,32 +59,32 @@ namespace LouiEriksson::Engine::Spatial {
 		 absmag  (Utils::TryParse<double>(_values[21])),
 		 mag_src (                        _values[22]) {}
 	
-	ATHYG::V2::V2(std::array<std::string, s_ElementCount>&& _values) :
+	ATHYG::V2::V2(const std::array<std::string, s_ElementCount>& _values) noexcept :
 		id       (Utils::TryParse<size_t>(_values[ 0])),
-		tyc      (              std::move(_values[ 1])),
+		tyc      (                        _values[ 1] ),
 		gaia     (Utils::TryParse<size_t>(_values[ 2])),
 		hyg      (Utils::TryParse<size_t>(_values[ 3])),
 		hip      (Utils::TryParse<size_t>(_values[ 4])),
 		hd       (Utils::TryParse<size_t>(_values[ 5])),
 		hr       (Utils::TryParse<size_t>(_values[ 6])),
-		gl       (              std::move(_values[ 7])),
-		bayer    (              std::move(_values[ 8])),
-		flam     (              std::move(_values[ 9])),
-		con      (              std::move(_values[10])),
-		proper   (              std::move(_values[11])),
+		gl       (                        _values[ 7] ),
+		bayer    (                        _values[ 8] ),
+		flam     (                        _values[ 9] ),
+		con      (                        _values[10] ),
+		proper   (                        _values[11] ),
 		ra       (Utils::TryParse<double>(_values[12])),
 		dec      (Utils::TryParse<double>(_values[13])),
-		pos_src  (              std::move(_values[14])),
+		pos_src  (                         _values[14]),
 		dist     (Utils::TryParse<double>(_values[15])),
 		x0       (Utils::TryParse<double>(_values[16])),
 		y0       (Utils::TryParse<double>(_values[17])),
 		z0       (Utils::TryParse<double>(_values[18])),
-		dist_src (              std::move(_values[19])),
+		dist_src (                        _values[19] ),
 		mag      (Utils::TryParse<double>(_values[20])),
 		absmag   (Utils::TryParse<double>(_values[21])),
-		mag_src  (              std::move(_values[22])),
+		mag_src  (                        _values[22] ),
 		rv       (Utils::TryParse<double>(_values[23])),
-		rv_src   (              std::move(_values[24])),
+		rv_src   (                        _values[24] ),
 		pm_ra    (Utils::TryParse<double>(_values[25])),
 		pm_dec   (Utils::TryParse<double>(_values[26])),
 		pm_src   (Utils::TryParse<double>(_values[27])),
@@ -92,9 +92,9 @@ namespace LouiEriksson::Engine::Spatial {
 		vy       (Utils::TryParse<double>(_values[29])),
 		vz       (Utils::TryParse<double>(_values[30])),
 		spect    (Utils::TryParse<double>(_values[31])),
-		spect_src(              std::move(_values[32])) {}
-	
-	ATHYG::V2::V2(const std::array<std::string, s_ElementCount>& _values) :
+		spect_src(                        _values[32]) {}
+		
+	ATHYG::V2::V2(const std::array<std::string_view, s_ElementCount>& _values) noexcept :
 		id       (Utils::TryParse<size_t>(_values[ 0])),
 		tyc      (                        _values[ 1] ),
 		gaia     (Utils::TryParse<size_t>(_values[ 2])),
@@ -129,33 +129,33 @@ namespace LouiEriksson::Engine::Spatial {
 		spect    (Utils::TryParse<double>(_values[31])),
 		spect_src(                        _values[32]) {}
 	
-	ATHYG::V3::V3(std::array<std::string, s_ElementCount>&& _values) :
+	ATHYG::V3::V3(const std::array<std::string, s_ElementCount>& _values) noexcept :
 		id       (Utils::TryParse<size_t>(_values[ 0])),
-		tyc      (              std::move(_values[ 1])),
+		tyc      (                        _values[ 1] ),
 		gaia     (Utils::TryParse<size_t>(_values[ 2])),
 		hyg      (Utils::TryParse<size_t>(_values[ 3])),
 		hip      (Utils::TryParse<size_t>(_values[ 4])),
 		hd       (Utils::TryParse<size_t>(_values[ 5])),
 		hr       (Utils::TryParse<size_t>(_values[ 6])),
-		gl       (              std::move(_values[ 7])),
-		bayer    (              std::move(_values[ 8])),
-		flam     (              std::move(_values[ 9])),
-		con      (              std::move(_values[10])),
-		proper   (              std::move(_values[11])),
+		gl       (                        _values[ 7] ),
+		bayer    (                        _values[ 8] ),
+		flam     (                        _values[ 9] ),
+		con      (                        _values[10] ),
+		proper   (                        _values[11] ),
 		ra       (Utils::TryParse<double>(_values[12])),
 		dec      (Utils::TryParse<double>(_values[13])),
-		pos_src  (              std::move(_values[14])),
+		pos_src  (                        _values[14] ),
 		dist     (Utils::TryParse<double>(_values[15])),
 		x0       (Utils::TryParse<double>(_values[16])),
 		y0       (Utils::TryParse<double>(_values[17])),
 		z0       (Utils::TryParse<double>(_values[18])),
-		dist_src (              std::move(_values[19])),
+		dist_src (                        _values[19] ),
 		mag      (Utils::TryParse<double>(_values[20])),
 		absmag   (Utils::TryParse<double>(_values[21])),
 		ci       (Utils::TryParse<double>(_values[22])),
-		mag_src  (              std::move(_values[23])),
+		mag_src  (                        _values[23] ),
 		rv       (Utils::TryParse<double>(_values[24])),
-		rv_src   (              std::move(_values[25])),
+		rv_src   (                        _values[25] ),
 		pm_ra    (Utils::TryParse<double>(_values[26])),
 		pm_dec   (Utils::TryParse<double>(_values[27])),
 		pm_src   (Utils::TryParse<double>(_values[28])),
@@ -163,9 +163,9 @@ namespace LouiEriksson::Engine::Spatial {
 		vy       (Utils::TryParse<double>(_values[30])),
 		vz       (Utils::TryParse<double>(_values[31])),
 		spect    (Utils::TryParse<double>(_values[32])),
-		spect_src(              std::move(_values[33])) {}
-	
-	ATHYG::V3::V3(const std::array<std::string, s_ElementCount>& _values) :
+		spect_src(                        _values[33] ) {}
+		
+	ATHYG::V3::V3(const std::array<std::string_view, s_ElementCount>& _values) noexcept :
 		id       (Utils::TryParse<size_t>(_values[ 0])),
 		tyc      (                        _values[ 1] ),
 		gaia     (Utils::TryParse<size_t>(_values[ 2])),

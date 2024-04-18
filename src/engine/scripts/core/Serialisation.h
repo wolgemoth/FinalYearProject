@@ -74,9 +74,9 @@ namespace LouiEriksson::Engine {
 	
 			const char delimiter = ' ';
 	
-			const auto split = Utils::Split(_str, delimiter);
+			const auto split = Utils::Split<std::string_view>(_str, delimiter);
 			for (auto i = 0; i < split.size(); ++i) {
-				result[i] = std::stof(split[i]);
+				result[i] = Utils::TryParse<float>(split[i]).value_or(0.0f);
 			}
 	
 			return result;
@@ -85,7 +85,7 @@ namespace LouiEriksson::Engine {
 	
 	template<>
 	inline float Serialisation::Deserialise(const std::string_view& _str, const Serialisation::Format& _method) {
-		return std::stof(_str.data());
+		return Utils::Parse<float>(_str.data());
 	}
 
 } // LouiEriksson::Engine

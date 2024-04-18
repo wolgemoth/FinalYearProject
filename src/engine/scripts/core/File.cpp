@@ -461,7 +461,7 @@ namespace LouiEriksson::Engine {
 		
 				while (std::getline(fs, line)) {
 					
-					auto subStrings = Utils::Split(line, ' ');
+					auto subStrings = Utils::Split<std::string_view>(line, ' ');
 					
 					if (!subStrings.empty()) {
 						
@@ -472,19 +472,19 @@ namespace LouiEriksson::Engine {
 						}
 						else if (key == "Kd") {
 							
-							auto r = std::stof(subStrings.at(1));
-							auto g = std::stof(subStrings.at(2));
-							auto b = std::stof(subStrings.at(3));
+							auto r = Utils::Parse<float>(subStrings.at(1));
+							auto g = Utils::Parse<float>(subStrings.at(2));
+							auto b = Utils::Parse<float>(subStrings.at(3));
 							
 							_output->m_Albedo_Color = { r, g, b, 1.0 };
 							
 							try {
-								_output->m_Albedo_Color.a = std::stof(subStrings.at(4));
+								_output->m_Albedo_Color.a = Utils::Parse<float>(subStrings.at(4));
 							}
 							catch (...) {}
 						}
 						else if (key == "d" || key == "Tr") {
-							_output->m_Albedo_Color.a = static_cast<float>(1.0 - std::clamp(std::stod(subStrings.at(1)), 0.0, 1.0));
+							_output->m_Albedo_Color.a = static_cast<float>(1.0 - std::clamp(Utils::Parse<double>(subStrings.at(1)), 0.0, 1.0));
 						}
 						else if (key == "Ks") {
 							Debug::Log("Specular color loading not implemented... ", LogType::Warning, true);
@@ -493,17 +493,17 @@ namespace LouiEriksson::Engine {
 							Debug::Log("Support for different lighting models is not implemented... ", LogType::Warning, true);
 						}
 						else if (key == "Ao") {
-							_output->m_AO = std::stof(subStrings.at(1));
+							_output->m_AO = Utils::Parse<float>(subStrings.at(1));
 						}
 						else if (key == "Ns") {
-							_output->m_Roughness = static_cast<float>(1.0 - (std::atan(std::stof(subStrings.at(1))) / (M_PI / 2)));
+							_output->m_Roughness = static_cast<float>(1.0 - (std::atan(Utils::Parse<float>(subStrings.at(1))) / (M_PI / 2)));
 						}
 						else if (key == "Ke") {
 							
 							_output->m_Emission_Color = {
-									std::stof(subStrings.at(1)),
-									std::stof(subStrings.at(2)),
-									std::stof(subStrings.at(3))
+									Utils::Parse<float>(subStrings.at(1)),
+									Utils::Parse<float>(subStrings.at(2)),
+									Utils::Parse<float>(subStrings.at(3))
 							};
 						}
 						else if (key == "Ni") {

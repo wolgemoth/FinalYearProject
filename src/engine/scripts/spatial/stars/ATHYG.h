@@ -49,8 +49,8 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			static constexpr auto s_ElementCount = 23;
 			
-			explicit V1(      std::array<std::string, s_ElementCount>&& _values);
-			explicit V1(const std::array<std::string, s_ElementCount>&  _values);
+			explicit V1(const std::array<std::string,      s_ElementCount>& _values) noexcept;
+			explicit V1(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
 		};
 		
 		/**
@@ -61,14 +61,14 @@ namespace LouiEriksson::Engine::Spatial {
 		 */
 		struct V2 final {
 		
-			std::optional<size_t>      id;
-			std::optional<std::string> tyc;
-			std::optional<size_t>      gaia;
-			std::optional<size_t>      hyg;
-			std::optional<size_t>      hip;
-			std::optional<size_t>      hd;
-			std::optional<size_t>      hr;
-			std::optional<std::string> gl;
+			const std::optional<size_t>      id;
+			const std::optional<std::string> tyc;
+			const std::optional<size_t>      gaia;
+			const std::optional<size_t>      hyg;
+			const std::optional<size_t>      hip;
+			const std::optional<size_t>      hd;
+			const std::optional<size_t>      hr;
+			const std::optional<std::string> gl;
 			const std::optional<std::string> bayer;
 			const std::optional<std::string> flam;
 			const std::optional<std::string> con;
@@ -97,8 +97,8 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			static constexpr auto s_ElementCount = 33;
 			
-			explicit V2(      std::array<std::string, s_ElementCount>&& _values);
-			explicit V2(const std::array<std::string, s_ElementCount>&  _values);
+			explicit V2(const std::array<std::string,      s_ElementCount>& _values) noexcept;
+			explicit V2(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
 		};
 		
 		/**
@@ -146,8 +146,8 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			static constexpr auto s_ElementCount = 34;
 			
-			explicit V3(      std::array<std::string, s_ElementCount>&& _values);
-			explicit V3(const std::array<std::string, s_ElementCount>&  _values);
+			explicit V3(const std::array<std::string,      s_ElementCount>& _values) noexcept;
+			explicit V3(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
 		};
 	};
 	

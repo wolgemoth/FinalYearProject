@@ -34,29 +34,49 @@ namespace LouiEriksson::Engine {
 	public:
 		
 		/**
-		 * @brief Split a string into substrings based on a divider character.
+		 * @brief Splits a string into a vector of substrings based on a delimiter.
 		 *
-		 * This function splits a given string into substrings based on a specified divider character. The resulting substrings are stored in a vector of strings.
+		 * The provided string is split into substrings using the specified delimiter.
+		 * The substrings are then stored in a vector and returned.
+		 * If the template argument is std::string, the substrings are stored as std::string objects.
+		 * If the template argument is std::string_view, the substrings are stored as std::string_view objects.
 		 *
-		 * @param[in] _string The string to be split.
-		 * @param[in] _divider The character used as the divider.
-		 * @param[in] _capacity (optional) The initial capacity of the vector to be used for storing the resulting substrings.
-		 * @return A vector of strings containing the resulting substrings.
+		 * @param[in] _string The string to split.
+		 * @param[in] _divider The delimiter character to split the string by.
+		 * @param[in] _capacity (optional) The initial capacity of the result vector. Defaults to 0.
 		 *
-		 * The function starts by reserving memory in the result vector based on the specified capacity. It then iterates through the input string, finding occurrences of the divider character and extracting substrings between them. Each extracted substring is added to the result vector. Finally, the last word, which is not delimited, is also added to the vector. The resulting vector is then returned.
+		 * @tparam T The type of the resulting substrings. Must be either std::string or std::string_view.
 		 *
-		 * Example Usage:
-		 * @code
-		 * std::string_view str = "Hello,world,this,is,a,split,string";
-		 * std::vector<std::string> substrings = Split(str, ',', 6);
-		 * @endcode
+		 * @return std::vector<T> A vector containing the splitted substrings.
 		 *
-		 * In this example, the input string "Hello,world,this,is,a,split,string" is split into substrings using the comma character as the divider. The resulting substrings are stored in the vector "substrings".
-		 *
-		 * @note The input string view (_string) should remain valid throughout the execution of this function.
-		 * @warning If the specified capacity is less than the number of resulting substrings, the function will still work, but additional memory allocations will be performed.
+		 * @note The function assumes that the provided delimiter is a single character.
+		 * @note If _capacity is specified, the internal vector capacity is set to that value.
+		 * @note The last word of the string is always included in the result, even if it is not delimited.
+		 * @note The function assumes that the template argument is std::string or std::string_view.
 		 */
-		static std::vector<std::string> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0);
+		template<typename T>
+		static std::vector<T> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0) {
+			
+			static_assert(std::is_same_v<T, std::string_view> || std::is_same_v<T, std::string>,
+                  "Template argument must be std::string or std::string_view");
+    
+			std::vector<T> result;
+			result.reserve(_capacity);
+			
+			// Boost library version of string splitting.
+			// (https://www.boost.org/doc/libs/1_54_0/doc/html/string_algo/usage.html#idp166856528)
+			std::string::size_type start = 0, end;
+			
+			while((end = _string.find(_divider, start)) != std::string::npos) {
+			    result.emplace_back(_string.substr(start, end - start));
+			    start = end + 1;
+			}
+			
+			// Last word is not delimited.
+			result.emplace_back(_string.substr(start));
+			
+			return result;
+		}
 		
 		/**
 		 * @brief Trim leading and trailing whitespace characters from a string.
@@ -208,36 +228,37 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Attempts to parse a string into an optional value of type T.
 		 *
-		 * This function attempts to convert the given string into a value of type T. If the conversion is successful, the resulting value is wrapped in an optional object and returned. If the conversion fails, an empty optional object is returned.
+		 * This function attempts to convert the given string into a value of type T.
+		 * If the conversion is successful, the resulting value is wrapped in an optional object and returned.
+		 * If the conversion fails, an empty optional object is returned.
 		 *
 		 * @tparam T The type of value to parse the string into.
 		 * @param[in] _str The string to parse.
 		 * @return An optional value of type T, containing the parsed value if the conversion is successful, or an empty optional if the conversion fails.
 		 *
-		 * @note This function is a template function, enabling parsing of various types.
 		 * @note The type T must provide a specialize definition of this function in order to support parsing for that type.
 		 */
 		template <typename T>
 		inline static std::optional<T> TryParse(const std::string_view& _str) noexcept {
 			
-			T result;
+			T r;
 			
 		    char* e;                      // (end)
 			static constexpr auto b = 10; // (base)
 			
 			try {
 				
-				     if constexpr (std::is_same_v<T, int                >) { result = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
-				else if constexpr (std::is_same_v<T, short              >) { result = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
-				else if constexpr (std::is_same_v<T, long               >) { result =                std::strtol  (_str.data(), &e, b ); }
-				else if constexpr (std::is_same_v<T, long long          >) { result =                std::strtoll (_str.data(), &e, b ); }
-				else if constexpr (std::is_same_v<T, unsigned int       >) { result = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
-				else if constexpr (std::is_same_v<T, unsigned short     >) { result = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
-				else if constexpr (std::is_same_v<T, unsigned long      >) { result =                std::strtoul (_str.data(), &e, b ); }
-				else if constexpr (std::is_same_v<T, unsigned long long >) { result =                std::strtoull(_str.data(), &e, b ); }
-				else if constexpr (std::is_same_v<T, float              >) { result =                std::strtof  (_str.data(), &e    ); }
-				else if constexpr (std::is_same_v<T, double             >) { result =                std::strtod  (_str.data(), &e    ); }
-				else if constexpr (std::is_same_v<T, long double        >) { result =                std::strtold (_str.data(), &e    ); }
+				     if constexpr (std::is_same_v<T, int                >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, short              >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, long               >) { r =                std::strtol  (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, long long          >) { r =                std::strtoll (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, unsigned int       >) { r = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, unsigned short     >) { r = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, unsigned long      >) { r =                std::strtoul (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, unsigned long long >) { r =                std::strtoull(_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, float              >) { r =                std::strtof  (_str.data(), &e    ); }
+				else if constexpr (std::is_same_v<T, double             >) { r =                std::strtod  (_str.data(), &e    ); }
+				else if constexpr (std::is_same_v<T, long double        >) { r =                std::strtold (_str.data(), &e    ); }
 				else if constexpr (std::is_same_v<T, char         > ||
 				                   std::is_same_v<T, unsigned char> ||
 								   std::is_same_v<T, signed char  > ||
@@ -246,19 +267,19 @@ namespace LouiEriksson::Engine {
 		                           std::is_same_v<T, wchar_t      >)
 			    {
 					if (!_str.empty()) {
-			            result = static_cast<T>(_str[0]);
+			            r = static_cast<T>(_str[0]);
 					}
 					else {
 						e = const_cast<char*>(_str.data());
 					}
 				}
 				else if constexpr (std::is_same_v<T, bool>) {
-			        result = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
+			        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
 				}
 				else {
 					e = const_cast<char*>(_str.data());
 					
-					Debug::Log("No specialisation exists for parsing string to T!", LogType::Error);
+					Debug::Log("No specialisation exists for parsing string to T", LogType::Error);
 				}
 			}
 			catch (std::exception& err) {
@@ -273,7 +294,69 @@ namespace LouiEriksson::Engine {
 			
 			return (e == _str.data()) ?
 		        std::optional<T>(std::nullopt) :
-				std::optional<T>(result);
+				std::optional<T>(r);
+		}
+		
+		/**
+		 * @brief Attempts to parse a string into a value of type T.
+		 *
+		 * This function attempts to convert the given string into a value of type T.
+		 * If the conversion is successful, the resulting value is wrapped in an optional object and returned.
+		 * If the conversion fails, an exception is thrown.
+		 *
+		 * @tparam T The type of value to parse the string into.
+		 * @param[in] _str The string to parse.
+		 * @return A value of type T, containing the parsed value.
+		 *
+		 * @note The type T must provide a specialize definition of this function in order to support parsing for that type.
+		 */
+		template <typename T>
+		inline static T Parse(const std::string_view& _str) {
+			
+			T r;
+			
+		    char* e;                      // (end)
+			static constexpr auto b = 10; // (base)
+			
+			     if constexpr (std::is_same_v<T, int                >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+			else if constexpr (std::is_same_v<T, short              >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+			else if constexpr (std::is_same_v<T, long               >) { r =                std::strtol  (_str.data(), &e, b ); }
+			else if constexpr (std::is_same_v<T, long long          >) { r =                std::strtoll (_str.data(), &e, b ); }
+			else if constexpr (std::is_same_v<T, unsigned int       >) { r = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+			else if constexpr (std::is_same_v<T, unsigned short     >) { r = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+			else if constexpr (std::is_same_v<T, unsigned long      >) { r =                std::strtoul (_str.data(), &e, b ); }
+			else if constexpr (std::is_same_v<T, unsigned long long >) { r =                std::strtoull(_str.data(), &e, b ); }
+			else if constexpr (std::is_same_v<T, float              >) { r =                std::strtof  (_str.data(), &e    ); }
+			else if constexpr (std::is_same_v<T, double             >) { r =                std::strtod  (_str.data(), &e    ); }
+			else if constexpr (std::is_same_v<T, long double        >) { r =                std::strtold (_str.data(), &e    ); }
+			else if constexpr (std::is_same_v<T, char         > ||
+			                   std::is_same_v<T, unsigned char> ||
+							   std::is_same_v<T, signed char  > ||
+					           std::is_same_v<T, char16_t     > ||
+			                   std::is_same_v<T, char32_t     > ||
+	                           std::is_same_v<T, wchar_t      >)
+		    {
+				if (!_str.empty()) {
+		            r = static_cast<T>(_str[0]);
+				}
+				else {
+					e = const_cast<char*>(_str.data());
+				}
+			}
+			else if constexpr (std::is_same_v<T, bool>) {
+		        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
+			}
+			else {
+				e = const_cast<char*>(_str.data());
+				
+				throw std::runtime_error("No specialisation exists for parsing string to T");
+			}
+			
+			if (e == _str.data()) {
+				throw std::runtime_error("Failed to parse the input string to the specified type T");
+			}
+			
+			return r;
 		}
 		
 		/**

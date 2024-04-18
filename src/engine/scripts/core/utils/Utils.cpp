@@ -4,6 +4,7 @@
 
 #include <al.h>
 #include <GL/glew.h>
+#include <cstddef>
 #include <glm/ext/vector_float3.hpp>
 
 #include <SDL_error.h>
@@ -16,26 +17,6 @@
 #include <vector>
 
 namespace LouiEriksson::Engine {
-	
-	std::vector<std::string> Utils::Split(const std::string_view& _string, const char& _divider, const size_t& _capacity) {
-		
-		std::vector<std::string> result;
-		result.reserve(_capacity);
-		
-		// Boost library version of string splitting.
-		// (https://www.boost.org/doc/libs/1_54_0/doc/html/string_algo/usage.html#idp166856528)
-		std::string::size_type start = 0, end;
-		
-		while((end = _string.find(_divider, start)) != std::string::npos) {
-		    result.emplace_back(_string.substr(start, end - start));
-		    start = end + 1;
-		}
-		
-		// Last word is not delimited.
-		result.emplace_back(_string.substr(start));
-		
-		return result;
-	}
 	
 	std::string Utils::Trim(const std::string& _string) {
 		

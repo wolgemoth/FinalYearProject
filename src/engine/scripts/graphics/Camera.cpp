@@ -792,7 +792,7 @@ namespace LouiEriksson::Engine::Graphics {
 									bool isDirty;
 									
 									{
-										const auto newResolution = std::stoi(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
+										const auto newResolution = Utils::Parse<int>(target_light::s_ShadowResolutions.at(target_light::s_CurrentShadowResolutionSelection));
 										
 										const auto newBias       = target_light::s_ShadowBias;
 										const auto newNormalBias = target_light::s_ShadowNormalBias;

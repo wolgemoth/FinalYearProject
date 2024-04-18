@@ -73,7 +73,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 				if (exists(path)) {
 					
-					auto data = Utils::Split(File::ReadAllText(path), '\n', ATHYG_VERSION::s_ElementCount);
+					auto data = Utils::Split<std::string>(File::ReadAllText(path), '\n', ATHYG_VERSION::s_ElementCount);
 					
 					std::move(data.begin(), data.end(), std::back_inserter(lines));
 					
@@ -98,7 +98,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 			for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
 				
-				auto elements = Utils::Split(*line, ',', ATHYG_VERSION::s_ElementCount);
+				auto elements = Utils::Split<std::string_view>(*line, ',', ATHYG_VERSION::s_ElementCount);
 				
 				if (elements.size() > ATHYG_VERSION::s_ElementCount) {
 					elements.resize(ATHYG_VERSION::s_ElementCount);
@@ -106,7 +106,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				if (elements.size() == ATHYG_VERSION::s_ElementCount) {
 					
-					const auto star = ATHYG_VERSION(std::move(Utils::MoveToArray<std::string, ATHYG_VERSION::s_ElementCount>(elements)));
+					const auto star = ATHYG_VERSION((Utils::MoveToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(elements)));
 					
 					if (*star.mag <= _threshold_magnitude) {
 						star_positions.emplace_back(std::move(*star.x0), std::move(*star.y0), std::move(*star.z0));
