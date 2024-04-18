@@ -75,7 +75,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	double Coords::WGS84::CalculateEquatorialStretchFactor(const double& _latitude) {
 	
 	    const auto rad = Conversions::Rotation::s_DegreesToRadians * _latitude;
-	    const auto stretch = std::sqrt(1.0f - (s_Eccent * s_Eccent) * std::sin(std::sin(rad))) * (1.0f / std::cos(rad));
+	    const auto stretch = std::sqrt(1.0 - (s_Eccent * s_Eccent) * std::sin(std::sin(rad))) * (1.0 / std::cos(rad));
 	
 	    return stretch;
 	}

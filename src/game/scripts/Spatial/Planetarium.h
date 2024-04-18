@@ -285,7 +285,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						
 						// Adjust the scale of the planet.
 						if (const auto scale = Planets<T, P>::s_Scales_AU.Get(name)) {
-							t->m_Scale = glm::vec<3, T, P>(au_to_m * scale * size_multiplier_au);
+							t->m_Scale = glm::vec<3, T, P>(au_to_m * size_multiplier_au * scale.value());
 						}
 					}
 				}

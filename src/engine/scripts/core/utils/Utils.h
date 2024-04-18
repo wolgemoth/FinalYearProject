@@ -1,6 +1,9 @@
 #ifndef FINALYEARPROJECT_UTILS_H
 #define FINALYEARPROJECT_UTILS_H
 
+#include "../Debug.h"
+#include "glm/geometric.hpp"
+
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 
@@ -9,7 +12,9 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <exception>
 #include <limits>
+#include <optional>
 #include <queue>
 #include <stdexcept>
 #include <string>
@@ -29,16 +34,29 @@ namespace LouiEriksson::Engine {
 	public:
 		
 		/**
-		 * @brief Split a string into a collection of substrings using a divider.
+		 * @brief Split a string into substrings based on a divider character.
 		 *
-		 * This function takes a string and a character divider, and splits the string into a vector of substrings based on the divider.
+		 * This function splits a given string into substrings based on a specified divider character. The resulting substrings are stored in a vector of strings.
 		 *
-		 * @param[in] _string The input string to be split.
-		 * @param[in] _divider The character used to split the string.
+		 * @param[in] _string The string to be split.
+		 * @param[in] _divider The character used as the divider.
+		 * @param[in] _capacity (optional) The initial capacity of the vector to be used for storing the resulting substrings.
+		 * @return A vector of strings containing the resulting substrings.
 		 *
-		 * @return std::vector<std::string> The vector containing the substrings after the split.
+		 * The function starts by reserving memory in the result vector based on the specified capacity. It then iterates through the input string, finding occurrences of the divider character and extracting substrings between them. Each extracted substring is added to the result vector. Finally, the last word, which is not delimited, is also added to the vector. The resulting vector is then returned.
+		 *
+		 * Example Usage:
+		 * @code
+		 * std::string_view str = "Hello,world,this,is,a,split,string";
+		 * std::vector<std::string> substrings = Split(str, ',', 6);
+		 * @endcode
+		 *
+		 * In this example, the input string "Hello,world,this,is,a,split,string" is split into substrings using the comma character as the divider. The resulting substrings are stored in the vector "substrings".
+		 *
+		 * @note The input string view (_string) should remain valid throughout the execution of this function.
+		 * @warning If the specified capacity is less than the number of resulting substrings, the function will still work, but additional memory allocations will be performed.
 		 */
-		static std::vector<std::string> Split(const std::string_view& _string, const char& _divider);
+		static std::vector<std::string> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0);
 		
 		/**
 		 * @brief Trim leading and trailing whitespace characters from a string.
@@ -200,7 +218,63 @@ namespace LouiEriksson::Engine {
 		 * @note The type T must provide a specialize definition of this function in order to support parsing for that type.
 		 */
 		template <typename T>
-		inline static std::optional<T> TryParse(const std::string& _str) noexcept;
+		inline static std::optional<T> TryParse(const std::string_view& _str) noexcept {
+			
+			T result;
+			
+		    char* e;                      // (end)
+			static constexpr auto b = 10; // (base)
+			
+			try {
+				
+				     if constexpr (std::is_same_v<T, int                >) { result = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, short              >) { result = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, long               >) { result =                std::strtol  (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, long long          >) { result =                std::strtoll (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, unsigned int       >) { result = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, unsigned short     >) { result = static_cast<T>(std::strtoul (_str.data(), &e, b)); }
+				else if constexpr (std::is_same_v<T, unsigned long      >) { result =                std::strtoul (_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, unsigned long long >) { result =                std::strtoull(_str.data(), &e, b ); }
+				else if constexpr (std::is_same_v<T, float              >) { result =                std::strtof  (_str.data(), &e    ); }
+				else if constexpr (std::is_same_v<T, double             >) { result =                std::strtod  (_str.data(), &e    ); }
+				else if constexpr (std::is_same_v<T, long double        >) { result =                std::strtold (_str.data(), &e    ); }
+				else if constexpr (std::is_same_v<T, char         > ||
+				                   std::is_same_v<T, unsigned char> ||
+								   std::is_same_v<T, signed char  > ||
+						           std::is_same_v<T, char16_t     > ||
+				                   std::is_same_v<T, char32_t     > ||
+		                           std::is_same_v<T, wchar_t      >)
+			    {
+					if (!_str.empty()) {
+			            result = static_cast<T>(_str[0]);
+					}
+					else {
+						e = const_cast<char*>(_str.data());
+					}
+				}
+				else if constexpr (std::is_same_v<T, bool>) {
+			        result = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
+				}
+				else {
+					e = const_cast<char*>(_str.data());
+					
+					Debug::Log("No specialisation exists for parsing string to T!", LogType::Error);
+				}
+			}
+			catch (std::exception& err) {
+				
+				/* Shouldn't ever happen but catch anyway... */
+				
+				e = const_cast<char*>(_str.data());
+				
+				Debug::Log(err);
+				Debug::Break();
+			}
+			
+			return (e == _str.data()) ?
+		        std::optional<T>(std::nullopt) :
+				std::optional<T>(result);
+		}
 		
 		/**
 		 * @brief Calculate the signed angle between two vectors around a specified axis.
@@ -221,7 +295,7 @@ namespace LouiEriksson::Engine {
 		    const auto d = glm::dot  (_a, _b);
 		    const auto p = glm::cross(_a, _b);
 		    
-		    const auto angle = glm::atan(glm::length(p), d);
+		    const auto angle = std::atan(glm::length(p), d);
 		    
 		    return angle * glm::sign(dot(p, _axis));
 		}
@@ -527,38 +601,15 @@ namespace LouiEriksson::Engine {
 	}
 	
 	template<>
-	inline std::optional<size_t> Utils::TryParse(const std::string& _str) noexcept {
-		try {
-			return std::stoul(_str);
-		}
-		catch (...) {
-			return std::nullopt;
-		}
+	[[deprecated("Redundant operation: string_view to string conversion is not necessary.")]]
+	inline std::optional<std::string> Utils::TryParse(const std::string_view& _str) noexcept {
+		return std::string(_str);
 	}
 	
 	template<>
-	inline std::optional<double> Utils::TryParse(const std::string& _str) noexcept {
-		try {
-			return std::stod(_str);
-		}
-		catch (...) {
-			return std::nullopt;
-		}
-	}
-	
-	template<>
-	inline std::optional<float> Utils::TryParse(const std::string& _str) noexcept {
-		try {
-			return std::stof(_str);
-		}
-		catch (...) {
-			return std::nullopt;
-		}
-	}
-	
-	template<>
-	inline std::optional<std::string> Utils::TryParse(const std::string& _str) noexcept {
-		return _str;
+	[[deprecated("Redundant operation: string_view to string_view conversion is not necessary.")]]
+	inline std::optional<std::string_view> Utils::TryParse(const std::string_view& _str) noexcept {
+		return std::string(_str);
 	}
 	
 } // LouiEriksson::Engine

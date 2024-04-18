@@ -47,17 +47,17 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					[[nodiscard]] const float&      Long() const noexcept final;
 					[[nodiscard]] const float& Elevation() const noexcept final;
 					
-		            explicit Result(json _oe_json);
+		            explicit Result(json&& _oe_json);
 	            };
 				
 	            std::vector<Result> results;
 	
-				explicit Root(json _oe_json);
+				explicit Root(json&& _oe_json);
 	        };
 		
 	        Root m_Root;
 	        
-	        OEJSON(json _oe_json);
+	        OEJSON(json&& _oe_json);
 		};
 		
 		struct OTDJSON final : ElevationJSON {
@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		                float lat,
 						      lng;
 						
-		                explicit Location(json _otd_json);
+		                explicit Location(json&& _otd_json);
 	                };
 					
 	                std::string dataset;
@@ -84,22 +84,22 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					[[nodiscard]] const float&      Long() const noexcept final;
 					[[nodiscard]] const float& Elevation() const noexcept final;
 					
-		            explicit Result(json _otd_json);
+		            explicit Result(json&& _otd_json);
 	            };
 	            
 	            std::vector<Result> results;
 	
-				explicit Root(json _otd_json);
-				explicit Root(const std::vector<Result>& _results);
+				explicit Root(json&& _otd_json);
+				explicit Root(std::vector<Result>&& _results);
 	        };
 			
 	        Root m_Root;
 	        
-	        OTDJSON(json _otd_json);
+	        OTDJSON(json&& _otd_json);
 		};
 		
 		template <typename T>
-	    static T Deserialise(std::istringstream _data) {
+	    static T Deserialise(std::istringstream&& _data) {
 			return { json::parse(_data) };
 		}
 	};

@@ -17,6 +17,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			auto default_mesh     = Graphics::Mesh::Primitives::Sphere::Instance();
 			auto default_material = Resources::Get<Graphics::Material>("sphere");
 		
+			// Prewarm collection:
+			m_Planets.Reserve(m_Positions_From.Names().size());
+			
+			// Spawn objects for planets;
 			for (const auto& item : m_Positions_From.Names()) {
 			
 				const auto go = ECS::GameObject::Create(s, item);
@@ -35,7 +39,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						renderer->SetMaterial(material);
 						renderer->SetTransform(transform);
 						
-						m_Planets.Add(item, go);
+						m_Planets.Assign(item, go);
 					}
 				}}
 			}

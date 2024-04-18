@@ -363,14 +363,14 @@ namespace LouiEriksson::Engine {
 				if (GetHashcode(kvp.first) == hash) {
 					exists = true;
 					
-					kvp.second = _value;
+					kvp.second = std::move(_value);
 					
 					break;
 				}
 			}
 			
 			if (!exists) {
-				bucket.emplace_back(_key, _value);
+				bucket.emplace_back(std::move(_key), std::move(_value));
 			}
 			
 			m_Size++;
@@ -539,7 +539,7 @@ namespace LouiEriksson::Engine {
 		 * @see Get(const Tk& _key, Tv& _out)
 		 */
 #ifndef HASHMAP_SUPPRESS_EXCEPTION_WARNING
-		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required. Suppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
+		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required.\nSuppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
 #endif
 		Tv& operator[](const Tk& _key) {
 		    return Return(_key);

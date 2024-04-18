@@ -52,7 +52,7 @@ namespace LouiEriksson::Engine::ECS {
 		 * @param _component A shared pointer to the component to attach.
 		 */
 		template <typename T>
-		void Attach(const std::type_index& _type, std::shared_ptr<T>&& _component) {
+		void Attach(std::shared_ptr<T>&& _component) {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
@@ -60,13 +60,17 @@ namespace LouiEriksson::Engine::ECS {
 			
 			const auto existing = m_Components.Get(category);
 			
-			auto entries = existing.value_or({});
-			entries.emplace_back(_component);
-			
-			m_Components.Assign(category, entries);
-			
 			if (existing.has_value()) {
-				_component->m_Index = entries.size() - 1;
+			
+				auto bucket = existing.value();
+				bucket.emplace_back(_component);
+				
+				_component->m_Index = bucket.size() - 1;
+				
+				m_Components.Emplace(typeid(T), std::move(bucket));
+			}
+			else {
+				m_Components.Emplace(typeid(T), { _component });
 			}
 			
 			// Attach to scene:
@@ -203,7 +207,7 @@ namespace LouiEriksson::Engine::ECS {
 			std::weak_ptr<T> result = ptr;
 			
 			// Attach the component to the GameObject.
-			Attach(typeid(T), std::move(ptr));
+			Attach(std::move(ptr));
 			
 			// Return a weak reference to the component.
 			return result;

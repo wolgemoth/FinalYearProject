@@ -145,7 +145,7 @@ namespace LouiEriksson::Engine {
 		
 #if __linux__ | __APPLE__
 		
-		static void ANSI(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
+		static void ANSI(const std::string_view& _message, const LogType& _type, const bool& _inline) {
 			
 			/* ANSI TEXT COLORS */
 			#define ANSI_RESET   "\033[0m"
@@ -287,7 +287,7 @@ namespace LouiEriksson::Engine {
 		    }
 		}
 
-		static void WIN32(const std::string_view& _message, const LogType& _type, const bool& _inline) noexcept {
+		static void WIN32(const std::string_view& _message, const LogType& _type, const bool& _inline) {
 		
 			try {
 				

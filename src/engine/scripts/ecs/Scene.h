@@ -113,10 +113,18 @@ namespace LouiEriksson::Engine::ECS {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-			auto category = m_Components.Get(typeid(T)).value_or({});
-			category.emplace_back(std::dynamic_pointer_cast<T>(_entity));
+			auto existing = m_Components.Get(typeid(T));
 			
-			m_Components.Emplace(typeid(T), std::move(category));
+			if (existing.has_value()) {
+			
+				auto bucket = existing.value();
+				bucket.emplace_back(std::dynamic_pointer_cast<T>(_entity));
+				
+				m_Components.Emplace(typeid(T), std::move(bucket));
+			}
+			else {
+				m_Components.Emplace(typeid(T), { std::dynamic_pointer_cast<T>(_entity) });
+			}
 	
 			return _entity;
 		}
@@ -159,7 +167,7 @@ namespace LouiEriksson::Engine::ECS {
 	};
 	
 	template<>
-	inline std::shared_ptr<GameObject> Scene::Attach(const std::shared_ptr<GameObject> _entity) {
+	inline std::shared_ptr<GameObject> Scene::Attach(std::shared_ptr<GameObject> _entity) {
 		
 		m_Entities.emplace_back(_entity);
 		

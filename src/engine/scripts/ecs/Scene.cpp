@@ -450,7 +450,7 @@ namespace LouiEriksson::Engine::ECS {
 							if (const auto fPtr = _initialisers.Get(type)) {
 								
 								auto script = (*fPtr)(go);
-								go->Attach(script->TypeID(), std::move(script));
+								go->Attach(std::move(script));
 							}
 							else {
 								

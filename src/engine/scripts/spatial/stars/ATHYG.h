@@ -2,8 +2,10 @@
 #define FINALYEARPROJECT_ATHYG_H
 
 #include <array>
-#include <cstddef>
 #include <string>
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 namespace LouiEriksson::Engine::Spatial {
 	
@@ -20,32 +22,35 @@ namespace LouiEriksson::Engine::Spatial {
 		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
 		 */
 		struct V1 final {
-		
-			  std::optional<size_t>      id;
-			  std::optional<std::string> tyc;
-			  std::optional<size_t>      gaia;
-			  std::optional<size_t>      hyg;
-			  std::optional<size_t>      hip;
-			  std::optional<size_t>      hd;
-			  std::optional<size_t>      hr;
-			  std::optional<std::string> gl;
-			  std::optional<std::string> bayer;
-			  std::optional<std::string> flam;
-			  std::optional<std::string> con;
-			  std::optional<std::string> proper;
-			  std::optional<double>      ra;
-			  std::optional<double>      dec;
-			  std::optional<std::string> pos_src;
-			  std::optional<double>      dist;
-			  std::optional<double>      x0;
-			  std::optional<double>      y0;
-			  std::optional<double>      z0;
-			  std::optional<std::string> dist_src;
-			  std::optional<double>      mag;
-			  std::optional<double>      absmag;
-			  std::optional<std::string> mag_src;
-			  
-			  explicit V1(const std::array<std::string, 23>& _values);
+			
+			const std::optional<size_t>      id;
+			const std::optional<std::string> tyc;
+			const std::optional<size_t>      gaia;
+			const std::optional<size_t>      hyg;
+			const std::optional<size_t>      hip;
+			const std::optional<size_t>      hd;
+			const std::optional<size_t>      hr;
+			const std::optional<std::string> gl;
+			const std::optional<std::string> bayer;
+			const std::optional<std::string> flam;
+			const std::optional<std::string> con;
+			const std::optional<std::string> proper;
+			const std::optional<double>      ra;
+			const std::optional<double>      dec;
+			const std::optional<std::string> pos_src;
+			const std::optional<double>      dist;
+			const std::optional<double>      x0;
+			const std::optional<double>      y0;
+			const std::optional<double>      z0;
+			const std::optional<std::string> dist_src;
+			const std::optional<double>      mag;
+			const std::optional<double>      absmag;
+			const std::optional<std::string> mag_src;
+			
+			static constexpr auto s_ElementCount = 23;
+			
+			explicit V1(      std::array<std::string, s_ElementCount>&& _values);
+			explicit V1(const std::array<std::string, s_ElementCount>&  _values);
 		};
 		
 		/**
@@ -56,41 +61,44 @@ namespace LouiEriksson::Engine::Spatial {
 		 */
 		struct V2 final {
 		
-			  std::optional<size_t>      id;
-			  std::optional<std::string> tyc;
-			  std::optional<size_t>      gaia;
-			  std::optional<size_t>      hyg;
-			  std::optional<size_t>      hip;
-			  std::optional<size_t>      hd;
-			  std::optional<size_t>      hr;
-			  std::optional<std::string> gl;
-			  std::optional<std::string> bayer;
-			  std::optional<std::string> flam;
-			  std::optional<std::string> con;
-			  std::optional<std::string> proper;
-			  std::optional<double>      ra;
-			  std::optional<double>      dec;
-			  std::optional<std::string> pos_src;
-			  std::optional<double>      dist;
-			  std::optional<double>      x0;
-			  std::optional<double>      y0;
-			  std::optional<double>      z0;
-			  std::optional<std::string> dist_src;
-			  std::optional<double>      mag;
-			  std::optional<double>      absmag;
-			  std::optional<std::string> mag_src;
-			  std::optional<double>      rv;
-			  std::optional<std::string> rv_src;
-			  std::optional<double>      pm_ra;
-			  std::optional<double>      pm_dec;
-			  std::optional<double>      pm_src;
-			  std::optional<double>      vx;
-			  std::optional<double>      vy;
-			  std::optional<double>      vz;
-			  std::optional<double>      spect;
-			  std::optional<std::string> spect_src;
-			  
-			  explicit V2(const std::array<std::string, 33>& _values);
+			std::optional<size_t>      id;
+			std::optional<std::string> tyc;
+			std::optional<size_t>      gaia;
+			std::optional<size_t>      hyg;
+			std::optional<size_t>      hip;
+			std::optional<size_t>      hd;
+			std::optional<size_t>      hr;
+			std::optional<std::string> gl;
+			const std::optional<std::string> bayer;
+			const std::optional<std::string> flam;
+			const std::optional<std::string> con;
+			const std::optional<std::string> proper;
+			const std::optional<double>      ra;
+			const std::optional<double>      dec;
+			const std::optional<std::string> pos_src;
+			const std::optional<double>      dist;
+			const std::optional<double>      x0;
+			const std::optional<double>      y0;
+			const std::optional<double>      z0;
+			const std::optional<std::string> dist_src;
+			const std::optional<double>      mag;
+			const std::optional<double>      absmag;
+			const std::optional<std::string> mag_src;
+			const std::optional<double>      rv;
+			const std::optional<std::string> rv_src;
+			const std::optional<double>      pm_ra;
+			const std::optional<double>      pm_dec;
+			const std::optional<double>      pm_src;
+			const std::optional<double>      vx;
+			const std::optional<double>      vy;
+			const std::optional<double>      vz;
+			const std::optional<double>      spect;
+			const std::optional<std::string> spect_src;
+			
+			static constexpr auto s_ElementCount = 33;
+			
+			explicit V2(      std::array<std::string, s_ElementCount>&& _values);
+			explicit V2(const std::array<std::string, s_ElementCount>&  _values);
 		};
 		
 		/**
@@ -100,46 +108,51 @@ namespace LouiEriksson::Engine::Spatial {
 		 * @see <a href="https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md">ATHYG version info.</a>
 		 */
 		struct V3 final {
-		
-			  std::optional<size_t>      id;
-			  std::optional<std::string> tyc;
-			  std::optional<size_t>      gaia;
-			  std::optional<size_t>      hyg;
-			  std::optional<size_t>      hip;
-			  std::optional<size_t>      hd;
-			  std::optional<size_t>      hr;
-			  std::optional<std::string> gl;
-			  std::optional<std::string> bayer;
-			  std::optional<std::string> flam;
-			  std::optional<std::string> con;
-			  std::optional<std::string> proper;
-			  std::optional<double>      ra;
-			  std::optional<double>      dec;
-			  std::optional<std::string> pos_src;
-			  std::optional<double>      dist;
-			  std::optional<double>      x0;
-			  std::optional<double>      y0;
-			  std::optional<double>      z0;
-			  std::optional<std::string> dist_src;
-			  std::optional<double>      mag;
-			  std::optional<double>      absmag;
-			  std::optional<double>      ci;
-			  std::optional<std::string> mag_src;
-			  std::optional<double>      rv;
-			  std::optional<std::string> rv_src;
-			  std::optional<double>      pm_ra;
-			  std::optional<double>      pm_dec;
-			  std::optional<double>      pm_src;
-			  std::optional<double>      vx;
-			  std::optional<double>      vy;
-			  std::optional<double>      vz;
-			  std::optional<double>      spect;
-			  std::optional<std::string> spect_src;
-			  
-			  explicit V3(const std::array<std::string, 34>& _values);
+			
+			const std::optional<size_t>      id;
+			const std::optional<std::string> tyc;
+			const std::optional<size_t>      gaia;
+			const std::optional<size_t>      hyg;
+			const std::optional<size_t>      hip;
+			const std::optional<size_t>      hd;
+			const std::optional<size_t>      hr;
+			const std::optional<std::string> gl;
+			const std::optional<std::string> bayer;
+			const std::optional<std::string> flam;
+			const std::optional<std::string> con;
+			const std::optional<std::string> proper;
+			const std::optional<double>      ra;
+			const std::optional<double>      dec;
+			const std::optional<std::string> pos_src;
+			const std::optional<double>      dist;
+			const std::optional<double>      x0;
+			const std::optional<double>      y0;
+			const std::optional<double>      z0;
+			const std::optional<std::string> dist_src;
+			const std::optional<double>      mag;
+			const std::optional<double>      absmag;
+			const std::optional<double>      ci;
+			const std::optional<std::string> mag_src;
+			const std::optional<double>      rv;
+			const std::optional<std::string> rv_src;
+			const std::optional<double>      pm_ra;
+			const std::optional<double>      pm_dec;
+			const std::optional<double>      pm_src;
+			const std::optional<double>      vx;
+			const std::optional<double>      vy;
+			const std::optional<double>      vz;
+			const std::optional<double>      spect;
+			const std::optional<std::string> spect_src;
+			
+			static constexpr auto s_ElementCount = 34;
+			
+			explicit V3(      std::array<std::string, s_ElementCount>&& _values);
+			explicit V3(const std::array<std::string, s_ElementCount>&  _values);
 		};
 	};
 	
 } // LouiEriksson::Engine::Spatial
 
 #endif //FINALYEARPROJECT_ATHYG_H
+
+#pragma clang diagnostic pop

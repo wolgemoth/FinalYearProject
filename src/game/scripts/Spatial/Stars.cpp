@@ -63,6 +63,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		std::vector<std::string> lines;
 		
+		using ATHYG_VERSION = Engine::Spatial::ATHYG::V3;
+		
 		for (const auto& path : _athyg_paths) {
 			
 			Debug::Log("Loading \"" + path.string() + "\"... ", LogType::Info, true);
@@ -71,7 +73,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 				if (exists(path)) {
 					
-					auto data = Utils::Split(File::ReadAllText(path), '\n');
+					auto data = Utils::Split(File::ReadAllText(path), '\n', ATHYG_VERSION::s_ElementCount);
 					
 					std::move(data.begin(), data.end(), std::back_inserter(lines));
 					
@@ -90,23 +92,24 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Debug::Log("Parsing " + std::to_string(!lines.empty() ? lines.size() - 1 : lines.size()) + " lines... ", LogType::Info, true);
 		
 		std::vector<glm::vec3> star_positions;
+		star_positions.reserve(lines.size());
 		
 		try {
 			
 			for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
 				
-				auto elements = Utils::Split(*line, ',');
+				auto elements = Utils::Split(*line, ',', ATHYG_VERSION::s_ElementCount);
 				
-				if (elements.size() > 34) {
-					elements.resize(34);
+				if (elements.size() > ATHYG_VERSION::s_ElementCount) {
+					elements.resize(ATHYG_VERSION::s_ElementCount);
 				}
 				
-				if (elements.size() == 34) {
+				if (elements.size() == ATHYG_VERSION::s_ElementCount) {
 					
-					const auto star = Engine::Spatial::ATHYG::V3(Utils::MoveToArray<std::string, 34>(elements));
+					const auto star = ATHYG_VERSION(std::move(Utils::MoveToArray<std::string, ATHYG_VERSION::s_ElementCount>(elements)));
 					
 					if (*star.mag <= _threshold_magnitude) {
-						star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
+						star_positions.emplace_back(std::move(*star.x0), std::move(*star.y0), std::move(*star.z0));
 					}
 				}
 			}
