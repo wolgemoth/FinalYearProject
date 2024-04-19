@@ -172,9 +172,12 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _value The value to be repeated.
 		 * @param[in] _max The maximum value of the range.
 		 *
-		 * @return float The repeated value within the range 0 -> _max.
+		 * @return T The repeated value within the range 0 -> _max.
 		 */
-		static float Repeat(const float& _value, const float& _max);
+		template <typename T>
+		static constexpr T Repeat(const T& _value, const T& _max) noexcept {
+			return std::fmod(_max + std::fmod(_value, _max), _max);
+		}
 		
 		/**
 		 * @brief Repeats a value within the given range.
@@ -185,9 +188,12 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _min The minimum value of the range.
 		 * @param[in] _max The maximum value of the range.
 		 *
-		 * @return float The repeated value within the range `_min` to `_max`.
+		 * @return T The repeated value within the range `_min` to `_max`.
 		 */
-		static float Repeat(const float& _value, const float& _min, const float& _max);
+		template <typename T>
+		static constexpr T Repeat(const T& _value, const T& _min, const T& _max) noexcept {
+			return _min + Repeat<T>(_value - _max, _max - _min);
+		}
 		
 		/**
 		 * @brief Wraps an angle so that it remains within -180 to 180 degrees.
@@ -197,9 +203,12 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _degrees The angle in degrees to be wrapped.
 		 *
-		 * @return float The wrapped angle in degrees within the range -180 to 180.
+		 * @return T The wrapped angle in degrees within the range -180 to 180.
 		 */
-		static float WrapAngle(const float& _degrees);
+		template <typename T>
+		static constexpr T WrapAngle(const T& _degrees) noexcept {
+			return Repeat<T>(_degrees, -180.0, 180.0);
+		}
 		
 		/**
 		 * @brief Wraps the components of an euler angle so that they each remain within -180 to 180 degrees.
@@ -211,7 +220,14 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return glm::vec3 The wrapped angle in degrees within the range -180 to 180.
 		 */
-		static glm::vec3 WrapAngle(const glm::vec3& _degrees);
+		template <typename T, glm::qualifier P = glm::mediump>
+		static glm::vec<3, T, P> WrapAngle(const glm::vec<3, T, P> _degrees) {
+			return {
+				WrapAngle<T>(_degrees.x),
+				WrapAngle<T>(_degrees.y),
+				WrapAngle<T>(_degrees.z)
+			};
+		}
 		
 		/**
 		 * @brief Convert a JSON value to the specified type.
@@ -223,7 +239,29 @@ namespace LouiEriksson::Engine {
 		 * @return T The converted value of type T.
 		 */
 		template <typename T>
-		inline static T As(const nlohmann::json& _json);
+		constexpr static T As(const nlohmann::json& _json) {
+			
+			T result;
+			
+			/*
+			 * Marr, G., 2017. Method to get string representations of values · Issue #642 · nlohmann/json [online]. GitHub. Available from: https://github.com/nlohmann/json/issues/642 [Accessed 14 Apr 2024].
+			 */
+			if constexpr (std::is_same_v<T, std::string>) {
+				
+				if (_json.type() == nlohmann::json::value_t::string) {
+				    result = _json.get<T>();
+				}
+				else {
+					result = _json.dump();
+				}
+			}
+			else {
+				static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");
+			}
+
+		    return result;
+			
+		}
 		
 		/**
 		 * @brief Attempts to parse a string into an optional value of type T.
@@ -404,10 +442,10 @@ namespace LouiEriksson::Engine {
 				throw std::runtime_error("Vector -> Array size mismatch!");
 			}
 			
-			std::array<T, N> result{};
+			std::array<T, N> result;
 			std::move(
-				_vector.begin(),
-				_vector.begin() + (_vector.size() > result.size() ? result.size() : _vector.size()),
+			    _vector.begin(),
+			    _vector.begin() + std::min(_vector.size(), result.size()),
 			     result.begin()
 			);
 			
@@ -436,13 +474,11 @@ namespace LouiEriksson::Engine {
 			
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
-			std::vector<T> result(N);
-			std::move(
-				_array.begin(),
-				_array.begin() + (_array.size() > result.size() ? result.size() : _array.size()),
-				result.begin()
-			);
+			std::vector<T> result;
+		    result.reserve(N);
 			
+		    std::move(_array.begin(), _array.end(), std::back_inserter(result));
+					
 			return result;
 		}
 		
@@ -461,13 +497,15 @@ namespace LouiEriksson::Engine {
 		template<typename T>
 		static void MoveInto(std::vector<T>& _from, std::vector<T>& _to) {
 			
+			_to.reserve(_from.size());
+			
 			_to.insert(
 				_to.end(),
 				std::make_move_iterator(_from.begin()),
                 std::make_move_iterator(_from.end())
 			);
 			
-			_from.erase(_from.begin(), _from.end());
+			_from.clear();
 		}
 		
 		/**
@@ -488,6 +526,8 @@ namespace LouiEriksson::Engine {
 		template<typename T>
 		static void CopyInto(const std::vector<T>& _from, std::vector<T>& _to) {
 		
+			_to.reserve(_from.size());
+			
 			_to.insert(
 				  _to.end(),
 				_from.begin(),
@@ -659,25 +699,6 @@ namespace LouiEriksson::Engine {
 			};
 		}
 	};
-	
-	template<>
-	inline std::string Utils::As(const nlohmann::json& _json) {
-		
-		/*
-		 * Marr, G., 2017. Method to get string representations of values · Issue #642 · nlohmann/json [online]. GitHub. Available from: https://github.com/nlohmann/json/issues/642 [Accessed 14 Apr 2024].
-		 */
-		
-		std::string result;
-		
-		if (_json.type() == nlohmann::json::value_t::string) {
-		    result = _json.get<std::string>();
-		}
-		else {
-			result = _json.dump();
-		}
-	
-	    return result;
-	}
 	
 	template<>
 	[[deprecated("Redundant operation: string_view to string conversion is not necessary.")]]
