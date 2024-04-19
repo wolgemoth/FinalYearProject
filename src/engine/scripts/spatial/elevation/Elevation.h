@@ -18,9 +18,9 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	public:
 		
-        enum ElevationProvider : char {
-            OpenElevation, /**< @brief <a href="https://open-elevation.com/">OpenElevation</a> */
-            OpenTopoData   /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
+        enum ElevationProvider : unsigned char {
+            OpenElevation = 0u,       /**< @brief <a href="https://open-elevation.com/">OpenElevation</a> */
+            OpenTopoData  = 1u << 1u  /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
         };
 		
         static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<float>&)>& _callback);

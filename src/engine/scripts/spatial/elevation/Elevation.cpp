@@ -55,10 +55,11 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					[_callback](const Serialisation::ElevationDeserialiser::OEJSON::Root& _elevation_result) {
 							
-						auto result = std::vector<float>(_elevation_result.results.size());
+						std::vector<float> result;
 						
-						for (auto i = 0; i < result.size(); ++i) {
-							result[i] = _elevation_result.results[i].elevation;
+						result.reserve(_elevation_result.results.size());
+						for (const auto& item : _elevation_result.results) {
+							result.emplace_back(item.elevation);
 						}
 						
 						if (_callback != nullptr) {
@@ -77,10 +78,11 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					[_callback](const Serialisation::ElevationDeserialiser::OTDJSON::Root& _elevation_result) {
 							
-						auto result = std::vector<float>(_elevation_result.results.size());
+						std::vector<float> result;
 						
-						for (auto i = 0; i < result.size(); ++i) {
-							result[i] = _elevation_result.results[i].elevation;
+						result.reserve(_elevation_result.results.size());
+						for (const auto& item : _elevation_result.results) {
+							result.emplace_back(item.elevation);
 						}
 						
 						if (_callback != nullptr) {
@@ -140,11 +142,11 @@ namespace LouiEriksson::Engine::Spatial {
 			        _callback(result.m_Root);
 				}
 			}
-			else if (status == std::future_status::timeout) {
-				Debug::Log("Operation timeout!", LogType::Debug);
+			else if (status != std::future_status::timeout) {
+				Debug::Log("OpenElevation Query failure!", LogType::Error);
 			}
 			else {
-				Debug::Log("Operation failure!", LogType::Error);
+				Debug::Log("OpenElevation Query timeout!", LogType::Error);
 			}
 		});
     }
@@ -200,11 +202,11 @@ namespace LouiEriksson::Engine::Spatial {
 				if (status == std::future_status::ready) {
 					results.emplace_back(Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OTDJSON>(task.get().Content().ToStream()));
 				}
-				else if (status == std::future_status::timeout) {
-					Debug::Log("Operation timeout!", LogType::Debug);
+				else if (status != std::future_status::timeout) {
+					Debug::Log("OpenTopoData Query failure!", LogType::Error);
 				}
 				else {
-					Debug::Log("Operation failure!", LogType::Error);
+					Debug::Log("OpenTopoData Query timeout!", LogType::Error);
 				}
 	        }
 			
@@ -223,4 +225,5 @@ namespace LouiEriksson::Engine::Spatial {
 			}
 		});
     }
+	
 } // LouiEriksson::Engine::Spatial
