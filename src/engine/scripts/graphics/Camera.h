@@ -162,9 +162,9 @@ namespace LouiEriksson::Engine::Graphics {
 	public:
 		
 		/** @brief Represents different actions that can be taken during the rendering process. */
-		enum RenderFlags : char {
-			        NONE, /**< @brief No special action to be taken. */
-			REINITIALISE  /**< @brief Reinitialise the g-buffer. */
+		enum RenderFlags : unsigned char {
+			        NONE = 0u,       /**< @brief No special action to be taken. */
+			REINITIALISE = 1u << 0u, /**< @brief Reinitialise the g-buffer. */
 		};
 		
 		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);

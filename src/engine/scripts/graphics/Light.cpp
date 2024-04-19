@@ -21,10 +21,10 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	Light::Light(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent),
 			m_Type     (Light::Parameters::Type::Point),
-			m_Intensity(  3.0f),
-			m_Range    (200.0f),
-			m_Angle    (120.0f),
-			m_Size     (  0.2f),
+			m_Intensity(  3.0),
+			m_Range    (200.0),
+			m_Angle    (120.0),
+			m_Size     (  0.2),
 			m_Color    (glm::vec3(1, 1, 1))
 	{
 		if (const auto p = Parent().lock()) {
@@ -47,8 +47,8 @@ namespace LouiEriksson::Engine::Graphics {
 			case Light::Parameters::Type::Point: {
 				
 				m_Shadow.m_Projection = glm::perspective(
-					glm::radians(90.0f),
-					1.0f,
+					glm::radians(90.0),
+					1.0,
 					m_Shadow.m_NearPlane,
 					m_Range
 				);
@@ -72,7 +72,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				m_Shadow.m_Projection = glm::perspective(
 					glm::radians(m_Angle),
-					1.0f,
+					1.0,
 					m_Shadow.m_NearPlane,
 					m_Range
 				);
@@ -98,12 +98,12 @@ namespace LouiEriksson::Engine::Graphics {
 			m_ShadowMap_FBO    (GL_NONE),
 			m_Target           (GL_NONE),
 			m_Resolution       (128    ),
-			m_Bias             (  0.01f),
+			m_Bias             (  0.01),
 			m_NormalBias       (  0.02f),
-			m_NearPlane        (  0.2f ),
+			m_NearPlane        (  0.2 ),
 			m_TwoSided         (  true ),
-			m_Projection       (  1.0f ),
-			m_ViewProjection   (  1.0f ) {}
+			m_Projection       (  1.0 ),
+			m_ViewProjection   (  1.0 ) {}
 	
 	Light::Parameters::ShadowMap::~ShadowMap() {
 		Dispose();
@@ -174,7 +174,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				if (_type != Light::Parameters::Type::Point) {
 					
-					const float borderColor[] { 1.0f, 1.0f, 1.0f, 1.0f };
+					const float borderColor[] { 1.0, 1.0, 1.0, 1.0 };
 					glTexParameterfv(m_Target, GL_TEXTURE_BORDER_COLOR, borderColor);
 				}
 				

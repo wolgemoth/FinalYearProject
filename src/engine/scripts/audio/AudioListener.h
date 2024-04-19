@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @brief Set the master gain of the AudioListener.
 		 *
 		 * This function sets the master gain of the AudioListener, which determines the volume of all audio played by the listener.
-		 * @note: The _value parameter should be between 0.0f and 1.0f, with 0.0f being mute and 1.0f being full volume.
+		 * @note: The _value parameter should be between 0.0 and 1.0, with 0.0 being mute and 1.0 being full volume.
 		 *
 		 * @param[in] _value The value of the master gain to set.
 		 */

@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine::Graphics {
 			 *
 			 * The DepthMode enum specifies the mode for generating a depth attachment in a rendering context.
 			 */
-			enum DepthMode : char {
+			enum DepthMode : unsigned char {
 				         NONE, /**< @brief No depth attachment will be generated. */
 				RENDER_BUFFER, /**< @brief A render buffer will be generated as a depth attachment. */
 				 FRAME_BUFFER  /**< @brief A frame buffer will be generated as a depth attachment. */

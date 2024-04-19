@@ -258,9 +258,9 @@ namespace LouiEriksson::Engine::ECS {
 							xml.setNextName(kvp.first.name());
 							xml.startNode();
 
-							xml(cereal::make_nvp("Position", Serialisation::Serialise(transform->m_Position)));
-							xml(cereal::make_nvp("Rotation", Serialisation::Serialise(transform->m_Rotation)));
-							xml(cereal::make_nvp("Scale",    Serialisation::Serialise(transform->m_Scale)));
+							xml(cereal::make_nvp("Position", Serialisation::Serialise(transform->Position())));
+							xml(cereal::make_nvp("Rotation", Serialisation::Serialise(transform->Rotation())));
+							xml(cereal::make_nvp("Scale",    Serialisation::Serialise(transform->Scale())));
 
 							xml.finishNode();
 						}
@@ -390,9 +390,9 @@ namespace LouiEriksson::Engine::ECS {
 		
 							xml.startNode();
 			
-							t->m_Position = Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1));
-							t->m_Rotation = Serialisation::Deserialise<glm::quat>(Serialisation::ParseNext(xml, log ? 3 : -1));
-							t->m_Scale    = Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1));
+							t->Position(Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+							t->Rotation(Serialisation::Deserialise<glm::quat>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+							t->Scale   (Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 			
 							xml.finishNode();
 						}

@@ -270,7 +270,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @param[in] _value            The force vector to be applied.
 		 * @param[in] _relativePosition (optional) The position where the force is applied.
 		 */
-		void AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition = glm::vec3(0.0f));
+		void AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition = glm::vec3(0.0));
 		
 		/**
 		 * @brief Get the force of the Rigidbody.

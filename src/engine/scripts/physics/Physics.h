@@ -82,10 +82,10 @@ namespace LouiEriksson::Engine::Physics {
 		inline static std::shared_ptr<btDiscreteDynamicsWorld>             s_DynamicsWorld; /**< @brief (Bullet Physics) Dynamics world instance.         */
 		
  		/** @brief Value of gravity. */
- 		inline static glm::vec3 s_Gravity { 0.0f, -9.82f, 0.0f };
+ 		inline static glm::vec3 s_Gravity { 0.0, -9.82f, 0.0 };
 		
 		/** @brief Time in seconds since the physics engine was last updated. */
-		inline static float s_LastTick { 0.0f };
+		inline static float s_LastTick { 0.0 };
 		
 		/** @brief Initialise the physics engine.*/
 		static void Init();

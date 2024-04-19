@@ -680,8 +680,8 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,           target::s_ShadowTechniques.data(),  static_cast<int>(target::s_ShadowTechniques.size()));
 					ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), static_cast<int>(target::s_ShadowResolutions.size()));
 					
-					ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0, 65535.0);
-					ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0, 65535.0);
+					ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01, 0.0, 65535.0);
+					ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01, 0.0, 65535.0);
 					
 					// PCSS and Poisson-Disk:
 					if (target::s_CurrentShadowTechnique == 2 ||
@@ -705,7 +705,7 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1                 );
 					ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1                 );
 					ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
-					ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0, 65535.0);
+					ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01, 0.0, 65535.0);
 					ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1,  0.0, 65535.0);
 					
 					if (target::s_CurrentLightType == 2) {

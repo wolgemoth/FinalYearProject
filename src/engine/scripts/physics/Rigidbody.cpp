@@ -56,8 +56,8 @@ namespace LouiEriksson::Engine::Physics {
 				
 				// Set the transform of the rigidbody.
 				{
-					const auto pos  = _transform.lock()->m_Position;
-					const auto quat = _transform.lock()->m_Rotation;
+					const auto pos  = _transform.lock()->Position();
+					const auto quat = _transform.lock()->Rotation();
 					
 					// Get the rigidbody's transform and assign the current position and rotation.
 					auto t = m_Rigidbody->getWorldTransform();
@@ -77,14 +77,14 @@ namespace LouiEriksson::Engine::Physics {
 					);
 					
 					// Restrict all motion.
-					m_Rigidbody-> setLinearFactor({ 0.0f, 0.0f, 0.0f });
-					m_Rigidbody->setAngularFactor({ 0.0f, 0.0f, 0.0f });
+					m_Rigidbody-> setLinearFactor({ 0.0, 0.0, 0.0 });
+					m_Rigidbody->setAngularFactor({ 0.0, 0.0, 0.0 });
 				}
 				else {
 					
 					// Ensure motion is permitted along all axes.
-					m_Rigidbody-> setLinearFactor({ 1.0f, 1.0f, 1.0f });
-					m_Rigidbody->setAngularFactor({ 1.0f, 1.0f, 1.0f });
+					m_Rigidbody-> setLinearFactor({ 1.0, 1.0, 1.0 });
+					m_Rigidbody->setAngularFactor({ 1.0, 1.0, 1.0 });
 				}
 				
 				// Set up how the rigidbody interacts with gravity:
@@ -94,7 +94,7 @@ namespace LouiEriksson::Engine::Physics {
 					m_Rigidbody->setGravity(
 						_parameters.m_UseGravity ?
 							btVector3( g.x,  g.y,  g.z) :
-							btVector3(0.0f, 0.0f, 0.0f)
+							btVector3(0.0, 0.0, 0.0)
 					);
 				}
 				
@@ -102,7 +102,7 @@ namespace LouiEriksson::Engine::Physics {
 				if (_parameters.m_Continuous) {
 					
 					// Compute the continuous sphere radius using the collider's AABB.
-					float sweep_sphere_radius = 0.01f;
+					float sweep_sphere_radius = 0.01;
 					{
 						const auto* const col = m_Rigidbody->getCollisionShape();
 					
@@ -117,11 +117,11 @@ namespace LouiEriksson::Engine::Physics {
 						// Get largest axis:
 						const auto multiplier = 0.707f;
 					
-						sweep_sphere_radius = glm::max(
+						sweep_sphere_radius = std::max(
 							sweep_sphere_radius,
-							glm::max(
+							std::max(
 								delta.x(),
-								glm::max(
+								std::max(
 									delta.y(),
 									delta.z()
 								)
@@ -162,19 +162,19 @@ namespace LouiEriksson::Engine::Physics {
 			m_Continuous(true),
 			
 			// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
-			m_Mass       (1.0f),
-			m_Drag       (0.2f),
+			m_Mass       (1.0),
+			m_Drag       (0.2),
 			m_AngularDrag(0.005f),
-			m_Friction   (0.5f),
-			m_Bounciness (0.5f),
+			m_Friction   (0.5),
+			m_Bounciness (0.5),
 			
-			m_Inertia(1.0f, 1.0f, 1.0f) {}
+			m_Inertia(1.0, 1.0, 1.0) {}
 	
 	Rigidbody::Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
 	void Rigidbody::Interpolate() {
 		
-		if (Physics::s_LastTick > 0.0f) {
+		if (Physics::s_LastTick > 0.0) {
 			
 			if (const auto transform = m_Transform.lock()) {
 				
@@ -201,8 +201,8 @@ namespace LouiEriksson::Engine::Physics {
 				}
 				
 				// Apply new values. Linearly interpolate using length of time since last physics update.
-				transform->m_Position = lastPos + (Velocity() * Physics::s_LastTick * Time::FixedDeltaTime());
-				transform->m_Rotation = glm::slerp(lastRot, lastRot * rot, glm::max(Physics::s_LastTick, 0.0f));
+				transform->Position(lastPos + (Velocity() * Physics::s_LastTick * Time::FixedDeltaTime()));
+				transform->Rotation(glm::slerp(lastRot, lastRot * rot, std::max(Physics::s_LastTick, 0.0)));
 			}
 		}
 	}
@@ -240,8 +240,8 @@ namespace LouiEriksson::Engine::Physics {
 					const auto bRotation = t.getRotation().inverse();
 					
 					// Sync the transform from bullet with the transform in-engine.
-					transform->m_Position = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
-					transform->m_Rotation = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
+					transform->Position(glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z()));
+					transform->Rotation(glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z()));
 				}
 			}
 			
@@ -325,7 +325,7 @@ namespace LouiEriksson::Engine::Physics {
 	
 	void Rigidbody::Position(const glm::vec3& _value) {
 		
-		m_Transform.lock()->m_Position = _value;
+		m_Transform.lock()->Position(_value);
 		
 		BulletReinitialise();
 	}
@@ -333,12 +333,12 @@ namespace LouiEriksson::Engine::Physics {
 		
 		Sync();
 		
-		return m_Transform.lock()->m_Position;
+		return m_Transform.lock()->Position();
 	}
 	
 	void Rigidbody::Rotation(const glm::quat& _value) {
 		
-		m_Transform.lock()->m_Rotation = _value;
+		m_Transform.lock()->Rotation(_value);
 		
 		BulletReinitialise();
 	}
@@ -346,7 +346,7 @@ namespace LouiEriksson::Engine::Physics {
 		
 		Sync();
 		
-		return m_Transform.lock()->m_Rotation;
+		return m_Transform.lock()->Rotation();
 	}
 	
 	void Rigidbody::Kinematic(const bool& _value) {

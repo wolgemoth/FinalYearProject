@@ -39,10 +39,10 @@ namespace LouiEriksson::Engine::Graphics {
 			 * @enum Type
 			 * @brief Enum representing different types of lights.
 			 */
-			enum Type : char {
-				      Point, /**< @brief Light is a Point Light. */
-				Directional, /**< @brief Light is a Directional Light. */
-				       Spot, /**< @brief Light is a Spot Light.  */
+			enum Type : unsigned char {
+				      Point = 0u,       /**< @brief Light is a Point Light. */
+				Directional = 1u << 1u, /**< @brief Light is a Directional Light. */
+				       Spot = 1u << 2u, /**< @brief Light is a Spot Light.  */
 			};
 		
 		private:

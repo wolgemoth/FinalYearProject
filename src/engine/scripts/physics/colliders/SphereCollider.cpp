@@ -12,7 +12,7 @@ namespace LouiEriksson::Engine::Physics {
 	SphereCollider::SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent) : Collider(_parent) {
 		
 		// Initialise the collision shape as a sphere.
-		m_CollisionShape = std::make_shared<btSphereShape>(0.5f);
+		m_CollisionShape = std::make_shared<btSphereShape>(0.5);
 	}
 	SphereCollider::~SphereCollider() = default;
 	

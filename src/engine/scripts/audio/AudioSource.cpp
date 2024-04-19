@@ -25,20 +25,20 @@ namespace LouiEriksson::Engine::Audio {
 			m_Loop    (false), // Do not loop.
 			
 			// Default panning value. (Will only apply if if the audio source is global.)
-			m_Panning( 0.0f),
+			m_Panning( 0.0),
 			 
 			// Set default minimum and maximum distances.
-			m_MinDistance(  1.0f),
-			m_MaxDistance(100.0f),
+			m_MinDistance(  1.0),
+			m_MaxDistance(100.0),
 			
 			// Set other defaults:
-			m_Pitch       (  1.0f),
-			m_GainModifier(  1.0f),
-			m_MinGain     (  0.0f),
-			m_MaxGain     (  1.0f),
-			m_Rolloff     (  1.0f),
-			m_MinAngle    (360.0f),
-			m_MaxAngle    (360.0f) {}
+			m_Pitch       (  1.0),
+			m_GainModifier(  1.0),
+			m_MinGain     (  0.0),
+			m_MaxGain     (  1.0),
+			m_Rolloff     (  1.0),
+			m_MinAngle    (360.0),
+			m_MaxAngle    (360.0) {}
 	
 	AudioSource::Parameters::~Parameters() = default;
 	
@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine::Audio {
 			/*
 			 * If AL_SOURCE_RELATIVE is true, the audio is played relative to the listener.
 			 *
-			 * In this case, the position of the source is (0.0f, 0.0f, 0.0f) units
+			 * In this case, the position of the source is (0.0, 0.0, 0.0) units
 			 * from the listener's position (or directly on top of the listener).
 			 *
 			 * This will cause the panning of the audio to always be centered, regardless of
@@ -77,17 +77,17 @@ namespace LouiEriksson::Engine::Audio {
 			/* DISABLE ATTENUATION */
 			
 			// Setting reference distance to 0.0 disables attenuation.
-			alSourcef(m_Source, AL_REFERENCE_DISTANCE, 0.0f);
+			alSourcef(m_Source, AL_REFERENCE_DISTANCE, 0.0);
 			
 			// Set max distance to infinity (not strictly-necessary).
 			alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<float>::max());
 			
 			// Nullify directionality of AudioSource
-			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0f);
-			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0f);
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
+			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
 			
 			/* RESET VELOCITY */
-			alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);
+			alListener3f(AL_VELOCITY, 0.0, 0.0, 0.0);
 		}
 		else {
 		
@@ -134,7 +134,7 @@ namespace LouiEriksson::Engine::Audio {
 	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_Source      (AL_NONE),
 			m_Parameters  (),
-			m_LastPosition(   0.0f)
+			m_LastPosition(   0.0)
 	{
 		try {
 			
@@ -269,8 +269,8 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MinDistance(const float& _value) {
-		m_Parameters.m_MinDistance = glm::max(_value, __FLT_EPSILON__);
-		m_Parameters.m_MaxDistance = glm::max(_value, m_Parameters.m_MaxDistance);
+		m_Parameters.m_MinDistance = std::max(_value, __FLT_EPSILON__);
+		m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MaxDistance);
 		
 		Sync();
 	}
@@ -279,7 +279,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MaxDistance(const float& _value) {
-		m_Parameters.m_MaxDistance = glm::max(_value, m_Parameters.m_MinDistance);
+		m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MinDistance);
 		
 		Sync();
 	}
@@ -288,7 +288,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::Pitch(const float& _value) {
-		m_Parameters.m_Pitch = glm::max(_value, 0.0f);
+		m_Parameters.m_Pitch = std::max(_value, 0.0);
 		
 		Sync();
 	}
@@ -297,7 +297,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::Gain(const float& _value) {
-	    m_Parameters.m_GainModifier = glm::max(_value, 0.0f);
+	    m_Parameters.m_GainModifier = std::max(_value, 0.0);
 		
 		Sync();
 	}
@@ -306,8 +306,8 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MinGain(const float& _value) {
-	    m_Parameters.m_MinGain = glm::max(_value, 0.0f);
-	    m_Parameters.m_MaxGain = glm::max(_value, m_Parameters.m_MaxGain);
+	    m_Parameters.m_MinGain = std::max(_value, 0.0);
+	    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MaxGain);
 		
 		Sync();
 	}
@@ -316,7 +316,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MaxGain(const float& _value) {
-	    m_Parameters.m_MaxGain = glm::max(_value, m_Parameters.m_MinGain);
+	    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MinGain);
 		
 		Sync();
 	}
@@ -334,8 +334,8 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MinAngle(const float& _value) {
-	    m_Parameters.m_MinAngle = glm::clamp(_value, 0.0f, 360.0f);
-		m_Parameters.m_MaxAngle = glm::max(_value, m_Parameters.m_MaxAngle);
+	    m_Parameters.m_MinAngle = std::clamp(_value, 0.0, 360.0);
+		m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MaxAngle);
 		
 		Sync();
 	}
@@ -344,7 +344,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioSource::MaxAngle(const float& _value) {
-	    m_Parameters.m_MaxAngle = glm::max(_value, m_Parameters.m_MinAngle);
+	    m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MinAngle);
 		
 		Sync();
 	}

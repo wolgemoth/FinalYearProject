@@ -14,8 +14,8 @@
 namespace LouiEriksson::Engine::Audio {
 	
 	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
-			m_Gain        (1.0f),
-			m_LastPosition(0.0f) {}
+			m_Gain        (1.0),
+			m_LastPosition(0.0) {}
 	
 	AudioListener::~AudioListener() = default;
 	
@@ -68,7 +68,7 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void AudioListener::Gain(const float& _value) noexcept {
-		m_Gain = glm::clamp(_value, 0.0f, 1.0f);
+		m_Gain = std::clamp(_value, 0.0, 1.0);
 	}
 	const float& AudioListener::Gain() const noexcept {
 		return m_Gain;

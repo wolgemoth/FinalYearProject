@@ -68,8 +68,8 @@ namespace LouiEriksson::Engine::Audio {
 				
 				// Set default values for doppler shift.
 				// See: https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide#doppler-shift
-				DopplerFactor(1.0f);
-				SpeedOfSound(343.3f);
+				DopplerFactor(1.0);
+				SpeedOfSound(343.3);
 				
 				Debug::Log("Done.", LogType::Info);
 			}
@@ -153,14 +153,14 @@ namespace LouiEriksson::Engine::Audio {
 	}
 	
 	void Sound::DopplerFactor(const float& _value) {
-		alDopplerFactor(glm::max(_value, 0.0f));
+		alDopplerFactor(std::max(_value, 0.0));
 	}
 	float Sound::DopplerFactor() {
 		return alGetFloat(AL_DOPPLER_FACTOR);
 	}
 	
 	void Sound::SpeedOfSound(const float& _value) {
-		alDopplerVelocity(glm::max(_value, 0.0f));
+		alDopplerVelocity(std::max(_value, 0.0));
 	}
 	float Sound::SpeedOfSound() {
 		return alGetFloat(AL_DOPPLER_VELOCITY);

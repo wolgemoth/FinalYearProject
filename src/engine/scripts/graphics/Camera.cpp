@@ -46,13 +46,13 @@ namespace LouiEriksson::Engine::Graphics {
 	Camera::Camera(const std::weak_ptr<ECS::GameObject>& _parent) : Component(_parent),
 	
 		// Initialise default values for perspective matrix:
-		m_Projection(1.0f),
+		m_Projection(1.0),
 		m_IsDirty(true),
-		m_FOV(90.0f),
+		m_FOV(90.0),
 		
 		// Initialise the projection matrix to an identity matrix and raise the "isDirty" flag:
-		m_NearClip(0.1f),
-		m_FarClip(60.0f),
+		m_NearClip(0.1),
+		m_FarClip(60.0),
 	
 		// Init g-buffer:
 		               m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
@@ -151,8 +151,8 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						p->Assign(u_CameraPosition,
 							t != nullptr ?
-								t->m_Position :
-								glm::vec3(0.0f)
+								t->Position() :
+								glm::vec3(0.0)
 						);
 						
 						RenderTexture::Bind(m_TexCoord_gBuffer);
@@ -238,7 +238,7 @@ namespace LouiEriksson::Engine::Graphics {
 						p->Assign(u_ScreenDimensions,
 							w != nullptr ?
 								(glm::vec2)w->Dimensions() :
-								 glm::vec2(1.0f)
+								 glm::vec2(1.0)
 						);
 						
 						p->Assign(
@@ -302,7 +302,7 @@ namespace LouiEriksson::Engine::Graphics {
 						p->Assign(u_ScreenDimensions,
 							w != nullptr ?
 								(glm::vec2)w->Dimensions() :
-								 glm::vec2(1.0f)
+								 glm::vec2(1.0)
 						);
 						
 						RenderTexture::Bind(m_Emission_gBuffer);
@@ -410,7 +410,7 @@ namespace LouiEriksson::Engine::Graphics {
 						const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
 						
 						const auto lightPos = lightType == Light::Parameters::Type::Directional ?
-								t->m_Position + (VEC_FORWARD * glm::inverse(glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation))) * 65535.0f) :
+								t->Position() + (VEC_FORWARD * glm::inverse(glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation))) * 65535.0) :
 								Settings::Graphics::Material::s_LightPosition;
 						
 						p->Assign(u_LightPosition, lightPos);
@@ -418,7 +418,7 @@ namespace LouiEriksson::Engine::Graphics {
 						p->Assign(u_ScreenDimensions,
 							w != nullptr ?
 								(glm::vec2)w->Dimensions() :
-								 glm::vec2(1.0f)
+								 glm::vec2(1.0)
 						);
 						
 						RenderTexture::Bind(m_Material_gBuffer);
@@ -486,7 +486,7 @@ namespace LouiEriksson::Engine::Graphics {
 						p->Assign(u_ScreenDimensions,
 							w != nullptr ?
 								(glm::vec2)w->Dimensions() :
-								 glm::vec2(1.0f)
+								 glm::vec2(1.0)
 						);
 						
 						RenderTexture::Bind(m_Normal_gBuffer);
@@ -594,12 +594,12 @@ namespace LouiEriksson::Engine::Graphics {
 								
 								// Compute the position of the light.
 								const glm::vec3 truncatedCamPos = glm::floor(
-									t->m_Position / texelSize) * texelSize;
+									t->Position() / texelSize) * texelSize;
 								
 								lightPos = truncatedCamPos + (lightDir * (l->m_Range / 2));
 							}
 							else {
-								lightPos = l->m_Transform.lock()->m_Position;
+								lightPos = l->m_Transform.lock()->Position();
 							}
 						}
 						
@@ -626,7 +626,7 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(p->AttributeID("u_LightPosition"), lightPos  );
 							p->Assign(p->AttributeID("u_FarPlane"     ), l->m_Range);
 							
-							l->m_Shadow.m_ViewProjection = glm::mat4(1.0f);
+							l->m_Shadow.m_ViewProjection = glm::mat4(1.0);
 						}
 						else {
 							
@@ -766,8 +766,8 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						p->Assign(p->AttributeID("u_CameraPosition"),
 							t != nullptr ?
-								t->m_Position :
-								glm::vec3(0.0f)
+								t->Position() :
+								glm::vec3(0.0)
 						);
 					}
 					
@@ -808,8 +808,8 @@ namespace LouiEriksson::Engine::Graphics {
 										l->m_Shadow.m_Bias       = newBias;
 										l->m_Shadow.m_NormalBias = newNormalBias;
 									
-										t->m_Position = target_light::s_LightPosition;
-										t->m_Rotation = glm::inverse(glm::quat(glm::radians(target_light::s_LightRotation)));
+										t->Position(target_light::s_LightPosition);
+										t->Rotation(glm::inverse(glm::quat(glm::radians(target_light::s_LightRotation))));
 									}
 									
 									l->m_Range     = target_light::s_LightRange;
@@ -862,15 +862,15 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_LightAngle"),
 									glm::cos(glm::radians(
 										l->Type() == Light::Parameters::Type::Spot ?
-											l->m_Angle * 0.5f :
-											180.0f
+											l->m_Angle * 0.5 :
+											180.0
 										)
 									)
 								);
 				
 								p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
 				
-								p->Assign(p->AttributeID("u_LightPosition" ), t->m_Position);
+								p->Assign(p->AttributeID("u_LightPosition" ), t->Position());
 								p->Assign(p->AttributeID("u_LightDirection"), t->FORWARD   );
 								
 								p->Assign(p->AttributeID("u_LightRange"    ), l->m_Range    );
@@ -1076,16 +1076,16 @@ namespace LouiEriksson::Engine::Graphics {
 			// Optionally, use a multiplier proportional to the screen's resolution to
 			// keep the blur effect consistent across a range of different resolutions.
 	        const float dpiFactor = _consistentDPI ?
-	            glm::sqrt(dimensions.x * dimensions.y) * (1.0f / 3000.0f) : // (1.0f / 3000.0f) is an arbitrary value I chose by eye.
-	            1.0f;
+	            glm::sqrt(dimensions.x * dimensions.y) * (1.0 / 3000.0) : // (1.0 / 3000.0) is an arbitrary value I chose by eye.
+	            1.0;
 	
 	        float rootIntensity, scalar, aspectCorrection;
 	
 			// Init rootIntensity, scalar, and aspectCorrection.
 	        if (_highQuality) {
-	               rootIntensity = 0.0f;
-	                      scalar = 0.0f;
-	            aspectCorrection = 0.0f;
+	               rootIntensity = 0.0;
+	                      scalar = 0.0;
+	            aspectCorrection = 0.0;
 	        }
 	        else {
 	               rootIntensity = glm::sqrt(_intensity);
@@ -1111,11 +1111,11 @@ namespace LouiEriksson::Engine::Graphics {
 	                width  = (int)dimensions.x;
 	                height = (int)dimensions.y;
 	                
-	                size = (float)glm::pow(1.618f, i + 1) * _intensity;
+	                size = (float)std::pow(1.618f, i + 1) * _intensity;
 	            }
 	            else {
-	                width  = (int)glm::ceil(dimensions.x / glm::pow(2.0f, (float)i / 2 * scalar));
-	                height = (int)glm::ceil(dimensions.y / glm::pow(2.0f, (float)i / 2 * scalar) * aspectCorrection);
+	                width  = (int)glm::ceil(dimensions.x / std::pow(2.0, (float)i / 2 * scalar));
+	                height = (int)glm::ceil(dimensions.y / std::pow(2.0, (float)i / 2 * scalar) * aspectCorrection);
 	                
 	                size = (float)i * rootIntensity;
 					
@@ -1175,7 +1175,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Compute the average luminosity:
 				int avg_count = 0;
-				auto avg = 0.0f;
+				auto avg = 0.0;
 				
 				for (auto y = 0; y < m_AutoExposure_Luma.Height(); y++) {
 				for (auto x = 0; x < m_AutoExposure_Luma.Width();  x++) {
@@ -1191,16 +1191,16 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Detect and prevent NaN propagation by checking the value against itself:
 				if (avg != avg) {
-					avg = 0.0f;
+					avg = 0.0;
 				}
 				
-				avg = avg / (float)glm::max(avg_count, 1);
+				avg = avg / (float)std::max(avg_count, 1);
 				
 				// Get difference between current exposure and average luma.
-				const float diff = glm::clamp(
+				const float diff = std::clamp(
 					(Settings::PostProcessing::ToneMapping::s_Exposure + target::s_Compensation) - avg,
-					-1.0f,
-					1.0f
+					-1.0,
+					1.0
 				);
 				
 				// Determine the speed to change exposure by:
@@ -1211,7 +1211,7 @@ namespace LouiEriksson::Engine::Graphics {
 				// Set a new exposure value:
 				m_Exposure = glm::mix(
 					m_Exposure,
-					glm::clamp(Settings::PostProcessing::ToneMapping::s_Exposure + diff, target::s_MinEV, target::s_MaxEV),
+					std::clamp(Settings::PostProcessing::ToneMapping::s_Exposure + diff, target::s_MinEV, target::s_MaxEV),
 					Time::DeltaTime() * speed
 				);
 			}
@@ -1236,8 +1236,8 @@ namespace LouiEriksson::Engine::Graphics {
 				// Create a render texture for the AO. Optionally, downscale the texture
 				// to save performance by computing AO at a lower resolution.
 				const auto downscale = Settings::PostProcessing::AmbientOcclusion::s_Downscale;
-				const auto  width = glm::max(viewport[2] / (downscale + 1), 1);
-				const auto height = glm::max(viewport[3] / (downscale + 1), 1);
+				const auto  width = std::max(viewport[2] / (downscale + 1), 1);
+				const auto height = std::max(viewport[3] / (downscale + 1), 1);
 				
 				if (m_AO_RT.m_FBO_ID == GL_NONE || width != m_AO_RT.m_Width || height != m_AO_RT.m_Height) {
 					m_AO_RT.Reinitialise(width, height);
@@ -1262,7 +1262,7 @@ namespace LouiEriksson::Engine::Graphics {
 				// Assign program values:
 				ao->Assign( u_Samples, Settings::PostProcessing::AmbientOcclusion::s_Samples);
 				ao->Assign(u_Strength,           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
-				ao->Assign(    u_Bias, -glm::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2f));
+				ao->Assign(    u_Bias, -std::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2));
 				ao->Assign(  u_Radius,           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
 				
 				ao->Assign(u_NearClip, m_NearClip           );
@@ -1285,7 +1285,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 				
 				// Blur the AO.
-				Blur(m_AO_RT, 1.0f, 1, true, false);
+				Blur(m_AO_RT, 1.0, 1, true, false);
 		
 				// Reset the viewport.
 				glViewport(viewport[0], viewport[1], m_RT.Width(), m_RT.Height());
@@ -1390,7 +1390,7 @@ namespace LouiEriksson::Engine::Graphics {
 						// Create the diffusion vector for the bloom algorithm:
 						static const auto u_Diffusion = upscale_shader->AttributeID("u_Diffusion");
 						
-						const auto t = Utils::Remap(target::s_Anamorphism, -1.0f, 1.0f, 0.0f, 1.0f);
+						const auto t = Utils::Remap(target::s_Anamorphism, -1.0, 1.0, 0.0, 1.0);
 					
 						const auto d = std::min((1.0 / std::log2(target::s_Diffusion + 1.0)), 1.0) * 6.0;
 						
@@ -1423,7 +1423,7 @@ namespace LouiEriksson::Engine::Graphics {
 						static const auto u_Texture0 = combine_shader->AttributeID("u_Texture0");
 						static const auto u_Texture1 = combine_shader->AttributeID("u_Texture1");
 						
-						combine_shader->Assign(u_Strength, target::s_Intensity / glm::max((float)m_Bloom_MipChain.size() - 1, 1.0f));
+						combine_shader->Assign(u_Strength, target::s_Intensity / std::max((float)m_Bloom_MipChain.size() - 1, 1.0));
 						combine_shader->Assign(u_Texture0, m_RT, 0);
 						combine_shader->Assign(u_Texture1, m_Bloom_MipChain[0], 1);
 					}
@@ -1555,7 +1555,7 @@ namespace LouiEriksson::Engine::Graphics {
 			result = w->Aspect();
 		}
 		else {
-			result = -1.0f;
+			result = -1.0;
 			
 			Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
 		}
@@ -1635,13 +1635,13 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto transform = GetTransform().lock()) {
 			result = glm::lookAt(
-				transform->m_Position,
-				transform->m_Position + transform->FORWARD,
+				transform->Position(),
+				transform->Position() + transform->FORWARD,
 				transform->UP
 			);
 		}
 		else {
-			result = glm::mat4(1.0f);
+			result = glm::mat4(1.0);
 			
 			Debug::Log("No valid Transform Component on Camera!", LogType::Error);
 		}

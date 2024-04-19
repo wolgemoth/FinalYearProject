@@ -22,7 +22,7 @@ namespace LouiEriksson::Engine::Physics {
 		// Lock the transform and check it is valid.
 		if (const auto t = m_Transform.lock()) {
 			
-			const auto s = t->m_Scale;
+			const auto s = t->Scale();
 			
 			/* Use box-shaped collision instead of a plane-shape so that
 			 * we can allow our plane to have edges, and not just be infinite. */
