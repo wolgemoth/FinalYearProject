@@ -109,7 +109,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					const auto star = ATHYG_VERSION((Utils::MoveToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(elements)));
 					
 					if (*star.mag <= _threshold_magnitude) {
-						star_positions.emplace_back(std::move(*star.x0), std::move(*star.y0), std::move(*star.z0));
+						star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
 					}
 				}
 			}
@@ -121,7 +121,21 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			Debug::Log(e);
 		}
 		
-		return Engine::Graphics::Mesh::Primitives::PointCloud::Create(star_positions);
+		using vertex_t = GLfloat;
+		
+		const auto vertex_count = star_positions.size();
+	
+		if (vertex_count > std::numeric_limits<GLushort>::max()) {        // (32-bit)
+			result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLuint>(star_positions);
+		}
+		else if (vertex_count > std::numeric_limits<GLubyte>::max()) {    // (16-bit)
+			result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLushort>(star_positions);
+		}
+		else {                                                            // (8-bit)
+			result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLubyte>(star_positions);
+		}
+		
+		return result;
 	}
 	
 } // LouiEriksson::Game::Scripts::Spatial

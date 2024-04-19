@@ -277,9 +277,7 @@ namespace LouiEriksson::Engine {
 			        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
 				}
 				else {
-					e = const_cast<char*>(_str.data());
-					
-					Debug::Log("No specialisation exists for parsing string to T", LogType::Error);
+					static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");
 				}
 			}
 			catch (std::exception& err) {
@@ -347,9 +345,7 @@ namespace LouiEriksson::Engine {
 		        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
 			}
 			else {
-				e = const_cast<char*>(_str.data());
-				
-				throw std::runtime_error("No specialisation exists for parsing string to T");
+				static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");
 			}
 			
 			if (e == _str.data()) {

@@ -19,7 +19,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	
 	protected:
 		
-		template<typename T, glm::precision P>
+		template<typename T = double, glm::precision P = glm::highp>
 		class Planets final {
 		
 		public:
@@ -161,7 +161,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		 * @param[in] _t The interpolation factor (0.0 - starting state, 1.0 - ending state)
 		 * @param[in] _origin The point-of-origin for the interpolation (default: "Earth")
 		 */
-		template<typename T, glm::precision P>
+		template<typename T = double, glm::precision P = glm::highp>
 		void InterpolatePlanets(const Planetarium::Planets<T, P>& _from, const Planetarium::Planets<T, P>& _to, const double& _t, const std::string& _origin = "Earth");
 		
 	public:

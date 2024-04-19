@@ -711,9 +711,9 @@ namespace LouiEriksson::Engine::Graphics {
 			// Reset resolution after shadow pass.
 			auto dimensions = w->Dimensions();
 			glViewport(0, 0, dimensions[0], dimensions[1]);
-
+			
 			/* SHADING */
-			if (const auto m = Mesh::Primitives::Quad::Instance().lock()) {
+			if (const auto m = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 				
 				// Bind the main FBO.
 				RenderTexture::Bind(m_RT);
@@ -878,7 +878,7 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_LightColor"    ), l->m_Color    );
 				
 								/* DRAW */
-								if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+								if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 									Draw(*q);
 								}
 							}
@@ -1044,7 +1044,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		// DRAW:
 		Shader::Bind(s_Passthrough.lock()->ID());
-		if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+		if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 			Draw(*q);
 		}
 		
@@ -1280,7 +1280,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				// Draw
 				RenderTexture::Bind(m_AO_RT);
-				if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+				if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 					Draw(*q);
 				}
 				
@@ -1431,7 +1431,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Blit to main render target:
 					RenderTexture::Bind(m_RT);
 					
-					if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+					if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 						Draw(*q);
 					}
 					
@@ -1456,7 +1456,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							// Blit to main render target:
 							RenderTexture::Bind(m_RT);
-							if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+							if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 								Draw(*q);
 							}
 						}
@@ -1512,7 +1512,7 @@ namespace LouiEriksson::Engine::Graphics {
 			// Bind destination target:
 			RenderTexture::Bind(_dest);
 			
-			if (const auto q = Mesh::Primitives::Quad::Instance().lock()) {
+			if (const auto q = Mesh::Primitives::Quad<GLfloat, glm::lowp>::Instance().lock()) {
 				Draw(*q);
 			}
 
