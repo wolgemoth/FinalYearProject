@@ -64,6 +64,9 @@ namespace LouiEriksson::Engine {
 		
 	public:
 	
+		using   tick_t = long double;
+		using scalar_t = float;
+		
 		 Application()                          = delete;
 		 Application(const Application& _other) = delete;
 		~Application()                          = delete;

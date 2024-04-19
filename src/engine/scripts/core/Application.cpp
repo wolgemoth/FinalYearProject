@@ -124,9 +124,9 @@ namespace LouiEriksson::Engine {
 				UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 				
 				// Set the delta time of the physics simulation.
-				Time::FixedDeltaTime(1.0f / 60.0f);
+				Time::FixedDeltaTime(1.0 / 60.0);
 				
-				auto physics_step = 0.0f;
+				long double physics_step = 0.0;
 				
 				// Load a scene and run:
 				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
@@ -173,7 +173,7 @@ namespace LouiEriksson::Engine {
 											
 											// Raise the reinitialisation flag.
 											renderFlags = static_cast<Graphics::Camera::RenderFlags>(
-												(unsigned)renderFlags | (unsigned)Graphics::Camera::RenderFlags::REINITIALISE);
+												renderFlags | Graphics::Camera::RenderFlags::REINITIALISE);
 										}
 									}
 								}
@@ -194,16 +194,16 @@ namespace LouiEriksson::Engine {
 						/* FIXED UPDATE */
 						
 						// Runs as many times as needed to restore the physics step below zero.
-						while (physics_step >= 0.0f) {
+						while (physics_step >= 0.0) {
 							
 							// Tick the physics engine.
-							Physics::Physics::Tick(Time::FixedDeltaTime());
+							Physics::Physics::Tick(Time::FixedDeltaTime<tick_t>());
 							
 							// Tick the scene's fixed update.
 							scene->FixedTick();
 							
 							// Subtract delta time from the physics step.
-							physics_step -= Time::FixedUnscaledDeltaTime();
+							physics_step -= Time::FixedUnscaledDeltaTime<tick_t>();
 						}
 						
 						/* UPDATE */
@@ -228,14 +228,14 @@ namespace LouiEriksson::Engine {
 						/* UPDATE TIMERS */
 						
 						Time::s_UnscaledDeltaTime =
-							std::chrono::duration_cast<std::chrono::duration<float>>(
+							std::chrono::duration_cast<std::chrono::duration<tick_t>>(
 								std::chrono::high_resolution_clock::now() -
 								frame_start
 							).count(); // Calculate delta time.
 						
-						            Time::s_Elapsed  += Time::UnscaledDeltaTime(); // Increment total elapsed time.
-						Physics::Physics::s_LastTick += Time::UnscaledDeltaTime(); // Increment time since last physics update.
-						                physics_step += Time::UnscaledDeltaTime(); // Increment the physics step (used for computing number of fixed updates per frame).
+						            Time::s_Elapsed  += Time::UnscaledDeltaTime<tick_t>(); // Increment total elapsed time.
+						Physics::Physics::s_LastTick += Time::UnscaledDeltaTime<tick_t>(); // Increment time since last physics update.
+						                physics_step += Time::UnscaledDeltaTime<tick_t>(); // Increment the physics step (used for computing number of fixed updates per frame).
 					}
 					catch (const std::exception& e) {
 						Debug::Log(e, LogType::Critical);
