@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_TIME_H
 #define FINALYEARPROJECT_TIME_H
 
+#include "Application.h"
+
 namespace LouiEriksson::Engine {
 	
 	/**
@@ -13,10 +15,10 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		inline static float s_Scale                  { 1.0f }; /**< @brief Speed of time within the engine. */
-		inline static float s_Elapsed                { 0.0f }; /**< @brief   Total time elapsed (unscaled). */
-		inline static float s_UnscaledDeltaTime      { 0.0f }; /**< @brief             Unscaled delta time. */
-		inline static float s_FixedUnscaledDeltaTime { 0.0f }; /**< @brief       Unscaled fixed delta time. */
+		inline static Application::tick_t s_Scale                  { 1.0 }; /**< @brief Speed of time within the engine. */
+		inline static Application::tick_t s_Elapsed                { 0.0 }; /**< @brief   Total time elapsed (unscaled). */
+		inline static Application::tick_t s_UnscaledDeltaTime      { 0.0 }; /**< @brief             Unscaled delta time. */
+		inline static Application::tick_t s_FixedUnscaledDeltaTime { 0.0 }; /**< @brief       Unscaled fixed delta time. */
 	
 	public:
 		
@@ -33,49 +35,97 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _value The new speed value to be set (between 0.0 and 1.0)
 		 */
-		static void Scale(const float& _value) noexcept;
+		template <typename T>
+		static void Scale(const T& _value) noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+	        s_Scale = _value;
+		}
 		
 		/**
 		 * @brief Get the speed of time within the engine.
 		 * @return The speed of time within the engine.
 		 */
-		static const float& Scale() noexcept;
+		template <typename T>
+		static constexpr const T& Scale() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_Scale);
+		}
 		
 		/**
 		 * @brief Get the total time elapsed since the engine was initialised.
 		 * @return The total time elapsed.
 		 */
-		static const float& Elapsed() noexcept;
+		template <typename T>
+		static constexpr const T& Elapsed() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_Elapsed);
+		}
 		
 		/**
 		 * @brief Get the scaled delta time (duration of the previous frame).
 		 * @return The scaled delta time.
 		 */
-		static float DeltaTime() noexcept;
+		template <typename T>
+		static constexpr T DeltaTime() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_UnscaledDeltaTime * s_Scale);
+		}
 		
 		/**
 		 * @brief Get the unscaled delta time (duration of the previous frame).
 		 * @return The unscaled delta time.
 		 */
-		static const float& UnscaledDeltaTime() noexcept;
+		template <typename T>
+		static constexpr const T& UnscaledDeltaTime() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_UnscaledDeltaTime);
+		}
 		
 		/**
 		 * @brief Set the unscaled fixed delta time (time between physics updates).
 		 * @param[in] _value The new fixed delta time.
 		 */
-		static void FixedDeltaTime(const float& _value) noexcept ;
+		template <typename T>
+		static void FixedDeltaTime(const T& _value) noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			s_FixedUnscaledDeltaTime = _value;
+		}
 		
 		/**
 		 * @brief Get the scaled fixed delta time (time between physics updates).
 		 * @return The scaled fixed delta time.
 		 */
-		static float FixedDeltaTime() noexcept;
+		template <typename T>
+		static constexpr T FixedDeltaTime() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_FixedUnscaledDeltaTime * s_Scale);
+		}
 		
 		/**
 		 * @brief Get the unscaled fixed delta time (time between physics updates).
 		 * @return The unscaled fixed delta time.
 		 */
-		static const float& FixedUnscaledDeltaTime() noexcept;
+		template <typename T>
+		static constexpr const T& FixedUnscaledDeltaTime() noexcept {
+			
+			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			
+			return static_cast<T>(s_FixedUnscaledDeltaTime);
+		}
 		
 		Time& operator = (const Time&  _other) = delete;
 		Time& operator =       (Time&& _other) = delete;

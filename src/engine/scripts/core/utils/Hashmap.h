@@ -359,7 +359,7 @@ namespace LouiEriksson::Engine {
 				if (GetHashcode(kvp.first) == hash) {
 					exists = true;
 					
-					kvp.second = _value;
+					kvp.second = std::move(_value);
 					
 					break;
 				}
@@ -368,7 +368,7 @@ namespace LouiEriksson::Engine {
 			if (!exists) {
 				m_Size++;
 				
-				bucket.emplace_back(_key, _value);
+				bucket.emplace_back(std::move(_key), std::move(_value));
 			}
 		}
 		
