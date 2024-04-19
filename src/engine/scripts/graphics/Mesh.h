@@ -513,8 +513,6 @@ namespace LouiEriksson::Engine::Graphics {
 					        for (U j(0); j <= nY; j++) {
 						    for (U i(0); i <= nX; i++) {
 								
-								const auto idx = Utils::To1D({i, j}, nX + 1);
-								
 								const auto fi = static_cast<float>(i);
 								const auto fj = static_cast<float>(j);
 								
@@ -523,15 +521,15 @@ namespace LouiEriksson::Engine::Graphics {
 									static_cast<T>(fi / static_cast<float>(nX)),
 								};
 								
-						        vertices[idx] = {
-								    _size.x * (uv.x - 0.5),
+						        vertices.emplace_back(
+								    _size.x * (uv.x - static_cast<T>(0.5)),
 							        0.0,
-							        _size.y * (uv.y - 0.5),
-								};
+							        _size.y * (uv.y - static_cast<T>(0.5))
+						        );
 								
-					            uvs[idx] = uv;
+					            uvs.emplace_back(uv);
 					        }}
-													
+							
 						    /* INDEX DATA */
 						    std::vector<U> indices;
 							indices.reserve(static_cast<size_t>(6 * nX * nY));
@@ -551,12 +549,6 @@ namespace LouiEriksson::Engine::Graphics {
 					            indices.emplace_back(v2);
 					            indices.emplace_back(v4);
 					        }}
-							
-							const auto normals = GenerateNormals(vertices, indices);
-							result = Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
-						}
-						else {
-							throw std::runtime_error("Cannot construct a grid mesh with a resolution of less than 1 on the x or y axes!");
 						}
 					}
 					catch (const std::exception& e) {
@@ -599,8 +591,6 @@ namespace LouiEriksson::Engine::Graphics {
 					        for (U j(0); j <= nY; j++) {
 						    for (U i(0); i <= nX; i++) {
 								
-								const auto idx = Utils::To1D({i, j}, nX + 1);
-								
 								const auto fi = static_cast<float>(i);
 								const auto fj = static_cast<float>(j);
 								
@@ -611,13 +601,13 @@ namespace LouiEriksson::Engine::Graphics {
 								
 								const auto t_offset = static_cast<T>(1.0) / glm::vec<2, T, P>(_heights.Width(), _heights.Height());
 									
-						        vertices[idx] = {
-								    _size.x * (uv.x - 0.5),
+						        vertices.emplace_back(
+								    _size.x * (uv.x - static_cast<T>(0.5)),
 							        _heights.GetPixelBilinear(uv - t_offset),
-							        _size.y * (uv.y - 0.5),
-								};
+							        _size.y * (uv.y - static_cast<T>(0.5))
+						        );
 								
-					            uvs[idx] = uv;
+					            uvs.emplace_back(uv);
 					        }}
 							
 						    /* INDEX DATA */
