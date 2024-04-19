@@ -25,7 +25,7 @@ namespace LouiEriksson::Engine::Graphics {
 		m_Format         (_format),
 		m_IndexFormat    (GL_NONE),
 		m_VAO_ID         (GL_NONE),
-		m_IBO_ID    (GL_NONE),
+		m_IBO_ID         (GL_NONE),
 		m_PositionVBO_ID (GL_NONE),
 		m_TexCoordVBO_ID (GL_NONE),
 		m_NormalVBO_ID   (GL_NONE),

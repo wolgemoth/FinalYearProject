@@ -201,7 +201,7 @@ namespace LouiEriksson::Engine {
 		
 			const optional_t m_Optional;
 			
-			explicit optional(const optional_t& _optional) : m_Optional(_optional) {};
+			explicit optional(optional_t&& _optional) : m_Optional(_optional) {};
 			
 		public:
 			
@@ -220,17 +220,13 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns the number of items stored within the Hashmap.
 		 * @return The number of items stored within the Hashmap.
 		 */
-		[[nodiscard]] size_t size() const noexcept  {
-			return m_Size;
-		}
+		[[nodiscard]] size_t size() const noexcept { return m_Size; }
 		
 		/**
 		 * @brief Is the Hashmap empty?
 		 * @return Returns true if the Hashmap contains no entries.
 		 */
-		[[nodiscard]] bool empty() const noexcept  {
-			return m_Size == 0;
-		}
+		[[nodiscard]] bool empty() const noexcept { return m_Size == 0; }
 	
 		/**
 		 * @brief Queries for the existence of an item in the Hashmap.
@@ -277,8 +273,8 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const size_t hash = GetHashcode(_key);
-			const size_t i = hash % m_Buckets.size();
+			const auto hash = GetHashcode(_key);
+			const auto i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -315,8 +311,8 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const size_t hash = GetHashcode(_key);
-			const size_t i = hash % m_Buckets.size();
+			const auto hash = GetHashcode(_key);
+			const auto i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -333,10 +329,10 @@ namespace LouiEriksson::Engine {
 			}
 			
 			if (!exists) {
+				m_Size++;
+				
 				bucket.emplace_back(_key, _value);
 			}
-			
-			m_Size++;
 		}
 		
 		/**
@@ -352,8 +348,8 @@ namespace LouiEriksson::Engine {
 			}
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const size_t hash = GetHashcode(_key);
-			const size_t i = hash % m_Buckets.size();
+			const auto hash = GetHashcode(_key);
+			const auto i = hash % m_Buckets.size();
 			
 			auto& bucket = m_Buckets[i];
 			
@@ -363,17 +359,17 @@ namespace LouiEriksson::Engine {
 				if (GetHashcode(kvp.first) == hash) {
 					exists = true;
 					
-					kvp.second = std::move(_value);
+					kvp.second = _value;
 					
 					break;
 				}
 			}
 			
 			if (!exists) {
-				bucket.emplace_back(std::move(_key), std::move(_value));
+				m_Size++;
+				
+				bucket.emplace_back(_key, _value);
 			}
-			
-			m_Size++;
 		}
 		
 		/**
@@ -433,7 +429,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			
-			return optional(result);
+			return optional(std::move(result));
 		}
 		
 		/**
@@ -519,8 +515,6 @@ namespace LouiEriksson::Engine {
 		
 		/**
 		 * @brief Clears all entries from the Hashmap.
-		 *
-		 * @remarks This function is not responsible for memory management of items contained within the Hashmap.
 		 */
 		void Clear() noexcept  {
 			

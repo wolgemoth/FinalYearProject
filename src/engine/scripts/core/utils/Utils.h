@@ -688,7 +688,19 @@ namespace LouiEriksson::Engine {
 	template<>
 	[[deprecated("Redundant operation: string_view to string_view conversion is not necessary.")]]
 	inline std::optional<std::string_view> Utils::TryParse(const std::string_view& _str) noexcept {
+		return _str;
+	}
+	
+	template<>
+	[[deprecated("Redundant operation: string_view to string conversion is not necessary.")]]
+	inline std::string Utils::Parse(const std::string_view& _str) {
 		return std::string(_str);
+	}
+	
+	template<>
+	[[deprecated("Redundant operation: string_view to string_view conversion is not necessary.")]]
+	inline std::string_view Utils::Parse(const std::string_view& _str) {
+		return _str;
 	}
 	
 } // LouiEriksson::Engine
