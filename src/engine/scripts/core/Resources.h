@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		enum Status : char {
+		enum Status : unsigned char {
 			Unloaded, /**< @brief File is not yet loaded into memory. */
 			  Loaded, /**< @brief File is currently loaded into memory. */
 			 Missing, /**< @brief File not found. */

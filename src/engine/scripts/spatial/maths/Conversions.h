@@ -13,7 +13,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				KilometreHour,
 				FeetSecond,
 				MileHour,
@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Millimetre,
 				Centimetre,
 				Inch,
@@ -112,7 +112,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			 *
 			 * @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
 			 */
-	        static double ArcSecondsToMetres(const double& _arcSeconds, const double& _lat = 0.0f);
+	        static double ArcSecondsToMetres(const double& _arcSeconds, const double& _lat = 0.0);
 			
 			/**
 			* @brief Convert metres to arc-seconds given a latitude.
@@ -127,7 +127,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			*
 			* @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
 			*/
-	        static double MetresToArcSeconds(const double& _metres, const double& _lat = 0.0f);
+	        static double MetresToArcSeconds(const double& _metres, const double& _lat = 0.0);
 	        
 		private:
 			
@@ -192,7 +192,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Gradian,
 				Degree,
 				Radian,
@@ -248,7 +248,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Nanosecond,
 				Microsecond,
 				Millisecond,
@@ -319,14 +319,14 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Celsius,
 				Fahrenheit,
 				Kelvin,
 			};
 			
-			static constexpr double s_PlanckTemperature = 14200000000000000000000000000000000.0f;
-			static constexpr double s_AbsoluteZero      =                                   0.0f;
+			static constexpr double s_PlanckTemperature = 14200000000000000000000000000000000.0;
+			static constexpr double s_AbsoluteZero      =                                   0.0;
 			
 			static Hashmap<std::string, Conversions::Temperature::Unit>::optional TryGuessUnit(const std::string& _symbol);
 			
@@ -364,7 +364,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				DyneSquareCentimetre,
 				MilliTorr,
 				Pascal,
@@ -526,7 +526,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Nanogram,
 				Microgram,
 				Milligram,
@@ -635,7 +635,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				SquareMillimetre,
 				SquareCentimetre,
 				SquareInch,
@@ -710,7 +710,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		public:
 			
-			enum Unit : char {
+			enum Unit : unsigned char {
 				Millilitre,
 				Centilitre,
 				CubicInch,

@@ -36,8 +36,8 @@ namespace LouiEriksson::Engine {
 		
 		struct Directory final {
 			
-			enum EntryType : char {
-				FILE      = 1u << 0u, /**< @brief File entries. */
+			enum EntryType : unsigned char {
+				FILE      = 0u,       /**< @brief File entries. */
 				DIRECTORY = 1u << 1u  /**< @brief Directory entries. */
 			};
 			

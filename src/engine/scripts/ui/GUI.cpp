@@ -120,27 +120,27 @@ namespace LouiEriksson::Engine::UI {
 		static std::vector<float> s_Timestamps;
 		static std::vector<float> s_Samples;
 		
-		static const auto s_Plot_SamplingWindowSize = 10.0f;
-		static const auto  s_FPS_SamplingWindowSize =  0.5f;
+		static const auto s_Plot_SamplingWindowSize = 10.0;
+		static const auto  s_FPS_SamplingWindowSize =  0.5;
 		
 		// Append the current frame.
 		s_Timestamps.emplace_back(Time::Elapsed());
-		   s_Samples.emplace_back(1.0f / Time::UnscaledDeltaTime());
+		   s_Samples.emplace_back(1.0 / Time::UnscaledDeltaTime());
 		   
 		// Extract various values from the sampling window:
 		float oldest_avg_timestamp  = std::numeric_limits<float>::infinity(),
 			  oldest_plot_timestamp = std::numeric_limits<float>::infinity(),
 			  min_fps               = std::numeric_limits<float>::infinity(),
-		      max_fps               = 0.0f,
-		      avg_fps               = 0.0f,
-		      avg_fps_count         = 0.0f;
+		      max_fps               = 0.0,
+		      avg_fps               = 0.0,
+		      avg_fps_count         = 0.0;
 		
 		for (size_t i = 0; i < s_Samples.size(); ++i) {
 			
 			const auto timestamp = s_Timestamps[i];
 			auto fps = s_Samples[i];
 			
-			if (timestamp > 0.0f) {
+			if (timestamp > 0.0) {
 				
 				if (timestamp < Time::Elapsed() - s_Plot_SamplingWindowSize) {
 					
@@ -149,14 +149,14 @@ namespace LouiEriksson::Engine::UI {
 				}
 				else {
 					
-					oldest_plot_timestamp = glm::min(timestamp, oldest_plot_timestamp);
+					oldest_plot_timestamp = std::min(timestamp, oldest_plot_timestamp);
 					
-					min_fps = glm::min(fps, min_fps);
-					max_fps = glm::max(fps, max_fps);
+					min_fps = std::min(fps, min_fps);
+					max_fps = std::max(fps, max_fps);
 					
 					if (timestamp > Time::Elapsed() - s_FPS_SamplingWindowSize) {
 					
-						oldest_avg_timestamp = glm::min(timestamp, oldest_avg_timestamp);
+						oldest_avg_timestamp = std::min(timestamp, oldest_avg_timestamp);
 						
 						avg_fps += fps;
 						avg_fps_count++;
@@ -165,7 +165,7 @@ namespace LouiEriksson::Engine::UI {
 			}
 		}
 		
-		avg_fps /= glm::max(avg_fps_count, 1.0f);
+		avg_fps /= std::max(avg_fps_count, 1.0);
 		
 		// Diagnostics window:
 		if (_draw) {
@@ -187,14 +187,14 @@ namespace LouiEriksson::Engine::UI {
 				title << std::fixed << std::setprecision(2)
 				      << "Diagnostics ("
 					  <<           avg_fps << " fps, "
-					  << 1000.0f / avg_fps << " ms)###Diagnostics";
+					  << 1000.0 / avg_fps << " ms)###Diagnostics";
 				
 				// Draw elements:
 				ImGui::Begin(title.str().c_str(), nullptr);
 			}
 			
 			// Perform set up for rendering the plot:
-			const float plot_vMargin = 15.0f;
+			const float plot_vMargin = 15.0;
 		
 			auto cursor = ImGui::GetCursorPos();
 		
@@ -207,7 +207,7 @@ namespace LouiEriksson::Engine::UI {
 			
 			const auto bottom = plot_cursor.y + plot_size.y;
 			const auto right  = plot_cursor.x + plot_size.x;
-			const auto hMargin = 5.0f;
+			const auto hMargin = 5.0;
 			
 			const auto range = max_fps - min_fps;
 			
@@ -215,7 +215,7 @@ namespace LouiEriksson::Engine::UI {
 			{
 				// Make the main plot's lines slightly more transparent.
 				auto plotLinesCol = ImGui::GetStyleColorVec4(ImGuiCol_PlotLines);
-				plotLinesCol.w *= 0.7f;
+				plotLinesCol.w *= 0.7;
 				
 				ImGui::PushStyleColor(ImGuiCol_PlotLines, plotLinesCol);
 				
@@ -285,26 +285,26 @@ namespace LouiEriksson::Engine::UI {
 			 *     - Likely pointless in most consumer use-cases.
 			 */
 			const std::vector<float> fps_ticks {
-				   1.0f,   3.0f,   6.0f,  12.0f,  24.0f,   30.0f,
-				  50.0f,  60.0f,  72.0f,  90.0f, 100.0f,  120.0f,
-				 144.0f, 240.0f, 360.0f, 480.0f, 500.0f, 1000.0f,
-				2000.0f
+				   1.0,   3.0,   6.0,  12.0,  24.0,   30.0,
+				  50.0,  60.0,  72.0,  90.0, 100.0,  120.0,
+				 144.0, 240.0, 360.0, 480.0, 500.0, 1000.0,
+				2000.0
 			};
 			
 			// Make plot backgrounds transparent and match their 'hovered' color to their normal color.
-		    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+		    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.0, 0.0, 0.0, 0.0));
 			ImGui::PushStyleColor(ImGuiCol_PlotLinesHovered, ImGui::GetStyleColorVec4(ImGuiCol_PlotLines));
 			
 			// Draw vertical lines for time plots.
 			{
-				const float t_interval = s_Plot_SamplingWindowSize / 4.0f;
+				const float t_interval = s_Plot_SamplingWindowSize / 4.0;
 				
 				float t = Time::Elapsed();
 				
 				while (t > oldest_plot_timestamp) {
 					
 					// Compute the x offset of the line.
-					const auto x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0f, plot_size.x);
+					const auto x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0, plot_size.x);
 					
 					// Draw the line:
 					{
@@ -344,10 +344,10 @@ namespace LouiEriksson::Engine::UI {
 					// by omitting the rendering of labels fewer than
 					// 20 pixels distance from the max and min fps values.
 					if (
-						glm::min(
+						std::min(
 							glm::abs(val - max_fps),
 							glm::abs(val - min_fps)
-						) / range * plot_size.y > 20.0f
+						) / range * plot_size.y > 20.0
 					) {
 						
 						// Draw the line:
@@ -361,9 +361,9 @@ namespace LouiEriksson::Engine::UI {
 						// Add a label:
 						{
 						    ImGui::SetCursorPosX(plot_cursor.x);
-						    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(val, min_fps, max_fps, plot_size.y, 0.0f));
+						    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(val, min_fps, max_fps, plot_size.y, 0.0));
 							
-					        ImGui::Text("%.1f fps", val);
+					        ImGui::Text("%.1 fps", val);
 						}
 					}
 				}
@@ -374,7 +374,7 @@ namespace LouiEriksson::Engine::UI {
 				ImGui::PopStyleColor(); // Reset ImGuiCol_PlotLinesHovered
 				
 				// Green styling for average fps line.
-				ImGui::PushStyleColor(ImGuiCol_PlotLines, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+				ImGui::PushStyleColor(ImGuiCol_PlotLines, ImVec4(0.0, 1.0, 0.0, 1.0));
 				ImGui::PushStyleColor(ImGuiCol_PlotLinesHovered, ImGui::GetStyleColorVec4(ImGuiCol_PlotLines));
 				
 				// Draw a line for the average fps:
@@ -399,7 +399,7 @@ namespace LouiEriksson::Engine::UI {
 					
 					// Draw the label, using its size to correctly align it on the screen.
 					ImGui::SetCursorPosX(right - textSize.x - hMargin);
-				    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(avg_fps, min_fps, max_fps, plot_size.y, 0.0f));
+				    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(avg_fps, min_fps, max_fps, plot_size.y, 0.0));
 			        ImGui::Text("%s", label.str().c_str());
 				}
 			}
@@ -407,11 +407,11 @@ namespace LouiEriksson::Engine::UI {
 			// Label the min fps.
 			ImGui::SetCursorPosX(cursor.x);
 		    ImGui::SetCursorPosY(bottom);
-	        ImGui::Text("%.1f fps", min_fps);
+	        ImGui::Text("%.1 fps", min_fps);
 			
 			// Label the max fps.
 		    ImGui::SetCursorPos(cursor);
-	        ImGui::Text("%.1f fps", max_fps);
+	        ImGui::Text("%.1 fps", max_fps);
 			
 			ImGui::End();
 		}
@@ -426,7 +426,7 @@ namespace LouiEriksson::Engine::UI {
 			 * auto-size and we don't want it to be too small.
 			 */
 			ImGui::SetNextWindowSizeConstraints(
-				ImVec2(200.0f, 0.0f),
+				ImVec2(200.0, 0.0),
 				ImVec2(
 					std::numeric_limits<float>::infinity(),
 					std::numeric_limits<float>::infinity()
@@ -459,8 +459,8 @@ namespace LouiEriksson::Engine::UI {
 						ImGui::SliderInt("Samples",   &target::s_Samples,   1, 32);
 						ImGui::SliderInt("Downscale", &target::s_Downscale, 0,  4);
 						
-						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 6.0f);
-						ImGui::SliderFloat("Radius",    &target::s_Radius,    0.0f, 2.0f);
+						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0, 6.0);
+						ImGui::SliderFloat("Radius",    &target::s_Radius,    0.0, 2.0);
 				    }
 					
 			        ImGui::TreePop(); // END AMBIENT OCCLUSION SECTION.
@@ -478,13 +478,13 @@ namespace LouiEriksson::Engine::UI {
 					
 				    if (target::s_Enabled) {
 						
-						ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0f, 65535.0f);
-						ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0f, 65535.0f);
-						ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0f, 65535.0f);
-						ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0f, 65535.0f);
+						ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0, 65535.0);
+						ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0, 65535.0);
+						ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0, 65535.0);
+						ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0, 65535.0);
 						
-						ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0f,  1.0f);
-						ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0f, 10.0f);
+						ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0,  1.0);
+						ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0, 10.0);
 				    }
 					
 			        ImGui::TreePop(); // END BLOOM SECTION.
@@ -513,13 +513,13 @@ namespace LouiEriksson::Engine::UI {
 							
 					        ImGui::TextWrapped("Automatically adjusts the overall exposure of the image towards a designated exposure target");
 							
-							ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0f, 9.0f);
-							ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0f, 9.0f);
+							ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0, 9.0);
+							ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0, 9.0);
 							
 							ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001f);
 							
-							ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0f, 10.0f);
-							ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0f, 10.0f);
+							ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0, 10.0);
+							ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0, 10.0);
 					    }
 				    }
 					
@@ -540,12 +540,12 @@ namespace LouiEriksson::Engine::UI {
 						
 						ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312f, 0.0833f);
 						ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063f,  0.333f);
-						ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0f,    1.0f);
-						ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0f,    1.0f);
+						ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0,    1.0);
+						ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0,    1.0);
 						
 						ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001f);
 						
-						target::s_LocalContrastModifier = glm::max(target::s_LocalContrastModifier, 0.0f);
+						target::s_LocalContrastModifier = std::max(target::s_LocalContrastModifier, 0.0);
 				    }
 					
 			        ImGui::TreePop(); // END ANTI-ALIASING SECTION.
@@ -562,7 +562,7 @@ namespace LouiEriksson::Engine::UI {
 				    ImGui::Checkbox("Enabled", &target::s_Enabled);
 					
 				    if (target::s_Enabled) {
-						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0f, 1.0f);
+						ImGui::SliderFloat("Intensity", &target::s_Intensity, 0.0, 1.0);
 				    }
 					
 			        ImGui::TreePop(); // END GRAIN SECTION.
@@ -579,8 +579,8 @@ namespace LouiEriksson::Engine::UI {
 				    ImGui::Checkbox("Enabled", &target::s_Enabled);
 					
 				    if (target::s_Enabled) {
-						ImGui::SliderFloat("Intensity",  &target::s_Intensity,  0.0f, 1.0f);
-						ImGui::SliderFloat("Smoothness", &target::s_Smoothness, 0.0f, 1.0f);
+						ImGui::SliderFloat("Intensity",  &target::s_Intensity,  0.0, 1.0);
+						ImGui::SliderFloat("Smoothness", &target::s_Smoothness, 0.0, 1.0);
 				    }
 					
 			        ImGui::TreePop(); // END VIGNETTE SECTION.
@@ -600,14 +600,14 @@ namespace LouiEriksson::Engine::UI {
 			 * auto-size and we don't want it to be too small.
 			 */
 			ImGui::SetNextWindowSizeConstraints(
-				ImVec2(200.0f, 0.0f),
+				ImVec2(200.0, 0.0),
 				ImVec2(
 					std::numeric_limits<float>::infinity(),
 					std::numeric_limits<float>::infinity()
 				)
 			);
 			
-			ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0f) + 200.0f, s_WindowMargin.y), ImGuiCond_Once);
+			ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0) + 200.0, s_WindowMargin.y), ImGuiCond_Once);
 			ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 			
 			/* RENDERING SETTINGS */
@@ -628,9 +628,9 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), static_cast<int>(target_vsync::s_AvailableOptions.size()));
 				}
 				
-				ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0f);
-				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1f, 0.005f, 65535.0f);
-				ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1f, target_perspective::s_NearClip, 65535.0f);
+				ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0);
+				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1, 0.005f, 65535.0);
+				ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1, target_perspective::s_NearClip, 65535.0);
 				
 		        ImGui::TreePop(); // END CAMERA SECTION.
 		    }
@@ -650,8 +650,8 @@ namespace LouiEriksson::Engine::UI {
 					target::UpdateSkybox(selected);
 				}
 				
-				ImGui::SliderFloat("Blur", &target::s_Blur, 0.0f, 1.0f);
-				ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0f, 65535.0f);
+				ImGui::SliderFloat("Blur", &target::s_Blur, 0.0, 1.0);
+				ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0, 65535.0);
 				
 		        ImGui::TreePop(); // END SKYBOX SECTION.
 		    }
@@ -680,19 +680,19 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::Combo("Shadow Technique",  &target::s_CurrentShadowTechnique,           target::s_ShadowTechniques.data(),  static_cast<int>(target::s_ShadowTechniques.size()));
 					ImGui::Combo("Shadow Resolution", &target::s_CurrentShadowResolutionSelection, target::s_ShadowResolutions.data(), static_cast<int>(target::s_ShadowResolutions.size()));
 					
-					ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0f, 65535.0f);
-					ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0f, 65535.0f);
+					ImGui::DragFloat(       "Bias", &target::s_ShadowBias,       0.01f, 0.0, 65535.0);
+					ImGui::DragFloat("Normal Bias", &target::s_ShadowNormalBias, 0.01f, 0.0, 65535.0);
 					
 					// PCSS and Poisson-Disk:
 					if (target::s_CurrentShadowTechnique == 2 ||
 					    target::s_CurrentShadowTechnique == 3) {
 						
-						ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1f, 0, 100);
+						ImGui::DragInt("Shadow Samples", &target::s_ShadowSamples, 0.1, 0, 100);
 					}
 					
 					// PCSS-only:
 					if (target::s_CurrentShadowTechnique == 3) {
-						ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0f, 65535.0f);
+						ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0, 65535.0);
 					}
 					
 					ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);
@@ -702,14 +702,14 @@ namespace LouiEriksson::Engine::UI {
 					
 					ImGui::Combo("Light TypeID", &target::s_CurrentLightType, target::s_AvailableLightTypes.data(), static_cast<int>(target::s_AvailableLightTypes.size()));
 					
-					ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1f                 );
-					ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1f                 );
+					ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1                 );
+					ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1                 );
 					ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
-					ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0f, 65535.0f);
-					ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1f,  0.0f, 65535.0f);
+					ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01f, 0.0, 65535.0);
+					ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1,  0.0, 65535.0);
 					
 					if (target::s_CurrentLightType == 2) {
-						ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1f, 0.0f, 180.0f);
+						ImGui::DragFloat("Light Angle", &target::s_LightAngle, 0.1, 0.0, 180.0);
 					}
 				}
 				

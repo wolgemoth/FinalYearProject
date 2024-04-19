@@ -93,7 +93,7 @@ namespace LouiEriksson::Engine {
 		std::vector<std::filesystem::path> subDirectories;
 		
 		// Get all entries.
-		for (const auto& item : GetEntries(_path, (File::Directory::EntryType)((unsigned)File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY))) {
+		for (const auto& item : GetEntries(_path, static_cast<File::Directory::EntryType>(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY))) {
 			
 			bool append;
 			
@@ -102,10 +102,10 @@ namespace LouiEriksson::Engine {
 				// Append all subdirectories to a vector.
 				subDirectories.emplace_back(item);
 				
-				append = (((unsigned)_type & (unsigned)File::Directory::EntryType::DIRECTORY) != 0u);
+				append = ((_type & File::Directory::EntryType::DIRECTORY) != 0u);
 			}
 			else {
-				append = (((unsigned)_type & (unsigned)File::Directory::EntryType::FILE) != 0u);
+				append = ((_type & File::Directory::EntryType::FILE) != 0u);
 			}
 			
 			// Append entries of requested type to result.
@@ -668,8 +668,8 @@ namespace LouiEriksson::Engine {
 						);
 					}
 					
-					cubemap_resolution = glm::max(
-						glm::max(
+					cubemap_resolution = std::max(
+						std::max(
 							loaded_resolution.x,
 							loaded_resolution.y
 						),

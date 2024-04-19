@@ -136,8 +136,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	glm::vec2 Coords::GPS::GPSToUV(const glm::vec2& _coord, const glm::ivec2& _dimensions, const glm::vec4& _bounds) {
 
         return {
-            Utils::Remap(_coord.y, _bounds.y, _bounds.w, 0.0f, 1.0f),
-            Utils::Remap(_coord.x, _bounds.x, _bounds.z, 0.0f, 1.0f)
+            Utils::Remap(_coord.y, _bounds.y, _bounds.w, 0.0, 1.0),
+            Utils::Remap(_coord.x, _bounds.x, _bounds.z, 0.0, 1.0)
         };
 	}
 	
@@ -164,7 +164,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
         return {
 			WGS84::XToLongitude(static_cast<float>(_coord.x)),
 			WGS84::YToLatitude (static_cast<float>(_coord.y)),
-			0.0f
+			0.0
 		};
 	}
 	
@@ -194,8 +194,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	glm::vec3 Coords::GPS::UVToGPS(const glm::vec2& _coord) {
 		
 		return {
-			WGS84::XToLongitude(_coord.x * 180.0f),
-			WGS84::YToLatitude (_coord.y *  90.0f),
+			WGS84::XToLongitude(_coord.x * 180.0),
+			WGS84::YToLatitude (_coord.y *  90.0),
 			0.0
 		};
 	}

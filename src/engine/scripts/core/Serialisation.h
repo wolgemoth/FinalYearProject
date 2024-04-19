@@ -23,7 +23,7 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief The type of serialisation format.
 		 */
-		enum Format : char {
+		enum Format : unsigned char {
 			XML, /**< @brief XML format. */
 		};
 		
@@ -76,7 +76,7 @@ namespace LouiEriksson::Engine {
 	
 			const auto split = Utils::Split<std::string_view>(_str, delimiter);
 			for (auto i = 0; i < split.size(); ++i) {
-				result[i] = Utils::TryParse<float>(split[i]).value_or(0.0f);
+				result[i] = Utils::TryParse<float>(split[i]).value_or(0.0);
 			}
 	
 			return result;

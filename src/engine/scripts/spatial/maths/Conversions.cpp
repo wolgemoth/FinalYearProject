@@ -33,11 +33,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	}
 	
 	double Conversions::Distance::ArcSecondsToMetres(const double& _arcSeconds, const double& _lat) {
-		return _arcSeconds * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) * (1852.0f / 60.0f));
+		return _arcSeconds * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) * (1852.0 / 60.0));
 	}
 	
 	double Conversions::Distance::MetresToArcSeconds(const double& _metres, const double& _lat) {
-		return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0f / 60.0f));;
+		return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0 / 60.0));;
 	}
 	
 	Hashmap<std::string, Conversions::Rotation::Unit>::optional Conversions::Rotation::TryGuessUnit(const std::string& _symbol) {
@@ -83,7 +83,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		}
 		
 		// Clamp result above absolute zero.
-		result = glm::max(result, s_AbsoluteZero);
+		result = std::max(result, s_AbsoluteZero);
 		
 		// Convert Kelvin to target:
 		switch (_to) {
@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	double Conversions::Temperature::ClampTemperature(const double& _val, Conversions::Temperature::Unit& _unit) {
 		return Convert(
-			glm::min(
+			std::min(
 				Convert(_val, _unit, Kelvin),
 				s_PlanckTemperature
 			),

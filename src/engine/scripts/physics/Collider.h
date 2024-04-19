@@ -31,7 +31,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @enum Type
 		 * @brief The type of the collider.
 		 */
-		enum Type : char {
+		enum Type : unsigned char {
 			Sphere, /**< @brief Collider is a Sphere Collider. */
 			Plane   /**< @brief Collider is a Plane Collider. */
 		};
