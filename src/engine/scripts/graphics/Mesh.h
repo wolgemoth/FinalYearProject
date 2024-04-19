@@ -56,7 +56,7 @@ namespace LouiEriksson::Engine::Graphics {
 		~Mesh();
 		
 		template<typename T>
-		static constexpr void validate_index_format() noexcept {
+		static constexpr void validate_index_format() {
 			static_assert(is_gl_integer<T>(), "Invalid index format T");
 		}
 		
@@ -75,23 +75,22 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		template <typename T>
-		static constexpr GLenum GetGLType() noexcept {
+		static constexpr GLenum GetGLType() {
 			
 		    GLenum result = GL_INVALID_ENUM;
 		
-		    if      constexpr (std::is_same_v<T, float>)          { result = GL_FLOAT;            }
-		    else if constexpr (std::is_same_v<T, double>)         { result = GL_DOUBLE;           }
-		    else if constexpr (std::is_same_v<T, char>)           { result = sizeof(char) == sizeof(signed char) ? GL_BYTE : GL_UNSIGNED_BYTE; }
-		    else if constexpr (std::is_same_v<T, signed char>)    { result = GL_BYTE;             }
-		    else if constexpr (std::is_same_v<T, unsigned char>)  { result = GL_UNSIGNED_BYTE;    }
-		    else if constexpr (std::is_same_v<T, short>)          { result = GL_SHORT;            }
-		    else if constexpr (std::is_same_v<T, unsigned short>) { result = GL_UNSIGNED_SHORT;   }
-		    else if constexpr (std::is_same_v<T, int>)            { result = GL_INT;              }
-		    else if constexpr (std::is_same_v<T, unsigned int>)   { result = GL_UNSIGNED_INT;     }
-		    else if constexpr (std::is_same_v<T, bool>)           { result = GL_BOOL;             }
-		    else if constexpr (std::is_same_v<T, GLhalf>)         { result = GL_HALF_FLOAT;       }
-		    else if constexpr (std::is_same_v<T, GLint64>)        { result = GL_INT64_NV;         }
-		    else if constexpr (std::is_same_v<T, GLuint64>)       { result = GL_UNSIGNED_INT64_NV;}
+		    if      constexpr (std::is_same_v<T, GLfloat>)    { result = GL_FLOAT;            }
+		    else if constexpr (std::is_same_v<T, GLdouble>)   { result = GL_DOUBLE;           }
+		    else if constexpr (std::is_same_v<T, GLbyte>)     { result = GL_BYTE;             }
+		    else if constexpr (std::is_same_v<T, GLubyte>)    { result = GL_UNSIGNED_BYTE;    }
+		    else if constexpr (std::is_same_v<T, GLshort>)    { result = GL_SHORT;            }
+		    else if constexpr (std::is_same_v<T, GLushort>)   { result = GL_UNSIGNED_SHORT;   }
+		    else if constexpr (std::is_same_v<T, GLint>)      { result = GL_INT;              }
+		    else if constexpr (std::is_same_v<T, GLuint>)     { result = GL_UNSIGNED_INT;     }
+		    else if constexpr (std::is_same_v<T, GLboolean >) { result = GL_BOOL;             }
+		    else if constexpr (std::is_same_v<T, GLhalf>)     { result = GL_HALF_FLOAT;       }
+		    else if constexpr (std::is_same_v<T, GLint64>)    { result = GL_INT64_NV;         }
+		    else if constexpr (std::is_same_v<T, GLuint64>)   { result = GL_UNSIGNED_INT64_NV;}
 		    else {
 				static_assert([]{ return false; }(), "Type not supported by GetGLType");
 			}
@@ -427,24 +426,21 @@ namespace LouiEriksson::Engine::Graphics {
 			/**
 			* @brief Represents a quad primitive.
 			*/
-			template<typename T, glm::precision P = glm::lowp>
+			template<typename T, glm::precision P = glm::mediump>
 			struct Quad final {
 	
 			private:
 				
 				/** @brief Every screen and texture coordinate for every vertex in the mesh. */
-				static constexpr std::array<glm::vec<4, T, P>, 6> s_VertexData {
-					glm::vec<4, T, P>( -1, -1,  0,  0 ),
-					glm::vec<4, T, P>(  1, -1,  1,  0 ),
-					glm::vec<4, T, P>( -1,  1,  0,  1 ),
-					glm::vec<4, T, P>( -1,  1,  0,  1 ),
-					glm::vec<4, T, P>(  1, -1,  1,  0 ),
-					glm::vec<4, T, P>(  1,  1,  1,  1 ),
+				inline static constexpr std::array<glm::vec<4, T, P>, 6> s_VertexData {
+					glm::vec<4, T, P>( -1.0, -1.0,  0.0,  0.0 ),
+					glm::vec<4, T, P>(  1.0, -1.0,  1.0,  0.0 ),
+					glm::vec<4, T, P>( -1.0,  1.0,  0.0,  1.0 ),
+					glm::vec<4, T, P>( -1.0,  1.0,  0.0,  1.0 ),
+					glm::vec<4, T, P>(  1.0, -1.0,  1.0,  0.0 ),
+					glm::vec<4, T, P>(  1.0,  1.0,  1.0,  1.0 ),
 				};
 		
-				/** @brief Number of vertices in the mesh. */
-				static constexpr auto s_VertexCount = sizeof(s_VertexData);
-				
 				/** @brief Static instance. */
 				inline static std::shared_ptr<Mesh> s_Instance;
 				
@@ -465,7 +461,7 @@ namespace LouiEriksson::Engine::Graphics {
 						glGenBuffers(1, &s_Instance->m_PositionVBO_ID);
 						
 						BindVBO(GL_ARRAY_BUFFER, s_Instance->m_PositionVBO_ID);
-						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(s_Instance->m_VertexCount), &Mesh::Primitives::Quad<T, P>::s_VertexData, GL_STATIC_DRAW);
+						glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(s_Instance->m_VertexCount * sizeof(s_VertexData[0])), s_VertexData.data(), GL_STATIC_DRAW);
 						
 						// Positions, triangles (encoded within winding order):
 						glEnableVertexAttribArray(0);
@@ -473,10 +469,11 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						// Texture coordinates:
 						glEnableVertexAttribArray(1);
-						glVertexAttribPointer(1, 2, GetGLType<T>(), GL_FALSE, sizeof(s_VertexData[0]), (int*)(2 * sizeof(T)));
+						glVertexAttribPointer(1, 2, GetGLType<T>(), GL_FALSE, sizeof(s_VertexData[0]), (GLvoid*)(2 * sizeof(T)));
 					}
 					
 					return s_Instance;
+
 				}
 				
 			};
