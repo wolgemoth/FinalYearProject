@@ -44,6 +44,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	 * Bernard, M., 2023. International_Standard_Atmosphere/International_Standard_Atmosphere/Algorithm.cs at main · maxbernard3/International_Standard_Atmosphere [online].
 	 * GitHub. Available from: https://github.com/maxbernard3/International_Standard_Atmosphere/blob/main/International_Standard_Atmosphere/Algorithm.cs [Accessed 14 Mar 2024].
 	 */
+	template <typename T>
 	class ISA final {
  
 	public:
@@ -55,12 +56,12 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 */
 		struct State final {
 			
-			float m_Pressure,    /**< @brief Represents Pressure in Pascals */
-			      m_Density,     /**< @brief Represents Density in kilograms per cubic metre */
-			      m_Temperature; /**< @brief Represents Temperature in Kelvin */
+			T m_Pressure,    /**< @brief Represents Pressure in Pascals */
+			  m_Density,     /**< @brief Represents Density in kilograms per cubic metre */
+			  m_Temperature; /**< @brief Represents Temperature in Kelvin */
 		};
 		
-		static constexpr State s_DefaultState { 101325.0f, 1.225f, 288.15f };
+		static constexpr State s_DefaultState { 101325.0, 1.225, 288.15 };
 		
 		/**
 		 * @brief Wrapper function for calculate() and pause()
@@ -68,17 +69,53 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 * @param[in,out] _state The atmospheric state at the given altitude
 		 * @return true if able to calculate, else false
 		 */
-	    static bool TrySolve(const float& _height, State& _state) noexcept;
+	    static bool TrySolve(const T& _height, State& _state) noexcept {
+	
+			bool result = false;
+			
+			try {
+				
+				if (_height <= s_Alt[s_Alt.size() - 2]) {
+				
+					size_t ctr(0);
+				
+					Calculate(_height, _state, ctr);
+					
+					for (auto i = 0; i < s_A_Val.size(); ++i) {
+						
+						if (_height > s_Alt[ctr]) {
+		            
+				            if (ctr == 0 || ctr == 3 || ctr == 6) {
+				                Pause(_height, _state, ++ctr);
+				            }
+				            else {
+				                Calculate(_height, _state, ++ctr);
+				            }
+				        }
+					}
+					
+					result = true;
+				}
+				else {
+					throw std::runtime_error("Altitude out of range!");
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+			
+			return result;
+		}
 		
 	private:
 		
         /* CONSTANTS */
-        static constexpr float s_G = 9.80665f; // Acceleration due to gravity
-        static constexpr float s_R = 287.0f;   // Molar gas constant for air
-        static constexpr float s_E = 2.71828f; // Euler's constant
+        static constexpr T s_G = 9.80665f; // Acceleration due to gravity
+        static constexpr T s_R = 287.0;   // Molar gas constant for air
+        static constexpr T s_E = 2.71828f; // Euler's constant
 
 		/** @brief Temperature gradient in Kelvin per metre. */
-        static constexpr const std::array<float, 8> s_A_Val {
+        static constexpr const std::array<T, 8> s_A_Val {
 			-0.0065f,
 			 0,
 			 0.0010f,
@@ -90,7 +127,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		};
 
 		/** @brief Altitude steps. */
-        inline static const std::array<float, 9> s_Alt {
+        inline static const std::array<T, 9> s_Alt {
 			11000,
 			20000,
 			32000,
@@ -111,7 +148,19 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 * @param[in] _state The atmospheric state at the given altitude.
 		 * @param[in] _counter The index of the altitude step.
 		 */
-		static void Calculate(const float& _height, State& _state, size_t& _counter);
+		static void Calculate(const T& _height, State& _state, size_t& _counter) {
+	
+			const float x = std::min(_height, s_Alt[_counter]);
+	        
+	        const float a = s_A_Val[_counter];
+	        
+	        const float t = _counter == 0 ? _state.m_Temperature + a * (x - s_Alt[s_Alt.size() - 1]) :
+					                        _state.m_Temperature + a * (x - s_Alt[    _counter - 1]);
+			
+			_state.m_Pressure   *= std::pow(t / _state.m_Temperature, -s_G / (s_R * (a)));
+			_state.m_Density     = _state.m_Pressure / (s_R * t);
+			_state.m_Temperature = t;
+		}
 		
 		/**
 		 * @brief Pause function
@@ -122,7 +171,18 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 * @param[in] _state The atmospheric state at the given altitude.
 		 * @param[in] _counter The index of the altitude step.
 		 */
-		static void Pause(const float& _height, State& _state, size_t& _counter);
+		static void Pause(const T& _height, State& _state, size_t& _counter) {
+	
+			const float x = std::min(_height, s_Alt[_counter]);
+	        
+	        _state.m_Pressure *= std::pow(
+				s_E,
+				_counter == 0 ? -(s_G * (x - s_Alt[s_Alt.size() - 1])) / (s_R * _state.m_Temperature) :
+								-(s_G * (x - s_Alt[    _counter - 1])) / (s_R * _state.m_Temperature)
+			),
+			
+			_state.m_Density = _state.m_Pressure / (s_R * _state.m_Temperature);
+		}
 		
 	};
 	
