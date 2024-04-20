@@ -1,7 +1,11 @@
 #ifndef FINALYEARPROJECT_SPHERECOLLIDER_H
 #define FINALYEARPROJECT_SPHERECOLLIDER_H
 
+#include "../../ecs/GameObject.h"
 #include "../Collider.h"
+
+#include <BulletCollision/CollisionShapes/btSphereShape.h>
+#include <LinearMath/btScalar.h>
 
 #include <memory>
 #include <typeindex>
@@ -25,7 +29,12 @@ namespace LouiEriksson::Engine::Physics {
 	
 	public:
 		
-		explicit SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent);
+		explicit SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent) : Collider(_parent) {
+			
+			// Initialise the collision shape as a sphere.
+			m_CollisionShape = std::make_shared<btSphereShape>(0.5);
+		}
+	
 		
 		/** @inheritdoc */
 		/** @inheritdoc */
@@ -35,13 +44,27 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Set the radius of the SphereCollider.
 		 * @param[in] _radius The radius of the SphereCollider.
 		 */
-		void Radius(const btScalar& _radius);
+		inline void Radius(const btScalar& _radius) {
+			
+			// Get derived class from collision shape (as sphere shape).
+			const auto sphereCollider = std::static_pointer_cast<btSphereShape>(m_CollisionShape);
+			
+			// Set the collider's radius.
+			sphereCollider->setUnscaledRadius(_radius);
+		}
 		
 		/**
 		 * @brief Get the radius of the SphereCollider.
 		 * @return The radius of the SphereCollider.
 		 */
-		[[nodiscard]] btScalar Radius() const;
+		[[nodiscard]] inline btScalar Radius() const {
+			
+			// Get derived class from collision shape (as sphere shape).
+			const auto sphereCollider = std::static_pointer_cast<btSphereShape>(m_CollisionShape);
+			
+			// Return the collider's radius.
+			return sphereCollider->getRadius();
+		}
 		
 	};
 	

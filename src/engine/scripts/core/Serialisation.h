@@ -46,11 +46,55 @@ namespace LouiEriksson::Engine {
 		 * @note This function assumes that the XML input archive is positioned on an element.
 		 * @note The XML input archive's current node is moved to the next element after parsing.
 		 */
-		static std::string ParseNext(cereal::XMLInputArchive& _xml, const int& _log = 0);
+		static std::string ParseNext(cereal::XMLInputArchive& _xml, const int& _log = 0) {
 	
-		static std::string Serialise(const glm::vec3& _value, const Format& _method = Format::XML);
+			std::string result;
+			_xml(result);
+		
+			if (_log >= 0) {
+		
+				const auto* const name = _xml.getNodeName();
+				
+				if (name != nullptr) {
+					
+					for (auto i = 0; i < _log; ++i) {
+						Debug::Log("\t", LogType::Info, true);
+					}
+				
+					Debug::Log(std::string(name) + " " + "\"" + result + "\"", LogType::Info);
+				}
+			}
+		
+			return result;
+		}
 	
-		static std::string Serialise(const glm::quat& _value, const Format& _method = Format::XML);
+		static std::string Serialise(const glm::vec3& _value, const Format& _method = Format::XML) {
+		
+			std::stringstream result;
+		
+			if (_method == Format::XML) {
+				result << _value.x << " " << _value.y << " " << _value.z;
+			}
+			else {
+				throw std::runtime_error("Binary serialisation not implemented for this data type.");
+			}
+		
+			return result.str();
+		}
+	
+		static std::string Serialise(const glm::quat& _value, const Format& _method = Format::XML) {
+		
+			std::stringstream result;
+		
+			if (_method == Format::XML) {
+				result << _value.x << " " << _value.y << " " << _value.z << " " << _value.w;
+			}
+			else {
+				throw std::runtime_error("Binary serialisation not implemented for this data type.");
+			}
+		
+			return result.str();
+		}
 		
 		/**
 		 * @brief Deserialise data from a string.

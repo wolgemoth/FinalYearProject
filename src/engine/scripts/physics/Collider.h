@@ -1,7 +1,9 @@
 #ifndef FINALYEARPROJECT_COLLIDER_H
 #define FINALYEARPROJECT_COLLIDER_H
 
+#include "../core/Transform.h"
 #include "../ecs/Component.h"
+#include "../ecs/GameObject.h"
 
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
@@ -36,19 +38,22 @@ namespace LouiEriksson::Engine::Physics {
 			Plane   /**< @brief Collider is a Plane Collider. */
 		};
 	
-		explicit Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent),
+			m_Type() {}
 		
 		/**
 		 * @brief Set the Transform of the Collider.
 		 * @param[in] _transform The Transform to set.
 		 */
-		virtual void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept;
+		virtual inline void SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
+			m_Transform = _transform;
+		}
 	
 		/**
 		 * @brief Retrieve the Transform associated with the Collider.
 		 * @return A weak pointer to the Transform.
 		 */
-		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept {
+		[[nodiscard]] inline const std::weak_ptr<Transform>& GetTransform() const noexcept {
 			return m_Transform;
 		}
 	
@@ -56,7 +61,9 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Set the Rigidbody of the Collider.
 		 * @param[in] _rigidbody The Transform to set.
 		 */
-		void SetRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody) noexcept;
+		inline void SetRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody) noexcept {
+			m_Rigidbody = _rigidbody;
+		}
 	
 		/**
 		 * @brief Retrieve the Rigidbody associated with the Collider.
@@ -73,7 +80,9 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @param[in] _type The type of the Collider to be set.
 		 */
-		void SetType(const Type& _type) noexcept;
+		inline void SetType(const Type& _type) noexcept {
+			m_Type = _type;
+		}
 		
 		/**
 		 * @brief Retrieve the type of the Collider.

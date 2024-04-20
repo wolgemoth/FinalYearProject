@@ -20,12 +20,99 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		using highp_time = long double;
 		using scalar     = long double;
 		
+	public:
+	
+		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
+		
+		/** @inheritdoc */
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
+		
+		/**
+		 * @brief Conversion from seconds to centuries.
+		 *
+		 * @warning This function assumes the 'julian' definition of a century.
+		 *     The conversion used is: _seconds / 31557600000.0
+		 *
+		 * @tparam T The type of the value to convert centuries.
+		 * @param _seconds The value to convert.
+		 * @return Centuries in given value.
+		 */
+		template <typename T = highp_time>
+		static constexpr T SecondsToCenturies(const T& _seconds) {
+			return _seconds / 31557600000.0;
+		}
+		
+		template <typename T = highp_time>
+		static T J2000_Centuries() {
+			
+			// Get the current TT in the Julian calendar.
+			const T JD = ((TT<T>()) / 86400.0) + 2440587.5;
+	
+			// Get the days since the J2000 epoch.
+			const T j2000_days = JD - 2451545.0;
+			
+			// Convert from julian days to julian centuries.
+			return j2000_days / 365250.0;
+		}
+		
+		/**
+		 * @brief Get the current terrestrial time.
+		 * @tparam T Type to return TT.
+		 * @return Current TT
+		 */
+		template <typename T = highp_time>
+		static T TT() {
+			
+			// Convert TAI (atomic time) to TT (terrestrial time) using the established conversion of 32.184.
+			return TAI<T>() + 32.184;
+		}
+		/**
+		 * @brief Get the current total atomic time.
+		 * @tparam T Type to return TAI as. Must be floating-point.
+		 *
+		 * @warning (Apr 20, 2024) This solution is not future-proof!
+		 *     Future leap seconds will cause this to go out of sync.
+		 *
+		 * @return Current total atomic time.
+		 */
+		template <typename T = highp_time>
+		static T TAI() {
+			
+		    static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+
+			// Yes, I know about std::chrono::tai_clock.
+			// No, it doesn't compile on my system.
+			
+			/*
+			 * Current UNIX time from the system clock.
+			 * ...Probably UTC but not guaranteed?
+			 *
+			 * This may not be accurate to the 'actual' UNIX time
+			 * -especially if the user doesn't have an internet connection
+			 * from which their system is syncing the time automatically.
+			 */
+			const T unix_time_utc = std::chrono::duration_cast<std::chrono::duration<T>>(
+				std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+			
+			/**
+			 * Convert from UTC to TAI using an offset of 37 seconds.
+			 *
+			 *     This solution is not future-proof!
+			 *     Future leap seconds will cause this to go out of sync.
+			 *
+			 * @todo A better solution is to use a lookup table and update leap seconds with an internet connection.
+			 *      FTP servers for downloading leap second information (Courtesy of: https://data.iana.org/T-zones/tzdb-2019c/leapseconds):
+			 *      <ftp://ftp.nist.gov/pub/T/leap-seconds.list>
+			 *      <ftp://ftp.boulder.nist.gov/pub/T/leap-seconds.list>
+			 */
+			return unix_time_utc + 37.0;
+		}
+		
 	protected:
 		
 		template<typename T = scalar, glm::precision P = glm::highp>
 		class Planets final {
 		
-			
 		public:
 			
 			/**
@@ -194,10 +281,74 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
 		/** @inheritdoc */
-		void Begin() override;
+		void Begin() override {
+		
+			if (const auto p =      Parent().lock()) {
+			if (const auto s = p->GetScene().lock()) {
+			
+				// Get Transform.
+				m_Transform = p->GetComponent<Transform>();
+				
+				// Create GameObjects to represent the different planets in the VSOP87 model...
+				auto default_mesh     = Graphics::Mesh::Primitives::Sphere::Instance();
+				auto default_material = Resources::Get<Graphics::Material>("sphere");
+			
+				// Prewarm collection:
+				m_Planets.Reserve(m_Positions_From.Names().size());
+				
+				// Spawn objects for planets;
+				for (const auto& item : m_Positions_From.Names()) {
+				
+					const auto go = ECS::GameObject::Create(s, item);
+					
+					const auto transform = go->AddComponent<Transform>();
+					const auto renderer  = go->AddComponent<Graphics::Renderer>();
+					
+					auto mesh     = Resources::Get<Graphics::Mesh>    (item, false);
+					auto material = Resources::Get<Graphics::Material>(item, false);
+					
+					if (    mesh.expired()) {     mesh = default_mesh;     }
+					if (material.expired()) { material = default_material; }
+					
+					if (mesh.lock() && material.lock()) {
+						renderer->SetMesh(mesh);
+						renderer->SetMaterial(material);
+						renderer->SetTransform(transform);
+						
+						m_Planets.Assign(item, go);
+					}
+				}
+			}}
+			
+			// Prevent the model of the sun from casting shadows:
+			if (const auto sol = m_Planets.Get("Sol")) {
+				
+				if (const auto go = sol->lock()                                  ) {
+				if (const auto t  = go->GetComponent<Transform>().lock()         ) {
+				if (const auto r  = go->GetComponent<Graphics::Renderer>().lock()) {
+					r->Shadows(false);
+				}}}
+			}
+		}
 		
 		/** @inheritdoc */
-		void Tick() override;
+		void Tick() override {
+			
+			const highp_time update_interval = 120.0;
+			
+			const highp_time curr = J2000_Centuries();
+			
+			if (curr > m_Positions_To.Time()) {
+				m_Positions_From.Time(curr);
+				  m_Positions_To.Time(curr + (SecondsToCenturies(update_interval)));
+			}
+			else if (curr < m_Positions_From.Time()) {
+				m_Positions_From.Time(curr - (SecondsToCenturies(update_interval)));
+				  m_Positions_To.Time(curr);
+			}
+			
+			InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), static_cast<highp_time>(0.0), static_cast<highp_time>(1.0)));
+		}
 		
 		/**
 		 * @brief Interpolates the transforms of planets from a starting state to an
@@ -269,12 +420,6 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			Settings::Graphics::Material::s_LightIntensity = 1.0;
 		}
 		
-	public:
-	
-		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent);
-		
-		/** @inheritdoc */
-		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 	};
 	
 } // LouiEriksson::Game::Scripts::Spatial

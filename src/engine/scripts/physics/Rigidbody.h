@@ -3,19 +3,18 @@
 
 #include "../core/Debug.h"
 #include "../core/Time.h"
-#include "../core/Types.h"
 #include "../core/Transform.h"
+#include "../core/Types.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Collision.h"
-
 #include "Collider.h"
-#include "LinearMath/btScalar.h"
 #include "Physics.h"
 
 #include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btDefaultMotionState.h>
+#include <LinearMath/btScalar.h>
 
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/quaternion_common.hpp>

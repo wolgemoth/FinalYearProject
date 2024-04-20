@@ -93,15 +93,12 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/audio/AudioSource.h
         src/engine/scripts/audio/Sound.cpp
         src/engine/scripts/audio/Sound.h
-        src/engine/scripts/core/Application.cpp
         src/engine/scripts/core/Application.h
-        src/engine/scripts/core/Debug.cpp
         src/engine/scripts/core/Debug.h
         src/engine/scripts/core/File.cpp
         src/engine/scripts/core/File.h
         src/engine/scripts/core/Resources.h
         src/engine/scripts/core/Script.h
-        src/engine/scripts/core/Serialisation.cpp
         src/engine/scripts/core/Serialisation.h
         src/engine/scripts/core/Settings.h
         src/engine/scripts/core/Time.h
@@ -125,7 +122,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/graphics/Renderer.h
         src/engine/scripts/graphics/Shader.cpp
         src/engine/scripts/graphics/Shader.h
-        src/engine/scripts/graphics/Texture.cpp
         src/engine/scripts/graphics/Texture.h
         src/engine/scripts/graphics/textures/Cubemap.h
         src/engine/scripts/graphics/textures/RenderTexture.h
@@ -134,13 +130,9 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/input/Input.cpp
         src/engine/scripts/input/Input.h
         src/engine/scripts/networking/Requests.h
-        src/engine/scripts/physics/Collider.cpp
         src/engine/scripts/physics/Collider.h
-        src/engine/scripts/physics/colliders/PlaneCollider.cpp
         src/engine/scripts/physics/colliders/PlaneCollider.h
-        src/engine/scripts/physics/colliders/SphereCollider.cpp
         src/engine/scripts/physics/colliders/SphereCollider.h
-        src/engine/scripts/physics/Collision.cpp
         src/engine/scripts/physics/Collision.h
         src/engine/scripts/physics/Physics.h
         src/engine/scripts/physics/Rigidbody.h
@@ -154,14 +146,12 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/maths/Coords.h
         src/engine/scripts/spatial/meshing/Builder.cpp
         src/engine/scripts/spatial/meshing/Builder.h
-        src/engine/scripts/spatial/osm/OSM.cpp
         src/engine/scripts/spatial/osm/OSM.h
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.cpp
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
         src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/planets/WGCCRE.h
         src/engine/scripts/spatial/stars/ATHYG.h
-        src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
         src/engine/scripts/graphics/TextureCPU.h
         src/engine/scripts/core/Types.h
@@ -206,17 +196,12 @@ add_executable(Game
         src/main.cpp
 
         src/game/Injector.h
-        src/game/scripts/Ball.cpp
         src/game/scripts/Ball.h
-        src/game/scripts/FlyCam.cpp
         src/game/scripts/FlyCam.h
-        src/game/scripts/Plane.cpp
         src/game/scripts/Plane.h
-        src/game/scripts/Spatial/Planetarium.cpp
         src/game/scripts/Spatial/Planetarium.h
         src/game/scripts/Spatial/Map.cpp
         src/game/scripts/Spatial/Map.h
-        src/game/scripts/Spatial/Stars.cpp
         src/game/scripts/Spatial/Stars.h
 )
 
