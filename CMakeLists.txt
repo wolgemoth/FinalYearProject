@@ -95,7 +95,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/audio/Sound.h
         src/engine/scripts/core/Application.h
         src/engine/scripts/core/Debug.h
-        src/engine/scripts/core/File.cpp
         src/engine/scripts/core/File.h
         src/engine/scripts/core/Resources.h
         src/engine/scripts/core/Script.h

@@ -1,33 +1,19 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
-#include "../graphics/Texture.h"
-#include "../graphics/textures/Cubemap.h"
+#include "../core/utils/Utils.h"
+#include "Debug.h"
 
-#include <GL/glew.h>
-
-#include <array>
+#include <ios>
+#include <cmath>
+#include <exception>
 #include <filesystem>
+#include <fstream>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
-
-namespace LouiEriksson::Engine::Audio {
-
-	class AudioClip;
-	
-} // LouiEriksson::Engine::Audio
-
-namespace LouiEriksson::Engine::Graphics {
-	
-	class Cubemap;
-	class Material;
-	class Mesh;
-	class Shader;
-	struct SubShader;
-	
-} // LouiEriksson::Engine::Graphics
 
 namespace LouiEriksson::Engine {
 	
@@ -42,10 +28,61 @@ namespace LouiEriksson::Engine {
 				DIRECTORY = 1u << 1u  /**< @brief Directory entries. */
 			};
 			
-			static std::vector<std::filesystem::path> GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type = (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY));
-		
-			static std::vector<std::filesystem::path> GetEntriesRecursive(const std::filesystem::path& _path, const File::Directory::EntryType& _type = (File::Directory::EntryType)(File::Directory::EntryType::FILE | File::Directory::EntryType::DIRECTORY));
-		
+			static std::vector<std::filesystem::path> GetEntries(const std::filesystem::path& _path, const Directory::EntryType& _type) {
+			
+				std::vector<std::filesystem::path> result;
+				
+				const std::filesystem::directory_iterator itr(_path);
+				
+				for (const auto& item : itr) {
+					
+					bool append = item.is_directory() ?
+							(_type & Directory::EntryType::DIRECTORY) != 0u :
+							(_type & Directory::EntryType::FILE     ) != 0u;
+					
+					if (append) {
+					    result.emplace_back(item);
+					}
+				}
+				
+				return result;
+			}
+			
+			static std::vector<std::filesystem::path> GetEntriesRecursive(const std::filesystem::path& _path, const Directory::EntryType& _type) {
+			
+				std::vector<std::filesystem::path> result;
+				std::vector<std::filesystem::path> subDirectories;
+				
+				// Get all entries.
+				for (const auto& item : GetEntries(_path, static_cast<Directory::EntryType>(Directory::EntryType::FILE | Directory::EntryType::DIRECTORY))) {
+					
+					bool append;
+					
+					if (is_directory(item)) {
+					
+						// Append all subdirectories to a vector.
+						subDirectories.emplace_back(item);
+						
+						append = (_type & Directory::EntryType::DIRECTORY) != 0u;
+					}
+					else {
+						append = (_type & Directory::EntryType::FILE) != 0u;
+					}
+					
+					// Append entries of requested type to result.
+					if (append) { result.emplace_back(item); }
+				}
+				
+				// Iterate through all subdirectories recursively and append output to result.
+				for (const auto& subDirectory : subDirectories) {
+				
+					auto items = GetEntriesRecursive(subDirectory, _type);
+					
+					result.insert(result.end(), items.begin(), items.end());
+				}
+				
+				return result;
+			}
 		};
 		
 		 File()                   = delete;
@@ -53,28 +90,27 @@ namespace LouiEriksson::Engine {
 		~File()                   = delete;
 		
 		File& operator = (const File& _other) = delete;
+			
+		static std::stringstream ReadAllText(const std::filesystem::path& _path) {
 		
-		static std::stringstream ReadAllText(const std::filesystem::path& _path);
+			std::stringstream result;
+			
+			if (exists(_path)) {
+			
+				std::fstream fs;
+				fs.open(_path, std::ios::in);
+			
+				if (fs.is_open()) {
+					result << fs.rdbuf();
+					fs.close();
+				}
+			}
+			else {
+				throw std::runtime_error("Invalid file path");
+			}
 		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output);
-		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Texture>& _output,
-				const Graphics::Texture::Parameters::Format&     _format     = { GL_RGBA,   true      },
-				const Graphics::Texture::Parameters::FilterMode& _filterMode = { GL_LINEAR, GL_LINEAR },
-				const Graphics::Texture::Parameters::WrapMode&   _wrapMode   = { GL_REPEAT, GL_REPEAT });
-		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Mesh>& _output);
-		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Material>& _output);
-		
-		static bool TryLoad(const std::array<std::filesystem::path, 6>& _paths, std::shared_ptr<Graphics::Cubemap>& _output,
-				const Graphics::Texture::Parameters::Format&     _format     = { GL_RGBA,   true      },
-				const Graphics::Texture::Parameters::FilterMode& _filterMode = { GL_LINEAR, GL_LINEAR },
-				const Graphics::Texture::Parameters::WrapMode&   _wrapMode   = { GL_REPEAT, GL_REPEAT });
-		
-		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Graphics::Shader>& _output);
-
-		static bool TryLoad(const std::vector<Graphics::SubShader>& _subshaders, std::shared_ptr<Graphics::Shader>& _output);
+			return result;
+		}
 	};
 	
 } // LouiEriksson::Engine

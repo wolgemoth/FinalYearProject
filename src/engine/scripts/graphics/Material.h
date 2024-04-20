@@ -5,7 +5,7 @@
 
 namespace LouiEriksson::Engine {
 	
-	class File;
+	class Resources;
 }
 
 namespace LouiEriksson::Engine::Graphics {
@@ -19,7 +19,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	class Material final {
 	
-		friend LouiEriksson::Engine::File;
+		friend LouiEriksson::Engine::Resources;
 		
 	private:
 	

@@ -15,7 +15,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	class Cubemap final : public Texture {
 	
-		friend LouiEriksson::Engine::File;
+		friend LouiEriksson::Engine::Resources;
 		
 		friend class Camera;
 		

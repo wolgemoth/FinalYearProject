@@ -1,7 +1,7 @@
 #include "Shader.h"
 
 #include "../core/Debug.h"
-#include "../core/File.h"
+#include "../core/Resources.h"
 #include "../core/utils/Hashmap.h"
 #include "../core/utils/Utils.h"
 

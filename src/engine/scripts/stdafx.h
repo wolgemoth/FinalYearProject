@@ -30,11 +30,14 @@
 
 #include <curl/curl.h>              // CURL
 
+#ifndef STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_STATIC
+#include "stb_image.h" // STB IMAGE
+#endif
+
 /* INTERNAL */
-
-#define HASHMAP_SUPPRESS_EXCEPTION_WARNING
 #include "core/utils/Hashmap.h"
-
 #include "core/Debug.h"
 
 /* STL */
