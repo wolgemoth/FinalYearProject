@@ -34,11 +34,11 @@ namespace LouiEriksson::Engine {
 		glm::vec3 m_Scale;    /**< @brief    Scale of the Transform */
 		
 		enum Transformation : unsigned char {
-			Idle       = 0u,
+			None       = 0u,
 			Translated = 1u << 0u,
 			Scaled     = 1u << 1u,
 			Rotated    = 1u << 2u,
-			Everything = Translated | Scaled | Rotated
+			Everything = (unsigned)Translated | (unsigned)Scaled | (unsigned)Rotated
 		};
 		
 		Transformation m_Transformation;
@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine {
 		    return static_cast<Transformation>(m_Transformation | static_cast<unsigned int>(_other));
 		}
 		
-		constexpr Transformation GetFlag(const Transformation& _other) const {
+		[[nodiscard]] constexpr Transformation GetFlag(const Transformation& _other) const {
 		    return static_cast<Transformation>(m_Transformation & static_cast<unsigned int>(_other));
 		}
 		
@@ -63,20 +63,28 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _vector The vector to transform.
 		 * @return The vector transformed to world space.
 		 */
-		[[nodiscard]] constexpr glm::vec3 ToWorld(const glm::vec3& _vector) const noexcept;
+		[[nodiscard]] constexpr glm::vec3 ToWorld(const glm::vec3& _vector) const {
+			return _vector * m_Rotation;
+		}
 		
 #define RIGHT   ToWorld(VEC_RIGHT)
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
 		
-		[[nodiscard]] constexpr const glm::vec3& Position() const noexcept;
+		[[nodiscard]] constexpr const glm::vec3& Position() const noexcept {
+			return m_Position;
+		}
 		void Position(const glm::vec3& _position) noexcept;
 		
-		[[nodiscard]] constexpr const glm::quat& Rotation() const noexcept;
+		[[nodiscard]] constexpr const glm::quat& Rotation() const noexcept {
+			return m_Rotation;
+		}
 		void Rotation(const glm::quat& _rotation) noexcept;
 		
-		[[nodiscard]] constexpr const glm::vec3& Scale() const noexcept;
-		void Scale   (const glm::vec3& _scale) noexcept;
+		[[nodiscard]] constexpr const glm::vec3& Scale() const noexcept {
+			return m_Scale;
+		}
+		void Scale(const glm::vec3& _scale) noexcept;
 		
 		/**
 		 * @brief Get this Transform as a Transform, Rotation, Scale matrix.

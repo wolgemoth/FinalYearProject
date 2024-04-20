@@ -5,10 +5,10 @@ using namespace LouiEriksson::Engine;
 namespace LouiEriksson::Game::Scripts {
 	
 	FlyCam::FlyCam(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
-			m_Motion(0.0f),
-			m_MoveSpeed(5.0f),
-			m_LookSpeed(30.0f),
-			m_Rotation(0.0f) {}
+			m_Motion(0.0),
+			m_MoveSpeed(5.0),
+			m_LookSpeed(30.0),
+			m_Rotation(0.0) {}
 	
 	FlyCam::~FlyCam() = default;
 	
@@ -41,7 +41,7 @@ namespace LouiEriksson::Game::Scripts {
 				
 				c->SetWindow(Window::Get(2));
 				c->SetTransform(t);
-				c->ClearColor(glm::vec4(0.0f));
+				c->ClearColor(glm::vec4(0.0));
 			}}
 			
 			// Add a light to the scene for testing purposes.
@@ -82,10 +82,10 @@ namespace LouiEriksson::Game::Scripts {
 					mouse_input = glm::vec3(
 						 Input::Input::Mouse::Motion().y,
 						 Input::Input::Mouse::Motion().x,
-						 0.0f
+						 0.0
 					);
 					
-					mouse_input *= m_Camera.lock()->FOV() * Time::UnscaledDeltaTime();
+					mouse_input *= m_Camera.lock()->FOV() * Time::UnscaledDeltaTime<scalar_t>();
 					
 					movement_input = glm::vec3(
 						static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_A     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_D    ))),
@@ -99,14 +99,14 @@ namespace LouiEriksson::Game::Scripts {
 					}
 				}
 				else {
-					   mouse_input = glm::vec3(0.0f);
-					movement_input = glm::vec3(0.0f);
+					   mouse_input = glm::vec3(0.0);
+					movement_input = glm::vec3(0.0);
 				}
 				
 				// Rotate the camera:
 				{
 					m_Rotation = Utils::WrapAngle(m_Rotation + (mouse_input * m_LookSpeed));
-					m_Rotation.x = glm::clamp(m_Rotation.x, -89.999f, 89.999f);
+					m_Rotation.x = std::clamp(m_Rotation.x, static_cast<scalar_t>(-89.999), static_cast<scalar_t>(89.999));
 					
 					const auto direction = glm::vec3(
 						glm::cos(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x)),
@@ -114,25 +114,25 @@ namespace LouiEriksson::Game::Scripts {
 						glm::sin(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x))
 					);
 					
-					t->m_Rotation = glm::quat(glm::lookAt(VEC_ZERO, direction, VEC_UP));
+					t->Rotation(glm::quat(glm::lookAt(VEC_ZERO, direction, VEC_UP)));
 				}
 				
 				// Move the player:
 				{
 					m_Motion = glm::mix(
 						m_Motion,
-						movement_input * m_MoveSpeed * t->m_Rotation,
-						Time::UnscaledDeltaTime() * 5.0f
+						movement_input * m_MoveSpeed * t->Rotation(),
+						Time::UnscaledDeltaTime() * 5.0
 					);
 					
-					t->m_Position += (m_Motion * Time::UnscaledDeltaTime());
+					t->Position(t->Position() + (m_Motion * Time::UnscaledDeltaTime<scalar_t>()));
 				}
 			}
 			
 			// Cool slow motion effect when 'P' is held:
 			{
-				const auto targetScale = Input::Input::Key::Get(SDL_SCANCODE_P) ? 0.0f : 1.0f;
-				const auto effectSpeed = 3.0f;
+				const tick_t targetScale = Input::Input::Key::Get(SDL_SCANCODE_P) ? 0.0 : 1.0;
+				const tick_t effectSpeed = 3.0;
 				
 				Time::Scale(glm::mix(Time::Scale(), targetScale, Time::UnscaledDeltaTime() * effectSpeed));
 			}

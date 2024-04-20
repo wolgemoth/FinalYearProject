@@ -39,10 +39,10 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		glm::vec3 m_Emission_Color;
 		
-		float m_AO,
-			  m_Displacement,
-			  m_Normal,
-		      m_Roughness;
+		GLfloat m_AO,
+			    m_Displacement,
+			    m_Normal,
+		        m_Roughness;
 		
 		 Material();
 		 
@@ -68,10 +68,10 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] const glm::vec4& GetAlbedoColor()   const noexcept;
 		[[nodiscard]] const glm::vec3& GetEmissionColor() const noexcept;
 		
-		[[nodiscard]] const float& GetAOAmount()           const noexcept;
-		[[nodiscard]] const float& GetDisplacementAmount() const noexcept;
-		[[nodiscard]] const float& GetNormalAmount()       const noexcept;
-		[[nodiscard]] const float& GetRoughnessAmount()    const noexcept;
+		[[nodiscard]] const GLfloat& GetAOAmount()           const noexcept;
+		[[nodiscard]] const GLfloat& GetDisplacementAmount() const noexcept;
+		[[nodiscard]] const GLfloat& GetNormalAmount()       const noexcept;
+		[[nodiscard]] const GLfloat& GetRoughnessAmount()    const noexcept;
 		
 	};
 	

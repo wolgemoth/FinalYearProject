@@ -65,7 +65,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The value of the master gain to set.
 		 */
-		void Gain(const float& _value) noexcept;
+		void Gain(const ALfloat& _value) noexcept;
 		
 		/**
 		 * @brief Get the master gain of the AudioListener.
@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The master gain value.
 		 */
-		[[nodiscard]] const float& Gain() const noexcept;
+		[[nodiscard]] const ALfloat& Gain() const noexcept;
 		
 	};
 	

@@ -142,7 +142,7 @@
             float(max(textureSize(u_ShadowMap2D, 0).x, 1));
 
         mediump vec3 projCoords =
-            ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) * 0.5) + 0.5;
+            ((_fragPosLightSpace.xyz / _fragPosLightSpace.w) / 2) + 0.5;
 
         mediump float        bias_multiplier = u_LightAngle == -1.0 ?    1.0 : 100.0;
         mediump float perspective_multiplier = u_LightAngle == -1.0 ? 1000.0 :   1.0;

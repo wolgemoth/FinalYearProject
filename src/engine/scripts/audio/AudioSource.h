@@ -59,7 +59,7 @@ namespace LouiEriksson::Engine::Audio {
 			 *
 			 * @note Must be a value greater than zero.
 			 */
-			float m_MinDistance;
+			ALfloat m_MinDistance;
 			
 			/**
 			 * @brief Maximum distance for this AudioSource.
@@ -69,36 +69,36 @@ namespace LouiEriksson::Engine::Audio {
 			 *
 			 * @note Must be a value greater than or equal to the minimum distance.
 			 */
-			float m_MaxDistance;
+			ALfloat m_MaxDistance;
 			
 			/**
 			 * @brief Pitch multiplier of this AudioSource.
 			 * @note Must be a value greater than zero.
 			 */
-			float m_Pitch;
+			ALfloat m_Pitch;
 			
 			/**
 			 * @brief Gain modifier for this AudioSource.
 			 * @note Must be a value greater than or equal to zero.
 			 */
-			float m_GainModifier;
+			ALfloat m_GainModifier;
 			
 			/**
 			 * @brief Minimum gain for this AudioSource.
 			 * @note Must be a value greater than or equal to zero.
 			 */
-			float m_MinGain;
+			ALfloat m_MinGain;
 			
 			/**
 			 * @brief Maximum gain for this AudioSource.
 			 * @note Must be a value greater than or equal to the minimum gain.
 			 */
-			float m_MaxGain;
+			ALfloat m_MaxGain;
 			
 			/**
 			 * @brief Rolloff factor of this AudioSource.
 			 */
-			float m_Rolloff;
+			ALfloat m_Rolloff;
 			
 			/**
 			 * @brief Minimum angle of the AudioSource.
@@ -108,7 +108,7 @@ namespace LouiEriksson::Engine::Audio {
 			 *
 			 * @note Must be a value greater than or equal to zero.
 			 */
-			float m_MinAngle;
+			ALfloat m_MinAngle;
 			
 			/**
 			 * @brief Maximum angle of the AudioSource.
@@ -116,7 +116,7 @@ namespace LouiEriksson::Engine::Audio {
 			 *
 			 * @note Must be a value greater than or equal to the minimum angle.
 			 */
-			float m_MaxAngle;
+			ALfloat m_MaxAngle;
 			
 			 Parameters() noexcept;
 			~Parameters();
@@ -254,7 +254,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The new minimum distance value to set.
 		 * @note The value should be within the range of FLT_EPSILON to the maximum distance.
 		 */
-		void MinDistance(const float& _value);
+		void MinDistance(const ALfloat& _value);
 		
 		/**
 		 * @brief Gets the minimum distance for the audio source.
@@ -267,7 +267,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A const reference to the minimum distance.
 		 */
-		[[nodiscard]] const float& MinDistance() const noexcept;
+		[[nodiscard]] const ALfloat& MinDistance() const noexcept;
 		
 		/**
 		 * @brief Sets the maximum distance for audio source.
@@ -278,7 +278,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @note The _value is clamped to be greater than or equal to the minimum distance. If _value is smaller than the minimum distance, the maximum distance is set to be the same as the minimum distance.
 		 */
-		void MaxDistance(const float& _value);
+		void MaxDistance(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the maximum distance of the audio source.
@@ -286,18 +286,18 @@ namespace LouiEriksson::Engine::Audio {
 		 * This function returns the maximum distance at which the audio source can be heard.
 		 * The maximum distance is a constant value and cannot be modified.
 		 *
-		 * @return const float& The maximum distance of the audio source.
+		 * @return const ALfloat& The maximum distance of the audio source.
 		 */
-		[[nodiscard]] const float& MaxDistance() const noexcept;
+		[[nodiscard]] const ALfloat& MaxDistance() const noexcept;
 		
 		/**
 		 * @brief Sets the pitch of the audio source.
 		 *
 		 * The pitch determines the speed at which the audio is played.
 		 *
-		 * @param[in] _value The pitch value to be set. Must be a positive float.
+		 * @param[in] _value The pitch value to be set. Must be a positive ALfloat.
 		 */
-		void Pitch(const float& _value);
+		void Pitch(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the pitch of the audio source.
@@ -310,7 +310,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the pitch of the audio source.
 		 */
-		[[nodiscard]] const float& Pitch() const noexcept;
+		[[nodiscard]] const ALfloat& Pitch() const noexcept;
 		
 		/**
 		 * @brief Sets the gain modifier of the audio source.
@@ -322,7 +322,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The gain modifier to set. Must be a positive value.
 		 */
-		void Gain(const float& _value);
+		void Gain(const ALfloat& _value);
 		
 		/**
 		 * @brief Getter function for the gain modifier of the audio source.
@@ -331,7 +331,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the gain modifier.
 		 */
-		[[nodiscard]] const float& Gain() const noexcept;
+		[[nodiscard]] const ALfloat& Gain() const noexcept;
 		
 		/**
 		 * @brief Set the minimum gain value for the audio source.
@@ -343,7 +343,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The new minimum gain value for the audio source.
 		 */
-		void MinGain(const float& _value);
+		void MinGain(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the minimum gain of the audio source.
@@ -351,9 +351,9 @@ namespace LouiEriksson::Engine::Audio {
 		 * This function returns the minimum gain value of the audio source. The minimum gain
 		 * represents the minimum amplification that can be applied to the audio data.
 		 *
-		 * @return const float& - The minimum gain value.
+		 * @return const ALfloat& - The minimum gain value.
 		 */
-		[[nodiscard]] const float& MinGain() const noexcept;
+		[[nodiscard]] const ALfloat& MinGain() const noexcept;
 		
 		/**
 		 * @brief Sets the maximum gain value for the audio source.
@@ -362,14 +362,14 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The maximum gain value to set.
 		 */
-		void MaxGain(const float& _value);
+		void MaxGain(const ALfloat& _value);
 		
 		/**
 		 * @brief Gets the maximum gain of the audio source.
 		 *
 		 * @return The maximum gain of the audio source.
 		 */
-		[[nodiscard]] const float& MaxGain() const noexcept;
+		[[nodiscard]] const ALfloat& MaxGain() const noexcept;
 		
 		/**
 		 * @brief Sets the rolloff value for the audio source.
@@ -380,14 +380,14 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The rolloff value to set.
 		 */
-		void Rolloff(const float& _value);
+		void Rolloff(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the rolloff value of the audio source.
 		 *
-		 * @return const float& The rolloff value.
+		 * @return const ALfloat& The rolloff value.
 		 */
-		[[nodiscard]] const float& Rolloff() const noexcept;
+		[[nodiscard]] const ALfloat& Rolloff() const noexcept;
 		
 		/**
 		 * @brief Sets the minimum angle of the audio source for playback of directional audio.
@@ -396,28 +396,28 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @note The function also updates the maximum angle if the specified value is greater than the current maximum angle.
 		 */
-		void MinAngle(const float& _value);
+		void MinAngle(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the minimum angle of the audio source.
 		 *
 		 * @return A constant reference to the minimum angle of the audio source.
 		 */
-		[[nodiscard]] const float& MinAngle() const noexcept;
+		[[nodiscard]] const ALfloat& MinAngle() const noexcept;
 		
 		/**
 		 * @brief Sets the maximum angle for audio source for playback of directional audio.
 		 *
 		 * @param[in] _value The maximum angle in degrees.
 		 */
-		void MaxAngle(const float& _value);
+		void MaxAngle(const ALfloat& _value);
 		
 		/**
 		 * @brief Gets the maximum angle of the audio source.
 		 *
 		 * @return A constant reference to the maximum angle of the audio source.
 		 */
-		[[nodiscard]] const float& MaxAngle() const noexcept;
+		[[nodiscard]] const ALfloat& MaxAngle() const noexcept;
 		
 		/**
 		 * @brief Sets the playback position of the audio source.
@@ -427,7 +427,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The desired playback position in seconds.
 		 */
-		void PlaybackPosition(const float& _value) const;
+		void PlaybackPosition(const ALfloat& _value) const;
 		
 		/**
 		 * @brief Get the current playback position of the audio source.
@@ -437,7 +437,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The current playback position in seconds.
 		 */
-		[[nodiscard]] float PlaybackPosition() const;
+		[[nodiscard]] ALfloat PlaybackPosition() const;
 		
 		/**
 		 * @brief Sets the playback position of the AudioSource in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).

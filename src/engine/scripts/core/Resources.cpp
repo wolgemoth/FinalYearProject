@@ -1,7 +1,5 @@
 #include "Resources.h"
 
-#include "../core/utils/Hashmap.h"
-
 #include "Debug.h"
 #include "File.h"
 
@@ -10,7 +8,6 @@
 #include <cstring>
 #include <exception>
 #include <filesystem>
-#include <optional>
 #include <string>
 #include <typeindex>
 #include <vector>

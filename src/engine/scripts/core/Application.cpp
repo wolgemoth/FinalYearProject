@@ -9,7 +9,7 @@
 #include "../networking/Requests.h"
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
-
+#include "Defaults.h"
 #include "utils/Hashmap.h"
 
 #include "Debug.h"
@@ -126,7 +126,7 @@ namespace LouiEriksson::Engine {
 				// Set the delta time of the physics simulation.
 				Time::FixedDeltaTime(1.0 / 60.0);
 				
-				long double physics_step = 0.0;
+				tick_t physics_step = 0.0;
 				
 				// Load a scene and run:
 				const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);

@@ -11,6 +11,7 @@
 #include "Sound.h"
 
 #include <al.h>
+#include <algorithm>
 #include <glm/common.hpp>
 
 #include <exception>
@@ -80,7 +81,7 @@ namespace LouiEriksson::Engine::Audio {
 			alSourcef(m_Source, AL_REFERENCE_DISTANCE, 0.0);
 			
 			// Set max distance to infinity (not strictly-necessary).
-			alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<float>::max());
+			alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<ALfloat>::max());
 			
 			// Nullify directionality of AudioSource
 			alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
@@ -103,7 +104,7 @@ namespace LouiEriksson::Engine::Audio {
 			if (const auto t = p->GetComponent<Transform>().lock()) {
 				
 				// Set world position to that of the current transform.
-				alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&t->m_Position[0]));
+				alSourcefv(m_Source, AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
 				
 				// Set the direction of the audio source using the current transform.
 				{
@@ -120,13 +121,13 @@ namespace LouiEriksson::Engine::Audio {
 						velocity = r->Velocity();
 					}
 					else {
-						velocity = (t->m_Position - m_LastPosition) * Time::DeltaTime();
+						velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t >();
 					}
 					
 					alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
 				}
 				
-				m_LastPosition = t->m_Position;
+				m_LastPosition = t->Position();
 			}}
 		}
 	}
@@ -134,7 +135,7 @@ namespace LouiEriksson::Engine::Audio {
 	AudioSource::AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_Source      (AL_NONE),
 			m_Parameters  (),
-			m_LastPosition(   0.0)
+			m_LastPosition(0.0)
 	{
 		try {
 			
@@ -268,96 +269,96 @@ namespace LouiEriksson::Engine::Audio {
 		return m_Parameters.m_Loop;
 	}
 	
-	void AudioSource::MinDistance(const float& _value) {
-		m_Parameters.m_MinDistance = std::max(_value, __FLT_EPSILON__);
+	void AudioSource::MinDistance(const ALfloat& _value) {
+		m_Parameters.m_MinDistance = std::max(_value, std::numeric_limits<ALfloat>::min());
 		m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MaxDistance);
 		
 		Sync();
 	}
-	const float& AudioSource::MinDistance() const noexcept {
+	const ALfloat& AudioSource::MinDistance() const noexcept {
 		return m_Parameters.m_MinDistance;
 	}
 	
-	void AudioSource::MaxDistance(const float& _value) {
+	void AudioSource::MaxDistance(const ALfloat& _value) {
 		m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MinDistance);
 		
 		Sync();
 	}
-	const float& AudioSource::MaxDistance() const noexcept {
+	const ALfloat& AudioSource::MaxDistance() const noexcept {
 		return m_Parameters.m_MaxDistance;
 	}
 	
-	void AudioSource::Pitch(const float& _value) {
-		m_Parameters.m_Pitch = std::max(_value, 0.0);
+	void AudioSource::Pitch(const ALfloat& _value) {
+		m_Parameters.m_Pitch = std::max(_value, static_cast<ALfloat>(0.0));
 		
 		Sync();
 	}
-	const float& AudioSource::Pitch() const noexcept {
+	const ALfloat& AudioSource::Pitch() const noexcept {
 		return m_Parameters.m_Pitch;
 	}
 	
-	void AudioSource::Gain(const float& _value) {
-	    m_Parameters.m_GainModifier = std::max(_value, 0.0);
+	void AudioSource::Gain(const ALfloat& _value) {
+	    m_Parameters.m_GainModifier = std::max(_value, static_cast<ALfloat>(0.0));
 		
 		Sync();
 	}
-	const float& AudioSource::Gain() const noexcept {
+	const ALfloat& AudioSource::Gain() const noexcept {
 		return m_Parameters.m_GainModifier;
 	}
 	
-	void AudioSource::MinGain(const float& _value) {
-	    m_Parameters.m_MinGain = std::max(_value, 0.0);
+	void AudioSource::MinGain(const ALfloat& _value) {
+	    m_Parameters.m_MinGain = std::max(_value, static_cast<ALfloat>(0.0));
 	    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MaxGain);
 		
 		Sync();
 	}
-	const float& AudioSource::MinGain() const noexcept {
+	const ALfloat& AudioSource::MinGain() const noexcept {
 		return m_Parameters.m_MinGain;
 	}
 	
-	void AudioSource::MaxGain(const float& _value) {
+	void AudioSource::MaxGain(const ALfloat& _value) {
 	    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MinGain);
 		
 		Sync();
 	}
-	const float& AudioSource::MaxGain() const noexcept {
+	const ALfloat& AudioSource::MaxGain() const noexcept {
 		return m_Parameters.m_MaxGain;
 	}
 	
-	void AudioSource::Rolloff(const float& _value) {
+	void AudioSource::Rolloff(const ALfloat& _value) {
 	    m_Parameters.m_Rolloff = _value;
 		
 		Sync();
 	}
-	const float& AudioSource::Rolloff() const noexcept {
+	const ALfloat& AudioSource::Rolloff() const noexcept {
 		return m_Parameters.m_Rolloff;
 	}
 	
-	void AudioSource::MinAngle(const float& _value) {
-	    m_Parameters.m_MinAngle = std::clamp(_value, 0.0, 360.0);
+	void AudioSource::MinAngle(const ALfloat& _value) {
+	    m_Parameters.m_MinAngle = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(360.0));
 		m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MaxAngle);
 		
 		Sync();
 	}
-	const float& AudioSource::MinAngle() const noexcept {
+	const ALfloat& AudioSource::MinAngle() const noexcept {
 		return m_Parameters.m_MinAngle;
 	}
 	
-	void AudioSource::MaxAngle(const float& _value) {
+	void AudioSource::MaxAngle(const ALfloat& _value) {
 	    m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MinAngle);
 		
 		Sync();
 	}
-	const float& AudioSource::MaxAngle() const noexcept {
+	const ALfloat& AudioSource::MaxAngle() const noexcept {
 		return m_Parameters.m_MaxAngle;
 	}
 	
-	void AudioSource::PlaybackPosition(const float& _value) const {
+	void AudioSource::PlaybackPosition(const ALfloat& _value) const {
 		alSourcef(m_Source, AL_SEC_OFFSET, _value);
 	}
-	float AudioSource::PlaybackPosition() const {
+	ALfloat AudioSource::PlaybackPosition() const {
 		
-		float result;
+		ALfloat result;
 		
         alGetSourcef(m_Source, AL_SEC_OFFSET, &result);
 		

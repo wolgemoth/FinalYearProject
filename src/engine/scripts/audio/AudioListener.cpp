@@ -3,12 +3,14 @@
 #include "../core/Script.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
+#include "../core/Defaults.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
 #include <al.h>
 #include <glm/common.hpp>
 
+#include <algorithm>
 #include <memory>
 
 namespace LouiEriksson::Engine::Audio {
@@ -33,7 +35,7 @@ namespace LouiEriksson::Engine::Audio {
 		if (const auto t = p->GetComponent<Transform>().lock()) {
 			
 			// Set position of listener:
-			alListenerfv(AL_POSITION, static_cast<ALfloat*>(&t->m_Position[0]));
+			alListenerfv(AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
 			
 			// Set orientation (forward, up):
 			{
@@ -52,10 +54,10 @@ namespace LouiEriksson::Engine::Audio {
 					velocity = r->Velocity();
 				}
 				else {
-					velocity = (t->m_Position - m_LastPosition) * Time::DeltaTime();
+					velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t>();
 				}
 				
-				alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
+				alListenerfv(AL_VELOCITY, static_cast<const ALfloat*>(&velocity[0]));
 			}
 			
 			
@@ -63,12 +65,12 @@ namespace LouiEriksson::Engine::Audio {
 			alListenerf(AL_GAIN, m_Gain);
 			
 			// Update "last position" (used for transform-based doppler effect).
-			m_LastPosition = t->m_Position;
+			m_LastPosition = t->Position();
 		}}
 	}
 	
-	void AudioListener::Gain(const float& _value) noexcept {
-		m_Gain = std::clamp(_value, 0.0, 1.0);
+	void AudioListener::Gain(const ALfloat& _value) noexcept {
+		m_Gain = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(1.0));
 	}
 	const float& AudioListener::Gain() const noexcept {
 		return m_Gain;

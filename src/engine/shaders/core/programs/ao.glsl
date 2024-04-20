@@ -79,7 +79,7 @@
             mediump vec4 offsetUV      = vec4(samplePosition, 1.0);
                  offsetUV      = u_VP * offsetUV;
                  offsetUV.xyz /= offsetUV.w;
-                 offsetUV.xy   = offsetUV.xy * 0.5 + 0.5;
+                 offsetUV.xy   = offsetUV.xy / 2 + 0.5;
 
             mediump float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
 

@@ -1,14 +1,16 @@
 #include "Elevation.h"
 
-#include "serialisation/ElevationDeserialiser.h"
-
+#include "../../core/Debug.h"
+#include "../../core/Defaults.h"
 #include "../../core/utils/Utils.h"
 #include "../../networking/Requests.h"
 #include "../maths/Coords.h"
-#include "../../core/Debug.h"
+
+#include "serialisation/ElevationDeserialiser.h"
 
 #include <curl/curl.h>
 
+#include <glm/detail/type_vec1.hpp>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float4.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -26,7 +28,7 @@
 
 namespace LouiEriksson::Engine::Spatial {
 	
-	std::future<void> Elevation::LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<float>&)>& _callback) {
+	std::future<void> Elevation::LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
 
 		return std::async([_bounds, _provider, _dimensions, _callback]() {
 			
@@ -34,7 +36,7 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	        for (auto y = _dimensions.y - 1; y >= 0; --y) {
 	        for (auto x = _dimensions.x - 1; x >= 0; --x) {
-	            elevation_points.emplace_back(Maths::Coords::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
+	            elevation_points.emplace_back(Maths::Coords<scalar_t>::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
 	        }}
 	
 	        if (_provider == ElevationProvider::OpenElevation) {
@@ -45,7 +47,7 @@ namespace LouiEriksson::Engine::Spatial {
 		});
     }
 	
-    void Elevation::LoadElevation(const std::vector<glm::vec2>& _points, const glm::vec4& _bounds, const ElevationProvider& _provider, const std::function<void(const std::vector<float>&)>& _callback) {
+    void Elevation::LoadElevation(const std::vector<glm::vec2>& _points, const glm::vec4& _bounds, const ElevationProvider& _provider, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
         
         switch (_provider) {
             
@@ -55,7 +57,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					[_callback](const Serialisation::ElevationDeserialiser::OEJSON::Root& _elevation_result) {
 							
-						std::vector<float> result;
+						std::vector<glm::vec<1, scalar_t>> result;
 						
 						result.reserve(_elevation_result.results.size());
 						for (const auto& item : _elevation_result.results) {
@@ -78,7 +80,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					[_callback](const Serialisation::ElevationDeserialiser::OTDJSON::Root& _elevation_result) {
 							
-						std::vector<float> result;
+						std::vector<glm::vec<1, scalar_t>> result;
 						
 						result.reserve(_elevation_result.results.size());
 						for (const auto& item : _elevation_result.results) {
@@ -114,7 +116,7 @@ namespace LouiEriksson::Engine::Spatial {
 	        
 	        ss << "{\"locations\":[";
 	        
-	        for (auto i = 0; i < _request.size(); ++i) {
+	        for (size_t i = 0; i < _request.size(); ++i) {
 	            
 	            auto location = _request[i];
 	            
@@ -168,7 +170,7 @@ namespace LouiEriksson::Engine::Spatial {
 	        const auto requestIntervalMs = std::chrono::milliseconds(500);
 			
 	        const size_t maxRequestSize = 100;
-	        for (auto i = 0; i < _request.size(); i += maxRequestSize) {
+	        for (size_t i = 0; i < _request.size(); i += maxRequestSize) {
 	
 	            std::stringstream ss;
 	
@@ -176,7 +178,7 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	            const auto count = std::min(_request.size() - i, maxRequestSize);
 	            
-	            for (auto j = 0; j < count; j++) {
+	            for (size_t j = 0; j < count; j++) {
 	
 	                auto location = _request[i + j];
 	
@@ -216,7 +218,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					auto result = *results.begin();
 					
-					for (auto i = 1; i < results.size(); ++i) {
+					for (size_t i = 1; i < results.size(); ++i) {
 						Utils::MoveInto(results[i].m_Root.results, result.m_Root.results);
 					}
 					

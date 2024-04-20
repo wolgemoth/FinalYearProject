@@ -44,10 +44,9 @@ namespace LouiEriksson::Engine::Graphics {
 		        m_TexCoordVBO_ID,
 		          m_NormalVBO_ID,
 		         m_TangentVBO_ID,
-		       m_BitangentVBO_ID;
-		
-		size_t m_VertexCount,
-		        m_IndexCount;
+		       m_BitangentVBO_ID,
+			       m_VertexCount,
+		            m_IndexCount;
 		
 		explicit Mesh(const GLenum& _format) noexcept;
 		
@@ -98,7 +97,7 @@ namespace LouiEriksson::Engine::Graphics {
 		    return result;
 		}
 		
-		template<typename T, typename U, glm::precision P = glm::mediump>
+		template<typename T, typename U, glm::precision P = glm::defaultp>
 		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices, const std::vector<glm::vec<3, T, P>>& _normals, const std::vector<glm::vec<2, T, P>>& _UVs, std::array<std::vector<glm::vec<3, T, P>>, 2> _tangents, const GLenum& _format = GL_TRIANGLES) {
 			
 			validate_index_format<U>();
@@ -196,7 +195,7 @@ namespace LouiEriksson::Engine::Graphics {
 			return result;
 		}
 		
-		template<typename T, glm::precision P = glm::mediump>
+		template<typename T, glm::precision P = glm::defaultp>
 		static std::array<std::vector<glm::vec<3, T, P>>, 2> GenerateTangents(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<glm::vec<2, T, P>>& _uvs) {
 			
 			auto result = std::array<std::vector<glm::vec<3, T, P>>, 2>();
@@ -258,7 +257,7 @@ namespace LouiEriksson::Engine::Graphics {
 			return result;
 		}
 		
-		template<typename T, typename U, glm::precision P = glm::mediump>
+		template<typename T, typename U, glm::precision P = glm::defaultp>
 		static std::vector<glm::vec<3, T, P>> GenerateNormals(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices) {
 			
 			validate_index_format<U>();
@@ -267,7 +266,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (_vertices.size() >= 3 && _indices.size() >= 3) {
 				
-				for (auto i = 0; i < _indices.size(); i += 3) {
+				for (size_t i = 0; i < _indices.size(); i += 3) {
 					
 					const auto iA =   i  ;
 					const auto iB = i + 1;
@@ -301,7 +300,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		struct Earcut final {
 			
-			template<typename T, typename U, glm::precision P = glm::mediump>
+			template<typename T, typename U, glm::precision P = glm::defaultp>
 			static std::vector<U> TriangulateXY(const std::vector<glm::vec<2, T, P>>& _polyline) {
 				
 				validate_index_format<U>();
@@ -324,7 +323,7 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, typename U, glm::precision P = glm::mediump>
+			template<typename T, typename U, glm::precision P = glm::defaultp>
 			static std::vector<U> TriangulateXY(const std::vector<std::vector<glm::vec<2, T, P>>>& _polygon) {
 				
 				validate_index_format<U>();
@@ -350,7 +349,7 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, typename U, glm::precision P = glm::mediump>
+			template<typename T, typename U, glm::precision P = glm::defaultp>
 			static std::vector<U> TriangulateXZ(const std::vector<glm::vec<3, T, P>>& _polyline) {
 				
 				validate_index_format<U>();
@@ -373,7 +372,7 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, glm::precision P = glm::mediump, typename N>
+			template<typename T, glm::precision P = glm::defaultp, typename N>
 			static std::vector<N> TriangulateXZ(const std::vector<std::vector<glm::vec<3, T, P>>>& _polygon) {
 				
 				validate_index_format<N>();
@@ -426,7 +425,7 @@ namespace LouiEriksson::Engine::Graphics {
 			/**
 			* @brief Represents a quad primitive.
 			*/
-			template<typename T, glm::precision P = glm::mediump>
+			template<typename T, glm::precision P = glm::defaultp>
 			struct Quad final {
 	
 			private:
@@ -480,7 +479,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct Grid final {
 			
-				template<typename T, typename U, glm::precision P = glm::mediump>
+				template<typename T, typename U, glm::precision P = glm::defaultp>
 				static std::shared_ptr<Mesh> Create(const  glm::vec<2, U>& _resolution, const glm::vec<2, T, P>& _size) {
 					
 					validate_index_format<U>();
@@ -558,8 +557,8 @@ namespace LouiEriksson::Engine::Graphics {
 					return result;
 				}
 				
-				template<typename T, typename U, glm::precision P = glm::mediump>
-				static std::shared_ptr<Mesh> Create(const glm::vec<2, U>& _resolution, const glm::vec<2, T, P>& _size, const Graphics::TextureCPU& _heights) {
+				template<typename T, typename U, glm::precision P = glm::defaultp>
+				static std::shared_ptr<Mesh> Create(const glm::vec<2, U>& _resolution, const glm::vec<2, T, P>& _size, const Graphics::TextureCPU<T, 1>& _heights) {
 					
 					validate_index_format<U>();
 					
@@ -647,7 +646,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct PointCloud final {
 				
-				template<typename T, typename U, glm::precision P = glm::mediump>
+				template<typename T, typename U, glm::precision P = glm::defaultp>
 				static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices) {
 					
 					validate_index_format<U>();
@@ -722,8 +721,8 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] const GLuint&   TangentVBO_ID() const noexcept;
 		[[nodiscard]] const GLuint& BitangentVBO_ID() const noexcept;
 		
-		[[nodiscard]] const size_t& VertexCount() const noexcept;
-		[[nodiscard]] const size_t&  IndexCount() const noexcept;
+		[[nodiscard]] const GLuint& VertexCount() const noexcept;
+		[[nodiscard]] const GLuint&  IndexCount() const noexcept;
 	};
 	
 } // LouiEriksson::Engine::Graphics

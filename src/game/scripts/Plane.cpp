@@ -1,5 +1,7 @@
 #include "Plane.h"
 
+#include <memory>
+
 using namespace LouiEriksson::Engine;
 
 namespace LouiEriksson::Game::Scripts {
@@ -15,7 +17,7 @@ namespace LouiEriksson::Game::Scripts {
 			// Get Transform.
 			if (const auto transform = p->GetComponent<Transform>().lock()) {
 			
-				transform->m_Scale = glm::vec3(50.0f, 1.0f, 50.0f);
+				transform->Scale({50.0, 1.0, 50.0});
 			
 				// Add Renderer.
 				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();

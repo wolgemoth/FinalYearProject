@@ -45,7 +45,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			}
 		}}
 		
-		// Prevent the sun from casting shadows:
+		// Prevent the model of the sun from casting shadows:
 		if (const auto sol = m_Planets.Get("Sol")) {
 			
 			if (const auto go = sol->lock()                                  ) {
@@ -59,19 +59,18 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	void Planetarium::Tick() {
 		
 		// Conversion from seconds to centuries.
-		static constexpr auto s_to_c = 1.0 / 31557600000.0;
+		static constexpr highp_time s_to_c = 1.0 / 31557600000.0;
 		
 		/*
-		 * Current UNIX time from the system clock.
+		 * Current UNIX highp_time from the system clock.
 		 * ...Probably UTC but not guaranteed?
 		 *
-		 * This may not be accurate to the 'actual' UNIX time
+		 * This may not be accurate to the 'actual' UNIX highp_time
 		 * -especially if the user doesn't have an internet connection
-		 * from which their system is syncing the time automatically.
+		 * from which their system is syncing the highp_time automatically.
 		 */
-		const auto unix_time_utc = std::chrono::duration_cast<std::chrono::microseconds>(
-				std::chrono::system_clock::now().time_since_epoch()
-			).count() / 1000000.0;
+		const highp_time unix_time_utc = std::chrono::duration_cast<std::chrono::duration<highp_time>>(
+			std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 		
 		/*
 		 * Convert from UTC to TAI using an offset of 37 seconds.
@@ -82,25 +81,25 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		 * A better solution is to use a lookup table and update leap
 		 * seconds with an internet connection.
 		 *
-		 * FTP servers for downloading leap second information (Courtesy of: https://data.iana.org/time-zones/tzdb-2019c/leapseconds):
-		 * <ftp://ftp.nist.gov/pub/time/leap-seconds.list>
-         * <ftp://ftp.boulder.nist.gov/pub/time/leap-seconds.list>
+		 * FTP servers for downloading leap second information (Courtesy of: https://data.iana.org/highp_time-zones/tzdb-2019c/leapseconds):
+		 * <ftp://ftp.nist.gov/pub/highp_time/leap-seconds.list>
+         * <ftp://ftp.boulder.nist.gov/pub/highp_time/leap-seconds.list>
 		 */
-		const auto TAI = unix_time_utc + 37.0;
+		const highp_time TAI = unix_time_utc + 37.0;
 		
 		// Convert TAI to TT using the established conversion of 32.184.
-		const auto TT = TAI + 32.184;
+		const highp_time TT = TAI + 32.184;
 		
 		// Get the current TT in the Julian calendar.
-		const auto JD = ((TT) / 86400.0) + 2440587.5;
+		const highp_time JD = ((TT) / 86400.0) + 2440587.5;
 
 		// Get the days since the J2000 epoch.
-		const auto j2000_days = JD - 2451545.0;
+		const highp_time j2000_days = JD - 2451545.0;
 		
 		// Convert from julian days to julian centuries.
-		const auto curr = j2000_days / 365250.0;
+		const highp_time curr = j2000_days / 365250.0;
 		
-		const auto update_interval = 120.0;
+		const highp_time update_interval = 120.0;
 		
 		if (curr > m_Positions_To.Time()) {
 			m_Positions_From.Time(curr);
@@ -111,7 +110,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			  m_Positions_To.Time(curr);
 		}
 		
-		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), 0.0, 1.0));
+		InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), static_cast<highp_time>(0.0), static_cast<highp_time>(1.0)));
 	}
 	
 } // LouiEriksson::Game::Scripts::Spatial

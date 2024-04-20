@@ -1,15 +1,16 @@
 #include "Sound.h"
 
+#include "../core/Debug.h"
+
 #include "AudioClip.h"
 #include "AudioSource.h"
-#include "../core/Debug.h"
 
 #include <al.h>
 #include <alc.h>
-#include <glm/common.hpp>
 #include <SDL.h>
 #include <SDL_audio.h>
 
+#include <algorithm>
 #include <exception>
 #include <memory>
 #include <stdexcept>
@@ -152,17 +153,17 @@ namespace LouiEriksson::Engine::Audio {
 		return alGetInteger(AL_DISTANCE_MODEL);
 	}
 	
-	void Sound::DopplerFactor(const float& _value) {
-		alDopplerFactor(std::max(_value, 0.0));
+	void Sound::DopplerFactor(const ALfloat& _value) {
+		alDopplerFactor(std::max(_value, static_cast<ALfloat>(0.0)));
 	}
-	float Sound::DopplerFactor() {
+	ALfloat Sound::DopplerFactor() {
 		return alGetFloat(AL_DOPPLER_FACTOR);
 	}
 	
-	void Sound::SpeedOfSound(const float& _value) {
-		alDopplerVelocity(std::max(_value, 0.0));
+	void Sound::SpeedOfSound(const ALfloat& _value) {
+		alDopplerVelocity(std::max(_value, static_cast<ALfloat>(0.0)));
 	}
-	float Sound::SpeedOfSound() {
+	ALfloat Sound::SpeedOfSound() {
 		return alGetFloat(AL_DOPPLER_VELOCITY);
 	}
 	

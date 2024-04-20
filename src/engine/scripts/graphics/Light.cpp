@@ -47,8 +47,8 @@ namespace LouiEriksson::Engine::Graphics {
 			case Light::Parameters::Type::Point: {
 				
 				m_Shadow.m_Projection = glm::perspective(
-					glm::radians(90.0),
-					1.0,
+					static_cast<GLfloat>(glm::radians(90.0)),
+					static_cast<GLfloat>(1.0),
 					m_Shadow.m_NearPlane,
 					m_Range
 				);
@@ -72,7 +72,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				m_Shadow.m_Projection = glm::perspective(
 					glm::radians(m_Angle),
-					1.0,
+					static_cast<GLfloat>(1.0),
 					m_Shadow.m_NearPlane,
 					m_Range
 				);
@@ -99,9 +99,9 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Target           (GL_NONE),
 			m_Resolution       (128    ),
 			m_Bias             (  0.01),
-			m_NormalBias       (  0.02f),
+			m_NormalBias       (  0.02),
 			m_NearPlane        (  0.2 ),
-			m_TwoSided         (  true ),
+			m_TwoSided         (  true),
 			m_Projection       (  1.0 ),
 			m_ViewProjection   (  1.0 ) {}
 	
@@ -155,7 +155,7 @@ namespace LouiEriksson::Engine::Graphics {
 				if (m_Target == GL_TEXTURE_CUBE_MAP) {
 					
 					// Generate all six faces of a cubemap (for omnidirectional shadows).
-					for (auto i = 0; i < 6; ++i) {
+					for (size_t i = 0; i < 6; ++i) {
                         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, m_Resolution, m_Resolution, 0, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, nullptr);
 					}
 				}

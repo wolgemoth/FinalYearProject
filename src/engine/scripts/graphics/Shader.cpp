@@ -274,7 +274,7 @@ namespace LouiEriksson::Engine::Graphics {
 			result = glGetUniformLocation(ID(), _name.c_str());
 			
 			if (result != -1) {
-				m_ParameterIDs.Assign(_name, std::move(result));
+				m_ParameterIDs.Assign(_name, result);
 			}
 			if (_verbose && result == -1) {
 	

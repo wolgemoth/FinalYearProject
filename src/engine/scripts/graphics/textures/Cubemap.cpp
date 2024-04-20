@@ -1,7 +1,5 @@
 #include "Cubemap.h"
 
-#include "../Texture.h"
-
 #include <GL/glew.h>
 
 namespace LouiEriksson::Engine::Graphics {

@@ -40,9 +40,9 @@ namespace LouiEriksson::Engine::Graphics {
 	const glm::vec4& Material::GetAlbedoColor()   const noexcept { return m_Albedo_Color;   }
 	const glm::vec3& Material::GetEmissionColor() const noexcept { return m_Emission_Color; }
 	
-	const float& Material::GetAOAmount()           const noexcept { return m_AO;           }
-	const float& Material::GetDisplacementAmount() const noexcept { return m_Displacement; }
-	const float& Material::GetNormalAmount()       const noexcept { return m_Normal;       }
-	const float& Material::GetRoughnessAmount()    const noexcept { return m_Roughness;    }
+	const GLfloat& Material::GetAOAmount()           const noexcept { return m_AO;           }
+	const GLfloat& Material::GetDisplacementAmount() const noexcept { return m_Displacement; }
+	const GLfloat& Material::GetNormalAmount()       const noexcept { return m_Normal;       }
+	const GLfloat& Material::GetRoughnessAmount()    const noexcept { return m_Roughness;    }
 	
 } // LouiEriksson::Engine::Graphics

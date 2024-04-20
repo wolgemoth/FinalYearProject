@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_TIME_H
 #define FINALYEARPROJECT_TIME_H
 
-#include "Application.h"
+#include "Defaults.h"
 
 namespace LouiEriksson::Engine {
 	
@@ -15,10 +15,10 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		inline static Application::tick_t s_Scale                  { 1.0 }; /**< @brief Speed of time within the engine. */
-		inline static Application::tick_t s_Elapsed                { 0.0 }; /**< @brief   Total time elapsed (unscaled). */
-		inline static Application::tick_t s_UnscaledDeltaTime      { 0.0 }; /**< @brief             Unscaled delta time. */
-		inline static Application::tick_t s_FixedUnscaledDeltaTime { 0.0 }; /**< @brief       Unscaled fixed delta time. */
+		inline static tick_t s_Scale                  { 1.0 }; /**< @brief Speed of time within the engine. */
+		inline static tick_t s_Elapsed                { 0.0 }; /**< @brief   Total time elapsed (unscaled). */
+		inline static tick_t s_UnscaledDeltaTime      { 0.0 }; /**< @brief             Unscaled delta time. */
+		inline static tick_t s_FixedUnscaledDeltaTime { 0.0 }; /**< @brief       Unscaled fixed delta time. */
 	
 	public:
 		
@@ -47,8 +47,8 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the speed of time within the engine.
 		 * @return The speed of time within the engine.
 		 */
-		template <typename T>
-		static constexpr const T& Scale() noexcept {
+		template <typename T = tick_t>
+		static constexpr T Scale() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
 			
@@ -59,8 +59,8 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the total time elapsed since the engine was initialised.
 		 * @return The total time elapsed.
 		 */
-		template <typename T>
-		static constexpr const T& Elapsed() noexcept {
+		template <typename T = tick_t>
+		static constexpr T Elapsed() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
 			
@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the scaled delta time (duration of the previous frame).
 		 * @return The scaled delta time.
 		 */
-		template <typename T>
+		template <typename T = tick_t>
 		static constexpr T DeltaTime() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
@@ -83,8 +83,8 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the unscaled delta time (duration of the previous frame).
 		 * @return The unscaled delta time.
 		 */
-		template <typename T>
-		static constexpr const T& UnscaledDeltaTime() noexcept {
+		template <typename T = tick_t>
+		static constexpr T UnscaledDeltaTime() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
 			
@@ -107,7 +107,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the scaled fixed delta time (time between physics updates).
 		 * @return The scaled fixed delta time.
 		 */
-		template <typename T>
+		template <typename T = tick_t>
 		static constexpr T FixedDeltaTime() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
@@ -119,8 +119,8 @@ namespace LouiEriksson::Engine {
 		 * @brief Get the unscaled fixed delta time (time between physics updates).
 		 * @return The unscaled fixed delta time.
 		 */
-		template <typename T>
-		static constexpr const T& FixedUnscaledDeltaTime() noexcept {
+		template <typename T = tick_t>
+		static constexpr T FixedUnscaledDeltaTime() noexcept {
 			
 			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
 			

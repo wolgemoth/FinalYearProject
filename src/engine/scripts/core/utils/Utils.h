@@ -55,7 +55,7 @@ namespace LouiEriksson::Engine {
 		 * @note The function assumes that the template argument is std::string or std::string_view.
 		 */
 		template<typename T>
-		static std::vector<T> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0) {
+		static constexpr std::vector<T> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0) {
 			
 			static_assert(std::is_same_v<T, std::string_view> || std::is_same_v<T, std::string>,
                   "Template argument must be std::string or std::string_view");
@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine {
 		 * @return T The remapped value.
 		 */
 		template<typename T>
-		static T Remap(const T& _val, const T& _aMin, const T& _aMax, const T& _bMin, const T& _bMax) {
+		static constexpr T Remap(const T& _val, const T& _aMin, const T& _aMax, const T& _bMin, const T& _bMax) noexcept {
 	
 			// Remap function I made for a homework task in "Mathematics for Computer Graphics".
 			return _bMin + (_val - _aMin) * (_bMax - _bMin) / (_aMax - _aMin);
@@ -220,8 +220,8 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return glm::vec3 The wrapped angle in degrees within the range -180 to 180.
 		 */
-		template <typename T, glm::qualifier P = glm::mediump>
-		static glm::vec<3, T, P> WrapAngle(const glm::vec<3, T, P> _degrees) {
+		template <typename T, glm::qualifier P = glm::defaultp>
+		static constexpr glm::vec<3, T, P> WrapAngle(const glm::vec<3, T, P> _degrees) {
 			return {
 				WrapAngle<T>(_degrees.x),
 				WrapAngle<T>(_degrees.y),
@@ -239,7 +239,7 @@ namespace LouiEriksson::Engine {
 		 * @return T The converted value of type T.
 		 */
 		template <typename T>
-		constexpr static T As(const nlohmann::json& _json) {
+		static constexpr T As(const nlohmann::json& _json) {
 			
 			T result;
 			
@@ -407,7 +407,7 @@ namespace LouiEriksson::Engine {
 		 * @return T The signed angle in radians.
 		 */
 		template<typename T, glm::precision P>
-		static T SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
+		static constexpr T SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
 						
 		    const auto d = glm::dot  (_a, _b);
 		    const auto p = glm::cross(_a, _b);
@@ -431,7 +431,7 @@ namespace LouiEriksson::Engine {
 		 * @throws std::runtime_error if the size of the vector does not match the size of the array.
 		 */
 		template<typename T, size_t N>
-		static std::array<T, N> MoveToArray(const std::vector<T>& _vector) {
+		static constexpr std::array<T, N> MoveToArray(const std::vector<T>& _vector) {
 			
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
@@ -470,7 +470,7 @@ namespace LouiEriksson::Engine {
 		 * static_assert will be triggered.
 		 */
 		template<typename T, size_t N>
-		static std::vector<T> MoveToVector(const std::array<T, N>& _array) {
+		static constexpr std::vector<T> MoveToVector(const std::array<T, N>& _array) {
 			
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
@@ -495,7 +495,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _to The destination vector to which elements will be moved.
 		 */
 		template<typename T>
-		static void MoveInto(std::vector<T>& _from, std::vector<T>& _to) {
+		static constexpr void MoveInto(std::vector<T>& _from, std::vector<T>& _to) {
 			
 			_to.reserve(_from.size());
 			
@@ -524,7 +524,7 @@ namespace LouiEriksson::Engine {
 	     * @see std::vector
 	     */
 		template<typename T>
-		static void CopyInto(const std::vector<T>& _from, std::vector<T>& _to) {
+		static constexpr void CopyInto(const std::vector<T>& _from, std::vector<T>& _to) {
 		
 			_to.reserve(_from.size());
 			
@@ -546,7 +546,7 @@ namespace LouiEriksson::Engine {
 		 * @return The new vector with changed handedness.
 		 */
 		template<typename T, glm::precision P>
-		static glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec) {
+		static constexpr glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec) {
 			return { -_vec.x, _vec.z, _vec.y };
 		}
 		
@@ -564,7 +564,7 @@ namespace LouiEriksson::Engine {
 		 * @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		 */
 		template <typename T>
-		static T To1D(const std::array<T, 2>& _index, const T& _stride) {
+		static constexpr T To1D(const std::array<T, 2>& _index, const T& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 
@@ -585,7 +585,7 @@ namespace LouiEriksson::Engine {
 		* @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		*/
 		template <typename T>
-		static T To1D(const std::array<T, 3>& _index, const std::array<T, 2>& _stride) {
+		static constexpr T To1D(const std::array<T, 3>& _index, const std::array<T, 2>& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 
@@ -607,7 +607,7 @@ namespace LouiEriksson::Engine {
 		 * @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		 */
 		template <typename T>
-		static T To1D(const std::array<T, 4>& _index, const std::array<T, 3>& _stride) {
+		static constexpr T To1D(const std::array<T, 4>& _index, const std::array<T, 3>& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 
@@ -629,7 +629,7 @@ namespace LouiEriksson::Engine {
 		 * @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		 */
 		template <typename T>
-		static std::array<T, 2> To2D(const T& _i, const T& _stride) {
+		static constexpr std::array<T, 2> To2D(const T& _i, const T& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 
@@ -654,7 +654,7 @@ namespace LouiEriksson::Engine {
 		 * @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		 */
 		template <typename T>
-		static std::array<T, 3> To3D(const T& _i, const std::array<T, 2>& _stride) {
+		static constexpr std::array<T, 3> To3D(const T& _i, const std::array<T, 2>& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 
@@ -683,7 +683,7 @@ namespace LouiEriksson::Engine {
 		 * @see https://en.wikipedia.org/wiki/Stride_of_an_array
 		 */
 		template <typename T>
-		static std::array<T, 4> To4D(const T& _i, const std::array<T, 3>& _stride) {
+		static constexpr std::array<T, 4> To4D(const T& _i, const std::array<T, 3>& _stride) {
 			
 			static_assert(std::is_integral_v<T>, "Only integer types are allowed.");
 

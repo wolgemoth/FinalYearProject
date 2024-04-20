@@ -168,94 +168,87 @@ namespace LouiEriksson::Engine {
 			#define ANSI_BG_CYAN    "\033[46m"
 			#define ANSI_BG_WHITE   "\033[47m"
 			
-			try {
-				switch (_type) {
+			switch (_type) {
+				
+				case Critical: {
+					std::cout << ANSI_MAGENTA << _message << ANSI_RESET << '\a';
 					
-					case Critical: {
-						std::cout << ANSI_MAGENTA << _message << ANSI_RESET << '\a';
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
-						
-						break;
+					if (_inline) {
+						std::cout << std::flush;
 					}
-					case Error: {
-						std::cout << ANSI_RED << _message << ANSI_RESET;
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
-						
-						break;
+					else {
+						std::cout << std::endl;
 					}
-					case Warning: {
-						std::cout << ANSI_YELLOW << _message << ANSI_RESET;
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
-						
-						break;
+					
+					break;
+				}
+				case Error: {
+					std::cout << ANSI_RED << _message << ANSI_RESET;
+					
+					if (_inline) {
+						std::cout << std::flush;
 					}
-					case Info: {
-						std::cout << ANSI_CYAN << _message << ANSI_RESET;
-						
-						if (!_inline) {
-							std::cout << '\n';
-						}
-						
-						break;
+					else {
+						std::cout << std::endl;
 					}
-					case Debug: {
-						std::cout << ANSI_WHITE << _message << ANSI_RESET;
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
-						
-						break;
+					
+					break;
+				}
+				case Warning: {
+					std::cout << ANSI_YELLOW << _message << ANSI_RESET;
+					
+					if (_inline) {
+						std::cout << std::flush;
 					}
-					case Trace: {
-						std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
-						
-						break;
+					else {
+						std::cout << std::endl;
 					}
-					default: {
-						std::cout << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET;
-						
-						if (_inline) {
-							std::cout << std::flush;
-						}
-						else {
-							std::cout << std::endl;
-						}
+					
+					break;
+				}
+				case Info: {
+					std::cout << ANSI_CYAN << _message << ANSI_RESET;
+					
+					if (!_inline) {
+						std::cout << '\n';
+					}
+					
+					break;
+				}
+				case Debug: {
+					std::cout << ANSI_WHITE << _message << ANSI_RESET;
+					
+					if (_inline) {
+						std::cout << std::flush;
+					}
+					else {
+						std::cout << std::endl;
+					}
+					
+					break;
+				}
+				case Trace: {
+					std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
+					
+					if (_inline) {
+						std::cout << std::flush;
+					}
+					else {
+						std::cout << std::endl;
+					}
+					
+					break;
+				}
+				default: {
+					std::cout << ANSI_BG_MAGENTA << ANSI_BLACK << _message << ANSI_RESET;
+					
+					if (_inline) {
+						std::cout << std::flush;
+					}
+					else {
+						std::cout << std::endl;
 					}
 				}
-			}
-			catch (const std::exception& e) {
-				std::cerr << "ANSI_LOG_ERR: " << e.what() << std::endl;
-				
-				throw e;
 			}
 			
 			#undef ANSI_RESET

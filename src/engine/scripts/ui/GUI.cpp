@@ -1,6 +1,5 @@
 #include "GUI.h"
 
-#include "../core/Debug.h"
 #include "../core/Settings.h"
 #include "../core/Time.h"
 #include "../core/utils/Utils.h"
@@ -9,14 +8,12 @@
 #include "../input/Input.h"
 
 #include <glm/common.hpp>
-#include <glm/ext/vector_float2.hpp>
 
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <imgui.h>
 
 #include <SDL_scancode.h>
-#include <SDL_video.h>
 
 #include <array>
 #include <exception>
@@ -117,23 +114,23 @@ namespace LouiEriksson::Engine::UI {
 	void GUI::GUIWindows::DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
 		
 		// Initialise FPS sampling window.
-		static std::vector<float> s_Timestamps;
-		static std::vector<float> s_Samples;
+		static std::vector<tick_t> s_Timestamps;
+		static std::vector<scalar_t> s_Samples;
 		
-		static const auto s_Plot_SamplingWindowSize = 10.0;
-		static const auto  s_FPS_SamplingWindowSize =  0.5;
+		static constexpr tick_t s_Plot_SamplingWindowSize = 10.0;
+		static constexpr tick_t s_FPS_SamplingWindowSize =  0.5;
 		
 		// Append the current frame.
 		s_Timestamps.emplace_back(Time::Elapsed());
 		   s_Samples.emplace_back(1.0 / Time::UnscaledDeltaTime());
 		   
 		// Extract various values from the sampling window:
-		float oldest_avg_timestamp  = std::numeric_limits<float>::infinity(),
-			  oldest_plot_timestamp = std::numeric_limits<float>::infinity(),
-			  min_fps               = std::numeric_limits<float>::infinity(),
-		      max_fps               = 0.0,
-		      avg_fps               = 0.0,
-		      avg_fps_count         = 0.0;
+		tick_t oldest_avg_timestamp  = std::numeric_limits<tick_t>::infinity();
+		tick_t oldest_plot_timestamp = std::numeric_limits<tick_t>::infinity();
+		scalar_t min_fps             = std::numeric_limits<tick_t>::infinity();
+		scalar_t max_fps             = static_cast<tick_t>(0.0);
+		scalar_t avg_fps             = static_cast<tick_t>(0.0);
+		scalar_t avg_fps_count       = static_cast<tick_t>(0.0);
 		
 		for (size_t i = 0; i < s_Samples.size(); ++i) {
 			
@@ -165,7 +162,7 @@ namespace LouiEriksson::Engine::UI {
 			}
 		}
 		
-		avg_fps /= std::max(avg_fps_count, 1.0);
+		avg_fps /= std::max(avg_fps_count, static_cast<scalar_t>(1.0));
 		
 		// Diagnostics window:
 		if (_draw) {
@@ -173,8 +170,8 @@ namespace LouiEriksson::Engine::UI {
 			// Set default values (on first run):
 			if (const auto w = _window.lock()) {
 				
-	            const auto screenSize   = glm::vec2(w->Dimensions());
-				const auto windowSize   = ImVec2(300, 200);
+	            const auto screenSize = glm::vec2(w->Dimensions());
+				const auto windowSize = ImVec2(300, 200);
 				
 				ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
 				ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - s_WindowMargin.x, s_WindowMargin.y), ImGuiCond_Once);
@@ -194,7 +191,7 @@ namespace LouiEriksson::Engine::UI {
 			}
 			
 			// Perform set up for rendering the plot:
-			const float plot_vMargin = 15.0;
+			const scalar_t plot_vMargin = 15.0;
 		
 			auto cursor = ImGui::GetCursorPos();
 		
@@ -205,11 +202,11 @@ namespace LouiEriksson::Engine::UI {
 			
 			plot_size.y -= plot_vMargin;
 			
-			const auto bottom = plot_cursor.y + plot_size.y;
-			const auto right  = plot_cursor.x + plot_size.x;
-			const auto hMargin = 5.0;
+			const scalar_t bottom = plot_cursor.y + plot_size.y;
+			const scalar_t right  = plot_cursor.x + plot_size.x;
+			const scalar_t hMargin = 5.0;
 			
-			const auto range = max_fps - min_fps;
+			const scalar_t range = max_fps - min_fps;
 			
 			// Draw the main plot:
 			{
@@ -284,7 +281,7 @@ namespace LouiEriksson::Engine::UI {
 			 *     - Polling-rate for some consumer peripherals.
 			 *     - Likely pointless in most consumer use-cases.
 			 */
-			const std::vector<float> fps_ticks {
+			const std::vector<scalar_t> fps_ticks {
 				   1.0,   3.0,   6.0,  12.0,  24.0,   30.0,
 				  50.0,  60.0,  72.0,  90.0, 100.0,  120.0,
 				 144.0, 240.0, 360.0, 480.0, 500.0, 1000.0,
@@ -297,14 +294,14 @@ namespace LouiEriksson::Engine::UI {
 			
 			// Draw vertical lines for time plots.
 			{
-				const float t_interval = s_Plot_SamplingWindowSize / 4.0;
+				const scalar_t t_interval = s_Plot_SamplingWindowSize / 4.0;
 				
-				float t = Time::Elapsed();
+				tick_t t = Time::Elapsed();
 				
 				while (t > oldest_plot_timestamp) {
 					
 					// Compute the x offset of the line.
-					const auto x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), 0.0, plot_size.x);
+					const auto x_offset = Utils::Remap(t, oldest_plot_timestamp, Time::Elapsed(), static_cast<tick_t>(0.0), static_cast<tick_t>(plot_size.x));
 					
 					// Draw the line:
 					{
@@ -354,16 +351,16 @@ namespace LouiEriksson::Engine::UI {
 						{
 					        ImGui::SetCursorPos(plot_cursor);
 						
-							std::array<float, 2> tick { val, val };
+							std::array<scalar_t, 2> tick { val, val };
 							ImGui::PlotLines("", tick.data(), tick.size(), 0, nullptr, min_fps, max_fps, plot_size);
 						}
 						
 						// Add a label:
 						{
 						    ImGui::SetCursorPosX(plot_cursor.x);
-						    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(val, min_fps, max_fps, plot_size.y, 0.0));
+						    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(val, min_fps, max_fps, static_cast<scalar_t>(plot_size.y), static_cast<scalar_t>(0.0)));
 							
-					        ImGui::Text("%.1 fps", val);
+					        ImGui::Text("%.1f fps", val);
 						}
 					}
 				}
@@ -381,7 +378,7 @@ namespace LouiEriksson::Engine::UI {
 				{
 					ImGui::SetCursorPos(plot_cursor);
 					
-					std::array<float, 2> tick { avg_fps, avg_fps };
+					std::array<scalar_t, 2> tick { avg_fps, avg_fps };
 				    ImGui::PlotLines("", tick.data(), tick.size(), 0, nullptr, min_fps, max_fps, plot_size);
 				}
 				
@@ -399,7 +396,7 @@ namespace LouiEriksson::Engine::UI {
 					
 					// Draw the label, using its size to correctly align it on the screen.
 					ImGui::SetCursorPosX(right - textSize.x - hMargin);
-				    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(avg_fps, min_fps, max_fps, plot_size.y, 0.0));
+				    ImGui::SetCursorPosY(plot_cursor.y + Utils::Remap(avg_fps, min_fps, max_fps, static_cast<scalar_t>(plot_size.y), static_cast<scalar_t>(0.0)));
 			        ImGui::Text("%s", label.str().c_str());
 				}
 			}
@@ -407,11 +404,11 @@ namespace LouiEriksson::Engine::UI {
 			// Label the min fps.
 			ImGui::SetCursorPosX(cursor.x);
 		    ImGui::SetCursorPosY(bottom);
-	        ImGui::Text("%.1 fps", min_fps);
+	        ImGui::Text("%.1f fps", min_fps);
 			
 			// Label the max fps.
 		    ImGui::SetCursorPos(cursor);
-	        ImGui::Text("%.1 fps", max_fps);
+	        ImGui::Text("%.1f fps", max_fps);
 			
 			ImGui::End();
 		}
@@ -428,8 +425,8 @@ namespace LouiEriksson::Engine::UI {
 			ImGui::SetNextWindowSizeConstraints(
 				ImVec2(200.0, 0.0),
 				ImVec2(
-					std::numeric_limits<float>::infinity(),
-					std::numeric_limits<float>::infinity()
+					std::numeric_limits<scalar_t>::infinity(),
+					std::numeric_limits<scalar_t>::infinity()
 				)
 			);
 			
@@ -478,10 +475,10 @@ namespace LouiEriksson::Engine::UI {
 					
 				    if (target::s_Enabled) {
 						
-						ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001f, 0.0, 65535.0);
-						ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001f, 0.0, 65535.0);
-						ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001f, 0.0, 65535.0);
-						ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001f, 0.0, 65535.0);
+						ImGui::DragFloat("Intensity", &target::s_Intensity, 0.001, 0.0, 65535.0);
+						ImGui::DragFloat("Threshold", &target::s_Threshold, 0.001, 0.0, 65535.0);
+						ImGui::DragFloat("Clamp",     &target::s_Clamp,     0.001, 0.0, 65535.0);
+						ImGui::DragFloat("Lens Dirt", &target::s_LensDirt,  0.001, 0.0, 65535.0);
 						
 						ImGui::SliderFloat("Anamorphism", &target::s_Anamorphism, -1.0,  1.0);
 						ImGui::SliderFloat("Diffusion",   &target::s_Diffusion,    0.0, 10.0);
@@ -503,8 +500,8 @@ namespace LouiEriksson::Engine::UI {
 					
 				    if (target::s_Enabled) {
 						
-						ImGui::DragFloat("Gain",     &target::s_Gain,     0.001f);
-						ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f);
+						ImGui::DragFloat("Gain",     &target::s_Gain,     0.001);
+						ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001);
 						
 						/* AUTO-EXPOSURE */
 						ImGui::Checkbox("Auto Exposure", &target_autoExposure::s_Enabled);
@@ -516,7 +513,7 @@ namespace LouiEriksson::Engine::UI {
 							ImGui::SliderFloat("Min EV", &target_autoExposure::s_MinEV, 0.0, 9.0);
 							ImGui::SliderFloat("Max EV", &target_autoExposure::s_MaxEV, 0.0, 9.0);
 							
-							ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001f);
+							ImGui::DragFloat("Compensation", &target_autoExposure::s_Compensation, 0.001);
 							
 							ImGui::SliderFloat("Speed Down", &target_autoExposure::s_SpeedDown, 0.0, 10.0);
 							ImGui::SliderFloat("Speed Up",   &target_autoExposure::s_SpeedUp,   0.0, 10.0);
@@ -538,14 +535,14 @@ namespace LouiEriksson::Engine::UI {
 					 
 				    if (target::s_Enabled) {
 						
-						ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312f, 0.0833f);
-						ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063f,  0.333f);
+						ImGui::SliderFloat("Contrast Threshold",    &target::s_ContrastThreshold, 0.0312, 0.0833);
+						ImGui::SliderFloat("Relative Threshold",    &target::s_RelativeThreshold, 0.063,  0.333);
 						ImGui::SliderFloat("Subpixel Blending",     &target::s_SubpixelBlending,  0.0,    1.0);
 						ImGui::SliderFloat("Edge Blending",         &target::s_EdgeBlending,      0.0,    1.0);
 						
-						ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001f);
+						ImGui::DragFloat("Local Contrast Modifier", &target::s_LocalContrastModifier, 0.001);
 						
-						target::s_LocalContrastModifier = std::max(target::s_LocalContrastModifier, 0.0);
+						target::s_LocalContrastModifier = std::max(target::s_LocalContrastModifier, static_cast<scalar_t>(0.0));
 				    }
 					
 			        ImGui::TreePop(); // END ANTI-ALIASING SECTION.
@@ -602,8 +599,8 @@ namespace LouiEriksson::Engine::UI {
 			ImGui::SetNextWindowSizeConstraints(
 				ImVec2(200.0, 0.0),
 				ImVec2(
-					std::numeric_limits<float>::infinity(),
-					std::numeric_limits<float>::infinity()
+					std::numeric_limits<scalar_t>::infinity(),
+					std::numeric_limits<scalar_t>::infinity()
 				)
 			);
 			
@@ -628,8 +625,8 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::Combo("V-Sync", &target_vsync::s_CurrentSelection, target_vsync::s_AvailableOptions.data(), static_cast<int>(target_vsync::s_AvailableOptions.size()));
 				}
 				
-				ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005f, 180.0);
-				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1, 0.005f, 65535.0);
+				ImGui::SliderFloat("FOV", &target_perspective::s_FOV, 0.005, 180.0);
+				ImGui::DragFloat("NearClip", &target_perspective::s_NearClip, 0.1, 0.005, 65535.0);
 				ImGui::DragFloat("FarClip", &target_perspective::s_FarClip, 0.1, target_perspective::s_NearClip, 65535.0);
 				
 		        ImGui::TreePop(); // END CAMERA SECTION.
@@ -651,7 +648,7 @@ namespace LouiEriksson::Engine::UI {
 				}
 				
 				ImGui::SliderFloat("Blur", &target::s_Blur, 0.0, 1.0);
-				ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001f, 0.0, 65535.0);
+				ImGui::DragFloat("Exposure", &target::s_Exposure, 0.001, 0.0, 65535.0);
 				
 		        ImGui::TreePop(); // END SKYBOX SECTION.
 		    }
@@ -672,7 +669,7 @@ namespace LouiEriksson::Engine::UI {
 				}
 				
 				if (ImGui::CollapsingHeader("Parameters")) {
-					ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001f);
+					ImGui::DragFloat4("Texture Scale and Translate", &target::s_TextureScaleTranslate[0], 0.001);
 				}
 				
 				if (ImGui::CollapsingHeader("Shadows")) {
@@ -692,7 +689,7 @@ namespace LouiEriksson::Engine::UI {
 					
 					// PCSS-only:
 					if (target::s_CurrentShadowTechnique == 3) {
-						ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001f, 0.0, 65535.0);
+						ImGui::DragFloat("Light Size", &target::s_LightSize, 0.001, 0.0, 65535.0);
 					}
 					
 					ImGui::Checkbox("Parallax Shadows", &target::s_ParallaxShadows);

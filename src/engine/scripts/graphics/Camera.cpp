@@ -6,6 +6,7 @@
 #include "../core/Settings.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
+#include "../core/Defaults.h"
 #include "../core/utils/Utils.h"
 #include "../core/Window.h"
 #include "../ecs/GameObject.h"
@@ -95,7 +96,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		if (const auto w = GetWindow().lock()) {
 		
-			if ((static_cast<unsigned int>(_flags) & static_cast<unsigned int>(RenderFlags::REINITIALISE)) != 0u) {
+			if ((_flags & RenderFlags::REINITIALISE) != 0u) {
 				
 				// Reinitialise the g-buffer:
 				const auto& dimensions = w->Dimensions();
@@ -410,7 +411,7 @@ namespace LouiEriksson::Engine::Graphics {
 						const auto lightType = (Light::Parameters::Type)Settings::Graphics::Material::s_CurrentLightType;
 						
 						const auto lightPos = lightType == Light::Parameters::Type::Directional ?
-								t->Position() + (VEC_FORWARD * glm::inverse(glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation))) * 65535.0) :
+								t->Position() + (VEC_FORWARD * glm::inverse(glm::quat(glm::radians(Settings::Graphics::Material::s_LightRotation))) * static_cast<scalar_t>(65535.0)) :
 								Settings::Graphics::Material::s_LightPosition;
 						
 						p->Assign(u_LightPosition, lightPos);
@@ -582,7 +583,7 @@ namespace LouiEriksson::Engine::Graphics {
 						// to reduce an artifact known as "shimmering".
 						const float texelSize = l->m_Range / static_cast<float>((l->m_Shadow.m_Resolution / 4));
 						
-						const auto lightDir = VEC_FORWARD * l->m_Transform.lock()->m_Rotation;
+						const auto lightDir = VEC_FORWARD * l->m_Transform.lock()->Rotation();
 						
 						glm::vec3 lightPos;
 						{
@@ -758,7 +759,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Assign other material parameters:
 					const auto u_Time = p->AttributeID("u_Time");
 					if (u_Time != -1) {
-						p->Assign(u_Time, Time::Elapsed());
+						p->Assign(u_Time, Time::Elapsed<GLfloat>());
 					}
 					
 					{
@@ -860,10 +861,12 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_LightSize"), l->m_Size);
 								
 								p->Assign(p->AttributeID("u_LightAngle"),
-									glm::cos(glm::radians(
-										l->Type() == Light::Parameters::Type::Spot ?
-											l->m_Angle * 0.5 :
-											180.0
+									static_cast<GLfloat>(
+										glm::cos(glm::radians(
+											l->Type() == Light::Parameters::Type::Spot ?
+												l->m_Angle / 2 :
+												180.0
+											)
 										)
 									)
 								);
@@ -985,7 +988,7 @@ namespace LouiEriksson::Engine::Graphics {
 					static const auto   u_Time = g->AttributeID("u_Time");
 					
 					g->Assign(u_Amount, Settings::PostProcessing::Grain::s_Intensity);
-					g->Assign(  u_Time, Time::Elapsed());
+					g->Assign(  u_Time, Time::Elapsed<GLfloat>());
 					
 					effects.push(g);
 				}
@@ -1043,9 +1046,12 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		// DRAW:
-		Shader::Bind(s_Passthrough.lock()->ID());
-		if (const auto q = Mesh::Primitives::Quad<GLfloat>::Instance().lock()) {
-			Draw(*q);
+		if (const auto p = s_Passthrough.lock()) {
+			
+			Shader::Bind(p->ID());
+			if (const auto q = Mesh::Primitives::Quad<GLfloat>::Instance().lock()) {
+				Draw(*q);
+			}
 		}
 		
 		// Reset gamma correction.
@@ -1075,9 +1081,11 @@ namespace LouiEriksson::Engine::Graphics {
 			  
 			// Optionally, use a multiplier proportional to the screen's resolution to
 			// keep the blur effect consistent across a range of different resolutions.
-	        const float dpiFactor = _consistentDPI ?
-	            glm::sqrt(dimensions.x * dimensions.y) * (1.0 / 3000.0) : // (1.0 / 3000.0) is an arbitrary value I chose by eye.
-	            1.0;
+	        const auto dpiFactor = static_cast<scalar_t>(
+				_consistentDPI ?
+	                glm::sqrt(dimensions.x * dimensions.y) * (1.0 / 3000.0) : // (1.0 / 3000.0) is an arbitrary value I chose by eye.
+                    1.0
+			);
 	
 	        float rootIntensity, scalar, aspectCorrection;
 	
@@ -1090,13 +1098,13 @@ namespace LouiEriksson::Engine::Graphics {
 	        else {
 	               rootIntensity = glm::sqrt(_intensity);
 	                      scalar = glm::sqrt(rootIntensity);
-	            aspectCorrection = glm::sqrt(dimensions.x / (float)dimensions.y);
+	            aspectCorrection = glm::sqrt(dimensions.x / static_cast<float>(dimensions.y));
 	        }
 	
 			static RenderTexture tmp(1, 1, _rt.Format(), Texture::Parameters::FilterMode(GL_LINEAR, GL_LINEAR), _rt.WrapMode(), RenderTexture::Parameters::DepthMode::NONE);
 			
 			if (_highQuality) {
-				tmp.Reinitialise((int)dimensions.x, (int)dimensions.y);
+				tmp.Reinitialise(static_cast<int>(dimensions.x), static_cast<int>(dimensions.y));
 			}
 			
 			// Perform a blur pass:
@@ -1108,16 +1116,16 @@ namespace LouiEriksson::Engine::Graphics {
 	            
 				// Init width, height and size.
 	            if (_highQuality) {
-	                width  = (int)dimensions.x;
-	                height = (int)dimensions.y;
+	                width  = static_cast<int>(dimensions.x);
+	                height = static_cast<int>(dimensions.y);
 	                
-	                size = (float)std::pow(1.618f, i + 1) * _intensity;
+	                size = static_cast<float>(std::pow(1.618, i + 1) * _intensity);
 	            }
 	            else {
-	                width  = (int)glm::ceil(dimensions.x / std::pow(2.0, (float)i / 2 * scalar));
-	                height = (int)glm::ceil(dimensions.y / std::pow(2.0, (float)i / 2 * scalar) * aspectCorrection);
+	                width  = static_cast<int>(glm::ceil(dimensions.x / std::pow(2.0, static_cast<float>(i) / 2 * scalar)));
+	                height = static_cast<int>(glm::ceil(dimensions.y / std::pow(2.0, static_cast<float>(i) / 2 * scalar) * aspectCorrection));
 	                
-	                size = (float)i * rootIntensity;
+	                size = static_cast<float>(i) * rootIntensity;
 					
 					tmp.Reinitialise(width, height);
 	            }
@@ -1194,14 +1202,14 @@ namespace LouiEriksson::Engine::Graphics {
 					avg = 0.0;
 				}
 				
-				avg = avg / (float)std::max(avg_count, 1);
+				avg = avg / static_cast<float>(std::max(avg_count, 1));
 				
 				// Get difference between current exposure and average luma.
-				const float diff = std::clamp(
+				const auto diff = static_cast<scalar_t>(std::clamp(
 					(Settings::PostProcessing::ToneMapping::s_Exposure + target::s_Compensation) - avg,
 					-1.0,
 					1.0
-				);
+				));
 				
 				// Determine the speed to change exposure by:
 				const float speed = (diff - m_Exposure) >= 0 ?
@@ -1260,20 +1268,20 @@ namespace LouiEriksson::Engine::Graphics {
 				static const auto               u_VP = ao->AttributeID("u_VP"      );
 				
 				// Assign program values:
-				ao->Assign( u_Samples, Settings::PostProcessing::AmbientOcclusion::s_Samples);
-				ao->Assign(u_Strength,           Settings::PostProcessing::AmbientOcclusion::s_Intensity    );
-				ao->Assign(    u_Bias, -std::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, 0.2));
-				ao->Assign(  u_Radius,           Settings::PostProcessing::AmbientOcclusion::s_Radius       );
+				ao->Assign( u_Samples,           Settings::PostProcessing::AmbientOcclusion::s_Samples                         );
+				ao->Assign(u_Strength,           Settings::PostProcessing::AmbientOcclusion::s_Intensity                       );
+				ao->Assign(    u_Bias, -std::min(Settings::PostProcessing::AmbientOcclusion::s_Radius, static_cast<float>(0.2)));
+				ao->Assign(  u_Radius,           Settings::PostProcessing::AmbientOcclusion::s_Radius                          );
 				
-				ao->Assign(u_NearClip, m_NearClip           );
-				ao->Assign( u_FarClip, m_FarClip            );
-				ao->Assign(    u_Time, Time::Elapsed()      );
-				ao->Assign(      u_VP, m_Projection * View());
+				ao->Assign(u_NearClip, m_NearClip              );
+				ao->Assign( u_FarClip, m_FarClip               );
+				ao->Assign(    u_Time, Time::Elapsed<GLfloat>());
+				ao->Assign(      u_VP, m_Projection * View()   );
 				
 				/* ASSIGN G-BUFFERS */
 				ao->AssignDepth(u_Position_gBuffer, m_Position_gBuffer, 0);
-				ao->Assign(u_Position_gBuffer, m_Position_gBuffer, 1);
-				ao->Assign(u_Normal_gBuffer, m_Normal_gBuffer, 2);
+				ao->Assign(     u_Position_gBuffer, m_Position_gBuffer, 1);
+				ao->Assign(       u_Normal_gBuffer,   m_Normal_gBuffer, 2);
 				
 				// Set the viewport resolution to the scale of the AO render target.
 				glViewport(viewport[0], viewport[1], m_AO_RT.Width(), m_AO_RT.Height());
@@ -1390,7 +1398,7 @@ namespace LouiEriksson::Engine::Graphics {
 						// Create the diffusion vector for the bloom algorithm:
 						static const auto u_Diffusion = upscale_shader->AttributeID("u_Diffusion");
 						
-						const auto t = Utils::Remap(target::s_Anamorphism, -1.0, 1.0, 0.0, 1.0);
+						const auto t = Utils::Remap(target::s_Anamorphism, static_cast<scalar_t>(-1.0), static_cast<scalar_t>(1.0), static_cast<scalar_t>(0.0), static_cast<scalar_t>(1.0));
 					
 						const auto d = std::min((1.0 / std::log2(target::s_Diffusion + 1.0)), 1.0) * 6.0;
 						
@@ -1423,7 +1431,7 @@ namespace LouiEriksson::Engine::Graphics {
 						static const auto u_Texture0 = combine_shader->AttributeID("u_Texture0");
 						static const auto u_Texture1 = combine_shader->AttributeID("u_Texture1");
 						
-						combine_shader->Assign(u_Strength, target::s_Intensity / std::max((float)m_Bloom_MipChain.size() - 1, 1.0));
+						combine_shader->Assign(u_Strength, target::s_Intensity / std::max(static_cast<float>(m_Bloom_MipChain.size()) - 1, static_cast<float>(1.0)));
 						combine_shader->Assign(u_Texture0, m_RT, 0);
 						combine_shader->Assign(u_Texture1, m_Bloom_MipChain[0], 1);
 					}

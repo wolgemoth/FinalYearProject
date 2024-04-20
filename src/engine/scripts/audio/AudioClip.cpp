@@ -109,10 +109,15 @@ namespace LouiEriksson::Engine::Audio {
 	
 	void AudioClip::Dispose() {
 		
-		m_Samples.Free();
-		
-		// Delete the buffer.
-		if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
+		try {
+			m_Samples.Free();
+			
+			// Delete the buffer.
+			if (m_ALBuffer != AL_NONE) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = AL_NONE; }
+		}
+		catch (const std::exception& e) {
+			Debug::Log(e, LogType::Critical);
+		}
 	}
 	
 } // LouiEriksson::Engine::Audio

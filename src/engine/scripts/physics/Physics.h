@@ -1,9 +1,9 @@
 #ifndef FINALYEARPROJECT_PHYSICS_H
 #define FINALYEARPROJECT_PHYSICS_H
 
+#include "../core/Defaults.h"
+
 #include "LinearMath/btScalar.h"
-#include <LinearMath/btIDebugDraw.h>
-#include <LinearMath/btVector3.h>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseInterface.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
@@ -11,6 +11,8 @@
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <glm/ext/vector_float3.hpp>
+#include <LinearMath/btIDebugDraw.h>
+#include <LinearMath/btVector3.h>
 
 #include <memory>
 
@@ -82,16 +84,16 @@ namespace LouiEriksson::Engine::Physics {
 		inline static std::shared_ptr<btDiscreteDynamicsWorld>             s_DynamicsWorld; /**< @brief (Bullet Physics) Dynamics world instance.         */
 		
  		/** @brief Value of gravity. */
- 		inline static glm::vec3 s_Gravity { 0.0, -9.82f, 0.0 };
+ 		inline static glm::vec3 s_Gravity { 0.0, -9.82, 0.0 };
 		
 		/** @brief Time in seconds since the physics engine was last updated. */
-		inline static float s_LastTick { 0.0 };
+		inline static tick_t s_LastTick { 0.0 };
 		
 		/** @brief Initialise the physics engine.*/
 		static void Init();
 		
 		/** @brief Update the physics simulation by one step. */
-		static void Tick(const float& _step);
+		static void Tick(const tick_t& _step);
 		
 		/**
 		 * @brief Set the value of gravity within the simulation.

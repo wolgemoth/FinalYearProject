@@ -4,6 +4,7 @@
 #include "../../physics/Collider.h"
 
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
+#include <LinearMath/btScalar.h>
 
 #include <memory>
 
@@ -16,7 +17,7 @@ namespace LouiEriksson::Engine::Physics {
 	}
 	SphereCollider::~SphereCollider() = default;
 	
-	void SphereCollider::Radius(const float& _radius) {
+	void SphereCollider::Radius(const btScalar& _radius) {
 		
 		// Get derived class from collision shape (as sphere shape).
 		const auto sphereCollider = std::static_pointer_cast<btSphereShape>(m_CollisionShape);
@@ -24,7 +25,7 @@ namespace LouiEriksson::Engine::Physics {
 		// Set the collider's radius.
 		sphereCollider->setUnscaledRadius(_radius);
 	}
-	float SphereCollider::Radius() const {
+	btScalar SphereCollider::Radius() const {
 		
 		// Get derived class from collision shape (as sphere shape).
 		const auto sphereCollider = std::static_pointer_cast<btSphereShape>(m_CollisionShape);

@@ -73,11 +73,11 @@ namespace LouiEriksson::Engine::Physics {
 			bool m_UseGravity; /** @brief Whether or not the Rigidbody is affected by gravity.                          */
 			bool m_Continuous; /** @brief Whether or not the Rigidbody should use continuous collision detection (CCD). */
 			
-			float m_Mass;        /** @brief Mass of the Rigidbody.         */
-			float m_Drag;        /** @brief Drag of the Rigidbody.         */
-			float m_AngularDrag; /** @brief Angular drag of the Rigidbody. */
-			float m_Friction;    /** @brief Friction of the Rigidbody.     */
-			float m_Bounciness;  /** @brief Bounciness of the Rigidbody.   */
+			btScalar m_Mass;        /** @brief Mass of the Rigidbody.         */
+			btScalar m_Drag;        /** @brief Drag of the Rigidbody.         */
+			btScalar m_AngularDrag; /** @brief Angular drag of the Rigidbody. */
+			btScalar m_Friction;    /** @brief Friction of the Rigidbody.     */
+			btScalar m_Bounciness;  /** @brief Bounciness of the Rigidbody.   */
 			
 			btVector3 m_Inertia; /** @brief Resistance of object to changes in angular velocity. */
 			
@@ -286,37 +286,37 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @param[in] _value The new mass value for the Rigidbody.
 		 */
-		void Mass(const float& _value);
+		void Mass(const btScalar& _value);
 		
 		/**
 		 * @brief Get the mass of the Rigidbody.
 		 * @return The mass of the Rigidbody.
 		 */
-		[[nodiscard]] const float& Mass() const noexcept;
+		[[nodiscard]] const btScalar& Mass() const noexcept;
 		
 		/**
 		 * @brief Set the drag of the Rigidbody.
 		 * @param[in] _value The new drag value.
 		 */
-		void Drag(const float& _value);
+		void Drag(const btScalar& _value);
 		
 		/**
 		 * @brief Get the drag of the Rigidbody.
-		 * @return The value of the drag as a const reference to a float.
+		 * @return The value of the drag as a const reference to a btScalar.
 		 */
-		[[nodiscard]] const float& Drag() const noexcept;
+		[[nodiscard]] const btScalar& Drag() const noexcept;
 		
 		/**
 		 * @brief Set the angular drag of the Rigidbody.
 		 * @param[in] _value The value to set the angular drag to.
 		 */
-		void AngularDrag(const float& _value);
+		void AngularDrag(const btScalar& _value);
 		
 		/**
 		 * @brief Get the angular drag of the Rigidbody.
-		 * @return const float& The angular drag value.
+		 * @return const btScalar& The angular drag value.
 		 */
-		[[nodiscard]] const float& AngularDrag() const noexcept;
+		[[nodiscard]] const btScalar& AngularDrag() const noexcept;
 		
 		/**
 		 * @brief Set the friction of the Rigidbody.
@@ -328,13 +328,13 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @note The friction value must be non-negative.
 		 */
-		void Friction(const float& _value);
+		void Friction(const btScalar& _value);
 		
 		/**
 		 * @brief Get the friction of the Rigidbody.
 		 * @return The friction of the Rigidbody.
 		 */
-		[[nodiscard]] const float& Friction() const noexcept;
+		[[nodiscard]] const btScalar& Friction() const noexcept;
 		
 		/**
 		 * @brief Set the bounciness of the Rigidbody.
@@ -344,13 +344,13 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @param[in] _value The bounciness value to be set. It should be a positive value.
 		 */
-		void Bounciness(const float& _value);
+		void Bounciness(const btScalar& _value);
 		
 		/**
 		 * @brief Get the bounciness of the Rigidbody.
-		 * @return const float& Returns a reference to the bounciness value.
+		 * @return const btScalar& Returns a reference to the bounciness value.
 		 */
-		[[nodiscard]] const float& Bounciness() const noexcept;
+		[[nodiscard]] const btScalar& Bounciness() const noexcept;
 		
 	};
 	

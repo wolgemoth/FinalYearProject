@@ -31,8 +31,8 @@ namespace LouiEriksson::Engine::UI {
 		struct Parameters final {
 			
 			enum Style : unsigned char {
-				Dark  = 0u,      /**< @brief  Dark theme. */
-				Light = 1u << 0u /**< @brief Light theme. */
+				Dark  = 0u, /**< @brief  Dark theme. */
+				Light = 1u, /**< @brief Light theme. */
 			};
 			
 		};

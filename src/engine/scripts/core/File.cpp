@@ -72,16 +72,13 @@ namespace LouiEriksson::Engine {
 		
 		for (const auto& item : itr) {
 			
-			bool append;
+			bool append = item.is_directory() ?
+					(_type & File::Directory::EntryType::DIRECTORY) != 0u :
+					(_type & File::Directory::EntryType::FILE     ) != 0u;
 			
-			if (item.is_directory()) {
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::DIRECTORY)) != 0u);
+			if (append) {
+			    result.emplace_back(item);
 			}
-			else {
-				append = ((static_cast<unsigned int>(_type) & static_cast<unsigned int>(File::Directory::EntryType::FILE)) != 0u);
-			}
-			
-			if (append) { result.emplace_back(item); }
 		}
 		
 		return result;
@@ -102,10 +99,10 @@ namespace LouiEriksson::Engine {
 				// Append all subdirectories to a vector.
 				subDirectories.emplace_back(item);
 				
-				append = ((_type & File::Directory::EntryType::DIRECTORY) != 0u);
+				append = (_type & File::Directory::EntryType::DIRECTORY) != 0u;
 			}
 			else {
-				append = ((_type & File::Directory::EntryType::FILE) != 0u);
+				append = (_type & File::Directory::EntryType::FILE) != 0u;
 			}
 			
 			// Append entries of requested type to result.

@@ -101,15 +101,12 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/File.h
         src/engine/scripts/core/Resources.cpp
         src/engine/scripts/core/Resources.h
-        src/engine/scripts/core/Screen.cpp
-        src/engine/scripts/core/Screen.h
         src/engine/scripts/core/Script.cpp
         src/engine/scripts/core/Script.h
         src/engine/scripts/core/Serialisation.cpp
         src/engine/scripts/core/Serialisation.h
         src/engine/scripts/core/Settings.cpp
         src/engine/scripts/core/Settings.h
-        src/engine/scripts/core/Time.cpp
         src/engine/scripts/core/Time.h
         src/engine/scripts/core/Transform.cpp
         src/engine/scripts/core/Transform.h
@@ -160,7 +157,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/physics/Physics.h
         src/engine/scripts/physics/Rigidbody.cpp
         src/engine/scripts/physics/Rigidbody.h
-        src/engine/scripts/spatial/atmosphere/ISA.cpp
         src/engine/scripts/spatial/atmosphere/ISA.h
         src/engine/scripts/spatial/elevation/Elevation.cpp
         src/engine/scripts/spatial/elevation/Elevation.h
@@ -168,7 +164,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h
         src/engine/scripts/spatial/maths/Conversions.cpp
         src/engine/scripts/spatial/maths/Conversions.h
-        src/engine/scripts/spatial/maths/Coords.cpp
         src/engine/scripts/spatial/maths/Coords.h
         src/engine/scripts/spatial/meshing/Builder.cpp
         src/engine/scripts/spatial/meshing/Builder.h
@@ -177,14 +172,13 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.cpp
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
         src/engine/scripts/spatial/planets/VSOP.h
-        src/engine/scripts/spatial/planets/WGCCRE.cpp
         src/engine/scripts/spatial/planets/WGCCRE.h
         src/engine/scripts/spatial/stars/ATHYG.cpp
         src/engine/scripts/spatial/stars/ATHYG.h
         src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
-        src/engine/scripts/graphics/TextureCPU.cpp
         src/engine/scripts/graphics/TextureCPU.h
+        src/engine/scripts/core/Defaults.h
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

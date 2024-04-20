@@ -5,7 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <string>
-#include <utility>
+#include <string_view>
 
 namespace LouiEriksson::Engine::Spatial {
 	

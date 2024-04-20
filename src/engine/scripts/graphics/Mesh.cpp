@@ -82,7 +82,7 @@ namespace LouiEriksson::Engine::Graphics {
 	const GLuint& Mesh::TangentVBO_ID()    const noexcept { return   m_TangentVBO_ID; }
 	const GLuint& Mesh::BitangentVBO_ID()  const noexcept { return m_BitangentVBO_ID; }
 	
-	const size_t& Mesh::VertexCount() const noexcept { return m_VertexCount; }
-	const size_t& Mesh:: IndexCount() const noexcept { return  m_IndexCount; }
+	const GLuint& Mesh::VertexCount() const noexcept { return m_VertexCount; }
+	const GLuint& Mesh:: IndexCount() const noexcept { return  m_IndexCount; }
 	
 } // LouiEriksson::Engine::Graphics

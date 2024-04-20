@@ -81,7 +81,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 				
 					Calculate(_height, _state, ctr);
 					
-					for (auto i = 0; i < s_A_Val.size(); ++i) {
+					for (size_t i = 0; i < s_A_Val.size(); ++i) {
 						
 						if (_height > s_Alt[ctr]) {
 		            
@@ -110,19 +110,19 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	private:
 		
         /* CONSTANTS */
-        static constexpr T s_G = 9.80665f; // Acceleration due to gravity
+        static constexpr T s_G = 9.80665; // Acceleration due to gravity
         static constexpr T s_R = 287.0;   // Molar gas constant for air
-        static constexpr T s_E = 2.71828f; // Euler's constant
+        static constexpr T s_E = 2.71828; // Euler's constant
 
 		/** @brief Temperature gradient in Kelvin per metre. */
         static constexpr const std::array<T, 8> s_A_Val {
-			-0.0065f,
+			-0.0065,
 			 0,
-			 0.0010f,
-			 0.0028f,
+			 0.0010,
+			 0.0028,
 			 0,
-			-0.0028f,
-			-0.0020f,
+			-0.0028,
+			-0.0020,
 			 0
 		};
 

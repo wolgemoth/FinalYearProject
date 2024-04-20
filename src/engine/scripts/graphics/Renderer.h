@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @return A weak pointer to the Mesh object.
 		 */
-		const std::weak_ptr<Mesh> GetMesh() noexcept;
+		std::weak_ptr<Mesh> GetMesh() noexcept;
 		
 		/**
 		 * @brief Set the Material of the Renderer.

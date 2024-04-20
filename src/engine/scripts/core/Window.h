@@ -34,6 +34,7 @@ namespace LouiEriksson::Engine {
 	
 		std::shared_ptr<SDL_Window> m_Window;
 	
+		// TODO: Fix this. This is stupid.
 		Hashmap<size_t, std::reference_wrapper<Graphics::Camera>> m_Cameras;
 	
 		void   Link(Graphics::Camera& _camera);

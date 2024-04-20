@@ -14,7 +14,6 @@
 
 #include <glm/common.hpp>
 #include <glm/ext/vector_int2.hpp>
-#include <glm/ext/vector_float2.hpp>
 
 #include <algorithm>
 #include <exception>
@@ -36,7 +35,7 @@ namespace LouiEriksson::Engine::Input {
 	bool Input::Key::State::Get(const SDL_Scancode& _value) const {
 		return s_Data == nullptr ?
 		       false :
-			   s_Data[static_cast<SDL_Scancode>(glm::min(static_cast<int>(_value), s_Length))] != 0u;
+			   s_Data[static_cast<SDL_Scancode>(std::min(static_cast<int>(_value), s_Length))] != 0u;
 	}
 	
 	Hashmap<Uint32, std::vector<SDL_Event>>::optional Input::Event::Get(const Uint32& _event) noexcept {
@@ -196,7 +195,7 @@ namespace LouiEriksson::Engine::Input {
 			glm::ivec2 delta;
 			
 			Input::Mouse::s_MouseState = SDL_GetRelativeMouseState(&delta.x, &delta.y);
-			Input::Mouse::s_Motion = (static_cast<glm::vec2>(delta) / Time::UnscaledDeltaTime() / 1000.0f) * 0.1f;
+			Input::Mouse::s_Motion = (static_cast<glm::vec2>(delta) / Time::UnscaledDeltaTime<scalar_t>() / static_cast<scalar_t>(1000.0)) * static_cast<scalar_t>(0.1);
 		}
 		
 		/* HANDLE KEYBOARD STATES */

@@ -2,7 +2,6 @@
 
 #include "../core/Transform.h"
 #include "../core/Resources.h"
-#include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 
 #include "Material.h"
@@ -31,7 +30,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Mesh = m;
 		}
 	}
-	const std::weak_ptr<Mesh> Renderer::GetMesh() noexcept {
+	std::weak_ptr<Mesh> Renderer::GetMesh() noexcept {
 		return m_Mesh;
 	}
 	

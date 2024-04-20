@@ -1,7 +1,7 @@
 #include "Physics.h"
 
-#include "../core/Time.h"
 #include "../core/Debug.h"
+#include "../core/Time.h"
 
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
@@ -152,12 +152,12 @@ namespace LouiEriksson::Engine::Physics {
 		}
 	}
 	
-	void Physics::Tick(const float& _step) {
+	void Physics::Tick(const tick_t& _step) {
 		
-		s_DynamicsWorld->stepSimulation(_step, 1, glm::max(Time::FixedDeltaTime(), __FLT_EPSILON__));
+		s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
 		
-		if (_step != 0.0f) {
-			s_LastTick = 0.0f;
+		if (_step != 0.0) {
+			s_LastTick = 0.0;
 		}
 	}
 	

@@ -16,13 +16,23 @@ namespace LouiEriksson::Engine::Spatial {
 			glm::vec<3, T, P> m_Spherical;
 			glm::vec<3, T, P> m_Cartesian;
 			glm::qua<   T, P> m_Rotation;
+			
+			constexpr Position(const glm::vec<3, T, P>& _spherical, const glm::vec<3, T, P>& _cartesian, const glm::vec<3, T, P>& _rotation) noexcept :
+				m_Spherical(_spherical),
+				m_Cartesian(_cartesian),
+				m_Rotation (_rotation ) {}
+			
+			constexpr Position() noexcept :
+				m_Spherical{},
+				m_Cartesian{},
+				m_Rotation{} {}
 		};
 		
 		struct V87 final {
 			
 			struct A final {
 				
-				static Position GetSol(const double& _time) {
+				static Position GetSol() {
 					return {
 						{},
 						{ 0.0, 0.0, 0.0 },

@@ -165,7 +165,7 @@ namespace LouiEriksson::Engine {
 	
 	void Window::Unlink(Graphics::Camera& _camera) noexcept {
 		_camera.m_Window.reset();
-		m_Cameras.Remove((int)(size_t)&_camera);
+		m_Cameras.Remove(reinterpret_cast<size_t>(&_camera));
 	}
 	
 	void Window::SetDirty() {

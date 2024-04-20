@@ -9,8 +9,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	void Stars::Begin() {
 		
 		// Change the settings to allow us to see!
-		Settings::Graphics::Perspective::s_FarClip = 40000.0f;
-		Settings::Graphics::Skybox::s_Exposure     = 0.0f;
+		Settings::Graphics::Perspective::s_FarClip = 40000.0;
+		Settings::Graphics::Skybox::s_Exposure     = 0.0;
 		
 		// Parse files and build star mesh:
 		const auto stars = LoadStars({
@@ -23,7 +23,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Debug::Log("Spawning " + std::to_string(stars->VertexCount()) + " stars... ", LogType::Info, true);
 		
 		/* SET STAR SIZE */
-		glPointSize(2.0f);
+		glPointSize(2.0);
 		
 		// Spawn stars:
 		try {

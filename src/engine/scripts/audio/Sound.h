@@ -82,14 +82,14 @@ namespace LouiEriksson::Engine::Audio {
 		 * @see SpeedOfSound()
 		 * @warning This function modifies the doppler factor for all audio sources in the audio engine.
 		 */
-		static void DopplerFactor(const float& _value);
+		static void DopplerFactor(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the doppler factor used by the audio engine.
 		 * @note This function returns the doppler factor value used by the audio engine.
 		 * @return The doppler factor used by the audio engine.
 		 */
-		[[nodiscard]] static float DopplerFactor() ;
+		[[nodiscard]] static ALfloat DopplerFactor() ;
 		
 		/**
 		 * @brief Set the speed of sound used by the audio engine.
@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @note The value must be greater than or equal to zero.
 		 * @see DopplerFactor()
 		 */
-		static void SpeedOfSound(const float& _value);
+		static void SpeedOfSound(const ALfloat& _value);
 		
 		/**
 		 * @brief Get the speed of sound used by the audio engine.
@@ -112,7 +112,7 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @see Sound::DopplerFactor()
 		 */
-		[[nodiscard]] static float SpeedOfSound() ;
+		[[nodiscard]] static ALfloat SpeedOfSound() ;
 		
 		/**
 		 * @brief Finalise the audio subsystems.

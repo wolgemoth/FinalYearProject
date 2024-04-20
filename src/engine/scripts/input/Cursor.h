@@ -24,7 +24,7 @@ namespace LouiEriksson::Engine::Input {
 			/**
 			 * @brief Enumeration representing different ways the Cursor's movement can be restricted.
 			 */
-			enum LockMode : char {
+			enum LockMode : unsigned char {
 				Absolute, /**< @brief The Cursor is free to move without restriction. */
 				Relative, /**< @brief The Cursor's position is confined to the window. */
 				Centered  /**< @brief The Cursor's position is locked to the center of the window. */

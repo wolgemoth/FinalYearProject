@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_SETTINGS_H
 #define FINALYEARPROJECT_SETTINGS_H
 
+#include "Defaults.h"
+
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float4.hpp>
 
@@ -75,9 +77,9 @@ namespace LouiEriksson::Engine {
 			/** @brief Container for the settings of the camera. */
 			struct Perspective final {
 				
-				inline static float      s_FOV { 60.0 };
-				inline static float s_NearClip { 0.01 };
-				inline static float  s_FarClip { 60.0 };
+				inline static scalar_t      s_FOV { 60.0 };
+				inline static scalar_t s_NearClip { 0.01 };
+				inline static scalar_t  s_FarClip { 60.0 };
 			};
 			
 			/** @brief Container for the settings of the application's skybox. */
@@ -98,8 +100,8 @@ namespace LouiEriksson::Engine {
 				static void UpdateSkybox(const int& _index);
 				
 				/* PARAMETERS */
-				inline static float s_Blur     { 0.0 };
-				inline static float s_Exposure { 1.0 };
+				inline static scalar_t s_Blur     { 0.0 };
+				inline static scalar_t s_Exposure { 1.0 };
 				
 			};
 			
@@ -147,8 +149,8 @@ namespace LouiEriksson::Engine {
 				
 				inline static int s_ShadowSamples { 12 };
 				
-				inline static float s_ShadowBias       { 0.01 };
-				inline static float s_ShadowNormalBias { 0.02 };
+				inline static scalar_t s_ShadowBias       { 0.01 };
+				inline static scalar_t s_ShadowNormalBias { 0.02 };
 				
 				inline static bool s_ParallaxShadows { true };
 				
@@ -164,10 +166,10 @@ namespace LouiEriksson::Engine {
 			    inline static glm::vec3 s_LightPosition   {   0.0,  2.5,  0.0   }; /**< @brief Position of light in world-space.     */
 			    inline static glm::vec3 s_LightRotation   { -45.0, 45.0,  0.0   }; /**< @brief Position of light in world-space.     */
 			    inline static glm::vec3 s_LightColor      {   1.0,  0.91, 0.874 }; /**< @brief Color of light.                       */
-				inline static     float s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
-			    inline static     float s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
-			    inline static     float s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
-				inline static     float s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
+				inline static     scalar_t s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
+			    inline static     scalar_t s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
+			    inline static     scalar_t s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
+				inline static     scalar_t s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
 			
 			};
 			
@@ -186,8 +188,8 @@ namespace LouiEriksson::Engine {
 				inline static int s_Samples   { 12 };
 				inline static int s_Downscale {  1 };
 				
-				inline static float s_Intensity { 1.0 };
-				inline static float s_Radius    { 0.2 };
+				inline static scalar_t s_Intensity { 1.0 };
+				inline static scalar_t s_Radius    { 0.2 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
@@ -198,12 +200,12 @@ namespace LouiEriksson::Engine {
 			
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Intensity   {  0.5 };
-				inline static float s_Threshold   {  1.2 };
-				inline static float s_Clamp       { 25.0 };
-				inline static float s_LensDirt    {  0.2 };
-				inline static float s_Anamorphism {  0.0 };
-				inline static float s_Diffusion   {  3.0 };
+				inline static scalar_t s_Intensity   {  0.5 };
+				inline static scalar_t s_Threshold   {  1.2 };
+				inline static scalar_t s_Clamp       { 25.0 };
+				inline static scalar_t s_LensDirt    {  0.2 };
+				inline static scalar_t s_Anamorphism {  0.0 };
+				inline static scalar_t s_Diffusion   {  3.0 };
 			
 				static bool IsActiveAndEnabled() noexcept;
 				
@@ -214,8 +216,8 @@ namespace LouiEriksson::Engine {
 				
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Gain     { 0.0 };
-				inline static float s_Exposure { 1.0 };
+				inline static scalar_t s_Gain     { 0.0 };
+				inline static scalar_t s_Exposure { 1.0 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
@@ -224,11 +226,11 @@ namespace LouiEriksson::Engine {
 					
 					inline static bool s_Enabled { true };
 					
-					inline static float s_MinEV        {  0.2 };
-					inline static float s_MaxEV        {  4.0 };
-					inline static float s_Compensation { -0.2 };
-					inline static float s_SpeedDown    {  1.0 };
-					inline static float s_SpeedUp      {  1.0 };
+					inline static scalar_t s_MinEV        {  0.2 };
+					inline static scalar_t s_MaxEV        {  4.0 };
+					inline static scalar_t s_Compensation { -0.2 };
+					inline static scalar_t s_SpeedDown    {  1.0 };
+					inline static scalar_t s_SpeedUp      {  1.0 };
 					
 					static bool IsActiveAndEnabled() noexcept;
 				};
@@ -240,11 +242,11 @@ namespace LouiEriksson::Engine {
 			
 				inline static bool s_Enabled { true };
 			
-				inline static float s_ContrastThreshold     { 0.0312 };
-				inline static float s_RelativeThreshold     { 0.063  };
-				inline static float s_SubpixelBlending      { 0.75   };
-				inline static float s_EdgeBlending          { 1.0    };
-				inline static float s_LocalContrastModifier { 0.5    };
+				inline static scalar_t s_ContrastThreshold     { 0.0312 };
+				inline static scalar_t s_RelativeThreshold     { 0.063  };
+				inline static scalar_t s_SubpixelBlending      { 0.75   };
+				inline static scalar_t s_EdgeBlending          { 1.0    };
+				inline static scalar_t s_LocalContrastModifier { 0.5    };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
@@ -255,7 +257,7 @@ namespace LouiEriksson::Engine {
 			
 				inline static bool s_Enabled { true };
 			
-				inline static float s_Intensity { 0.001 };
+				inline static scalar_t s_Intensity { 0.001 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				
@@ -266,8 +268,8 @@ namespace LouiEriksson::Engine {
 			
 				inline static bool s_Enabled { true };
 				
-				inline static float s_Intensity  { 0.667 };
-				inline static float s_Smoothness { 0.333 };
+				inline static scalar_t s_Intensity  { 0.667 };
+				inline static scalar_t s_Smoothness { 0.333 };
 				
 				static bool IsActiveAndEnabled() noexcept;
 				

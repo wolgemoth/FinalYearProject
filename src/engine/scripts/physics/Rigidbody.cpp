@@ -2,25 +2,26 @@
 
 #include "../core/Debug.h"
 #include "../core/Time.h"
+#include "../core/Defaults.h"
 #include "../core/Transform.h"
 #include "../ecs/Component.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Collision.h"
 
 #include "Collider.h"
+#include "LinearMath/btScalar.h"
 #include "Physics.h"
 
 #include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <glm/common.hpp>
+#include <LinearMath/btDefaultMotionState.h>
+
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/ext/quaternion_common.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
 #include <glm/geometric.hpp>
 #include <glm/trigonometric.hpp>
-#include <LinearMath/btDefaultMotionState.h>
 
-#include <algorithm>
 #include <cmath>
 #include <exception>
 #include <memory>
@@ -102,7 +103,7 @@ namespace LouiEriksson::Engine::Physics {
 				if (_parameters.m_Continuous) {
 					
 					// Compute the continuous sphere radius using the collider's AABB.
-					float sweep_sphere_radius = 0.01;
+					btScalar sweep_sphere_radius = 0.01;
 					{
 						const auto* const col = m_Rigidbody->getCollisionShape();
 					
@@ -115,7 +116,7 @@ namespace LouiEriksson::Engine::Physics {
 						const auto delta = max - min;
 						
 						// Get largest axis:
-						const auto multiplier = 0.707f;
+						const btScalar multiplier = 0.707;
 					
 						sweep_sphere_radius = std::max(
 							sweep_sphere_radius,
@@ -130,9 +131,9 @@ namespace LouiEriksson::Engine::Physics {
 					}
 					
 					// Threshold to activate CCD in units per second.
-					const float threshold_Ms = sweep_sphere_radius;
+					const btScalar threshold_Ms = sweep_sphere_radius;
 					
-					m_Rigidbody->setCcdMotionThreshold(Time::FixedDeltaTime() * threshold_Ms);
+					m_Rigidbody->setCcdMotionThreshold(Time::FixedDeltaTime<btScalar>() * threshold_Ms);
 					m_Rigidbody->setCcdSweptSphereRadius(sweep_sphere_radius);
 				}
 				
@@ -164,7 +165,7 @@ namespace LouiEriksson::Engine::Physics {
 			// See also: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
 			m_Mass       (1.0),
 			m_Drag       (0.2),
-			m_AngularDrag(0.005f),
+			m_AngularDrag(0.005),
 			m_Friction   (0.5),
 			m_Bounciness (0.5),
 			
@@ -193,16 +194,16 @@ namespace LouiEriksson::Engine::Physics {
 				const auto av = AngularVelocity();
 				
 				glm::quat rot;
-				if (glm::length(av) > 0.005f) {
-					rot = glm::angleAxis(glm::cos(glm::length(av)) * Time::FixedDeltaTime(), glm::normalize(av));
+				if (glm::length(av) > 0.005) {
+					rot = glm::angleAxis(glm::cos(glm::length(av)) * Time::FixedDeltaTime<scalar_t>(), glm::normalize(av));
 				}
 				else {
 					rot = glm::identity<glm::quat>();
 				}
 				
 				// Apply new values. Linearly interpolate using length of time since last physics update.
-				transform->Position(lastPos + (Velocity() * Physics::s_LastTick * Time::FixedDeltaTime()));
-				transform->Rotation(glm::slerp(lastRot, lastRot * rot, std::max(Physics::s_LastTick, 0.0)));
+				transform->Position(lastPos + (Velocity() * static_cast<scalar_t>(Physics::s_LastTick * Time::FixedDeltaTime())));
+				transform->Rotation(glm::slerp(lastRot, lastRot * rot, static_cast<scalar_t>(std::max(Physics::s_LastTick, static_cast<tick_t>(0.0)))));
 			}
 		}
 	}
@@ -407,48 +408,48 @@ namespace LouiEriksson::Engine::Physics {
 		return { f.x(), f.y(), f.z() };
 	}
 	
-	void Rigidbody::Mass(const float& _value) {
-		m_Parameters.m_Mass = std::max(_value, 0.005f); // Clamp smallest mass value to 0.005.
+	void Rigidbody::Mass(const btScalar& _value) {
+		m_Parameters.m_Mass = std::max(_value, static_cast<btScalar>(0.005)); // Clamp smallest mass value to 0.005.
 	
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Mass() const noexcept {
+	const btScalar& Rigidbody::Mass() const noexcept {
 		return m_Parameters.m_Mass;
 	}
 	
-	void Rigidbody::Drag(const float& _value) {
+	void Rigidbody::Drag(const btScalar& _value) {
 		m_Parameters.m_Drag = _value;
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Drag() const noexcept {
+	const btScalar& Rigidbody::Drag() const noexcept {
 		return m_Parameters.m_Drag;
 	}
 	
-	void Rigidbody::AngularDrag(const float& _value) {
+	void Rigidbody::AngularDrag(const btScalar& _value) {
 		m_Parameters.m_AngularDrag = _value;
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::AngularDrag() const noexcept {
+	const btScalar& Rigidbody::AngularDrag() const noexcept {
 		return m_Parameters.m_AngularDrag;
 	}
 	
-	void Rigidbody::Friction(const float& _value) {
+	void Rigidbody::Friction(const btScalar& _value) {
 		m_Parameters.m_Friction = _value;
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Friction() const noexcept {
+	const btScalar& Rigidbody::Friction() const noexcept {
 		return m_Parameters.m_Friction;
 	}
 	
-	void Rigidbody::Bounciness(const float& _value) {
+	void Rigidbody::Bounciness(const btScalar& _value) {
 		m_Parameters.m_Bounciness = _value;
 		
 		BulletReinitialise();
 	}
-	const float& Rigidbody::Bounciness() const noexcept {
+	const btScalar& Rigidbody::Bounciness() const noexcept {
 		return m_Parameters.m_Bounciness;
 	}
 	

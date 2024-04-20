@@ -37,13 +37,13 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Set the radius of the SphereCollider.
 		 * @param[in] _radius The radius of the SphereCollider.
 		 */
-		void Radius(const float& _radius);
+		void Radius(const btScalar& _radius);
 		
 		/**
 		 * @brief Get the radius of the SphereCollider.
 		 * @return The radius of the SphereCollider.
 		 */
-		[[nodiscard]] float Radius() const;
+		[[nodiscard]] btScalar Radius() const;
 		
 	};
 	

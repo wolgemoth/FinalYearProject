@@ -3,6 +3,7 @@
 
 #include "serialisation/ElevationDeserialiser.h"
 
+#include "../../core/Defaults.h"
 
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float4.hpp>
@@ -19,15 +20,15 @@ namespace LouiEriksson::Engine::Spatial {
 	public:
 		
         enum ElevationProvider : unsigned char {
-            OpenElevation = 0u,       /**< @brief <a href="https://open-elevation.com/">OpenElevation</a> */
-            OpenTopoData  = 1u << 1u  /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
+            OpenElevation = 0u, /**< @brief <a href="https://open-elevation.com/">OpenElevation</a> */
+            OpenTopoData  = 1u, /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
         };
 		
-        static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<float>&)>& _callback);
+		static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback);
 	
 	private:
 	
-        static void LoadElevation(const std::vector<glm::vec2>& _elevation_result, const glm::vec4& _bounds, const ElevationProvider& _provider, const std::function<void(const std::vector<float>&)>& _callback);
+        static void LoadElevation(const std::vector<glm::vec2>& _elevation_result, const glm::vec4& _bounds, const ElevationProvider& _provider, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback);
 	
         static std::future<void> PostRequestOpenElevationAsync(const std::vector<glm::vec2>& _request, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback);
 

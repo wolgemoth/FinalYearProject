@@ -19,7 +19,6 @@
 #include <cereal/archives/xml.hpp>
 #include <cereal/cereal.hpp>
 
-#include <cstddef>
 #include <cstring>
 #include <exception>
 #include <filesystem>
@@ -357,12 +356,12 @@ namespace LouiEriksson::Engine::ECS {
 			auto xml = cereal::XMLInputArchive(ifStream);
 			xml.startNode();
 		
-			int gameObjectCount = 0;
+			auto gameObjectCount = 0;
 			xml.loadSize(gameObjectCount);
 		
 			Debug::Assert(!log, "GameObjects: " + std::to_string(gameObjectCount), LogType::Info);
 			
-			for (size_t i = 0; i < gameObjectCount; ++i) {
+			for (auto i = 0; i < gameObjectCount; ++i) {
 		
 				const auto *goName = xml.getNodeName();
 				
@@ -373,12 +372,12 @@ namespace LouiEriksson::Engine::ECS {
 		
 				xml.startNode();
 		
-				int count = 0;
+				auto count = 0;
 				xml.loadSize(count);
 				
 				Debug::Assert(!log, "\tComponents: " + std::to_string(count), LogType::Info);
 				
-				for (size_t j = 0; j < count; j++) {
+				for (auto j = 0; j < count; j++) {
 		
 					const auto* const name = xml.getNodeName();
 					

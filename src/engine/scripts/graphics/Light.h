@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_LIGHT_H
 #define FINALYEARPROJECT_LIGHT_H
 
+#include "../core/Defaults.h"
 #include "../ecs/Component.h"
 
 #include <GL/glew.h>
@@ -9,6 +10,7 @@
 
 #include <memory>
 #include <typeindex>
+
 
 namespace LouiEriksson::Engine {
 	
@@ -41,8 +43,8 @@ namespace LouiEriksson::Engine::Graphics {
 			 */
 			enum Type : unsigned char {
 				      Point = 0u,       /**< @brief Light is a Point Light. */
-				Directional = 1u << 1u, /**< @brief Light is a Directional Light. */
-				       Spot = 1u << 2u, /**< @brief Light is a Spot Light.  */
+				Directional = 1u << 0u, /**< @brief Light is a Directional Light. */
+				       Spot = 1u << 1u, /**< @brief Light is a Spot Light.  */
 			};
 		
 		private:
@@ -57,9 +59,9 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				int m_Resolution;
 				
-				float m_Bias;
-				float m_NormalBias;
-				float m_NearPlane;
+				scalar_t m_Bias;
+				scalar_t m_NormalBias;
+				scalar_t m_NearPlane;
 				
 				bool m_TwoSided;
 				
@@ -96,10 +98,10 @@ namespace LouiEriksson::Engine::Graphics {
 		Light::Parameters::Type      m_Type;
 		Light::Parameters::ShadowMap m_Shadow;
 		
-		float m_Intensity;
-		float m_Range;
-		float m_Angle;
-		float m_Size;
+		GLfloat m_Intensity;
+		GLfloat m_Range;
+		GLfloat m_Angle;
+		GLfloat m_Size;
 		
 		glm::vec3 m_Color;
 		
