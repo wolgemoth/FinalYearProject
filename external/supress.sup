@@ -15558,3 +15558,484 @@
    fun:_ZN12LouiEriksson6Engine11Application4MainERKNS0_7HashmapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPFSt10shared_ptrINS0_6ScriptEERKSt8weak_ptrINS0_3ECS10GameObjectEEEEE
    fun:main
 }
+
+{
+   LouiEriksson::Engine::Window::Window(int const&, int const&, char const*, bool, bool)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   fun:glXCreateContext
+   fun:glXCreateContext
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   fun:_ZN12LouiEriksson6Engine6WindowC1ERKiS3_PKcbb
+   fun:_ZN12LouiEriksson6Engine6Window6CreateERKiS3_PKc
+}
+
+{
+   call_init.part.0
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.535.171.04
+   obj:*
+   fun:call_init.part.0
+   fun:call_init
+   fun:_dl_init
+   fun:_dl_catch_exception
+}
+
+{
+   void __gnu_cxx::new_allocator<btDiscreteDynamicsWorld>::construct<btDiscreteDynamicsWorld, btCollisionDispatcher*, btBroadphaseInterface*, btSequentialImpulseConstraintSolver*, btDefaultCollisionConfiguration*>(btDiscreteDynamicsWorld*, btCollisionDispatcher*&&, btBroadphaseInterface*&&, btSequentialImpulseConstraintSolver*&&, btDefaultCollisionConfiguration*&&)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN23btDiscreteDynamicsWorldC1EP12btDispatcherP21btBroadphaseInterfaceP18btConstraintSolverP24btCollisionConfiguration
+   fun:_ZN9__gnu_cxx13new_allocatorI23btDiscreteDynamicsWorldE9constructIS1_JP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI23btDiscreteDynamicsWorldEE9constructIS0_JP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI23btDiscreteDynamicsWorldSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I23btDiscreteDynamicsWorldSaIS4_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI23btDiscreteDynamicsWorldLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI23btDiscreteDynamicsWorldEC1ISaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI23btDiscreteDynamicsWorldSaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI23btDiscreteDynamicsWorldJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   fun:malloc
+   fun:_dlfo_mappings_segment_allocate
+   fun:_dl_find_object_update_1
+   fun:_dl_find_object_update
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+   fun:_dlerror_run
+   fun:dlopen_implementation
+   fun:dlopen@@GLIBC_2.34
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   fun:_ZNSt6thread15_M_start_threadESt10unique_ptrINS_6_StateESt14default_deleteIS1_EEPFvvE
+   fun:_ZNSt6threadC1IMNSt13__future_base17_Async_state_implINS_8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS6_10Networking8Requests8ResponseEEEEUlvE_EEEEvEEFvvEJPSU_EvEEOT_DpOT0_
+   fun:_ZNSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS5_10Networking8Requests8ResponseEEEEUlvE_EEEEvEC1IJSQ_EEEDpOT_
+   fun:_ZN9__gnu_cxx13new_allocatorINSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS7_10Networking8Requests8ResponseEEEEUlvE_EEEEvEEE9constructISV_JSS_EEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaINSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS6_10Networking8Requests8ResponseEEEEUlvE_EEEEvEEEE9constructISU_JSR_EEEvRSV_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceINSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS6_10Networking8Requests8ResponseEEEEUlvE_EEEEvEESaISU_ELN9__gnu_cxx12_Lock_policyE2EEC1IJSR_EEESV_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1INSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNSA_10Networking8Requests8ResponseEEEEUlvE_EEEEvEESaISY_EJSV_EEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrINSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS6_10Networking8Requests8ResponseEEEEUlvE_EEEEvEELN9__gnu_cxx12_Lock_policyE2EEC2ISaISU_EJSR_EEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrINSt13__future_base17_Async_state_implINSt6thread8_InvokerISt5tupleIJZN12LouiEriksson6Engine7Spatial3OSM18OverpassQueryAsyncERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKmSt8functionIFvRKNS6_10Networking8Requests8ResponseEEEEUlvE_EEEEvEEEC1ISaISU_EJSR_EEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.18.2
+   fun:_ZN12LouiEriksson6Engine5Audio5Sound4InitEv
+   fun:_ZN12LouiEriksson6Engine11Application4MainERKNS0_7HashmapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPFSt10shared_ptrINS0_6ScriptEERKSt8weak_ptrINS0_3ECS10GameObjectEEEEE
+   fun:main
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   obj:/usr/lib/x86_64-linux-gnu/libjack.so.0.1.0
+   obj:/usr/lib/x86_64-linux-gnu/libjack.so.0.1.0
+   obj:/usr/lib/x86_64-linux-gnu/libjack.so.0.1.0
+   obj:/usr/lib/x86_64-linux-gnu/libjack.so.0.1.0
+   fun:jack_client_open
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   fun:__pthread_once_slow
+   fun:alcOpenDevice
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   fun:pa_thread_new
+   fun:pa_threaded_mainloop_start
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   fun:__pthread_once_slow
+   fun:alcOpenDevice
+   fun:_ZN12LouiEriksson6Engine5Audio5Sound4InitEv
+   fun:_ZN12LouiEriksson6Engine11Application4MainERKNS0_7HashmapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPFSt10shared_ptrINS0_6ScriptEERKSt8weak_ptrINS0_3ECS10GameObjectEEEEE
+   fun:main
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   obj:/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+   obj:/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+   obj:/usr/lib/x86_64-linux-gnu/libcurl.so.4.7.0
+   fun:curl_multi_perform
+   fun:curl_easy_perform
+   fun:_ZN12LouiEriksson6Engine10Networking8Requests6Client4SendEv
+   fun:_ZZN12LouiEriksson6Engine10Networking8Requests6Client9SendAsyncEvENKUlvE_clEv
+   fun:_ZSt13__invoke_implIN12LouiEriksson6Engine10Networking8Requests8ResponseEZNS3_6Client9SendAsyncEvEUlvE_JEET_St14__invoke_otherOT0_DpOT1_
+   fun:_ZSt8__invokeIZN12LouiEriksson6Engine10Networking8Requests6Client9SendAsyncEvEUlvE_JEENSt15__invoke_resultIT_JDpT0_EE4typeEOS7_DpOS8_
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+   fun:allocate_stack
+   fun:pthread_create@@GLIBC_2.34
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   obj:/usr/lib/x86_64-linux-gnu/libopenal.so.1.19.1
+   fun:alcCreateContext
+   fun:_ZN12LouiEriksson6Engine5Audio5Sound4InitEv
+   fun:_ZN12LouiEriksson6Engine11Application4MainERKNS0_7HashmapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPFSt10shared_ptrINS0_6ScriptEERKSt8weak_ptrINS0_3ECS10GameObjectEEEEE
+   fun:main
+}
+
+{
+   void __gnu_cxx::new_allocator<btDbvtBroadphase>::construct<btDbvtBroadphase>(btDbvtBroadphase*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN28btHashedOverlappingPairCacheC1Ev
+   fun:_ZN16btDbvtBroadphaseC1EP22btOverlappingPairCache
+   fun:_ZN9__gnu_cxx13new_allocatorI16btDbvtBroadphaseE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI16btDbvtBroadphaseEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI16btDbvtBroadphaseSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I16btDbvtBroadphaseSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI16btDbvtBroadphaseLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI16btDbvtBroadphaseEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI16btDbvtBroadphaseSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI16btDbvtBroadphaseJEESt10shared_ptrIT_EDpOT0_
+}
+
+{
+   void __gnu_cxx::new_allocator<btDefaultCollisionConfiguration>::construct<btDefaultCollisionConfiguration>(btDefaultCollisionConfiguration*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN31btDefaultCollisionConfigurationC1ERK34btDefaultCollisionConstructionInfo
+   fun:_ZN9__gnu_cxx13new_allocatorI31btDefaultCollisionConfigurationE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI31btDefaultCollisionConfigurationEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI31btDefaultCollisionConfigurationSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I31btDefaultCollisionConfigurationSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI31btDefaultCollisionConfigurationLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI31btDefaultCollisionConfigurationEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI31btDefaultCollisionConfigurationSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI31btDefaultCollisionConfigurationJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDefaultCollisionConfiguration>::construct<btDefaultCollisionConfiguration>(btDefaultCollisionConfiguration*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN31btDefaultCollisionConfigurationC1ERK34btDefaultCollisionConstructionInfo
+   fun:_ZN9__gnu_cxx13new_allocatorI31btDefaultCollisionConfigurationE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI31btDefaultCollisionConfigurationEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI31btDefaultCollisionConfigurationSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I31btDefaultCollisionConfigurationSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI31btDefaultCollisionConfigurationLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI31btDefaultCollisionConfigurationEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI31btDefaultCollisionConfigurationSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI31btDefaultCollisionConfigurationJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDefaultCollisionConfiguration>::construct<btDefaultCollisionConfiguration>(btDefaultCollisionConfiguration*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN31btDefaultCollisionConfigurationC1ERK34btDefaultCollisionConstructionInfo
+   fun:_ZN9__gnu_cxx13new_allocatorI31btDefaultCollisionConfigurationE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI31btDefaultCollisionConfigurationEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI31btDefaultCollisionConfigurationSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I31btDefaultCollisionConfigurationSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI31btDefaultCollisionConfigurationLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI31btDefaultCollisionConfigurationEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI31btDefaultCollisionConfigurationSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI31btDefaultCollisionConfigurationJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDbvtBroadphase>::construct<btDbvtBroadphase>(btDbvtBroadphase*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN16btDbvtBroadphaseC1EP22btOverlappingPairCache
+   fun:_ZN9__gnu_cxx13new_allocatorI16btDbvtBroadphaseE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI16btDbvtBroadphaseEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI16btDbvtBroadphaseSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I16btDbvtBroadphaseSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI16btDbvtBroadphaseLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI16btDbvtBroadphaseEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI16btDbvtBroadphaseSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI16btDbvtBroadphaseJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   Suppression
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   fun:_dbus_message_loader_queue_messages
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+   fun:dbus_pending_call_block
+   fun:dbus_connection_send_with_reply_and_block
+   fun:dbus_bus_register
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.19.13
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:malloc
+   fun:_dl_find_object_update
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+   fun:_dlerror_run
+   fun:dlopen_implementation
+   fun:dlopen@@GLIBC_2.34
+}
+
+{
+   LouiEriksson::Engine::File::TryLoad(std::array<std::filesystem::__cxx11::path, 6ul> const&, std::shared_ptr<LouiEriksson::Engine::Graphics::Cubemap>&, LouiEriksson::Engine::Graphics::Texture::Parameters::Format const&, LouiEriksson::Engine::Graphics::Texture::Parameters::FilterMode const&, LouiEriksson::Engine::Graphics::Texture::Parameters::WrapMode const&)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   obj:/usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.535.171.04
+   fun:_ZN12LouiEriksson6Engine4File7TryLoadERKSt5arrayINSt10filesystem7__cxx114pathELm6EERSt10shared_ptrINS0_8Graphics7CubemapEERKNSA_7Texture10Parameters6FormatERKNSF_10FilterModeERKNSF_8WrapModeE
+   fun:_ZN12LouiEriksson6Engine9Resources5AssetINS0_8Graphics7CubemapEE4LoadEv
+}
+
+{
+   call_init.part.0
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0
+   fun:__glDispatchInit
+   obj:/usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0
+   fun:call_init.part.0
+   fun:call_init
+   fun:_dl_init
+   obj:/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+}
+
+{
+   call_init.part.0
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0
+   fun:__glDispatchRegisterStubCallbacks
+   obj:/usr/lib/x86_64-linux-gnu/libGL.so.1.7.0
+   fun:call_init.part.0
+   fun:call_init
+   fun:_dl_init
+   obj:/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+}
+
+{
+   void __gnu_cxx::new_allocator<btDbvtBroadphase>::construct<btDbvtBroadphase>(btDbvtBroadphase*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN16btDbvtBroadphaseC1EP22btOverlappingPairCache
+   fun:_ZN9__gnu_cxx13new_allocatorI16btDbvtBroadphaseE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI16btDbvtBroadphaseEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI16btDbvtBroadphaseSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I16btDbvtBroadphaseSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI16btDbvtBroadphaseLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI16btDbvtBroadphaseEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI16btDbvtBroadphaseSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI16btDbvtBroadphaseJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDiscreteDynamicsWorld>::construct<btDiscreteDynamicsWorld, btCollisionDispatcher*, btBroadphaseInterface*, btSequentialImpulseConstraintSolver*, btDefaultCollisionConfiguration*>(btDiscreteDynamicsWorld*, btCollisionDispatcher*&&, btBroadphaseInterface*&&, btSequentialImpulseConstraintSolver*&&, btDefaultCollisionConfiguration*&&)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN23btDiscreteDynamicsWorldC1EP12btDispatcherP21btBroadphaseInterfaceP18btConstraintSolverP24btCollisionConfiguration
+   fun:_ZN9__gnu_cxx13new_allocatorI23btDiscreteDynamicsWorldE9constructIS1_JP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI23btDiscreteDynamicsWorldEE9constructIS0_JP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI23btDiscreteDynamicsWorldSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I23btDiscreteDynamicsWorldSaIS4_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI23btDiscreteDynamicsWorldLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI23btDiscreteDynamicsWorldEC1ISaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI23btDiscreteDynamicsWorldSaIS0_EJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI23btDiscreteDynamicsWorldJP21btCollisionDispatcherP21btBroadphaseInterfaceP35btSequentialImpulseConstraintSolverP31btDefaultCollisionConfigurationEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDefaultCollisionConfiguration>::construct<btDefaultCollisionConfiguration>(btDefaultCollisionConfiguration*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN31btDefaultCollisionConfigurationC1ERK34btDefaultCollisionConstructionInfo
+   fun:_ZN9__gnu_cxx13new_allocatorI31btDefaultCollisionConfigurationE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI31btDefaultCollisionConfigurationEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI31btDefaultCollisionConfigurationSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I31btDefaultCollisionConfigurationSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI31btDefaultCollisionConfigurationLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI31btDefaultCollisionConfigurationEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI31btDefaultCollisionConfigurationSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI31btDefaultCollisionConfigurationJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDefaultCollisionConfiguration>::construct<btDefaultCollisionConfiguration>(btDefaultCollisionConfiguration*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN31btDefaultCollisionConfigurationC1ERK34btDefaultCollisionConstructionInfo
+   fun:_ZN9__gnu_cxx13new_allocatorI31btDefaultCollisionConfigurationE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI31btDefaultCollisionConfigurationEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI31btDefaultCollisionConfigurationSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I31btDefaultCollisionConfigurationSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI31btDefaultCollisionConfigurationLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI31btDefaultCollisionConfigurationEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI31btDefaultCollisionConfigurationSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+   fun:_ZSt11make_sharedI31btDefaultCollisionConfigurationJEESt10shared_ptrIT_EDpOT0_
+   fun:_ZN12LouiEriksson6Engine7Physics7Physics4InitEv
+}
+
+{
+   void __gnu_cxx::new_allocator<btDbvtBroadphase>::construct<btDbvtBroadphase>(btDbvtBroadphase*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN28btHashedOverlappingPairCache10growTablesEv
+   fun:_ZN28btHashedOverlappingPairCacheC1Ev
+   fun:_ZN16btDbvtBroadphaseC1EP22btOverlappingPairCache
+   fun:_ZN9__gnu_cxx13new_allocatorI16btDbvtBroadphaseE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI16btDbvtBroadphaseEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI16btDbvtBroadphaseSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I16btDbvtBroadphaseSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI16btDbvtBroadphaseLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI16btDbvtBroadphaseEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI16btDbvtBroadphaseSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+}
+
+{
+   void __gnu_cxx::new_allocator<btDbvtBroadphase>::construct<btDbvtBroadphase>(btDbvtBroadphase*)
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libLinearMath.so.3.05
+   fun:_ZN28btHashedOverlappingPairCache10growTablesEv
+   fun:_ZN28btHashedOverlappingPairCacheC1Ev
+   fun:_ZN16btDbvtBroadphaseC1EP22btOverlappingPairCache
+   fun:_ZN9__gnu_cxx13new_allocatorI16btDbvtBroadphaseE9constructIS1_JEEEvPT_DpOT0_
+   fun:_ZNSt16allocator_traitsISaI16btDbvtBroadphaseEE9constructIS0_JEEEvRS1_PT_DpOT0_
+   fun:_ZNSt23_Sp_counted_ptr_inplaceI16btDbvtBroadphaseSaIS0_ELN9__gnu_cxx12_Lock_policyE2EEC1IJEEES1_DpOT_
+   fun:_ZNSt14__shared_countILN9__gnu_cxx12_Lock_policyE2EEC1I16btDbvtBroadphaseSaIS4_EJEEERPT_St20_Sp_alloc_shared_tagIT0_EDpOT1_
+   fun:_ZNSt12__shared_ptrI16btDbvtBroadphaseLN9__gnu_cxx12_Lock_policyE2EEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZNSt10shared_ptrI16btDbvtBroadphaseEC1ISaIS0_EJEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+   fun:_ZSt15allocate_sharedI16btDbvtBroadphaseSaIS0_EJEESt10shared_ptrIT_ERKT0_DpOT1_
+}

@@ -427,7 +427,7 @@ namespace LouiEriksson::Engine {
 			try {
 				std::cout << std::flush;
 			}
-			catch (std::exception& e) {
+			catch (const std::exception& e) {
 				std::cerr << e.what() << std::endl;
 			}
 		}

@@ -188,7 +188,7 @@ namespace LouiEriksson::Engine::Networking {
 			try {
 	            curl_global_cleanup();
 			}
-			catch (std::exception& e) {
+			catch (const std::exception& e) {
 				Debug::Log(e, LogType::Critical);
 			}
 		}

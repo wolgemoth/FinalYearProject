@@ -219,7 +219,7 @@ namespace LouiEriksson::Engine::Spatial {
 					auto result = *results.begin();
 					
 					for (size_t i = 1; i < results.size(); ++i) {
-						Utils::MoveInto(results[i].m_Root.results, result.m_Root.results);
+						Utils::MoveInto(std::move(results[i].m_Root.results), result.m_Root.results);
 					}
 					
 	                _callback(result.m_Root);

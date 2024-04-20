@@ -388,7 +388,7 @@ namespace LouiEriksson::Engine {
 					static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");
 				}
 			}
-			catch (std::exception& err) {
+			catch (const std::exception& err) {
 				
 				/* Shouldn't ever happen but catch anyway... */
 				
@@ -501,7 +501,7 @@ namespace LouiEriksson::Engine {
 		 * @throws std::runtime_error if the size of the vector does not match the size of the array.
 		 */
 		template<typename T, size_t N>
-		static constexpr std::array<T, N> MoveToArray(const std::vector<T>& _vector) {
+		static constexpr std::array<T, N> MoveToArray(const std::vector<T>&& _vector) {
 			
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
@@ -540,7 +540,7 @@ namespace LouiEriksson::Engine {
 		 * static_assert will be triggered.
 		 */
 		template<typename T, size_t N>
-		static constexpr std::vector<T> MoveToVector(const std::array<T, N>& _array) {
+		static constexpr std::vector<T> MoveToVector(const std::array<T, N>&& _array) {
 			
 		    static_assert(N > 0 && N <= std::numeric_limits<size_t>::max(), "Invalid array size.");
 
@@ -565,7 +565,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _to The destination vector to which elements will be moved.
 		 */
 		template<typename T>
-		static constexpr void MoveInto(std::vector<T>& _from, std::vector<T>& _to) {
+		static constexpr void MoveInto(std::vector<T>&& _from, std::vector<T>& _to) {
 			
 			_to.reserve(_from.size());
 			
