@@ -48,19 +48,19 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _parent A weak pointer to the parent ECS::GameObject that the
 		 *                    Script will be associated with.
 		 */
-		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent);
+		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent) {}
 		
 		/** @inheritdoc */
-		~Script() override = default;
+		~Script() override {};
 	
 		/** @brief Called at the beginning of the first frame. */
-		virtual void Begin();
+		virtual void Begin() {}
 		
 		/** @brief Called every frame. */
-		virtual void Tick();
+		virtual void Tick() {}
 		
 		/** @brief Called every tick of the physics engine. */
-		virtual void FixedTick();
+		virtual void FixedTick() {}
 		
 		/**
 		 * @brief Called every time a collision event occurs.
@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _collision A constant reference to a Collision object representing the collision event.
 		 * @see Physics::Collision
 		 */
-		virtual void OnCollision(const Physics::Collision& _collision);
+		virtual void OnCollision(const Physics::Collision& _collision) {}
 	};
 	
 } // LouiEriksson::Engine

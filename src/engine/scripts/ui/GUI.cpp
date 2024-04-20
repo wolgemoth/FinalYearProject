@@ -34,7 +34,7 @@ namespace LouiEriksson::Engine::UI {
 		ImGui::CreateContext();
 		
 		if (const auto w = _window.lock()) {
-			ImGui_ImplSDL2_InitForOpenGL(w->operator SDL_Window *(), w->Context());
+			ImGui_ImplSDL2_InitForOpenGL(*w, w->Context());
 		}
 		
 		ImGui_ImplOpenGL3_Init(_glsl_version);
@@ -63,7 +63,7 @@ namespace LouiEriksson::Engine::UI {
 		ImGui_ImplOpenGL3_NewFrame();
 		
 		if (const auto w = _window.lock()) {
-			ImGui_ImplSDL2_NewFrame(w->operator SDL_Window *());
+			ImGui_ImplSDL2_NewFrame(*w);
 		}
 		
 		ImGui::NewFrame();

@@ -4,8 +4,6 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	
 	Stars::Stars(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
 	
-	Stars::~Stars() = default;
-	
 	void Stars::Begin() {
 		
 		// Change the settings to allow us to see!

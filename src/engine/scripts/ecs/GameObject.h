@@ -89,8 +89,9 @@ namespace LouiEriksson::Engine::ECS {
 			}
 		}
 		
-		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept;
-		~GameObject() = default;
+		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
+			m_Scene(_scene),
+			m_Name (std::move(_name)) {}
 		
 	public:
 	
@@ -101,10 +102,12 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * @param[in] _name The name to set.
 		 */
-		void Name(const std::string_view& _name) noexcept;
+		inline void Name(const std::string_view& _name) noexcept { m_Name = _name; }
 	
 		/** @brief Get the name of the GameObject. */
-		std::string_view Name() const noexcept;
+		inline std::string_view Name() const noexcept {
+			return m_Name;
+		}
 	
 		/**
 		 * @brief Get the scene to which the GameObject belongs.
@@ -113,7 +116,9 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * @return A weak pointer to the scene.
 		 */
-		const std::weak_ptr<Scene>& GetScene() const noexcept;
+		constexpr const std::weak_ptr<Scene>& GetScene() const noexcept {
+			return m_Scene;
+		}
 		
 		/**
 		 * @brief Creates a new GameObject and attaches it to the specified Scene.
@@ -124,19 +129,56 @@ namespace LouiEriksson::Engine::ECS {
 		 * @param[in] _name The optional name of the GameObject.
 		 * @return A shared pointer to the newly created GameObject.
 		 */
-		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::weak_ptr<Scene>& _scene, const std::string_view& _name = "");
+		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::weak_ptr<Scene>& _scene, const std::string_view& _name = "")  {
+			
+			std::shared_ptr<GameObject> result;
+			
+			if (const auto s = _scene.lock()) {
+				
+				// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
+				result = s->Attach<ECS::GameObject>({
+					new GameObject(_scene, _name.data()), [](GameObject* _ptr) { delete _ptr; }
+				});
+			}
+			
+			return result;
+		}
 		
 		/**
 		 * @fn void GameObject::Destroy()
 		 * @brief Destroys the GameObject.
 		 */
-		void Destroy();
+		void Destroy()  {
+			
+			try {
+				
+				if (const auto scene = m_Scene.lock()) {
+					
+					for (const auto& bucket : Components()) {
+						
+						for (const auto& item : bucket.second) {
+							scene->Detach<Component>(item);
+						}
+					}
+					
+					m_Components.Clear();
+					
+					scene->Detach<GameObject>(shared_from_this());
+				}
+				
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		
 		/**
 		 * @brief Get the Components attached to the GameObject.
 		 * @return The Components attached to the GameObject.
 		 */
-		const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Components() const noexcept;
+		constexpr const Hashmap<std::type_index, std::vector<std::shared_ptr<Component>>>& Components() const noexcept {
+			return m_Components;
+		}
 		
 		/**
 		 * @brief Get Components of type attached to GameObject.

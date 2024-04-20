@@ -15,22 +15,13 @@ namespace LouiEriksson::Engine::Physics {
 	void Collider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
 	}
-	const std::weak_ptr<Transform>& Collider::GetTransform() const noexcept {
-		return m_Transform;
-	}
 	
 	void Collider::SetRigidbody(const std::weak_ptr<Rigidbody>& _rigidbody) noexcept {
 		m_Rigidbody = _rigidbody;
 	}
-	const std::weak_ptr<Rigidbody>& Collider::GetRigidbody() const noexcept {
-		return m_Rigidbody;
-	}
 	
 	void Collider::SetType(const Type& _type) noexcept {
 		m_Type = _type;
-	}
-	const Collider::Type& Collider::GetType() const noexcept {
-		return m_Type;
 	}
 	
 } // LouiEriksson::Engine::Physics

@@ -43,10 +43,7 @@ namespace LouiEriksson::Engine::Audio {
 		
 	public:
 		
-		 explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
-		 
-		/** @inheritdoc */
-		~AudioListener() override;
+		explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
@@ -74,7 +71,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The master gain value.
 		 */
-		[[nodiscard]] const ALfloat& Gain() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& Gain() const noexcept {
+			return m_Gain;
+		}
 		
 	};
 	

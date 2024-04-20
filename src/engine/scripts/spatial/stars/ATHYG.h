@@ -1,16 +1,22 @@
 #ifndef FINALYEARPROJECT_ATHYG_H
 #define FINALYEARPROJECT_ATHYG_H
 
+#include "../../core/utils/Utils.h"
+
 #include <array>
+#include <cstddef>
 #include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine::Spatial {
 	
 	/**
-	 * @struct ATHYG
+	 * @class ATHYG
 	 * @brief Contains utilities for deserialising astronomical data from the <a href="https://github.com/astronexus/ATHYG-Database/tree/main">ATHYG dataset</a>.
 	 */
-	struct ATHYG final {
+	class ATHYG final {
+	
+	public:
 		
 		/**
 		 * @struct V1
@@ -46,8 +52,31 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			[[maybe_unused]] static constexpr auto s_ElementCount = 23;
 			
-			explicit V1(const std::array<std::string,      s_ElementCount>& _values) noexcept;
-			explicit V1(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
+			template <typename T>
+			explicit V1(const std::array<T, s_ElementCount>& _values) noexcept :
+				id      (Utils::TryParse<size_t>(_values[ 0])),
+				tyc     (                        _values[ 1] ),
+				gaia    (Utils::TryParse<size_t>(_values[ 2])),
+				hyg     (Utils::TryParse<size_t>(_values[ 3])),
+				hip     (Utils::TryParse<size_t>(_values[ 4])),
+				hd      (Utils::TryParse<size_t>(_values[ 5])),
+				hr      (Utils::TryParse<size_t>(_values[ 6])),
+				gl      (                        _values[ 7] ),
+				bayer   (                        _values[ 8] ),
+				flam    (                        _values[ 9] ),
+				con     (                        _values[10] ),
+				proper  (                        _values[11] ),
+				ra      (Utils::TryParse<double>(_values[12])),
+				dec     (Utils::TryParse<double>(_values[13])),
+				pos_src (                        _values[14] ),
+				dist    (Utils::TryParse<double>(_values[15])),
+				x0      (Utils::TryParse<double>(_values[16])),
+				y0      (Utils::TryParse<double>(_values[17])),
+				z0      (Utils::TryParse<double>(_values[18])),
+				dist_src(                        _values[19] ),
+				mag     (Utils::TryParse<double>(_values[20])),
+				absmag  (Utils::TryParse<double>(_values[21])),
+				mag_src (                        _values[22]) {}
 		};
 		
 		/**
@@ -94,8 +123,41 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			[[maybe_unused]] static constexpr auto s_ElementCount = 33;
 			
-			explicit V2(const std::array<std::string,      s_ElementCount>& _values) noexcept;
-			explicit V2(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
+			template <typename T>
+			explicit V2(const std::array<T, s_ElementCount>& _values) noexcept :
+				id       (Utils::TryParse<size_t>(_values[ 0])),
+				tyc      (                        _values[ 1] ),
+				gaia     (Utils::TryParse<size_t>(_values[ 2])),
+				hyg      (Utils::TryParse<size_t>(_values[ 3])),
+				hip      (Utils::TryParse<size_t>(_values[ 4])),
+				hd       (Utils::TryParse<size_t>(_values[ 5])),
+				hr       (Utils::TryParse<size_t>(_values[ 6])),
+				gl       (                        _values[ 7] ),
+				bayer    (                        _values[ 8] ),
+				flam     (                        _values[ 9] ),
+				con      (                        _values[10] ),
+				proper   (                        _values[11] ),
+				ra       (Utils::TryParse<double>(_values[12])),
+				dec      (Utils::TryParse<double>(_values[13])),
+				pos_src  (                         _values[14]),
+				dist     (Utils::TryParse<double>(_values[15])),
+				x0       (Utils::TryParse<double>(_values[16])),
+				y0       (Utils::TryParse<double>(_values[17])),
+				z0       (Utils::TryParse<double>(_values[18])),
+				dist_src (                        _values[19] ),
+				mag      (Utils::TryParse<double>(_values[20])),
+				absmag   (Utils::TryParse<double>(_values[21])),
+				mag_src  (                        _values[22] ),
+				rv       (Utils::TryParse<double>(_values[23])),
+				rv_src   (                        _values[24] ),
+				pm_ra    (Utils::TryParse<double>(_values[25])),
+				pm_dec   (Utils::TryParse<double>(_values[26])),
+				pm_src   (Utils::TryParse<double>(_values[27])),
+				vx       (Utils::TryParse<double>(_values[28])),
+				vy       (Utils::TryParse<double>(_values[29])),
+				vz       (Utils::TryParse<double>(_values[30])),
+				spect    (Utils::TryParse<double>(_values[31])),
+				spect_src(                        _values[32]) {}
 		};
 		
 		/**
@@ -142,9 +204,43 @@ namespace LouiEriksson::Engine::Spatial {
 			[[maybe_unused]] const std::optional<std::string> spect_src;
 			
 			[[maybe_unused]] static constexpr auto s_ElementCount = 34;
-			
-			explicit V3(const std::array<std::string,      s_ElementCount>& _values) noexcept;
-			explicit V3(const std::array<std::string_view, s_ElementCount>& _values) noexcept;
+				
+			template <typename T>
+			explicit V3(const std::array<T, s_ElementCount>& _values) noexcept :
+				id       (Utils::TryParse<size_t>(_values[ 0])),
+				tyc      (                        _values[ 1] ),
+				gaia     (Utils::TryParse<size_t>(_values[ 2])),
+				hyg      (Utils::TryParse<size_t>(_values[ 3])),
+				hip      (Utils::TryParse<size_t>(_values[ 4])),
+				hd       (Utils::TryParse<size_t>(_values[ 5])),
+				hr       (Utils::TryParse<size_t>(_values[ 6])),
+				gl       (                        _values[ 7] ),
+				bayer    (                        _values[ 8] ),
+				flam     (                        _values[ 9] ),
+				con      (                        _values[10] ),
+				proper   (                        _values[11] ),
+				ra       (Utils::TryParse<double>(_values[12])),
+				dec      (Utils::TryParse<double>(_values[13])),
+				pos_src  (                        _values[14] ),
+				dist     (Utils::TryParse<double>(_values[15])),
+				x0       (Utils::TryParse<double>(_values[16])),
+				y0       (Utils::TryParse<double>(_values[17])),
+				z0       (Utils::TryParse<double>(_values[18])),
+				dist_src (                        _values[19] ),
+				mag      (Utils::TryParse<double>(_values[20])),
+				absmag   (Utils::TryParse<double>(_values[21])),
+				ci       (Utils::TryParse<double>(_values[22])),
+				mag_src  (                        _values[23] ),
+				rv       (Utils::TryParse<double>(_values[24])),
+				rv_src   (                        _values[25] ),
+				pm_ra    (Utils::TryParse<double>(_values[26])),
+				pm_dec   (Utils::TryParse<double>(_values[27])),
+				pm_src   (Utils::TryParse<double>(_values[28])),
+				vx       (Utils::TryParse<double>(_values[29])),
+				vy       (Utils::TryParse<double>(_values[30])),
+				vz       (Utils::TryParse<double>(_values[31])),
+				spect    (Utils::TryParse<double>(_values[32])),
+				spect_src(                        _values[33] ) {}
 		};
 	};
 	

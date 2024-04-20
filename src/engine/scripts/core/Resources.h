@@ -62,7 +62,7 @@ namespace LouiEriksson::Engine {
 			
 			std::shared_ptr<T> m_Item;
 			
-			Asset() :
+			Asset() noexcept :
 				m_Path(),
 				m_Status(Unloaded),
 				m_Item() {}
@@ -109,7 +109,22 @@ namespace LouiEriksson::Engine {
 		};
 		
 		template<typename T>
-		inline static Hashmap<std::string, Asset<T>>& GetBucket();
+		static constexpr Hashmap<std::string, Asset<T>>& GetBucket() {
+
+			Hashmap<std::string, Asset<T>>* r;
+			
+			     if constexpr (std::is_same_v<T,    Audio::AudioClip>) { r = &m_Audio;     }
+			else if constexpr (std::is_same_v<T, Graphics::Material >) { r = &m_Materials; }
+			else if constexpr (std::is_same_v<T, Graphics::Mesh     >) { r = &m_Meshes;    }
+			else if constexpr (std::is_same_v<T, Graphics::Shader   >) { r = &m_Shaders;   }
+			else if constexpr (std::is_same_v<T, Graphics::Texture  >) { r = &m_Textures;  }
+			else if constexpr (std::is_same_v<T, Graphics::Cubemap  >) { r = &m_Cubemaps;  }
+			else {
+				static_assert([]{ return false; }(), "Not implemented!");
+			}
+			
+			return *r;
+		}
 		
 		/**
 		 * @brief Index all of the assets the application has access to.
@@ -120,21 +135,81 @@ namespace LouiEriksson::Engine {
 		 * @note Assets with unsupported file extensions are logged as warnings.
 		 * @see Asset
 		 */
-		static void IndexAssets();
+		static void IndexAssets() {
+			
+			for (const auto& item : File::Directory::GetEntriesRecursive("assets/", File::Directory::EntryType::FILE)) {
+			
+				if (item.has_extension()) {
+				
+					if (const auto type = s_Types.Get(item.extension())) {
+						   
+						     if (*type == typeid(   Audio::AudioClip)) {     m_Audio.Emplace(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Material )) { m_Materials.Emplace(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Mesh     )) {    m_Meshes.Emplace(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Shader   )) {   m_Shaders.Emplace(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Texture  )) {  m_Textures.Emplace(item.stem().string(), { item }); }
+					}
+					else {
+						Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), LogType::Warning);
+					}
+				}
+			}
+		}
 		
 		/**
 		 * @brief Index items which other assets may be dependent on.
 		 *
 		 * @note This function should be called before loading any assets that may have dependencies.
 		 */
-		static void IndexDependencies();
+		inline static void IndexDependencies()  {
+			
+			/* INCLUDE SHADER DEPENDENCIES */
+			{
+				std::vector<std::filesystem::path> dependencies;
+				
+				for (const auto& item : File::Directory::GetEntriesRecursive("assets/", File::Directory::EntryType::FILE)) {
+					
+					if (strcmp(item.extension().string().c_str(), ".inc") == 0) {
+						dependencies.emplace_back(item);
+					}
+				}
+				
+				for (const auto& dependency : dependencies) {
+				
+					Debug::Log("Loading Shader Dependency \"" + dependency.string() + "\"... ", LogType::Info, true);
+					
+					try {
+						const auto name = "/" + dependency.string();
+						const auto contents = File::ReadAllText(dependency);
+						
+						// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
+						glNamedStringARB(
+							GL_SHADER_INCLUDE_ARB,
+							    static_cast<GLint>(name.length()),
+							    name.c_str(),
+							static_cast<GLint>(contents.length()),
+							contents.c_str()
+						);
+						
+						Debug::Log("Done.", LogType::Info);
+					}
+					catch (const std::exception& e) {
+						Debug::Log("Failed.", LogType::Error);
+						Debug::Log(e);
+					}
+				}
+			}
+		}
 		
 	public:
 	
 		/**
 		 * @brief Initialises the Resources system.
 		 */
-		static void Init();
+		static void Init()  {
+			IndexDependencies();
+			IndexAssets();
+		}
 		
 		/**
 		 * @brief Loads a specified asset if not already loaded.
@@ -187,7 +262,7 @@ namespace LouiEriksson::Engine {
 			
 			try {
 				
-				auto& item = GetBucket<T>()[_name];
+				auto& item = const_cast<Asset<T>&>(GetBucket<T>()[_name]);
 				
 				switch (item.m_Status) {
 					case Unloaded: {
@@ -229,36 +304,6 @@ namespace LouiEriksson::Engine {
 			return result;
 		}
 	};
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Audio::AudioClip>>& Resources::GetBucket() {
-		return m_Audio;
-	}
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Graphics::Material>>& Resources::GetBucket() {
-		return m_Materials;
-	}
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Graphics::Mesh>>& Resources::GetBucket() {
-		return m_Meshes;
-	}
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Graphics::Shader>>& Resources::GetBucket() {
-		return m_Shaders;
-	}
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Graphics::Texture>>& Resources::GetBucket() {
-		return m_Textures;
-	}
-	
-	template<>
-	inline Hashmap<std::string, Resources::Asset<Graphics::Cubemap>>& Resources::GetBucket() {
-		return m_Cubemaps;
-	}
 	
 	template<>
 	inline void Resources::Asset<Audio::AudioClip>::Load() {

@@ -1,7 +1,7 @@
 #include "Elevation.h"
 
 #include "../../core/Debug.h"
-#include "../../core/Defaults.h"
+#include "../../core/Types.h"
 #include "../../core/utils/Utils.h"
 #include "../../networking/Requests.h"
 #include "../maths/Coords.h"

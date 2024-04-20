@@ -15,7 +15,6 @@ namespace LouiEriksson::Engine::Physics {
 		// Initialise the collision shape as a sphere.
 		m_CollisionShape = std::make_shared<btSphereShape>(0.5);
 	}
-	SphereCollider::~SphereCollider() = default;
 	
 	void SphereCollider::Radius(const btScalar& _radius) {
 		

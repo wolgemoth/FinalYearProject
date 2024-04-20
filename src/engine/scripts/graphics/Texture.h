@@ -47,18 +47,18 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			public:
 				
-				Format(const GLenum& _pixelFormat, const bool& _mips);
+				Format(const GLenum& _pixelFormat, const bool& _mips) noexcept;
 				
-				Format             (const Format& _other);
-				Format& operator = (const Format& _other);
+				Format             (const Format& _other) = default;
+				Format& operator = (const Format& _other) = default;
 				
 				Format             (Format&& _other) noexcept;
-				Format& operator = (Format&& _other) noexcept;
+				Format& operator = (Format&& _other) noexcept = default;
 				
-				[[nodiscard]] const GLenum&   PixelFormat() const noexcept;
-				[[nodiscard]] const GLenum& TextureFormat() const noexcept;
-				[[nodiscard]] const    int&      Channels() const noexcept;
-				[[nodiscard]] const   bool&          Mips() const noexcept;
+				[[nodiscard]] constexpr const GLenum&   PixelFormat() const noexcept { return   m_PixelFormat; }
+				[[nodiscard]] constexpr const GLenum& TextureFormat() const noexcept { return m_TextureFormat; }
+				[[nodiscard]] constexpr const    int&      Channels() const noexcept { return      m_Channels; }
+				[[nodiscard]] constexpr const   bool&          Mips() const noexcept { return          m_Mips; }
 			};
 			
 			/**
@@ -72,16 +72,18 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			public:
 				
-				FilterMode(const GLenum& _min, const GLenum& _mag) noexcept;
+				constexpr FilterMode(const GLenum& _min, const GLenum& _mag) noexcept :
+					m_Min(_min),
+					m_Mag(_mag) {}
 				
-				FilterMode             (const FilterMode& _other);
-				FilterMode& operator = (const FilterMode& _other);
+				FilterMode             (const FilterMode& _other) = default;
+				FilterMode& operator = (const FilterMode& _other) = default;
 				
 				FilterMode             (FilterMode&& _other) noexcept;
-				FilterMode& operator = (FilterMode&& _other) noexcept;
+				FilterMode& operator = (FilterMode&& _other) noexcept = default;
 				
-				[[nodiscard]] const GLenum& Min() const noexcept;
-				[[nodiscard]] const GLenum& Mag() const noexcept;
+				[[nodiscard]] constexpr const GLenum& Min() const noexcept { return m_Min; }
+				[[nodiscard]] constexpr const GLenum& Mag() const noexcept { return m_Mag; }
 			};
 			
 			/**
@@ -96,17 +98,20 @@ namespace LouiEriksson::Engine::Graphics {
 				
 			public:
 				
-				WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE) noexcept;
+				constexpr WrapMode(const GLenum& _s, const GLenum& _t = GL_NONE, const GLenum& _r = GL_NONE) noexcept :
+					m_WrapS(_s),
+					m_WrapT(_t),
+					m_WrapR(_r) {}
 				
-				WrapMode             (const WrapMode& _other);
-				WrapMode& operator = (const WrapMode& _other);
+				WrapMode             (const WrapMode& _other) = default;
+				WrapMode& operator = (const WrapMode& _other) = default;
 				
 				WrapMode             (WrapMode&& _other) noexcept;
-				WrapMode& operator = (WrapMode&& _other) noexcept;
+				WrapMode& operator = (WrapMode&& _other) noexcept = default;
 				
-				[[nodiscard]] const GLenum& WrapS() const noexcept;
-				[[nodiscard]] const GLenum& WrapT() const noexcept;
-				[[nodiscard]] const GLenum& WrapR() const noexcept;
+				[[nodiscard]] constexpr const GLenum& WrapS() const noexcept { return m_WrapS; }
+				[[nodiscard]] constexpr const GLenum& WrapT() const noexcept { return m_WrapT; }
+				[[nodiscard]] constexpr const GLenum& WrapR() const noexcept { return m_WrapR; }
 			};
 			
 		};
@@ -119,12 +124,12 @@ namespace LouiEriksson::Engine::Graphics {
 		Texture             (Texture&& _other) noexcept;
 		Texture& operator = (Texture&& _other) noexcept;
 		
-		[[nodiscard]] const int&  Width() const noexcept;
-		[[nodiscard]] const int& Height() const noexcept;
+		[[nodiscard]] constexpr const int&  Width() const noexcept { return m_Width;  }
+		[[nodiscard]] constexpr const int& Height() const noexcept { return m_Height; }
 		
-		[[nodiscard]] const Parameters::Format&         Format() const noexcept;
-		[[nodiscard]] const Parameters::FilterMode& FilterMode() const noexcept;
-		[[nodiscard]] const Parameters::WrapMode&     WrapMode() const noexcept;
+		[[nodiscard]] constexpr const Parameters::Format&         Format() const noexcept { return m_Format;     }
+		[[nodiscard]] constexpr const Parameters::FilterMode& FilterMode() const noexcept { return m_FilterMode; }
+		[[nodiscard]] constexpr const Parameters::WrapMode&     WrapMode() const noexcept { return m_WrapMode;   }
 		
 		/**
 		 * @brief Determine a Texture's format and number of channels using its pixel format
@@ -166,9 +171,9 @@ namespace LouiEriksson::Engine::Graphics {
 		/**
 		* @brief Get the Texture's ID.
 		*/
-		[[nodiscard]] const GLuint& ID() const noexcept;
+		[[nodiscard]] constexpr const GLuint& ID() const noexcept { return m_TextureID; }
 		
-		explicit operator GLuint() const noexcept { return this->ID(); }
+		explicit constexpr operator GLuint() const noexcept { return this->ID(); }
 	
 	private:
 		

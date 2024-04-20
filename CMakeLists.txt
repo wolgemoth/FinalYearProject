@@ -99,25 +99,18 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/Debug.h
         src/engine/scripts/core/File.cpp
         src/engine/scripts/core/File.h
-        src/engine/scripts/core/Resources.cpp
         src/engine/scripts/core/Resources.h
-        src/engine/scripts/core/Script.cpp
         src/engine/scripts/core/Script.h
         src/engine/scripts/core/Serialisation.cpp
         src/engine/scripts/core/Serialisation.h
-        src/engine/scripts/core/Settings.cpp
         src/engine/scripts/core/Settings.h
         src/engine/scripts/core/Time.h
-        src/engine/scripts/core/Transform.cpp
         src/engine/scripts/core/Transform.h
         src/engine/scripts/core/utils/Hashmap.h
-        src/engine/scripts/core/utils/Utils.cpp
         src/engine/scripts/core/utils/Utils.h
-        src/engine/scripts/core/Window.cpp
         src/engine/scripts/core/Window.h
         src/engine/scripts/ecs/Component.cpp
         src/engine/scripts/ecs/Component.h
-        src/engine/scripts/ecs/GameObject.cpp
         src/engine/scripts/ecs/GameObject.h
         src/engine/scripts/ecs/Scene.cpp
         src/engine/scripts/ecs/Scene.h
@@ -129,21 +122,17 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/graphics/Material.h
         src/engine/scripts/graphics/Mesh.cpp
         src/engine/scripts/graphics/Mesh.h
-        src/engine/scripts/graphics/Renderer.cpp
         src/engine/scripts/graphics/Renderer.h
         src/engine/scripts/graphics/Shader.cpp
         src/engine/scripts/graphics/Shader.h
         src/engine/scripts/graphics/Texture.cpp
         src/engine/scripts/graphics/Texture.h
-        src/engine/scripts/graphics/textures/Cubemap.cpp
         src/engine/scripts/graphics/textures/Cubemap.h
-        src/engine/scripts/graphics/textures/RenderTexture.cpp
         src/engine/scripts/graphics/textures/RenderTexture.h
         src/engine/scripts/input/Cursor.cpp
         src/engine/scripts/input/Cursor.h
         src/engine/scripts/input/Input.cpp
         src/engine/scripts/input/Input.h
-        src/engine/scripts/networking/Requests.cpp
         src/engine/scripts/networking/Requests.h
         src/engine/scripts/physics/Collider.cpp
         src/engine/scripts/physics/Collider.h
@@ -153,9 +142,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/physics/colliders/SphereCollider.h
         src/engine/scripts/physics/Collision.cpp
         src/engine/scripts/physics/Collision.h
-        src/engine/scripts/physics/Physics.cpp
         src/engine/scripts/physics/Physics.h
-        src/engine/scripts/physics/Rigidbody.cpp
         src/engine/scripts/physics/Rigidbody.h
         src/engine/scripts/spatial/atmosphere/ISA.h
         src/engine/scripts/spatial/elevation/Elevation.cpp
@@ -173,12 +160,11 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
         src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/planets/WGCCRE.h
-        src/engine/scripts/spatial/stars/ATHYG.cpp
         src/engine/scripts/spatial/stars/ATHYG.h
         src/engine/scripts/ui/GUI.cpp
         src/engine/scripts/ui/GUI.h
         src/engine/scripts/graphics/TextureCPU.h
-        src/engine/scripts/core/Defaults.h
+        src/engine/scripts/core/Types.h
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

@@ -6,7 +6,7 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/projection.hpp>
 
-#include "../../src/engine/scripts/core/Defaults.h"
+#include "../../src/engine/scripts/core/Types.h"
 #include "../../src/engine/scripts/core/Application.h"
 #include "../../src/engine/scripts/core/Debug.h"
 #include "../../src/engine/scripts/core/File.h"

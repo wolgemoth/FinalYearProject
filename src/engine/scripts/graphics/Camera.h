@@ -167,11 +167,10 @@ namespace LouiEriksson::Engine::Graphics {
 			REINITIALISE = 1u << 0u, /**< @brief Reinitialise the g-buffer. */
 		};
 		
-		 explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
-		 
-		/** @inheritdoc */
+		explicit Camera(const std::weak_ptr<ECS::GameObject>& _parent);
+		
 		~Camera() override;
-	
+		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
@@ -213,7 +212,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the window associated with the camera.
 		 * @return The weak pointer to the window.
 		 */
-		[[nodiscard]] const std::weak_ptr<Window>& GetWindow() const noexcept;
+		[[nodiscard]] constexpr const std::weak_ptr<Window>& GetWindow() const noexcept {
+			return m_Window;
+		}
 		
 		/**
 		 * @brief Get the Camera's Transform.
@@ -225,7 +226,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's Transform.
 		 * @return The weak pointer to the transform.
 		 */
-		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept {
+			return m_Transform;
+		}
 		
 		/**
 		 * @brief Get the Camera's aspect.
@@ -243,7 +246,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's field of view.
 		 * @return The Camera's field of view.
 		 */
-		[[nodiscard]] const float& FOV() const noexcept;
+		[[nodiscard]] constexpr const float& FOV() const noexcept {
+			return m_FOV;
+		}
 		
 		/**
 		 * @brief Set the Camera's near-clipping distance.
@@ -255,7 +260,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's near-clipping distance.
 		 * @return The Camera's near-clipping distance.
 		 */
-		[[nodiscard]] const float& NearClip() const noexcept;
+		[[nodiscard]] constexpr const float& NearClip() const noexcept {
+			return m_NearClip;
+		}
 		
 		/**
 		 * @brief Set the Camera's far-clipping distance.
@@ -267,7 +274,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's far-clipping distance.
 		 * @return The Camera's far-clipping distance.
 		 */
-		[[nodiscard]] const float& FarClip() const noexcept;
+		[[nodiscard]] constexpr const float& FarClip() const noexcept {
+			return m_FarClip;
+		}
 		
 		/**
 		 * @brief Set the Camera's clear color.

@@ -13,7 +13,7 @@ namespace LouiEriksson::Engine {
 	 * The LogType enum represents different levels of log messages that can be used to categorize log entries.
 	 * Each log type is assigned a character value which is used to differentiate between log messages.
 	 */
-	enum LogType : unsigned char {
+	 enum LogType : unsigned char {
 		Critical, /**< @brief Severe problems causing system failure.     */
 		   Error, /**< @brief Major issues disrupting normal operations.  */
 		 Warning, /**< @brief Potential issues that could cause problems. */

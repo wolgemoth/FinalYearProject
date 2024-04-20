@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_COORDS_H
 #define FINALYEARPROJECT_COORDS_H
 
-#include "../../core/Defaults.h"
+#include "../../core/Types.h"
 
 #include "Conversions.h"
 

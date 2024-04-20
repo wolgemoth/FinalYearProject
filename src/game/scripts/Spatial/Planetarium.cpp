@@ -3,7 +3,6 @@
 namespace LouiEriksson::Game::Scripts::Spatial {
 	
 	Planetarium::Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
-	Planetarium::~Planetarium() = default;
 	
 	void Planetarium::Begin() {
 	

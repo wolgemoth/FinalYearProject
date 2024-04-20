@@ -1,7 +1,8 @@
 #ifndef FINALYEARPROJECT_SETTINGS_H
 #define FINALYEARPROJECT_SETTINGS_H
 
-#include "Defaults.h"
+#include "Resources.h"
+#include "Types.h"
 
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float4.hpp>
@@ -50,7 +51,10 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @sa Settings::Graphics::Skybox::UpdateSkybox, Settings::Graphics::Material::UpdateShader
 		 */
-		static void Init();
+		static void Init() {
+			Settings::Graphics::Skybox::UpdateSkybox(Settings::Graphics::Skybox::s_CurrentSkyboxSelection);
+			Settings::Graphics::Material::UpdateShader(Settings::Graphics::Material::s_CurrentShaderSelection);
+		}
 		
 		/** @brief Container for the application's graphics settings. */
 		struct Graphics final {
@@ -97,7 +101,15 @@ namespace LouiEriksson::Engine {
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Cubemap> s_Skybox;
 				
-				static void UpdateSkybox(const int& _index);
+				static void UpdateSkybox(const int& _index) {
+					
+					if (const auto item = Resources::Get<Engine::Graphics::Cubemap>(s_AvailableSkyboxes.at(_index)).lock()) {
+						s_Skybox = item;
+						
+						s_CurrentSkyboxSelection = _index;
+					}
+				}
+	
 				
 				/* PARAMETERS */
 				inline static scalar_t s_Blur     { 0.0 };
@@ -118,7 +130,14 @@ namespace LouiEriksson::Engine {
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Shader> s_Shader;
 				
-				static void UpdateShader(const int& _index);
+				static void UpdateShader(const int& _index) {
+					
+					if (const auto item = Resources::Get<Engine::Graphics::Shader>(s_AvailableShaders.at(_index)).lock()) {
+						s_Shader = item;
+						
+						s_CurrentShaderSelection = _index;
+					}
+				}
 				
 				inline static glm::vec4 s_TextureScaleTranslate { 1.0, 1.0, 0.0, 0.0 };
 			
@@ -166,10 +185,10 @@ namespace LouiEriksson::Engine {
 			    inline static glm::vec3 s_LightPosition   {   0.0,  2.5,  0.0   }; /**< @brief Position of light in world-space.     */
 			    inline static glm::vec3 s_LightRotation   { -45.0, 45.0,  0.0   }; /**< @brief Position of light in world-space.     */
 			    inline static glm::vec3 s_LightColor      {   1.0,  0.91, 0.874 }; /**< @brief Color of light.                       */
-				inline static     scalar_t s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
-			    inline static     scalar_t s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
-			    inline static     scalar_t s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
-				inline static     scalar_t s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
+				inline static  scalar_t s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
+			    inline static  scalar_t s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
+			    inline static  scalar_t s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
+				inline static  scalar_t s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
 			
 			};
 			
@@ -191,7 +210,9 @@ namespace LouiEriksson::Engine {
 				inline static scalar_t s_Intensity { 1.0 };
 				inline static scalar_t s_Radius    { 0.2 };
 				
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept {
+					return s_Enabled && s_Samples > 0 && s_Intensity > 0.0 && s_Radius > 0.0;
+				}
 				
 			};
 			
@@ -207,7 +228,9 @@ namespace LouiEriksson::Engine {
 				inline static scalar_t s_Anamorphism {  0.0 };
 				inline static scalar_t s_Diffusion   {  3.0 };
 			
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept {
+					return s_Enabled && s_Intensity > 0.0 && s_Threshold <= s_Clamp && s_Diffusion > 0.0;
+				}
 				
 			};
 			
@@ -219,7 +242,9 @@ namespace LouiEriksson::Engine {
 				inline static scalar_t s_Gain     { 0.0 };
 				inline static scalar_t s_Exposure { 1.0 };
 				
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept  {
+					return s_Enabled;
+				}
 				
 				/** @brief Container for the settings of the AutoExposure post-processing effect. */
 				struct AutoExposure final {
@@ -232,7 +257,10 @@ namespace LouiEriksson::Engine {
 					inline static scalar_t s_SpeedDown    {  1.0 };
 					inline static scalar_t s_SpeedUp      {  1.0 };
 					
-					static bool IsActiveAndEnabled() noexcept;
+					inline static bool IsActiveAndEnabled() noexcept {
+						return Settings::PostProcessing::ToneMapping::s_Enabled && s_Enabled && s_MinEV < s_MaxEV && s_MaxEV > 0.0;
+					}
+					
 				};
 				
 			};
@@ -248,7 +276,9 @@ namespace LouiEriksson::Engine {
 				inline static scalar_t s_EdgeBlending          { 1.0    };
 				inline static scalar_t s_LocalContrastModifier { 0.5    };
 				
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept {
+					return s_Enabled;
+				}
 				
 			};
 			
@@ -259,7 +289,9 @@ namespace LouiEriksson::Engine {
 			
 				inline static scalar_t s_Intensity { 0.001 };
 				
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept {
+					return s_Enabled && s_Intensity > 0.0;
+				}
 				
 			};
 
@@ -271,7 +303,9 @@ namespace LouiEriksson::Engine {
 				inline static scalar_t s_Intensity  { 0.667 };
 				inline static scalar_t s_Smoothness { 0.333 };
 				
-				static bool IsActiveAndEnabled() noexcept;
+				inline static bool IsActiveAndEnabled() noexcept {
+					return s_Enabled && s_Intensity > 0.0;
+				}
 				
 			};
 			

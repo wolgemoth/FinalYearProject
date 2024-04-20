@@ -55,21 +55,20 @@ namespace LouiEriksson::Engine::ECS {
 		Hashmap<std::type_index, std::vector<std::weak_ptr<Component>>> m_Components;
 		
 		/** @brief Called at the beginning of the first frame. */
-		virtual void Begin();
+		void Begin();
 	
 		/**
 		 * @brief Called every frame.
 		 * @param[in] _flags The render flags specifying what actions to take during the render process.
 		 */
-		virtual void Tick(const Graphics::Camera::RenderFlags& _flags);
+		void Tick(const Graphics::Camera::RenderFlags& _flags);
 	
 		/** @brief Called every physics update. */
-		virtual void FixedTick();
+		void FixedTick();
 		
 	public:
 	
-		Scene() = default;
-		virtual ~Scene();
+		~Scene();
 		
 		/**
 		 * @brief Get the components within the Scene.

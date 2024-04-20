@@ -23,17 +23,35 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		inline static GLuint s_CurrentCubemap { GL_NONE };
 		
-		Cubemap(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode);
+		explicit Cubemap(const int& _width, const int& _height, const GLuint& _textureID, const Texture::Parameters::Format& _format, const Texture::Parameters::FilterMode& _filterMode, const Texture::Parameters::WrapMode& _wrapMode) noexcept
+			: Texture(_width, _height, _textureID, _format, _filterMode, _wrapMode) {}
 		
 	public:
 		
-		~Cubemap();
+		~Cubemap() {
+			Discard();
+		}
 		
-		static void Bind(const Cubemap& _cubemap, const bool& _force = false);
+		inline static void Bind(const Cubemap& _cubemap, const bool& _force = false) {
+			
+			if (_force || Cubemap::s_CurrentCubemap != _cubemap.m_TextureID) {
+				glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = static_cast<GLint>(_cubemap.m_TextureID));
+			}
+		}
 		
-		static void Bind(const GLuint& _cubemap, const bool& _force = false);
+		inline static void Bind(const GLuint& _cubemap, const bool& _force = false) {
+			
+			if (_force || Cubemap::s_CurrentCubemap != _cubemap) {
+				glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = static_cast<GLint>(_cubemap));
+			}
+		}
 		
-		static void Unbind(const bool& _force = false);
+		inline static void Unbind(const bool& _force = false) {
+			
+			if (_force || Cubemap::s_CurrentCubemap != GL_NONE) {
+				glBindTexture(GL_TEXTURE_CUBE_MAP, Cubemap::s_CurrentCubemap = GL_NONE);
+			}
+		}
 		
 		Cubemap(             const Cubemap& _other) = delete;
 		Cubemap& operator = (const Cubemap& _other) = delete;

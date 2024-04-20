@@ -48,11 +48,30 @@ namespace LouiEriksson::Engine::Graphics {
 			       m_VertexCount,
 		            m_IndexCount;
 		
-		explicit Mesh(const GLenum& _format) noexcept;
+		explicit constexpr Mesh(const GLenum& _format) noexcept  :
+			m_Format         (_format),
+			m_IndexFormat    (GL_NONE),
+			m_VAO_ID         (GL_NONE),
+			m_IBO_ID         (GL_NONE),
+			m_PositionVBO_ID (GL_NONE),
+			m_TexCoordVBO_ID (GL_NONE),
+			m_NormalVBO_ID   (GL_NONE),
+			m_TangentVBO_ID  (GL_NONE),
+			m_BitangentVBO_ID(GL_NONE),
+			m_VertexCount(0),
+			m_IndexCount (0) {}
 		
 	public:
 		
-		~Mesh();
+		~Mesh() {
+			if (         m_VAO_ID != GL_NONE) { glDeleteVertexArrays(1,          &m_VAO_ID); }
+			if ( m_PositionVBO_ID != GL_NONE) { glDeleteBuffers     (1,  &m_PositionVBO_ID); }
+			if ( m_TexCoordVBO_ID != GL_NONE) { glDeleteBuffers     (1,  &m_TexCoordVBO_ID); }
+			if (         m_IBO_ID != GL_NONE) { glDeleteBuffers     (1,          &m_IBO_ID); }
+			if (   m_NormalVBO_ID != GL_NONE) { glDeleteBuffers     (1,    &m_NormalVBO_ID); }
+			if (  m_TangentVBO_ID != GL_NONE) { glDeleteBuffers     (1,   &m_TangentVBO_ID); }
+			if (m_BitangentVBO_ID != GL_NONE) { glDeleteBuffers     (1, &m_BitangentVBO_ID); }
+		}
 		
 		template<typename T>
 		static constexpr void validate_index_format() {
@@ -689,7 +708,12 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @param[in] _mesh The mesh to bind.
 		 */
-		static void Bind(const Mesh& _mesh);
+		inline static void Bind(const Mesh& _mesh)  {
+			
+			if (s_CurrentVAO != _mesh.VAO_ID()) {
+				glBindVertexArray(s_CurrentVAO = _mesh.VAO_ID());
+			}
+		}
 		
 		/**
 		 * @brief Unbinds the currently bound mesh.
@@ -698,7 +722,12 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @sa Bind(const Mesh &_mesh)
 		 */
-		static void Unbind();
+		inline static void Unbind() {
+			
+			if (s_CurrentVAO != GL_NONE) {
+				glBindVertexArray(s_CurrentVAO = GL_NONE);
+			}
+		}
 		
 		/**
 		 * @brief Binds the specified VBO.
@@ -708,21 +737,23 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _type The type of the VBO.
 		 * @param[in] _vbo The ID of the VBO to bind.
 		 */
-		static void BindVBO(const GLenum& _type, const GLuint& _vbo);
+		inline static void BindVBO(const GLenum& _type, const GLuint& _vbo)  {
+			glBindBuffer(_type, _vbo);
+		}
 		
-		[[nodiscard]] const GLenum&      Format() const noexcept;
-		[[nodiscard]] const GLenum& IndexFormat() const noexcept;
+		[[nodiscard]] constexpr const GLenum&      Format() const noexcept { return      m_Format; }
+		[[nodiscard]] constexpr const GLenum& IndexFormat() const noexcept { return m_IndexFormat; }
 		
-		[[nodiscard]] const GLuint&          VAO_ID() const noexcept;
-		[[nodiscard]] const GLuint&  PositionVBO_ID() const noexcept;
-		[[nodiscard]] const GLuint&  TexCoordVBO_ID() const noexcept;
-		[[nodiscard]] const GLuint&     IndexVBO_ID() const noexcept;
-		[[nodiscard]] const GLuint&    NormalVBO_ID() const noexcept;
-		[[nodiscard]] const GLuint&   TangentVBO_ID() const noexcept;
-		[[nodiscard]] const GLuint& BitangentVBO_ID() const noexcept;
+		[[nodiscard]] constexpr const GLuint&          VAO_ID() const noexcept { return          m_VAO_ID; }
+		[[nodiscard]] constexpr const GLuint&  PositionVBO_ID() const noexcept { return  m_PositionVBO_ID; }
+		[[nodiscard]] constexpr const GLuint&  TexCoordVBO_ID() const noexcept { return  m_TexCoordVBO_ID; }
+		[[nodiscard]] constexpr const GLuint&     IndexVBO_ID() const noexcept { return          m_IBO_ID; }
+		[[nodiscard]] constexpr const GLuint&    NormalVBO_ID() const noexcept { return    m_NormalVBO_ID; }
+		[[nodiscard]] constexpr const GLuint&   TangentVBO_ID() const noexcept { return   m_TangentVBO_ID; }
+		[[nodiscard]] constexpr const GLuint& BitangentVBO_ID() const noexcept { return m_BitangentVBO_ID; }
 		
-		[[nodiscard]] const GLuint& VertexCount() const noexcept;
-		[[nodiscard]] const GLuint&  IndexCount() const noexcept;
+		[[nodiscard]] constexpr const GLuint& VertexCount() const noexcept { return m_VertexCount; }
+		[[nodiscard]] constexpr const GLuint&  IndexCount() const noexcept { return  m_IndexCount; }
 	};
 	
 } // LouiEriksson::Engine::Graphics

@@ -59,27 +59,27 @@ namespace LouiEriksson::Engine {
 			Tk first;
 			Tv second;
 			
-			KeyValuePair(const Tk& _key, const Tv& _value) noexcept  :
+			KeyValuePair(const Tk& _key, const Tv& _value) noexcept :
 				 first(_key),
 				second(_value) {}
 			
-			KeyValuePair(const KeyValuePair& _other) noexcept  :
+			inline constexpr KeyValuePair(const KeyValuePair& _other) noexcept :
 				 first(_other.first),
 				second(_other.second) {}
 				
-			KeyValuePair(KeyValuePair&& _rhs) noexcept :
+			inline KeyValuePair(KeyValuePair&& _rhs) noexcept :
 					 first(std::move(_rhs.first)),
 					second(std::move(_rhs.second)) {}
 
-			KeyValuePair& operator =(const KeyValuePair& _other) noexcept {
+			inline KeyValuePair& operator =(const KeyValuePair& _other) noexcept {
 				if (this != &_other) {
-					first = _other.first;
+					 first = _other.first;
 					second = _other.second;
 				}
 				return *this;
 			}
 			
-			KeyValuePair& operator =(KeyValuePair&& _rhs) noexcept {
+			inline KeyValuePair& operator =(KeyValuePair&& _rhs) noexcept {
 				if (this != &_rhs) {
 					 first = std::move(_rhs.first);
 					second = std::move(_rhs.second);
@@ -102,14 +102,14 @@ namespace LouiEriksson::Engine {
 		 * @return Hashcode of _item.
 		 * @throw std::exception If the type of _item is not supported by std::hash.
 		 */
-		static size_t GetHashcode(const Tk& _item) noexcept {
+		inline static constexpr size_t GetHashcode(const Tk& _item) noexcept {
 			return std::hash<Tk>()(_item);
 		}
 		
 		/**
 		 * @brief Reinitialise the Hashmap. An expensive operation that increases the Hashmap's capacity.
 		 */
-		void Resize(const size_t& _newSize) {
+		inline constexpr void Resize(const size_t& _newSize) {
 			
 			std::vector<std::vector<KeyValuePair>> shallowCopy(m_Buckets);
 			
@@ -133,9 +133,9 @@ namespace LouiEriksson::Engine {
 		 * @throw std::runtime_error If no entry is found.
 		 * @see Get(const Tk& _key, Tv& _out)
 		 */
-		Tv& Return(const Tk& _key) {
+		constexpr const Tv& Return(const Tk& _key) const {
 			
-			Tv* result = nullptr;
+			const Tv* result = nullptr;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
 			size_t hash = GetHashcode(_key);
@@ -165,7 +165,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Initialise Hashmap.
 		 * @param[in] _capacity Initial capacity of the Hashmap. Must be larger than 0.
 		 */
-		Hashmap(const size_t& _capacity = 1) : m_Size(0) {
+		constexpr Hashmap(const size_t& _capacity = 1) : m_Size(0) {
 			m_Buckets.resize(_capacity);
 		}
 		
@@ -176,7 +176,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _items A collection of key-value pairs.
 		 * @param[in] _capacity Initial capacity of the Hashmap. If a value less than 1 is assigned, it will use the size of the provided collection.
 		 */
-		Hashmap(const std::initializer_list<KeyValuePair>& _items, const size_t& _capacity = 0) : m_Size(0) {
+		constexpr Hashmap(const std::initializer_list<KeyValuePair>& _items, const size_t& _capacity = 0) : m_Size(0) {
 			
 			size_t auto_capacity = _capacity;
 			
@@ -205,28 +205,28 @@ namespace LouiEriksson::Engine {
 			
 		public:
 			
-			[[nodiscard]] const Tv& value()                 const { return m_Optional.value(); }
-			[[nodiscard]] const Tv& value_or(const Tv&& _t) const { return m_Optional.value_or(_t); }
+			[[nodiscard]] inline const Tv& value()                 const { return m_Optional.value(); }
+			[[nodiscard]] inline const Tv& value_or(const Tv&& _t) const { return m_Optional.value_or(_t); }
 			
-			[[nodiscard]] bool has_value() const { return m_Optional.has_value(); }
+			[[nodiscard]] inline bool has_value() const { return m_Optional.has_value(); }
 			
-			[[nodiscard]] const Tv& operator  *() const { return  value(); }
-			[[nodiscard]] const Tv* operator ->() const { return &value(); }
+			[[nodiscard]] inline const Tv& operator  *() const { return  value(); }
+			[[nodiscard]] inline const Tv* operator ->() const { return &value(); }
 			
-			[[nodiscard]] operator bool() const { return has_value(); }
+			[[nodiscard]] inline operator bool() const { return has_value(); }
 		};
 		
 		/**
 		 * @brief Returns the number of items stored within the Hashmap.
 		 * @return The number of items stored within the Hashmap.
 		 */
-		[[nodiscard]] size_t size() const noexcept { return m_Size; }
+		[[nodiscard]] constexpr const size_t& size() const noexcept { return m_Size; }
 		
 		/**
 		 * @brief Is the Hashmap empty?
 		 * @return Returns true if the Hashmap contains no entries.
 		 */
-		[[nodiscard]] bool empty() const noexcept { return m_Size == 0; }
+		[[nodiscard]] constexpr bool empty() const noexcept { return m_Size == 0; }
 	
 		/**
 		 * @brief Queries for the existence of an item in the Hashmap.
@@ -234,7 +234,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _key Key of the entry.
 		 * @return True if successful, false otherwise.
 		 */
-		bool ContainsKey(const Tk& _key) const noexcept {
+		constexpr bool ContainsKey(const Tk& _key) const noexcept {
 			
 			auto result = false;
 			
@@ -454,7 +454,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns a shallow copy of all entries stored within the Hashmap.
 		 * @return A shallow copy of all entries stored within the Hashmap.
 		 */
-		[[nodiscard]] std::vector<Tk> Keys() const {
+		[[nodiscard]] inline std::vector<Tk> Keys() const {
 			
 			std::vector<Tk> result;
 			
@@ -471,7 +471,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns a shallow copy of all entries stored within the Hashmap.
 		 * @return A shallow copy of all entries stored within the Hashmap.
 		 */
-		[[nodiscard]] std::vector<Tv> Values() const {
+		[[nodiscard]] inline std::vector<Tv> Values() const {
 			
 			std::vector<Tv> result;
 			
@@ -488,7 +488,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns a shallow copy of all entries stored within the Hashmap.
 		 * @return A shallow copy of all entries stored within the Hashmap.
 		 */
-		[[nodiscard]] std::vector<KeyValuePair> GetAll() const {
+		[[nodiscard]] inline std::vector<KeyValuePair> GetAll() const {
 			
 			std::vector<KeyValuePair> result;
 			
@@ -506,7 +506,7 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _newSize The minimum capacity to reserve for the container.
 		 */
-		void Reserve(const std::size_t& _newSize) {
+		constexpr void Reserve(const std::size_t& _newSize) {
 			
 			if (m_Size < _newSize) {
 				Resize(_newSize);
@@ -516,7 +516,7 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Clears all entries from the Hashmap.
 		 */
-		void Clear() noexcept  {
+		constexpr void Clear() noexcept  {
 			
 			m_Buckets.clear();
 			m_Buckets.resize(1);
@@ -535,7 +535,7 @@ namespace LouiEriksson::Engine {
 #ifndef HASHMAP_SUPPRESS_EXCEPTION_WARNING
 		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required.\nSuppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
 #endif
-		Tv& operator[](const Tk& _key) {
+		inline constexpr const Tv& operator[](const Tk& _key) const {
 		    return Return(_key);
 		}
 		
@@ -558,9 +558,9 @@ namespace LouiEriksson::Engine {
 			outer_itr m_Outer_End;
 			inner_itr m_Inner;
 			
-			const_iterator(const outer_itr& _outer,
-			               const outer_itr& _outer_end,
-			               const inner_itr& _inner) :
+			constexpr const_iterator(const outer_itr& _outer,
+			                         const outer_itr& _outer_end,
+			                         const inner_itr& _inner) :
 				    m_Outer(_outer),
 				m_Outer_End(_outer_end),
 				    m_Inner(_inner)
@@ -596,8 +596,8 @@ namespace LouiEriksson::Engine {
 			bool operator !=(const const_iterator& other) const { return !operator ==(other); }
 		};
 		
-		const_iterator begin() const { return const_iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::const_iterator() : m_Buckets.begin()->begin()); }
-		const_iterator   end() const { return const_iterator(m_Buckets.end(),   m_Buckets.end(), typename std::vector<KeyValuePair>::const_iterator()); }
+		constexpr const_iterator begin() const { return const_iterator(m_Buckets.begin(), m_Buckets.end(), m_Buckets.empty() ? typename std::vector<KeyValuePair>::const_iterator() : m_Buckets.begin()->begin()); }
+		constexpr const_iterator   end() const { return const_iterator(m_Buckets.end(),   m_Buckets.end(), typename std::vector<KeyValuePair>::const_iterator()); }
 	};
 	
 } // LouiEriksson::Engine

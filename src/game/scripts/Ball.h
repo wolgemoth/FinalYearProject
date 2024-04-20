@@ -44,10 +44,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit Ball(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
-		~Ball() override;
-		
-		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Ball); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Ball); };
 	
 	};
 	

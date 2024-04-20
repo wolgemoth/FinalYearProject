@@ -7,7 +7,6 @@ using namespace LouiEriksson::Engine;
 namespace LouiEriksson::Game::Scripts {
 	
 	Plane::Plane(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
-	Plane::~Plane() = default;
 	
 	void Plane::Begin() {
 		

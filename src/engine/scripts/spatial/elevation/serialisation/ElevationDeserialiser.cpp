@@ -34,10 +34,6 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		lat(_otd_json["lat"]),
 		lng(_otd_json["lng"]) {}
 	
-	const float& ElevationDeserialiser::OEJSON::Root::Result::Lat()       const noexcept { return  latitude; }
-	const float& ElevationDeserialiser::OEJSON::Root::Result::Long()      const noexcept { return longitude; }
-	const float& ElevationDeserialiser::OEJSON::Root::Result::Elevation() const noexcept { return elevation; }
-	
 	ElevationDeserialiser::OEJSON::OEJSON(json&& _oe_json) :
 		m_Root(std::move(_oe_json)) {}
 	
@@ -56,9 +52,5 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		 latitude(_oe_json["latitude" ]),
 		longitude(_oe_json["longitude"]),
 		elevation(_oe_json["elevation"]) {}
-	
-	const float& ElevationDeserialiser::OTDJSON::Root::Result::Lat()       const noexcept { return location.lat; }
-	const float& ElevationDeserialiser::OTDJSON::Root::Result::Long()      const noexcept { return location.lng; }
-	const float& ElevationDeserialiser::OTDJSON::Root::Result::Elevation() const noexcept { return elevation;    }
 	
 } // LouiEriksson::Engine::Spatial::Serialisation

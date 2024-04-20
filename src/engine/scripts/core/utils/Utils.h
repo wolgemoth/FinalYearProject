@@ -2,8 +2,12 @@
 #define FINALYEARPROJECT_UTILS_H
 
 #include "../Debug.h"
-#include "glm/geometric.hpp"
 
+#include <al.h>
+#include <GL/glew.h>
+#include <SDL_error.h>
+
+#include <glm/geometric.hpp>
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 
@@ -16,6 +20,8 @@
 #include <limits>
 #include <optional>
 #include <queue>
+#include <regex>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -87,7 +93,24 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return std::string The trimmed string.
 		 */
-		static std::string Trim(const std::string& _string);
+		static std::string Trim(const std::string& _string)  {
+			
+			std::string result;
+			
+			const auto first = _string.find_first_not_of(" \t\r\n");
+			
+			if (std::string::npos != first) {
+				
+				const auto last = _string.find_last_not_of(" \t\r\n");
+				
+				result = _string.substr(first, (last - first + 1));
+			}
+			else {
+				result = _string;
+			}
+			
+			return result;
+		}
 		
 		/**
 		 * @brief Remap a number from one range to another.
@@ -134,7 +157,25 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _silent (optional) Flag indicating whether the error message should be logged or not. Defaults to false.
 		 */
-		static void ALDumpError(const bool& _silent = false);
+		static void ALDumpError(const bool& _silent = false) {
+		
+			const auto error = alGetError();
+		    if (error != AL_NO_ERROR) {
+			   
+			    switch (error) {
+					case AL_INVALID_NAME:      { Debug::Log("OpenAL Error \"AL_INVALID_NAME\"",      LogType::Error); break; }
+					case AL_INVALID_ENUM:      { Debug::Log("OpenAL Error \"AL_INVALID_ENUM\"",      LogType::Error); break; }
+					case AL_INVALID_VALUE:     { Debug::Log("OpenAL Error \"AL_INVALID_VALUE\"",     LogType::Error); break; }
+					case AL_INVALID_OPERATION: { Debug::Log("OpenAL Error \"AL_INVALID_OPERATION\"", LogType::Error); break; }
+					case AL_OUT_OF_MEMORY:     { Debug::Log("OpenAL Error \"AL_OUT_OF_MEMORY\"",     LogType::Error); break; }
+					default: {
+						Debug::Log("OpenAL Error \"Unknown\"", LogType::Error);
+					}
+			    }
+				
+				Debug::Break("BREAK_AL_ERR");
+		    }
+		}
 		
 		/**
 		 * @brief Dumps the latest OpenGL error to the console.
@@ -144,14 +185,39 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _silent (optional) Flag indicating whether the error message should be logged or not. Defaults to false.
 		 */
-		static void GLDumpError(const bool& _silent = false);
+		static void GLDumpError(const bool& _silent = false) {
+			
+			const auto glError = glGetError();
+			if ((glError != GL_NONE) && !_silent) {
+				
+				std::stringstream ss;
+				ss << "OpenGL Error [" << glError << "]: \"" <<
+					glewGetErrorString(glError) << "\"";
+				
+				Debug::Log(ss.str(), LogType::Error);
+				Debug::Break("BREAK_GL_ERR");
+			}
+		}
 		
 		/**
 		 * @brief Dumps the latest SDL error to the console.
 		 *
 		 * This function retrieves the latest SDL error using SDL_GetError() and logs the corresponding error message to the console.		 *
 		 */
-		static void SDLDumpError();
+		static void SDLDumpError() {
+			
+			const auto* const sdlError = SDL_GetError();
+			if (sdlError != nullptr && *sdlError != '\0') {
+				
+				std::stringstream ss;
+				ss << "SDL Error \"" << sdlError << "\"";
+				
+				Debug::Log(ss.str(), LogType::Error);
+				Debug::Break("BREAK_SDL_ERR");
+				
+			    SDL_ClearError();
+			}
+		}
 		
 		/**
 		 * @brief Minimises a string by stripping out line endings, tabs, and spaces.
@@ -162,7 +228,11 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return std::string The minimised string.
 		 */
-		static std::string Minimise(const std::string& _string);
+		inline static std::string Minimise(const std::string& _string) {
+			
+			static const auto ws = std::regex(R"((\r\n)+|\r+|\n+|\t+|\s)", std::regex::optimize);
+			return std::regex_replace(_string, ws, "");
+		}
 		
 		/**
 		 * @brief Repeats a value within the range 0 -> _max.
@@ -347,12 +417,12 @@ namespace LouiEriksson::Engine {
 		 * @note The type T must provide a specialize definition of this function in order to support parsing for that type.
 		 */
 		template <typename T>
-		inline static T Parse(const std::string_view& _str) {
+		inline static constexpr T Parse(const std::string_view& _str) {
 			
 			T r;
 			
-		    char* e;                      // (end)
-			static constexpr auto b = 10; // (base)
+		    char* e;               // (end)
+			constexpr auto b = 10; // (base)
 			
 			     if constexpr (std::is_same_v<T, int                >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
 			else if constexpr (std::is_same_v<T, short              >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }

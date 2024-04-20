@@ -9,7 +9,7 @@
 #include "../networking/Requests.h"
 #include "../physics/Physics.h"
 #include "../ui/GUI.h"
-#include "Defaults.h"
+#include "Types.h"
 #include "utils/Hashmap.h"
 
 #include "Debug.h"

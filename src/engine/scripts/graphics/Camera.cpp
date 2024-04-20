@@ -6,7 +6,7 @@
 #include "../core/Settings.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
-#include "../core/Defaults.h"
+#include "../core/Types.h"
 #include "../core/utils/Utils.h"
 #include "../core/Window.h"
 #include "../ecs/GameObject.h"
@@ -56,20 +56,20 @@ namespace LouiEriksson::Engine::Graphics {
 		m_FarClip(60.0),
 	
 		// Init g-buffer:
-		               m_RT(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE         ),
-		   m_Albedo_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB,     false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		 m_Emission_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		 m_Material_gBuffer(1, 1, Texture::Parameters::Format(GL_RGBA16F, false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		 m_Position_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
-		   m_Normal_gBuffer(1, 1, Texture::Parameters::Format(GL_RGB16F,  false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
-		 m_TexCoord_gBuffer(1, 1, Texture::Parameters::Format(GL_RG32F,   false), Texture::Parameters::FilterMode(GL_NEAREST, GL_NEAREST), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		               m_RT(1, 1, { GL_RGB16F,  false }, { GL_LINEAR,  GL_LINEAR  }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::NONE         ),
+		   m_Albedo_gBuffer(1, 1, { GL_RGB,     false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Emission_gBuffer(1, 1, { GL_RGB16F,  false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Material_gBuffer(1, 1, { GL_RGBA16F, false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_Position_gBuffer(1, 1, { GL_RGB16F,  false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode:: FRAME_BUFFER),
+		   m_Normal_gBuffer(1, 1, { GL_RGB16F,  false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
+		 m_TexCoord_gBuffer(1, 1, { GL_RG32F,   false }, { GL_NEAREST, GL_NEAREST }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::RENDER_BUFFER),
 		 
 		// Set exposure level from settings.
 		m_Exposure(Settings::PostProcessing::ToneMapping::s_Exposure),
 		
 		// Effects buffers:
-		            m_AO_RT( 1,  1, Texture::Parameters::Format(GL_RGB, false), Texture::Parameters::FilterMode(GL_LINEAR,  GL_LINEAR ), Texture::Parameters::WrapMode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE), RenderTexture::Parameters::DepthMode::NONE),
-		m_AutoExposure_Luma(32, 32, Texture::Parameters::Format(m_RT.Format().PixelFormat(), false), Texture::Parameters::FilterMode(GL_LINEAR, GL_NEAREST), m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE)
+		            m_AO_RT( 1,  1, { GL_RGB, false }, { GL_LINEAR,  GL_LINEAR }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::NONE),
+		m_AutoExposure_Luma(32, 32, { m_RT.Format().PixelFormat(), false }, { GL_LINEAR, GL_NEAREST }, m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE)
 	{
 		if (s_Passthrough.expired()) {
 			s_Passthrough = Resources::Get<Shader>("passthrough");
@@ -1544,15 +1544,9 @@ namespace LouiEriksson::Engine::Graphics {
 			Debug::Log("Provided Window is invalid!", LogType::Error);
 		}
 	}
-	const std::weak_ptr<Window>& Camera::GetWindow() const noexcept {
-		return m_Window;
-	}
 	
 	void Camera::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		m_Transform = _transform;
-	}
-	const std::weak_ptr<Transform>& Camera::GetTransform() const noexcept {
-		return m_Transform;
 	}
 	
 	float Camera::Aspect() const {
@@ -1580,9 +1574,6 @@ namespace LouiEriksson::Engine::Graphics {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	const float& Camera::FOV() const noexcept {
-		return m_FOV;
-	}
 	
 	void Camera::NearClip(const float& _nearClip) noexcept {
 		
@@ -1593,9 +1584,6 @@ namespace LouiEriksson::Engine::Graphics {
 			m_IsDirty = true; // Set dirty.
 		}
 	}
-	const float& Camera::NearClip() const noexcept {
-		return m_NearClip;
-	}
 	
 	void Camera::FarClip(const float& _farClip) noexcept {
 		
@@ -1605,9 +1593,6 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			m_IsDirty = true; // Set dirty.
 		}
-	}
-	const float& Camera::FarClip() const noexcept {
-		return m_FarClip;
 	}
 	
 	void Camera::ClearColor(glm::vec4 _color) {

@@ -10,8 +10,6 @@ namespace LouiEriksson::Game::Scripts {
 			m_LookSpeed(30.0),
 			m_Rotation(0.0) {}
 	
-	FlyCam::~FlyCam() = default;
-	
 	void FlyCam::Begin() {
 		
 		if (const auto p =      Parent().lock()) {

@@ -37,8 +37,6 @@ namespace LouiEriksson::Engine::Graphics {
 		Type(m_Type);
 	}
 	
-	Light::~Light() = default;
-	
 	void Light::Type(const Light::Parameters::Type& _type) {
 		
 		// Configure the light projection matrix.

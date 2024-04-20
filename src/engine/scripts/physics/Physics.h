@@ -1,19 +1,26 @@
 #ifndef FINALYEARPROJECT_PHYSICS_H
 #define FINALYEARPROJECT_PHYSICS_H
 
-#include "../core/Defaults.h"
+#include "../core/Debug.h"
+#include "../core/Time.h"
+#include "../core/Types.h"
 
-#include "LinearMath/btScalar.h"
 #include <BulletCollision/BroadphaseCollision/btBroadphaseInterface.h>
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
-#include <glm/ext/vector_float3.hpp>
+
 #include <LinearMath/btIDebugDraw.h>
+#include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
 
+#include <glm/common.hpp>
+#include <glm/ext/vector_float3.hpp>
+
+#include <exception>
 #include <memory>
 
 namespace LouiEriksson::Engine {
@@ -49,28 +56,71 @@ namespace LouiEriksson::Engine::Physics {
 			
 		public:
 			
-			 explicit Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld);
+			explicit Debugger(const std::weak_ptr<btDynamicsWorld>& _dynamicsWorld) :
+				m_DynamicsWorld(_dynamicsWorld)
+			{
+				try {
+					
+					if (const auto dw = m_DynamicsWorld.lock()) {
+						dw->setDebugDrawer(this);
+					}
+				}
+				catch (const std::exception& e) {
+					Debug::Log(e);
+				}
+			}
 			 
 			/** @inheritdoc */
-			~Debugger() override;
+			~Debugger() override {
+				
+				try {
+					
+					if (const auto dw = m_DynamicsWorld.lock()) {
+						dw->setDebugDrawer(nullptr);
+					}
+				}
+				catch (const std::exception& e) {
+					Debug::Log(e, LogType::Critical);
+				}
+			}
 			
 			/** @inheritdoc */
-			void drawLine(const btVector3 &_from, const btVector3 &_to, const btVector3 &_color) override;
+			[[deprecated("Not implemented")]]
+			void drawLine(const btVector3 &_from, const btVector3 &_to, const btVector3 &_color) override {
+				Debug::Break("Not implemented");
+			}
 			
 			/** @inheritdoc */
-			void drawContactPoint(const btVector3 &_PointOnB, const btVector3 &_normalOnB, btScalar _distance, int _lifeTime, const btVector3 &_color) override;
+			[[deprecated("Not implemented")]]
+			void drawContactPoint(const btVector3 &_PointOnB, const btVector3 &_normalOnB, btScalar _distance, int _lifeTime, const btVector3 &_color) override {
+				Debug::Break("Not implemented");
+			}
 			
 			/** @inheritdoc */
-			void reportErrorWarning(const char *_warningString) override;
+			[[deprecated("Not implemented")]]
+			void reportErrorWarning(const char *_warningString) override {
+				Debug::Break("Not implemented");
+			}
 			
 			/** @inheritdoc */
-			void draw3dText(const btVector3 &_location, const char *_textString) override;
+			[[deprecated("Not implemented")]]
+			void draw3dText(const btVector3 &_location, const char *_textString) override {
+				Debug::Break("Not implemented");
+			}
 			
 			/** @inheritdoc */
-			void setDebugMode(int _debugMode) override;
+			[[deprecated("Not implemented")]]
+			void setDebugMode(int _debugMode) override {
+				Debug::Break("Not implemented");
+			}
 			
 			/** @inheritdoc */
-			[[nodiscard]] int getDebugMode() const override;
+			[[deprecated("Not implemented")]]
+			[[nodiscard]] int getDebugMode() const override {
+				
+				Debug::Break("Not implemented");
+				return 0;
+			}
 			
 		};
 		
@@ -90,22 +140,109 @@ namespace LouiEriksson::Engine::Physics {
 		inline static tick_t s_LastTick { 0.0 };
 		
 		/** @brief Initialise the physics engine.*/
-		static void Init();
+		static void Init() {
+		
+			Debug::Log("Initialising Bullet Physics Engine...", LogType::Info);
+			
+			try {
+				
+				// Initialise the configuration of the physics system.
+				Debug::Log("\tInitialising Default Configuration... ", LogType::Info, true);
+				try {
+					s_Configuration = std::make_shared<btDefaultCollisionConfiguration>();
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					throw e;
+				}
+				
+				// Initialise the collision dispatcher.
+				Debug::Log("\tInitialising Dispatcher... ", LogType::Info, true);
+				try {
+					s_Dispatcher = std::make_shared<btCollisionDispatcher>(s_Configuration.get());
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					throw e;
+				}
+				
+				// Initialise the broadphase.
+				Debug::Log("\tInitialising Broadphase... ", LogType::Info, true);
+				try {
+					s_Broadphase = std::make_shared<btDbvtBroadphase>();
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					throw e;
+				}
+				
+				// Initialise the solver.
+				Debug::Log("\tInitialising Solver... ", LogType::Info, true);
+				try {
+					s_Solver = std::make_shared<btSequentialImpulseConstraintSolver>();
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					throw e;
+				}
+				
+				// Initialise the dynamics world.
+				Debug::Log("\tInitialising Dynamics World... ", LogType::Info, true);
+				try {
+					s_DynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get());
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					throw e;
+				}
+				
+	//			// Create and initialise an instance of the visual debugging class.
+	//			Debug::Log("\tInitialising Debug Drawer... ", LogType::Info, true);
+	//			try {
+	//				s_Debugger.reset(new Debugger(s_DynamicsWorld));
+	//				Debug::Log("Done.", LogType::Info);
+	//			}
+	//			catch (const std::exception& e) {
+	//				Debug::Log("Failed.", LogType::Error);
+	//				throw e;
+	//			}
+			}
+			catch (const std::exception& e) {
+				Debug::Log("Failed.", LogType::Error);
+				Debug::Log(e);
+			}
+		}
 		
 		/** @brief Update the physics simulation by one step. */
-		static void Tick(const tick_t& _step);
+		inline static void Tick(const tick_t& _step) {
+			
+			s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
+			
+			if (_step != 0.0) {
+				s_LastTick = 0.0;
+			}
+		}
 		
 		/**
 		 * @brief Set the value of gravity within the simulation.
 		 * @param[in] _value The new value of gravity as a glm::vec3 object.
 		 */
-		static void Gravity(const glm::vec3& _value) noexcept;
+		inline static void Gravity(const glm::vec3& _value) noexcept {
+			s_Gravity = _value;
+		}
 		
 		/**
 		 * @brief Get the value of gravity within the simulation.
 		 * @return The value of gravity as a glm::vec3 object.
 		 */
-		static const glm::vec3& Gravity() noexcept;
+		static constexpr const glm::vec3& Gravity() noexcept {
+			return s_Gravity;
+		}
 		
 		/**
 		 * @brief Render debugging information associated with the state of the physics engine.
@@ -120,13 +257,37 @@ namespace LouiEriksson::Engine::Physics {
 		 * @see btIDebugDraw
 		 * @see https://pybullet.org/Bullet/BulletFull/classbtIDebugDraw.html
 		 */
+		[[deprecated("Not implemented")]]
 		static void Debug(const int& _debugMode = (unsigned)btIDebugDraw::DBG_DrawWireframe     |
 				                                  (unsigned)btIDebugDraw::DBG_DrawAabb          |
 												  (unsigned)btIDebugDraw::DBG_DrawContactPoints |
-												  (unsigned)btIDebugDraw::DBG_DrawNormals       );
+												  (unsigned)btIDebugDraw::DBG_DrawNormals
+		) {
+			
+			try {
+				
+				if (s_Debugger != nullptr) {
+					s_Debugger->setDebugMode(_debugMode);
+					
+					s_DynamicsWorld->debugDrawWorld();
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		
 		/** @brief Finalise the physics simulation. */
-		static void Dispose();
+		static void Dispose() {
+		
+			try {
+			
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e, LogType::Critical);
+			}
+			
+		}
 		
 	};
 	

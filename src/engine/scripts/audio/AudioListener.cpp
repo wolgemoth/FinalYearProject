@@ -3,7 +3,7 @@
 #include "../core/Script.h"
 #include "../core/Time.h"
 #include "../core/Transform.h"
-#include "../core/Defaults.h"
+#include "../core/Types.h"
 #include "../ecs/GameObject.h"
 #include "../physics/Rigidbody.h"
 
@@ -18,8 +18,6 @@ namespace LouiEriksson::Engine::Audio {
 	AudioListener::AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
 			m_Gain        (1.0),
 			m_LastPosition(0.0) {}
-	
-	AudioListener::~AudioListener() = default;
 	
 	void AudioListener::Begin() {
 		Sync();
@@ -71,9 +69,6 @@ namespace LouiEriksson::Engine::Audio {
 	
 	void AudioListener::Gain(const ALfloat& _value) noexcept {
 		m_Gain = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(1.0));
-	}
-	const float& AudioListener::Gain() const noexcept {
-		return m_Gain;
 	}
 	
 } // LouiEriksson::Engine::Audio

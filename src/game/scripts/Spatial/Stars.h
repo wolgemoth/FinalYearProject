@@ -31,10 +31,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		explicit Stars(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
-		~Stars() override;
-		
-		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Stars); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Stars); };
 	};
 	
 } // LouiEriksson::Game::Scripts::Spatial

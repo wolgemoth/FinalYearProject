@@ -43,9 +43,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					      longitude,
 						  elevation;
 		            
-		            [[nodiscard]] const float&       Lat() const noexcept final;
-					[[nodiscard]] const float&      Long() const noexcept final;
-					[[nodiscard]] const float& Elevation() const noexcept final;
+		            [[nodiscard]] inline const float&       Lat() const noexcept final { return  latitude; }
+					[[nodiscard]] inline const float&      Long() const noexcept final { return longitude; }
+					[[nodiscard]] inline const float& Elevation() const noexcept final { return elevation; }
 					
 		            explicit Result(json&& _oe_json);
 	            };
@@ -80,9 +80,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	                
 	                Location location;
 		            
-		            [[nodiscard]] const float&       Lat() const noexcept final;
-					[[nodiscard]] const float&      Long() const noexcept final;
-					[[nodiscard]] const float& Elevation() const noexcept final;
+		            [[nodiscard]] inline const float&       Lat() const noexcept final { return location.lat; }
+					[[nodiscard]] inline const float&      Long() const noexcept final { return location.lng; }
+					[[nodiscard]] inline const float& Elevation() const noexcept final { return elevation;    }
 					
 		            explicit Result(json&& _otd_json);
 	            };
@@ -99,7 +99,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		};
 		
 		template <typename T>
-	    static T Deserialise(std::istringstream&& _data) {
+	    static constexpr T Deserialise(std::istringstream&& _data) {
 			return { json::parse(_data) };
 		}
 	};

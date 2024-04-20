@@ -38,9 +38,6 @@ namespace LouiEriksson::Engine::Physics {
 	
 		explicit Collider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
 		
-		/** @inheritdoc */
-		~Collider() override = default;
-		
 		/**
 		 * @brief Set the Transform of the Collider.
 		 * @param[in] _transform The Transform to set.
@@ -51,7 +48,9 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Retrieve the Transform associated with the Collider.
 		 * @return A weak pointer to the Transform.
 		 */
-		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept;
+		[[nodiscard]] const std::weak_ptr<Transform>& GetTransform() const noexcept {
+			return m_Transform;
+		}
 	
 		/**
 		 * @brief Set the Rigidbody of the Collider.
@@ -63,7 +62,9 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Retrieve the Rigidbody associated with the Collider.
 		 * @return A weak pointer to the Transform.
 		 */
-		[[nodiscard]] const std::weak_ptr<Rigidbody>& GetRigidbody() const noexcept;
+		[[nodiscard]] constexpr const std::weak_ptr<Rigidbody>& GetRigidbody() const noexcept {
+			return m_Rigidbody;
+		}
 		
 		/**
 		 * @brief Set the type of the Collider.
@@ -81,7 +82,9 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @return A reference to the type of the Collider.
 		 */
-		[[nodiscard]] const Type& GetType() const noexcept;
+		[[nodiscard]] constexpr const Type& GetType() const noexcept {
+			return m_Type;
+		}
 	
 	protected:
 		

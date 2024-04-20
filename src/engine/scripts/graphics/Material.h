@@ -6,8 +6,7 @@
 namespace LouiEriksson::Engine {
 	
 	class File;
-	
-} // LouiEriksson::Engine
+}
 
 namespace LouiEriksson::Engine::Graphics {
 	
@@ -48,30 +47,28 @@ namespace LouiEriksson::Engine::Graphics {
 		 
 	public:
 		
-		~Material();
-		
 		/**
 		 * \brief Get the currently assigned Shader.
 		 *
 		 * \return A weak pointer to the currently assigned Shader.
 		 */
-		[[nodiscard]] const std::weak_ptr<Shader>& GetShader() const noexcept;
+		[[nodiscard]] constexpr const std::weak_ptr<Shader>& GetShader() const noexcept { return m_Shader; }
 		
-		[[nodiscard]] const std::weak_ptr<Texture>& GetAlbedoTexture()       const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetAOTexture()           const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetDisplacementTexture() const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetEmissionTexture()     const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetMetallicTexture()     const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetNormalTexture()      const noexcept;
-		[[nodiscard]] const std::weak_ptr<Texture>& GetRoughnessTexture()    const noexcept;
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetAlbedoTexture()       const noexcept { return m_Albedo_Texture;       }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetAOTexture()           const noexcept { return m_AO_Texture;           }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetDisplacementTexture() const noexcept { return m_Displacement_Texture; }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetEmissionTexture()     const noexcept { return m_Emission_Texture;     }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetMetallicTexture()     const noexcept { return m_Metallic_Texture;     }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetNormalTexture()       const noexcept { return m_Normal_Texture;       }
+		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetRoughnessTexture()    const noexcept { return m_Roughness_Texture;    }
 		
-		[[nodiscard]] const glm::vec4& GetAlbedoColor()   const noexcept;
-		[[nodiscard]] const glm::vec3& GetEmissionColor() const noexcept;
+		[[nodiscard]] constexpr const glm::vec4& GetAlbedoColor()   const noexcept { return m_Albedo_Color;   }
+		[[nodiscard]] constexpr const glm::vec3& GetEmissionColor() const noexcept { return m_Emission_Color; }
 		
-		[[nodiscard]] const GLfloat& GetAOAmount()           const noexcept;
-		[[nodiscard]] const GLfloat& GetDisplacementAmount() const noexcept;
-		[[nodiscard]] const GLfloat& GetNormalAmount()       const noexcept;
-		[[nodiscard]] const GLfloat& GetRoughnessAmount()    const noexcept;
+		[[nodiscard]] constexpr const GLfloat& GetAOAmount()           const noexcept { return m_AO;           }
+		[[nodiscard]] constexpr const GLfloat& GetDisplacementAmount() const noexcept { return m_Displacement; }
+		[[nodiscard]] constexpr const GLfloat& GetNormalAmount()       const noexcept { return m_Normal;       }
+		[[nodiscard]] constexpr const GLfloat& GetRoughnessAmount()    const noexcept { return m_Roughness;    }
 		
 	};
 	

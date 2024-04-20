@@ -8,8 +8,6 @@ namespace LouiEriksson::Game::Scripts {
 			m_StartingPosition(0.0),
 			m_Radius(0.0) {}
 	
-	Ball::~Ball() = default;
-	
 	void Ball::Begin() {
 		
 		if (const auto p =      Parent().lock()) {

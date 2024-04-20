@@ -36,7 +36,9 @@ namespace LouiEriksson::Engine::Input {
 			/** @brief Whether or not to hide the Cursor. */
 			bool m_Visible;
 		
-			State(const LockMode& _lockMode, const bool& _visible);
+			constexpr State(const LockMode& _lockMode, const bool& _visible) noexcept :
+				m_LockMode(_lockMode),
+				m_Visible (_visible) {}
 			
 		private:
 			
@@ -64,7 +66,9 @@ namespace LouiEriksson::Engine::Input {
 		 *
 		 * @return The current state of the Cursor.
 		 */
-		static const State& GetState();
+		static constexpr const State& GetState() {
+			return s_Current;
+		}
 		
 	private:
 		

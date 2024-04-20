@@ -14,10 +14,4 @@ namespace LouiEriksson::Engine::ECS {
 		Debug::Assert(!_parent.expired(), "Component initialised with no valid parent!", LogType::Warning);
 	}
 	
-	Component::~Component() = default;
-	
-	const std::weak_ptr<GameObject>& Component::Parent() const noexcept {
-		return m_GameObject;
-	}
-	
 } // LouiEriksson::Engine::ECS

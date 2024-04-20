@@ -80,7 +80,6 @@ namespace LouiEriksson::Engine::Input {
 			public:
 				
 				 State() noexcept;
-				~State();
 				
 				/** @brief  Returns the state of the keyboard at the provided SDL_KeyCode. */
 				[[nodiscard]] bool Get(const SDL_Keycode& _value) const;

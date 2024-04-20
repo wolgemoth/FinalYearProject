@@ -89,7 +89,31 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 * @brief Sets the time of the planetarium.
 			 * @param[in] _tt The new time value in terrestrial time.
 			 */
-			void Time(const highp_time& _tt);
+			void Time(const highp_time& _tt) {
+					
+				m_Time = _tt;
+		
+#define POS VSOP<T, P>::V87::A
+#define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, P>
+				
+				auto earth = POS::GetEarth(m_Time);
+				auto moon  = POS::GetMoon(earth, POS::GetEMB(m_Time));
+				
+				m_Transforms.Emplace("Sol"    , { POS::GetSol    (      ), ROT("Sol"    , m_Time))) });
+				m_Transforms.Emplace("Mercury", { POS::GetMercury(m_Time), ROT("Mercury", m_Time))) });
+				m_Transforms.Emplace("Venus"  , { POS::GetVenus  (m_Time), ROT("Venus"  , m_Time))) });
+				m_Transforms.Emplace("Earth"  , { earth                  , ROT("Earth"  , m_Time))) });
+				m_Transforms.Emplace("Moon"   , { moon                   , ROT("Moon"   , m_Time))) });
+				m_Transforms.Emplace("Mars"   , { POS::GetMars   (m_Time), ROT("Mars"   , m_Time))) });
+				m_Transforms.Emplace("Jupiter", { POS::GetJupiter(m_Time), ROT("Jupiter", m_Time))) });
+				m_Transforms.Emplace("Saturn" , { POS::GetSaturn (m_Time), ROT("Saturn" , m_Time))) });
+				m_Transforms.Emplace("Uranus" , { POS::GetUranus (m_Time), ROT("Uranus" , m_Time))) });
+				m_Transforms.Emplace("Neptune", { POS::GetNeptune(m_Time), ROT("Neptune", m_Time))) });
+				
+#undef POS
+#undef ROT
+		
+			}
 			
 			/**
 			 * @brief Get the current time of the planetarium.
@@ -134,7 +158,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				return m_Transforms.Keys();
 			}
 			
-			Planets();
+			Planets() : m_Time(0) {}
 			
 		private:
 			
@@ -250,41 +274,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
-		~Planetarium() override;
-	
-		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 	};
-	
-	template<typename T, glm::precision P>
-	Planetarium::Planets<T, P>::Planets() : m_Time(0) {}
-	
-	template<typename T, glm::precision P>
-	void Planetarium::Planets<T, P>::Time(const highp_time& _tt) {
-		
-		m_Time = _tt;
-
-#define POS VSOP<T, P>::V87::A
-#define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, P>
-		
-		auto earth = POS::GetEarth(m_Time);
-		auto moon  = POS::GetMoon(earth, POS::GetEMB(m_Time));
-		
-		m_Transforms.Emplace("Sol"    , { POS::GetSol    (      ), ROT("Sol"    , m_Time))) });
-		m_Transforms.Emplace("Mercury", { POS::GetMercury(m_Time), ROT("Mercury", m_Time))) });
-		m_Transforms.Emplace("Venus"  , { POS::GetVenus  (m_Time), ROT("Venus"  , m_Time))) });
-		m_Transforms.Emplace("Earth"  , { earth                  , ROT("Earth"  , m_Time))) });
-		m_Transforms.Emplace("Moon"   , { moon                   , ROT("Moon"   , m_Time))) });
-		m_Transforms.Emplace("Mars"   , { POS::GetMars   (m_Time), ROT("Mars"   , m_Time))) });
-		m_Transforms.Emplace("Jupiter", { POS::GetJupiter(m_Time), ROT("Jupiter", m_Time))) });
-		m_Transforms.Emplace("Saturn" , { POS::GetSaturn (m_Time), ROT("Saturn" , m_Time))) });
-		m_Transforms.Emplace("Uranus" , { POS::GetUranus (m_Time), ROT("Uranus" , m_Time))) });
-		m_Transforms.Emplace("Neptune", { POS::GetNeptune(m_Time), ROT("Neptune", m_Time))) });
-		
-#undef POS
-#undef ROT
-
-	}
 	
 } // LouiEriksson::Game::Scripts::Spatial
 

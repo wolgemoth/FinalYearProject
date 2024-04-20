@@ -1,11 +1,14 @@
 #ifndef FINALYEARPROJECT_AUDIOCLIP_H
 #define FINALYEARPROJECT_AUDIOCLIP_H
 
+#include "../core/Debug.h"
+
 #include <al.h>
 #include <SDL_audio.h>
 #include <SDL_stdinc.h>
 
 #include <filesystem>
+#include <string>
 
 namespace LouiEriksson::Engine::Audio {
 
@@ -41,9 +44,43 @@ namespace LouiEriksson::Engine::Audio {
 			 * @note This function will log an error if the audio clip format is unsupported.
 			 * @see ALenum
 			 */
-			[[nodiscard]] ALenum OpenALFormat() const;
+			[[nodiscard]] constexpr ALenum OpenALFormat() const noexcept {
+				
+				auto result = AL_NONE;
+				
+				if (m_Specification.channels == 1) {
+					
+					switch (m_Specification.format) {
+				        case AUDIO_U8:
+				        case AUDIO_S8:     { result = AL_FORMAT_MONO8;  break; }
+				        case AUDIO_U16LSB:
+				        case AUDIO_S16LSB:
+				        case AUDIO_U16MSB:
+				        case AUDIO_S16MSB: { result = AL_FORMAT_MONO16; break; }
+				        default: {
+							Debug::Log("Unimplemented format: " + std::to_string(m_Specification.format), LogType::Error);
+						}
+					}
+				}
+				else {
+					switch (m_Specification.format) {
+				        case AUDIO_U8:
+				        case AUDIO_S8:     { result = AL_FORMAT_STEREO8;  break; }
+				        case AUDIO_U16LSB:
+				        case AUDIO_S16LSB:
+				        case AUDIO_U16MSB:
+				        case AUDIO_S16MSB: { result = AL_FORMAT_STEREO16; break; }
+				        default: {
+							Debug::Log("Unimplemented format:" + std::to_string(m_Specification.format), LogType::Error);
+						}
+					}
+				}
+				
+				return result;
+			}
 			
-			explicit Format(const SDL_AudioSpec& _audioSpec) noexcept;
+			explicit constexpr Format(const SDL_AudioSpec& _audioSpec) noexcept :
+				m_Specification(_audioSpec) {}
 			
 		};
 		

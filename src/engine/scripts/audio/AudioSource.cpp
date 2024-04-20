@@ -21,28 +21,6 @@
 
 namespace LouiEriksson::Engine::Audio {
 	
-	AudioSource::Parameters::Parameters() noexcept :
-			m_IsGlobal(false), // Do not start as global.
-			m_Loop    (false), // Do not loop.
-			
-			// Default panning value. (Will only apply if if the audio source is global.)
-			m_Panning( 0.0),
-			 
-			// Set default minimum and maximum distances.
-			m_MinDistance(  1.0),
-			m_MaxDistance(100.0),
-			
-			// Set other defaults:
-			m_Pitch       (  1.0),
-			m_GainModifier(  1.0),
-			m_MinGain     (  0.0),
-			m_MaxGain     (  1.0),
-			m_Rolloff     (  1.0),
-			m_MinAngle    (360.0),
-			m_MaxAngle    (360.0) {}
-	
-	AudioSource::Parameters::~Parameters() = default;
-	
 	void AudioSource::Sync() {
 		
 		// TODO: Some sort of caching so these values aren't changed unnecessarily.
@@ -158,13 +136,6 @@ namespace LouiEriksson::Engine::Audio {
 		}
 	}
 	
-	AudioSource::~AudioSource() {
-		
-		if (m_Source != AL_NONE) {
-			alDeleteSources(1, &m_Source);
-		}
-	}
-	
 	void AudioSource::Begin() {
 		Sync();
 	}
@@ -227,19 +198,12 @@ namespace LouiEriksson::Engine::Audio {
 		}
 	}
 	
-	void AudioSource::Pause() const {
-		alSourcePause(m_Source);
-	}
+	void AudioSource::Pause() const { alSourcePause(m_Source); }
 	
-	void AudioSource::Stop() const {
-		alSourceStop(m_Source);
-	}
+	void AudioSource::Stop() const { alSourceStop(m_Source); }
 	
 	void AudioSource::Clip(const std::weak_ptr<AudioClip>& _value) noexcept {
 		m_Clip = _value;
-	}
-	const std::weak_ptr<AudioClip>& AudioSource::Clip() const noexcept {
-		return m_Clip;
 	}
 	
 	ALenum AudioSource::State() const {
@@ -256,17 +220,11 @@ namespace LouiEriksson::Engine::Audio {
 		
 		Sync();
 	}
-	const bool& AudioSource::Global() const noexcept {
-		return m_Parameters.m_IsGlobal;
-	}
 	
 	void AudioSource::Loop(const bool& _value) {
 		m_Parameters.m_Loop = _value;
 		
 		Sync();
-	}
-	const bool& AudioSource::Loop() const noexcept {
-		return m_Parameters.m_Loop;
 	}
 	
 	void AudioSource::MinDistance(const ALfloat& _value) {
@@ -275,17 +233,11 @@ namespace LouiEriksson::Engine::Audio {
 		
 		Sync();
 	}
-	const ALfloat& AudioSource::MinDistance() const noexcept {
-		return m_Parameters.m_MinDistance;
-	}
 	
 	void AudioSource::MaxDistance(const ALfloat& _value) {
 		m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MinDistance);
 		
 		Sync();
-	}
-	const ALfloat& AudioSource::MaxDistance() const noexcept {
-		return m_Parameters.m_MaxDistance;
 	}
 	
 	void AudioSource::Pitch(const ALfloat& _value) {
@@ -293,17 +245,11 @@ namespace LouiEriksson::Engine::Audio {
 		
 		Sync();
 	}
-	const ALfloat& AudioSource::Pitch() const noexcept {
-		return m_Parameters.m_Pitch;
-	}
 	
 	void AudioSource::Gain(const ALfloat& _value) {
 	    m_Parameters.m_GainModifier = std::max(_value, static_cast<ALfloat>(0.0));
 		
 		Sync();
-	}
-	const ALfloat& AudioSource::Gain() const noexcept {
-		return m_Parameters.m_GainModifier;
 	}
 	
 	void AudioSource::MinGain(const ALfloat& _value) {
@@ -312,26 +258,17 @@ namespace LouiEriksson::Engine::Audio {
 		
 		Sync();
 	}
-	const ALfloat& AudioSource::MinGain() const noexcept {
-		return m_Parameters.m_MinGain;
-	}
 	
 	void AudioSource::MaxGain(const ALfloat& _value) {
 	    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MinGain);
 		
 		Sync();
 	}
-	const ALfloat& AudioSource::MaxGain() const noexcept {
-		return m_Parameters.m_MaxGain;
-	}
 	
 	void AudioSource::Rolloff(const ALfloat& _value) {
 	    m_Parameters.m_Rolloff = _value;
 		
 		Sync();
-	}
-	const ALfloat& AudioSource::Rolloff() const noexcept {
-		return m_Parameters.m_Rolloff;
 	}
 	
 	void AudioSource::MinAngle(const ALfloat& _value) {
@@ -340,17 +277,11 @@ namespace LouiEriksson::Engine::Audio {
 		
 		Sync();
 	}
-	const ALfloat& AudioSource::MinAngle() const noexcept {
-		return m_Parameters.m_MinAngle;
-	}
 	
 	void AudioSource::MaxAngle(const ALfloat& _value) {
 	    m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MinAngle);
 		
 		Sync();
-	}
-	const ALfloat& AudioSource::MaxAngle() const noexcept {
-		return m_Parameters.m_MaxAngle;
 	}
 	
 	void AudioSource::PlaybackPosition(const ALfloat& _value) const {

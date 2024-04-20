@@ -1,12 +1,16 @@
 #ifndef FINALYEARPROJECT_REQUESTS_H
 #define FINALYEARPROJECT_REQUESTS_H
 
+#include "../core/Debug.h"
+
 #include <curl/curl.h>
+#include <curl/easy.h>
 
 #include <cstddef>
+#include <exception>
 #include <future>
-#include <memory>
 #include <sstream>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -39,19 +43,41 @@ namespace LouiEriksson::Engine::Networking {
 				
 			public:
 				
-				[[nodiscard]] const std::vector<char>&      Raw() const;
-				[[nodiscard]]       std::istringstream ToStream() const;
+				[[nodiscard]] constexpr const std::vector<char>& Raw() const { return m_Raw; }
 				
-				Data();
+				[[nodiscard]] std::istringstream ToStream() const {
+					
+					std::stringstream ss;
+					
+					for (const auto& item : m_Raw) {
+						ss << item;
+					}
+					
+					return std::istringstream { ss.str() };
+				}
+				
+				Data() noexcept : m_Raw() {}
 			};
 			
-			Response();
+			Response() noexcept :
+				m_Status(CURL_LAST),
+				m_Content() {}
+				
+			[[nodiscard]] constexpr const CURLcode&  Status() const noexcept { return  m_Status; }
+			[[nodiscard]] constexpr const     Data& Content() const noexcept { return m_Content; }
 			
-			[[nodiscard]] const CURLcode& Status() const noexcept;
-			
-			[[nodiscard]] const Data& Content() const noexcept;
-			
-			static bool Success(const Requests::Response& _response, const bool& _verbose = true);
+			static bool Success(const Requests::Response& _response, const bool& _verbose = true) {
+				
+				const bool result = _response.Status() == CURLE_OK;
+				
+				Debug::Assert(
+					result || !_verbose,
+					"Request failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
+					LogType::Error
+				);
+				
+				return result;
+			}
 			
 		private:
 			
@@ -71,16 +97,26 @@ namespace LouiEriksson::Engine::Networking {
 			
 		public:
 			
-			[[nodiscard]]  const Handle_t& Handle();
-			[[nodiscard]] static Header_t  Header();
+			[[nodiscard]] inline const Handle_t& Handle() {
+				
+				if (m_Handle == nullptr) {
+					m_Handle.reset(curl_easy_init(), [](void* _ptr) { if (_ptr != nullptr) { curl_easy_cleanup(_ptr); }});
+				}
+				
+				return m_Handle;
+			}
+			
+			[[nodiscard]] inline static Header_t Header() {
+				return Header_t({}, [](curl_slist* _ptr) { if (_ptr != nullptr) { curl_slist_free_all(_ptr); }});
+			}
 			
 			template <typename T>
-			void Set(const CURLoption& _option, const T& _value) {
+			constexpr void Set(const CURLoption& _option, const T& _value) {
 				curl_easy_setopt(Handle().get(), _option, _value);
 			}
 			
 			template <typename T>
-			[[nodiscard]] T Get(const CURLINFO _info) {
+			[[nodiscard]] constexpr T Get(const CURLINFO _info) {
 				
 				T result;
 				
@@ -89,22 +125,73 @@ namespace LouiEriksson::Engine::Networking {
 				return result;
 			}
 			
-			Response Send();
+			Response Send() {
 			
-			std::future<Requests::Response> SendAsync();
+				Response r;
+				
+				try {
+					
+					// Set parameters:
+					Set(CURLOPT_WRITEFUNCTION, WriteFunction);
+					Set(CURLOPT_WRITEDATA, &r.m_Content.m_Raw);
+					
+					// Perform request:
+					r.m_Status = curl_easy_perform(Handle().get());
+				}
+				catch (const std::exception& e) {
+					Debug::Log(e);
+				}
+				
+				return r;
+			}
 			
-			void Dispose();
+			inline std::future<Requests::Response> SendAsync() {
+				
+				return std::async([this]() {
+					return Send();
+				});
+			}
 			
-			Client();
-			Client(const std::string_view& _uri);
+			inline void Dispose() noexcept {
+			
+				try {
+					m_Handle.reset();
+				}
+				catch (const std::exception& e) {
+					Debug::Log(e);
+				}
+			}
+			
+			constexpr Client() : m_Handle() {}
+			constexpr Client(const std::string_view& _uri) : m_Handle() {
+				Set(CURLOPT_URL, _uri.data());
+			}
 			
 		};
 		
-		static size_t WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData);
+		inline static size_t WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData) {
 		
-		static void Init();
+			const auto len = _stride * _count;
+		 
+			const auto* const addr = reinterpret_cast<char*>(_data);
+			_userData->insert(_userData->end(), addr, addr + len);
+			
+			return len;
+		}
 		
-		static void Dispose();
+		inline static void Init() {
+			curl_global_init(CURL_GLOBAL_ALL);
+		}
+		
+		inline static void Dispose() noexcept {
+			
+			try {
+	            curl_global_cleanup();
+			}
+			catch (std::exception& e) {
+				Debug::Log(e, LogType::Critical);
+			}
+		}
 	};
 	
 } // LouiEriksson::Engine::Networking

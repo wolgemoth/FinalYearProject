@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_TEXTURECPU_H
 #define FINALYEARPROJECT_TEXTURECPU_H
 
-#include "../core/Defaults.h"
+#include "../core/Types.h"
 
 namespace LouiEriksson::Engine::Graphics {
 	

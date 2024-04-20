@@ -1,7 +1,7 @@
 #ifndef FINALYEARPROJECT_LIGHT_H
 #define FINALYEARPROJECT_LIGHT_H
 
-#include "../core/Defaults.h"
+#include "../core/Types.h"
 #include "../ecs/Component.h"
 
 #include <GL/glew.h>
@@ -80,9 +80,6 @@ namespace LouiEriksson::Engine::Graphics {
 		};
 		
 		explicit Light(const std::weak_ptr<ECS::GameObject>& _parent);
-		
-		/** @inheritdoc */
-		~Light() override;
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Light); };

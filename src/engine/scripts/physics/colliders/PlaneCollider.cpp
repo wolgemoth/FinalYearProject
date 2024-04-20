@@ -13,7 +13,6 @@
 namespace LouiEriksson::Engine::Physics {
 	
 	PlaneCollider::PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Collider(_parent) {}
-	PlaneCollider::~PlaneCollider() = default;
 	
 	void PlaneCollider::SetTransform(const std::weak_ptr<Transform>& _transform) noexcept {
 		

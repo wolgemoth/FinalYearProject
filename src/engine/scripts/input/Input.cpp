@@ -26,8 +26,6 @@ namespace LouiEriksson::Engine::Input {
 			s_Data(nullptr),
 			s_Length(0) {}
 	
-	Input::Key::State::~State() = default;
-	
 	bool Input::Key::State::Get(const SDL_Keycode& _value) const {
 		return Get(SDL_GetScancodeFromKey(_value));
 	}

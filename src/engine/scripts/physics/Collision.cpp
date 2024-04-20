@@ -28,16 +28,4 @@ namespace LouiEriksson::Engine::Physics {
 		m_Impulse = _point.getAppliedImpulse();
 	}
 	
-	const glm::vec3& Collision::ContactPoint() const noexcept {
-		return m_ContactPoint;
-	}
-	
-	const glm::vec3& Collision::Normal() const noexcept {
-		return m_Normal;
-	}
-	
-	const float& Collision::Impulse() const noexcept {
-		return m_Impulse;
-	}
-	
 } // LouiEriksson::Engine::Physics

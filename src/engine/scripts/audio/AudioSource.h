@@ -118,9 +118,25 @@ namespace LouiEriksson::Engine::Audio {
 			 */
 			ALfloat m_MaxAngle;
 			
-			 Parameters() noexcept;
-			~Parameters();
-			
+			Parameters() noexcept :
+				m_IsGlobal(false), // Do not start as global.
+				m_Loop    (false), // Do not loop.
+				
+				// Default panning value. (Will only apply if if the audio source is global.)
+				m_Panning( 0.0),
+				
+				// Set default minimum and maximum distances.
+				m_MinDistance(  1.0),
+				m_MaxDistance(100.0),
+				
+				// Set other defaults:
+				m_Pitch       (  1.0),
+				m_GainModifier(  1.0),
+				m_MinGain     (  0.0),
+				m_MaxGain     (  1.0),
+				m_Rolloff     (  1.0),
+				m_MinAngle    (360.0),
+				m_MaxAngle    (360.0) {}
 		};
 		
 		/**
@@ -143,10 +159,14 @@ namespace LouiEriksson::Engine::Audio {
 		
 	public:
 		
-		 explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
+		explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
 		 
-		/** @inheritdoc */
-		~AudioSource() override;
+		~AudioSource() override {
+			
+			if (m_Source != AL_NONE) {
+				alDeleteSources(1, &m_Source);
+			}
+		}
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
@@ -189,7 +209,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A weak pointer to the AudioClip.
 		 */
-		[[nodiscard]] const std::weak_ptr<AudioClip>& Clip() const noexcept;
+		[[nodiscard]] constexpr const std::weak_ptr<AudioClip>& Clip() const noexcept {
+			return m_Clip;
+		}
 		
 		/**
 		 * @brief Returns the state of the AudioSource.
@@ -218,7 +240,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A const reference to the global flag of the AudioSource.
 		 */
-		[[nodiscard]] const bool& Global() const noexcept;
+		[[nodiscard]] constexpr const bool& Global() const noexcept  {
+		return m_Parameters.m_IsGlobal;
+	}
 		
 		/**
 		 * @brief Sets whether the audio source should loop or not.
@@ -242,7 +266,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A const reference to the loop flag. True if loop is enabled, false otherwise.
 		 */
-		[[nodiscard]] const bool& Loop() const noexcept;
+		[[nodiscard]] constexpr const bool& Loop() const noexcept {
+			return m_Parameters.m_Loop;
+		}
 		
 		/**
 		 * @brief Sets the minimum distance of the audio source.
@@ -267,7 +293,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A const reference to the minimum distance.
 		 */
-		[[nodiscard]] const ALfloat& MinDistance() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MinDistance() const noexcept {
+			return m_Parameters.m_MinDistance;
+		}
 		
 		/**
 		 * @brief Sets the maximum distance for audio source.
@@ -288,7 +316,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return const ALfloat& The maximum distance of the audio source.
 		 */
-		[[nodiscard]] const ALfloat& MaxDistance() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MaxDistance() const noexcept {
+			return m_Parameters.m_MaxDistance;
+		}
 		
 		/**
 		 * @brief Sets the pitch of the audio source.
@@ -310,7 +340,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the pitch of the audio source.
 		 */
-		[[nodiscard]] const ALfloat& Pitch() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& Pitch() const noexcept {
+			return m_Parameters.m_Pitch;
+		}
 		
 		/**
 		 * @brief Sets the gain modifier of the audio source.
@@ -331,7 +363,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the gain modifier.
 		 */
-		[[nodiscard]] const ALfloat& Gain() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& Gain() const noexcept {
+			return m_Parameters.m_GainModifier;
+		}
 		
 		/**
 		 * @brief Set the minimum gain value for the audio source.
@@ -353,7 +387,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return const ALfloat& - The minimum gain value.
 		 */
-		[[nodiscard]] const ALfloat& MinGain() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MinGain() const noexcept {
+			return m_Parameters.m_MinGain;
+		}
 		
 		/**
 		 * @brief Sets the maximum gain value for the audio source.
@@ -369,7 +405,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The maximum gain of the audio source.
 		 */
-		[[nodiscard]] const ALfloat& MaxGain() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MaxGain() const noexcept {
+			return m_Parameters.m_MaxGain;
+		}
 		
 		/**
 		 * @brief Sets the rolloff value for the audio source.
@@ -387,7 +425,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return const ALfloat& The rolloff value.
 		 */
-		[[nodiscard]] const ALfloat& Rolloff() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& Rolloff() const noexcept {
+			return m_Parameters.m_Rolloff;
+		}
 		
 		/**
 		 * @brief Sets the minimum angle of the audio source for playback of directional audio.
@@ -403,7 +443,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the minimum angle of the audio source.
 		 */
-		[[nodiscard]] const ALfloat& MinAngle() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MinAngle() const noexcept {
+			return m_Parameters.m_MinAngle;
+		}
 		
 		/**
 		 * @brief Sets the maximum angle for audio source for playback of directional audio.
@@ -417,7 +459,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return A constant reference to the maximum angle of the audio source.
 		 */
-		[[nodiscard]] const ALfloat& MaxAngle() const noexcept;
+		[[nodiscard]] constexpr const ALfloat& MaxAngle() const noexcept {
+			return m_Parameters.m_MaxAngle;
+		}
 		
 		/**
 		 * @brief Sets the playback position of the audio source.

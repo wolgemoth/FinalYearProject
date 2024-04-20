@@ -3,7 +3,7 @@
 
 #include "serialisation/ElevationDeserialiser.h"
 
-#include "../../core/Defaults.h"
+#include "../../core/Types.h"
 
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float4.hpp>

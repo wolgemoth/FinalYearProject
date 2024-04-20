@@ -21,7 +21,6 @@ namespace LouiEriksson::Engine::Physics {
 	public:
 	
 		 Collision(const btManifoldPoint& _point, const int& _body);
-		~Collision() = default;
 		
 		/**
 		 * @brief Get the contact point of the Collision.
@@ -31,7 +30,9 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @return const glm::vec3& The contact point.
 		 */
-		[[nodiscard]] const glm::vec3& ContactPoint() const noexcept;
+		[[nodiscard]] constexpr const glm::vec3& ContactPoint() const noexcept {
+			return m_ContactPoint;
+		}
 		
 		/**
 		 * @brief Get the normal vector of the Collision.
@@ -41,7 +42,9 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @return const glm::vec3& The normal vector.
 		 */
-		[[nodiscard]] const glm::vec3& Normal() const noexcept;
+		[[nodiscard]] constexpr const glm::vec3& Normal() const noexcept {
+			return m_Normal;
+		}
 		
 		/**
 		 * @brief Get the impulse of the Collision.
@@ -50,7 +53,9 @@ namespace LouiEriksson::Engine::Physics {
 		 *
 		 * @return const float& The impulse of the collision.
 		 */
-		[[nodiscard]] const float& Impulse() const noexcept;
+		[[nodiscard]] constexpr const float& Impulse() const noexcept {
+			return m_Impulse;
+		}
 		
 	};
 	

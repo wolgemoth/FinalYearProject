@@ -33,7 +33,7 @@ namespace LouiEriksson::Engine::ECS {
 		explicit Component(const std::weak_ptr<GameObject>& _parent) noexcept;
 		
 		/** @brief Invoked on finalisation of the Component. */
-		virtual ~Component();
+		virtual ~Component() {};
 	
 	public:
 		
@@ -44,7 +44,7 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * @return A `std::type_index` representing the type of the class.
 		 */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept = 0;
+		[[nodiscard]] virtual inline std::type_index TypeID() const noexcept = 0;
 		
 		/**
 		 * @brief Get the Component's parent GameObject.
@@ -53,7 +53,9 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * @return A `std::weak_ptr<GameObject>` referencing the parent GameObject.
 		 */
-		[[nodiscard]] virtual const std::weak_ptr<GameObject>& Parent() const noexcept;
+		[[nodiscard]] virtual inline const std::weak_ptr<GameObject>& Parent() const noexcept {
+			return m_GameObject;
+		}
 		
 	};
 	

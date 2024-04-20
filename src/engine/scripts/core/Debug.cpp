@@ -101,31 +101,17 @@ namespace LouiEriksson::Engine {
 	
 	struct Print final {
 		
-		static std::string ToString(const LogType& _type) noexcept {
+		static constexpr const char* ToString(const LogType& _type) noexcept {
 			
-			std::string result;
+			const char* result = "UNKNOWN";
 			
-			try {
-				try {
-					
-					switch (_type) {
-						case Critical: { result = "CRITICAL"; break; }
-						case Error:    { result = "ERROR";    break; }
-						case Warning:  { result = "WARNING";  break; }
-						case Info:     { result = "INFO";     break; }
-						case Debug:    { result = "DEBUG";    break; }
-						case Trace:    { result = "TRACE";    break; }
-						default:       { result = "UNKNOWN"; }
-					}
-				}
-				catch (const std::exception& e) {
-					Debug::Log(e);
-					
-					throw e;
-				}
-			}
-			catch (...) {
-				result = "???";
+			switch (_type) {
+				case Critical: { result = "CRITICAL"; break; }
+				case Error:    { result = "ERROR";    break; }
+				case Warning:  { result = "WARNING";  break; }
+				case Info:     { result = "INFO";     break; }
+				case Debug:    { result = "DEBUG";    break; }
+				case Trace:    { result = "TRACE";    break; }
 			}
 			
 			return result;

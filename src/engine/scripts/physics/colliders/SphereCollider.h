@@ -28,8 +28,6 @@ namespace LouiEriksson::Engine::Physics {
 		explicit SphereCollider(const std::weak_ptr<ECS::GameObject>& _parent);
 		
 		/** @inheritdoc */
-		~SphereCollider() override;
-		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(SphereCollider); };
 		
