@@ -239,17 +239,15 @@ namespace LouiEriksson::Engine::ECS {
 		 * @note The provided type must derive from the Component class.
 		 */
 		template <typename T>
-		std::weak_ptr<T> AddComponent() {
+		std::shared_ptr<T> AddComponent() {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
 			// Create a new instance of the component, taking a pointer to this gameobject.
-			auto ptr = std::shared_ptr<T>(new T(shared_from_this()));
-			
-			std::weak_ptr<T> result = ptr;
+			std::shared_ptr<T> result(new T(shared_from_this()));
 			
 			// Attach the component to the GameObject.
-			Attach(std::move(ptr));
+			Attach(std::move(result));
 			
 			// Return a weak reference to the component.
 			return result;

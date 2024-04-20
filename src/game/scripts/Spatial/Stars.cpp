@@ -31,17 +31,16 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 				const auto go = ECS::GameObject::Create(s, "Stars");
 				
-				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
-				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
+				const auto transform = go->AddComponent<Transform>();
+				const auto renderer  = go->AddComponent<Graphics::Renderer>();
 				
-					auto material = Resources::Get<Graphics::Material>("Stars");
-					
-					if (material.lock()) {
-						renderer->SetMesh(stars);
-						renderer->SetMaterial(material);
-						renderer->SetTransform(transform);
-					}
-				}}
+				auto material = Resources::Get<Graphics::Material>("Stars");
+				
+				if (material.lock()) {
+					renderer->SetMesh(stars);
+					renderer->SetMaterial(material);
+					renderer->SetTransform(transform);
+				}
 			}}
 			
 			Debug::Log("Done.", LogType::Info);

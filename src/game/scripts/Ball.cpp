@@ -23,19 +23,19 @@ namespace LouiEriksson::Game::Scripts {
 				m_Radius = std::max(t->Scale().x, std::max(t->Scale().y, t->Scale().z));
 				
 				// Add Renderer.
-				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				const auto renderer = p->AddComponent<Graphics::Renderer>();
 				renderer->SetMesh(Graphics::Mesh::Primitives::Sphere::Instance());
 				renderer->SetMaterial(Resources::Get<Graphics::Material>("sphere"));
 				renderer->SetTransform(t);
 			
 				// Add Collider.
-				const auto collider = p->AddComponent<Physics::SphereCollider>().lock();
+				const auto collider = p->AddComponent<Physics::SphereCollider>();
 				collider->SetTransform(t);
 				collider->SetType(Physics::Collider::Type::Sphere);
 				collider->Radius(m_Radius);
 				
 				// Add Rigidbody.
-				const auto rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
+				const auto rigidbody = p->AddComponent<Physics::Rigidbody>();
 				rigidbody->SetTransform(t);
 				rigidbody->SetCollider(collider);
 				rigidbody->Mass(4.0 * glm::pi<float>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
@@ -44,17 +44,12 @@ namespace LouiEriksson::Game::Scripts {
 				collider->SetRigidbody(rigidbody);
 				
 				// Add AudioSource and Clip.
-				if (const auto as = p->AddComponent<Audio::AudioSource>().lock()) {
-					as->Clip(Resources::Get<Audio::AudioClip>("Hollow_Bass"));
+				const auto as = p->AddComponent<Audio::AudioSource>();
+				as->Clip(Resources::Get<Audio::AudioClip>("Hollow_Bass"));
 
-					m_AudioSource = as;
-				}
+				m_AudioSource = as;
 			}
 		}}
-	}
-	
-	void Ball::Tick() {
-	
 	}
 	
 	void Ball::FixedTick() {

@@ -31,9 +31,6 @@ namespace LouiEriksson::Game::Scripts {
 		void Begin() override;
 	
 		/** @inheritdoc */
-		void Tick() override;
-	
-		/** @inheritdoc */
 		void FixedTick() override;
 		
 		/** @inheritdoc */

@@ -19,19 +19,19 @@ namespace LouiEriksson::Game::Scripts {
 				transform->Scale({50.0, 1.0, 50.0});
 			
 				// Add Renderer.
-				const auto renderer = p->AddComponent<Graphics::Renderer>().lock();
+				const auto renderer = p->AddComponent<Graphics::Renderer>();
 				
 				renderer->SetMesh(Resources::Get<Graphics::Mesh>("woodfloor"));
 				renderer->SetMaterial(Resources::Get<Graphics::Material>("woodfloor"));
 				renderer->SetTransform(transform);
 				
 				// Add Collider.
-				const auto collider = p->AddComponent<Physics::PlaneCollider>().lock();
+				const auto collider = p->AddComponent<Physics::PlaneCollider>();
 				collider->SetTransform(transform);
 				collider->SetType(Physics::Collider::Type::Plane);
 				
 				// Add Rigidbody.
-				const auto rigidbody = p->AddComponent<Physics::Rigidbody>().lock();
+				const auto rigidbody = p->AddComponent<Physics::Rigidbody>();
 				rigidbody->SetTransform(transform);
 				rigidbody->SetCollider(collider);
 				rigidbody->Kinematic(true);

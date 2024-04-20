@@ -535,7 +535,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @param[in] _value The new value for the gravity parameter. Set to true to enable gravity, or false to
 		 * disable it.
 		 */
-		[[nodiscard]] inline void Gravity(const bool& _value) {
+		inline void Gravity(const bool& _value) {
 			m_Parameters.m_UseGravity = _value;
 			
 			BulletReinitialise();

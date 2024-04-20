@@ -383,7 +383,7 @@ namespace LouiEriksson::Engine::ECS {
 					
 					if (strcmp(name, typeid(Transform).name()) == 0) {			// Deserialise Transform.
 		
-						if (const auto t = go->AddComponent<Transform>().lock()) {
+						if (const auto t = go->AddComponent<Transform>()) {
 		
 							xml.startNode();
 			
@@ -396,7 +396,7 @@ namespace LouiEriksson::Engine::ECS {
 					}
 					else if (strcmp(name, typeid( Physics::Rigidbody).name()) == 0) {	// Deserialise Rigidbody.
 		
-						if (const auto r = go->AddComponent<Physics::Rigidbody>().lock()) {
+						if (const auto r = go->AddComponent<Physics::Rigidbody>()) {
 		
 							xml.startNode();
 			
@@ -411,7 +411,7 @@ namespace LouiEriksson::Engine::ECS {
 					}
 					else if (strcmp(name, typeid(Graphics::Camera   ).name()) == 0) {		// Deserialise Camera.
 					
-						if (const auto c = go->AddComponent<Graphics::Camera>().lock()) {
+						if (const auto c = go->AddComponent<Graphics::Camera>()) {
 							
 							xml.startNode();
 							xml.finishNode();
@@ -419,7 +419,7 @@ namespace LouiEriksson::Engine::ECS {
 					}
 					else if (strcmp(name, typeid(Graphics::Light    ).name()) == 0) {		// Deserialise Light
 						
-						if (const auto l = go->AddComponent<Graphics::Light>().lock()) {
+						if (const auto l = go->AddComponent<Graphics::Light>()) {
 		
 							xml.startNode();
 							xml.finishNode();
@@ -427,7 +427,7 @@ namespace LouiEriksson::Engine::ECS {
 					}
 					else if (strcmp(name, typeid(Graphics::Renderer ).name()) == 0) {		// Deserialise Renderer.
 		
-						if (const auto r = go->AddComponent<Graphics::Renderer>().lock()) {
+						if (const auto r = go->AddComponent<Graphics::Renderer>()) {
 			
 							xml.startNode();
 							xml.finishNode();

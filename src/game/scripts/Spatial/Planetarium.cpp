@@ -24,23 +24,22 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 				const auto go = ECS::GameObject::Create(s, item);
 				
-				if (const auto transform = go->AddComponent<Transform>().lock()         ) {
-				if (const auto renderer  = go->AddComponent<Graphics::Renderer>().lock()) {
+				const auto transform = go->AddComponent<Transform>();
+				const auto renderer  = go->AddComponent<Graphics::Renderer>();
 				
-					auto mesh     = Resources::Get<Graphics::Mesh>    (item, false);
-					auto material = Resources::Get<Graphics::Material>(item, false);
+				auto mesh     = Resources::Get<Graphics::Mesh>    (item, false);
+				auto material = Resources::Get<Graphics::Material>(item, false);
+				
+				if (    mesh.expired()) {     mesh = default_mesh;     }
+				if (material.expired()) { material = default_material; }
+				
+				if (mesh.lock() && material.lock()) {
+					renderer->SetMesh(mesh);
+					renderer->SetMaterial(material);
+					renderer->SetTransform(transform);
 					
-					if (    mesh.expired()) {     mesh = default_mesh;     }
-					if (material.expired()) { material = default_material; }
-					
-					if (mesh.lock() && material.lock()) {
-						renderer->SetMesh(mesh);
-						renderer->SetMaterial(material);
-						renderer->SetTransform(transform);
-						
-						m_Planets.Assign(item, go);
-					}
-				}}
+					m_Planets.Assign(item, go);
+				}
 			}
 		}}
 		
