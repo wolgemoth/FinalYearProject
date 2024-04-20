@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_ENGINE_SPATIAL_H
 #define FINALYEARPROJECT_ENGINE_SPATIAL_H
 
+#include "../../engine/scripts/graphics/TextureCPU.h"
 #include "../../engine/scripts/spatial/atmosphere/ISA.h"
 #include "../../engine/scripts/spatial/elevation/Elevation.h"
 #include "../../engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h"

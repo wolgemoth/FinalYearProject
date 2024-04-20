@@ -1,18 +1,27 @@
 #ifndef FINALYEARPROJECT_AUDIOSOURCE_H
 #define FINALYEARPROJECT_AUDIOSOURCE_H
 
-#include "../ecs/Component.h"
+#include "../audio/Sound.h"
+
+#include "../core/Debug.h"
 #include "../core/Script.h"
+#include "../core/Time.h"
+#include "../core/Transform.h"
+#include "../ecs/GameObject.h"
+#include "../physics/Rigidbody.h"
 
 #include <al.h>
-#include <glm/ext/vector_float3.hpp>
+#include <algorithm>
+#include <glm/common.hpp>
 
+#include <exception>
+#include <limits>
 #include <memory>
-#include <typeindex>
+#include <stdexcept>
 
 namespace LouiEriksson::Engine::Audio {
 	
-	class AudioClip;
+	class Sound;
 	
 	/**
 	 * @class AudioSource
@@ -25,6 +34,12 @@ namespace LouiEriksson::Engine::Audio {
 	class AudioSource final : public Script {
 	
 	private:
+		
+		/**
+		 * @brief Global audio source used for non-positional audio playback.
+		 * @note This is the audio source used for playback when AL is unavailable.
+		 */
+		inline static std::unique_ptr<AudioSource> s_GlobalSource;
 		
 		/**
 		 * @struct Parameters
@@ -155,11 +170,196 @@ namespace LouiEriksson::Engine::Audio {
 		glm::vec3 m_LastPosition;
 		
 		/** @brief Synchronise the AudioSource with the internal audio engine. */
-		void Sync();
+		void Sync() {
+			
+			// TODO: Some sort of caching so these values aren't changed unnecessarily.
+			
+			// Set values that do not change depending on if the source is global or not:
+			alSourcef(m_Source, AL_PITCH,          m_Parameters.m_Pitch);
+			alSourcef(m_Source, AL_GAIN,           m_Parameters.m_GainModifier);
+			alSourcef(m_Source, AL_MIN_GAIN,       m_Parameters.m_MinGain);
+			alSourcef(m_Source, AL_MAX_GAIN,       m_Parameters.m_MaxGain);
+			alSourcef(m_Source, AL_ROLLOFF_FACTOR, m_Parameters.m_Rolloff);
+			
+			// If the audio source is global...
+			if (m_Parameters.m_IsGlobal) {
+				
+				/* NULLIFY EFFECT OF ORIENTATION */
+		
+				/*
+				 * If AL_SOURCE_RELATIVE is true, the audio is played relative to the listener.
+				 *
+				 * In this case, the position of the source is (0.0, 0.0, 0.0) units
+				 * from the listener's position (or directly on top of the listener).
+				 *
+				 * This will cause the panning of the audio to always be centered, regardless of
+				 * the position or orientation of the audio listener.
+				 */
+				alSourcei(m_Source, AL_SOURCE_RELATIVE, AL_TRUE);
+				
+				/* SET PANNING */
+				
+				// Global AudioSources have relative position to the listener, so update local position only.
+				alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&m_Parameters.m_Panning[0]));
+				
+				/* DISABLE ATTENUATION */
+				
+				// Setting reference distance to 0.0 disables attenuation.
+				alSourcef(m_Source, AL_REFERENCE_DISTANCE, 0.0);
+				
+				// Set max distance to infinity (not strictly-necessary).
+				alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<ALfloat>::max());
+				
+				// Nullify directionality of AudioSource
+				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
+				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
+				
+				/* RESET VELOCITY */
+				alListener3f(AL_VELOCITY, 0.0, 0.0, 0.0);
+			}
+			else {
+			
+				// Set all defined parameters in a positional context:
+				alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_Parameters.m_MinDistance);
+				alSourcef(m_Source, AL_MAX_DISTANCE,       m_Parameters.m_MaxDistance);
+				
+				// Set min and max cone angles of the source.
+				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MinAngle);
+				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MaxAngle);
+				
+				if (const auto p = Parent().lock()) {
+				if (const auto t = p->GetComponent<Transform>().lock()) {
+					
+					// Set world position to that of the current transform.
+					alSourcefv(m_Source, AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
+					
+					// Set the direction of the audio source using the current transform.
+					{
+						const auto dir = t->FORWARD;
+						
+						alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
+					}
+				
+					// Set velocity (using rigidbody, if available):
+					{
+						glm::vec3 velocity;
+						
+						if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+							velocity = r->Velocity();
+						}
+						else {
+							velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t >();
+						}
+						
+						alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
+					}
+					
+					m_LastPosition = t->Position();
+				}}
+			}
+		}
+		
+		/**
+		 * @brief Play the Clip without positional audio.
+		 *
+		 * This function plays the given audio clip without positional audio.
+		 *
+		 * @param[in] _clip The audio clip to be played.
+		 * @note This function throws a std::runtime_error if any error occurs during playback.
+		 */
+		inline static void PlayGlobal(const std::weak_ptr<AudioClip>& _clip){
+			
+			try {
+				
+				/*
+				 * Generate the global audio source.
+				 * This will be responsible for on-demand playback of non-positional sound.
+				 */
+				if (s_GlobalSource == nullptr) {
+					s_GlobalSource.reset(new AudioSource({}));
+					s_GlobalSource->Global(true);
+				}
+				
+				if (s_GlobalSource != nullptr) {
+				
+					if (const auto c = _clip.lock()) {
+					
+						// Only play if the clip actually contains data.
+						if (c->m_Samples.m_Length > 0) {
+						
+							if (c->m_ALBuffer == AL_NONE) {
+								
+								/* Use SDL2 as fallback if AL buffer is uninitialised. */
+								
+								if (Sound::s_SDL_Device > 0u) {
+									SDL_CloseAudioDevice(Sound::s_SDL_Device);
+									Sound::s_SDL_Device = 0u;
+								}
+								
+								Sound::s_SDL_Device = SDL_OpenAudioDevice(nullptr, 0, &c->m_Format.Specification(), nullptr, 0);
+								
+								// Play using SDL!
+								SDL_QueueAudio(Sound::s_SDL_Device, c->m_Samples.m_Data, c->m_Samples.m_Length);
+								SDL_PauseAudioDevice(Sound::s_SDL_Device, 0);
+							}
+							else {
+								
+								// Stop the source if it is already playing.
+								if (s_GlobalSource->State() == AL_PLAYING) {
+									s_GlobalSource->Stop();
+								}
+								
+								// Assign the new clip.
+								s_GlobalSource->Clip(c);
+								
+								// Play! (Set fallback to false as we have already established it is not necessary.)
+								s_GlobalSource->Play(false);
+							}
+						}
+						else {
+							throw std::runtime_error("Cannot play AudioClip since its size is zero!");
+						}
+					}
+					else {
+						throw std::runtime_error("Cannot play AudioSource since the current clip is nullptr!");
+					}
+				}
+				else {
+					throw std::runtime_error("Cannot play since s_Global_Source is nullptr!");
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		
 	public:
 		
-		explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent);
+		explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
+			m_Source      (AL_NONE),
+			m_Parameters  (),
+			m_LastPosition(0.0)
+		{
+			try {
+				
+				if (m_Source == AL_NONE) {
+					
+					alGenSources(1, &m_Source);
+					
+					if (m_Source == AL_NONE) {
+						throw std::runtime_error("Failed creating audio source!");
+					}
+					
+					Sync();
+				}
+				else {
+					throw std::runtime_error("Attempted to initialise an AudioSource which is already initialised!");
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		 
 		~AudioSource() override {
 			
@@ -169,13 +369,17 @@ namespace LouiEriksson::Engine::Audio {
 		}
 		
 		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
 		
 		/** @brief Initialise the AudioSource. */
-		void Begin() override;
+		inline void Begin() override {
+			Sync();
+		}
 		
 		/** @brief Updates the AudioSource every frame. */
-		void Tick() override;
+		inline void Tick() override {
+			Sync();
+		}
 		
 		/**
 		 * @brief Plays the audio clip associated with the AudioSource.
@@ -184,13 +388,65 @@ namespace LouiEriksson::Engine::Audio {
 		 * If set to true and the buffer is not available, the clip will be played globally using a fallback method.
 		 * If set to false and the buffer is not available, no playback will occur.
 		 */
-		void Play(const bool& _allowFallback = true);
+		void Play(const bool& _allowFallback = true) {
+		
+			try {
+				
+				// Try and get current clip.
+				if (const auto c = m_Clip.lock()) {
+					
+					// Only play if the clip actually contains data.
+					if (c->m_Samples.m_Length <= 0) {
+						throw std::runtime_error("Cannot play AudioClip since its size is zero!");
+					}
+					else {
+						
+						if (c->m_ALBuffer == AL_NONE) {
+							
+							/*
+							 * AL buffer non-existent. Implies AL failed to initialise correctly.
+							 * Attempt to play the clip globally instead. This will use whatever fallback is available.
+							 */
+							
+							if (_allowFallback) {
+								PlayGlobal(c);
+							}
+							else {
+								throw std::runtime_error(
+										"Cannot play audio clip since m_ALBuffer == AL_NONE, "
+										"and permission to use a fallback is denied!\n"
+								);
+							}
+						}
+						else {
+							
+							// If already playing, nothing needs to be done.
+							if (State() == AL_PLAYING) {
+								throw std::runtime_error("Attempted to call Play() on an AudioSource that is already playing.");
+							}
+							else {
+								
+								// Play!
+								alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
+								alSourcePlay(m_Source);
+							}
+						}
+					}
+				}
+				else {
+					throw std::runtime_error("Cannot play AudioSource since the current clip is nullptr!");
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		
 		/** @brief Pause this AudioSource. */
-		void Pause() const;
+		inline void Pause() const { alSourcePause(m_Source); }
 		
 		/** @brief Stop this AudioSource. */
-		void Stop() const;
+		inline void Stop() const { alSourceStop(m_Source); }
 		
 		/**
 		 * @brief Sets the AudioClip for the AudioSource.
@@ -200,7 +456,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The AudioClip to set for the AudioSource.
 		 */
-		void Clip(const std::weak_ptr<AudioClip>& _value) noexcept;
+		inline void Clip(const std::weak_ptr<AudioClip>& _value) noexcept{
+			m_Clip = _value;
+		}
 		
 		/**
 		 * @brief Returns the AudioClip associated with the AudioSource.
@@ -221,7 +479,14 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The state of the AudioSource.
 		 */
-		[[nodiscard]] ALenum State() const;
+		[[nodiscard]] inline ALenum State() const {
+			
+			ALint state;
+			
+		    alGetSourcei(m_Source, AL_SOURCE_STATE, &state);
+			
+		    return static_cast<ALenum>(state);
+		}
 		
 		/**
 		 * @brief Sets the global flag of the AudioSource.
@@ -230,7 +495,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The value to set the global flag to.
 		 */
-		void Global(const bool& _value);
+		inline void Global(const bool& _value) {
+			m_Parameters.m_IsGlobal = _value;
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Returns the global flag of the AudioSource.
@@ -256,7 +525,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @see AudioSource::Sync()
 		 */
-		void Loop(const bool& _value);
+		inline void Loop(const bool& _value){
+			m_Parameters.m_Loop = _value;
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the loop flag of the audio source.
@@ -280,7 +553,12 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The new minimum distance value to set.
 		 * @note The value should be within the range of FLT_EPSILON to the maximum distance.
 		 */
-		void MinDistance(const ALfloat& _value);
+		inline void MinDistance(const ALfloat& _value){
+			m_Parameters.m_MinDistance = std::max(_value, std::numeric_limits<ALfloat>::min());
+			m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MaxDistance);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Gets the minimum distance for the audio source.
@@ -306,7 +584,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @note The _value is clamped to be greater than or equal to the minimum distance. If _value is smaller than the minimum distance, the maximum distance is set to be the same as the minimum distance.
 		 */
-		void MaxDistance(const ALfloat& _value);
+		inline void MaxDistance(const ALfloat& _value) {
+			m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MinDistance);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the maximum distance of the audio source.
@@ -327,7 +609,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The pitch value to be set. Must be a positive ALfloat.
 		 */
-		void Pitch(const ALfloat& _value);
+		inline void Pitch(const ALfloat& _value) {
+			m_Parameters.m_Pitch = std::max(_value, static_cast<ALfloat>(0.0));
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the pitch of the audio source.
@@ -354,7 +640,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The gain modifier to set. Must be a positive value.
 		 */
-		void Gain(const ALfloat& _value);
+		inline void Gain(const ALfloat& _value) {
+		    m_Parameters.m_GainModifier = std::max(_value, static_cast<ALfloat>(0.0));
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Getter function for the gain modifier of the audio source.
@@ -377,7 +667,12 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The new minimum gain value for the audio source.
 		 */
-		void MinGain(const ALfloat& _value);
+		inline void MinGain(const ALfloat& _value) {
+		    m_Parameters.m_MinGain = std::max(_value, static_cast<ALfloat>(0.0));
+		    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MaxGain);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the minimum gain of the audio source.
@@ -398,7 +693,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The maximum gain value to set.
 		 */
-		void MaxGain(const ALfloat& _value);
+		inline void MaxGain(const ALfloat& _value) {
+		    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MinGain);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Gets the maximum gain of the audio source.
@@ -418,7 +717,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The rolloff value to set.
 		 */
-		void Rolloff(const ALfloat& _value);
+		inline void Rolloff(const ALfloat& _value) {
+		    m_Parameters.m_Rolloff = _value;
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the rolloff value of the audio source.
@@ -436,7 +739,12 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @note The function also updates the maximum angle if the specified value is greater than the current maximum angle.
 		 */
-		void MinAngle(const ALfloat& _value);
+		inline void MinAngle(const ALfloat& _value) {
+		    m_Parameters.m_MinAngle = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(360.0));
+			m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MaxAngle);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Get the minimum angle of the audio source.
@@ -452,7 +760,11 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The maximum angle in degrees.
 		 */
-		void MaxAngle(const ALfloat& _value);
+		inline void MaxAngle(const ALfloat& _value){
+	        m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MinAngle);
+			
+			Sync();
+		}
 		
 		/**
 		 * @brief Gets the maximum angle of the audio source.
@@ -471,7 +783,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The desired playback position in seconds.
 		 */
-		void PlaybackPosition(const ALfloat& _value) const;
+		inline void PlaybackPosition(const ALfloat& _value) const {
+			alSourcef(m_Source, AL_SEC_OFFSET, _value);
+		}
 		
 		/**
 		 * @brief Get the current playback position of the audio source.
@@ -481,7 +795,14 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @return The current playback position in seconds.
 		 */
-		[[nodiscard]] ALfloat PlaybackPosition() const;
+		[[nodiscard]] inline ALfloat PlaybackPosition() const {
+			
+			ALfloat result;
+			
+	        alGetSourcef(m_Source, AL_SEC_OFFSET, &result);
+			
+			return result;
+		}
 		
 		/**
 		 * @brief Sets the playback position of the AudioSource in samples (AL_SAMPLE_OFFSET) or bytes (AL_BYTE_OFFSET).
@@ -496,7 +817,9 @@ namespace LouiEriksson::Engine::Audio {
 		 * @see AL_SAMPLE_OFFSET
 		 * @see AL_BYTE_OFFSET
 		 */
-		void PlaybackPosition(const ALenum& _param, const int& _value) const;
+		inline void PlaybackPosition(const ALenum& _param, const int& _value) const {
+			alSourcei(m_Source, _param, _value);
+		}
 		
 		/**
 		 * @brief Gets the playback position of the AudioSource.
@@ -507,7 +830,14 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _param The parameter specifying the type of playback position to retrieve.
 		 * @return The playback position as an integer value.
 		 */
-		[[nodiscard]] int PlaybackPosition(const ALenum& _param) const;
+		[[nodiscard]] inline int PlaybackPosition(const ALenum& _param) const {
+			
+			int result;
+			
+	        alGetSourcei(m_Source, _param, &result);
+			
+			return result;
+		}
 	};
 	
 } // LouiEriksson::Engine::Audio

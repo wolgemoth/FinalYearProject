@@ -172,7 +172,7 @@ namespace LouiEriksson::Engine::Graphics {
 		~Camera() override;
 		
 		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Camera); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
 		/**
 		 * @brief Pre-render stage of the rendering pipeline.

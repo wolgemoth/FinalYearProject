@@ -1,20 +1,26 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
-#include "AudioSource.h"
+#include "AudioClip.h"
+
+#include "../core/Debug.h"
 
 #include <al.h>
 #include <alc.h>
+#include <SDL.h>
+#include <SDL_audio.h>
 
+#include <algorithm>
+#include <exception>
 #include <memory>
+#include <stdexcept>
 
 namespace LouiEriksson::Engine::Audio {
 
-	class AudioClip;
-	class AudioSource;
-	
 	class Sound final {
 	
+		friend class AudioSource;
+		
 		/*
 		 * Please refer to OpenAL-Soft spec:
 		 * https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide
@@ -35,26 +41,76 @@ namespace LouiEriksson::Engine::Audio {
 		 */
 		inline static unsigned int s_SDL_Device { 0u };
 		
-		/**
-		 * @brief Global audio source used for non-positional audio playback.
-		 * @note This is the audio source used for playback when AL is unavailable.
-		 */
-		inline static std::unique_ptr<AudioSource> s_GlobalSource;
-		
 	public:
 		
 		/** @brief Initialise the audio subsystems. */
-		static void Init();
-		
-		/**
-		 * @brief Play the Clip without positional audio.
-		 *
-		 * This function plays the given audio clip without positional audio.
-		 *
-		 * @param[in] _clip The audio clip to be played.
-		 * @note This function throws a std::runtime_error if any error occurs during playback.
-		 */
-		static void PlayGlobal(const std::weak_ptr<AudioClip>& _clip);
+		static void Init() {
+			
+			Debug::Log("Initialising audio subsystems...", LogType::Info);
+			
+			try {
+				
+				// Init SDL audio subsystem (as fallback).
+				try {
+					Debug::Log("\tSDL...", LogType::Info, true);
+					SDL_InitSubSystem(SDL_INIT_AUDIO);
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					
+					throw e;
+				}
+				
+				// Init OpenAL audio subsystem.
+				try {
+					
+					Debug::Log("\tOpenAL...", LogType::Info, true);
+				
+					// Initialise audio device.
+					if (s_Device == nullptr) {
+						s_Device = alcOpenDevice(nullptr);
+						
+						if (s_Device == nullptr) {
+							throw std::runtime_error("Failed opening audio device!");
+						}
+					}
+					
+					// Create an audio context.
+					if (s_Context == nullptr) {
+				        s_Context = alcCreateContext(s_Device, nullptr);
+						
+						if (s_Context == nullptr) {
+							throw std::runtime_error("Failed creating audio context!");
+						}
+					}
+					
+					// Set s_Context as the current audio context.
+					if (alcMakeContextCurrent(s_Context) == AL_NONE) {
+						throw std::runtime_error("Failed setting audio context!");
+					}
+					
+					// Set the default distance model for the audio context.
+					// See: https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide#aldistancemodel
+					DistanceModel(AL_INVERSE_DISTANCE);
+					
+					// Set default values for doppler shift.
+					// See: https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide#doppler-shift
+					DopplerFactor(1.0);
+					SpeedOfSound(343.3);
+					
+					Debug::Log("Done.", LogType::Info);
+				}
+				catch (const std::exception& e) {
+					Debug::Log("Failed.", LogType::Error);
+					
+					throw e;
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
 		
 		/**
 		 * @brief Set the distance model used by the audio engine.
@@ -64,14 +120,18 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The distance model to be set.
 		 */
-		static void DistanceModel(const ALenum& _value);
+		inline static void DistanceModel(const ALenum& _value) {
+			alDistanceModel(_value);
+		}
 		
 		/**
 		 * @fn ALenum Sound::DistanceModel()
 		 * @brief Get the distance model used by the audio engine.
 		 * @return The distance model used by the audio engine.
 		 */
-		[[nodiscard]] static ALenum DistanceModel() ;
+		[[nodiscard]] inline static ALenum DistanceModel() {
+			return alGetInteger(AL_DISTANCE_MODEL);
+		}
 		
 		/**
 		 * @brief Set the doppler factor used by the audio engine.
@@ -82,14 +142,18 @@ namespace LouiEriksson::Engine::Audio {
 		 * @see SpeedOfSound()
 		 * @warning This function modifies the doppler factor for all audio sources in the audio engine.
 		 */
-		static void DopplerFactor(const ALfloat& _value);
+		inline static void DopplerFactor(const ALfloat& _value) {
+			alDopplerFactor(std::max(_value, static_cast<ALfloat>(0.0)));
+		}
 		
 		/**
 		 * @brief Get the doppler factor used by the audio engine.
 		 * @note This function returns the doppler factor value used by the audio engine.
 		 * @return The doppler factor used by the audio engine.
 		 */
-		[[nodiscard]] static ALfloat DopplerFactor() ;
+		[[nodiscard]] inline static ALfloat DopplerFactor() {
+			return alGetFloat(AL_DOPPLER_FACTOR);
+		}
 		
 		/**
 		 * @brief Set the speed of sound used by the audio engine.
@@ -100,7 +164,9 @@ namespace LouiEriksson::Engine::Audio {
 		 * @note The value must be greater than or equal to zero.
 		 * @see DopplerFactor()
 		 */
-		static void SpeedOfSound(const ALfloat& _value);
+		inline static void SpeedOfSound(const ALfloat& _value){
+			alDopplerVelocity(std::max(_value, static_cast<ALfloat>(0.0)));
+		}
 		
 		/**
 		 * @brief Get the speed of sound used by the audio engine.
@@ -112,14 +178,31 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @see Sound::DopplerFactor()
 		 */
-		[[nodiscard]] static ALfloat SpeedOfSound() ;
+		[[nodiscard]] inline static ALfloat SpeedOfSound() {
+			return alGetFloat(AL_DOPPLER_VELOCITY);
+		}
 		
 		/**
 		 * @brief Finalise the audio subsystems.
 		 *
 		 * @note This function catches any exceptions thrown during the cleanup process and logs them as critical errors.
 		 */
-		static void Dispose();
+		inline static void Dispose() {
+			
+			try {
+				
+				// Release AL context.
+			    alcMakeContextCurrent(nullptr);
+				
+				if (s_Context != nullptr) { alcDestroyContext(s_Context); s_Context = nullptr; }
+				if (s_Device  != nullptr) { alcCloseDevice(s_Device);     s_Device  = nullptr; }
+				
+				if (s_SDL_Device > 0u) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0u; }
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e, LogType::Critical);
+			}
+		}
 		
 	};
 	

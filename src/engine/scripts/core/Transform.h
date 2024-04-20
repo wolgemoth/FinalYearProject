@@ -65,7 +65,7 @@ namespace LouiEriksson::Engine {
 			m_Transformation(Transformation::Everything) { }
 		
 		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Transform); };
 		
 		/**
 		 * @brief Get the given vector (local to this transform) as it exists in world space.

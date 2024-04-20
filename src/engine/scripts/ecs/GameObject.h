@@ -18,8 +18,6 @@
 
 namespace LouiEriksson::Engine::ECS {
 	
-	class Component;
-	
 	/**
 	 * @class GameObject
 	 * @brief An Entity which exists in a Scene and can contain Components.
@@ -28,7 +26,7 @@ namespace LouiEriksson::Engine::ECS {
 	 */
 	class GameObject final : public std::enable_shared_from_this<GameObject> {
 		
-		friend Component;
+		friend class Component;
 		friend Scene;
 	
 	private:

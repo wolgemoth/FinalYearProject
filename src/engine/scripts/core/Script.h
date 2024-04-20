@@ -7,13 +7,13 @@
 
 namespace LouiEriksson::Engine::ECS {
 	
+	class GameObject;
 	class Scene;
 	
 } // LouiEriksson::Engine::ECS
 
 namespace LouiEriksson::Engine::Physics {
 	
-	class Camera;
 	struct Collision;
 	
 } // LouiEriksson::Engine::Physics

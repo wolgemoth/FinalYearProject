@@ -85,13 +85,8 @@ include_directories(
 
 # ADD FINALYEARPROJECT:
 add_library(FinalYearProject STATIC
-        src/engine/scripts/audio/AudioClip.cpp
         src/engine/scripts/audio/AudioClip.h
-        src/engine/scripts/audio/AudioListener.cpp
-        src/engine/scripts/audio/AudioListener.h
-        src/engine/scripts/audio/AudioSource.cpp
         src/engine/scripts/audio/AudioSource.h
-        src/engine/scripts/audio/Sound.cpp
         src/engine/scripts/audio/Sound.h
         src/engine/scripts/core/Application.h
         src/engine/scripts/core/Debug.h
@@ -105,7 +100,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/Hashmap.h
         src/engine/scripts/core/utils/Utils.h
         src/engine/scripts/core/Window.h
-        src/engine/scripts/ecs/Component.cpp
         src/engine/scripts/ecs/Component.h
         src/engine/scripts/ecs/GameObject.h
         src/engine/scripts/ecs/Scene.cpp

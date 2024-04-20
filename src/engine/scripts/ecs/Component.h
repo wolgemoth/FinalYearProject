@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_COMPONENT_H
 #define FINALYEARPROJECT_COMPONENT_H
 
+#include "../core/Debug.h"
+
 #include <cstddef>
 #include <memory>
 #include <typeindex>
@@ -30,7 +32,12 @@ namespace LouiEriksson::Engine::ECS {
 		
 	protected:
 	
-		explicit Component(const std::weak_ptr<GameObject>& _parent) noexcept;
+		explicit Component(const std::weak_ptr<GameObject>& _parent) noexcept :
+			m_Index(0u),
+			m_GameObject(_parent)
+		{
+			Debug::Assert(!_parent.expired(), "Component initialised with no valid parent!", LogType::Warning);
+		}
 		
 		/** @brief Invoked on finalisation of the Component. */
 		virtual ~Component() {};

@@ -1,10 +1,17 @@
 #ifndef FINALYEARPROJECT_AUDIOLISTENER_H
 #define FINALYEARPROJECT_AUDIOLISTENER_H
 
-#include "../ecs/Component.h"
 #include "../core/Script.h"
+#include "../core/Time.h"
+#include "../core/Transform.h"
+#include "../core/Types.h"
+#include "../ecs/Component.h"
+#include "../ecs/GameObject.h"
+#include "../physics/Rigidbody.h"
 
-#include <glm/ext/vector_float3.hpp>
+#include <al.h>
+
+#include <glm/common.hpp>
 
 #include <memory>
 #include <typeindex>
@@ -39,20 +46,64 @@ namespace LouiEriksson::Engine::Audio {
 		glm::vec3 m_LastPosition;
 		
 		/** @brief Synchronise the AudioListener with the internal audio engine. */
-		void Sync();
+		void Sync() {
+		
+			if (const auto p = Parent().lock()) {
+			if (const auto t = p->GetComponent<Transform>().lock()) {
+				
+				// Set position of listener:
+				alListenerfv(AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
+				
+				// Set orientation (forward, up):
+				{
+					const auto f = t->FORWARD;
+					const auto u = t->UP;
+					
+					const ALfloat orientation[] { f.x, f.y, f.z, u.x, u.y, u.z };
+					alListenerfv(AL_ORIENTATION, orientation);
+				}
+				
+				// Set velocity (using rigidbody, if available):
+				{
+					glm::vec3 velocity;
+					
+					if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+						velocity = r->Velocity();
+					}
+					else {
+						velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t>();
+					}
+					
+					alListenerfv(AL_VELOCITY, static_cast<const ALfloat*>(&velocity[0]));
+				}
+				
+				
+				// Assign gain value:
+				alListenerf(AL_GAIN, m_Gain);
+				
+				// Update "last position" (used for transform-based doppler effect).
+				m_LastPosition = t->Position();
+			}}
+		}
 		
 	public:
 		
-		explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept;
+		explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
+			m_Gain        (1.0),
+			m_LastPosition(0.0) {}
 		
 		/** @inheritdoc */
-		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
+		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
 		
 		/** @brief Initialise the AudioListener. */
-		void Begin() override;
+		inline void Begin() override {
+			Sync();
+		}
 	
 		/** @brief Updates the AudioListener every frame. */
-		void Tick() override;
+		inline void Tick() override {
+			Sync();
+		}
 		
 		/**
 		 * @brief Set the master gain of the AudioListener.
@@ -62,7 +113,9 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The value of the master gain to set.
 		 */
-		void Gain(const ALfloat& _value) noexcept;
+		inline void Gain(const ALfloat& _value) noexcept {
+			m_Gain = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(1.0));
+		}
 		
 		/**
 		 * @brief Get the master gain of the AudioListener.
