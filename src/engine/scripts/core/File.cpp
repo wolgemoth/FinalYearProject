@@ -44,24 +44,25 @@
 
 namespace LouiEriksson::Engine {
 	
-	std::string File::ReadAllText(const std::filesystem::path& _path) {
+	std::stringstream File::ReadAllText(const std::filesystem::path& _path) {
 	
 		std::stringstream result;
-	
-		std::fstream fs;
-		fs.open(_path, std::ios::in);
-	
-		if (fs.is_open()) {
-	
-			std::string line;
-	
-			while (std::getline(fs, line)) {
-				result << line<< '\n';
+		
+		if (exists(_path)) {
+		
+			std::fstream fs;
+			fs.open(_path, std::ios::in);
+		
+			if (fs.is_open()) {
+				result << fs.rdbuf();
+				fs.close();
 			}
-			fs.close();
+		}
+		else {
+			throw std::runtime_error("Invalid file path");
 		}
 	
-		return result.str();
+		return result;
 	}
 	
 	std::vector<std::filesystem::path> File::Directory::GetEntries(const std::filesystem::path& _path, const File::Directory::EntryType& _type) {
@@ -449,7 +450,7 @@ namespace LouiEriksson::Engine {
 		
 				while (std::getline(fs, line)) {
 					
-					auto subStrings = Utils::Split<std::string_view>(line, ' ');
+					auto subStrings = Utils::Split(line, ' ');
 					
 					if (!subStrings.empty()) {
 						

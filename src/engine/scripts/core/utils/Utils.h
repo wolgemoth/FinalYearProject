@@ -60,7 +60,7 @@ namespace LouiEriksson::Engine {
 		 * @note The last word of the string is always included in the result, even if it is not delimited.
 		 * @note The function assumes that the template argument is std::string or std::string_view.
 		 */
-		template<typename T>
+		template<typename T = std::string_view>
 		static constexpr std::vector<T> Split(const std::string_view& _string, const char& _divider, const size_t& _capacity = 0) {
 			
 			static_assert(std::is_same_v<T, std::string_view> || std::is_same_v<T, std::string>,

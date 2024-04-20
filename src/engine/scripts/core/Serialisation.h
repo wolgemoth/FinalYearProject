@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine {
 	
 			const char delimiter = ' ';
 	
-			const auto split = Utils::Split<std::string_view>(_str, delimiter);
+			const auto split = Utils::Split(_str, delimiter);
 			for (size_t i = 0; i < split.size(); ++i) {
 				result[i] = Utils::TryParse<float>(split[i]).value_or(0.0);
 			}

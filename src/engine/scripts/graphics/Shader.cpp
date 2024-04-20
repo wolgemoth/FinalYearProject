@@ -23,6 +23,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace LouiEriksson::Engine::Graphics {
@@ -66,11 +67,9 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				Debug::Log("Loading Shader Asset \"" + std::string(shader.m_Path) + "\"... ", LogType::Info, true);
 				
-				const auto src = File::ReadAllText(shader.m_Path);
+				Compile((File::ReadAllText(shader.m_Path) << "\n").str(), shader.m_Type);
 				
 				Debug::Log("Done.", LogType::Info);
-				
-				Compile(src, shader.m_Type);
 			}
 			
 			m_ProgramID = glCreateProgram();
@@ -80,7 +79,7 @@ namespace LouiEriksson::Engine::Graphics {
 			DetachShaders();
 		}
 		else {
-			Debug::Log("Attempted to create a shader object with no subshaders.", LogType::Error);
+			throw std::runtime_error("Attempted to create a shader object with no subshaders.");
 		}
 	}
 	
@@ -179,21 +178,20 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 	}
 	
-	Hashmap<GLenum, std::string> Shader::ExtractSubshaders(const std::string& _src) {
+	Hashmap<GLenum, std::string> Shader::ExtractSubshaders(std::stringstream&& _src) {
 		
 		Hashmap<GLenum, std::string> result;
 		
-		// Get the individual lines of the shader.
-		const auto lines = Utils::Split<std::string_view>(_src, '\n');
-		
-		std::stringstream ss;
+		std::ostringstream ss;
 		
 		// Parse over each line of the shader. Check for preprocessor definitions of
 		// shader types, and use that to change the context of which shader type
 		// is being read. Write the data to a stream, and copy that data on
 		// context change.
 		auto curr = GL_NONE;
-		for (const auto& line : lines) {
+		
+		std::string line;
+        while (std::getline(_src, line)) {
 			
 			auto type = curr;
 			
@@ -231,8 +229,8 @@ namespace LouiEriksson::Engine::Graphics {
 			// Get existing string (uses default if none).
 			std::string source = result.Get(curr).value_or({});
 			
-			// Concatenate exiting with stream contents.
-			source += ss.str();
+			ss << '\n';         // Add a blank line to end of shader (opengl reasons).
+			source += ss.str(); // Concatenate exiting with stream contents.
 			
 			// Assign back to the hashmap,
 			result.Emplace(curr, std::move(source));

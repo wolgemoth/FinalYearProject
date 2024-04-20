@@ -336,8 +336,6 @@ namespace LouiEriksson::Engine::ECS {
 			Debug::Log("Failed.", LogType::Error);
 			Debug::Log(e);
 		}
-	
-		Debug::Log("Output: " + File::ReadAllText(_path), LogType::Info);
 	}
 	
 	std::shared_ptr<Scene> Scene::Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {

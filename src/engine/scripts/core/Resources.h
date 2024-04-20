@@ -180,7 +180,7 @@ namespace LouiEriksson::Engine {
 					
 					try {
 						const auto name = "/" + dependency.string();
-						const auto contents = File::ReadAllText(dependency);
+						const auto contents = (File::ReadAllText(dependency) << "\n").str();
 						
 						// https://www.opengl.org/registry/specs/ARB/shading_language_include.txt
 						glNamedStringARB(

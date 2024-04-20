@@ -57,23 +57,43 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	
 	std::shared_ptr<Mesh> Stars::LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude) {
 	
-		std::shared_ptr<Mesh> result;
-		
-		std::vector<std::string> lines;
-		
 		using ATHYG_VERSION = Engine::Spatial::ATHYG::V3;
+		
+		std::vector<glm::vec3> star_positions;
 		
 		for (const auto& path : _athyg_paths) {
 			
-			Debug::Log("Loading \"" + path.string() + "\"... ", LogType::Info, true);
+			Debug::Log("Parsing \"" + path.string() + "\"... ", LogType::Info, true);
 			
 			try {
 			
 				if (exists(path)) {
 					
-					auto data = Utils::Split<std::string>(File::ReadAllText(path), '\n', ATHYG_VERSION::s_ElementCount);
+					auto csv = File::ReadAllText(path);
 					
-					std::move(data.begin(), data.end(), std::back_inserter(lines));
+					std::string line;
+					
+					// Skip the header (first line) of the CSV.
+					std::getline(csv, line);
+					
+					// Process CSV elements:
+				    while (std::getline(csv, line)) {
+						
+						auto elements = Utils::Split(line, ',', ATHYG_VERSION::s_ElementCount);
+						
+						if (elements.size() > ATHYG_VERSION::s_ElementCount) {
+							elements.resize(ATHYG_VERSION::s_ElementCount);
+						}
+						
+						if (elements.size() == ATHYG_VERSION::s_ElementCount) {
+							
+							const auto star = ATHYG_VERSION((Utils::MoveToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(elements)));
+							
+							if (*star.mag <= _threshold_magnitude) {
+								star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
+							}
+						}
+					}
 					
 					Debug::Log("Done.", LogType::Info);
 				}
@@ -87,37 +107,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			}
 		}
 		
-		Debug::Log("Parsing " + std::to_string(!lines.empty() ? lines.size() - 1 : lines.size()) + " lines... ", LogType::Info, true);
-		
-		std::vector<glm::vec3> star_positions;
-		star_positions.reserve(lines.size());
-		
-		try {
-			
-			for (auto line = lines.begin() + 1; line != lines.end(); ++line) {
-				
-				auto elements = Utils::Split<std::string_view>(*line, ',', ATHYG_VERSION::s_ElementCount);
-				
-				if (elements.size() > ATHYG_VERSION::s_ElementCount) {
-					elements.resize(ATHYG_VERSION::s_ElementCount);
-				}
-				
-				if (elements.size() == ATHYG_VERSION::s_ElementCount) {
-					
-					const auto star = ATHYG_VERSION((Utils::MoveToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(elements)));
-					
-					if (*star.mag <= _threshold_magnitude) {
-						star_positions.emplace_back(*star.x0, *star.y0, *star.z0);
-					}
-				}
-			}
-			
-			Debug::Log("Done.", LogType::Info);
-		}
-		catch (const std::exception& e) {
-			Debug::Log("Failed.", LogType::Error);
-			Debug::Log(e);
-		}
+		std::shared_ptr<Mesh> result;
 		
 		using vertex_t = GLfloat;
 		

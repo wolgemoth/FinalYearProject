@@ -9,6 +9,7 @@
 #include <array>
 #include <filesystem>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -53,7 +54,7 @@ namespace LouiEriksson::Engine {
 		
 		File& operator = (const File& _other) = delete;
 		
-		static std::string ReadAllText(const std::filesystem::path& _path);
+		static std::stringstream ReadAllText(const std::filesystem::path& _path);
 		
 		static bool TryLoad(const std::filesystem::path& _path, std::shared_ptr<Audio::AudioClip>& _output);
 		

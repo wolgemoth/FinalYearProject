@@ -75,7 +75,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		void Compile(const std::string_view& _src, const GLenum& _type);
 		
-		static Hashmap<GLenum, std::string> ExtractSubshaders(const std::string& _src);
+		static Hashmap<GLenum, std::string> ExtractSubshaders(std::stringstream&& _src);
 		
 		explicit Shader(const std::vector<SubShader>& _subShaders);
 		
