@@ -12,11 +12,14 @@
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 	
-	template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 	struct Coords final {
-		
-        /** @brief Globally-average Earth radius in metres, according to the International System of Units. */
-        static constexpr T SI_EarthRadius = 6371000.0;
+	
+		class SI final {
+	        
+	        /** @brief Globally-average Earth radius in metres, according to the International System of Units. */
+            static constexpr long double s_EarthRadius = 6371000.0;
+			
+		};
 		
 		/**
 		 * @class WGS84
@@ -28,23 +31,26 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		private:
 			
-			static constexpr T s_RMajor = 6378137.0;
-            static constexpr T s_RMinor = 6356752.3142;
-            static constexpr T s_Ratio  = s_RMinor / s_RMajor;
+			static constexpr long double s_RMajor = 6378137.0;
+            static constexpr long double s_RMinor = 6356752.3142;
+            static constexpr long double s_Ratio  = s_RMinor / s_RMajor;
 
-            static constexpr T s_Eccent = 0.081819197; //std::sqrt(1.0 - (s_Ratio * s_Ratio));
-            static constexpr T s_Com    = 0.5 * s_Eccent;
+            static constexpr long double s_Eccent = 0.081819197; //std::sqrt(1.0 - (s_Ratio * s_Ratio));
+            static constexpr long double s_Com    = 0.5 * s_Eccent;
 
 		public:
 			
+			template<typename T = scalar_t>
 			static constexpr T LongitudeToX(const T& _lon) {
 			    return s_RMajor * Conversions::Rotation::s_DegreesToRadians * _lon;
 			}
 			
+			template<typename T = scalar_t>
 			static constexpr T XToLongitude(const T& _x) {
 			    return (Conversions::Rotation::s_DegreesToRadians * _x) / s_RMajor;
 			}
 			
+			template<typename T = scalar_t>
 			static constexpr T LatitudeToY(T _lat) {
 			
 			    _lat = std::min(static_cast<T>(89.5), std::max(_lat, static_cast<T>(-89.5)));
@@ -61,10 +67,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			    return (static_cast<T>(0.0) - s_RMajor * std::log(ts));
 			}
 			
+			template<typename T = scalar_t>
 			static T YToLatitude(const T& _y) {
 			
-			    const auto ts = std::exp(-_y / s_RMajor);
-			    auto phi  = (M_PI / 2) - 2.0 * std::atan(ts);
+			    const T ts = std::exp(-_y / s_RMajor);
+			    T phi  = (M_PI / 2) - 2.0 * std::atan(ts);
 				
 			    constexpr T dphi = 1.0;
 			
@@ -83,7 +90,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			}
 			
 			// https://stackoverflow.com/questions/3269202/latitude-and-longitude-bounding-box-for-c
-			static T WGS84EarthRadius(const T& _lat) {
+			
+			template<typename T = scalar_t>
+			static T EarthRadius(const T& _lat) {
 			
 			    // http://en.wikipedia.org/wiki/Earth_radius
 			    const T An(s_RMajor * s_RMajor * std::cos(_lat));
@@ -94,18 +103,27 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			    return std::sqrt((An * An + Bn * Bn) / (Ad * Ad + Bd * Bd));
 			}
 			
-			static T CalculateEquatorialStretchFactor(const T& _latitude) {
+			// Custom function:
+			template<typename T = scalar_t>
+			static T EquatorialStretchFactor(const T& _lat) {
 			
-			    const auto rad = Conversions::Rotation::s_DegreesToRadians * _latitude;
+			    const T rad = Conversions::Rotation::s_DegreesToRadians * _lat;
 				
-			    const auto stretch = std::sqrt(static_cast<T>(1.0) - (s_Eccent * s_Eccent) * std::sin(std::sin(rad))) * (static_cast<T>(1.0) / std::cos(rad));
+			    const T stretch = std::sqrt(static_cast<T>(1.0) - (s_Eccent * s_Eccent) * std::sin(std::sin(rad))) * (static_cast<T>(1.0) / std::cos(rad));
 			
 			    return stretch;
+			}
+			
+			// Custom function:
+			template<typename T = scalar_t>
+			static T AltitudeCompensation(const T _lat) {
+				return EarthRadius(0.0) - EarthRadius(_lat);
 			}
 		};
 		
 		struct GPS final {
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<4, T, P> GPSToBounds(const glm::vec<3, T, P>& _coord, const T& _sizeKm) {
 		
 		        glm::vec<4, T, P> result;
@@ -117,7 +135,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		            T  latitudeRadians = Conversions::Rotation::s_DegreesToRadians * (_coord.x);
 		            T longitudeRadians = Conversions::Rotation::s_DegreesToRadians * (_coord.y);
 		
-		            T radius = WGS84::WGS84EarthRadius(_coord.x);
+		            T radius = WGS84::EarthRadius(_coord.x);
 		            T pradius = radius * std::cos(latitudeRadians);
 					
 		            result = {
@@ -134,15 +152,17 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        return result;
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> GPSToCartesian(const glm::vec<3, T, P>& _coord) {
 				
 				return SphereToCartesian({
 					_coord.x * Conversions::Rotation::s_DegreesToRadians,
 					_coord.y * Conversions::Rotation::s_DegreesToRadians,
-					_coord.z + WGS84::WGS84EarthRadius(_coord.x)
+					_coord.z + WGS84::EarthRadius(_coord.x),
 				});
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::ivec2 GPSToPixel(const glm::vec<2, T, P>& _coord) {
 				
 		        return {
@@ -151,22 +171,25 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				};
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord) {
 				
 				return {
-					WGS84::LongitudeToX(_coord.y) / static_cast<T>(180.0),
-					WGS84:: LatitudeToY(_coord.x) / static_cast<T>( 90.0)
+						   WGS84::LongitudeToX(_coord.y) / static_cast<T>(180.0 ),
+					1.0 - (WGS84:: LatitudeToY(_coord.x) / static_cast<T>( 90.0))
 				};
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord, const glm::ivec2& _dimensions, const glm::vec<4, T, P>& _bounds) {
 		
 		        return {
 		            Utils::Remap(_coord.y, _bounds.y, _bounds.w, static_cast<T>(0.0), static_cast<T>(1.0)),
-		            Utils::Remap(_coord.x, _bounds.x, _bounds.z, static_cast<T>(0.0), static_cast<T>(1.0))
+		            Utils::Remap(_coord.x, _bounds.x, _bounds.z, static_cast<T>(1.0), static_cast<T>(0.0))
 		        };
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> GPSToSphere(const glm::vec<3, T, P>& _coord) {
 				
 		        T phi(_coord.x * Conversions::Rotation::s_DegreesToRadians);
@@ -185,6 +208,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        };
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> PixelToGPS(const glm::vec<2, size_t>& _coord) {
 				
 		        return {
@@ -194,6 +218,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				};
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> PixelToGPS(const glm::vec<2, size_t>& _xy, const glm::vec<2, size_t>& _dimensions, const glm::vec<4, T, P>& _bounds) {
 				
 		        return {
@@ -203,6 +228,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        };
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> SphereToCartesian(const glm::vec<3, T, P>& _radians) {
 				
 		        T cPhi(std::cos(_radians.x));
@@ -217,6 +243,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        };
 			}
 			
+			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
 			static constexpr glm::vec<3, T, P> UVToGPS(const glm::vec<2, T, P>& _uv) {
 				
 				return {

@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine::Spatial {
 		
 		        for (auto y = _dimensions.y - 1; y >= 0; --y) {
 		        for (auto x = _dimensions.x - 1; x >= 0; --x) {
-		            elevation_points.emplace_back(Maths::Coords<scalar_t>::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
+		            elevation_points.emplace_back(Maths::Coords::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
 		        }}
 		
 		        if (_provider == ElevationProvider::OpenElevation) {
