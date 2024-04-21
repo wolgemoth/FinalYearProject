@@ -4,12 +4,17 @@
 #include "../../core/utils/Hashmap.h"
 
 #include <string>
+#include <string_view>
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 
 	struct Conversions final {
-		
-		struct Speed final {
+	
+		using conversion_scalar_t = long double;
+	
+	public:
+	
+		struct Speed {
 		
 		public:
 			
@@ -23,15 +28,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Lightspeed,
 			};
 			
-			static Hashmap<std::string, Conversions::Speed::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Speed::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 			
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
-		private:
+		protected:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 				{ "k/h",   KilometreHour },
 				{ "km/h",  KilometreHour },
 				{ "kph",   KilometreHour },
@@ -51,7 +60,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "c",     Lightspeed    },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ KilometreHour, "km/h" },
 				{ FeetSecond,    "f/s"  },
 				{ MileHour,      "mph"  },
@@ -62,7 +71,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common speed units and m/s. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 				{ KilometreHour, 0.2777778   },
 				{ FeetSecond,    0.3048      },
 				{ MileHour,      0.44704     },
@@ -92,11 +101,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Parsec,
 			};
 			
-			static Hashmap<std::string, Conversions::Distance::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Distance::Unit>::optional_ref TryGuessUnit(const std::string& _symbol)  {
+				return s_Lookup.Get(_symbol);
+			}
 		
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 			/**
 			 * @brief Convert arc-seconds to metres.
@@ -112,7 +125,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			 *
 			 * @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
 			 */
-	        static double ArcSecondsToMetres(const double& _arcSeconds, const double& _lat = 0.0);
+	        inline static conversion_scalar_t ArcSecondsToMetres(const conversion_scalar_t& _arcSeconds, const conversion_scalar_t& _lat = 0.0) {
+				return _arcSeconds * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) * (1852.0 / 60.0));
+			}
 			
 			/**
 			* @brief Convert metres to arc-seconds given a latitude.
@@ -127,11 +142,13 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			*
 			* @note The conversion assumes a spherical Earth and uses the latitude to correctly calculate the conversion factor.
 			*/
-	        static double MetresToArcSeconds(const double& _metres, const double& _lat = 0.0);
+	        inline static conversion_scalar_t MetresToArcSeconds(const conversion_scalar_t& _metres, const conversion_scalar_t& _lat = 0.0) {
+				return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0 / 60.0));
+			}
 	        
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 	            { "mm",         Millimetre       },
 	            { "cm",         Centimetre       },
 	            { "\"",         Inch             },
@@ -155,7 +172,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	            { "parsecs",    Parsec           },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Millimetre,       "mm"  },
 				{ Centimetre,       "cm"  },
 				{ Inch,             "in"  },
@@ -171,7 +188,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common lateral distance units and metres. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 	            { Millimetre,                       0.001      },
 	            { Centimetre,                       0.01       },
 	            { Inch,                             0.0254     },
@@ -199,18 +216,22 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Turn,
 			};
 			
-			static constexpr double s_DegreesToRadians = M_PI / 180.0;
-			static constexpr double s_RadiansToDegrees = 180.0 / M_PI;
+			static constexpr conversion_scalar_t s_DegreesToRadians = M_PI / 180.0;
+			static constexpr conversion_scalar_t s_RadiansToDegrees = 180.0 / M_PI;
 			
-			static Hashmap<std::string, Conversions::Rotation::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Rotation::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 		
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 				{ "grad",     Gradian },
 				{ "gradians", Gradian },
 	            { "°",        Degree  },
@@ -228,7 +249,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "tr",       Turn    },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Gradian, "grad" },
 				{ Degree,  "deg"  },
 				{ Radian,  "rad"  },
@@ -236,7 +257,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common rotational distance units and degrees. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 				{ Gradian,  0.9     },
 	            { Degree,   1.0     },
 	            { Radian,  57.29578 },
@@ -258,15 +279,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Day,
 			};
 			
-			static Hashmap<std::string, Conversions::Time::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Time::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 			    { "nanosecond",   Nanosecond  },
 	            { "nanoseconds",  Nanosecond  },
 	            { "ns",           Nanosecond  },
@@ -293,7 +318,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "days",         Day         },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Nanosecond,  "ns" },
 				{ Microsecond, "µs" },
 				{ Millisecond, "ms" },
@@ -304,7 +329,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common time units and seconds. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 	            { Nanosecond,      0.000000001 },
 				{ Microsecond,     0.000001    },
 	            { Millisecond,     0.001       },
@@ -325,20 +350,60 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Kelvin,
 			};
 			
-			static constexpr double s_PlanckTemperature = 14200000000000000000000000000000000.0;
-			static constexpr double s_AbsoluteZero      =                                   0.0;
+			static constexpr conversion_scalar_t s_PlanckTemperature = 14200000000000000000000000000000000.0;
+			static constexpr conversion_scalar_t s_AbsoluteZero      =                                   0.0;
 			
-			static Hashmap<std::string, Conversions::Temperature::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Temperature::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+		
+				conversion_scalar_t result{};
+				
+				// Convert to Kelvin:
+				switch (_from) {
+					case Celsius:    { result =  _val - 272.15;        break; }
+					case Fahrenheit: { result = (_val + 459.67) / 1.8; break; }
+					case Kelvin:     { result = _val;                  break; }
+					default: {
+						throw std::runtime_error("Not implemented!");
+					}
+				}
+				
+				// Clamp result above absolute zero.
+				result = std::max(result, s_AbsoluteZero);
+				
+				// Convert Kelvin to target:
+				switch (_to) {
+					case Celsius:    { result += 273.15;                 break; }
+					case Fahrenheit: { result = (result * 1.8) - 459.67; break; }
+					case Kelvin:     {                                   break; }
+					default: {
+						throw std::runtime_error("Not implemented!");
+					}
+				}
+				
+				return result;
+			}
 
-			static std::string Symbol(const Unit&);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
-			static double ClampTemperature(const double& _val, Unit& _unit);
+			static constexpr conversion_scalar_t ClampTemperature(const conversion_scalar_t& _val, Unit& _unit) {
+				
+				return Convert(
+					std::min(
+						Convert(_val, _unit, Kelvin),
+						s_PlanckTemperature
+					),
+					Kelvin,
+					_unit
+				);
+			}
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 	            { "celsius",     Celsius    },
 	            { "c",           Celsius    },
 	            { "°c",          Celsius    },
@@ -352,7 +417,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	            { "K",           Kelvin     },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Celsius,    "C" },
 				{ Fahrenheit, "F" },
 				{ Kelvin,     "K" },
@@ -392,15 +457,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				TonneSquareInch_Long,
 			};
 			
-			static Hashmap<std::string, Conversions::Pressure::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Pressure::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 				{ "dyn/cm²",      DyneSquareCentimetre          },
 				{ "dyn/cm^2",     DyneSquareCentimetre          },
 				{ "dyn/cm2",      DyneSquareCentimetre          },
@@ -460,7 +529,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "tsi_long",     TonneSquareInch_Long          },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ DyneSquareCentimetre,    "dyn/cm2",   },
 				{ MilliTorr,               "mTorr",     },
 				{ Pascal,                  "Pa",        },
@@ -492,7 +561,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			 * @brief Conversions between common pressure units and atmospheres.
 			 * @see SensorsONE, 2019. atm – Standard Atmosphere Pressure Unit [online]. Sensorsone.com. Available from: https://www.sensorsone.com/atm-standard-atmosphere-pressure-unit/ [Accessed 12 Mar 2024].
 			 */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 				{ DyneSquareCentimetre,       0.000000987 },
 				{ MilliTorr,                  0.000001316 },
 				{ Pascal,                     0.000009869 },
@@ -540,15 +609,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Gigaton,
 			};
 			
-			static Hashmap<std::string, Conversions::Mass::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Mass::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 					{ "nanogram",     Nanogram  },
 					{ "nanogramme",   Nanogram  },
 					{ "nanogrammes",  Nanogram  },
@@ -600,7 +673,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 					{ "Gt",           Gigaton   },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Nanogram,  "ng" },
 				{ Microgram, "μg" },
 				{ Milligram, "mg" },
@@ -615,7 +688,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common mass units and kilograms. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 					{ Nanogram,              0.000000000001 },
 					{ Microgram,             0.000000001    },
 					{ Milligram,             0.000001       },
@@ -646,15 +719,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				SquareYard,
 			};
 			
-			static Hashmap<std::string, Conversions::Area::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Area::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 				{ "mm2",     SquareMillimetre },
 				{ "mm^2",    SquareMillimetre },
 				{ "mm²",     SquareMillimetre },
@@ -681,7 +758,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "hectare", Hectare          },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ SquareMillimetre, "mm2" },
 				{ SquareCentimetre, "cm2" },
 				{ SquareInch,       "in2" },
@@ -693,7 +770,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between area units and square metres. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 				{ SquareMillimetre,    0.000001     },
 				{ SquareCentimetre,    0.0001       },
 				{ SquareInch,          0.00064516   },
@@ -726,15 +803,19 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				CubicMetre,
 			};
 			
-			static Hashmap<std::string, Conversions::Volume::Unit>::optional_ref TryGuessUnit(const std::string& _symbol);
+			inline static const Hashmap<std::string, Conversions::Volume::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
+				return s_Lookup.Get(_symbol);
+			}
 			
-			[[nodiscard]] static double Convert(const double& _val, const Unit& _from, const Unit& _to);
+			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+				return _val * (s_Conversion[_from] / s_Conversion[_to]);
+			}
 
-			static std::string Symbol(const Unit& _unit);
+			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
-			inline static Hashmap<std::string, Unit> s_Lookup {
+			inline static const Hashmap<std::string, Unit> s_Lookup {
 				{ "milliliter", Millilitre },
 				{ "millilitre", Millilitre },
 				{ "ml",         Millilitre },
@@ -804,7 +885,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				{ "m³",         CubicMetre },
 			};
 			
-			inline static Hashmap<Unit, std::string> s_Symbol {
+			inline static const Hashmap<Unit, std::string> s_Symbol {
 				{ Millilitre,      "ml"     },
 				{ Centilitre,      "cl"     },
 				{ CubicInch,       "in3"    },
@@ -821,7 +902,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 			
 			/** @brief Conversions between common mass units and cubic metres. */
-			inline static Hashmap<Unit, double> s_Conversion {
+			inline static const Hashmap<Unit, conversion_scalar_t> s_Conversion {
 				{ Millilitre, 0.000001       },
 				{ Centilitre, 0.00001        },
 				{ CubicInch,  0.000016387064 },

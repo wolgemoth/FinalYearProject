@@ -32,18 +32,25 @@ namespace LouiEriksson::Engine::Spatial {
 
 		return std::async([_bounds, _provider, _dimensions, _callback]() {
 			
-	        auto elevation_points = std::vector<glm::vec2>();
-	
-	        for (auto y = _dimensions.y - 1; y >= 0; --y) {
-	        for (auto x = _dimensions.x - 1; x >= 0; --x) {
-	            elevation_points.emplace_back(Maths::Coords<scalar_t>::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
-	        }}
-	
-	        if (_provider == ElevationProvider::OpenElevation) {
-		        std::reverse(elevation_points.begin(), elevation_points.end());
-	        }
-	        
-	        Elevation::LoadElevation(elevation_points, _bounds, _provider, _callback);
+			try {
+				
+		        auto elevation_points = std::vector<glm::vec2>();
+		
+		        for (auto y = _dimensions.y - 1; y >= 0; --y) {
+		        for (auto x = _dimensions.x - 1; x >= 0; --x) {
+		            elevation_points.emplace_back(Maths::Coords<scalar_t>::GPS::PixelToGPS({ x, y }, _dimensions, _bounds));
+		        }}
+		
+		        if (_provider == ElevationProvider::OpenElevation) {
+			        std::reverse(elevation_points.begin(), elevation_points.end());
+		        }
+		        
+		        Elevation::LoadElevation(elevation_points, _bounds, _provider, _callback);
+			}
+			catch (std::exception& e) {
+				Debug::Log(e);
+			}
+			
 		});
     }
 	
@@ -107,48 +114,54 @@ namespace LouiEriksson::Engine::Spatial {
 
 		return std::async([_request, _callback]() {
 			
-			const auto timeout = 60L;
-			
-	        auto message = Networking::Requests::Client("https://api.open-elevation.com/api/v1/lookup");
-			message.Set(CURLOPT_TIMEOUT, timeout);
-			
-	        std::stringstream ss;
-	        
-	        ss << "{\"locations\":[";
-	        
-	        for (size_t i = 0; i < _request.size(); ++i) {
-	            
-	            auto location = _request[i];
-	            
-				ss << "{\"latitude\":" << location.x << ","
-				   <<  "\"longitude\":" << location.y << "}";
+			try {
 				
-	            if (i != _request.size() - 1) {
-	                ss << ',';
-	            }
-	        }
-	        
-	        ss << "]}";
-			
-			const auto data = Utils::Minimise(ss.str());
-			message.Set(CURLOPT_POSTFIELDS, data.c_str());
-
-	        auto task = message.SendAsync();
-			const auto status = task.wait_for(std::chrono::seconds(timeout));
-			
-			if (status == std::future_status::ready) {
+				const auto timeout = 60L;
 				
-				auto result = Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OEJSON>(task.get().Content().ToStream());
+		        auto message = Networking::Requests::Client("https://api.open-elevation.com/api/v1/lookup");
+				message.Set(CURLOPT_TIMEOUT, timeout);
 				
-				if (_callback != nullptr) {
-			        _callback(result.m_Root);
+		        std::stringstream ss;
+		        
+		        ss << "{\"locations\":[";
+		        
+		        for (size_t i = 0; i < _request.size(); ++i) {
+		            
+		            auto location = _request[i];
+		            
+					ss << "{\"latitude\":" << location.x << ","
+					   <<  "\"longitude\":" << location.y << "}";
+					
+		            if (i != _request.size() - 1) {
+		                ss << ',';
+		            }
+		        }
+		        
+		        ss << "]}";
+				
+				const auto data = Utils::Minimise(ss.str());
+				message.Set(CURLOPT_POSTFIELDS, data.c_str());
+	
+		        auto task = message.SendAsync();
+				const auto status = task.wait_for(std::chrono::seconds(timeout));
+				
+				if (status == std::future_status::ready) {
+					
+					auto result = Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OEJSON>(task.get().Content().ToStream());
+					
+					if (_callback != nullptr) {
+				        _callback(result.m_Root);
+					}
+				}
+				else if (status != std::future_status::timeout) {
+					throw std::runtime_error("OpenElevation Query failure!");
+				}
+				else {
+					throw std::runtime_error("OpenElevation Query timeout!");
 				}
 			}
-			else if (status != std::future_status::timeout) {
-				Debug::Log("OpenElevation Query failure!", LogType::Error);
-			}
-			else {
-				Debug::Log("OpenElevation Query timeout!", LogType::Error);
+			catch (std::exception& e) {
+				Debug::Log(e);
 			}
 		});
     }
@@ -157,73 +170,79 @@ namespace LouiEriksson::Engine::Spatial {
     
 		return std::async([_request, _callback]() {
 			
-			std::vector<Serialisation::ElevationDeserialiser::OTDJSON> results;
-			
-			const auto timeout = 10L;
-			
-	        auto message = Networking::Requests::Client("https://api.opentopodata.org/v1/mapzen");
-			message.Set(CURLOPT_TIMEOUT, timeout);
-			
-			auto header = Networking::Requests::Client::Header();
-			message.Set(CURLOPT_HTTPHEADER, curl_slist_append(header.get(), "Content-Type: application/json"));
-	
-	        const auto requestIntervalMs = std::chrono::milliseconds(500);
-			
-	        const size_t maxRequestSize = 100;
-	        for (size_t i = 0; i < _request.size(); i += maxRequestSize) {
-	
-	            std::stringstream ss;
-	
-	            ss << R"({"locations": ")";
-	
-	            const auto count = std::min(_request.size() - i, maxRequestSize);
-	            
-	            for (size_t j = 0; j < count; j++) {
-	
-	                auto location = _request[i + j];
-	
-					ss << location.x << ',' << location.y;
+			try {
+				
+				std::vector<Serialisation::ElevationDeserialiser::OTDJSON> results;
+				
+				const auto timeout = 10L;
+				
+		        auto message = Networking::Requests::Client("https://api.opentopodata.org/v1/mapzen");
+				message.Set(CURLOPT_TIMEOUT, timeout);
+				
+				auto header = Networking::Requests::Client::Header();
+				message.Set(CURLOPT_HTTPHEADER, curl_slist_append(header.get(), "Content-Type: application/json"));
+		
+		        const auto requestIntervalMs = std::chrono::milliseconds(500);
+				
+		        const size_t maxRequestSize = 100;
+		        for (size_t i = 0; i < _request.size(); i += maxRequestSize) {
+		
+		            std::stringstream ss;
+		
+		            ss << R"({"locations": ")";
+		
+		            const auto count = std::min(_request.size() - i, maxRequestSize);
+		            
+		            for (size_t j = 0; j < count; j++) {
+		
+		                auto location = _request[i + j];
+		
+						ss << location.x << ',' << location.y;
+						
+		                if (j != _request.size() - 1) {
+							ss << '|';
+		                }
+		            }
+		
+					ss << R"(", "interpolation": "cubic"})";
 					
-	                if (j != _request.size() - 1) {
-						ss << '|';
-	                }
-	            }
-	
-				ss << R"(", "interpolation": "cubic"})";
-				
-	            if (i != 0 && i + maxRequestSize < (_request.size() - 1)) {
-					std::this_thread::sleep_for(requestIntervalMs);
-	            }
-				
-				const auto data = Utils::Minimise(ss.str());
-				message.Set(CURLOPT_POSTFIELDS, data.c_str());
-				
-	            auto task = message.SendAsync();
-				const auto status = task.wait_for(std::chrono::seconds(timeout));
-			 
-				if (status == std::future_status::ready) {
-					results.emplace_back(Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OTDJSON>(task.get().Content().ToStream()));
-				}
-				else if (status != std::future_status::timeout) {
-					Debug::Log("OpenTopoData Query failure!", LogType::Error);
-				}
-				else {
-					Debug::Log("OpenTopoData Query timeout!", LogType::Error);
-				}
-	        }
-			
-			if (_callback != nullptr) {
-				
-				if (!results.empty()) {
+		            if (i != 0 && i + maxRequestSize < (_request.size() - 1)) {
+						std::this_thread::sleep_for(requestIntervalMs);
+		            }
 					
-					auto result = *results.begin();
+					const auto data = Utils::Minimise(ss.str());
+					message.Set(CURLOPT_POSTFIELDS, data.c_str());
 					
-					for (size_t i = 1; i < results.size(); ++i) {
-						Utils::MoveInto(std::move(results[i].m_Root.results), result.m_Root.results);
+		            auto task = message.SendAsync();
+					const auto status = task.wait_for(std::chrono::seconds(timeout));
+				 
+					if (status == std::future_status::ready) {
+						results.emplace_back(Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OTDJSON>(task.get().Content().ToStream()));
 					}
+					else if (status != std::future_status::timeout) {
+						throw std::runtime_error("OpenTopoData Query failure!");
+					}
+					else {
+						throw std::runtime_error("OpenTopoData Query timeout!");
+					}
+		        }
+				
+				if (_callback != nullptr) {
 					
-	                _callback(result.m_Root);
+					if (!results.empty()) {
+						
+						auto result = *results.begin();
+						
+						for (size_t i = 1; i < results.size(); ++i) {
+							Utils::MoveInto(std::move(results[i].m_Root.results), result.m_Root.results);
+						}
+						
+		                _callback(result.m_Root);
+					}
 				}
+			}
+			catch (std::exception& e) {
+				Debug::Log(e);
 			}
 		});
     }

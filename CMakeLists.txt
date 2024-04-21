@@ -130,7 +130,6 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/elevation/Elevation.h
         src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.cpp
         src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h
-        src/engine/scripts/spatial/maths/Conversions.cpp
         src/engine/scripts/spatial/maths/Conversions.h
         src/engine/scripts/spatial/maths/Coords.h
         src/engine/scripts/spatial/meshing/Builder.cpp

@@ -49,7 +49,7 @@ namespace LouiEriksson::Game::Core {
 		 * @return A Hashmap<std::string, std::shared_ptr<Script>(*)(const std::weak_ptr<ECS::GameObject>&)> which contains
 		 * the typeid name of the game object as the key and corresponding function pointer for their initialisation as the value.
 		 */
-		static Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)> GetInitialisers() noexcept {
+		static const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)>& GetInitialisers() noexcept {
 			
 			try {
 				
