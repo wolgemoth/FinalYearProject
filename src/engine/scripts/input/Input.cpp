@@ -36,7 +36,7 @@ namespace LouiEriksson::Engine::Input {
 			   s_Data[static_cast<SDL_Scancode>(std::min(static_cast<int>(_value), s_Length))] != 0u;
 	}
 	
-	Hashmap<Uint32, std::vector<SDL_Event>>::optional Input::Event::Get(const Uint32& _event) noexcept {
+	Hashmap<Uint32, std::vector<SDL_Event>>::optional_ref Input::Event::Get(const Uint32& _event) noexcept {
 		return s_Events.Get(_event);
 	}
 	

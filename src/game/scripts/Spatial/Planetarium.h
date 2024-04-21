@@ -221,7 +221,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 * @param[in,out] _out The reference to the Transform object to store the result.
 			 * @return True if the transform is found, false otherwise.
 			 */
-			[[nodiscard]] typename Hashmap<std::string, Transform>::optional TryGetTransform(const std::string& _name) const {
+			[[nodiscard]] typename Hashmap<std::string, Transform>::optional_ref TryGetTransform(const std::string& _name) const {
 				return m_Transforms.Get(_name);
 			}
 			
@@ -299,7 +299,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				// Spawn objects for planets;
 				for (const auto& item : m_Positions_From.Names()) {
 				
-					const auto go = ECS::GameObject::Create(s, item);
+					const auto go = s->Create(item).lock();
 					
 					const auto transform = go->AddComponent<Transform>();
 					const auto renderer  = go->AddComponent<Graphics::Renderer>();

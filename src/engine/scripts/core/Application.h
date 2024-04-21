@@ -199,7 +199,7 @@ namespace LouiEriksson::Engine {
 					tick_t physics_step = 0.0;
 					
 					// Load a scene and run:
-					const auto scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+					const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 					scene->Begin();
 					
 					Utils::ALDumpError();

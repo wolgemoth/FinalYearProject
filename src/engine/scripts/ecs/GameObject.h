@@ -5,8 +5,6 @@
 #include "../core/Script.h"
 #include "../core/utils/Hashmap.h"
 
-#include "Scene.h"
-
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -27,12 +25,12 @@ namespace LouiEriksson::Engine::ECS {
 	class GameObject final : public std::enable_shared_from_this<GameObject> {
 		
 		friend class Component;
-		friend Scene;
+		friend class Scene;
 	
 	private:
 	
 		/** @brief Scene the GameObject belongs to. */
-		const std::weak_ptr<Scene> m_Scene;
+		std::weak_ptr<Scene> m_Scene;
 	
 		/** @brief Name of the GameObject. */
 		std::string m_Name;
@@ -70,29 +68,28 @@ namespace LouiEriksson::Engine::ECS {
 			else {
 				m_Components.Emplace(typeid(T), { _component });
 			}
-			
-			// Attach to scene:
-			if (const auto s = GetScene().lock()) {
-				
-				/*
-				 * If type derives from script, attach it as a script.
-				 * Otherwise, attach it as current type.
-				 */
-				if (std::is_base_of<Script, T>::value) {
-					s->Attach<Script>(std::dynamic_pointer_cast<Script>(_component));
-				}
-				else {
-					s->Attach(_component);
-				}
-			}
 		}
 		
-		 GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
+		GameObject(const std::weak_ptr<Scene>& _scene, const std::string& _name) noexcept :
 			m_Scene(_scene),
-			m_Name (std::move(_name)) {}
+			m_Name (_name) {}
 		
 	public:
 	
+		GameObject(GameObject&& _other) noexcept :
+			m_Scene     (std::move(_other.m_Scene     )),
+			m_Name      (          _other.m_Name      ),
+			m_Components(std::move(_other.m_Components))
+		{
+			if (&_other != this) {
+				_other.m_Scene.reset();
+				_other.m_Components.Clear();
+			}
+		}
+		
+		GameObject             (const GameObject& _other) = delete;
+		GameObject& operator = (const GameObject& _other) = delete;
+		
 		/**
 		 * @brief Set the name of the GameObject.
 		 *
@@ -119,58 +116,6 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/**
-		 * @brief Creates a new GameObject and attaches it to the specified Scene.
-		 *
-		 * This function creates a new GameObject and attaches it to the specified Scene.
-		 *
-		 * @param[in] _scene The Scene to attach the GameObject to.
-		 * @param[in] _name The optional name of the GameObject.
-		 * @return A shared pointer to the newly created GameObject.
-		 */
-		[[nodiscard]] static std::shared_ptr<GameObject> Create(const std::weak_ptr<Scene>& _scene, const std::string_view& _name = "")  {
-			
-			std::shared_ptr<GameObject> result;
-			
-			if (const auto s = _scene.lock()) {
-				
-				// NOTE: GameObject has private destructor as scene manages it. Lambda here is needed for smart pointer.
-				result = s->Attach<ECS::GameObject>({
-					new GameObject(_scene, _name.data()), [](GameObject* _ptr) { delete _ptr; }
-				});
-			}
-			
-			return result;
-		}
-		
-		/**
-		 * @fn void GameObject::Destroy()
-		 * @brief Destroys the GameObject.
-		 */
-		void Destroy()  {
-			
-			try {
-				
-				if (const auto scene = m_Scene.lock()) {
-					
-					for (const auto& bucket : Components()) {
-						
-						for (const auto& item : bucket.second) {
-							scene->Detach<Component>(item);
-						}
-					}
-					
-					m_Components.Clear();
-					
-					scene->Detach<GameObject>(shared_from_this());
-				}
-				
-			}
-			catch (const std::exception& e) {
-				Debug::Log(e);
-			}
-		}
-		
-		/**
 		 * @brief Get the Components attached to the GameObject.
 		 * @return The Components attached to the GameObject.
 		 */
@@ -181,7 +126,7 @@ namespace LouiEriksson::Engine::ECS {
 		/**
 		 * @brief Get Components of type attached to GameObject.
 		 *
-		 * This function returns a vector of weak_ptr<T> objects containing shared_ptr<T> components of type T that are attached to the GameObject.
+		 * This function returns a vector of weak_ptr objects of type T that are attached to the GameObject.
 		 * The provided type T must derive from the Component class.
 		 *
 		 * @tparam T The type of components to be searched.
@@ -192,10 +137,10 @@ namespace LouiEriksson::Engine::ECS {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 	
-			std::vector<std::shared_ptr<T>> result, category;
-	
-			if (m_Components.Get(typeid(T), category)) {
-				result = dynamic_cast<std::vector<std::shared_ptr<T>>>(result);
+			std::vector<std::weak_ptr<T>> result;
+			
+			if (auto category = m_Components.Get(typeid(T))) {
+				result = dynamic_cast<std::vector<std::weak_ptr<T>>>(*category);
 			}
 	
 			return result;
@@ -217,7 +162,7 @@ namespace LouiEriksson::Engine::ECS {
 			
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
-			std::shared_ptr<T> result;
+			std::weak_ptr<T> result;
 			
 			if (const auto category = m_Components.Get(typeid(T))) {
 				result = std::dynamic_pointer_cast<T>((*category).at(_index));
@@ -242,7 +187,7 @@ namespace LouiEriksson::Engine::ECS {
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
 			// Create a new instance of the component, taking a pointer to this gameobject.
-			std::shared_ptr<T> result(new T(shared_from_this()));
+			std::shared_ptr<T> result(new T(weak_from_this()));
 			
 			// Attach the component to the GameObject.
 			Attach(std::move(result));
@@ -268,14 +213,6 @@ namespace LouiEriksson::Engine::ECS {
 				if (_index < entries->size()) {
 					
 					auto itr = entries->begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
-					
-					// Detach from scene.
-					if (const auto s = GetScene().lock()) {
-						s->Detach<Component>(*itr);
-					}
-					else {
-						Debug::Log("No scene to detach component from.", LogType::Error);
-					}
 					
 					// Remove component from collection.
 					const auto __unsafe_c_ = const_cast<std::vector<std::reference_wrapper<T>>>(entries);

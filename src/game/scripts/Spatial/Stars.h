@@ -51,10 +51,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				if (const auto p =      Parent().lock()) {
 				if (const auto s = p->GetScene().lock()) {
 				
-					const auto go = ECS::GameObject::Create(s, "Stars");
-					
-					const auto transform = go->AddComponent<Transform>();
-					const auto renderer  = go->AddComponent<Graphics::Renderer>();
+					const auto transform = p->AddComponent<Transform>();
+					const auto renderer  = p->AddComponent<Graphics::Renderer>();
 					
 					auto material = Resources::Get<Graphics::Material>("Stars");
 					

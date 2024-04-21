@@ -64,7 +64,7 @@ namespace LouiEriksson::Game::Scripts {
 				// Add a light to the scene for testing purposes.
 				// TODO: Add a light to the scene through the scene's file, not code.
 				{
-					const auto light_gameObject = ECS::GameObject::Create(s->shared_from_this(), "Light");
+					const auto light_gameObject = s->Create("Light").lock();
 					light_gameObject->AddComponent<Transform>();
 					light_gameObject->AddComponent<Graphics::Light>();
 				}

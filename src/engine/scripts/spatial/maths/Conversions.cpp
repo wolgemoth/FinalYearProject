@@ -8,7 +8,7 @@
 
 namespace LouiEriksson::Engine::Spatial::Maths {
 	
-	Hashmap<std::string, Conversions::Speed::Unit>::optional Conversions::Speed::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Speed::Unit>::optional_ref Conversions::Speed::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -20,7 +20,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Distance::Unit>::optional Conversions::Distance::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Distance::Unit>::optional_ref Conversions::Distance::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -40,7 +40,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0 / 60.0));;
 	}
 	
-	Hashmap<std::string, Conversions::Rotation::Unit>::optional Conversions::Rotation::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Rotation::Unit>::optional_ref Conversions::Rotation::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -52,7 +52,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Time::Unit>::optional Conversions::Time::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Time::Unit>::optional_ref Conversions::Time::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -64,7 +64,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Temperature::Unit>::optional Conversions::Temperature::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Temperature::Unit>::optional_ref Conversions::Temperature::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -113,7 +113,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		);
 	}
 	
-	Hashmap<std::string, Conversions::Pressure::Unit>::optional Conversions::Pressure::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Pressure::Unit>::optional_ref Conversions::Pressure::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -125,7 +125,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Mass::Unit>::optional Conversions::Mass::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Mass::Unit>::optional_ref Conversions::Mass::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -137,7 +137,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Area::Unit>::optional Conversions::Area::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Area::Unit>::optional_ref Conversions::Area::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	
@@ -149,7 +149,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		return s_Symbol[_unit];
 	}
 	
-	Hashmap<std::string, Conversions::Volume::Unit>::optional Conversions::Volume::TryGuessUnit(const std::string& _symbol) {
+	Hashmap<std::string, Conversions::Volume::Unit>::optional_ref Conversions::Volume::TryGuessUnit(const std::string& _symbol) {
 		return s_Lookup.Get(_symbol);
 	}
 	

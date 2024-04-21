@@ -51,7 +51,7 @@ namespace LouiEriksson::Engine {
 		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent) {}
 		
 		/** @inheritdoc */
-		~Script() override {};
+		~Script() override = default;
 	
 		/** @brief Called at the beginning of the first frame. */
 		virtual void Begin() {}

@@ -50,7 +50,7 @@ namespace LouiEriksson::Engine::Input {
 		public:
 		
 			/** @brief Get all events of a certain type which occurred this frame. */
-			static Hashmap<Uint32, std::vector<SDL_Event>>::optional Get(const Uint32& _event) noexcept;
+			static Hashmap<Uint32, std::vector<SDL_Event>>::optional_ref Get(const Uint32& _event) noexcept;
 			
 		};
 		

@@ -79,7 +79,7 @@ namespace LouiEriksson::Engine {
 				return *this;
 			}
 			
-			inline KeyValuePair& operator =(KeyValuePair&& _rhs) noexcept {
+			inline KeyValuePair& operator = (KeyValuePair&& _rhs) noexcept {
 				if (this != &_rhs) {
 					 first = std::move(_rhs.first);
 					second = std::move(_rhs.second);
@@ -111,13 +111,13 @@ namespace LouiEriksson::Engine {
 		 */
 		inline constexpr void Resize(const size_t& _newSize) {
 			
-			std::vector<std::vector<KeyValuePair>> shallowCopy(m_Buckets);
+			std::vector<std::vector<KeyValuePair>> shallow_cpy(m_Buckets);
 			
 			m_Size = 0;
 			m_Buckets.clear();
 			m_Buckets.resize(_newSize);
 			
-			for (auto& bucket : shallowCopy) {
+			for (auto& bucket : shallow_cpy) {
 				for (auto& kvp : bucket) {
 					Emplace(std::move(kvp.first), std::move(kvp.second));
 				}
@@ -191,7 +191,7 @@ namespace LouiEriksson::Engine {
 			}
 		}
 		
-		struct optional final {
+		struct optional_ref final {
 		
 			friend Hashmap;
 			
@@ -201,7 +201,7 @@ namespace LouiEriksson::Engine {
 		
 			const optional_t m_Optional;
 			
-			explicit optional(optional_t&& _optional) : m_Optional(_optional) {};
+			explicit optional_ref(optional_t&& _optional) : m_Optional(_optional) {};
 			
 		public:
 			
@@ -411,9 +411,9 @@ namespace LouiEriksson::Engine {
 		* @param[in] _key Key of the entry to retrieve.
 		* @return An optional containing the value wrapped in a reference wrapper if it exists.
 		*/
-		optional Get(const Tk& _key) const noexcept {
+		optional_ref Get(const Tk& _key) const noexcept {
 			
-			typename optional::optional_t result = std::nullopt;
+			typename optional_ref::optional_t result = std::nullopt;
 			
 			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
 			size_t hash = GetHashcode(_key);
@@ -429,7 +429,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			
-			return optional(std::move(result));
+			return optional_ref(std::move(result));
 		}
 		
 		/**

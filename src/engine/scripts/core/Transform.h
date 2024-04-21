@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_TRANSFORM_H
 
 #include "../ecs/Component.h"
-#include "../ecs/GameObject.h"
 
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
