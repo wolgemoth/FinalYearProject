@@ -202,8 +202,8 @@ namespace LouiEriksson::Engine {
 					const auto scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 					scene->Begin();
 					
-					Utils::ALDumpError();
-					Utils::GLDumpError();
+					Utils:: ALDumpError();
+					Utils:: GLDumpError();
 					Utils::SDLDumpError();
 					
 					/* LOOP */

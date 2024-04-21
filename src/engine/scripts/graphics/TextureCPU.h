@@ -96,7 +96,7 @@ namespace LouiEriksson::Engine::Graphics {
 				result += glm::mix(glm::mix(A, B, d.x), glm::mix(C, D, d.x), d.y);
 			}
 			
-			result /= U;
+			result /= static_cast<T>(U);
 			
 			return result;
 		}
