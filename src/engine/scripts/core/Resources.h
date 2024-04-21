@@ -529,7 +529,26 @@ namespace LouiEriksson::Engine {
 			
 			try {
 				
-				_output.reset(new Graphics::Material());
+				/* MATERIAL PARAMETERS */
+				
+				std::weak_ptr<Graphics::Shader >               shader;
+				std::weak_ptr<Graphics::Texture>       albedo_texture;
+				std::weak_ptr<Graphics::Texture>           ao_texture;
+				std::weak_ptr<Graphics::Texture> displacement_texture;
+				std::weak_ptr<Graphics::Texture>     emission_texture;
+				std::weak_ptr<Graphics::Texture>     metallic_texture;
+				std::weak_ptr<Graphics::Texture>       normal_texture;
+				std::weak_ptr<Graphics::Texture>    roughness_texture;
+				
+				std::optional<glm::vec4>   albedo_color;
+				std::optional<glm::vec3> emission_color;
+				
+				std::optional<scalar_t> ao;
+				std::optional<scalar_t> displacement;
+				std::optional<scalar_t> normal;
+				std::optional<scalar_t> roughness;
+				
+				/* LOAD FILE AND PARSE */
 				
 				std::fstream fs;
 				fs.open(_path, std::ios::in);
@@ -555,15 +574,15 @@ namespace LouiEriksson::Engine {
 								auto g = Utils::Parse<float>(subStrings.at(2));
 								auto b = Utils::Parse<float>(subStrings.at(3));
 								
-								_output->m_Albedo_Color = { r, g, b, 1.0 };
+								albedo_color = { r, g, b, 1.0 };
 								
 								try {
-									_output->m_Albedo_Color.a = Utils::Parse<float>(subStrings.at(4));
+									albedo_color.value().a = Utils::Parse<float>(subStrings.at(4));
 								}
 								catch (...) {}
 							}
 							else if (key == "d" || key == "Tr") {
-								_output->m_Albedo_Color.a = static_cast<float>(1.0 - std::clamp(Utils::Parse<double>(subStrings.at(1)), 0.0, 1.0));
+								albedo_color.value().a = static_cast<float>(1.0 - std::clamp(Utils::Parse<double>(subStrings.at(1)), 0.0, 1.0));
 							}
 							else if (key == "Ks") {
 								Debug::Log("Specular color loading not implemented... ", LogType::Warning, true);
@@ -572,14 +591,14 @@ namespace LouiEriksson::Engine {
 								Debug::Log("Support for different lighting models is not implemented... ", LogType::Warning, true);
 							}
 							else if (key == "Ao") {
-								_output->m_AO = Utils::Parse<float>(subStrings.at(1));
+								ao = Utils::Parse<float>(subStrings.at(1));
 							}
 							else if (key == "Ns") {
-								_output->m_Roughness = static_cast<float>(1.0 - (std::atan(Utils::Parse<float>(subStrings.at(1))) / (M_PI / 2)));
+								roughness = static_cast<float>(1.0 - (std::atan(Utils::Parse<float>(subStrings.at(1))) / (M_PI / 2)));
 							}
 							else if (key == "Ke") {
 								
-								_output->m_Emission_Color = {
+								emission_color = {
 										Utils::Parse<float>(subStrings.at(1)),
 										Utils::Parse<float>(subStrings.at(2)),
 										Utils::Parse<float>(subStrings.at(3))
@@ -595,7 +614,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Albedo_Texture = texture;
+										albedo_texture = texture;
 									}
 								}
 							}
@@ -615,7 +634,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Displacement_Texture = texture;
+										displacement_texture = texture;
 									}
 								}
 							}
@@ -626,7 +645,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Roughness_Texture = texture;
+										roughness_texture = texture;
 									}
 								}
 							}
@@ -637,7 +656,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Metallic_Texture = texture;
+										metallic_texture = texture;
 									}
 								}
 							}
@@ -648,7 +667,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Emission_Texture = texture;
+										emission_texture = texture;
 									}
 								}
 							}
@@ -659,7 +678,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_Normal_Texture = texture;
+										normal_texture = texture;
 									}
 								}
 							}
@@ -670,7 +689,7 @@ namespace LouiEriksson::Engine {
 									const std::filesystem::path path(subStrings.at(1));
 									
 									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
-										_output->m_AO_Texture = texture;
+										ao_texture = texture;
 									}
 								}
 							}
@@ -678,6 +697,45 @@ namespace LouiEriksson::Engine {
 					}
 					
 					fs.close();
+					
+					/* USE DEFAULTS FOR NON-EXISTENT PARAMETERS: */
+					
+					if (              shader.expired()) {               shader = Resources::Get<Graphics::Shader> ("pbr"   ); }
+					if (      albedo_texture.expired()) {       albedo_texture = Resources::Get<Graphics::Texture>("white" ); }
+					if (          ao_texture.expired()) {           ao_texture = Resources::Get<Graphics::Texture>("white" ); }
+					if (displacement_texture.expired()) { displacement_texture = Resources::Get<Graphics::Texture>("black" ); }
+					if (    emission_texture.expired()) {     emission_texture = Resources::Get<Graphics::Texture>("white" ); }
+					if (    metallic_texture.expired()) {     metallic_texture = Resources::Get<Graphics::Texture>("black" ); }
+					if (      normal_texture.expired()) {       normal_texture = Resources::Get<Graphics::Texture>("normal"); }
+					if (   roughness_texture.expired()) {    roughness_texture = Resources::Get<Graphics::Texture>("black" ); }
+					
+					if (  !albedo_color.has_value()) {   albedo_color = glm::vec4(1.0); }
+					if (!emission_color.has_value()) { emission_color = glm::vec3(0.0); }
+					if (            !ao.has_value()) {             ao = 1.0; }
+					if (  !displacement.has_value()) {   displacement = 0.3; }
+					if (        !normal.has_value()) {         normal = 1.0; }
+					if (     !roughness.has_value()) {      roughness = 1.0; }
+					
+					/* CREATE OBJECT */
+					
+					_output.reset(
+						new Graphics::Material(
+						               shader,
+						       albedo_texture,
+						           ao_texture,
+						 displacement_texture,
+						     emission_texture,
+						     metallic_texture,
+						       normal_texture,
+						    roughness_texture,
+						         albedo_color.value(),
+	                           emission_color.value(),
+	                                       ao.value(),
+	                             displacement.value(),
+	                                   normal.value(),
+	                                roughness.value()
+						)
+					);
 					
 					result = true;
 					
@@ -869,7 +927,6 @@ namespace LouiEriksson::Engine {
 			
 			return result;
 		}
-		
 		
 	public:
 	

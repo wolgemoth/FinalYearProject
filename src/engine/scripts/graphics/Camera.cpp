@@ -71,11 +71,19 @@ namespace LouiEriksson::Engine::Graphics {
 		            m_AO_RT( 1,  1, { GL_RGB, false }, { GL_LINEAR,  GL_LINEAR }, { GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE }, RenderTexture::Parameters::DepthMode::NONE),
 		m_AutoExposure_Luma(32, 32, { m_RT.Format().PixelFormat(), false }, { GL_LINEAR, GL_NEAREST }, m_RT.WrapMode(), RenderTexture::Parameters::DepthMode::NONE)
 	{
+		
 		if (s_Passthrough.expired()) {
 			s_Passthrough = Resources::Get<Shader>("passthrough");
 		}
 		else {
 			Debug::Log("Couldn't bind passthrough texture!", LogType::Error);
+		}
+		
+		if (s_Cube.expired()) {
+			s_Cube = Resources::Get<Mesh>("cube");
+		}
+		else {
+			Debug::Log("Couldn't get cube mesh!", LogType::Error);
 		}
 	}
 	
@@ -367,7 +375,7 @@ namespace LouiEriksson::Engine::Graphics {
 							s->Assign(sky_u_Blur,     Settings::Graphics::Skybox::s_Blur);
 				
 							// Bind VAO.
-							if (const auto c = Mesh::Primitives::Cube::Instance().lock()) {
+							if (const auto c = s_Cube.lock()) {
 								Draw(*c);
 							}
 							

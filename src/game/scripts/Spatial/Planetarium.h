@@ -125,6 +125,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				glm::qua<T, P> m_Rotation;
 				
+				Transform(const typename VSOP<T, P>::Position& _position, const glm::qua<T, P>& _rotation) :
+					m_Position(_position),
+					m_Rotation(_rotation) {}
+
 				/**
 				 * @brief Interpolates between two transforms.
 				 *
@@ -139,17 +143,16 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				 */
 				static const Transform InterpolateTransform(const Transform& _a, const Transform& _b, const T& _t) {
 		
-					typename Planets<T, P>::Transform result{};
-					
-					result.m_Position.m_Cartesian = glm::mix(
-						_a.m_Position.m_Cartesian,
-						_b.m_Position.m_Cartesian,
-						_t
-					);
-					
-					result.m_Rotation = glm::slerp(_a.m_Rotation, _b.m_Rotation, _t);
-					
-					return result;
+					return {
+						{
+							{},
+							glm::mix(_a.m_Position.m_Cartesian, _b.m_Position.m_Cartesian, _t),
+							{}
+						},
+						{
+							glm::slerp(_a.m_Rotation, _b.m_Rotation, _t)
+						}
+					};
 				}
 			};
 			
@@ -257,16 +260,16 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 			/** @brief String-indexed Hashmap holding planetary transform information. */
 			Hashmap<std::string, Transform> m_Transforms {
-				{ "Sol",     {} },
-				{ "Mercury", {} },
-				{ "Venus",   {} },
-				{ "Earth",   {} },
-				{ "Moon",    {} },
-				{ "Mars",    {} },
-				{ "Jupiter", {} },
-				{ "Saturn",  {} },
-				{ "Uranus",  {} },
-				{ "Neptune", {} },
+				{ "Sol",     { {}, {} } },
+				{ "Mercury", { {}, {} } },
+				{ "Venus",   { {}, {} } },
+				{ "Earth",   { {}, {} } },
+				{ "Moon",    { {}, {} } },
+				{ "Mars",    { {}, {} } },
+				{ "Jupiter", { {}, {} } },
+				{ "Saturn",  { {}, {} } },
+				{ "Uranus",  { {}, {} } },
+				{ "Neptune", { {}, {} } },
 			};
 		};
 		
@@ -290,7 +293,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				m_Transform = p->GetComponent<Transform>();
 				
 				// Create GameObjects to represent the different planets in the VSOP87 model...
-				auto default_mesh     = Graphics::Mesh::Primitives::Sphere::Instance();
+				auto default_mesh     = Resources::Get<Graphics::Mesh>("sphere");
 				auto default_material = Resources::Get<Graphics::Material>("sphere");
 			
 				// Prewarm collection:
@@ -374,14 +377,14 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			const auto     size_multiplier_au = (1.0 / au_to_m) * 1000.0;
 			
 			// Get position of earth to use as a point-of-origin.
-			typename Planets<T, P>::Transform origin{};
-			{
-				auto origin_from = _from.TryGetTransform(_origin).value_or({});
-				auto origin_to   =   _to.TryGetTransform(_origin).value_or({});
-				
-				origin = Planets<T, P>::Transform::InterpolateTransform(origin_from, origin_to, _t);
-			}
+			auto existing_from = _from.TryGetTransform(_origin);
+			auto origin_from = existing_from.has_value() ? *existing_from : typename Planets<T, P>::Transform({}, {});
 			
+			auto existing_to = _to.TryGetTransform(_origin);
+			auto origin_to = existing_to.has_value() ? *existing_to : typename Planets<T, P>::Transform({}, {});
+		
+			auto origin = Planets<T, P>::Transform::InterpolateTransform(origin_from, origin_to, _t);
+		
 			auto positions_from = _from.Transforms();
 			auto positions_to   =   _to.Transforms();
 			

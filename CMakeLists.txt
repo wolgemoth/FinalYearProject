@@ -102,18 +102,14 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/Window.h
         src/engine/scripts/ecs/Component.h
         src/engine/scripts/ecs/GameObject.h
-        src/engine/scripts/ecs/Scene.cpp
         src/engine/scripts/ecs/Scene.h
         src/engine/scripts/graphics/Camera.cpp
         src/engine/scripts/graphics/Camera.h
         src/engine/scripts/graphics/Light.cpp
         src/engine/scripts/graphics/Light.h
-        src/engine/scripts/graphics/Material.cpp
         src/engine/scripts/graphics/Material.h
-        src/engine/scripts/graphics/Mesh.cpp
         src/engine/scripts/graphics/Mesh.h
         src/engine/scripts/graphics/Renderer.h
-        src/engine/scripts/graphics/Shader.cpp
         src/engine/scripts/graphics/Shader.h
         src/engine/scripts/graphics/Texture.h
         src/engine/scripts/graphics/textures/Cubemap.h
@@ -193,7 +189,6 @@ add_executable(Game
         src/game/scripts/FlyCam.h
         src/game/scripts/Plane.h
         src/game/scripts/Spatial/Planetarium.h
-        src/game/scripts/Spatial/Map.cpp
         src/game/scripts/Spatial/Map.h
         src/game/scripts/Spatial/Stars.h
 )

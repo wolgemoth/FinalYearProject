@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_APPLICATION_H
 #define FINALYEARPROJECT_APPLICATION_H
 
-#include "Application.h"
-
 #include "../audio/Sound.h"
 #include "../core/Time.h"
 #include "../core/utils/Utils.h"

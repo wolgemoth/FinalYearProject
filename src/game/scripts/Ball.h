@@ -53,7 +53,7 @@ namespace LouiEriksson::Game::Scripts {
 					
 					// Add Renderer.
 					const auto renderer = p->AddComponent<Graphics::Renderer>();
-					renderer->SetMesh(Graphics::Mesh::Primitives::Sphere::Instance());
+					renderer->SetMesh(Resources::Get<Graphics::Mesh>("sphere"));
 					renderer->SetMaterial(Resources::Get<Graphics::Material>("sphere"));
 					renderer->SetTransform(t);
 				

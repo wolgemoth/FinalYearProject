@@ -178,11 +178,17 @@ namespace LouiEriksson::Engine::Input {
 			// Send event to GUI for processing.
 			UI::GUI::ProcessEvent(event);
 			
-			// Get list of events of the same type, if they exist.
-			auto bucket = Input::Event::s_Events.Get(event.type).value_or({});
+			// Get list of events of the same type (if they exist).
+			const auto existing = Input::Event::s_Events.Get(event.type);
 			
 			// Append the current event to the list.
-			bucket.emplace_back(event);
+			std::vector<SDL_Event> bucket;
+			if (existing.has_value()) {
+				bucket.emplace_back(event);
+			}
+			else {
+				bucket = { event };
+			}
 			
 			// Update the list in the hashmap.
 			Input::Event::s_Events.Emplace(std::move(event.type), std::move(bucket));

@@ -42,9 +42,38 @@ namespace LouiEriksson::Engine::Graphics {
 			    m_Displacement,
 			    m_Normal,
 		        m_Roughness;
-		
-		 Material();
-		 
+	
+		Material(
+				const std::weak_ptr<Shader >& _shader,
+				const std::weak_ptr<Texture>& _albedoTexture,
+				const std::weak_ptr<Texture>& _aoTexture,
+				const std::weak_ptr<Texture>& _displacementTexture,
+				const std::weak_ptr<Texture>& _emissionTexture,
+				const std::weak_ptr<Texture>& _metallicTexture,
+				const std::weak_ptr<Texture>& _normalTexture,
+				const std::weak_ptr<Texture>& _roughnessTexture,
+				const glm::vec4&   _albedoColor,
+				const glm::vec3& _emissionColor,
+				GLfloat _ao,
+				GLfloat _displacement,
+				GLfloat _normal,
+				GLfloat _roughness
+		) :
+			              m_Shader(_shader             ),
+			      m_Albedo_Texture(_albedoTexture      ),
+			          m_AO_Texture(_aoTexture          ),
+			m_Displacement_Texture(_displacementTexture),
+			    m_Emission_Texture(_emissionTexture    ),
+			    m_Metallic_Texture(_metallicTexture    ),
+			      m_Normal_Texture(_normalTexture      ),
+			   m_Roughness_Texture(_roughnessTexture   ),
+			        m_Albedo_Color(_albedoColor        ),
+			      m_Emission_Color(_emissionColor      ),
+			                  m_AO(_ao                 ),
+			        m_Displacement(_displacement       ),
+			              m_Normal(_normal             ),
+			           m_Roughness(_roughness          ) {}
+	
 	public:
 		
 		/**

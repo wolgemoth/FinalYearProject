@@ -38,6 +38,7 @@ namespace LouiEriksson::Engine::Graphics {
 	private:
 		
 		inline static std::weak_ptr<Shader> s_Passthrough{};
+		inline static std::weak_ptr<Mesh>   s_Cube{};
 		
 		/** @brief Window of the camera. */
 		std::weak_ptr<Window> m_Window;

@@ -3,13 +3,11 @@
 
 #include "../core/Debug.h"
 #include "../core/utils/Utils.h"
-
 #include "TextureCPU.h"
 
 #include <earcut.hpp>
 
 #include <GL/glew.h>
-#include <glm/ext/vector_float4.hpp>
 
 #include <array>
 #include <cstddef>
@@ -422,24 +420,6 @@ namespace LouiEriksson::Engine::Graphics {
 		* @brief Container for various primitive mesh types.
 		*/
 		struct Primitives final {
-			
-			/**
-			* @brief Represents a sphere primitive.
-			*/
-			struct Sphere final {
-			
-				static std::weak_ptr<Mesh> Instance();
-				
-			};
-			
-			/**
-			* @brief Represents a cube primitive.
-			*/
-			struct Cube final {
-			
-				static std::weak_ptr<Mesh> Instance();
-				
-			};
 			
 			/**
 			* @brief Represents a quad primitive.
