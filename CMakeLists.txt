@@ -103,9 +103,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/ecs/Component.h
         src/engine/scripts/ecs/GameObject.h
         src/engine/scripts/ecs/Scene.h
-        src/engine/scripts/graphics/Camera.cpp
         src/engine/scripts/graphics/Camera.h
-        src/engine/scripts/graphics/Light.cpp
         src/engine/scripts/graphics/Light.h
         src/engine/scripts/graphics/Material.h
         src/engine/scripts/graphics/Mesh.h
@@ -114,9 +112,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/graphics/Texture.h
         src/engine/scripts/graphics/textures/Cubemap.h
         src/engine/scripts/graphics/textures/RenderTexture.h
-        src/engine/scripts/input/Cursor.cpp
         src/engine/scripts/input/Cursor.h
-        src/engine/scripts/input/Input.cpp
         src/engine/scripts/input/Input.h
         src/engine/scripts/networking/Requests.h
         src/engine/scripts/physics/Collider.h
@@ -126,16 +122,12 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/physics/Physics.h
         src/engine/scripts/physics/Rigidbody.h
         src/engine/scripts/spatial/atmosphere/ISA.h
-        src/engine/scripts/spatial/elevation/Elevation.cpp
         src/engine/scripts/spatial/elevation/Elevation.h
-        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.cpp
         src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h
         src/engine/scripts/spatial/maths/Conversions.h
         src/engine/scripts/spatial/maths/Coords.h
-        src/engine/scripts/spatial/meshing/Builder.cpp
         src/engine/scripts/spatial/meshing/Builder.h
         src/engine/scripts/spatial/osm/OSM.h
-        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.cpp
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
         src/engine/scripts/spatial/planets/VSOP.h
         src/engine/scripts/spatial/planets/WGCCRE.h

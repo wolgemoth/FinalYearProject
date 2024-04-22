@@ -1,11 +1,11 @@
 #ifndef FINALYEARPROJECT_ELEVATIONDESERIALISER_H
 #define FINALYEARPROJECT_ELEVATIONDESERIALISER_H
 
-
 #include <json.hpp>
 
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 using json = nlohmann::json;
@@ -47,17 +47,28 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					[[nodiscard]] inline const float&      Long() const noexcept final { return longitude; }
 					[[nodiscard]] inline const float& Elevation() const noexcept final { return elevation; }
 					
-		            explicit Result(json&& _oe_json);
+		            explicit Result(json&& _oe_json) :
+						 latitude(_oe_json["latitude" ]),
+						longitude(_oe_json["longitude"]),
+						elevation(_oe_json["elevation"]) {}
 	            };
 				
 	            std::vector<Result> results;
 	
-				explicit Root(json&& _oe_json);
+				explicit Root(json&& _oe_json) : results()
+				{
+					auto jResults = _oe_json["results"];
+					
+					results.reserve(jResults.size());
+					for (auto& item : jResults) {
+						results.emplace_back(std::move(item));
+					}
+				}
 	        };
 		
 	        Root m_Root;
 	        
-	        OEJSON(json&& _oe_json);
+	        OEJSON(json&& _oe_json) : m_Root(std::move(_oe_json)) {}
 		};
 		
 		struct OTDJSON final : ElevationJSON {
@@ -71,7 +82,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		                float lat,
 						      lng;
 						
-		                explicit Location(json&& _otd_json);
+		                explicit Location(json&& _otd_json) :
+							lat(_otd_json["lat"]),
+							lng(_otd_json["lng"]) {}
 	                };
 					
 	                std::string dataset;
@@ -84,18 +97,30 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					[[nodiscard]] inline const float&      Long() const noexcept final { return location.lng; }
 					[[nodiscard]] inline const float& Elevation() const noexcept final { return elevation;    }
 					
-		            explicit Result(json&& _otd_json);
+		            explicit Result(json&& _otd_json) :
+						  dataset(Utils::As<std::string>(_otd_json["dataset"])),
+						elevation(_otd_json["elevation"]),
+						 location(std::move(_otd_json["location"])) {}
 	            };
 	            
 	            std::vector<Result> results;
 	
-				explicit Root(json&& _otd_json);
-				explicit Root(std::vector<Result>&& _results);
+				explicit Root(json&& _otd_json) : results()
+				{
+					auto jResults = _otd_json["results"];
+					
+					results.reserve(jResults.size());
+					for (auto& item : jResults) {
+						results.emplace_back(std::move(item));
+					}
+				}
+				
+				explicit Root(std::vector<Result>&& _results) : results(_results) {}
 	        };
 			
 	        Root m_Root;
 	        
-	        OTDJSON(json&& _otd_json);
+	        OTDJSON(json&& _otd_json) : m_Root(std::move(_otd_json)) {}
 		};
 		
 		template <typename T>

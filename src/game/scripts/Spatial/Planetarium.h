@@ -419,8 +419,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			// TODO: Use a 'Light' component instead!
 			const auto sol = m_Planets["Sol"].lock()->GetComponent<Transform>().lock();
 			Settings::Graphics::Material::s_LightPosition = sol->Position();
-			Settings::Graphics::Material::s_LightRange = 4000.0 * 1000.0;
-			Settings::Graphics::Material::s_LightIntensity = 1.0;
+//			Settings::Graphics::Material::s_LightRange = 4000.0 * 1000.0;
+//			Settings::Graphics::Material::s_LightIntensity = 1.0;
 		}
 		
 	};
