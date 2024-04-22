@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_RENDERER_H
 
 #include "../core/Transform.h"
-#include "../core/Resources.h"
 #include "../ecs/GameObject.h"
 
 #include "Material.h"
@@ -87,7 +86,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @return A weak pointer to the Mesh object.
 		 */
-		inline const std::weak_ptr<Mesh> GetMesh() noexcept {
+		inline std::weak_ptr<Mesh> GetMesh() noexcept {
 			return m_Mesh;
 		}
 		

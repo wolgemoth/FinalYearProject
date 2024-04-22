@@ -11,7 +11,6 @@
 
 #include <al.h>
 
-#include <glm/common.hpp>
 
 #include <memory>
 #include <typeindex>

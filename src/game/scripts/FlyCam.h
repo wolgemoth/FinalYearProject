@@ -1,8 +1,6 @@
 #ifndef GAME_FLYCAM_H
 #define GAME_FLYCAM_H
 
-#include "../include/engine_audio.h"
-#include "../include/engine_core.h"
 
 using namespace LouiEriksson::Engine;
 

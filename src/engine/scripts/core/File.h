@@ -1,18 +1,13 @@
 #ifndef FINALYEARPROJECT_FILE_H
 #define FINALYEARPROJECT_FILE_H
 
-#include "../core/utils/Utils.h"
-#include "Debug.h"
 
 #include <ios>
 #include <cmath>
-#include <exception>
 #include <filesystem>
 #include <fstream>
-#include <memory>
 #include <sstream>
 #include <stdexcept>
-#include <string>
 #include <vector>
 
 namespace LouiEriksson::Engine {
@@ -36,7 +31,7 @@ namespace LouiEriksson::Engine {
 				
 				for (const auto& item : itr) {
 					
-					bool append = item.is_directory() ?
+					const bool append = item.is_directory() ?
 							(_type & Directory::EntryType::DIRECTORY) != 0u :
 							(_type & Directory::EntryType::FILE     ) != 0u;
 					

@@ -181,7 +181,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			}
 			
 			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord, const glm::ivec2& _dimensions, const glm::vec<4, T, P>& _bounds) {
+			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord, const glm::vec<4, T, P>& _bounds) {
 		
 		        return {
 		            Utils::Remap(_coord.y, _bounds.y, _bounds.w, static_cast<T>(0.0), static_cast<T>(1.0)),

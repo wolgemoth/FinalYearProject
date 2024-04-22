@@ -324,7 +324,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 *
 		 * @return std::string_view The name of the shader.
 		 */
-		[[nodiscard]] inline const std::string_view Name() const noexcept { return m_Name; }
+		[[nodiscard]] inline std::string_view Name() const noexcept { return m_Name; }
 		
 		/**
 		 * @brief Bind the attribute location for a shader program.

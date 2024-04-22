@@ -7,11 +7,6 @@
 #include <csignal>
 #include <exception>
 #include <iostream>
-#include <string>
-#include <string_view>
-#include <unistd.h>
-
-#include <exception>
 #include <string_view>
 
 #ifdef _WIN32

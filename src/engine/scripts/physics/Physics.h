@@ -17,7 +17,6 @@
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
 
-#include <glm/common.hpp>
 #include <glm/ext/vector_float3.hpp>
 
 #include <exception>

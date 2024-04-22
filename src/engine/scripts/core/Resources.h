@@ -23,7 +23,6 @@
 #include <assimp/postprocess.h>
 
 #include <GL/glew.h>
-#include <glm/common.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/ext/vector_float3.hpp>
@@ -576,10 +575,9 @@ namespace LouiEriksson::Engine {
 								
 								albedo_color = { r, g, b, 1.0 };
 								
-								try {
+								if (subStrings.size() > 4) {
 									albedo_color.value().a = Utils::Parse<float>(subStrings.at(4));
 								}
-								catch (...) {}
 							}
 							else if (key == "d" || key == "Tr") {
 								albedo_color.value().a = static_cast<float>(1.0 - std::clamp(Utils::Parse<double>(subStrings.at(1)), 0.0, 1.0));

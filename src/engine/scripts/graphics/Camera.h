@@ -2,7 +2,6 @@
 #define FINALYEARPROJECT_CAMERA_H
 
 #include "../core/Debug.h"
-#include "../core/File.h"
 #include "../core/Resources.h"
 #include "../core/Settings.h"
 #include "../core/Time.h"
@@ -938,8 +937,8 @@ namespace LouiEriksson::Engine::Graphics {
 						}
 					}}
 					
-					// Detect and prevent NaN propagation by checking the value against itself:
-					if (avg != avg) {
+					// Detect and prevent NaN propagation:
+					if (std::isnan(avg)) {
 						avg = 0.0;
 					}
 					

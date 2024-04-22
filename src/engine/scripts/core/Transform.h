@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine {
 		
 		Transformation m_Transformation;
 		
-		constexpr Transformation SetFlag(const Transformation& _other) const {
+		[[nodiscard]] constexpr Transformation SetFlag(const Transformation& _other) const {
 		    return static_cast<Transformation>(m_Transformation | static_cast<unsigned int>(_other));
 		}
 		

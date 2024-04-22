@@ -9,7 +9,6 @@
 
 #include <glm/geometric.hpp>
 #include <glm/detail/qualifier.hpp>
-#include <glm/ext/vector_float3.hpp>
 
 #include <json.hpp>
 
@@ -160,7 +159,7 @@ namespace LouiEriksson::Engine {
 		static void ALDumpError(const bool& _silent = false) {
 		
 			const auto error = alGetError();
-		    if (error != AL_NO_ERROR) {
+		    if ((error != AL_NO_ERROR) && !_silent) {
 			   
 			    switch (error) {
 					case AL_INVALID_NAME:      { Debug::Log("OpenAL Error \"AL_INVALID_NAME\"",      LogType::Error); break; }

@@ -49,7 +49,7 @@ namespace LouiEriksson::Engine::Audio {
 			Format& operator = (const Format&  _other) = delete;
 			Format& operator =       (Format&& _other) = delete;
 			
-			constexpr const SDL_AudioSpec& Specification() const {
+			[[nodiscard]] constexpr const SDL_AudioSpec& Specification() const {
 				return m_Specification;
 			}
 

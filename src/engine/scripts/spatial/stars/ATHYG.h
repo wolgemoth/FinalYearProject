@@ -6,7 +6,6 @@
 #include <array>
 #include <cstddef>
 #include <string>
-#include <string_view>
 
 namespace LouiEriksson::Engine::Spatial {
 	

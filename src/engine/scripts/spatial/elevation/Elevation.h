@@ -55,7 +55,7 @@ namespace LouiEriksson::Engine::Spatial {
 				        std::reverse(elevation_points.begin(), elevation_points.end());
 			        }
 			        
-			        Elevation::LoadElevation(elevation_points, _bounds, _provider, _callback);
+			        Elevation::LoadElevation(elevation_points, _provider, _callback);
 				}
 				catch (std::exception& e) {
 					Debug::Log(e);
@@ -66,7 +66,7 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	private:
 	
-        static void LoadElevation(const std::vector<glm::vec2>& _points, const glm::vec4& _bounds, const ElevationProvider& _provider, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
+        static void LoadElevation(const std::vector<glm::vec2>& _points, const ElevationProvider& _provider, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
 	        
 	        switch (_provider) {
 	        

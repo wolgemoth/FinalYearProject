@@ -1,7 +1,6 @@
 #ifndef FINALYEARPROJECT_GAMEOBJECT_H
 #define FINALYEARPROJECT_GAMEOBJECT_H
 
-#include "../core/Debug.h"
 #include "../core/Script.h"
 #include "../core/utils/Hashmap.h"
 
@@ -78,7 +77,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 		GameObject(GameObject&& _other) noexcept :
 			m_Scene     (std::move(_other.m_Scene     )),
-			m_Name      (          _other.m_Name      ),
+			m_Name      (std::move(_other.m_Name      )),
 			m_Components(std::move(_other.m_Components))
 		{
 			if (&_other != this) {
@@ -215,8 +214,8 @@ namespace LouiEriksson::Engine::ECS {
 					auto itr = entries->begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
 					
 					// Remove component from collection.
-					const auto __unsafe_c_ = const_cast<std::vector<std::reference_wrapper<T>>>(entries);
-					__unsafe_c_.get().erase(itr);
+					const auto unsafe_collection = const_cast<std::vector<std::reference_wrapper<T>>>(entries);
+					unsafe_collection.get().erase(itr);
 				}
 			}
 		}

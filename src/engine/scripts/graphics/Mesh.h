@@ -115,7 +115,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		template<typename T, typename U, glm::precision P = glm::defaultp>
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices, const std::vector<glm::vec<3, T, P>>& _normals, const std::vector<glm::vec<2, T, P>>& _UVs, std::array<std::vector<glm::vec<3, T, P>>, 2> _tangents, const GLenum& _format = GL_TRIANGLES) {
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices, const std::vector<glm::vec<3, T, P>>& _normals, const std::vector<glm::vec<2, T, P>>& _uvs, std::array<std::vector<glm::vec<3, T, P>>, 2> _tangents, const GLenum& _format = GL_TRIANGLES) {
 			
 			validate_index_format<U>();
 			
@@ -160,12 +160,12 @@ namespace LouiEriksson::Engine::Graphics {
 							glEnableVertexAttribArray(1);
 						}
 						
-						if (!_UVs.empty()) {
+						if (!_uvs.empty()) {
 							
 							glGenBuffers(1, &result->m_TexCoordVBO_ID);
 							
 							BindVBO(GL_ARRAY_BUFFER, result->m_TexCoordVBO_ID);
-							glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_UVs.size() * sizeof(_UVs[0])), _UVs.data(), GL_STATIC_DRAW);
+							glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizei>(_uvs.size() * sizeof(_uvs[0])), _uvs.data(), GL_STATIC_DRAW);
 							
 							glVertexAttribPointer(2, 2, GetGLType<T>(), GL_FALSE, 0, nullptr);
 							glEnableVertexAttribArray(2);
@@ -322,7 +322,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				validate_index_format<U>();
 
-				static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
 				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
@@ -345,7 +345,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				validate_index_format<U>();
 			
-				static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
 				Debug::Assert(_polygon.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
@@ -371,7 +371,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				validate_index_format<U>();
 			
-				static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
 				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				
@@ -394,7 +394,7 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				validate_index_format<N>();
 			
-				static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
 				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
 				

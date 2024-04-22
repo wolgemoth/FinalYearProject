@@ -40,7 +40,7 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/** @brief Invoked on finalisation of the Component. */
-		virtual ~Component() {};
+		virtual ~Component() = default;
 	
 	public:
 		

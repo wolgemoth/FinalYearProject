@@ -1,7 +1,6 @@
 #ifndef FINALYEARPROJECT_SOUND_H
 #define FINALYEARPROJECT_SOUND_H
 
-#include "AudioClip.h"
 
 #include "../core/Debug.h"
 
@@ -12,7 +11,6 @@
 
 #include <algorithm>
 #include <exception>
-#include <memory>
 #include <stdexcept>
 
 namespace LouiEriksson::Engine::Audio {

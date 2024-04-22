@@ -1,8 +1,6 @@
 #ifndef FINALYEARPROJECT_PLANETARIUM_H
 #define FINALYEARPROJECT_PLANETARIUM_H
 
-#include "../../include/engine_core.h"
-#include "../../include/engine_spatial.h"
 
 using namespace LouiEriksson::Engine;
 using namespace LouiEriksson::Engine::Spatial;
@@ -78,7 +76,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		template <typename T = highp_time>
 		static T TAI() {
 			
-		    static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+		    static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 
 			// Yes, I know about std::chrono::tai_clock.
 			// No, it doesn't compile on my system.
@@ -141,7 +139,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				 * @param[in] _t The interpolation parameter.
 				 * @return The interpolated transform.
 				 */
-				static const Transform InterpolateTransform(const Transform& _a, const Transform& _b, const T& _t) {
+				static Transform InterpolateTransform(const Transform& _a, const Transform& _b, const T& _t) {
 		
 					return {
 						{
@@ -244,7 +242,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 *
 			 * @return A vector of strings representing the names of the astronomical objects.
 			 */
-			[[nodiscard]] const std::vector<std::string> Names() const {
+			[[nodiscard]] std::vector<std::string> Names() const {
 				return m_Transforms.Keys();
 			}
 			

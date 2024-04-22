@@ -12,7 +12,6 @@
 
 #include <al.h>
 #include <algorithm>
-#include <glm/common.hpp>
 
 #include <exception>
 #include <limits>
@@ -396,10 +395,7 @@ namespace LouiEriksson::Engine::Audio {
 				if (const auto c = m_Clip.lock()) {
 					
 					// Only play if the clip actually contains data.
-					if (c->m_Samples.m_Length <= 0) {
-						throw std::runtime_error("Cannot play AudioClip since its size is zero!");
-					}
-					else {
+					if (c->m_Samples.m_Length > 0) {
 						
 						if (c->m_ALBuffer == AL_NONE) {
 							
@@ -421,16 +417,19 @@ namespace LouiEriksson::Engine::Audio {
 						else {
 							
 							// If already playing, nothing needs to be done.
-							if (State() == AL_PLAYING) {
-								throw std::runtime_error("Attempted to call Play() on an AudioSource that is already playing.");
-							}
-							else {
+							if (State() != AL_PLAYING) {
 								
 								// Play!
 								alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
 								alSourcePlay(m_Source);
 							}
+							else {
+								throw std::runtime_error("Attempted to call Play() on an AudioSource that is already playing.");
+							}
 						}
+					}
+					else {
+						throw std::runtime_error("Cannot play AudioClip since its size is zero!");
 					}
 				}
 				else {

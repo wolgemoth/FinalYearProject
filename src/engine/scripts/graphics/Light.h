@@ -11,8 +11,6 @@
 #include "textures/Cubemap.h"
 
 #include <GL/glew.h>
-#include <glm/ext/matrix_clip_space.hpp>
-#include <glm/trigonometric.hpp>
 
 #include <cmath>
 #include <memory>
