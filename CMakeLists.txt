@@ -85,60 +85,61 @@ include_directories(
 
 # ADD FINALYEARPROJECT:
 add_library(FinalYearProject STATIC
-        src/engine/scripts/audio/AudioClip.h
-        src/engine/scripts/audio/AudioSource.h
-        src/engine/scripts/audio/Sound.h
-        src/engine/scripts/core/Application.h
-        src/engine/scripts/core/Debug.h
-        src/engine/scripts/core/File.h
-        src/engine/scripts/core/Resources.h
-        src/engine/scripts/core/Script.h
-        src/engine/scripts/core/Serialisation.h
-        src/engine/scripts/core/Settings.h
-        src/engine/scripts/core/Time.h
-        src/engine/scripts/core/Transform.h
-        src/engine/scripts/core/utils/Hashmap.h
-        src/engine/scripts/core/utils/Utils.h
-        src/engine/scripts/core/Window.h
-        src/engine/scripts/ecs/Component.h
-        src/engine/scripts/ecs/GameObject.h
-        src/engine/scripts/ecs/Scene.h
-        src/engine/scripts/graphics/Camera.h
-        src/engine/scripts/graphics/Light.h
-        src/engine/scripts/graphics/Material.h
-        src/engine/scripts/graphics/Mesh.h
-        src/engine/scripts/graphics/Renderer.h
-        src/engine/scripts/graphics/Shader.h
-        src/engine/scripts/graphics/Texture.h
-        src/engine/scripts/graphics/textures/Cubemap.h
-        src/engine/scripts/graphics/textures/RenderTexture.h
-        src/engine/scripts/input/Cursor.h
-        src/engine/scripts/input/Input.h
-        src/engine/scripts/networking/Requests.h
-        src/engine/scripts/physics/Collider.h
-        src/engine/scripts/physics/colliders/PlaneCollider.h
-        src/engine/scripts/physics/colliders/SphereCollider.h
-        src/engine/scripts/physics/Collision.h
-        src/engine/scripts/physics/Physics.h
-        src/engine/scripts/physics/Rigidbody.h
-        src/engine/scripts/spatial/atmosphere/ISA.h
-        src/engine/scripts/spatial/elevation/Elevation.h
-        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.h
-        src/engine/scripts/spatial/maths/Conversions.h
-        src/engine/scripts/spatial/maths/Coords.h
-        src/engine/scripts/spatial/meshing/Builder.h
-        src/engine/scripts/spatial/osm/OSM.h
-        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.h
-        src/engine/scripts/spatial/planets/VSOP.h
-        src/engine/scripts/spatial/planets/WGCCRE.h
-        src/engine/scripts/spatial/stars/ATHYG.h
-        src/engine/scripts/ui/GUI.h
-        src/engine/scripts/graphics/TextureCPU.h
-        src/engine/scripts/core/Types.h
-        src/engine/scripts/core/IViewport.h
+        src/engine/scripts/audio/AudioClip.hpp
+        src/engine/scripts/audio/AudioSource.hpp
+        src/engine/scripts/audio/Sound.hpp
+        src/engine/scripts/core/Application.hpp
+        src/engine/scripts/core/Debug.hpp
+        src/engine/scripts/core/File.hpp
+        src/engine/scripts/core/Resources.hpp
+        src/engine/scripts/core/Script.hpp
+        src/engine/scripts/core/Serialisation.hpp
+        src/engine/scripts/core/Settings.hpp
+        src/engine/scripts/core/Time.hpp
+        src/engine/scripts/core/Transform.hpp
+        src/engine/scripts/core/utils/Hashmap.hpp
+        src/engine/scripts/core/utils/Utils.hpp
+        src/engine/scripts/core/Window.hpp
+        src/engine/scripts/ecs/Component.hpp
+        src/engine/scripts/ecs/GameObject.hpp
+        src/engine/scripts/ecs/Scene.hpp
+        src/engine/scripts/graphics/Camera.hpp
+        src/engine/scripts/graphics/Light.hpp
+        src/engine/scripts/graphics/Material.hpp
+        src/engine/scripts/graphics/Mesh.hpp
+        src/engine/scripts/graphics/Renderer.hpp
+        src/engine/scripts/graphics/Shader.hpp
+        src/engine/scripts/graphics/Texture.hpp
+        src/engine/scripts/graphics/textures/Cubemap.hpp
+        src/engine/scripts/graphics/textures/RenderTexture.hpp
+        src/engine/scripts/input/Cursor.hpp
+        src/engine/scripts/input/Input.hpp
+        src/engine/scripts/networking/Requests.hpp
+        src/engine/scripts/physics/Collider.hpp
+        src/engine/scripts/physics/colliders/PlaneCollider.hpp
+        src/engine/scripts/physics/colliders/SphereCollider.hpp
+        src/engine/scripts/physics/Collision.hpp
+        src/engine/scripts/physics/Physics.hpp
+        src/engine/scripts/physics/Rigidbody.hpp
+        src/engine/scripts/spatial/atmosphere/ISA.hpp
+        src/engine/scripts/spatial/elevation/Elevation.hpp
+        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.hpp
+        src/engine/scripts/spatial/maths/Conversions.hpp
+        src/engine/scripts/spatial/maths/Coords.hpp
+        src/engine/scripts/spatial/meshing/Builder.hpp
+        src/engine/scripts/spatial/osm/OSM.hpp
+        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.hpp
+        src/engine/scripts/spatial/planets/VSOP.hpp
+        src/engine/scripts/spatial/planets/WGCCRE.hpp
+        src/engine/scripts/spatial/stars/ATHYG.hpp
+        src/engine/scripts/ui/GUI.hpp
+        src/engine/scripts/graphics/TextureCPU.hpp
+        src/engine/scripts/core/Types.hpp
+        src/engine/scripts/core/IViewport.hpp
+        src/game/include/engine_networking.hpp
 )
 
-target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)
+#target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)
 
 # Set libs to compile with release flags and no sanitizers or rtti.
 set(LIB_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -fno-rtti")
@@ -176,25 +177,25 @@ target_link_libraries(FinalYearProject
 add_executable(Game
         src/main.cpp
 
-        src/game/Injector.h
-        src/game/scripts/Ball.h
-        src/game/scripts/FlyCam.h
-        src/game/scripts/Plane.h
-        src/game/scripts/Spatial/Planetarium.h
-        src/game/scripts/Spatial/Map.h
-        src/game/scripts/Spatial/Stars.h
+        src/game/Injector.hpp
+        src/game/scripts/Ball.hpp
+        src/game/scripts/FlyCam.hpp
+        src/game/scripts/Plane.hpp
+        src/game/scripts/Spatial/Planetarium.hpp
+        src/game/scripts/Spatial/Map.hpp
+        src/game/scripts/Spatial/Stars.hpp
 )
 
-target_precompile_headers(Game PRIVATE
-        src/game/include/engine_audio.h
-        src/game/include/engine_core.h
-        src/game/include/engine_ecs.h
-        src/game/include/engine_graphics.h
-        src/game/include/engine_input.h
-        src/game/include/engine_physics.h
-        src/game/include/engine_spatial.h
-        src/game/include/engine_ui.h
-)
+#target_precompile_headers(Game PRIVATE
+#        src/game/include/engine_audio.hpp
+#        src/game/include/engine_core.hpp
+#        src/game/include/engine_ecs.hpp
+#        src/game/include/engine_graphics.hpp
+#        src/game/include/engine_input.hpp
+#        src/game/include/engine_physics.hpp
+#        src/game/include/engine_spatial.hpp
+#        src/game/include/engine_ui.hpp
+#)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_link_options(Game PRIVATE  -flto=auto -Wl,--strip-all -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)

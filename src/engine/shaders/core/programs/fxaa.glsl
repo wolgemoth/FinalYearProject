@@ -153,11 +153,11 @@
         mediump float edgeLuminance = (
             _luma.samples[center] +
             _luma.samples[To1D(ivec2(normalize(-edgeDir)) + ivec2(w), KERNEL_SIZE)]
-        ) / 2;
+        ) / 2.0;
 
         mediump float gradientThreshold = gradient * 0.25;
 
-        mediump vec2 edgeStep = (edgeDir * _texelSize / 2);
+        mediump vec2 edgeStep = (edgeDir * _texelSize / 2.0);
 
         mediump vec2 puv = v_TexCoord;
         mediump float pLuminanceDelta = 0.0;
@@ -250,7 +250,7 @@
         mediump vec3 s2 = Sample3(u_Texture, v_TexCoord + (dir * _texelSize));
 
         // Return the average of the two samples.
-        return (s1 + s2) / 2;
+        return (s1 + s2) / 2.0;
     }
 
     void main() {

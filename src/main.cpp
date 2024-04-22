@@ -1,5 +1,6 @@
-#include "engine/scripts/core/Application.h" // Engine runtime.
-#include "game/Injector.h"                   // User scripts.
+
+#include "engine/scripts/core/Application.hpp" // Engine runtime.
+#include "game/Injector.hpp"                     // User scripts.
 
 /**
  * @file main.cpp

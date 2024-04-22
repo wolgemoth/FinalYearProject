@@ -226,7 +226,7 @@
 
         float PCF_SAMPLES = 4.0;
 
-        float axis = pow(PCF_SAMPLES, 1.0 / 2);
+        float axis = sqrt(PCF_SAMPLES);
         for (float x = -_radius; x < _radius; x += _radius / axis) {
         for (float y = -_radius; y < _radius; y += _radius / axis) {
 

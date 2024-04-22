@@ -65,7 +65,7 @@
         for (int i = 0; i < u_Samples; ++i) {
 
             mediump vec3 randomVec = normalize(
-                vec3((Random2S(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2, 1.0)
+                vec3((Random2S(v_TexCoord + vec2(i + 1), u_Time, 0.0) + 1.0) / 2.0, 1.0)
             );
 
             mediump vec3 tangent   = normalize(randomVec - normal * dot(randomVec, normal));
@@ -76,10 +76,10 @@
 
             mediump vec3 samplePosition = position + randomVec;
 
-            mediump vec4 offsetUV      = vec4(samplePosition, 1.0);
+            mediump vec4 offsetUV = vec4(samplePosition, 1.0);
                  offsetUV      = u_VP * offsetUV;
                  offsetUV.xyz /= offsetUV.w;
-                 offsetUV.xy   = offsetUV.xy / 2 + 0.5;
+                 offsetUV.xy   = (offsetUV.xy / 2.0) + 0.5;
 
             mediump float sampleDepth = Linear01Depth(Sample1(u_Depth_gBuffer, offsetUV.xy), u_NearClip, u_FarClip) * u_FarClip;
 
