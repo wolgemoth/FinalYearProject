@@ -188,7 +188,7 @@ namespace LouiEriksson::Engine {
 					   Physics::  Physics::Init();
 					Networking:: Requests::Init();
 					
-					UI::GUI::Init(main_window, "#version 330");
+					UI::GUI::Init(*main_window, "#version 330");
 					UI::GUI::Style(UI::GUI::Parameters::Style::Dark);
 					
 					// Set the delta time of the physics simulation.
@@ -256,6 +256,11 @@ namespace LouiEriksson::Engine {
 								}
 							}
 							
+							// Use the '~' key (on ANSI keyboard layouts or '`' key on UK layout) to enter debug mode.
+							if (Input::Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
+								UI::GUI::s_DrawDebugWindows = !UI::GUI::s_DrawDebugWindows;
+							}
+							
 							/* UPDATE CURSOR STATE */
 							Input::Cursor::Update();
 							
@@ -281,7 +286,7 @@ namespace LouiEriksson::Engine {
 							renderFlags = Graphics::Camera::RenderFlags::NONE;
 							
 							/* GUI UPDATE */
-							UI::GUI::OnGUI(main_window);
+							UI::GUI::OnGUI<scalar_t, size_t>(main_window);
 							
 							/* UPDATE WINDOWS */
 							const auto& windows = Window::m_Windows.Values();

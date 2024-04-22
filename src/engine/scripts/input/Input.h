@@ -4,7 +4,6 @@
 #include "../core/Debug.h"
 #include "../core/Time.h"
 #include "../core/utils/Hashmap.h"
-#include "../core/Window.h"
 #include "../ui/GUI.h"
 
 #include <SDL_events.h>
@@ -27,7 +26,6 @@
 namespace LouiEriksson::Engine {
 	
 	class Application;
-	class Window;
 	
 } // LouiEriksson::Engine
 
@@ -97,12 +95,12 @@ namespace LouiEriksson::Engine::Input {
 					s_Length(0) {}
 				
 				/** @brief  Returns the state of the keyboard at the provided SDL_KeyCode. */
-				[[nodiscard]] constexpr bool Get(const SDL_Keycode& _value) const {
+				[[nodiscard]] bool Get(const SDL_Keycode& _value) const {
 					return Get(SDL_GetScancodeFromKey(_value));
 				}
 				
 				/** @brief Returns the state of the keyboard at the provided SDL_Scancode. */
-				[[nodiscard]] constexpr bool Get(const SDL_Scancode& _value) const {
+				[[nodiscard]] bool Get(const SDL_Scancode& _value) const {
 					return s_Data == nullptr ?
 					       false :
 						   s_Data[static_cast<SDL_Scancode>(std::min(static_cast<int>(_value), s_Length))] != 0u;
@@ -123,7 +121,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Scancode of the key to check.
 			 * @return True if the key is pressed, false otherwise.
 			 */
-			static constexpr bool Get(const SDL_Scancode& _key) {
+			static bool Get(const SDL_Scancode& _key) {
 				return s_CurrentKeyboardState.Get(_key);
 			}
 			
@@ -135,7 +133,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Keycode of the key to check.
 			 * @return True if the key is pressed, false otherwise.
 			 */
-			 static constexpr bool Get(const SDL_Keycode& _key) {
+			 static bool Get(const SDL_Keycode& _key) {
 				return s_CurrentKeyboardState.Get(_key);
 			}
 			
@@ -147,7 +145,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Scancode of the key to check.
 			 * @return True if the key is pressed, false otherwise.
 			 */
-			static constexpr bool GetDown(const SDL_Scancode& _key) {
+			static bool GetDown(const SDL_Scancode& _key) {
 		
 				const auto previousState = s_PreviousKeyboardState.Get(_key);
 				const auto  currentState =  s_CurrentKeyboardState.Get(_key);
@@ -163,7 +161,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Keycode of the key to check.
 			 * @return True if the key is pressed, false otherwise.
 			 */
-			static constexpr bool GetDown(const SDL_Keycode& _key) {
+			static bool GetDown(const SDL_Keycode& _key) {
 				
 				const auto previousState = s_PreviousKeyboardState.Get(_key);
 				const auto  currentState =  s_CurrentKeyboardState.Get(_key);
@@ -179,7 +177,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Scancode of the key to check.
 			 * @return True if the key is released, false otherwise.
 			 */
-			static constexpr bool GetUp(const SDL_Scancode& _key) {
+			static bool GetUp(const SDL_Scancode& _key) {
 				
 				const auto previousState = s_PreviousKeyboardState.Get(_key);
 				const auto  currentState =  s_CurrentKeyboardState.Get(_key);
@@ -195,7 +193,7 @@ namespace LouiEriksson::Engine::Input {
 			 * @param[in] _key The SDL_Keycode of the key to check.
 			 * @return True if the key is released, false otherwise.
 			 */
-			static constexpr bool GetUp(const SDL_Keycode& _key) {
+			static bool GetUp(const SDL_Keycode& _key) {
 				
 				const auto previousState = s_PreviousKeyboardState.Get(_key);
 				const auto  currentState =  s_CurrentKeyboardState.Get(_key);
@@ -376,7 +374,7 @@ namespace LouiEriksson::Engine::Input {
 				}
 				
 				// Update the list in the hashmap.
-				Input::Event::s_Events.Emplace(std::move(event.type), std::move(bucket));
+				Input::Event::s_Events.Assign(std::move(event.type), std::move(bucket));
 			}
 			
 			/* HANDLE MOUSE STATE */

@@ -58,7 +58,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	
 	                Hashmap<std::string, std::string> tags;
 		            
-		            [[nodiscard]] constexpr bool Closed() const {
+		            [[nodiscard]] bool Closed() const {
 						return !nodes.empty() && (nodes.front() == nodes.back());
 					}
 					
@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 							
 							tags.Reserve(jTags.size());
 							for (auto& item : jTags) {
-								tags.Emplace((std::basic_string<char>&&)item.first, std::move(item.second));
+								tags.Assign((std::basic_string<char>&&)item.first, std::move(item.second));
 							}
 						}
 					}

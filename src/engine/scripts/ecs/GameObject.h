@@ -62,10 +62,30 @@ namespace LouiEriksson::Engine::ECS {
 				
 				_component->m_Index = bucket.size() - 1;
 				
-				m_Components.Emplace(typeid(T), std::move(bucket));
+				m_Components.Assign(typeid(T), std::move(bucket));
 			}
 			else {
-				m_Components.Emplace(typeid(T), { _component });
+				m_Components.Assign(typeid(T), { _component });
+			}
+		}
+		
+		template <typename T>
+		void Detach(const size_t& _index = 0) {
+			
+			if (const auto entries = m_Components.Get(typeid(T))) {
+	
+				// Bounds check.
+				if (_index < entries->size()) {
+					
+					auto itr = entries->begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
+					
+					// Remove component from collection.
+					const auto unsafe_collection = const_cast<std::vector<std::reference_wrapper<T>>>(entries);
+					unsafe_collection.get().erase(itr);
+				}
+			}
+			else {
+				throw std::runtime_error("Component T with index \"" + std::to_string(_index) + "\" not found.");
 			}
 		}
 		
@@ -188,8 +208,12 @@ namespace LouiEriksson::Engine::ECS {
 			// Create a new instance of the component, taking a pointer to this gameobject.
 			std::shared_ptr<T> result(new T(weak_from_this()));
 			
-			// Attach the component to the GameObject.
-			Attach(std::move(result));
+			try {
+				Attach(std::move(result)); // Attach the component to the GameObject.
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
 			
 			// Return a weak reference to the component.
 			return result;
@@ -206,17 +230,11 @@ namespace LouiEriksson::Engine::ECS {
 	
 			static_assert(std::is_base_of<Component, T>::value, "Provided type must derive from \"Component\".");
 			
-			if (const auto entries = m_Components.Get(typeid(T))) {
-	
-				// Bounds check.
-				if (_index < entries->size()) {
-					
-					auto itr = entries->begin() + (std::vector<std::shared_ptr<Component>>::difference_type)_index;
-					
-					// Remove component from collection.
-					const auto unsafe_collection = const_cast<std::vector<std::reference_wrapper<T>>>(entries);
-					unsafe_collection.get().erase(itr);
-				}
+			try {
+				Detach<T>(_index); // Detach the component from the GameObject.
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
 			}
 		}
 	};

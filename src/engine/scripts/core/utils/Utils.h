@@ -70,7 +70,9 @@ namespace LouiEriksson::Engine {
 			
 			// Boost library version of string splitting.
 			// (https://www.boost.org/doc/libs/1_54_0/doc/html/string_algo/usage.html#idp166856528)
-			std::string::size_type start = 0, end;
+			std::string::size_type
+				start = 0,
+				  end = 0;
 			
 			while((end = _string.find(_divider, start)) != std::string::npos) {
 			    result.emplace_back(_string.substr(start, end - start));
@@ -350,8 +352,8 @@ namespace LouiEriksson::Engine {
 			
 			T r;
 			
-		    char* e;                      // (end)
-			static constexpr auto b = 10; // (base)
+		    char* e          = nullptr; // (end)
+			constexpr auto b = 10;      // (base)
 			
 			try {
 				
@@ -420,8 +422,8 @@ namespace LouiEriksson::Engine {
 			
 			T r;
 			
-		    char* e;               // (end)
-			constexpr auto b = 10; // (base)
+		    char* e          = nullptr; // (end)
+			constexpr auto b = 10;      // (base)
 			
 			     if constexpr (std::is_same_v<T, int                >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }
 			else if constexpr (std::is_same_v<T, short              >) { r = static_cast<T>(std::strtol  (_str.data(), &e, b)); }

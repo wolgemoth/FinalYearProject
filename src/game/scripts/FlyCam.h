@@ -89,9 +89,12 @@ namespace LouiEriksson::Game::Scripts {
 				if (const auto c =    m_Camera.lock()) {
 				if (const auto t = m_Transform.lock()) {
 					
-					c->SetWindow(Window::Get(2));
 					c->SetTransform(t);
 					c->ClearColor(glm::vec4(0.0));
+					
+					if (const auto w = Window::Get(2).lock()) {
+						w->Attach(c);
+					}
 				}}
 			}}
 		}
@@ -106,8 +109,10 @@ namespace LouiEriksson::Game::Scripts {
 			if (const auto t = m_Transform.lock()) {
 			
 				// Lock the cursor to the center of the screen if the window is in focus:
-				if (const auto w = c->GetWindow().lock()) {
-	
+				if (const auto v = c->GetViewport().lock()) {
+					
+					auto w = std::dynamic_pointer_cast<Window>(v);
+					
 					if (w->Focused()) {
 						Input::Cursor::SetState({ Input::Cursor::State::LockMode::Centered, false });
 					}

@@ -4,8 +4,8 @@
 #include "../core/Settings.h"
 #include "../core/Time.h"
 #include "../core/utils/Utils.h"
-#include "../core/Window.h"
 #include "../input/Cursor.h"
+#include "../core/Window.h"
 #include "../input/Input.h"
 
 #include <glm/common.hpp>
@@ -29,7 +29,6 @@
 namespace LouiEriksson::Engine {
 	
 	class Application;
-	class Window;
 	
 } // LouiEriksson::Engine
 
@@ -66,7 +65,7 @@ namespace LouiEriksson::Engine::UI {
 			/** @brief Constant for the margins between the window and screen edge. */
 			inline static const ImVec2 s_WindowMargin { 16, 16 };
 			
-			static void DiagnosticsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
+			static void DiagnosticsWindow(const Window& _window, const bool& _draw) {
 				
 				// Initialise FPS sampling window.
 				static std::vector<tick_t> s_Timestamps;
@@ -123,15 +122,12 @@ namespace LouiEriksson::Engine::UI {
 				if (_draw) {
 					
 					// Set default values (on first run):
-					if (const auto w = _window.lock()) {
-						
-			            const auto screenSize = glm::vec2(w->Dimensions());
-						const auto windowSize = ImVec2(300, 200);
-						
-						ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
-						ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - s_WindowMargin.x, s_WindowMargin.y), ImGuiCond_Once);
-						ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
-					}
+		            const auto screenSize = glm::vec2(_window.Dimensions());
+					const auto windowSize = ImVec2(300, 200);
+					
+					ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
+					ImGui::SetNextWindowPos(ImVec2(screenSize.x - windowSize.x - s_WindowMargin.x, s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 					
 					// Create dynamically changing window title using the ### operator:
 					{
@@ -369,7 +365,7 @@ namespace LouiEriksson::Engine::UI {
 				}
 			}
 			
-			static void PostProcessingWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
+			static void PostProcessingWindow(const Window& _window, const bool& _draw) {
 				
 				if (_draw) {
 					
@@ -543,7 +539,7 @@ namespace LouiEriksson::Engine::UI {
 				}
 			}
 			
-			static void RenderSettingsWindow(const std::weak_ptr<Window>& _window, const bool& _draw) {
+			static void RenderSettingsWindow(const Window& _window, const bool& _draw) {
 			
 				if (_draw) {
 					
@@ -682,19 +678,16 @@ namespace LouiEriksson::Engine::UI {
 		 * This function is responsible for initialising the GUI using the ImGui library.
 		 * It creates the ImGui context, initialises the ImGui backends for the specified window, and sets up the OpenGL bindings.
 		 *
-		 * @param[in] _window The weak pointer to the Window object.
+		 * @param[in] _window The weak pointer to the window object.
 		 * @param[in] _glsl_version The GLSL version to use.
 		 */
-		inline static void Init(const std::weak_ptr<Window>& _window, const char* _glsl_version) {
+		inline static void Init(const Window& _window, const char* _glsl_version) {
 			
 			// Initialise IMGUI:
 			IMGUI_CHECKVERSION();
 			ImGui::CreateContext();
 			
-			if (const auto w = _window.lock()) {
-				ImGui_ImplSDL2_InitForOpenGL(*w, w->Context());
-			}
-			
+			ImGui_ImplSDL2_InitForOpenGL(_window, _window.Context());
 			ImGui_ImplOpenGL3_Init(_glsl_version);
 		}
 		
@@ -729,26 +722,19 @@ namespace LouiEriksson::Engine::UI {
 		
 		/**
 		* @brief Main GUI loop.
-		* @param[in] _window The weak pointer to the Window object.
+		* @param[in] _window The weak pointer to the window object.
 		*/
-		static void OnGUI(const std::weak_ptr<Window>& _window) {
+		template <typename T, typename U>
+		static void OnGUI(const std::shared_ptr<Window>& _window) {
 		
 			/* INIT GUI FRAME */
 			ImGui_ImplOpenGL3_NewFrame();
-			
-			if (const auto w = _window.lock()) {
-				ImGui_ImplSDL2_NewFrame(*w);
-			}
+			ImGui_ImplSDL2_NewFrame(*_window);
 			
 			ImGui::NewFrame();
 			
 			/* DEBUG MODE */
 			{
-				// Use the '~' key (on ANSI keyboard layouts or '`' key on UK layout) to enter debug mode.
-				if (Input::Input::Key::GetDown(SDL_SCANCODE_GRAVE)) {
-					s_DrawDebugWindows = !s_DrawDebugWindows;
-				}
-				
 				/*
 				 * If s_DrawDebugWindows is true, unlock the cursor and make it visible.
 				 * This will override any previous changes to the cursor's state.
@@ -760,9 +746,9 @@ namespace LouiEriksson::Engine::UI {
 				}
 				
 				// Update (and optionally, draw) debugging windows:
-				GUIWindows::DiagnosticsWindow(_window, s_DrawDebugWindows);
-				GUIWindows::PostProcessingWindow(_window, s_DrawDebugWindows);
-				GUIWindows::RenderSettingsWindow(_window, s_DrawDebugWindows);
+				GUIWindows::   DiagnosticsWindow(*_window, s_DrawDebugWindows);
+				GUIWindows::PostProcessingWindow(*_window, s_DrawDebugWindows);
+				GUIWindows::RenderSettingsWindow(*_window, s_DrawDebugWindows);
 			}
 			
 			/* FINALIZE GUI FRAME */

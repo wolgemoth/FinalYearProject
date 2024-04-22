@@ -135,6 +135,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/ui/GUI.h
         src/engine/scripts/graphics/TextureCPU.h
         src/engine/scripts/core/Types.h
+        src/engine/scripts/core/IViewport.h
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.h)

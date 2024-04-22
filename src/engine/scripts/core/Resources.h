@@ -152,11 +152,11 @@ namespace LouiEriksson::Engine {
 				
 					if (const auto type = s_Types.Get(item.extension())) {
 						   
-						     if (*type == typeid(   Audio::AudioClip)) {     m_Audio.Emplace(item.stem().string(), { item }); }
-						else if (*type == typeid(Graphics::Material )) { m_Materials.Emplace(item.stem().string(), { item }); }
-						else if (*type == typeid(Graphics::Mesh     )) {    m_Meshes.Emplace(item.stem().string(), { item }); }
-						else if (*type == typeid(Graphics::Shader   )) {   m_Shaders.Emplace(item.stem().string(), { item }); }
-						else if (*type == typeid(Graphics::Texture  )) {  m_Textures.Emplace(item.stem().string(), { item }); }
+						     if (*type == typeid(   Audio::AudioClip)) { m_Audio.Assign(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Material )) { m_Materials.Assign(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Mesh     )) { m_Meshes.Assign(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Shader   )) { m_Shaders.Assign(item.stem().string(), { item }); }
+						else if (*type == typeid(Graphics::Texture  )) { m_Textures.Assign(item.stem().string(), { item }); }
 					}
 					else {
 						Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), LogType::Warning);

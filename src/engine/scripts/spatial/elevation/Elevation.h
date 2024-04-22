@@ -57,7 +57,7 @@ namespace LouiEriksson::Engine::Spatial {
 			        
 			        Elevation::LoadElevation(elevation_points, _provider, _callback);
 				}
-				catch (std::exception& e) {
+				catch (const std::exception& e) {
 					Debug::Log(e);
 				}
 				
@@ -172,7 +172,7 @@ namespace LouiEriksson::Engine::Spatial {
 						throw std::runtime_error("OpenElevation Query timeout!");
 					}
 				}
-				catch (std::exception& e) {
+				catch (const std::exception& e) {
 					Debug::Log(e);
 				}
 			});
@@ -253,7 +253,7 @@ namespace LouiEriksson::Engine::Spatial {
 						}
 					}
 				}
-				catch (std::exception& e) {
+				catch (const std::exception& e) {
 					Debug::Log(e);
 				}
 			});

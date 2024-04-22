@@ -205,7 +205,7 @@ namespace LouiEriksson::Engine::Graphics {
 						source += ss.str();
 						
 						// Assign back to the hashmap,
-						result.Emplace(curr, std::move(source));
+						result.Assign(curr, std::move(source));
 						
 						// Clear the stream.
 						ss.str({});
@@ -226,7 +226,7 @@ namespace LouiEriksson::Engine::Graphics {
 				source += ss.str(); // Concatenate exiting with stream contents.
 				
 				// Assign back to the hashmap,
-				result.Emplace(curr, std::move(source));
+				result.Assign(curr, std::move(source));
 			}
 			
 			return result;

@@ -1,6 +1,7 @@
 #ifndef FINALYEARPROJECT_WINDOW_H
 #define FINALYEARPROJECT_WINDOW_H
 
+#include "../core/IViewport.h"
 #include "../core/utils/Hashmap.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Texture.h"
@@ -29,44 +30,30 @@ namespace LouiEriksson::Engine::Graphics {
 
 namespace LouiEriksson::Engine {
 
-	class Window final {
+	class Window final : public IViewport<scalar_t, size_t>, public std::enable_shared_from_this<Window> {
 	
 		friend class Application;
-		
-		friend Graphics::Camera;
+		friend class GameObject;
 	
 	private:
 		
-		inline static Hashmap<int, std::shared_ptr<Window>> m_Windows;
+		inline static Hashmap<size_t, std::shared_ptr<Window>> m_Windows;
 	
+		bool m_IsDirty;
+		
 		size_t m_ID;
 		SDL_GLContext m_Context;
 	
 		std::shared_ptr<SDL_Window> m_Window;
-	
-		Hashmap<size_t, std::reference_wrapper<Graphics::Camera>> m_Cameras;
-	
-		void Link(Graphics::Camera& _camera) {
 		
-			if (m_Cameras.Add(reinterpret_cast<size_t>(&_camera), std::reference_wrapper(_camera))) {
-				_camera.m_Window = Get(ID());
-			}
-			else {
-				Debug::Log("Failed to link camera to window.", LogType::Error);
-			}
-		}
+		std::unordered_set<std::shared_ptr<Graphics::Camera>> m_Cameras;
 		
-		void Unlink(Graphics::Camera& _camera) noexcept {
-			_camera.m_Window.reset();
-			m_Cameras.Remove(reinterpret_cast<size_t>(&_camera));
-		}
-	
-		Window(const int& _width, const int& _height, const char* _name, bool _fullscreen = false, bool _hdr10 = true)  {
-		
+		Window(const size_t& _width, const size_t& _height, const std::string_view& _name, bool _fullscreen = false, bool _hdr10 = true) {
+			
 			m_Window = std::shared_ptr<SDL_Window>(
-				SDL_CreateWindow(_name,
+				SDL_CreateWindow(_name.data(),
 					SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-					_width, _height, (unsigned)SDL_WINDOW_RESIZABLE | (unsigned)SDL_WINDOW_ALLOW_HIGHDPI | (unsigned)SDL_WINDOW_OPENGL
+					static_cast<int>(_width), static_cast<int>(_height), (unsigned)SDL_WINDOW_RESIZABLE | (unsigned)SDL_WINDOW_ALLOW_HIGHDPI | (unsigned)SDL_WINDOW_OPENGL
 				),
 				[](SDL_Window* _ptr) { SDL_DestroyWindow(_ptr); } // Custom deleter calls SDL_DestroyWindow();
 			);
@@ -109,7 +96,7 @@ namespace LouiEriksson::Engine {
 		Window             (const Window& _other) = delete;
 		Window& operator = (const Window& _other) = delete;
 	
-		static std::shared_ptr<Window> Create(const int& _width, const int& _height, const char* _name)  {
+		static std::shared_ptr<Window> Create(const size_t& _width, const size_t& _height, const std::string_view& _name)  {
 		
 			std::shared_ptr<Window> result(new Window(_width, _height, _name), [](Window* _ptr) { delete _ptr; });
 		
@@ -120,13 +107,14 @@ namespace LouiEriksson::Engine {
 	
 		static std::weak_ptr<Window> Get(const size_t& _id) {
 		
-			auto result = m_Windows.Get(_id).value_or({});
+			std::weak_ptr<Window> result;
 			
-			Debug::Assert(
-				result != nullptr,
-				"Failed getting window with ID: \"" + std::to_string(_id) + "\"",
-				LogType::Error
-			);
+			if (const auto existing = m_Windows.Get(_id)) {
+				result = existing.value();
+			}
+			else {
+				Debug::Log("Failed getting window with ID: \"" + std::to_string(_id) + "\"", LogType::Error);
+			}
 			
 			return result;
 		}
@@ -146,20 +134,12 @@ namespace LouiEriksson::Engine {
 		
 		inline static void Destroy(const size_t& _id) {
 		
-			if (auto window = Get(_id).lock()) {
+			if (const auto window = Get(_id).lock()) {
 		
 				if (m_Windows.Remove(window->ID())) {
 		
-					// Unlink window from cameras.
-					for (auto camera : window->m_Cameras.Values()) {
-						camera.get().m_Window.reset();
-					}
-		
 					// Unlink cameras from window.
-					window->m_Cameras.Clear();
-		
-					// "Destroy"
-					window.reset();
+					window->m_Cameras.clear();
 				}
 				else {
 					Debug::Log("Failed to destroy window with ID: \"" + std::to_string(_id) + "\"", LogType::Error);
@@ -170,12 +150,43 @@ namespace LouiEriksson::Engine {
 		[[nodiscard]] constexpr const size_t&      ID() const noexcept { return m_ID;      }
 		[[nodiscard]] constexpr SDL_GLContext Context() const noexcept { return m_Context; }
 		
+		void Attach(std::shared_ptr<Graphics::Camera> _camera) noexcept {
+			
+			try {
+				m_Cameras.emplace(_camera);
+				_camera->m_Viewport = shared_from_this();
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
+		
+		void Detach(std::shared_ptr<Graphics::Camera> _camera) noexcept {
+			
+			try {
+				m_Cameras.erase(_camera);
+				_camera->m_Viewport.reset();
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
+		
 		inline void Update() const {
 			SDL_GL_SwapWindow(m_Window.get());
 		}
 		
-		inline void Dimensions(const int& _width, const int& _height)  {
-			SDL_SetWindowSize(m_Window.get(), _width, _height);
+		[[nodiscard]] inline std::string Name() const {
+			return SDL_GetWindowTitle(m_Window.get());
+		}
+		
+		inline void Name(const std::string& _value) {
+			SDL_SetWindowTitle(m_Window.get(), _value.c_str());
+		}
+		
+		inline void Dimensions(const size_t& _width, const size_t& _height)  {
+			
+			SDL_SetWindowSize(m_Window.get(), static_cast<int>(_width), static_cast<int>(_height));
 		
 			SetDirty();
 		}
@@ -185,19 +196,16 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return glm::ivec2 The window dimensions as a glm::ivec2 object.
 		 */
-		[[nodiscard]] inline glm::ivec2 Dimensions() const  {
+		[[nodiscard]] inline glm::vec<2, size_t> Dimensions() const override {
 		
-			glm::ivec2 result(-1, -1);
+			glm::vec<2, int> size(-1, -1);
 		
-			SDL_GetWindowSize(m_Window.get(), &result[0], &result[1]);
+			SDL_GetWindowSize(m_Window.get(), &size[0], &size[1]);
 		
-			return result;
-		}
-	
-		[[nodiscard]] inline float Aspect() const {
-			const auto dimensions = Dimensions();
-		
-			return static_cast<float>(dimensions[0]) / static_cast<float>(dimensions[1]);
+			size.x = std::max(size.x, 0);
+			size.y = std::max(size.y, 0);
+			
+			return static_cast<glm::vec<2, size_t>>(size);
 		}
 	
 		[[nodiscard]] inline bool Focused() const {
@@ -216,19 +224,14 @@ namespace LouiEriksson::Engine {
 		}
 		
 		inline void SetDirty() {
-			
-			const auto cameras = m_Cameras.Values();
-		
-			for (auto camera : cameras) {
-				camera.get().SetDirty();
-			}
-		
-			const auto dimensions = Dimensions();
-			glViewport(0, 0, dimensions[0], dimensions[1]);
+			m_IsDirty = true;
 		}
 	
-		inline operator SDL_Window*() const { return m_Window.get(); }
+		inline bool IsDirty() const override {
+			return m_IsDirty;
+		}
 		
+		inline operator SDL_Window*() const { return m_Window.get(); }
 	};
 	
 } // LouiEriksson::Engine

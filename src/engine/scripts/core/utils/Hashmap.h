@@ -59,19 +59,19 @@ namespace LouiEriksson::Engine {
 			Tk first;
 			Tv second;
 			
-			KeyValuePair(const Tk& _key, const Tv& _value) noexcept :
+			KeyValuePair(const Tk& _key, const Tv& _value) :
 				 first(_key),
 				second(_value) {}
 			
-			inline constexpr KeyValuePair(const KeyValuePair& _other) noexcept :
+			inline constexpr KeyValuePair(const KeyValuePair& _other) :
 				 first(_other.first),
 				second(_other.second) {}
 				
-			inline KeyValuePair(KeyValuePair&& _rhs) noexcept :
+			inline KeyValuePair(KeyValuePair&& _rhs) :
 					 first(std::move(_rhs.first)),
 					second(std::move(_rhs.second)) {}
 
-			inline KeyValuePair& operator =(const KeyValuePair& _other) noexcept {
+			inline KeyValuePair& operator = (const KeyValuePair& _other) {
 				if (this != &_other) {
 					 first = _other.first;
 					second = _other.second;
@@ -79,10 +79,10 @@ namespace LouiEriksson::Engine {
 				return *this;
 			}
 			
-			inline KeyValuePair& operator = (KeyValuePair&& _rhs) noexcept {
-				if (this != &_rhs) {
-					 first = std::move(_rhs.first);
-					second = std::move(_rhs.second);
+			inline KeyValuePair& operator = (KeyValuePair&& _other) {
+				if (this != &_other) {
+					 first = std::move(_other.first);
+					second = std::move(_other.second);
 				}
 				return *this;
 			}
@@ -102,7 +102,7 @@ namespace LouiEriksson::Engine {
 		 * @return Hashcode of _item.
 		 * @throw std::exception If the type of _item is not supported by std::hash.
 		 */
-		inline static constexpr size_t GetHashcode(const Tk& _item) noexcept {
+		inline static constexpr size_t GetHashcode(const Tk& _item) {
 			return std::hash<Tk>()(_item);
 		}
 		
@@ -119,7 +119,7 @@ namespace LouiEriksson::Engine {
 			
 			for (auto& bucket : shallow_cpy) {
 				for (auto& kvp : bucket) {
-					Emplace(std::move(kvp.first), std::move(kvp.second));
+					Assign(std::move(kvp.first), std::move(kvp.second));
 				}
 			}
 		}
@@ -232,25 +232,32 @@ namespace LouiEriksson::Engine {
 		 * @brief Queries for the existence of an item in the Hashmap.
 		 *
 		 * @param[in] _key Key of the entry.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
 		 * @return True if successful, false otherwise.
 		 */
-		constexpr bool ContainsKey(const Tk& _key) const noexcept {
+		bool ContainsKey(const Tk& _key, std::exception_ptr _exception = nullptr) const noexcept {
 			
 			auto result = false;
 			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			size_t hash = GetHashcode(_key);
-			size_t i = hash % m_Buckets.size();
-			
-			auto& bucket = m_Buckets[i];
-			
-			for (auto& kvp : bucket) {
+			try {
 				
-				if (GetHashcode(kvp.first) == hash) {
-					result = true;
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				size_t hash = GetHashcode(_key);
+				size_t i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				for (auto& kvp : bucket) {
 					
-					break;
+					if (GetHashcode(kvp.first) == hash) {
+						result = true;
+						
+						break;
+					}
 				}
+			}
+			catch (...) {
+				_exception = std::current_exception();
 			}
 			
 			return result;
@@ -262,37 +269,93 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _key Key of the entry.
 		 * @param[in] _value Value of the entry.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
 		 * @return True if successful, false otherwise.
 		 */
-		bool Add(const Tk& _key, const Tv& _value) {
+		bool Add(const Tk& _key, const Tv& _value, std::exception_ptr _exception = nullptr) noexcept {
 			
 			auto result = true;
 			
-			if (size() >= m_Buckets.size()) {
-				Resize(m_Buckets.size() * 2);
-			}
-			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const auto hash = GetHashcode(_key);
-			const auto i = hash % m_Buckets.size();
-			
-			auto& bucket = m_Buckets[i];
-			
-			// In the case of a hash collision, determine if the key is unique.
-			// We will treat duplicate insertions as a mistake on the developer's part and return failure.
-			for (auto& kvp : bucket) {
-				if (GetHashcode(kvp.first) == hash) {
-					result = false;
+			try {
+				
+				if (size() >= m_Buckets.size()) {
+					Resize(m_Buckets.size() * 2);
+				}
+				
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				const auto hash = GetHashcode(_key);
+				const auto i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				// In the case of a hash collision, determine if the key is unique.
+				// We will treat duplicate insertions as a mistake on the developer's part and return failure.
+				for (auto& kvp : bucket) {
+					if (GetHashcode(kvp.first) == hash) {
+						result = false;
+						
+						break;
+					}
+				}
+				
+				// Insert the item into the bucket.
+				if (result) {
+					m_Size++;
 					
-					break;
+					bucket.emplace_back(_key, _value);
 				}
 			}
+			catch (...) {
+				_exception = std::current_exception();
+			}
 			
-			// Insert the item into the bucket.
-			if (result) {
-				m_Size++;
+			return result;
+		}
+		
+		/**
+		 * @brief Inserts a new entry into the Hashmap with given key and value using move semantics, if one does not already exist.
+		 * If you are trying to modify an existing key, see Hashmap::Assign.
+		 *
+		 * @param[in] _key Key of the entry.
+		 * @param[in] _value Value of the entry.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
+		 * @return True if successful, false otherwise.
+		 */
+		bool Add(const Tk&& _key, const Tv&& _value, std::exception_ptr _exception = nullptr) noexcept {
+			
+			auto result = true;
+			
+			try {
 				
-				bucket.emplace_back(_key, _value);
+				if (size() >= m_Buckets.size()) {
+					Resize(m_Buckets.size() * 2);
+				}
+				
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				const auto hash = GetHashcode(_key);
+				const auto i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				// In the case of a hash collision, determine if the key is unique.
+				// We will treat duplicate insertions as a mistake on the developer's part and return failure.
+				for (auto& kvp : bucket) {
+					if (GetHashcode(kvp.first) == hash) {
+						result = false;
+						
+						break;
+					}
+				}
+				
+				// Insert the item into the bucket.
+				if (result) {
+					m_Size++;
+					
+					bucket.emplace_back(_key, _value);
+				}
+			}
+			catch (...) {
+				_exception = std::current_exception();
 			}
 			
 			return result;
@@ -303,72 +366,86 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _key Key of the entry.
 		 * @param[in] _value Value of the entry.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
 		 */
-		void Assign(const Tk& _key, const Tv& _value) {
+		void Assign(const Tk& _key, const Tv& _value, std::exception_ptr _exception = nullptr) noexcept {
 			
-			if (size() >= m_Buckets.size()) {
-				Resize(m_Buckets.size() * 2);
-			}
-			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const auto hash = GetHashcode(_key);
-			const auto i = hash % m_Buckets.size();
-			
-			auto& bucket = m_Buckets[i];
-			
-			auto exists = false;
-			for (auto& kvp : bucket) {
+			try {
 				
-				if (GetHashcode(kvp.first) == hash) {
-					exists = true;
+				if (size() >= m_Buckets.size()) {
+					Resize(m_Buckets.size() * 2);
+				}
+				
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				const auto hash = GetHashcode(_key);
+				const auto i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				auto exists = false;
+				for (auto& kvp : bucket) {
 					
-					kvp.second = _value;
+					if (GetHashcode(kvp.first) == hash) {
+						exists = true;
+						
+						kvp.second = _value;
+						
+						break;
+					}
+				}
+				
+				if (!exists) {
+					m_Size++;
 					
-					break;
+					bucket.emplace_back(_key, _value);
 				}
 			}
-			
-			if (!exists) {
-				m_Size++;
-				
-				bucket.emplace_back(_key, _value);
+			catch (...) {
+				_exception = std::current_exception();
 			}
 		}
 		
 		/**
-		 * @brief Inserts or replaces an entry within the Hashmap with the given key using implicit move semantics.
+		 * @brief Inserts or replaces an entry within the Hashmap with the given key using move semantics.
 		 *
-		 * @param _key Key of the entry.
-		 * @param _value Value of the entry.
+		 * @param[in] _key Key of the entry.
+		 * @param[in] _value Value of the entry.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
 		 */
-		void Emplace(Tk&& _key, Tv&& _value) {
+		void Assign(Tk&& _key, Tv&& _value, std::exception_ptr _exception = nullptr) noexcept {
 			
-			if (size() >= m_Buckets.size()) {
-				Resize(m_Buckets.size() * 2);
-			}
-			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const auto hash = GetHashcode(_key);
-			const auto i = hash % m_Buckets.size();
-			
-			auto& bucket = m_Buckets[i];
-			
-			auto exists = false;
-			for (auto& kvp : bucket) {
+			try {
 				
-				if (GetHashcode(kvp.first) == hash) {
-					exists = true;
+				if (size() >= m_Buckets.size()) {
+					Resize(m_Buckets.size() * 2);
+				}
+				
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				const auto hash = GetHashcode(_key);
+				const auto i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				auto exists = false;
+				for (auto& kvp : bucket) {
 					
-					kvp.second = std::move(_value);
+					if (GetHashcode(kvp.first) == hash) {
+						exists = true;
+						
+						kvp.second = std::move(_value);
+						
+						break;
+					}
+				}
+				
+				if (!exists) {
+					m_Size++;
 					
-					break;
+					bucket.emplace_back(std::move(_key), std::move(_value));
 				}
 			}
-			
-			if (!exists) {
-				m_Size++;
-				
-				bucket.emplace_back(std::move(_key), std::move(_value));
+			catch (...) {
+				_exception = std::current_exception();
 			}
 		}
 		
@@ -376,57 +453,74 @@ namespace LouiEriksson::Engine {
 		 * @brief Removes entry with given key from the Hashmap.
 		 *
 		 * @param[in] _key Key of the entry to be removed.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
 		 * @return True if successful, false otherwise.
 		 */
-		bool Remove(const Tk& _key) noexcept {
+		bool Remove(const Tk& _key, std::exception_ptr _exception = nullptr) noexcept {
 			
 			bool result = false;
 			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			const size_t hash = GetHashcode(_key);
-			const size_t i = hash % m_Buckets.size();
-			
-			auto& bucket = m_Buckets[i];
-			
-			// In the case of accessing a "collided" hash, find the value in the bucket using equality checks.
-			for (auto itr = bucket.begin(); itr < bucket.end(); itr++) {
+			try {
 				
-				if (GetHashcode(itr->first) == hash) {
-					result = true;
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				const size_t hash = GetHashcode(_key);
+				const size_t i = hash % m_Buckets.size();
+				
+				auto& bucket = m_Buckets[i];
+				
+				// In the case of accessing a "collided" hash, find the value in the bucket using equality checks.
+				for (auto itr = bucket.begin(); itr < bucket.end(); itr++) {
 					
-					bucket.erase(itr);
-					
-					break;
+					if (GetHashcode(itr->first) == hash) {
+						result = true;
+						
+						bucket.erase(itr);
+						
+						break;
+					}
 				}
+				
+				m_Size -= static_cast<size_t>(result);
+				
 			}
-			
-			m_Size -= static_cast<size_t>(result);
+			catch (...) {
+				_exception = std::current_exception();
+			}
 			
 			return result;
 		}
 		
 		/**
-		* @brief Retrieves a const reference to the entry within the Hashmap with the given key, if one exists.
-		*
-		* @param[in] _key Key of the entry to retrieve.
-		* @return An optional containing the value wrapped in a reference wrapper if it exists.
-		*/
-		optional_ref Get(const Tk& _key) const noexcept {
+		 * @brief Retrieves the value associated with the given key from the hash table.
+		 *
+		 * @tparam Tk The type of the key.
+		 * @param[in] _key The key to retrieve the value for.
+		 * @param[out] _exception A pointer to any exception caught during the operation.
+		 * @return An optional reference to the value associated with the key, or std::nullopt if the key is not present.
+		 * @note This function is noexcept.
+		 */
+		optional_ref Get(const Tk& _key, std::exception_ptr _exception = nullptr) const noexcept {
 			
 			typename optional_ref::optional_t result = std::nullopt;
 			
-			// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
-			size_t hash = GetHashcode(_key);
-			size_t i = hash % m_Buckets.size();
+			try {
 			
-			auto& bucket = m_Buckets[i];
-			
-			for (auto& kvp : bucket) {
+				// Create an index by taking the key's hash value and "wrapping" it with the number of buckets.
+				size_t hash = GetHashcode(_key);
+				size_t i = hash % m_Buckets.size();
 				
-				if (GetHashcode(kvp.first) == hash) {
-					result = std::cref(kvp.second);
-					break;
+				auto& bucket = m_Buckets[i];
+				
+				for (auto& kvp : bucket) {
+					
+					if (GetHashcode(kvp.first) == hash) {
+						result = std::cref(kvp.second);
+						break;
+					}
 				}
+			}
+			catch (...) {
+				_exception = std::current_exception();
 			}
 			
 			return optional_ref(std::move(result));
@@ -516,7 +610,7 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Clears all entries from the Hashmap.
 		 */
-		constexpr void Clear() noexcept  {
+		constexpr void Clear() {
 			
 			m_Buckets.clear();
 			m_Buckets.resize(1);
@@ -533,7 +627,7 @@ namespace LouiEriksson::Engine {
 		 * @see Get(const Tk& _key, Tv& _out)
 		 */
 #ifndef HASHMAP_SUPPRESS_EXCEPTION_WARNING
-		[[deprecated("This function throws if no entry exists. Consider using Get() if exception-safe access is required.\nSuppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
+		[[deprecated("This function does not guarantee exception-safety and will explicitly throws if no entry exists. Consider using Get() if exception-safe access is required.\nSuppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
 #endif
 		inline constexpr const Tv& operator[](const Tk& _key) const {
 		    return Return(_key);

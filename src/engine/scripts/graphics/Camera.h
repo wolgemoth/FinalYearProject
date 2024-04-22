@@ -9,14 +9,16 @@
 #include "../core/Types.h"
 #include "../core/utils/Utils.h"
 #include "../ecs/GameObject.h"
-#include "../graphics/Light.h"
-#include "../graphics/Material.h"
-#include "../graphics/Mesh.h"
-#include "../graphics/Renderer.h"
-#include "../graphics/Shader.h"
-#include "../graphics/Texture.h"
+#include "Light.h"
+#include "Material.h"
+#include "Mesh.h"
+#include "Renderer.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "../core/IViewport.h"
 
 #include <GL/glew.h>
+
 #include <glm/common.hpp>
 #include <glm/exponential.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -62,7 +64,7 @@ namespace LouiEriksson::Engine::Graphics {
 	 */
 	class Camera final : public ECS::Component {
 	
-		friend LouiEriksson::Engine::Window;
+		friend class LouiEriksson::Engine::Window;
 	
 	private:
 		
@@ -70,7 +72,7 @@ namespace LouiEriksson::Engine::Graphics {
 		inline static std::weak_ptr<Mesh>   s_Cube{};
 		
 		/** @brief Window of the camera. */
-		std::weak_ptr<Window> m_Window;
+		std::weak_ptr<IViewport<scalar_t, size_t>> m_Viewport;
 	
 		/** @brief Camera Transform. */
 		std::weak_ptr<Transform> m_Transform;
@@ -121,7 +123,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 */
 		void GeometryPass(const std::vector<std::weak_ptr<Renderer>>& _renderers) {
 			
-			if (const auto w = m_Window.lock()) {
+			if (const auto v = m_Viewport.lock()) {
 				
 				if (const auto t = GetTransform().lock()) {
 				
@@ -238,8 +240,8 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(u_View,             View()); /* VIEW       */
 							
 							p->Assign(u_ScreenDimensions,
-								w != nullptr ?
-									(glm::vec2)w->Dimensions() :
+								v != nullptr ?
+									(glm::vec2)v->Dimensions() :
 									 glm::vec2(1.0)
 							);
 							
@@ -302,8 +304,8 @@ namespace LouiEriksson::Engine::Graphics {
 							);
 							
 							p->Assign(u_ScreenDimensions,
-								w != nullptr ?
-									(glm::vec2)w->Dimensions() :
+								v != nullptr ?
+									(glm::vec2)v->Dimensions() :
 									 glm::vec2(1.0)
 							);
 							
@@ -418,8 +420,8 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(u_LightPosition, lightPos);
 							
 							p->Assign(u_ScreenDimensions,
-								w != nullptr ?
-									(glm::vec2)w->Dimensions() :
+								v != nullptr ?
+									(glm::vec2)v->Dimensions() :
 									 glm::vec2(1.0)
 							);
 							
@@ -486,8 +488,8 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(u_TexCoord_gBuffer, m_TexCoord_gBuffer, 1);
 							
 							p->Assign(u_ScreenDimensions,
-								w != nullptr ?
-									(glm::vec2)w->Dimensions() :
+								v != nullptr ?
+									(glm::vec2)v->Dimensions() :
 									 glm::vec2(1.0)
 							);
 							
@@ -519,7 +521,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid viewport!", LogType::Error);
 			}
 		}
 		
@@ -781,6 +783,17 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		
+		bool IsDirty() const {
+			
+			auto result = m_IsDirty;
+			
+			if (const auto v = m_Viewport.lock()) {
+				result |= v->IsDirty();
+			}
+			
+			return result;
+		}
+		
 		/* POST PROCESSING */
 		
 		/**
@@ -893,7 +906,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 			using target = Settings::PostProcessing::ToneMapping::AutoExposure;
 			
-			if (const auto w = GetWindow().lock()) {
+			if (const auto v = m_Viewport.lock()) {
 				
 				static const auto autoExposure = Resources::Get<Shader>("auto_exposure");
 				static const auto         mask = Resources::Get<Texture>("exposure_weights");
@@ -1058,10 +1071,10 @@ namespace LouiEriksson::Engine::Graphics {
 		
 			using target = Settings::PostProcessing::Bloom;
 			
-			if (const auto w = GetWindow().lock()) {
+			if (const auto v = m_Viewport.lock()) {
 				
 				// Get screen dimensions.
-				const auto dimensions = w->Dimensions();
+				const auto dimensions = v->Dimensions();
 				
 				static const auto ts = Resources::Get<Shader>("threshold");
 				static const auto ds = Resources::Get<Shader>("downscale");
@@ -1087,7 +1100,7 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						for (size_t i = 0; i < target_length; ++i) {
 							
-							const auto size = dimensions / static_cast<int>(std::pow(2.0, i + offset));
+							const auto size = dimensions / static_cast<size_t>(std::pow(2.0, i + offset));
 							
 							if (size.x > 1 && size.y > 1) {
 								
@@ -1278,20 +1291,6 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 		}
 		
-		
-		~Camera() override {
-		
-			// Unlink the camera from the window. Catch and log any errors.
-			try {
-				if (const auto w = m_Window.lock()) {
-					w->Unlink(*this);
-				}
-			}
-			catch (const std::exception& e) {
-				Debug::Log(e);
-			}
-		}
-		
 		/** @inheritdoc */
 		[[nodiscard]] inline std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
@@ -1305,12 +1304,12 @@ namespace LouiEriksson::Engine::Graphics {
 		 */
 		void PreRender(const RenderFlags& _flags) {
 			
-			if (const auto w = GetWindow().lock()) {
+			if (const auto v = m_Viewport.lock()) {
 			
 				if ((_flags & RenderFlags::REINITIALISE) != 0u) {
 					
 					// Reinitialise the g-buffer:
-					const auto& dimensions = w->Dimensions();
+					const auto& dimensions = v->Dimensions();
 					
 					              m_RT.Reinitialise(dimensions.x, dimensions.y);
 					  m_Albedo_gBuffer.Reinitialise(dimensions.x, dimensions.y);
@@ -1336,7 +1335,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 */
 		void Render(const std::vector<std::weak_ptr<Renderer>>& _renderers, const std::vector<std::weak_ptr<Light>>& _lights)  {
 		
-			if (const auto w = m_Window.lock()) {
+			if (const auto v = m_Viewport.lock()) {
 				
 				// Enable culling and depth.
 				glEnable(GL_CULL_FACE);
@@ -1362,7 +1361,7 @@ namespace LouiEriksson::Engine::Graphics {
 				ShadowPass(_renderers, _lights);
 	
 				// Reset resolution after shadow pass.
-				auto dimensions = w->Dimensions();
+				auto dimensions = v->Dimensions();
 				glViewport(0, 0, dimensions[0], dimensions[1]);
 				
 				/* SHADING */
@@ -1718,27 +1717,12 @@ namespace LouiEriksson::Engine::Graphics {
 			glDisable(GL_FRAMEBUFFER_SRGB);
 		}
 		
-		/**
-		* @brief Set the window associated with the camera.
-		*
-		* @param[in] _window The weak pointer to the window.
-		*/
-		inline void SetWindow(const std::weak_ptr<Window>& _window) {
-			
-			if (const auto w = _window.lock()) {
-			w->Link(*this);
-			}
-			else {
-			Debug::Log("Provided Window is invalid!", LogType::Error);
-			}
+		inline void SetViewport(const std::weak_ptr<IViewport<scalar_t, size_t>>& _viewport) {
+			m_Viewport = _viewport;
 		}
 		
-		/**
-		 * @brief Get the window associated with the camera.
-		 * @return The weak pointer to the window.
-		 */
-		[[nodiscard]] constexpr const std::weak_ptr<Window>& GetWindow() const noexcept {
-			return m_Window;
+		inline constexpr const std::weak_ptr<IViewport<scalar_t, size_t>>& GetViewport()const {
+			return m_Viewport;
 		}
 		
 		/**
@@ -1765,8 +1749,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			float result;
 			
-			if (const auto w = m_Window.lock()) {
-				result = w->Aspect();
+			if (const auto v = m_Viewport.lock()) {
+				result = v->Aspect();
 			}
 			else {
 				result = -1.0;
@@ -1874,7 +1858,7 @@ namespace LouiEriksson::Engine::Graphics {
 		inline const glm::mat4& Projection() {
 			
 			// Recalculate the perspective matrix if the camera is dirtied.
-			if (m_IsDirty) {
+			if (IsDirty()) {
 				m_IsDirty = false;
 				
 				m_Projection = glm::perspective(glm::radians(m_FOV), Aspect(), m_NearClip, m_FarClip);
