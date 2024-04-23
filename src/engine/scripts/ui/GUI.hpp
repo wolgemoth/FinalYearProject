@@ -1,12 +1,7 @@
 #ifndef FINALYEARPROJECT_GUI_HPP
 #define FINALYEARPROJECT_GUI_HPP
 
-//#include "../core/Settings.hpp"
-//#include "../core/Time.hpp"
-//#include "../core/utils/Utils.hpp"
 #include "../core/Window.hpp"
-//#include "../input/Cursor.hpp"
-//#include "../input/Input.hpp"
 
 #include <glm/common.hpp>
 

@@ -39,7 +39,7 @@ namespace LouiEriksson::Game::Scripts {
 	protected:
 	
 		/** @inheritdoc */
-		virtual void Begin() override {
+		void Begin() override {
 			
 			if (const auto p =      Parent().lock()) {
 			if (const auto s = p->GetScene().lock()) {
@@ -84,7 +84,7 @@ namespace LouiEriksson::Game::Scripts {
 		}
 	
 		/** @inheritdoc */
-		virtual void FixedTick() override  {
+		void FixedTick() override  {
 		
 			if (const auto p = Parent().lock()) {
 			if (const auto t = p->GetComponent<Transform>().lock()) {
@@ -106,7 +106,7 @@ namespace LouiEriksson::Game::Scripts {
 		}
 		
 		/** @inheritdoc */
-		virtual void OnCollision(const Physics::Collision& _collision) override {
+		void OnCollision(const Physics::Collision& _collision) override {
 			
 			if (const auto  p = Parent().lock()) {
 			if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {

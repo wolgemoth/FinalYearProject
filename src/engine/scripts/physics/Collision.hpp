@@ -3,7 +3,6 @@
 
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
 
-
 namespace LouiEriksson::Engine::Physics {
 	
 	/**

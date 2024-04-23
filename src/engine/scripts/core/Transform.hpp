@@ -3,9 +3,8 @@
 
 #include "../ecs/Component.hpp"
 
-#include <glm/ext/matrix_float4x4.hpp>
-#include <glm/fwd.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 #include <memory>
 #include <typeindex>
@@ -61,7 +60,7 @@ namespace LouiEriksson::Engine {
 			m_Transformation(Transformation::Everything) { }
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Transform); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
 		
 		/**
 		 * @brief Get the given vector (local to this transform) as it exists in world space.

@@ -57,7 +57,7 @@ namespace LouiEriksson::Game::Scripts {
 		glm::vec3 m_Rotation;
 		
 		/** @inheritdoc */
-		virtual void Begin() override {
+		void Begin() override {
 		
 			if (const auto p =      Parent().lock()) {
 			if (const auto s = p->GetScene().lock()) {
@@ -103,7 +103,7 @@ namespace LouiEriksson::Game::Scripts {
 		}
 	
 		/** @inheritdoc */
-		virtual void Tick() override {
+		void Tick() override {
 			
 			// Update the camera's parameters to match the ones in Settings.
 			SyncCameraSettings();

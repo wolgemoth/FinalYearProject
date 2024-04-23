@@ -269,7 +269,7 @@ namespace LouiEriksson::Engine::Physics {
 		
 		explicit Rigidbody(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : ECS::Component(_parent) {}
 	
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Rigidbody); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Rigidbody); };
 		
 		/**
 		 * @brief Interpolates the position and rotation of the Rigidbody

@@ -139,7 +139,7 @@ add_library(FinalYearProject STATIC
         src/game/include/engine_networking.hpp
 )
 
-#target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)
+target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)
 
 # Set libs to compile with release flags and no sanitizers or rtti.
 set(LIB_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -fno-rtti")
@@ -177,6 +177,16 @@ target_link_libraries(FinalYearProject
 add_executable(Game
         src/main.cpp
 
+        src/game/include/engine_audio.hpp
+        src/game/include/engine_core.hpp
+        src/game/include/engine_ecs.hpp
+        src/game/include/engine_graphics.hpp
+        src/game/include/engine_input.hpp
+        src/game/include/engine_networking.hpp
+        src/game/include/engine_physics.hpp
+        src/game/include/engine_spatial.hpp
+        src/game/include/engine_ui.hpp
+
         src/game/Injector.hpp
         src/game/scripts/Ball.hpp
         src/game/scripts/FlyCam.hpp
@@ -186,16 +196,17 @@ add_executable(Game
         src/game/scripts/Spatial/Stars.hpp
 )
 
-#target_precompile_headers(Game PRIVATE
-#        src/game/include/engine_audio.hpp
-#        src/game/include/engine_core.hpp
-#        src/game/include/engine_ecs.hpp
-#        src/game/include/engine_graphics.hpp
-#        src/game/include/engine_input.hpp
-#        src/game/include/engine_physics.hpp
-#        src/game/include/engine_spatial.hpp
-#        src/game/include/engine_ui.hpp
-#)
+target_precompile_headers(Game PRIVATE
+        src/game/include/engine_audio.hpp
+        src/game/include/engine_core.hpp
+        src/game/include/engine_ecs.hpp
+        src/game/include/engine_graphics.hpp
+        src/game/include/engine_input.hpp
+        src/game/include/engine_networking.hpp
+        src/game/include/engine_physics.hpp
+        src/game/include/engine_spatial.hpp
+        src/game/include/engine_ui.hpp
+)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_link_options(Game PRIVATE  -flto=auto -Wl,--strip-all -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)

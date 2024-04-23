@@ -258,7 +258,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		/** @inheritdoc */
-		virtual void Discard() const override  {
+		void Discard() const override  {
 			
 			if (m_FBO_ID != GL_NONE) {
 				RenderTexture::Unbind();

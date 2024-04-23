@@ -11,26 +11,26 @@
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts7Spatial3MapEE</EntryType>
 			</N12LouiEriksson6Engine6ScriptE>
 		</Map>
-		<Planetarium>
-			<N12LouiEriksson6Engine9TransformE>
-				<Position>0 0 0</Position>
-				<Rotation>0 0 0 1</Rotation>
-				<Scale>1 1 1</Scale>
-			</N12LouiEriksson6Engine9TransformE>
-			<N12LouiEriksson6Engine6ScriptE>
-				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts7Spatial11PlanetariumEE</EntryType>
-			</N12LouiEriksson6Engine6ScriptE>
-		</Planetarium>
-		<Stars>
-			<N12LouiEriksson6Engine9TransformE>
-				<Position>0 0 0</Position>
-				<Rotation>0 0 0 1</Rotation>
-				<Scale>1 1 1</Scale>
-			</N12LouiEriksson6Engine9TransformE>
-			<N12LouiEriksson6Engine6ScriptE>
-				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts7Spatial5StarsEE</EntryType>
-			</N12LouiEriksson6Engine6ScriptE>
-		</Stars>
+<!--		<Planetarium>-->
+<!--			<N12LouiEriksson6Engine9TransformE>-->
+<!--				<Position>0 0 0</Position>-->
+<!--				<Rotation>0 0 0 1</Rotation>-->
+<!--				<Scale>1 1 1</Scale>-->
+<!--			</N12LouiEriksson6Engine9TransformE>-->
+<!--			<N12LouiEriksson6Engine6ScriptE>-->
+<!--				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts7Spatial11PlanetariumEE</EntryType>-->
+<!--			</N12LouiEriksson6Engine6ScriptE>-->
+<!--		</Planetarium>-->
+<!--		<Stars>-->
+<!--			<N12LouiEriksson6Engine9TransformE>-->
+<!--				<Position>0 0 0</Position>-->
+<!--				<Rotation>0 0 0 1</Rotation>-->
+<!--				<Scale>1 1 1</Scale>-->
+<!--			</N12LouiEriksson6Engine9TransformE>-->
+<!--			<N12LouiEriksson6Engine6ScriptE>-->
+<!--				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts7Spatial5StarsEE</EntryType>-->
+<!--			</N12LouiEriksson6Engine6ScriptE>-->
+<!--		</Stars>-->
 		<Player>
 			<N12LouiEriksson6Engine6ScriptE>
 				<EntryType>St10shared_ptrIN12LouiEriksson4Game7Scripts6FlyCamEE</EntryType>

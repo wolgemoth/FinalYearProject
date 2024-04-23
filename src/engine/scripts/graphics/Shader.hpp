@@ -11,9 +11,9 @@
 #include "textures/RenderTexture.hpp"
 
 #include <GL/glew.h>
-#include <glm/ext/matrix_float2x2.hpp>
-#include <glm/ext/matrix_float4x4.hpp>
-#include <glm/gtc/type_ptr.hpp>
+
+#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 #include <array>
 #include <filesystem>

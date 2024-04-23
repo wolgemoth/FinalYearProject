@@ -5,17 +5,15 @@
 #include "../core/utils/Hashmap.hpp"
 #include "../graphics/Camera.hpp"
 #include "../graphics/Texture.hpp"
-
 #include "Debug.hpp"
 
 #include <SDL_error.h>
+#include <SDL_keyboard.h>
 #include <SDL_pixels.h>
 #include <SDL_stdinc.h>
 #include <SDL_video.h>
-#include <SDL_keyboard.h>
 
 #include <GL/glew.h>
-
 
 #include <cstddef>
 #include <memory>
@@ -234,7 +232,7 @@ namespace LouiEriksson::Engine {
 			m_IsDirty = true;
 		}
 	
-		virtual bool IsDirty() const override {
+		bool IsDirty() const override {
 			return m_IsDirty;
 		}
 		

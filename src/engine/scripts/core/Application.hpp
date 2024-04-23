@@ -20,6 +20,7 @@
 #include "Window.hpp"
 
 #include <GL/glew.h>
+
 #include <SDL.h>
 #include <SDL_events.h>
 #include <SDL_mouse.h>
@@ -239,7 +240,7 @@ namespace LouiEriksson::Engine {
 					tick_t physics_step = 0.0;
 					
 					// Load a scene and run:
-					s_Scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+					s_Scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
 					s_Scene->Begin();
 					
 					/* LOOP */

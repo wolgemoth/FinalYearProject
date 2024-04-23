@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/** @inheritdoc */
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(SphereCollider); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(SphereCollider); };
 		
 		/**
 		 * @brief Set the radius of the SphereCollider.

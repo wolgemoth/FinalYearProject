@@ -17,7 +17,6 @@
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
 
-
 #include <exception>
 #include <memory>
 
@@ -69,7 +68,7 @@ namespace LouiEriksson::Engine::Physics {
 			}
 			 
 			/** @inheritdoc */
-			virtual ~Debugger() override {
+			~Debugger() override {
 				
 				try {
 					
@@ -84,37 +83,37 @@ namespace LouiEriksson::Engine::Physics {
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			virtual void drawLine(const btVector3 &_from, const btVector3 &_to, const btVector3 &_color) override {
+			void drawLine(const btVector3 &_from, const btVector3 &_to, const btVector3 &_color) override {
 				Debug::Break();
 			}
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			virtual void drawContactPoint(const btVector3 &_PointOnB, const btVector3 &_normalOnB, btScalar _distance, int _lifeTime, const btVector3 &_color) override {
+			void drawContactPoint(const btVector3 &_PointOnB, const btVector3 &_normalOnB, btScalar _distance, int _lifeTime, const btVector3 &_color) override {
 				Debug::Break();
 			}
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			virtual void reportErrorWarning(const char *_warningString) override {
+			void reportErrorWarning(const char *_warningString) override {
 				Debug::Break();
 			}
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			virtual void draw3dText(const btVector3 &_location, const char *_textString) override {
+			void draw3dText(const btVector3 &_location, const char *_textString) override {
 				Debug::Break();
 			}
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			virtual void setDebugMode(int _debugMode) override {
+			void setDebugMode(int _debugMode) override {
 				Debug::Break();
 			}
 			
 			/** @inheritdoc */
 			[[deprecated("Not implemented")]]
-			[[nodiscard]] virtual int getDebugMode() const override {
+			[[nodiscard]] int getDebugMode() const override {
 				
 				Debug::Break();
 				return 0;
@@ -219,9 +218,11 @@ namespace LouiEriksson::Engine::Physics {
 		/** @brief Update the physics simulation by one step. */
 		static void Tick(const tick_t& _step) {
 			
-			s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
+			const tick_t epsilon = 0.0001;
 			
-			if (_step != 0.0) {
+			if (_step > epsilon) {
+				s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
+			
 				s_LastTick = 0.0;
 			}
 		}

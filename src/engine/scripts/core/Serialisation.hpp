@@ -3,8 +3,8 @@
 
 #include "utils/Utils.hpp"
 
-#include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 #include <cereal/archives/xml.hpp>
 

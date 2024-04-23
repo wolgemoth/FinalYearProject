@@ -25,10 +25,10 @@ namespace LouiEriksson::Engine::Physics {
 		explicit PlaneCollider(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Collider(_parent) {};
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(PlaneCollider); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(PlaneCollider); };
 		
 		/** @inheritdoc */
-		virtual void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override {
+		void SetTransform(const std::weak_ptr<Transform> &_transform) noexcept override {
 			
 			Collider::SetTransform(_transform); // Call base function to assign new transform.
 			

@@ -45,9 +45,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					      longitude,
 						  elevation;
 		            
-		            [[nodiscard]] virtual const float&       Lat() const noexcept final { return  latitude; }
-					[[nodiscard]] virtual const float&      Long() const noexcept final { return longitude; }
-					[[nodiscard]] virtual const float& Elevation() const noexcept final { return elevation; }
+		            [[nodiscard]] const float&       Lat() const noexcept final { return  latitude; }
+					[[nodiscard]] const float&      Long() const noexcept final { return longitude; }
+					[[nodiscard]] const float& Elevation() const noexcept final { return elevation; }
 					
 		            explicit Result(json&& _oe_json) :
 						 latitude(_oe_json["latitude" ]),
@@ -95,9 +95,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	                
 	                Location location;
 		            
-		            [[nodiscard]] virtual const float&       Lat() const noexcept final { return location.lat; }
-					[[nodiscard]] virtual const float&      Long() const noexcept final { return location.lng; }
-					[[nodiscard]] virtual const float& Elevation() const noexcept final { return elevation;    }
+		            [[nodiscard]] const float&       Lat() const noexcept final { return location.lat; }
+					[[nodiscard]] const float&      Long() const noexcept final { return location.lng; }
+					[[nodiscard]] const float& Elevation() const noexcept final { return elevation;    }
 					
 		            explicit Result(json&& _otd_json) :
 						  dataset(Utils::As<std::string>(_otd_json["dataset"])),

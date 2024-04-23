@@ -285,7 +285,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
 		/** @inheritdoc */
-		virtual void Begin() override {
+		void Begin() override {
 		
 			if (const auto p =      Parent().lock()) {
 			if (const auto s = p->GetScene().lock()) {
@@ -336,7 +336,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		}
 		
 		/** @inheritdoc */
-		virtual void Tick() override {
+		void Tick() override {
 			
 			const highp_time update_interval = 120.0;
 			

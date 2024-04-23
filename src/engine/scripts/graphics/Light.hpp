@@ -221,7 +221,7 @@ namespace LouiEriksson::Engine::Graphics {
 		}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Light); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Light); };
 		
 		void Type(const Light::Parameters::Type& _type) {
 			
