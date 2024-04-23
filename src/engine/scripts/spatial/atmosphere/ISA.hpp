@@ -4,6 +4,7 @@
 #include <array>
 #include <cstddef>
 #include <exception>
+#include <optional>
 
 namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	
@@ -45,7 +46,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	 * Bernard, M., 2023. International_Standard_Atmosphere/International_Standard_Atmosphere/Algorithm.cs at main · maxbernard3/International_Standard_Atmosphere [online].
 	 * GitHub. Available from: https://github.com/maxbernard3/International_Standard_Atmosphere/blob/main/International_Standard_Atmosphere/Algorithm.cs [Accessed 14 Mar 2024].
 	 */
-	template <typename T>
+	template <typename T = double>
 	class ISA final {
  
 	public:
@@ -70,38 +71,41 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 * @param[in,out] _state The atmospheric state at the given altitude
 		 * @return true if able to calculate, else false
 		 */
-	    static bool TrySolve(const T& _height, State& _state) noexcept {
+	    static std::optional<State> TrySolve(const T& _height) noexcept {
 	
-			bool result = false;
+			std::optional<State> result;
 			
 			try {
 				
-				if (_height <= s_Alt[s_Alt.size() - 2]) {
+				if (_height <= s_Alt[s_Alt.size() - 2U]) {
 				
-					size_t ctr(0);
-				
-					Calculate(_height, _state, ctr);
+					size_t ctr(0U);
+					
+					State state;
+					Calculate(_height, state, ctr);
 					
 					for (size_t i = 0U; i < s_A_Val.size(); ++i) {
 						
 						if (_height > s_Alt[ctr]) {
 		            
-				            if (ctr == 0 || ctr == 3 || ctr == 6) {
-				                Pause(_height, _state, ++ctr);
+				            if (ctr == 0U || ctr == 3U || ctr == 6U) {
+				                Pause(_height, state, ++ctr);
 				            }
 				            else {
-				                Calculate(_height, _state, ++ctr);
+				                Calculate(_height, state, ++ctr);
 				            }
 				        }
 					}
 					
-					result = true;
+					result = state;
 				}
 				else {
 					throw std::runtime_error("Altitude out of range!");
 				}
 			}
 			catch (const std::exception& e) {
+				result = std::nullopt;
+				
 				Debug::Log(e);
 			}
 			
@@ -118,26 +122,26 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		/** @brief Temperature gradient in Kelvin per metre. */
         static constexpr const std::array<T, 8U> s_A_Val {
 			-0.0065,
-			 0,
+			 0.0,
 			 0.0010,
 			 0.0028,
-			 0,
+			 0.0,
 			-0.0028,
 			-0.0020,
-			 0
+			 0.0
 		};
 
 		/** @brief Altitude steps. */
         inline static const std::array<T, 9U> s_Alt {
-			11000,
-			20000,
-			32000,
-			47000,
-			51000,
-			71000,
-			84000,
-			90000,
-			    0
+			11000.0,
+			20000.0,
+			32000.0,
+			47000.0,
+			51000.0,
+			71000.0,
+			84000.0,
+			90000.0,
+			    0.0
 		};
 		
 		/**
@@ -155,8 +159,8 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	        
 	        const float a = s_A_Val[_counter];
 	        
-	        const float t = _counter == 0 ? _state.m_Temperature + a * (x - s_Alt[s_Alt.size() - 1]) :
-					                        _state.m_Temperature + a * (x - s_Alt[    _counter - 1]);
+	        const float t = _counter == 0U ? _state.m_Temperature + a * (x - s_Alt[s_Alt.size() - 1U]) :
+					                         _state.m_Temperature + a * (x - s_Alt[    _counter - 1U]);
 			
 			_state.m_Pressure   *= std::pow(t / _state.m_Temperature, -s_G / (s_R * (a)));
 			_state.m_Density     = _state.m_Pressure / (s_R * t);
@@ -178,8 +182,8 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	        
 	        _state.m_Pressure *= std::pow(
 				s_E,
-				_counter == 0 ? -(s_G * (x - s_Alt[s_Alt.size() - 1])) / (s_R * _state.m_Temperature) :
-								-(s_G * (x - s_Alt[    _counter - 1])) / (s_R * _state.m_Temperature)
+				_counter == 0U ? -(s_G * (x - s_Alt[s_Alt.size() - 1U])) / (s_R * _state.m_Temperature) :
+								 -(s_G * (x - s_Alt[    _counter - 1U])) / (s_R * _state.m_Temperature)
 			),
 			
 			_state.m_Density = _state.m_Pressure / (s_R * _state.m_Temperature);

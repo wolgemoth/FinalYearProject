@@ -8,16 +8,16 @@
 
 namespace LouiEriksson::Engine::Spatial {
 	
-	template <typename T, glm::precision P>
+	template <typename T, glm::precision Q>
 	struct VSOP final {
 	
 		struct Position final {
 			
-			glm::vec<3, T, P> m_Spherical;
-			glm::vec<3, T, P> m_Cartesian;
-			glm::qua<   T, P> m_Rotation;
+			glm::vec<3, T, Q> m_Spherical;
+			glm::vec<3, T, Q> m_Cartesian;
+			glm::qua<   T, Q> m_Rotation;
 			
-			constexpr Position(const glm::vec<3, T, P>& _spherical, const glm::vec<3, T, P>& _cartesian, const glm::vec<3, T, P>& _rotation) noexcept :
+			constexpr Position(const glm::vec<3, T, Q>& _spherical, const glm::vec<3, T, Q>& _cartesian, const glm::vec<3, T, Q>& _rotation) noexcept :
 				m_Spherical(_spherical),
 				m_Cartesian(_cartesian),
 				m_Rotation (_rotation ) {}
@@ -48,7 +48,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -87,15 +87,15 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
 				
 				static Position GetMoon(const Position& _earth, const Position& _emb) {
 					
-					auto e1 = Utils::ChangeHandedness<double, P>(_earth.m_Cartesian);
-					auto e2 = Utils::ChangeHandedness<double, P>(  _emb.m_Cartesian);
+					auto e1 = Utils::ChangeHandedness<double, Q>(_earth.m_Cartesian);
+					auto e2 = Utils::ChangeHandedness<double, Q>(  _emb.m_Cartesian);
 					
 					double tmp[3];
 					
@@ -103,7 +103,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{},
 					};
 				}
@@ -116,7 +116,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -129,7 +129,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -142,7 +142,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -155,7 +155,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}
@@ -168,7 +168,7 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					return {
 						{},
-						{ Utils::ChangeHandedness<T, P>({ tmp[0], tmp[1], tmp[2] }) },
+						{ Utils::ChangeHandedness<T, Q>({ tmp[0], tmp[1], tmp[2] }) },
 						{}
 					};
 				}

@@ -114,8 +114,8 @@ namespace LouiEriksson::Engine::Graphics {
 		    return result;
 		}
 		
-		template<typename T, typename U, glm::precision P = glm::defaultp>
-		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices, const std::vector<glm::vec<3, T, P>>& _normals, const std::vector<glm::vec<2, T, P>>& _uvs, std::array<std::vector<glm::vec<3, T, P>>, 2U> _tangents, const GLenum& _format = GL_TRIANGLES) {
+		template<typename T, typename U, glm::precision Q = glm::defaultp>
+		static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, Q>>& _vertices, const std::vector<U>& _indices, const std::vector<glm::vec<3, T, Q>>& _normals, const std::vector<glm::vec<2, T, Q>>& _uvs, std::array<std::vector<glm::vec<3, T, Q>>, 2U> _tangents, const GLenum& _format = GL_TRIANGLES) {
 			
 			validate_index_format<U>();
 			
@@ -212,10 +212,10 @@ namespace LouiEriksson::Engine::Graphics {
 			return result;
 		}
 		
-		template<typename T, glm::precision P = glm::defaultp>
-		static std::array<std::vector<glm::vec<3, T, P>>, 2U> GenerateTangents(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<glm::vec<2, T, P>>& _uvs) {
+		template<typename T, glm::precision Q = glm::defaultp>
+		static std::array<std::vector<glm::vec<3, T, Q>>, 2U> GenerateTangents(const std::vector<glm::vec<3, T, Q>>& _vertices, const std::vector<glm::vec<2, T, Q>>& _uvs) {
 			
-			auto result = std::array<std::vector<glm::vec<3, T, P>>, 2U>();
+			auto result = std::array<std::vector<glm::vec<3, T, Q>>, 2U>();
 			
 			// https://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
 			
@@ -274,20 +274,20 @@ namespace LouiEriksson::Engine::Graphics {
 			return result;
 		}
 		
-		template<typename T, typename U, glm::precision P = glm::defaultp>
-		static std::vector<glm::vec<3, T, P>> GenerateNormals(const std::vector<glm::vec<3, T, P>>& _vertices, const std::vector<U>& _indices) {
+		template<typename T, typename U, glm::precision Q = glm::defaultp>
+		static std::vector<glm::vec<3, T, Q>> GenerateNormals(const std::vector<glm::vec<3, T, Q>>& _vertices, const std::vector<U>& _indices) {
 			
 			validate_index_format<U>();
 			
-			std::vector<glm::vec<3, T, P>> result(_vertices.size());
+			std::vector<glm::vec<3, T, Q>> result(_vertices.size());
 			
 			if (_vertices.size() >= 3U && _indices.size() >= 3U) {
 				
 				for (size_t i = 0U; i < _indices.size(); i += 3U) {
 					
-					const auto iA =   i  ;
-					const auto iB = i + 1;
-					const auto iC = i + 2;
+					const auto iA =   i   ;
+					const auto iB = i + 1U;
+					const auto iC = i + 2U;
 					
 					const auto idxA = std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1U);
 					const auto idxB = std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1U);
@@ -297,7 +297,8 @@ namespace LouiEriksson::Engine::Graphics {
 			        const auto& v2 = _vertices[idxB];
 			        const auto& v3 = _vertices[idxC];
 			
-			        const auto n = glm::normalize(glm::cross((v2 - v1), (v3 - v1)));
+					const auto c = glm::cross((v2 - v1), (v3 - v1));
+			        const auto n = glm::normalize(c);
 					
 			        result[idxA] += n;
 			        result[idxB] += n;
@@ -317,8 +318,8 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		struct Earcut final {
 			
-			template<typename T, typename U, glm::precision P = glm::defaultp>
-			static std::vector<U> TriangulateXY(const std::vector<glm::vec<2, T, P>>& _polyline) {
+			template<typename T, typename U, glm::precision Q = glm::defaultp>
+			static std::vector<U> TriangulateXY(const std::vector<glm::vec<2, T, Q>>& _polyline) {
 				
 				validate_index_format<U>();
 
@@ -340,8 +341,8 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, typename U, glm::precision P = glm::defaultp>
-			static std::vector<U> TriangulateXY(const std::vector<std::vector<glm::vec<2, T, P>>>& _polygon) {
+			template<typename T, typename U, glm::precision Q = glm::defaultp>
+			static std::vector<U> TriangulateXY(const std::vector<std::vector<glm::vec<2, T, Q>>>& _polygon) {
 				
 				validate_index_format<U>();
 			
@@ -366,8 +367,8 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, typename U, glm::precision P = glm::defaultp>
-			static std::vector<U> TriangulateXZ(const std::vector<glm::vec<3, T, P>>& _polyline) {
+			template<typename T, typename U, glm::precision Q = glm::defaultp>
+			static std::vector<U> TriangulateXZ(const std::vector<glm::vec<3, T, Q>>& _polyline) {
 				
 				validate_index_format<U>();
 			
@@ -389,8 +390,8 @@ namespace LouiEriksson::Engine::Graphics {
 				return mapbox::earcut<U>(polygon);
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp, typename N>
-			static std::vector<N> TriangulateXZ(const std::vector<std::vector<glm::vec<3, T, P>>>& _polygon) {
+			template<typename T, glm::precision Q = glm::defaultp, typename N>
+			static std::vector<N> TriangulateXZ(const std::vector<std::vector<glm::vec<3, T, Q>>>& _polygon) {
 				
 				validate_index_format<N>();
 			
@@ -424,19 +425,19 @@ namespace LouiEriksson::Engine::Graphics {
 			/**
 			* @brief Represents a quad primitive.
 			*/
-			template<typename T, glm::precision P = glm::defaultp>
+			template<typename T, glm::precision Q = glm::defaultp>
 			struct Quad final {
 	
 			private:
 				
 				/** @brief Every screen and texture coordinate for every vertex in the mesh. */
-				static constexpr std::array<glm::vec<4, T, P>, 6U> s_VertexData {
-					glm::vec<4, T, P>( -1.0, -1.0,  0.0,  0.0 ),
-					glm::vec<4, T, P>(  1.0, -1.0,  1.0,  0.0 ),
-					glm::vec<4, T, P>( -1.0,  1.0,  0.0,  1.0 ),
-					glm::vec<4, T, P>( -1.0,  1.0,  0.0,  1.0 ),
-					glm::vec<4, T, P>(  1.0, -1.0,  1.0,  0.0 ),
-					glm::vec<4, T, P>(  1.0,  1.0,  1.0,  1.0 ),
+				static constexpr std::array<glm::vec<4, T, Q>, 6U> s_VertexData {
+					glm::vec<4, T, Q>( -1.0, -1.0,  0.0,  0.0 ),
+					glm::vec<4, T, Q>(  1.0, -1.0,  1.0,  0.0 ),
+					glm::vec<4, T, Q>( -1.0,  1.0,  0.0,  1.0 ),
+					glm::vec<4, T, Q>( -1.0,  1.0,  0.0,  1.0 ),
+					glm::vec<4, T, Q>(  1.0, -1.0,  1.0,  0.0 ),
+					glm::vec<4, T, Q>(  1.0,  1.0,  1.0,  1.0 ),
 				};
 		
 				/** @brief Static instance. */
@@ -478,8 +479,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct Grid final {
 			
-				template<typename T, typename U, glm::precision P = glm::defaultp>
-				static std::shared_ptr<Mesh> Create(const  glm::vec<2, U>& _resolution, const glm::vec<2, T, P>& _size) {
+				template<typename T, typename U, glm::precision Q = glm::defaultp>
+				static std::shared_ptr<Mesh> Create(const  glm::vec<2, U>& _resolution, const glm::vec<2, T, Q>& _size) {
 					
 					validate_index_format<U>();
 					
@@ -497,15 +498,15 @@ namespace LouiEriksson::Engine::Graphics {
 							const U vertex_count = (nX + 1) * (nY + 1);
 							
 						    /* VERTEX DATA */
-						    std::vector<glm::vec<3, T, P>> vertices;
-							std::vector<glm::vec<2, T, P>> uvs;
+						    std::vector<glm::vec<3, T, Q>> vertices;
+							std::vector<glm::vec<2, T, Q>> uvs;
 							
 							vertices.reserve(vertex_count);
 							     uvs.reserve(vertex_count);
 							
-							std::array<std::vector<glm::vec<3, T, P>>, 2U> tangents {
-								std::vector<glm::vec<3, T, P>>(vertex_count, glm::vec<3, T, P>(1, 0, 0)),
-								std::vector<glm::vec<3, T, P>>(vertex_count, glm::vec<3, T, P>(0, 0, 1)),
+							std::array<std::vector<glm::vec<3, T, Q>>, 2U> tangents {
+								std::vector<glm::vec<3, T, Q>>(vertex_count, glm::vec<3, T, Q>(1, 0, 0)),
+								std::vector<glm::vec<3, T, Q>>(vertex_count, glm::vec<3, T, Q>(0, 0, 1)),
 							};
 							
 					        for (U j(0); j <= nY; j++) {
@@ -514,7 +515,7 @@ namespace LouiEriksson::Engine::Graphics {
 								const auto fi = static_cast<float>(i);
 								const auto fj = static_cast<float>(j);
 								
-								const glm::vec<2, T, P> uv {
+								const glm::vec<2, T, Q> uv {
 			                        static_cast<T>(fj / static_cast<float>(nY)),
 									static_cast<T>(fi / static_cast<float>(nX)),
 								};
@@ -556,8 +557,8 @@ namespace LouiEriksson::Engine::Graphics {
 					return result;
 				}
 				
-				template<typename T, typename U, glm::precision P = glm::defaultp>
-				static std::shared_ptr<Mesh> Create(const glm::vec<2, U>& _resolution, const glm::vec<2, T, P>& _size, const Graphics::TextureCPU<T, 1>& _heights) {
+				template<typename T, typename U, glm::precision Q = glm::defaultp>
+				static std::shared_ptr<Mesh> Create(const glm::vec<2, U>& _resolution, const glm::vec<2, T, Q>& _size, const Graphics::TextureCPU<T, 1>& _heights) {
 					
 					validate_index_format<U>();
 					
@@ -575,15 +576,15 @@ namespace LouiEriksson::Engine::Graphics {
 							const U vertex_count = (nX + 1) * (nY + 1);
 							
 						    /* VERTEX DATA */
-						    std::vector<glm::vec<3, T, P>> vertices;
-							std::vector<glm::vec<2, T, P>> uvs;
+						    std::vector<glm::vec<3, T, Q>> vertices;
+							std::vector<glm::vec<2, T, Q>> uvs;
 							
 							vertices.reserve(vertex_count);
 							     uvs.reserve(vertex_count);
 							
-							std::array<std::vector<glm::vec<3, T, P>>, 2U> tangents {
-								std::vector<glm::vec<3, T, P>>(vertex_count, glm::vec<3, T, P>(1, 0, 0)),
-								std::vector<glm::vec<3, T, P>>(vertex_count, glm::vec<3, T, P>(0, 0, 1)),
+							std::array<std::vector<glm::vec<3, T, Q>>, 2U> tangents {
+								std::vector<glm::vec<3, T, Q>>(vertex_count, glm::vec<3, T, Q>(1, 0, 0)),
+								std::vector<glm::vec<3, T, Q>>(vertex_count, glm::vec<3, T, Q>(0, 0, 1)),
 							};
 							
 					        for (U j(0); j <= nY; j++) {
@@ -592,12 +593,12 @@ namespace LouiEriksson::Engine::Graphics {
 								const auto fi = static_cast<float>(i);
 								const auto fj = static_cast<float>(j);
 								
-								const glm::vec<2, T, P> uv {
+								const glm::vec<2, T, Q> uv {
 			                        static_cast<T>(fj / static_cast<float>(nY)),
 									static_cast<T>(fi / static_cast<float>(nX)),
 								};
 								
-								const auto t_offset = static_cast<T>(1.0) / glm::vec<2, T, P>(_heights.Width(), _heights.Height());
+								const auto t_offset = static_cast<T>(1.0) / glm::vec<2, T, Q>(_heights.Width(), _heights.Height());
 									
 						        vertices.emplace_back(
 								    _size.x * (uv.x - static_cast<T>(0.5)),
@@ -645,8 +646,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			struct PointCloud final {
 				
-				template<typename T, typename U, glm::precision P = glm::defaultp>
-				static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, P>>& _vertices) {
+				template<typename T, typename U, glm::precision Q = glm::defaultp>
+				static std::shared_ptr<Mesh> Create(const std::vector<glm::vec<3, T, Q>>& _vertices) {
 					
 					validate_index_format<U>();
 					

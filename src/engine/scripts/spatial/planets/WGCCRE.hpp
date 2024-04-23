@@ -55,8 +55,8 @@ namespace LouiEriksson::Engine::Spatial {
 			return std::cos(std::fmod(_x, static_cast<T>(360.0)) * D2R) * R2D;
 		}
 		
-		template<typename T, glm::precision P = glm::defaultp>
-		static constexpr glm::vec<3, T, P> ToVSOP87(const glm::vec<3, T, P>& _alpha_delta_W) {
+		template<typename T, glm::precision Q = glm::defaultp>
+		static constexpr glm::vec<3, T, Q> ToVSOP87(const glm::vec<3, T, Q>& _alpha_delta_W) {
 			
 			const auto ra = _alpha_delta_W[0];
 			const auto de = _alpha_delta_W[1];
@@ -76,8 +76,8 @@ namespace LouiEriksson::Engine::Spatial {
 		
 	public:
 		
-		template<typename T, glm::precision P = glm::defaultp>
-		static constexpr glm::vec<3, T, P> GetOrientationVSOP87(const std::string_view& _name, const T& _t) {
+		template<typename T, glm::precision Q = glm::defaultp>
+		static constexpr glm::vec<3, T, Q> GetOrientationVSOP87(const std::string_view& _name, const T& _t) {
 			
 			glm::dvec3 result;
 			
@@ -105,8 +105,8 @@ namespace LouiEriksson::Engine::Spatial {
 		 */
 		struct Report_2015 final {
 		
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Sol(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Sol(const double& _t) {
 		
 				const T d = _t * 365250.0;
 				
@@ -117,8 +117,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 		
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Mercury(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Mercury(const double& _t) {
 				
 				const T d = _t * 365250.0;
 				
@@ -140,8 +140,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Venus(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Venus(const double& _t) {
 				
 				const T d = _t * 365250.0;
 				
@@ -152,8 +152,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Mars(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Mars(const double& _t) {
 				
 				const T d = _t * 365250.0;
 				
@@ -180,8 +180,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Jupiter(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Jupiter(const double& _t) {
 			
 				const T d = _t * 365250.0;
 				
@@ -198,8 +198,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Saturn(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Saturn(const double& _t) {
 		
 				const T d = _t * 365250.0;
 				
@@ -210,8 +210,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Uranus(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Uranus(const double& _t) {
 		
 				const T d = _t * 365250.0;
 				
@@ -222,8 +222,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Neptune(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Neptune(const double& _t) {
 		
 				const T d = _t * 365250.0;
 				
@@ -245,8 +245,8 @@ namespace LouiEriksson::Engine::Spatial {
 		 */
 		struct Report_2009 final {
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Earth(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Earth(const double& _t) {
 				
 				const T d = _t * 365250.0;
 				
@@ -257,8 +257,8 @@ namespace LouiEriksson::Engine::Spatial {
 				};
 			}
 			
-			template<typename T, glm::precision P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> Moon(const double& _t) {
+			template<typename T, glm::precision Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> Moon(const double& _t) {
 				
 				const T d = _t * 365250.0;
 				

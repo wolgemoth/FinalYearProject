@@ -40,7 +40,7 @@ namespace LouiEriksson::Engine {
 	/**
 	 * @mainpage Version 1.0.5
 	 * @details Custom Hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial,
-	 *          This implementation requires that your "key" type is compatible with std::hash and that the stored data types are copyable.
+	 *          This implementation requires that your "key" type is compatible with std::fnv1a and that the stored data types are copyable.
 	 * @see Wang, Q. (Harry) (2020). Implementing Your Own HashMap (Explanation + Code). YouTube.
 	 *      Available at: https://www.youtube.com/watch?v=_Q-eNqTOxlE [Accessed 2021].
 	 * @tparam Tk Key type of the Hashmap.
@@ -99,10 +99,10 @@ namespace LouiEriksson::Engine {
 		size_t m_Size;
 		
 		/**
-		 * @brief Calculate the hashcode of a given object using std::hash.
-		 * @param[in] _item Item to calculate hash of.
+		 * @brief Calculate the hashcode of a given object using std::fnv1a.
+		 * @param[in] _item Item to calculate fnv1a of.
 		 * @return Hashcode of _item.
-		 * @throw std::exception If the type of _item is not supported by std::hash.
+		 * @throw std::exception If the type of _item is not supported by std::fnv1a.
 		 */
 		static constexpr size_t GetHashcode(const Tk& _item) {
 			return std::hash<Tk>()(_item);
@@ -498,7 +498,7 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/**
-		 * @brief Retrieves the value associated with the given key from the hash table.
+		 * @brief Retrieves the value associated with the given key from the fnv1a table.
 		 *
 		 * @tparam Tk The type of the key.
 		 * @param[in] _key The key to retrieve the value for.

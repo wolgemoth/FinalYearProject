@@ -166,7 +166,7 @@ namespace LouiEriksson::Engine {
 			}
 			catch (...) {}
 			
-			std::exit(4444);
+			std::exit(343);
 		}
 		
 	public:

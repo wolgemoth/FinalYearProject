@@ -111,7 +111,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 	protected:
 		
-		template<typename T = scalar, glm::precision P = glm::highp>
+		template<typename T = scalar, glm::precision Q = glm::highp>
 		class Planets final {
 		
 		public:
@@ -122,11 +122,11 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 */
 			struct Transform final {
 				
-				typename Engine::Spatial::VSOP<T, P>::Position m_Position;
+				typename Engine::Spatial::VSOP<T, Q>::Position m_Position;
 				
-				glm::qua<T, P> m_Rotation;
+				glm::qua<T, Q> m_Rotation;
 				
-				Transform(const typename VSOP<T, P>::Position& _position, const glm::qua<T, P>& _rotation) :
+				Transform(const typename VSOP<T, Q>::Position& _position, const glm::qua<T, Q>& _rotation) :
 					m_Position(_position),
 					m_Rotation(_rotation) {}
 
@@ -184,8 +184,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 				m_Time = _tt;
 		
-#define POS VSOP<T, P>::V87::A
-#define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, P>
+#define POS VSOP<T, Q>::V87::A
+#define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, Q>
 				
 				auto earth = POS::GetEarth(m_Time);
 				auto moon  = POS::GetMoon(earth, POS::GetEMB(m_Time));
@@ -234,7 +234,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 *
 			 * @return A vector containing the transformations of astronomical objects.
 			 */
-			[[nodiscard]] const std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, P>::Transform>::KeyValuePair> Transforms() const {
+			[[nodiscard]] const std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, Q>::Transform>::KeyValuePair> Transforms() const {
 				return m_Transforms.GetAll();
 			}
 			
@@ -365,8 +365,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		 * @param[in] _t The interpolation factor (0.0 - starting state, 1.0 - ending state)
 		 * @param[in] _origin The point-of-origin for the interpolation (default: "Earth")
 		 */
-		template<typename T = scalar, glm::precision P = glm::highp>
-		void InterpolatePlanets(const Planetarium::Planets<T, P>& _from, const Planetarium::Planets<T, P>& _to, const highp_time& _t, const std::string& _origin = "Earth")  {
+		template<typename T = scalar, glm::precision Q = glm::highp>
+		void InterpolatePlanets(const Planetarium::Planets<T, Q>& _from, const Planetarium::Planets<T, Q>& _to, const highp_time& _t, const std::string& _origin = "Earth")  {
 			
 			using DISTANCE = Maths::Conversions::Distance;
 			
@@ -379,12 +379,12 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 			// Get position of earth to use as a point-of-origin.
 			auto existing_from = _from.TryGetTransform(_origin);
-			auto origin_from = existing_from.has_value() ? *existing_from : typename Planets<T, P>::Transform({}, {});
+			auto origin_from = existing_from.has_value() ? *existing_from : typename Planets<T, Q>::Transform({}, {});
 			
 			auto existing_to = _to.TryGetTransform(_origin);
-			auto origin_to = existing_to.has_value() ? *existing_to : typename Planets<T, P>::Transform({}, {});
+			auto origin_to = existing_to.has_value() ? *existing_to : typename Planets<T, Q>::Transform({}, {});
 		
-			auto origin = Planets<T, P>::Transform::InterpolateTransform(origin_from, origin_to, _t);
+			auto origin = Planets<T, Q>::Transform::InterpolateTransform(origin_from, origin_to, _t);
 		
 			auto positions_from = _from.Transforms();
 			auto positions_to   =   _to.Transforms();
@@ -401,15 +401,15 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 						if (const auto t = go->template GetComponent<Transform>().lock()) {
 							
-							auto interpolated = Planets<T, P>::Transform::InterpolateTransform(from, to, _t);
+							auto interpolated = Planets<T, Q>::Transform::InterpolateTransform(from, to, _t);
 							
 							// Adjust the position and rotation of the planet.
 							t->Position((interpolated.m_Position.m_Cartesian - origin.m_Position.m_Cartesian) * au_to_m * distance_multiplier_au);
 							t->Rotation( interpolated.m_Rotation);
 							
 							// Adjust the scale of the planet.
-							if (const auto scale = Planets<T, P>::s_Scales_AU.Get(name)) {
-								t->Scale(glm::vec<3, T, P>(au_to_m * size_multiplier_au * scale.value()));
+							if (const auto scale = Planets<T, Q>::s_Scales_AU.Get(name)) {
+								t->Scale(glm::vec<3, T, Q>(au_to_m * size_multiplier_au * scale.value()));
 							}
 						}
 					}

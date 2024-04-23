@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <typeindex>
+#include <optional>
 
 #define VEC_ZERO    glm::vec3(0)
 #define VEC_ONE     glm::vec3(1)
@@ -15,7 +16,13 @@
 #define VEC_UP      glm::vec3(0, 1, 0)
 #define VEC_FORWARD glm::vec3(0, 0, 1)
 
-#define QUAT_IDENTITY glm::quat(1, 0, 0, 0)
+#define QUAT_IDENTITY     glm::quat( 1, 0, 0, 0)
+#define QUAT_IDENTITY_NEG glm::quat(-1, 0, 0, 0)
+
+namespace LouiEriksson::Engine::Graphics {
+	
+	class Camera;
+}
 
 namespace LouiEriksson::Engine {
 	
@@ -29,35 +36,31 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		glm::vec3 m_Position; /**< @brief Position of the Transform */
-		glm::quat m_Rotation; /**< @brief Rotation of the Transform */
-		glm::vec3 m_Scale;    /**< @brief    Scale of the Transform */
+		/**
+		 * @brief Position and scale of the transform.
+		 *
+		 * Organised like this:
+		 *     s.x,   0,   0,   0,
+		 *       0, s.y,   0,   0,
+		 *       0,   0, s.z,   0,
+		 *     t.x, t.y, t.z,   1
+		 */
+		glm::mat4 m_TS;
+		glm::mat4 m_TRS;
 		
-		enum Transformation : unsigned char {
-			None       = 0U,
-			Translated = 1U << 0U,
-			Scaled     = 1U << 1U,
-			Rotated    = 1U << 2U,
-			Everything = static_cast<unsigned>(Translated) | static_cast<unsigned>(Scaled) | static_cast<unsigned>(Rotated)
-		};
+		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
+		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
+		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform. */
 		
-		Transformation m_Transformation;
-		
-		[[nodiscard]] constexpr Transformation SetFlag(const Transformation& _other) const {
-		    return static_cast<Transformation>(m_Transformation | static_cast<unsigned char>(_other));
-		}
-		
-		[[nodiscard]] constexpr Transformation GetFlag(const Transformation& _other) const {
-		    return static_cast<Transformation>(m_Transformation & static_cast<unsigned char>(_other));
-		}
+		glm::quat m_Rotation; /**< @brief 'Pending' rotation of the Transform. */
 		
 	public:
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
-			m_Position(VEC_ZERO     ),
-			m_Rotation(QUAT_IDENTITY),
-			m_Scale   (VEC_ONE      ),
-			m_Transformation(Transformation::Everything) { }
+			          m_TS(1.0),
+			         m_TRS(1.0),
+			m_LastRotation(QUAT_IDENTITY),
+			    m_Rotation(QUAT_IDENTITY) {}
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
@@ -67,7 +70,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _vector The vector to transform.
 		 * @return The vector transformed to world space.
 		 */
-		[[nodiscard]] constexpr glm::vec3 ToWorld(const glm::vec3& _vector) const {
+		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const {
 			return _vector * m_Rotation;
 		}
 		
@@ -75,15 +78,12 @@ namespace LouiEriksson::Engine {
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
 		
-		[[nodiscard]] constexpr const glm::vec3& Position() const noexcept {
-			return m_Position;
+		[[nodiscard]] glm::vec3 Position() const noexcept {
+			return m_TS[3];
 		}
 		
 		void Position(const glm::vec3& _position) noexcept {
-			
-			SetFlag(Translated);
-			
-			m_Position = _position;
+			m_TS[3] = glm::vec4(_position, 1.0);
 		}
 		
 		[[nodiscard]] constexpr const glm::quat& Rotation() const noexcept {
@@ -94,30 +94,42 @@ namespace LouiEriksson::Engine {
 			m_Rotation = _rotation;
 		}
 		
-		[[nodiscard]] constexpr const glm::vec3& Scale() const noexcept {
-			return m_Scale;
+		[[nodiscard]] glm::vec3 Scale() const noexcept {
+			return { m_TS[0].x, m_TS[1].y, m_TS[2].z };
 		}
 		
 		void Scale(const glm::vec3& _scale) noexcept  {
-			m_Scale = _scale;
+			m_TS[0].x = _scale.x;
+			m_TS[1].y = _scale.y;
+			m_TS[2].z = _scale.z;
 		}
 		
 		/**
-		 * @brief Get this Transform as a Transform, Rotation, Scale matrix.
+		 * @brief Returns the model / TRS matrix of this transform.
 		 * @return The TRS matrix of the Transform.
 		 */
-		[[nodiscard]] glm::mat4 TRS() const {
+		[[nodiscard]] const glm::mat4& TRS() {
+			return m_TRS;
+		}
+		
+		void RecalculateTRS() {
 			
-			const auto& p = Position();
-			const auto& r = Rotation();
-			const auto& s = Scale();
-			
-			return glm::mat4 {
-				s.x,   0,   0,   0,
-				  0, s.y,   0,   0,
-				  0,   0, s.z,   0,
-				p.x, p.y, p.z,   1
-			} * glm::mat4_cast(glm::inverse(r));
+			if (m_Rotation != QUAT_IDENTITY && m_Rotation != QUAT_IDENTITY_NEG) {
+				
+				if (Position() != m_LastPosition ||
+				    m_Rotation != m_LastRotation ||
+					   Scale() != m_LastScale
+				) {
+					m_LastPosition = Position();
+					m_LastRotation = Rotation();
+					m_LastScale    = Scale();
+					
+					m_TRS = m_TS * glm::mat4_cast(glm::inverse(m_Rotation));
+				}
+			}
+			else {
+				m_TRS = m_TS;
+			}
 		}
 		
 	};

@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_UTILS_HPP
 
 #include "../Debug.hpp"
+#include "stb_image.h"
 
 #include <al.h>
 #include <GL/glew.h>
@@ -16,7 +17,6 @@
 #include <cmath>
 #include <cstddef>
 #include <exception>
-#include <limits>
 #include <optional>
 #include <queue>
 #include <regex>
@@ -291,8 +291,8 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return glm::vec3 The wrapped angle in degrees within the range -180 to 180.
 		 */
-		template <typename T, glm::qualifier P = glm::defaultp>
-		static constexpr glm::vec<3, T, P> WrapAngle(const glm::vec<3, T, P> _degrees) {
+		template <typename T, glm::qualifier Q = glm::defaultp>
+		static constexpr glm::vec<3, T, Q> WrapAngle(const glm::vec<3, T, Q> _degrees) {
 			return {
 				WrapAngle<T>(_degrees.x),
 				WrapAngle<T>(_degrees.y),
@@ -477,8 +477,8 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @return T The signed angle in radians.
 		 */
-		template<typename T, glm::precision P>
-		static constexpr T SignedAngle(glm::vec<3, T, P> _a, glm::vec<3, T, P> _b, glm::vec<3, T, P> _axis) {
+		template<typename T, glm::precision Q>
+		static constexpr T SignedAngle(glm::vec<3, T, Q> _a, glm::vec<3, T, Q> _b, glm::vec<3, T, Q> _axis) {
 						
 		    const auto d = glm::dot  (_a, _b);
 		    const auto p = glm::cross(_a, _b);
@@ -495,23 +495,23 @@ namespace LouiEriksson::Engine {
 		 * of a specified size. It throws an std::runtime_error if the size of the vector
 		 * does not match the size of the array.
 		 *
-		 * @tparam T The type of elements in the vector and array.
-		 * @tparam N The size of the array.
+		 * @tparam _Tp The type of elements in the vector and array.
+		 * @tparam _Nm The size of the array.
 		 * @param[in,out] _vector The vector to be converted.
 		 * @return The resulting array.
 		 * @throws std::runtime_error if the size of the vector does not match the size of the array.
 		 */
-		template<typename T, size_t N>
-		static constexpr std::array<T, N> MoveToArray(const std::vector<T>&& _vector) {
+		template<typename _Tp, size_t _Nm>
+		static constexpr std::array<_Tp, _Nm> MoveToArray(const std::vector<_Tp>&& _vector) {
 			
-			if (_vector.size() != N) {
+			if (_vector.size() != _Nm) {
 				
-				Debug::Log("Vector -> Array size mismatch! (" + std::to_string(_vector.size()) + ", " + std::to_string(N) + ")");
+				Debug::Log("Vector -> Array size mismatch! (" + std::to_string(_vector.size()) + ", " + std::to_string(_Nm) + ")");
 				
 				throw std::runtime_error("Vector -> Array size mismatch!");
 			}
 			
-			std::array<T, N> result;
+			std::array<_Tp, _Nm> result;
 			std::move(
 			    _vector.begin(),
 			    _vector.begin() + std::min(_vector.size(), result.size()),
@@ -529,8 +529,8 @@ namespace LouiEriksson::Engine {
 		 * of the original array. If the original array has fewer elements than the size
 		 * of the vector, only the available elements are moved into the vector.
 		 *
-		 * @tparam T The type of elements in the array.
-		 * @tparam N The size of the array.
+		 * @tparam _Tp The type of elements in the array.
+		 * @tparam _Nm The size of the array.
 		 * @param[in,out] _array The std::array whose elements are to be moved to the std::vector.
 		 * @return std::vector<T> The resulting std::vector with moved elements.
 		 *
@@ -538,11 +538,11 @@ namespace LouiEriksson::Engine {
 		 * or equal to the maximum value of size_t. If this condition is not met, a
 		 * static_assert will be triggered.
 		 */
-		template<typename T, size_t N>
-		static constexpr std::vector<T> MoveToVector(const std::array<T, N>&& _array) {
+		template<typename _Tp, size_t _Nm>
+		static constexpr std::vector<_Tp> MoveToVector(const std::array<_Tp, _Nm>&& _array) {
 			
-			std::vector<T> result;
-		    result.reserve(N);
+			std::vector<_Tp> result;
+		    result.reserve(_Nm);
 			
 		    std::move(_array.begin(), _array.end(), std::back_inserter(result));
 					
@@ -557,12 +557,12 @@ namespace LouiEriksson::Engine {
 		 * be more efficient than copying elements individually.
 		 * After the move, the source vector will be empty.
 		 *
-		 * @tparam T The type of elements in the vectors.
+		 * @tparam _Tp The type of elements in the vectors.
 		 * @param[in] _from The source vector from which elements will be moved.
 		 * @param[in] _to The destination vector to which elements will be moved.
 		 */
-		template<typename T>
-		static constexpr void MoveInto(std::vector<T>&& _from, std::vector<T>& _to) {
+		template<typename _Tp>
+		static constexpr void MoveInto(std::vector<_Tp>&& _from, std::vector<_Tp>& _to) {
 			
 			_to.reserve(_from.size());
 			
@@ -581,7 +581,7 @@ namespace LouiEriksson::Engine {
 	     * This function copies all the elements from the source vector `_from` to the destination vector `_to`.
 	     * The elements are added to the end of the destination vector in the same order as they appear in the source vector.
 	     *
-	     * @tparam T The type of elements in the vector.
+	     * @tparam _Tp The type of elements in the vector.
 	     * @param[in] _from The source vector containing elements to be copied.
 	     * @param[in,out] _to The destination vector to which the elements will be copied.
 	     *
@@ -590,8 +590,8 @@ namespace LouiEriksson::Engine {
 	     *
 	     * @see std::vector
 	     */
-		template<typename T>
-		static constexpr void CopyInto(const std::vector<T>& _from, std::vector<T>& _to) {
+		template<typename _Tp>
+		static constexpr void CopyInto(const std::vector<_Tp>& _from, std::vector<_Tp>& _to) {
 		
 			_to.reserve(_from.size());
 			
@@ -612,8 +612,8 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _vec The input vector.
 		 * @return The new vector with changed handedness.
 		 */
-		template<typename T, glm::precision P>
-		static constexpr glm::vec<3, T, P> ChangeHandedness(const glm::vec<3, T, P>& _vec) {
+		template<typename T, glm::precision Q>
+		static constexpr glm::vec<3, T, Q> ChangeHandedness(const glm::vec<3, T, Q>& _vec) {
 			return { -_vec.x, _vec.z, _vec.y };
 		}
 		

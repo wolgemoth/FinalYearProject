@@ -123,10 +123,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		struct GPS final {
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<4, T, P> GPSToBounds(const glm::vec<3, T, P>& _coord, const T& _sizeKm) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<4, T, Q> GPSToBounds(const glm::vec<3, T, Q>& _coord, const T& _sizeKm) {
 		
-		        glm::vec<4, T, P> result;
+		        glm::vec<4, T, Q> result;
 		
 		        if (_sizeKm != 0) {
 		
@@ -152,8 +152,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        return result;
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> GPSToCartesian(const glm::vec<3, T, P>& _coord) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> GPSToCartesian(const glm::vec<3, T, Q>& _coord) {
 				
 				return SphereToCartesian({
 					_coord.x * Conversions::Rotation::s_DegreesToRadians,
@@ -162,17 +162,16 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				});
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::ivec2 GPSToPixel(const glm::vec<2, T, P>& _coord) {
-				
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<2, size_t, Q> GPSToPixel(const glm::vec<2, T, Q>& _coord) {
 		        return {
 					WGS84::LongitudeToX(_coord.y),
 					WGS84:: LatitudeToY(_coord.x)
 				};
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<2, T, Q> GPSToUV(const glm::vec<2, T, Q>& _coord) {
 				
 				return {
 						   WGS84::LongitudeToX(_coord.y) / static_cast<T>(180.0 ),
@@ -180,8 +179,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				};
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<2, T, P> GPSToUV(const glm::vec<2, T, P>& _coord, const glm::vec<4, T, P>& _bounds) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<2, T, Q> GPSToUV(const glm::vec<2, T, Q>& _coord, const glm::vec<4, T, Q>& _bounds) {
 		
 		        return {
 		            Utils::Remap(_coord.y, _bounds.y, _bounds.w, static_cast<T>(0.0), static_cast<T>(1.0)),
@@ -189,8 +188,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        };
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> GPSToSphere(const glm::vec<3, T, P>& _coord) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> GPSToSphere(const glm::vec<3, T, Q>& _coord) {
 				
 		        T phi(_coord.x * Conversions::Rotation::s_DegreesToRadians);
 		        T the(_coord.y * Conversions::Rotation::s_DegreesToRadians);
@@ -201,15 +200,15 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        T cThe(std::cos(the));
 		        T sThe(std::sin(the));
 		        
-		        return glm::vec<3, T, P> {
+		        return glm::vec<3, T, Q> {
 		            cPhi * cThe * rho,
 		            sPhi * rho,
 		            cPhi * sThe * rho
 		        };
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> PixelToGPS(const glm::vec<2, size_t>& _coord) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> PixelToGPS(const glm::vec<2, size_t>& _coord) {
 				
 		        return {
 					WGS84::XToLongitude(static_cast<T>(_coord.x)),
@@ -218,8 +217,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				};
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> PixelToGPS(const glm::vec<2, size_t>& _xy, const glm::vec<2, size_t>& _dimensions, const glm::vec<4, T, P>& _bounds) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> PixelToGPS(const glm::vec<2, size_t>& _xy, const glm::vec<2, size_t>& _dimensions, const glm::vec<4, T, Q>& _bounds) {
 				
 		        return {
 		            glm::mix(_bounds.x, _bounds.z, static_cast<T>(_xy.y) / static_cast<T>(_dimensions.y - 1U)),
@@ -228,23 +227,23 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		        };
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> SphereToCartesian(const glm::vec<3, T, P>& _radians) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> SphereToCartesian(const glm::vec<3, T, Q>& _radians) {
 				
 		        T cPhi(std::cos(_radians.x));
 		        T sPhi(std::sin(_radians.x));
 		        T cThe(std::cos(_radians.y));
 		        T sThe(std::sin(_radians.y));
 		        
-		        return glm::vec<3, T, P> {
+		        return glm::vec<3, T, Q> {
 		            cPhi * cThe * _radians.z,
 		            cPhi * sThe * _radians.z,
 		            sPhi *        _radians.z
 		        };
 			}
 			
-			template<typename T = scalar_t, glm::qualifier P = glm::defaultp>
-			static constexpr glm::vec<3, T, P> UVToGPS(const glm::vec<2, T, P>& _uv) {
+			template<typename T = scalar_t, glm::qualifier Q = glm::defaultp>
+			static constexpr glm::vec<3, T, Q> UVToGPS(const glm::vec<2, T, Q>& _uv) {
 				
 				return {
 					WGS84::XToLongitude(_uv.x * static_cast<T>(180.0)),
