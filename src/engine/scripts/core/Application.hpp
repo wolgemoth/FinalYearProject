@@ -240,13 +240,15 @@ namespace LouiEriksson::Engine {
 					tick_t physics_step = 0.0;
 					
 					// Load a scene and run:
-					s_Scene = ECS::Scene::Load("levels/gep.scene", _initialisers);
+					s_Scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 					s_Scene->Begin();
 					
 					/* LOOP */
 					while (!Application::s_Quit) {
 						
 						try {
+							
+							Debug::Log(std::to_string(Audio::Sound::CurrentStreams()));
 							
 							// Get the beginning of the frame for timing purposes.
 							const auto frame_start = std::chrono::high_resolution_clock::now();

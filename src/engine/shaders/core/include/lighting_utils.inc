@@ -141,12 +141,12 @@
 
             vec3 offset = normalize(Random3S(_dir + vec3(i + 1), fract(_seed), 0.1));
 
-            offset *= _texelSize * _radius * multiplier * Random1U(_dir.xy + vec2(i + 1), fract(_seed), 0.4);
+            offset *= _texelSize * _radius * multiplier;
 
             result += ShadowCalculationHard3D(_shadowMap, _dir, offset, _bias, _lightRange);
         }
 
-        return result / _samples;
+        return result / float(_samples);
     }
 
     float ShadowCalculationPCSS3D(in samplerCube _shadowMap, in vec3 _dir, in  float _texelSize, in float _bias, in float _lightRange,  in float _lightSize, in float _seed, in int _samples) {
@@ -251,12 +251,12 @@
 
             vec2 dir = normalize(Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1));
 
-            dir *= _texelSize * _radius * (float(i + 1) / float(_samples));
+            dir *= _texelSize * _radius;
 
             result += ShadowCalculationHard2D(_shadowMap, _fragPos, dir, _bias);
         }
 
-        return result / _samples;
+        return result / float(_samples);
     }
 
     float ShadowCalculationPCSS2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _nearClip, in float _lightAngle, in float _lightSize, in float _seed, in int _samples) {

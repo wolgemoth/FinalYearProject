@@ -161,6 +161,9 @@ namespace LouiEriksson::Engine::Audio {
 		 */
 		ALuint m_Source;
 		
+		/** Whether or not the AudioSource is playing. */
+		bool m_Playing;
+		
 		/** @brief Parameters of the source. */
 		Parameters m_Parameters;
 		
@@ -172,6 +175,11 @@ namespace LouiEriksson::Engine::Audio {
 		
 		/** @brief Synchronise the AudioSource with the internal audio engine. */
 		void Sync() {
+			
+			// Automatically decrease the number of current streams if the source stopped playing.
+			if (m_Playing && State() != AL_PLAYING) {
+				DecrementPlayCount();
+			}
 			
 			// TODO: Some sort of caching so these values aren't changed unnecessarily.
 			
@@ -260,6 +268,22 @@ namespace LouiEriksson::Engine::Audio {
 			}
 		}
 		
+		void IncrementPlayCount() {
+		
+			if (!m_Playing) {
+				m_Playing = true;
+				Sound::s_CurrentStreams++;
+			}
+		}
+		
+		void DecrementPlayCount() {
+	
+			if (m_Playing) {
+				m_Playing = false;
+				Sound::s_CurrentStreams--;
+			}
+		}
+		
 		/**
 		 * @brief Play the Clip without positional audio.
 		 *
@@ -337,9 +361,10 @@ namespace LouiEriksson::Engine::Audio {
 	public:
 		
 		explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
-			m_Source      (static_cast<ALuint>(AL_NONE)),
-			m_Parameters  (),
-			m_LastPosition(0.0)
+			m_Source         (static_cast<ALuint>(AL_NONE)),
+			m_Parameters     (),
+			m_Playing        (false),
+			m_LastPosition   (0.0)
 		{
 			try {
 				
@@ -389,7 +414,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * If set to true and the buffer is not available, the clip will be played globally using a fallback method.
 		 * If set to false and the buffer is not available, no playback will occur.
 		 */
-		void Play(const bool& _allowFallback = true) const {
+		void Play(const bool& _allowFallback = true) {
 		
 			try {
 				
@@ -411,8 +436,8 @@ namespace LouiEriksson::Engine::Audio {
 							}
 							else {
 								throw std::runtime_error(
-										"Cannot play audio clip since m_ALBuffer == AL_NONE, "
-										"and permission to use a fallback is denied!\n"
+									"Cannot play audio clip since m_ALBuffer == AL_NONE, "
+									"and permission to use a fallback is denied!\n"
 								);
 							}
 						}
@@ -421,9 +446,14 @@ namespace LouiEriksson::Engine::Audio {
 							// If already playing, nothing needs to be done.
 							if (State() != AL_PLAYING) {
 								
-								// Play!
-								alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
-								alSourcePlay(m_Source);
+								// Restrict number of audio source playing at once.
+								if (Sound::CurrentStreams() < Sound::MaxVoices()) {
+									
+									// Play!
+									alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
+									alSourcePlay(m_Source);
+									IncrementPlayCount();
+								}
 							}
 							else {
 								throw std::runtime_error("Attempted to call Play() on an AudioSource that is already playing.");
@@ -444,10 +474,16 @@ namespace LouiEriksson::Engine::Audio {
 		}
 		
 		/** @brief Pause this AudioSource. */
-		void Pause() const { alSourcePause(m_Source); }
+		void Pause() {
+			alSourcePause(m_Source);
+			DecrementPlayCount();
+		}
 		
 		/** @brief Stop this AudioSource. */
-		void Stop() const { alSourceStop(m_Source); }
+		void Stop() {
+			alSourceStop(m_Source);
+			DecrementPlayCount();
+		}
 		
 		/**
 		 * @brief Sets the AudioClip for the AudioSource.

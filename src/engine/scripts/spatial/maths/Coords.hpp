@@ -174,8 +174,8 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			static constexpr glm::vec<2, T, Q> GPSToUV(const glm::vec<2, T, Q>& _coord) {
 				
 				return {
-						   WGS84::LongitudeToX(_coord.y) / static_cast<T>(180.0 ),
-					1.0 - (WGS84:: LatitudeToY(_coord.x) / static_cast<T>( 90.0))
+					 (WGS84::LongitudeToX(_coord.y) / static_cast<T>(180.0)),
+					((WGS84:: LatitudeToY(_coord.x) / static_cast<T>( 90.0)) + static_cast<T>(1.0)) / static_cast<T>(2.0)
 				};
 			}
 			
@@ -184,7 +184,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		        return {
 		            Utils::Remap(_coord.y, _bounds.y, _bounds.w, static_cast<T>(0.0), static_cast<T>(1.0)),
-		            Utils::Remap(_coord.x, _bounds.x, _bounds.z, static_cast<T>(1.0), static_cast<T>(0.0))
+		            Utils::Remap(_coord.x, _bounds.x, _bounds.z, static_cast<T>(0.0), static_cast<T>(1.0))
 		        };
 			}
 			

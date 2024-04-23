@@ -13,7 +13,13 @@
 #include <stdexcept>
 
 namespace LouiEriksson::Engine::Audio {
-
+	
+	/**
+	 * @class Sound
+	 * @brief The Sound class provides a set of static functions for initializing and managing the audio subsystem.
+	 *
+	 * The Sound class provides a set of static functions for initializing and managing the audio subsystem. It allows you to initialize the audio subsystem, set the distance model, doppler factor, and speed of sound used by the audio engine, and dispose of the audio subsystem when it is no longer needed.
+	 */
 	class Sound final {
 	
 		friend class AudioSource;
@@ -32,11 +38,17 @@ namespace LouiEriksson::Engine::Audio {
 		inline static ALCcontext* s_Context { nullptr };
 		
 		/**
-		 * @brief A static member representing the currently opened audio device ID when using the SDL fallback.
+		 * @brief The currently opened audio device ID when using the SDL fallback.
 		 * @details This is used as a fallback option for audio output when the OpenAL Soft device (s_Device) can't be used.
 		 * @see s_Device for the OpenAL Soft device equivalent.
 		 */
 		inline static unsigned int s_SDL_Device { 0U };
+		
+		/** @brief Maximum number of voices or audio streams that can play simultaneously. */
+		inline static size_t s_MaxVoices { 128U };
+		
+		/** @brief Current number of audio streams playing. */
+		inline static size_t s_CurrentStreams { 0U };
 		
 	public:
 		
@@ -107,6 +119,38 @@ namespace LouiEriksson::Engine::Audio {
 			catch (const std::exception& e) {
 				Debug::Log(e);
 			}
+		}
+		
+		/**
+		 * @brief Set the maximum number of voices or audio streams that can play simultaneously.
+		 *
+		 * This function sets the maximum number of voices or audio streams that can play simultaneously.
+		 * It determines the maximum capacity of the audio engine for playing sounds at the same time.
+		 *
+		 * @param[in] _value The maximum number of voices to be set.
+		 */
+		static void MaxVoices(const size_t& _value) {
+			s_MaxVoices = _value;
+		}
+		
+		/**
+		 * @brief Gets the maximum number of voices.
+		 *
+		 * This function returns the maximum number of voices available.
+		 *
+		 * @return The maximum number of voices.
+		 */
+		static constexpr const size_t& MaxVoices() {
+			return s_MaxVoices;
+		}
+		
+		/**
+		 * @fn static constexpr const size_t& Sound::CurrentStreams()
+		 * @brief Get the current number of audio streams playing.
+		 * @return The current number of audio streams playing.
+		 */
+		static constexpr const size_t& CurrentStreams() {
+			return s_CurrentStreams;
 		}
 		
 		/**

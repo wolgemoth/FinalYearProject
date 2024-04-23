@@ -113,7 +113,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								if (elements.size() == ATHYG_VERSION::s_ElementCount) {
 									
-									const auto star = ATHYG_VERSION((Utils::MoveToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
+									const auto star = ATHYG_VERSION((Utils::ToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
 									
 									if (*star.mag <= _threshold_magnitude) {
 										result.emplace_back(*star.x0, *star.y0, *star.z0);

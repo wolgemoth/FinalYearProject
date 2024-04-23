@@ -502,7 +502,7 @@ namespace LouiEriksson::Engine {
 		 * @throws std::runtime_error if the size of the vector does not match the size of the array.
 		 */
 		template<typename _Tp, size_t _Nm>
-		static constexpr std::array<_Tp, _Nm> MoveToArray(const std::vector<_Tp>&& _vector) {
+		static constexpr std::array<_Tp, _Nm> ToArray(const std::vector<_Tp>&& _vector) {
 			
 			if (_vector.size() != _Nm) {
 				
@@ -539,7 +539,7 @@ namespace LouiEriksson::Engine {
 		 * static_assert will be triggered.
 		 */
 		template<typename _Tp, size_t _Nm>
-		static constexpr std::vector<_Tp> MoveToVector(const std::array<_Tp, _Nm>&& _array) {
+		static constexpr std::vector<_Tp> ToVector(const std::array<_Tp, _Nm>&& _array) {
 			
 			std::vector<_Tp> result;
 		    result.reserve(_Nm);

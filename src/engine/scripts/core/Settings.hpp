@@ -163,9 +163,9 @@ namespace LouiEriksson::Engine {
 					"8196"
 				};
 				
-				inline static int s_CurrentShadowResolutionSelection { 3 };
+				inline static int s_CurrentShadowResolutionSelection { 5 };
 				
-				inline static int s_ShadowSamples { 12 };
+				inline static int s_ShadowSamples { 64 };
 				
 				inline static scalar_t s_ShadowBias       { 0.01 };
 				inline static scalar_t s_ShadowNormalBias { 0.02 };
@@ -190,7 +190,6 @@ namespace LouiEriksson::Engine {
 				inline static  scalar_t s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
 			
 			};
-			
 		};
 		
 		/** @brief Container for the settings of the application's post-processing effects. */
@@ -250,11 +249,11 @@ namespace LouiEriksson::Engine {
 					
 					inline static bool s_Enabled { true };
 					
-					inline static scalar_t s_MinEV        {  0.2 };
-					inline static scalar_t s_MaxEV        {  4.0 };
-					inline static scalar_t s_Compensation { -0.2 };
-					inline static scalar_t s_SpeedDown    {  1.0 };
-					inline static scalar_t s_SpeedUp      {  1.0 };
+					inline static scalar_t s_MinEV        { 0.2 };
+					inline static scalar_t s_MaxEV        { 4.0 };
+					inline static scalar_t s_Compensation { 0.0 };
+					inline static scalar_t s_SpeedDown    { 1.0 };
+					inline static scalar_t s_SpeedUp      { 1.0 };
 					
 					static bool IsActiveAndEnabled() noexcept {
 						return Settings::PostProcessing::ToneMapping::s_Enabled && s_Enabled && s_MinEV < s_MaxEV && s_MaxEV > 0.0;
