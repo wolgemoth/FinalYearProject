@@ -2,7 +2,9 @@
 #define FINALYEARPROJECT_DEBUG_HPP
 
 #include <chrono>
+#include <cstdlib>
 #include <ctime>
+#include <memory>
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 
@@ -20,10 +22,17 @@
 #include <string_view>
 #include <thread>
 #include <unordered_map>
+#include <vector>
 
-#ifdef _WIN32
+#if __linux__ || __APPLE__
+	
+	#include <execinfo.h>
+
+#elif _WIN32
+
 	#include <windows.h>
 	#include <intrin.h>
+
 #endif
 
 /* Debugging assertions and traps
@@ -148,6 +157,38 @@ namespace LouiEriksson::Engine {
 			return result;
 		}
 		
+		static void Multiplatform(const std::string_view& _message, const LogType& _type, const bool& _inline) {
+	
+#ifdef __linux__
+			try {
+	            Print::ANSI(_message, _type, _inline);
+			}
+			catch (const std::exception& e) {
+				Print::Fallback(_message, _type, _inline);
+				throw e;
+			}
+#elif _WIN32
+			try {
+	            Print::WIN32(_message, _type, _inline);
+			}
+			catch (const std::exception& e) {
+				Print::Fallback(_message, _type, _inline);
+				throw e;
+			}
+#elif __APPLE__
+			try {
+	            Print::ANSI(_message, _type, _inline);
+			}
+			catch (const std::exception& e) {
+				Print::Fallback(_message, _type, _inline);
+				throw e;
+			}
+#else
+			Print::Fallback(_message, _type, _inline);
+#endif
+		
+		}
+		
 		static void Fallback(const std::string_view& _message, const LogType& _type, const bool& _inline) {
 			
 			std::cout << Print::ToString(_type) << ": " << _message;
@@ -248,7 +289,7 @@ namespace LouiEriksson::Engine {
 					std::cout << ANSI_BG_WHITE << ANSI_BLACK << _message << ANSI_RESET;
 					
 					if (_inline) {
-						std::cout << std::flush;
+						std::cout << '\n';
 					}
 					else {
 						std::cout << std::endl;
@@ -388,7 +429,7 @@ namespace LouiEriksson::Engine {
 	                            SetConsoleTextAttribute(h, previous_attr);
 								
 								if (_inline) {
-									std::cout << std::flush;
+									std::cout << '\n';
 								}
 								else {
 									std::cout << std::endl;
@@ -591,6 +632,8 @@ namespace LouiEriksson::Engine {
 			
 			const std::lock_guard<std::mutex> guard(s_Lock);
 			
+			static constexpr size_t max_frames = 10;
+			
 			try {
 				try {
 					
@@ -617,43 +660,34 @@ namespace LouiEriksson::Engine {
 						header += "[" + std::to_string(meta.m_ThreadID) + "] ";
 					}
 					
-					/*
-					 * Append message to header, and print.
-					 */
-					const auto msg = header + _message.data();
+					// Print log to console:
+					Print::Multiplatform(header + _message.data(), _type, _inline);
 					
-#ifdef __linux__
-					try {
-			            Print::ANSI(msg, _type, _inline);
+					// Add trace information:
+					if (_type == LogType::Trace || _type == LogType::Critical) {
+						
+						// Start trace on new line always.
+						if (s_LastLog.m_Inline) {
+							std::cout << "\n";
+						}
+						
+						auto trace = StackTrace(max_frames);
+						for (size_t i = 0; i < trace.size(); ++i) {
+							
+							// Indent each trace:
+							for (size_t j = 0; j < i; ++j) {
+								std::cout << '\t';
+							}
+							
+							Print::Multiplatform(trace[i], LogType::Trace, false);
+						}
+						
+						// Flush the console.
+						std::cout << std::flush;
 					}
-					catch (const std::exception& e) {
-						Print::Fallback(msg, _type, _inline);
-						throw e;
-					}
-#elif _WIN32
-					try {
-			            Print::WIN32(msg, _type, _inline);
-					}
-					catch (const std::exception& e) {
-						Print::Fallback(msg, _type, _inline);
-						throw e;
-					}
-#elif __APPLE__
-					try {
-			            Print::ANSI(msg, _type, _inline);
-					}
-					catch (const std::exception& e) {
-						Print::Fallback(_message, _type, _inline);
-						throw e;
-					}
-#else
-					Print::Fallback(msg, _type, _inline);
-#endif
 
 #if !defined(NDEBUG) || _DEBUG
-					if (_type == LogType::Critical) {
-						Break();
-					}
+					if (_type == LogType::Critical) { Break(); }
 #endif
 					s_LastLog = meta;
 					
@@ -665,6 +699,39 @@ namespace LouiEriksson::Engine {
 			catch (...) {}
 		}
 		
+		static std::vector<std::string> StackTrace(const size_t& _frames) {
+
+			std::vector<std::string> result;
+			
+			try {
+			
+	#if __linux__ || __APPLE__
+				
+				// Capture stack frames:
+				void* array[_frames];
+				auto frames = backtrace(array, _frames);
+				
+				// Convert addresses into an array of human-readable strings
+				const std::unique_ptr<char*, void(*)(void*)> strings(backtrace_symbols(array, frames), std::free);
+				
+				for (int i = 0; i < frames; ++i) {
+				    result.emplace_back(strings.get()[i]);
+				}
+				
+				if (result.size() == _frames) {
+					result.emplace_back("...");
+				}
+	#else
+				Debug::Log("Stack trace support not been implemented for this platform!", LogType::Warning);
+	#endif
+			
+			}
+			catch (const std::exception& e) {
+				Log(e);
+			}
+			
+			return result;
+		}
 	};
 	
 } // LouiEriksson::Engine
