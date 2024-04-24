@@ -166,7 +166,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					Debug::Log("Done.", LogType::Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Info);
+					Debug::Log("Failed.", LogType::Error);
 					Debug::Log(e);
 					Debug::Break();
 				}

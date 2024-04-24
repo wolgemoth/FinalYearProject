@@ -191,7 +191,7 @@ namespace LouiEriksson::Engine {
 			const auto glError = glGetError();
 			if ((glError != static_cast<unsigned>(GL_NONE)) && !_silent) {
 				
-				std::stringstream ss;
+				std::ostringstream ss;
 				ss << "OpenGL Error [" << glError << "]: \"" <<
 					glewGetErrorString(glError) << "\"";
 				
@@ -210,7 +210,7 @@ namespace LouiEriksson::Engine {
 			const auto* const sdlError = SDL_GetError();
 			if (sdlError != nullptr && *sdlError != '\0') {
 				
-				std::stringstream ss;
+				std::ostringstream ss;
 				ss << "SDL Error \"" << sdlError << "\"";
 				
 				Debug::Log(ss.str(), LogType::Error);

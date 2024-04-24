@@ -47,7 +47,7 @@ namespace LouiEriksson::Engine::Networking {
 				
 				[[nodiscard]] std::istringstream ToStream() const {
 					
-					std::stringstream ss;
+					std::ostringstream ss;
 					
 					for (const auto& item : m_Raw) {
 						ss << item;

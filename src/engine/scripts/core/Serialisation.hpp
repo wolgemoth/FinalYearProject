@@ -71,7 +71,7 @@ namespace LouiEriksson::Engine {
 	
 		static std::string Serialise(const glm::vec3& _value, const Format& _method = Format::XML) {
 		
-			std::stringstream result;
+			std::ostringstream result;
 		
 			if (_method == Format::XML) {
 				result << _value.x << " " << _value.y << " " << _value.z;
@@ -85,7 +85,7 @@ namespace LouiEriksson::Engine {
 	
 		static std::string Serialise(const glm::quat& _value, const Format& _method = Format::XML) {
 		
-			std::stringstream result;
+			std::ostringstream result;
 		
 			if (_method == Format::XML) {
 				result << _value.x << " " << _value.y << " " << _value.z << " " << _value.w;

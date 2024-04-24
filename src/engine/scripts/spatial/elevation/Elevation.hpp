@@ -128,7 +128,7 @@ namespace LouiEriksson::Engine::Spatial {
 			        auto message = Networking::Requests::Client("https://api.open-elevation.com/api/v1/lookup");
 					message.Set(CURLOPT_TIMEOUT, timeout);
 					
-			        std::stringstream ss;
+			        std::ostringstream ss;
 			        
 			        ss << "{\"locations\":[";
 			        
@@ -194,7 +194,7 @@ namespace LouiEriksson::Engine::Spatial {
 			        const size_t maxRequestSize = 100U;
 			        for (size_t i = 0U; i < _request.size(); i += maxRequestSize) {
 			
-			            std::stringstream ss;
+			            std::ostringstream ss;
 			
 			            ss << R"({"locations": ")";
 			

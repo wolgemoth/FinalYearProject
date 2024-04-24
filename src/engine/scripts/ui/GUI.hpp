@@ -114,7 +114,7 @@ namespace LouiEriksson::Engine::UI {
 					
 					// Create dynamically changing window title using the ### operator:
 					{
-						std::stringstream title;
+						std::ostringstream title;
 						title << std::fixed << std::setprecision(2)
 						      << "Diagnostics ("
 							  <<           avg_fps << " fps, "
@@ -251,7 +251,7 @@ namespace LouiEriksson::Engine::UI {
 							// Add a label:
 							{
 								// Format the label string in advance and use this to calculate its size.
-								std::stringstream label;
+								std::ostringstream label;
 								label << std::fixed << std::setprecision(1)
 								      << "-" << Time::Elapsed() - t << " s";
 								
@@ -323,7 +323,7 @@ namespace LouiEriksson::Engine::UI {
 						// Add a label:
 						{
 							// Format the label string in advance and use this to calculate its size.
-							std::stringstream label;
+							std::ostringstream label;
 							label << std::fixed << std::setprecision(1) << avg_fps << " fps";
 							
 							auto textSize = ImGui::CalcTextSize(label.str().c_str());

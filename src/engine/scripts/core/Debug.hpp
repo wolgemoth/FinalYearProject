@@ -1,6 +1,8 @@
 #ifndef FINALYEARPROJECT_DEBUG_HPP
 #define FINALYEARPROJECT_DEBUG_HPP
 
+#include <chrono>
+#include <ctime>
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 
@@ -8,9 +10,16 @@
 #pragma ide diagnostic ignored "performance-avoid-endl"
 
 #include <csignal>
+#include <cstddef>
 #include <exception>
+#include <iomanip>
 #include <iostream>
+#include <mutex>
+#include <sstream>
+#include <string>
 #include <string_view>
+#include <thread>
+#include <unordered_map>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -120,6 +129,8 @@ namespace LouiEriksson::Engine {
 	class Print final {
 		
 		friend struct Debug;
+		
+	private:
 		
 		static constexpr const char* ToString(const LogType& _type) noexcept {
 			
@@ -428,6 +439,57 @@ namespace LouiEriksson::Engine {
 	 */
 	struct Debug final {
 	
+	private:
+		
+		inline static std::mutex s_Lock;
+		
+		/**
+		 * @brief Metadata about a log.
+		 */
+		struct Meta final {
+			
+			std::time_t m_Timestamp;
+			     size_t m_ThreadID;
+			     bool   m_Inline;
+		};
+		
+		/** Metadata about the previous log. */
+		inline static Meta s_LastLog = { 0U, -1U, false };
+		
+	public:
+		
+		struct ThreadID final {
+		
+		private:
+			
+			inline static std::mutex s_Lock;
+			
+			inline static size_t s_Ctr;
+			inline static std::unordered_map<std::thread::id, std::size_t> s_ThreadIDs;
+		
+		public:
+		
+			static size_t Get() {
+				
+				const std::lock_guard<std::mutex> guard(s_Lock);
+				
+				size_t result;
+				
+				auto raw_id = std::this_thread::get_id();
+				
+				if (s_ThreadIDs.find(raw_id) != s_ThreadIDs.end()) {
+					result = s_ThreadIDs[raw_id];
+				}
+				else {
+					s_ThreadIDs[raw_id] = s_Ctr;
+					result = s_Ctr++;
+				}
+				
+				return result;
+			}
+			
+		};
+		
 		/**
 		 * @brief Asserts a condition and logs a message if the condition is false.
 		 * By default, the log type is set to `Debug`.
@@ -455,6 +517,8 @@ namespace LouiEriksson::Engine {
 		
 #if !defined(NDEBUG) || _DEBUG
 			
+			const std::lock_guard<std::mutex> guard(s_Lock);
+			
 			Flush();
 			
 			try {
@@ -478,6 +542,8 @@ namespace LouiEriksson::Engine {
 		 * - Debug::Flush()
 		 */
 		static void Flush() noexcept {
+			
+			const std::lock_guard<std::mutex> guard(s_Lock);
 			
 			try {
 				try {
@@ -521,43 +587,74 @@ namespace LouiEriksson::Engine {
 		 */
 		static void Log(const std::string_view& _message, const LogType& _type = LogType::Debug, const bool& _inline = false) noexcept {
 			
+			const std::lock_guard<std::mutex> guard(s_Lock);
+			
 			try {
 				try {
 					
+					/*
+					 * Construct a header containing various pieces of metadata about the current log.
+					 */
+					std::string header = "";
+					
+					const Meta meta {
+						std::time(nullptr),
+						ThreadID::Get(),
+						_inline
+					};
+					
+					// Timestamp:
+					if (!s_LastLog.m_Inline) {
+						std::ostringstream oss;
+						oss << std::put_time(std::localtime(&meta.m_Timestamp), "[%H:%M:%S %d/%m/%Y] ");
+						header += oss.str();
+					}
+					
+					// Thread ID:
+					if (!s_LastLog.m_Inline || s_LastLog.m_ThreadID != meta.m_ThreadID) {
+						header += "[" + std::to_string(meta.m_ThreadID) + "] ";
+					}
+					
+					/*
+					 * Append message to header, and print.
+					 */
+					const auto msg = header + _message.data();
+					
 #ifdef __linux__
-						try {
-				            Print::ANSI(_message, _type, _inline);
-						}
-						catch (const std::exception& e) {
-							Print::Fallback(_message, _type, _inline);
-							throw e;
-						}
+					try {
+			            Print::ANSI(msg, _type, _inline);
+					}
+					catch (const std::exception& e) {
+						Print::Fallback(msg, _type, _inline);
+						throw e;
+					}
 #elif _WIN32
-						try {
-				            Print::WIN32(_message, _type, _inline);
-						}
-						catch (const std::exception& e) {
-							Print::Fallback(_message, _type, _inline);
-							throw e;
-						}
+					try {
+			            Print::WIN32(msg, _type, _inline);
+					}
+					catch (const std::exception& e) {
+						Print::Fallback(msg, _type, _inline);
+						throw e;
+					}
 #elif __APPLE__
-						try {
-				            Print::ANSI(_message, _type, _inline);
-						}
-						catch (const std::exception& e) {
-							Print::Fallback(_message, _type, _inline);
-							throw e;
-						}
-#else
+					try {
+			            Print::ANSI(msg, _type, _inline);
+					}
+					catch (const std::exception& e) {
 						Print::Fallback(_message, _type, _inline);
+						throw e;
+					}
+#else
+					Print::Fallback(msg, _type, _inline);
 #endif
 
 #if !defined(NDEBUG) || _DEBUG
-						if (_type == LogType::Critical) {
-							Break();
-						}
+					if (_type == LogType::Critical) {
+						Break();
+					}
 #endif
-				
+					s_LastLog = meta;
+					
 				}
 				catch (const std::exception& e) {
 					std::cerr << "LOG_ERR: " << e.what() << std::endl;
@@ -565,7 +662,7 @@ namespace LouiEriksson::Engine {
 			}
 			catch (...) {}
 		}
-	
+		
 	};
 	
 } // LouiEriksson::Engine

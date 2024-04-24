@@ -285,19 +285,19 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				for (size_t i = 0U; i < _indices.size(); i += 3U) {
 					
-					const auto iA =   i   ;
-					const auto iB = i + 1U;
-					const auto iC = i + 2U;
+					const size_t iA =   i   ;
+					const size_t iB = i + 1U;
+					const size_t iC = i + 2U;
 					
-					const auto idxA = std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1U);
-					const auto idxB = std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1U);
-					const auto idxC = std::min(static_cast<size_t>(_indices[iC]), _vertices.size() - 1U);
+					const U idxA = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iA]), _indices.size() - 1U), _vertices.size() - 1U));
+					const U idxB = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iB]), _indices.size() - 1U), _vertices.size() - 1U));
+					const U idxC = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iC]), _indices.size() - 1U), _vertices.size() - 1U));
 					
 			        const auto& v1 = _vertices[idxA];
 			        const auto& v2 = _vertices[idxB];
 			        const auto& v3 = _vertices[idxC];
 			
-					const auto c = glm::cross((v2 - v1), (v3 - v1));
+					const auto c = glm::cross(v2 - v1, v3 - v1);
 			        const auto n = glm::normalize(c);
 					
 			        result[idxA] += n;

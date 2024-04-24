@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (success == 0) {
 				
-				std::stringstream err;
+				std::ostringstream err;
 				err << "Shader linking error: \"" <<
 					m_Name << "\", " << glGetError()<< '\n';
 				
@@ -153,7 +153,7 @@ namespace LouiEriksson::Engine::Graphics {
 				std::vector<GLchar> errorLog(maxLength);
 				glGetShaderInfoLog(m_SubShaders.back(), maxLength, &maxLength, errorLog.data());
 				
-				std::stringstream ss;
+				std::ostringstream ss;
 				ss << "Shader compilation error:\n\t";
 				
 				for (const auto& error : errorLog) {

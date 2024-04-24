@@ -543,7 +543,7 @@ namespace LouiEriksson::Engine::ECS {
 								}
 								else {
 									
-									std::stringstream err;
+									std::ostringstream err;
 									err << "Deserialisation for type \"" << type << "\" has not been implemented.\n";
 								
 									throw(std::runtime_error(err.str()));
