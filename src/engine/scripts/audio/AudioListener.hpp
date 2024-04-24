@@ -36,11 +36,26 @@ namespace LouiEriksson::Engine::Audio {
 	
 	private:
 		
-		/** @brief Master gain. Should be between zero and one. */
-		float m_Gain;
+		struct Parameters {
+			
+			/** @brief Master gain. Should be between zero and one. */
+			ALfloat m_Gain = 0.8;
+			
+			/** @brief The position of the AudioListener. */
+			glm::vec3 m_Position;
+			
+			/** @brief The forward direction of the AudioListener. */
+			glm::vec3 m_Forward;
+			
+			/** @brief The upward direction of the AudioListener. */
+			glm::vec3 m_Up;
+			
+			/** @brief The velocity of the AudioListener. */
+			glm::vec3 m_Velocity;
+		};
 		
-		/** @brief Last position of the AudioListener (for computing transform-based velocity). */
-		glm::vec3 m_LastPosition;
+		Parameters m_CurrentParameters;
+		Parameters m_PendingParameters;
 		
 		/** @brief Synchronise the AudioListener with the internal audio engine. */
 		void Sync() {
@@ -48,15 +63,28 @@ namespace LouiEriksson::Engine::Audio {
 			if (const auto p = Parent().lock()) {
 			if (const auto t = p->GetComponent<Transform>().lock()) {
 				
+				m_PendingParameters.m_Position = t->Position();
+				m_PendingParameters.m_Forward  = t->FORWARD;
+				m_PendingParameters.m_Up       = t->UP;
+				
 				// Set position of listener:
-				alListenerfv(AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
+				if (m_PendingParameters.m_Position != m_CurrentParameters.m_Position) {
+					alListenerfv(AL_POSITION, static_cast<const ALfloat*>(&(m_PendingParameters.m_Position[0])));
+				}
 				
 				// Set orientation (forward, up):
-				{
-					const auto f = t->FORWARD;
-					const auto u = t->UP;
+				if (m_PendingParameters.m_Forward != m_CurrentParameters.m_Forward ||
+					m_PendingParameters.m_Up      != m_CurrentParameters.m_Up
+				){
+					std::array<ALfloat, 6U> orientation {
+						m_PendingParameters.m_Forward.x,
+						m_PendingParameters.m_Forward.y,
+						m_PendingParameters.m_Forward.z,
+						m_PendingParameters.m_Up.x,
+						m_PendingParameters.m_Up.y,
+						m_PendingParameters.m_Up.z
+					};
 					
-					std::array<ALfloat, 6U> orientation { f.x, f.y, f.z, u.x, u.y, u.z };
 					alListenerfv(AL_ORIENTATION, orientation.data());
 				}
 				
@@ -68,26 +96,26 @@ namespace LouiEriksson::Engine::Audio {
 						velocity = r->Velocity();
 					}
 					else {
-						velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t>();
+						velocity = (t->Position() - m_CurrentParameters.m_Position) * Time::DeltaTime<scalar_t>();
 					}
 					
 					alListenerfv(AL_VELOCITY, static_cast<const ALfloat*>(&velocity[0]));
 				}
 				
-				
 				// Assign gain value:
-				alListenerf(AL_GAIN, m_Gain);
+				if (m_PendingParameters.m_Gain != m_CurrentParameters.m_Gain) {
+					alListenerf(AL_GAIN, m_PendingParameters.m_Gain);
+				}
 				
-				// Update "last position" (used for transform-based doppler effect).
-				m_LastPosition = t->Position();
+				m_PendingParameters = m_CurrentParameters;
 			}}
 		}
 		
 	public:
 		
 		explicit AudioListener(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Script(_parent),
-			m_Gain        (1.0),
-			m_LastPosition(0.0) {}
+			m_CurrentParameters(),
+			m_PendingParameters() {}
 		
 		/** @inheritdoc */
 		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
@@ -111,7 +139,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The value of the master gain to set.
 		 */
 		void Gain(const ALfloat& _value) noexcept {
-			m_Gain = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(1.0));
+			m_PendingParameters.m_Gain = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(1.0));
 		}
 		
 		/**
@@ -122,7 +150,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return The master gain value.
 		 */
 		[[nodiscard]] constexpr const ALfloat& Gain() const noexcept {
-			return m_Gain;
+			return m_PendingParameters.m_Gain;
 		}
 		
 	};

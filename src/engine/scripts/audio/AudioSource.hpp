@@ -62,6 +62,24 @@ namespace LouiEriksson::Engine::Audio {
 			bool m_Loop;
 			
 			/**
+			 * @brief Position of the AudioSource.
+			 * @note This only has an effect on positional sources.
+			 */
+			glm::vec3 m_Position;
+			
+			/**
+			 * @brief Direction of the AudioSource.
+			 * @note This only has an effect on positional sources.
+			 */
+			glm::vec3 m_Direction;
+			
+			/**
+			 * @brief Velocity of the AudioSource.
+			 * @note This only has an effect on positional sources.
+			 */
+			glm::vec3 m_Velocity;
+			
+			/**
 			 * @brief Panning of audio emitted from the AudioSource.
 			 * @note This only has an effect on global sources.
 			 */
@@ -164,107 +182,150 @@ namespace LouiEriksson::Engine::Audio {
 		/** Whether or not the AudioSource is playing. */
 		bool m_Playing;
 		
-		/** @brief Parameters of the source. */
-		Parameters m_Parameters;
+		/** @brief Pending changes to the parameters of the source. */
+		Parameters m_PendingParameters;
+		
+		/** @brief Current parameters of the source. */
+		Parameters m_CurrentParameters;
 		
 		/** @brief Most recently played AudioClip. */
 		std::weak_ptr<AudioClip> m_Clip;
 		
-		/** @brief Last position of the AudioSource (for computing transform-based velocity). */
-		glm::vec3 m_LastPosition;
-		
 		/** @brief Synchronise the AudioSource with the internal audio engine. */
 		void Sync() {
 			
-			// Automatically decrease the number of current streams if the source stopped playing.
-			if (m_Playing && State() != AL_PLAYING) {
-				DecrementPlayCount();
-			}
-			
-			// TODO: Some sort of caching so these values aren't changed unnecessarily.
-			
-			// Set values that do not change depending on if the source is global or not:
-			alSourcef(m_Source, AL_PITCH,          m_Parameters.m_Pitch);
-			alSourcef(m_Source, AL_GAIN,           m_Parameters.m_GainModifier);
-			alSourcef(m_Source, AL_MIN_GAIN,       m_Parameters.m_MinGain);
-			alSourcef(m_Source, AL_MAX_GAIN,       m_Parameters.m_MaxGain);
-			alSourcef(m_Source, AL_ROLLOFF_FACTOR, m_Parameters.m_Rolloff);
-			
-			// If the audio source is global...
-			if (m_Parameters.m_IsGlobal) {
+			if (State() != AL_PLAYING) {
 				
-				/* NULLIFY EFFECT OF ORIENTATION */
-		
-				/*
-				 * If AL_SOURCE_RELATIVE is true, the audio is played relative to the listener.
-				 *
-				 * In this case, the position of the source is (0.0, 0.0, 0.0) units
-				 * from the listener's position (or directly on top of the listener).
-				 *
-				 * This will cause the panning of the audio to always be centered, regardless of
-				 * the position or orientation of the audio listener.
-				 */
-				alSourcei(m_Source, AL_SOURCE_RELATIVE, AL_TRUE);
-				
-				/* SET PANNING */
-				
-				// Global AudioSources have relative position to the listener, so update local position only.
-				alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&m_Parameters.m_Panning[0]));
-				
-				/* DISABLE ATTENUATION */
-				
-				// Setting reference distance to 0.0 disables attenuation.
-				alSourcef(m_Source, AL_REFERENCE_DISTANCE, 0.0);
-				
-				// Set max distance to infinity (not strictly-necessary).
-				alSourcef(m_Source, AL_MAX_DISTANCE, std::numeric_limits<ALfloat>::max());
-				
-				// Nullify directionality of AudioSource
-				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
-				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, 360.0);
-				
-				/* RESET VELOCITY */
-				alListener3f(AL_VELOCITY, 0.0, 0.0, 0.0);
+				// Automatically decrease the number of current streams if the source stopped playing.
+				if (m_Playing) {
+					DecrementPlayCount();
+				}
 			}
 			else {
+				
+				// Set values that do not change depending on if the source is global or not:
+				
+				if (m_CurrentParameters.m_Pitch        != m_PendingParameters.m_Pitch       ) { alSourcef(m_Source, AL_PITCH,          m_PendingParameters.m_Pitch       ); }
+				if (m_CurrentParameters.m_GainModifier != m_PendingParameters.m_GainModifier) { alSourcef(m_Source, AL_GAIN,           m_PendingParameters.m_GainModifier); }
+				if (m_CurrentParameters.m_MinGain      != m_PendingParameters.m_MinGain     ) { alSourcef(m_Source, AL_MIN_GAIN,       m_PendingParameters.m_MinGain     ); }
+				if (m_CurrentParameters.m_MaxGain      != m_PendingParameters.m_MaxGain     ) { alSourcef(m_Source, AL_MAX_GAIN,       m_PendingParameters.m_MaxGain     ); }
+				if (m_CurrentParameters.m_Rolloff      != m_PendingParameters.m_Rolloff     ) { alSourcef(m_Source, AL_ROLLOFF_FACTOR, m_PendingParameters.m_Rolloff     ); }
+				
+				// If the audio source is global...
+				if (m_PendingParameters.m_IsGlobal) {
+					
+					/* NULLIFY EFFECT OF ORIENTATION */
 			
-				// Set all defined parameters in a positional context:
-				alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_Parameters.m_MinDistance);
-				alSourcef(m_Source, AL_MAX_DISTANCE,       m_Parameters.m_MaxDistance);
-				
-				// Set min and max cone angles of the source.
-				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MinAngle);
-				alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_Parameters.m_MaxAngle);
-				
-				if (const auto p = Parent().lock()) {
-				if (const auto t = p->GetComponent<Transform>().lock()) {
+					/*
+					 * If AL_SOURCE_RELATIVE is true, the audio is played relative to the listener.
+					 *
+					 * In this case, the position of the source is (0.0, 0.0, 0.0) units
+					 * from the listener's position (or directly on top of the listener).
+					 *
+					 * This will cause the panning of the audio to always be centered, regardless of
+					 * the position or orientation of the audio listener.
+					 */
+					if (!m_CurrentParameters.m_IsGlobal) { alSourcei(m_Source, AL_SOURCE_RELATIVE, AL_TRUE); }
 					
-					// Set world position to that of the current transform.
-					alSourcefv(m_Source, AL_POSITION, static_cast<const ALfloat*>(&(t->Position()[0])));
+					/* SET PANNING */
 					
-					// Set the direction of the audio source using the current transform.
-					{
-						const auto dir = t->FORWARD;
-						
-						alSource3f(m_Source, AL_DIRECTION, dir.x, dir.y, dir.z);
-					}
-				
-					// Set velocity (using rigidbody, if available):
-					{
-						glm::vec3 velocity;
-						
-						if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
-							velocity = r->Velocity();
-						}
-						else {
-							velocity = (t->Position() - m_LastPosition) * Time::DeltaTime<scalar_t >();
-						}
-						
-						alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&velocity[0]));
+					// Global AudioSources have relative position to the listener, so update local position only.
+					if (m_PendingParameters.m_Panning != m_CurrentParameters.m_Panning) {
+						alSourcefv(m_Source, AL_POSITION, static_cast<ALfloat*>(&m_PendingParameters.m_Panning[0]));
 					}
 					
-					m_LastPosition = t->Position();
-				}}
+					/* DISABLE ATTENUATION */
+					
+					// Setting reference distance to 0.0 disables attenuation.
+					if (m_PendingParameters.m_MinDistance != 0.0) {
+						m_PendingParameters.m_MinDistance = 0.0;
+						
+						if (m_PendingParameters.m_MinDistance != m_CurrentParameters.m_MinDistance) {
+							alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_PendingParameters.m_MinDistance);
+						}
+					}
+					
+					// Set max distance to infinity (not strictly-necessary).
+					if (m_PendingParameters.m_MaxDistance != std::numeric_limits<ALfloat>::max()) {
+						m_PendingParameters.m_MaxDistance =  std::numeric_limits<ALfloat>::max();
+						
+						if (m_PendingParameters.m_MaxDistance != m_CurrentParameters.m_MaxDistance) {
+							alSourcef(m_Source, AL_MAX_DISTANCE, m_PendingParameters.m_MaxDistance);
+						}
+					}
+					
+					// Nullify directionality of AudioSource
+					if (m_PendingParameters.m_MinAngle != 360.0) {
+						m_PendingParameters.m_MinAngle = 360.0;
+						
+						if (m_PendingParameters.m_MinAngle != m_CurrentParameters.m_MinAngle) {
+							alSourcef(m_Source, AL_CONE_INNER_ANGLE, m_PendingParameters.m_MinAngle);
+						}
+					}
+					if (m_PendingParameters.m_MaxAngle != 360.0) {
+						m_PendingParameters.m_MaxAngle = 360.0;
+						
+						if (m_PendingParameters.m_MaxAngle != m_CurrentParameters.m_MaxAngle) {
+							alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_PendingParameters.m_MaxAngle);
+						}
+					}
+					
+					/* RESET VELOCITY */
+					alListener3f(AL_VELOCITY, 0.0, 0.0, 0.0);
+				}
+				else {
+				
+					// Set all defined parameters in a positional context:
+					if (m_PendingParameters.m_MinDistance != m_CurrentParameters.m_MinDistance) { alSourcef(m_Source, AL_REFERENCE_DISTANCE, m_PendingParameters.m_MinDistance); }
+					if (m_PendingParameters.m_MaxDistance != m_CurrentParameters.m_MaxDistance) { alSourcef(m_Source, AL_MAX_DISTANCE,       m_PendingParameters.m_MaxDistance); }
+					
+					// Set min and max cone angles of the source.
+					if (m_PendingParameters.m_MinAngle != m_CurrentParameters.m_MinAngle) { alSourcef(m_Source, AL_CONE_INNER_ANGLE, m_PendingParameters.m_MinAngle); }
+					if (m_PendingParameters.m_MaxAngle != m_CurrentParameters.m_MaxAngle) { alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_PendingParameters.m_MaxAngle); }
+					
+					if (const auto p = Parent().lock()) {
+					if (const auto t = p->GetComponent<Transform>().lock()) {
+						
+						// Set world position to that of the current transform.
+						if (t->Position() != m_PendingParameters.m_Position) {
+							m_PendingParameters.m_Position = t->Position();
+							
+							alSourcefv(m_Source, AL_POSITION, static_cast<const ALfloat*>(&(m_PendingParameters.m_Position[0])));
+						}
+						
+						// Set the direction of the audio source using the current transform.
+						if (m_PendingParameters.m_MinAngle != 360.0) {
+							
+							const auto dir = t->FORWARD;
+							
+							if (m_PendingParameters.m_Direction != dir) {
+								m_PendingParameters.m_Direction = dir;
+								
+								alSource3f(m_Source, AL_DIRECTION, m_PendingParameters.m_Direction.x, m_PendingParameters.m_Direction.y, m_PendingParameters.m_Direction.z);
+							}
+						}
+					
+						// Set velocity (using rigidbody, if available):
+						{
+							glm::vec3 velocity;
+							
+							if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+								velocity = r->Velocity();
+							}
+							else {
+								velocity = (t->Position() - m_CurrentParameters.m_Position) * Time::DeltaTime<scalar_t>();
+							}
+							
+							if (velocity != m_PendingParameters.m_Velocity) {
+								m_PendingParameters.m_Velocity = velocity;
+								
+								alListenerfv(AL_VELOCITY, static_cast<ALfloat*>(&m_PendingParameters.m_Velocity[0]));
+							}
+						}
+					}}
+				}
+				
+				m_CurrentParameters = m_PendingParameters;
 			}
 		}
 		
@@ -337,7 +398,7 @@ namespace LouiEriksson::Engine::Audio {
 								// Assign the new clip.
 								s_GlobalSource->Clip(c);
 								
-								// Play! (Set fallback to false as we have already established it is not necessary.)
+								// Play! (Set fallback to false as we have already established it is not necessary)
 								s_GlobalSource->Play(false);
 							}
 						}
@@ -361,10 +422,10 @@ namespace LouiEriksson::Engine::Audio {
 	public:
 		
 		explicit AudioSource(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
-			m_Source         (static_cast<ALuint>(AL_NONE)),
-			m_Parameters     (),
-			m_Playing        (false),
-			m_LastPosition   (0.0)
+			           m_Source(static_cast<ALuint>(AL_NONE)),
+			          m_Playing(false),
+			m_PendingParameters(),
+			m_CurrentParameters()
 		{
 			try {
 				
@@ -375,8 +436,6 @@ namespace LouiEriksson::Engine::Audio {
 					if (m_Source == static_cast<ALuint>(AL_NONE)) {
 						throw std::runtime_error("Failed creating audio source!");
 					}
-					
-					Sync();
 				}
 				else {
 					throw std::runtime_error("Attempted to initialise an AudioSource which is already initialised!");
@@ -386,7 +445,7 @@ namespace LouiEriksson::Engine::Audio {
 				Debug::Log(e);
 			}
 		}
-		 
+		
 		virtual ~AudioSource() override {
 			
 			if (m_Source != AL_NONE) {
@@ -449,8 +508,9 @@ namespace LouiEriksson::Engine::Audio {
 								// Restrict number of audio source playing at once.
 								if (Sound::CurrentStreams() < Sound::MaxVoices()) {
 									
+									Sync();
+									
 									// Play!
-									alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(c->m_ALBuffer));
 									alSourcePlay(m_Source);
 									IncrementPlayCount();
 								}
@@ -493,8 +553,20 @@ namespace LouiEriksson::Engine::Audio {
 		 *
 		 * @param[in] _value The AudioClip to set for the AudioSource.
 		 */
-		void Clip(const std::weak_ptr<AudioClip>& _value) noexcept{
-			m_Clip = _value;
+		void Clip(const std::weak_ptr<AudioClip>& _value) noexcept {
+
+			if (const auto  newClip = _value.lock()) {
+				const auto currClip = m_Clip.lock();
+				
+				if (currClip != newClip) {
+					m_Clip = _value;
+					
+					alSourcei(m_Source, AL_BUFFER, static_cast<ALint>(newClip->m_ALBuffer));
+				}
+			}
+			else {
+				Debug::Log("Invalid weak pointer!", LogType::Error);
+			}
 		}
 		
 		/**
@@ -533,9 +605,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The value to set the global flag to.
 		 */
 		void Global(const bool& _value) {
-			m_Parameters.m_IsGlobal = _value;
-			
-			Sync();
+			m_PendingParameters.m_IsGlobal = _value;
 		}
 		
 		/**
@@ -547,8 +617,8 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A const reference to the global flag of the AudioSource.
 		 */
 		[[nodiscard]] constexpr const bool& Global() const noexcept  {
-		return m_Parameters.m_IsGlobal;
-	}
+			return m_PendingParameters.m_IsGlobal;
+		}
 		
 		/**
 		 * @brief Sets whether the audio source should loop or not.
@@ -563,7 +633,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @see AudioSource::Sync()
 		 */
 		void Loop(const bool& _value){
-			m_Parameters.m_Loop = _value;
+			m_PendingParameters.m_Loop = _value;
 			
 			Sync();
 		}
@@ -577,7 +647,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A const reference to the loop flag. True if loop is enabled, false otherwise.
 		 */
 		[[nodiscard]] constexpr const bool& Loop() const noexcept {
-			return m_Parameters.m_Loop;
+			return m_PendingParameters.m_Loop;
 		}
 		
 		/**
@@ -591,8 +661,8 @@ namespace LouiEriksson::Engine::Audio {
 		 * @note The value should be within the range of FLT_EPSILON to the maximum distance.
 		 */
 		void MinDistance(const ALfloat& _value){
-			m_Parameters.m_MinDistance = std::max(_value, std::numeric_limits<ALfloat>::min());
-			m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MaxDistance);
+			m_PendingParameters.m_MinDistance = std::max(_value, std::numeric_limits<ALfloat>::min());
+			m_PendingParameters.m_MaxDistance = std::max(_value, m_PendingParameters.m_MaxDistance);
 			
 			Sync();
 		}
@@ -609,7 +679,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A const reference to the minimum distance.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MinDistance() const noexcept {
-			return m_Parameters.m_MinDistance;
+			return m_PendingParameters.m_MinDistance;
 		}
 		
 		/**
@@ -622,7 +692,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @note The _value is clamped to be greater than or equal to the minimum distance. If _value is smaller than the minimum distance, the maximum distance is set to be the same as the minimum distance.
 		 */
 		void MaxDistance(const ALfloat& _value) {
-			m_Parameters.m_MaxDistance = std::max(_value, m_Parameters.m_MinDistance);
+			m_PendingParameters.m_MaxDistance = std::max(_value, m_PendingParameters.m_MinDistance);
 			
 			Sync();
 		}
@@ -636,7 +706,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return const ALfloat& The maximum distance of the audio source.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MaxDistance() const noexcept {
-			return m_Parameters.m_MaxDistance;
+			return m_PendingParameters.m_MaxDistance;
 		}
 		
 		/**
@@ -647,9 +717,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The pitch value to be set. Must be a positive ALfloat.
 		 */
 		void Pitch(const ALfloat& _value) {
-			m_Parameters.m_Pitch = std::max(_value, static_cast<ALfloat>(0.0));
-			
-			Sync();
+			m_PendingParameters.m_Pitch = std::max(_value, static_cast<ALfloat>(0.0));
 		}
 		
 		/**
@@ -664,7 +732,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A constant reference to the pitch of the audio source.
 		 */
 		[[nodiscard]] constexpr const ALfloat& Pitch() const noexcept {
-			return m_Parameters.m_Pitch;
+			return m_PendingParameters.m_Pitch;
 		}
 		
 		/**
@@ -678,7 +746,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The gain modifier to set. Must be a positive value.
 		 */
 		void Gain(const ALfloat& _value) {
-		    m_Parameters.m_GainModifier = std::max(_value, static_cast<ALfloat>(0.0));
+		    m_PendingParameters.m_GainModifier = std::max(_value, static_cast<ALfloat>(0.0));
 			
 			Sync();
 		}
@@ -691,7 +759,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A constant reference to the gain modifier.
 		 */
 		[[nodiscard]] constexpr const ALfloat& Gain() const noexcept {
-			return m_Parameters.m_GainModifier;
+			return m_PendingParameters.m_GainModifier;
 		}
 		
 		/**
@@ -705,8 +773,8 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The new minimum gain value for the audio source.
 		 */
 		void MinGain(const ALfloat& _value) {
-		    m_Parameters.m_MinGain = std::max(_value, static_cast<ALfloat>(0.0));
-		    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MaxGain);
+		    m_PendingParameters.m_MinGain = std::max(_value, static_cast<ALfloat>(0.0));
+		    m_PendingParameters.m_MaxGain = std::max(_value, m_PendingParameters.m_MaxGain);
 			
 			Sync();
 		}
@@ -720,7 +788,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return const ALfloat& - The minimum gain value.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MinGain() const noexcept {
-			return m_Parameters.m_MinGain;
+			return m_PendingParameters.m_MinGain;
 		}
 		
 		/**
@@ -731,7 +799,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The maximum gain value to set.
 		 */
 		void MaxGain(const ALfloat& _value) {
-		    m_Parameters.m_MaxGain = std::max(_value, m_Parameters.m_MinGain);
+		    m_PendingParameters.m_MaxGain = std::max(_value, m_PendingParameters.m_MinGain);
 			
 			Sync();
 		}
@@ -742,7 +810,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return The maximum gain of the audio source.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MaxGain() const noexcept {
-			return m_Parameters.m_MaxGain;
+			return m_PendingParameters.m_MaxGain;
 		}
 		
 		/**
@@ -755,7 +823,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The rolloff value to set.
 		 */
 		void Rolloff(const ALfloat& _value) {
-		    m_Parameters.m_Rolloff = _value;
+		    m_PendingParameters.m_Rolloff = _value;
 			
 			Sync();
 		}
@@ -766,7 +834,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return const ALfloat& The rolloff value.
 		 */
 		[[nodiscard]] constexpr const ALfloat& Rolloff() const noexcept {
-			return m_Parameters.m_Rolloff;
+			return m_PendingParameters.m_Rolloff;
 		}
 		
 		/**
@@ -777,8 +845,8 @@ namespace LouiEriksson::Engine::Audio {
 		 * @note The function also updates the maximum angle if the specified value is greater than the current maximum angle.
 		 */
 		void MinAngle(const ALfloat& _value) {
-		    m_Parameters.m_MinAngle = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(360.0));
-			m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MaxAngle);
+		    m_PendingParameters.m_MinAngle = std::clamp(_value, static_cast<ALfloat>(0.0), static_cast<ALfloat>(360.0));
+			m_PendingParameters.m_MaxAngle = std::max(_value, m_PendingParameters.m_MaxAngle);
 			
 			Sync();
 		}
@@ -789,7 +857,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A constant reference to the minimum angle of the audio source.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MinAngle() const noexcept {
-			return m_Parameters.m_MinAngle;
+			return m_PendingParameters.m_MinAngle;
 		}
 		
 		/**
@@ -798,7 +866,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @param[in] _value The maximum angle in degrees.
 		 */
 		void MaxAngle(const ALfloat& _value){
-	        m_Parameters.m_MaxAngle = std::max(_value, m_Parameters.m_MinAngle);
+	        m_PendingParameters.m_MaxAngle = std::max(_value, m_PendingParameters.m_MinAngle);
 			
 			Sync();
 		}
@@ -809,7 +877,7 @@ namespace LouiEriksson::Engine::Audio {
 		 * @return A constant reference to the maximum angle of the audio source.
 		 */
 		[[nodiscard]] constexpr const ALfloat& MaxAngle() const noexcept {
-			return m_Parameters.m_MaxAngle;
+			return m_PendingParameters.m_MaxAngle;
 		}
 		
 		/**

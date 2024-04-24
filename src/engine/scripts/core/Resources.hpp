@@ -454,7 +454,7 @@ namespace LouiEriksson::Engine {
 						     uvs.emplace_back(  uv.x,   uv.y        );
 					}
 					
-					// Get or compute tangents:
+					// Get tangents if they exist:
 					std::array<std::vector<glm::vec3>, 2U> tangents;
 					
 					if (mesh->HasTangentsAndBitangents()) {
@@ -475,9 +475,6 @@ namespace LouiEriksson::Engine {
 							tangents[0U].emplace_back( tan.x,  tan.y,  tan.z);
 							tangents[1U].emplace_back(btan.x, btan.y, btan.z);
 						}
-					}
-					else {
-						tangents = Graphics::Mesh::GenerateTangents(vertices, uvs);
 					}
 					
 					/* INDEX DATA */
@@ -503,6 +500,11 @@ namespace LouiEriksson::Engine {
 							}
 						}
 						
+						// If tangents don't exist, then compute them.
+						if (!mesh->HasTangentsAndBitangents()) {
+							tangents = Graphics::Mesh::GenerateTangents(vertices, uvs, indices);
+						}
+						
 						_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
 					}
 					else if (mesh->mNumVertices > std::numeric_limits<GLubyte>::max()) {
@@ -517,6 +519,11 @@ namespace LouiEriksson::Engine {
 							}
 						}
 						
+						// If tangents don't exist, then compute them.
+						if (!mesh->HasTangentsAndBitangents()) {
+							tangents = Graphics::Mesh::GenerateTangents(vertices, uvs, indices);
+						}
+						
 						_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
 					}
 					else {
@@ -529,6 +536,11 @@ namespace LouiEriksson::Engine {
 							for (size_t k = 0U; k < faces[j].mNumIndices; ++k) {
 								indices.emplace_back(faces[j].mIndices[k]);
 							}
+						}
+						
+						// If tangents don't exist, then compute them.
+						if (!mesh->HasTangentsAndBitangents()) {
+							tangents = Graphics::Mesh::GenerateTangents(vertices, uvs, indices);
 						}
 						
 						_output = Graphics::Mesh::Create(vertices, indices, normals, uvs, tangents, GL_TRIANGLES);
@@ -721,7 +733,7 @@ namespace LouiEriksson::Engine {
 								}
 							}
 							else {
-								Debug::Log("Unknown MTL key \"" + std::string(key.data()) + "\"", LogType::Warning);
+								Debug::Log("Unknown MTL key \"" + std::string(key.data()) + "\" ", LogType::Warning, true);
 							}
 						}
 					}

@@ -469,23 +469,25 @@ namespace LouiEriksson::Engine {
 		
 		public:
 		
-			static size_t Get() {
+			static size_t Get(std::thread::id _id) {
 				
 				const std::lock_guard<std::mutex> guard(s_Lock);
 				
 				size_t result;
 				
-				auto raw_id = std::this_thread::get_id();
-				
-				if (s_ThreadIDs.find(raw_id) != s_ThreadIDs.end()) {
-					result = s_ThreadIDs[raw_id];
+				if (s_ThreadIDs.find(_id) != s_ThreadIDs.end()) {
+					result = s_ThreadIDs[_id];
 				}
 				else {
-					s_ThreadIDs[raw_id] = s_Ctr;
+					s_ThreadIDs[_id] = s_Ctr;
 					result = s_Ctr++;
 				}
 				
 				return result;
+			}
+			
+			static size_t Get() {
+				return Get(std::this_thread::get_id());
 			}
 			
 		};
@@ -517,11 +519,11 @@ namespace LouiEriksson::Engine {
 		
 #if !defined(NDEBUG) || _DEBUG
 			
-			const std::lock_guard<std::mutex> guard(s_Lock);
-			
 			Flush();
 			
 			try {
+				const std::lock_guard<std::mutex> guard(s_Lock);
+				
 				psnip_trap();
 			}
 			catch (const std::exception& e) {

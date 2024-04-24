@@ -248,8 +248,6 @@ namespace LouiEriksson::Engine {
 						
 						try {
 							
-							//Debug::Log(std::to_string(Audio::Sound::CurrentStreams()));
-							
 							// Get the beginning of the frame for timing purposes.
 							const auto frame_start = std::chrono::high_resolution_clock::now();
 							

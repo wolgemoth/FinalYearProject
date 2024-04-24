@@ -132,6 +132,43 @@ namespace LouiEriksson::Engine::ECS {
 			
 			auto size = m_Entities.size();
 			
+			/* INIT AUDIO LISTENERS */
+			for (size_t i = 0U; i < size; ++i) {
+				
+				const auto entity = m_Entities[i];
+				
+				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioListener))) {
+					for (const auto& item : *scripts) {
+						
+						try {
+							std::dynamic_pointer_cast<Script>(item)->Begin();
+						}
+						catch (const std::exception& e) {
+							Debug::Log(e);
+						}
+					}
+				}
+			}
+			
+			/* INIT AUDIO SOURCES */
+			for (size_t i = 0U; i < size; ++i) {
+				
+				const auto entity = m_Entities[i];
+				
+				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioSource))) {
+					for (const auto& item : *scripts) {
+						
+						try {
+							std::dynamic_pointer_cast<Script>(item)->Begin();
+						}
+						catch (const std::exception& e) {
+							Debug::Log(e);
+						}
+					}
+				}
+			}
+			
+			/* INIT SCRIPTS */
 			for (size_t i = 0U; i < size; ++i) {
 				
 				const auto entity = m_Entities[i];
@@ -183,6 +220,42 @@ namespace LouiEriksson::Engine::ECS {
 				const auto entity = m_Entities[i];
 				
 				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
+					for (const auto& item : *scripts) {
+						
+						try {
+							std::dynamic_pointer_cast<Script>(item)->Tick();
+						}
+						catch (const std::exception& e) {
+							Debug::Log(e);
+						}
+					}
+				}
+			}
+			
+			/* UPDATE AUDIO LISTENERS */
+			for (size_t i = 0U; i < size; ++i) {
+				
+				const auto entity = m_Entities[i];
+				
+				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioListener))) {
+					for (const auto& item : *scripts) {
+						
+						try {
+							std::dynamic_pointer_cast<Script>(item)->Tick();
+						}
+						catch (const std::exception& e) {
+							Debug::Log(e);
+						}
+					}
+				}
+			}
+			
+			/* UPDATE AUDIO SOURCES */
+			for (size_t i = 0U; i < size; ++i) {
+				
+				const auto entity = m_Entities[i];
+				
+				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioSource))) {
 					for (const auto& item : *scripts) {
 						
 						try {

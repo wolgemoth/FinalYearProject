@@ -212,8 +212,10 @@ namespace LouiEriksson::Engine::Graphics {
 			return result;
 		}
 		
-		template<typename T, glm::precision Q = glm::defaultp>
-		static std::array<std::vector<glm::vec<3, T, Q>>, 2U> GenerateTangents(const std::vector<glm::vec<3, T, Q>>& _vertices, const std::vector<glm::vec<2, T, Q>>& _uvs) {
+		template<typename T, typename U, glm::precision Q = glm::defaultp>
+		static std::array<std::vector<glm::vec<3, T, Q>>, 2U> GenerateTangents(const std::vector<glm::vec<3, T, Q>>& _vertices, const std::vector<glm::vec<2, T, Q>>& _uvs, const std::vector<U> _indices) {
+			
+			validate_index_format<U>();
 			
 			auto result = std::array<std::vector<glm::vec<3, T, Q>>, 2U>();
 			
@@ -229,17 +231,21 @@ namespace LouiEriksson::Engine::Graphics {
 					  tangents.reserve(_vertices.size());
 					bitangents.reserve(_vertices.size());
 					
-					for (size_t i = 0U; i < _vertices.size(); i += 3U) {
-					
+					for (size_t i = 0U; i < _indices.size(); i += 3U) {
+						
+						const size_t idxA = static_cast<U>(std::min(static_cast<size_t>(_indices[  i   ]), _vertices.size() - 1U));
+						const size_t idxB = static_cast<U>(std::min(static_cast<size_t>(_indices[i + 1U]), _vertices.size() - 1U));
+						const size_t idxC = static_cast<U>(std::min(static_cast<size_t>(_indices[i + 2U]), _vertices.size() - 1U));
+						
 						// Shortcuts for _vertices
-				        const auto& pos0 = _vertices[std::min(  i   , _vertices.size() - 1U)];
-				        const auto& pos1 = _vertices[std::min(i + 1U, _vertices.size() - 1U)];
-				        const auto& pos2 = _vertices[std::min(i + 2U, _vertices.size() - 1U)];
+				        const auto& pos0 = _vertices[std::min(idxA, _vertices.size() - 1U)];
+				        const auto& pos1 = _vertices[std::min(idxB, _vertices.size() - 1U)];
+				        const auto& pos2 = _vertices[std::min(idxC, _vertices.size() - 1U)];
 				
 				        // Shortcuts for _UVs
-				        const auto& uv0 = _uvs[std::min(  i   , _uvs.size() - 1U)];
-				        const auto& uv1 = _uvs[std::min(i + 1U, _uvs.size() - 1U)];
-				        const auto& uv2 = _uvs[std::min(i + 2U, _uvs.size() - 1U)];
+				        const auto& uv0 = _uvs[std::min(idxA, _uvs.size() - 1U)];
+				        const auto& uv1 = _uvs[std::min(idxB, _uvs.size() - 1U)];
+				        const auto& uv2 = _uvs[std::min(idxC, _uvs.size() - 1U)];
 						
 						const auto delta_pos1 = pos1 - pos0;
 					    const auto delta_pos2 = pos2 - pos0;
@@ -285,21 +291,19 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				for (size_t i = 0U; i < _indices.size(); i += 3U) {
 					
-					const size_t iA =   i   ;
+					const size_t iA =   i;
 					const size_t iB = i + 1U;
 					const size_t iC = i + 2U;
 					
-					const U idxA = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iA]), _indices.size() - 1U), _vertices.size() - 1U));
-					const U idxB = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iB]), _indices.size() - 1U), _vertices.size() - 1U));
-					const U idxC = static_cast<U>(std::min(std::min(static_cast<size_t>(_indices[iC]), _indices.size() - 1U), _vertices.size() - 1U));
+					const U idxA = static_cast<U>(std::min(static_cast<size_t>(_indices[iA]), _vertices.size() - 1U));
+					const U idxB = static_cast<U>(std::min(static_cast<size_t>(_indices[iB]), _vertices.size() - 1U));
+					const U idxC = static_cast<U>(std::min(static_cast<size_t>(_indices[iC]), _vertices.size() - 1U));
 					
 			        const auto& v1 = _vertices[idxA];
 			        const auto& v2 = _vertices[idxB];
 			        const auto& v3 = _vertices[idxC];
 			
-					const auto c = glm::cross(v2 - v1, v3 - v1);
-			        const auto n = glm::normalize(c);
-					
+					const auto n = glm::cross(v2 - v1, v3 - v1);
 			        result[idxA] += n;
 			        result[idxB] += n;
 			        result[idxC] += n;

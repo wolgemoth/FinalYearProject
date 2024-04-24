@@ -45,7 +45,7 @@ namespace LouiEriksson::Engine::Audio {
 		inline static unsigned int s_SDL_Device { 0U };
 		
 		/** @brief Maximum number of voices or audio streams that can play simultaneously. */
-		inline static size_t s_MaxVoices { 128U };
+		inline static size_t s_MaxVoices { 32U };
 		
 		/** @brief Current number of audio streams playing. */
 		inline static size_t s_CurrentStreams { 0U };
