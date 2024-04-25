@@ -127,66 +127,6 @@ namespace LouiEriksson::Engine::ECS {
 		/** @brief Entities within the Scene. */
 		std::vector<std::shared_ptr<GameObject>> m_Entities;
 		
-		/** @brief Called at the beginning of the first frame. */
-		void Begin() {
-			
-			auto size = m_Entities.size();
-			
-			/* INIT AUDIO LISTENERS */
-			for (size_t i = 0U; i < size; ++i) {
-				
-				const auto entity = m_Entities[i];
-				
-				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioListener))) {
-					for (const auto& item : *scripts) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Begin();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
-					}
-				}
-			}
-			
-			/* INIT AUDIO SOURCES */
-			for (size_t i = 0U; i < size; ++i) {
-				
-				const auto entity = m_Entities[i];
-				
-				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioSource))) {
-					for (const auto& item : *scripts) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Begin();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
-					}
-				}
-			}
-			
-			/* INIT SCRIPTS */
-			for (size_t i = 0U; i < size; ++i) {
-				
-				const auto entity = m_Entities[i];
-				
-				if (const auto& components = entity->Components().Get(typeid(Script))) {
-					for (const auto& item : *components) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Begin();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
-					}
-				}
-			}
-		}
-		
 		/**
 		 * @brief Called every frame.
 		 * @param[in] _flags The render flags specifying what actions to take during the render process.
@@ -221,13 +161,7 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
 					for (const auto& item : *scripts) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Tick();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
+						std::dynamic_pointer_cast<Script>(item)->Invoke();
 					}
 				}
 			}
@@ -239,13 +173,7 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioListener))) {
 					for (const auto& item : *scripts) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Tick();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
+						std::dynamic_pointer_cast<Script>(item)->Invoke();
 					}
 				}
 			}
@@ -257,13 +185,7 @@ namespace LouiEriksson::Engine::ECS {
 				
 				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioSource))) {
 					for (const auto& item : *scripts) {
-						
-						try {
-							std::dynamic_pointer_cast<Script>(item)->Tick();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
-						}
+						std::dynamic_pointer_cast<Script>(item)->Invoke();
 					}
 				}
 			}

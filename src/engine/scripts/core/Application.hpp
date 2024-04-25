@@ -241,7 +241,6 @@ namespace LouiEriksson::Engine {
 					
 					// Load a scene and run:
 					s_Scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
-					s_Scene->Begin();
 					
 					/* LOOP */
 					while (!Application::s_Quit) {

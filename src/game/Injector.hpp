@@ -9,6 +9,7 @@
 #include "scripts/Ball.hpp"
 #include "scripts/FlyCam.hpp"
 #include "scripts/Plane.hpp"
+#include "scripts/Spatial/FYP.hpp"
 #include "scripts/Spatial/Map.hpp"
 #include "scripts/Spatial/Planetarium.hpp"
 #include "scripts/Spatial/Stars.hpp"
@@ -101,6 +102,13 @@ namespace LouiEriksson::Game::Core {
 						typeid(std::shared_ptr<Scripts::Spatial::Stars>).name(),
 						[](const std::weak_ptr<ECS::GameObject>& _parent) {
 							return std::shared_ptr<Script>(new Scripts::Spatial::Stars(_parent));
+						}
+					);
+					
+					s_Initialisers.Add(
+						typeid(std::shared_ptr<Scripts::Spatial::FYP>).name(),
+						[](const std::weak_ptr<ECS::GameObject>& _parent) {
+							return std::shared_ptr<Script>(new Scripts::Spatial::FYP(_parent));
 						}
 					);
 				}

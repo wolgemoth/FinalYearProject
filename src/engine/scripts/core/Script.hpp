@@ -40,6 +40,26 @@ namespace LouiEriksson::Engine {
 		friend ECS::Scene;
 		friend LouiEriksson::Game::Core::ScriptInjector;
 	
+	private:
+		
+		bool m_Initialised = false;
+		
+		void Invoke() {
+			
+			try {
+				if (!m_Initialised) {
+					Begin();
+					m_Initialised = true;
+				}
+				else {
+					Tick();
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+		}
+		
 	protected:
 		
 		/**
