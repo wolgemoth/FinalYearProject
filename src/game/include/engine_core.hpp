@@ -25,6 +25,7 @@
 #include "../../engine/scripts/core/Transform.hpp"
 #include "../../engine/scripts/core/Types.hpp"
 #include "../../engine/scripts/core/utils/Hashmap.hpp"
+#include "../../engine/scripts/core/utils/ThreadUtils.hpp"
 #include "../../engine/scripts/core/utils/Utils.hpp"
 #include "../../engine/scripts/core/Window.hpp"
 

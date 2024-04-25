@@ -33,9 +33,9 @@ namespace LouiEriksson::Engine::Spatial {
             OpenTopoData  = 1U, /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
         };
 		
-		static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
+		static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	
-			return std::async([_bounds, _provider, _dimensions, _callback]() {
+			return std::async([_bounds, _provider, _dimensions, _timeout, _callback, &_cancellationToken]() {
 				
 				try {
 					
@@ -50,7 +50,7 @@ namespace LouiEriksson::Engine::Spatial {
 				        std::reverse(elevation_points.begin(), elevation_points.end());
 			        }
 			        
-			        Elevation::LoadElevation(elevation_points, _provider, _callback);
+			        Elevation::LoadElevation(elevation_points, _provider, _timeout, std::move(_callback), _cancellationToken);
 				}
 				catch (const std::exception& e) {
 					Debug::Log(e);
@@ -61,13 +61,13 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	private:
 	
-        static void LoadElevation(const std::vector<glm::vec2>& _points, const ElevationProvider& _provider, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback) {
+        static void LoadElevation(const std::vector<glm::vec2>& _points, const ElevationProvider& _provider, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	        
 	        switch (_provider) {
 	        
 				case ElevationProvider::OpenElevation: {
 					
-					const auto task = Elevation::PostRequestOpenElevationAsync(_points,
+					const auto task = Elevation::PostRequestOpenElevationAsync(_points, _timeout,
 						
 						[_callback](const Serialisation::ElevationDeserialiser::OEJSON::Root& _elevation_result) {
 							
@@ -81,7 +81,8 @@ namespace LouiEriksson::Engine::Spatial {
 							if (_callback != nullptr) {
 								_callback(result);
 							}
-						}
+						},
+						_cancellationToken
 					);
 					
 					task.wait();
@@ -90,7 +91,7 @@ namespace LouiEriksson::Engine::Spatial {
 	            }
 				case ElevationProvider::OpenTopoData: {
 					
-					const auto task = Elevation::PostRequestOpenTopoDataAsync(_points,
+					const auto task = Elevation::PostRequestOpenTopoDataAsync(_points, _timeout,
 						
 						[_callback](const Serialisation::ElevationDeserialiser::OTDJSON::Root& _elevation_result) {
 							
@@ -104,7 +105,8 @@ namespace LouiEriksson::Engine::Spatial {
 							if (_callback != nullptr) {
 								_callback(result);
 							}
-						}
+						},
+						_cancellationToken
 					);
 	    
 					task.wait();
@@ -117,16 +119,14 @@ namespace LouiEriksson::Engine::Spatial {
 	        }
 	    }
 	
-        static std::future<void> PostRequestOpenElevationAsync(const std::vector<glm::vec2>& _request, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback) {
+        static std::future<void> PostRequestOpenElevationAsync(const std::vector<glm::vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	
-			return std::async([_request, _callback]() {
+			return std::async([_request, _callback, _timeout, &_cancellationToken]() {
 				
 				try {
 					
-					const auto timeout = 60L;
-					
 			        auto message = Networking::Requests::Client("https://api.open-elevation.com/api/v1/lookup");
-					message.Set(CURLOPT_TIMEOUT, timeout);
+					message.Set(CURLOPT_TIMEOUT, std::chrono::duration_cast<std::chrono::seconds>(_timeout).count());
 					
 			        std::ostringstream ss;
 			        
@@ -150,7 +150,8 @@ namespace LouiEriksson::Engine::Spatial {
 					message.Set(CURLOPT_POSTFIELDS, data.c_str());
 		
 			        auto task = message.SendAsync();
-					const auto status = task.wait_for(std::chrono::seconds(timeout));
+					
+					const auto status = Threading::Utils::Wait(task, _timeout, _cancellationToken);
 					
 					if (status == std::future_status::ready) {
 						
@@ -161,10 +162,10 @@ namespace LouiEriksson::Engine::Spatial {
 						}
 					}
 					else if (status != std::future_status::timeout) {
-						throw std::runtime_error("OpenElevation Query failure!");
+						throw std::runtime_error("OpenElevation Query timeout!");
 					}
 					else {
-						throw std::runtime_error("OpenElevation Query timeout!");
+						throw std::runtime_error("OpenElevation Query failure!");
 					}
 				}
 				catch (const std::exception& e) {
@@ -173,18 +174,16 @@ namespace LouiEriksson::Engine::Spatial {
 			});
 	    }
 
-        static std::future<void> PostRequestOpenTopoDataAsync(const std::vector<glm::vec2>& _request, const std::function<void(const Serialisation::ElevationDeserialiser::OTDJSON::Root&)>& _callback) {
+        static std::future<void> PostRequestOpenTopoDataAsync(const std::vector<glm::vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OTDJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	    
-			return std::async([_request, _callback]() {
+			return std::async([_request, _callback, _timeout, &_cancellationToken]() {
 				
 				try {
 					
 					std::vector<Serialisation::ElevationDeserialiser::OTDJSON> results;
 					
-					const auto timeout = 10L;
-					
 			        auto message = Networking::Requests::Client("https://api.opentopodata.org/v1/mapzen");
-					message.Set(CURLOPT_TIMEOUT, timeout);
+					message.Set(CURLOPT_TIMEOUT, std::chrono::duration_cast<std::chrono::seconds>(_timeout).count());
 					
 					auto header = Networking::Requests::Client::Header();
 					message.Set(CURLOPT_HTTPHEADER, curl_slist_append(header.get(), "Content-Type: application/json"));
@@ -221,16 +220,19 @@ namespace LouiEriksson::Engine::Spatial {
 						message.Set(CURLOPT_POSTFIELDS, data.c_str());
 						
 			            auto task = message.SendAsync();
-						const auto status = task.wait_for(std::chrono::seconds(timeout));
 					 
+						Threading::Utils::Wait(task, _timeout, _cancellationToken);
+						
+						const auto status = Threading::Utils::Status(task);
+						
 						if (status == std::future_status::ready) {
 							results.emplace_back(Serialisation::ElevationDeserialiser::Deserialise<Serialisation::ElevationDeserialiser::OTDJSON>(task.get().Content().ToStream()));
 						}
 						else if (status != std::future_status::timeout) {
-							throw std::runtime_error("OpenTopoData Query failure!");
+							throw std::runtime_error("OpenTopoData Query timeout!");
 						}
 						else {
-							throw std::runtime_error("OpenTopoData Query timeout!");
+							throw std::runtime_error("OpenTopoData Query failure!");
 						}
 			        }
 					

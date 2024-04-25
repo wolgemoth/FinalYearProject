@@ -31,11 +31,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 			
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		protected:
 			
@@ -104,11 +104,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 		
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 			/**
 			 * @brief Convert arc-seconds to metres.
@@ -222,11 +222,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 		
 		private:
 			
@@ -282,11 +282,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
@@ -356,7 +356,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 		
 				conversion_scalar_t result{};
 				
@@ -388,9 +388,9 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return result;
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
-			static constexpr conversion_scalar_t ClampTemperature(const conversion_scalar_t& _val, Unit& _unit) {
+			static conversion_scalar_t ClampTemperature(const conversion_scalar_t& _val, Unit& _unit) {
 				
 				return Convert(
 					std::min(
@@ -462,11 +462,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
@@ -614,11 +614,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
@@ -724,11 +724,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			
@@ -808,11 +808,11 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return s_Lookup.Get(_symbol);
 			}
 			
-			[[nodiscard]] static constexpr conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
+			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
-			static constexpr const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
+			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
 			

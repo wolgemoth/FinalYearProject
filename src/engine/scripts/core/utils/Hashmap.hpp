@@ -34,6 +34,7 @@
 #include <optional>
 #include <stdexcept>
 #include <vector>
+#include <mutex>
 
 namespace LouiEriksson::Engine {
 	
@@ -47,8 +48,10 @@ namespace LouiEriksson::Engine {
 	 * @tparam Tv Value type of the Hashmap.
 	 */
 	template<typename Tk, typename Tv>
-	class Hashmap {
-	
+	class Hashmap final {
+		
+		inline static std::recursive_mutex s_Lock;
+		
 	public:
 		
 		/**
@@ -227,13 +230,19 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns the number of items stored within the Hashmap.
 		 * @return The number of items stored within the Hashmap.
 		 */
-		[[nodiscard]] constexpr const size_t& size() const noexcept { return m_Size; }
+		[[nodiscard]] const size_t& size() const noexcept {
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
+			return m_Size;
+		}
 		
 		/**
 		 * @brief Is the Hashmap empty?
 		 * @return Returns true if the Hashmap contains no entries.
 		 */
-		[[nodiscard]] constexpr bool empty() const noexcept { return m_Size == 0; }
+		[[nodiscard]] bool empty() const noexcept {
+			return size() == 0;
+		}
 	
 		/**
 		 * @brief Queries for the existence of an item in the Hashmap.
@@ -243,6 +252,8 @@ namespace LouiEriksson::Engine {
 		 * @return True if successful, false otherwise.
 		 */
 		bool ContainsKey(const Tk& _key, [[maybe_unused]] std::exception_ptr _exception = nullptr) const noexcept {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			auto result = false;
 			
@@ -281,11 +292,13 @@ namespace LouiEriksson::Engine {
 		 */
 		bool Add(const Tk& _key, const Tv& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			auto result = true;
 			
 			try {
 				
-				if (size() >= m_Buckets.size()) {
+				if (m_Size >= m_Buckets.size()) {
 					Resize(m_Buckets.size() * 2);
 				}
 				
@@ -330,11 +343,13 @@ namespace LouiEriksson::Engine {
 		 */
 		bool Add(const Tk&& _key, const Tv&& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			auto result = true;
 			
 			try {
 				
-				if (size() >= m_Buckets.size()) {
+				if (m_Size >= m_Buckets.size()) {
 					Resize(m_Buckets.size() * 2);
 				}
 				
@@ -377,9 +392,11 @@ namespace LouiEriksson::Engine {
 		 */
 		void Assign(const Tk& _key, const Tv& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			try {
 				
-				if (size() >= m_Buckets.size()) {
+				if (m_Size >= m_Buckets.size()) {
 					Resize(m_Buckets.size() * 2);
 				}
 				
@@ -421,9 +438,11 @@ namespace LouiEriksson::Engine {
 		 */
 		void Assign(Tk&& _key, Tv&& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			try {
 				
-				if (size() >= m_Buckets.size()) {
+				if (m_Size >= m_Buckets.size()) {
 					Resize(m_Buckets.size() * 2);
 				}
 				
@@ -464,6 +483,8 @@ namespace LouiEriksson::Engine {
 		 * @return True if successful, false otherwise.
 		 */
 		bool Remove(const Tk& _key, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			bool result = false;
 			
@@ -508,6 +529,8 @@ namespace LouiEriksson::Engine {
 		 */
 		optional_ref Get(const Tk& _key, std::exception_ptr _exception = nullptr) const noexcept {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			typename optional_ref::optional_t result = std::nullopt;
 			
 			try {
@@ -541,6 +564,8 @@ namespace LouiEriksson::Engine {
 		 */
 		void Trim() {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			size_t trimStart = 1;
 			
 			for (size_t i = trimStart; i < m_Buckets.size(); ++i) {
@@ -560,6 +585,8 @@ namespace LouiEriksson::Engine {
 		 */
 		[[nodiscard]] std::vector<Tk> Keys() const {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			std::vector<Tk> result;
 			
 			for (const auto& bucket : m_Buckets) {
@@ -576,6 +603,8 @@ namespace LouiEriksson::Engine {
 		 * @return A shallow copy of all entries stored within the Hashmap.
 		 */
 		[[nodiscard]] std::vector<Tv> Values() const {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			std::vector<Tv> result;
 			
@@ -594,6 +623,8 @@ namespace LouiEriksson::Engine {
 		 */
 		[[nodiscard]] std::vector<KeyValuePair> GetAll() const {
 			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 			std::vector<KeyValuePair> result;
 			
 			for (const auto& bucket : m_Buckets) {
@@ -610,7 +641,9 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _newSize The minimum capacity to reserve for the container.
 		 */
-		constexpr void Reserve(const std::size_t& _newSize) {
+		void Reserve(const std::size_t& _newSize) {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			if (m_Size < _newSize) {
 				Resize(_newSize);
@@ -621,6 +654,8 @@ namespace LouiEriksson::Engine {
 		 * @brief Clears all entries from the Hashmap.
 		 */
 		void Clear() noexcept {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			try {
 				m_Buckets.clear();
@@ -645,7 +680,10 @@ namespace LouiEriksson::Engine {
 #ifndef HASHMAP_SUPPRESS_EXCEPTION_WARNING
 		[[deprecated("This function does not guarantee exception-safety and will explicitly throws if no entry exists. Consider using Get() if exception-safe access is required.\nSuppress this warning by defining \"HASHMAP_SUPPRESS_UNSAFE_WARNING\".")]]
 #endif
-		constexpr const Tv& operator[](const Tk& _key) const {
+		const Tv& operator[](const Tk& _key) const {
+			
+			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			
 		    return Return(_key);
 		}
 		
