@@ -153,7 +153,7 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange);
+                result = ShadowCalculationPCF3D(u_ShadowMap3D, fragToLight, texelSize, adjustedBias, 1.0, u_LightRange, 8);
                 break;
             }
             case 2: {

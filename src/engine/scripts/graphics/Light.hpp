@@ -71,12 +71,12 @@ namespace LouiEriksson::Engine::Graphics {
 					m_ShadowMap_FBO    (GL_NONE),
 					m_Target           (GL_NONE),
 					m_Resolution       (128    ),
-					m_Bias             (  0.01),
-					m_NormalBias       (  0.02),
-					m_NearPlane        (  0.2 ),
-					m_TwoSided         (  true),
-					m_Projection       (  1.0 ),
-					m_ViewProjection   (  1.0 ) {}
+					m_Bias             (  0.01 ),
+					m_NormalBias       (  0.02 ),
+					m_NearPlane        (  0.2  ),
+					m_TwoSided         (  true ),
+					m_Projection       (  1.0  ),
+					m_ViewProjection   (  1.0  ) {}
 				 
 				~ShadowMap() {
 					Dispose();

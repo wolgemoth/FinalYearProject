@@ -8,7 +8,6 @@
 
 #include <memory>
 #include <typeindex>
-#include <optional>
 
 #define VEC_ZERO    glm::vec3(0)
 #define VEC_ONE     glm::vec3(1)
@@ -36,8 +35,12 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
+		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
+		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
+		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform.    */
+		
 		/**
-		 * @brief Position and scale of the transform.
+		 * @brief Transform and scale components.
 		 *
 		 * Organised like this:
 		 *     s.x,   0,   0,   0,
@@ -46,19 +49,25 @@ namespace LouiEriksson::Engine {
 		 *     t.x, t.y, t.z,   1
 		 */
 		glm::mat4 m_TS;
-		glm::mat4 m_TRS;
 		
-		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
-		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
-		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform. */
+		/**< @brief Rotation of the Transform. */
+		glm::quat m_Rotation;
 		
-		glm::quat m_Rotation; /**< @brief 'Pending' rotation of the Transform. */
+		glm::mat4 m_World;
+		glm::mat4 m_Local;
+		
+		/** @brief Parent of this Transform. */
+		std::weak_ptr<Transform> m_Parent;
+		
+		/** @brief Children of this Transform. */
+		std::vector<std::weak_ptr<Transform>> m_Children;
 		
 	public:
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
 			          m_TS(1.0),
-			         m_TRS(1.0),
+			         m_World(1.0),
+			         m_Local(1.0),
 			m_LastRotation(QUAT_IDENTITY),
 			    m_Rotation(QUAT_IDENTITY) {}
 		
@@ -105,15 +114,11 @@ namespace LouiEriksson::Engine {
 		}
 		
 		/**
-		 * @brief Returns the model / TRS matrix of this transform.
-		 * @return The TRS matrix of the Transform.
+		 * @brief Returns the model / World matrix of this transform.
+		 * @return The World matrix of the Transform.
 		 */
-		[[nodiscard]] const glm::mat4& TRS() {
-			return m_TRS;
-		}
+		[[nodiscard]] const glm::mat4& Local() {
 		
-		void RecalculateTRS() {
-			
 			if (m_Rotation != QUAT_IDENTITY && m_Rotation != QUAT_IDENTITY_NEG) {
 				
 				if (Position() != m_LastPosition ||
@@ -124,12 +129,30 @@ namespace LouiEriksson::Engine {
 					m_LastRotation = Rotation();
 					m_LastScale    = Scale();
 					
-					m_TRS = m_TS * glm::mat4_cast(glm::inverse(m_Rotation));
+					m_Local = m_TS * glm::mat4_cast(glm::inverse(m_Rotation));
 				}
 			}
 			else {
-				m_TRS = m_TS;
+				m_Local = m_TS;
 			}
+			
+			return m_Local;
+		}
+		
+		[[nodiscard]] glm::mat4 World() {
+			
+			glm::mat4 result;
+			
+			if (const auto p = m_Parent.lock()) {
+				m_World = p->World() * Local();
+				
+				result = m_World;
+			}
+			else {
+				result = Local();
+			}
+			
+			return result;
 		}
 		
 	};

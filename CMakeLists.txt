@@ -138,6 +138,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/IViewport.hpp
         src/game/include/engine_networking.hpp
         src/engine/scripts/core/utils/ThreadUtils.hpp
+        src/engine/scripts/core/utils/Random.hpp
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)

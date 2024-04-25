@@ -163,9 +163,9 @@ namespace LouiEriksson::Engine {
 					"8196"
 				};
 				
-				inline static int s_CurrentShadowResolutionSelection { 5 };
+				inline static int s_CurrentShadowResolutionSelection { 6 };
 				
-				inline static int s_ShadowSamples { 64 };
+				inline static int s_ShadowSamples { 24 };
 				
 				inline static scalar_t s_ShadowBias       { 0.01 };
 				inline static scalar_t s_ShadowNormalBias { 0.02 };
@@ -187,7 +187,7 @@ namespace LouiEriksson::Engine {
 				inline static  scalar_t s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
 			    inline static  scalar_t s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
 			    inline static  scalar_t s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */
-				inline static  scalar_t s_LightSize       {   0.2 };               /**< @brief Size of the light (PCSS only).        */
+				inline static  scalar_t s_LightSize       {   1.0 };               /**< @brief Size of the light (PCSS only).        */
 			
 			};
 		};

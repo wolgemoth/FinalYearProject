@@ -26,7 +26,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Planetarium); };
 		
 		/**
 		 * @brief Conversion from seconds to centuries.

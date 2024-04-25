@@ -23,7 +23,7 @@ namespace LouiEriksson::Game::Scripts {
 			m_Radius(0.0) {}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Ball); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Ball); };
 	
 	private:
 		

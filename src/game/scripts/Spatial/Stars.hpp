@@ -22,12 +22,12 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		explicit Stars(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Stars); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Stars); };
 		
 	protected:
 	
 		/** @inheritdoc */
-		virtual void Begin() override  {
+		void Begin() override  {
 			
 			// Change the settings to allow us to see!
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
@@ -72,6 +72,11 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			}
 		}
 	
+		/** @inheritdoc */
+		void Tick() override {
+		
+		}
+		
 		static std::shared_ptr<Mesh> LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude) {
 		
 			using ATHYG_VERSION = Engine::Spatial::ATHYG::V3;

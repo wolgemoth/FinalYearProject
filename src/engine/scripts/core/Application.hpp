@@ -16,6 +16,7 @@
 #include "Time.hpp"
 #include "Types.hpp"
 #include "utils/Hashmap.hpp"
+#include "utils/Random.hpp"
 #include "utils/Utils.hpp"
 #include "Window.hpp"
 
@@ -203,8 +204,6 @@ namespace LouiEriksson::Engine {
 				
 				try {
 					
-					srand(0U); // Use a constant seed (like '0') for deterministic behaviour.
-					
 					/* INIT */
 					s_MainWindow = Window::Create(1280, 720, "FinalYearProject");
 					
@@ -225,6 +224,7 @@ namespace LouiEriksson::Engine {
 					// Capture the mouse on startup.
 					SDL_CaptureMouse(SDL_TRUE);
 					
+					               Random::Init(0); // Use a constant seed (like '0') for deterministic behaviour.
 					     Audio::    Sound::Init();
 					            Resources::Init();
 					             Settings::Init();

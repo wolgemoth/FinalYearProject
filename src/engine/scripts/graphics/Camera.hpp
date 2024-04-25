@@ -165,7 +165,7 @@ namespace LouiEriksson::Engine::Graphics {
 									}
 									
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS());
+									p->Assign(u_Model, tr->World());
 									
 									/* DRAW */
 									Draw(*me);
@@ -199,7 +199,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 									
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS()); /* MODEL      */
+									p->Assign(u_Model, tr->World()); /* MODEL      */
 									
 									/* DRAW */
 									Draw(*me);
@@ -250,7 +250,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 								
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS()); /* MODEL      */
+									p->Assign(u_Model, tr->World()); /* MODEL      */
 									
 									p->Assign(u_AlbedoColor, ma->GetAlbedoColor());
 							
@@ -308,7 +308,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 								
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS()); /* MODEL      */
+									p->Assign(u_Model, tr->World()); /* MODEL      */
 									
 									p->Assign(u_EmissionColor, ma->GetEmissionColor());
 							
@@ -424,7 +424,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 								
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS()); /* MODEL */
+									p->Assign(u_Model, tr->World()); /* MODEL */
 									
 									p->Assign(u_Roughness_Amount, ma->GetRoughnessAmount()   );
 									p->Assign(u_Displacement_Amount, ma->GetDisplacementAmount());
@@ -492,7 +492,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 								
 									// Assign matrices.
-									p->Assign(u_Model, tr->TRS()); /* MODEL */
+									p->Assign(u_Model, tr->World()); /* MODEL */
 									
 									p->Assign(u_NormalAmount, ma->GetNormalAmount());
 									p->Assign(u_Normals, *ma->GetNormalTexture().lock(), 0);
@@ -652,7 +652,7 @@ namespace LouiEriksson::Engine::Graphics {
 									if (r->Shadows() &&
 									    me->Format() == GL_TRIANGLES
 									) {
-										p->Assign(p->AttributeID("u_Model"), t->TRS());
+										p->Assign(p->AttributeID("u_Model"), t->World());
 										
 										/* DRAW */
 										Draw(*me);

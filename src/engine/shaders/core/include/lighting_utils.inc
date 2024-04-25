@@ -55,7 +55,7 @@
 
             vec3 offset = normalize(Random3S(_dir + vec3(i + 1), _seed, 0.1));
 
-            offset *= Random1S(_dir.xy + vec2(i + 1), _seed, 0.4);
+            offset *= (float(i + 1) / float(_samples));
 
             float occluderDepth = Sample1(_shadowMap, _dir + offset);
 
@@ -85,9 +85,9 @@
         else {
             float len = length(_dir);
 
-            float penumbraWidth = (len - occluderDepth) / occluderDepth;
+            float penumbraWidth = abs(occluderDepth / (occluderDepth - len));
 
-            result = penumbraWidth * _lightSize;
+            result = max(penumbraWidth * _lightSize, 1);
         }
 
         return result;
@@ -103,24 +103,20 @@
     }
 
     #pragma optionNV(unroll all)
-    float ShadowCalculationPCF3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _radius, in float _lightRange) {
+    float ShadowCalculationPCF3D(in samplerCube _shadowMap, in vec3 _dir, in float _texelSize, in float _bias, in float _radius, in float _lightRange, in int _samples) {
 
         float result = 0.0;
 
         float hits = 0.0;
 
-        float PCF_SAMPLES = 8.0;
-
-        float multiplier = 50.0; // Compensation for 3D.
-
-        float axis = pow(PCF_SAMPLES, 1.0 / 3.0);
+        float axis = pow(float(_samples), 1.0 / 3.0);
         for (float x = -_radius; x < _radius; x += _radius / axis) {
         for (float y = -_radius; y < _radius; y += _radius / axis) {
         for (float z = -_radius; z < _radius; z += _radius / axis) {
 
             vec3 offset = vec3(x, y, z);
 
-            offset *= _texelSize * multiplier;
+            offset *= _texelSize * 4.0;
 
             result += ShadowCalculationHard3D(_shadowMap, _dir, offset, _bias, _lightRange);
 
@@ -135,7 +131,7 @@
 
         float result = 0.0;
 
-        float multiplier = 50.0; // Compensation for 3D.
+        float multiplier = _radius * 2 * 2 * 2; // Compensation for 3D.
 
         for (int i = 0; i < _samples; ++i) {
 
@@ -153,9 +149,16 @@
 
         float result = 0.0;
 
-        float radius = PCSS_Radius3D(_shadowMap, _dir, _texelSize, _bias, _lightSize, _seed, _samples);
+        float multiplier = 1024.0;
 
-        result = ShadowCalculationDisk3D(_shadowMap, _dir, _texelSize, _bias, radius, _lightRange, _seed, _samples);
+        int BLOCKER_SEARCH_NUM_SAMPLES = _samples;
+        int PCF_NUM_SAMPLES = 24;
+
+        float radius = PCSS_Radius3D(_shadowMap, _dir, _texelSize, _bias, _lightSize * multiplier, _seed, BLOCKER_SEARCH_NUM_SAMPLES);
+
+        radius *= radius;
+
+        result = ShadowCalculationPCF3D(_shadowMap, _dir, _texelSize, _bias, radius, _lightRange, clamp(int(radius), 1, PCF_NUM_SAMPLES));
 
         return result;
     }

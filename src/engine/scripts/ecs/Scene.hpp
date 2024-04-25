@@ -75,7 +75,7 @@ namespace LouiEriksson::Engine::ECS {
 						const auto r = std::dynamic_pointer_cast<Graphics::Renderer>(item);
 						
 						if (auto t = r->GetTransform().lock()) {
-							t->RecalculateTRS(); // Recalculate the transform's TRS matrix.
+							t->World(); // Recalculate the transform's TRS matrix.
 							
 							casted_renderers.emplace_back(r);
 						}

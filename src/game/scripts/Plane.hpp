@@ -21,7 +21,7 @@ namespace LouiEriksson::Game::Scripts {
 		inline static std::weak_ptr<Graphics::Material> m_Material;
 	
 		/** @inheritdoc */
-		virtual void Begin() override {
+		void Begin() override {
 		
 			if (const auto p =      Parent().lock()) {
 			if (const auto s = p->GetScene().lock()) {
@@ -60,7 +60,7 @@ namespace LouiEriksson::Game::Scripts {
 		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 	
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Plane); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Plane); };
 	};
 	
 } // LouiEriksson::Game::Scripts
