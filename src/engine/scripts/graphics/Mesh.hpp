@@ -108,7 +108,7 @@ namespace LouiEriksson::Engine::Graphics {
 		    else if constexpr (std::is_same_v<T, GLint64>)    { result = GL_INT64_NV;         }
 		    else if constexpr (std::is_same_v<T, GLuint64>)   { result = GL_UNSIGNED_INT64_NV;}
 		    else {
-				static_assert([]{ return false; }(), "Type not supported by GetGLType");
+				static_assert([]{ return false; }(), "TypeID not supported by GetGLType");
 			}
 		
 		    return result;

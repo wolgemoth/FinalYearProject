@@ -15,7 +15,7 @@ namespace LouiEriksson::Engine::Physics {
 	
 	/**
 	 * @class Collider
-	 * @brief Represents a Collider Component that can be attached to a GameObject.
+	 * @brief Represents a Collider Component that can be attached to a Parent.
 	 */
 	class Collider : public ECS::Component {
 	
@@ -24,7 +24,7 @@ namespace LouiEriksson::Engine::Physics {
 	public:
 		
 		/**
-		 * @enum Type
+		 * @enum TypeID
 		 * @brief The type of the collider.
 		 */
 		enum Type : unsigned char {
@@ -91,7 +91,7 @@ namespace LouiEriksson::Engine::Physics {
 	
 	protected:
 		
-		/** @brief Type of the collider. */
+		/** @brief TypeID of the collider. */
 		Type m_Type;
 	
 		/** @brief (Bullet Physics Engine) Shape of collider. */

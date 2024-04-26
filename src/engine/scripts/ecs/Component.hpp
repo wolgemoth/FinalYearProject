@@ -7,16 +7,21 @@
 #include <memory>
 #include <typeindex>
 
+namespace LouiEriksson::Engine {
+	
+	class Transform;
+}
+
 namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
 	/**
 	 * @class Component
-	 * @brief Represents a Component which can be attached to a GameObject.
+	 * @brief Represents a Component which can be attached to a Parent.
 	 *
-	 * The Component class represents a component that can be attached to a GameObject.
-	 * It provides functionality for getting the parent GameObject and the derived type ID of the component.
+	 * The Component class represents a component that can be attached to a Parent.
+	 * It provides functionality for getting the parent Parent and the derived type ID of the component.
 	 */
 	class Component {
 		
@@ -24,7 +29,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 	private:
 	
-		/** @brief Index of the component within its category in the GameObject. Used for tidying up during destruction. */
+		/** @brief Index of the component within its category in the Parent. Used for tidying up during destruction. */
 		size_t m_Index;
 	
 		/** @brief Parent GameObject that contains the component. */
@@ -54,16 +59,15 @@ namespace LouiEriksson::Engine::ECS {
 		[[nodiscard]] virtual inline std::type_index TypeID() const noexcept = 0;
 		
 		/**
-		 * @brief Get the Component's parent GameObject.
+		 * @brief Get the Component's parent Parent.
 		 *
-		 * This function returns a `std::weak_ptr` referencing the parent GameObject that contains the component.
+		 * This function returns a `std::weak_ptr` referencing the parent Parent that contains the component.
 		 *
-		 * @return A `std::weak_ptr<GameObject>` referencing the parent GameObject.
+		 * @return A `std::weak_ptr<Parent>` referencing the parent GameObject.
 		 */
-		[[nodiscard]] virtual const std::weak_ptr<GameObject>& Parent() const noexcept {
-			return m_GameObject;
+		[[nodiscard]] std::shared_ptr<GameObject> Parent() const noexcept {
+			return m_GameObject.lock();
 		}
-		
 	};
 	
 } // LouiEriksson::Engine::ECS

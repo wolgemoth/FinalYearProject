@@ -20,6 +20,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		std::weak_ptr<Stars>       m_Stars;
 		std::weak_ptr<Planetarium> m_Planets;
 		std::weak_ptr<Map>         m_Map;
+		std::weak_ptr<FlyCam>      m_Camera;
 		
 	public:
 	
@@ -29,29 +30,45 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(FYP); };
-
+	
 	protected:
 	
 		/** @inheritdoc */
-		void Begin() override  {
+		void Begin() override {
 			
-			if (const auto p =      Parent().lock()) {
+			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene().lock()) {
 				
-				auto stars_object = s->Create("Stars").lock();
+				auto flyCam_object = s->Create("Player");
+				flyCam_object->AddComponent<Transform>();
+				m_Camera = flyCam_object->AddComponent<FlyCam>();
+				
+				auto stars_object = s->Create("Stars");
 				m_Stars = stars_object->AddComponent<Stars>();
 				
-				auto planets_object = s->Create("Planets").lock();
-				m_Planets = planets_object->AddComponent<Planetarium>();
-				
-				auto map_object = s->Create("Map").lock();
+				auto map_object = s->Create("Map");
 				m_Map = map_object->AddComponent<Map>();
+				
+				auto planets_object = s->Create("Planets");
+				m_Planets = planets_object->AddComponent<Planetarium>();
 			}}
 	    }
 		
 		/** @inheritdoc */
-		void Tick() override {
+		void LateTick() override {
 			
+			if (auto s = m_Stars.lock()) {
+			if (auto p1 = s->Parent()) {
+			if (auto t1 = p1->GetComponent<Transform>()) {
+				
+				if (auto c = m_Camera.lock()) {
+				if (auto p2 = c->Parent()) {
+				if (auto t2 = p2->GetComponent<Transform>()) {
+					
+					t1->Position(t2->Position());
+					t1->Rotation(glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87("Earth", Planetarium::J2000_Centuries()))));
+				}}}
+			}}}
 	    }
 		
 	};

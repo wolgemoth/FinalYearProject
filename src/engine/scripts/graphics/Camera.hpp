@@ -48,7 +48,7 @@ namespace LouiEriksson::Engine::Graphics {
 	
 	/**
 	 * @class Camera
-	 * @brief Represents a Camera component that can be attached to a GameObject.
+	 * @brief Represents a Camera component that can be attached to a Parent.
 	 */
 	class Camera final : public ECS::Component {
 	
@@ -1282,6 +1282,23 @@ namespace LouiEriksson::Engine::Graphics {
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Camera); };
 		
+		void ReinitialiseBuffers(const std::shared_ptr<IViewport<scalar_t, size_t>>& _viewport) {
+			
+			const auto& d = _viewport->Dimensions();
+			
+			// Reinitialise the g-buffer:
+			              m_RT.Reinitialise(d.x, d.y);
+			  m_Albedo_gBuffer.Reinitialise(d.x, d.y);
+			m_Emission_gBuffer.Reinitialise(d.x, d.y);
+			m_Material_gBuffer.Reinitialise(d.x, d.y);
+			m_Position_gBuffer.Reinitialise(d.x, d.y);
+			  m_Normal_gBuffer.Reinitialise(d.x, d.y);
+			m_TexCoord_gBuffer.Reinitialise(d.x, d.y);
+			
+			// Clear the mip chain:
+			m_Bloom_MipChain.clear();
+		}
+		
 		/**
 		 * @brief Pre-render stage of the rendering pipeline.
 		 *
@@ -1295,20 +1312,7 @@ namespace LouiEriksson::Engine::Graphics {
 			if (const auto v = m_Viewport.lock()) {
 			
 				if ((_flags & RenderFlags::REINITIALISE) != 0U) {
-					
-					// Reinitialise the g-buffer:
-					const auto& dimensions = v->Dimensions();
-					
-					              m_RT.Reinitialise(dimensions.x, dimensions.y);
-					  m_Albedo_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					m_Emission_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					m_Material_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					m_Position_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					  m_Normal_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					m_TexCoord_gBuffer.Reinitialise(dimensions.x, dimensions.y);
-					
-					// Clear the mip chain:
-					m_Bloom_MipChain.clear();
+					ReinitialiseBuffers(v);
 				}
 			}
 			else {
@@ -1502,7 +1506,7 @@ namespace LouiEriksson::Engine::Graphics {
 									p->Assign(p->AttributeID("u_LightAngle"),
 										static_cast<GLfloat>(
 											glm::cos(glm::radians(
-												l->Type() == Light::Parameters::Type::Spot ?
+													l->Type() == Light::Parameters::Type::Spot ?
 													l->m_Angle / 2 :
 													180.0
 												)
@@ -1511,7 +1515,7 @@ namespace LouiEriksson::Engine::Graphics {
 									);
 					
 									p->Assign(p->AttributeID("u_NearPlane"), l->m_Shadow.m_NearPlane);
-					
+									
 									p->Assign(p->AttributeID("u_LightPosition" ), t->Position());
 									p->Assign(p->AttributeID("u_LightDirection"), t->FORWARD   );
 									
@@ -1705,11 +1709,25 @@ namespace LouiEriksson::Engine::Graphics {
 			glDisable(GL_FRAMEBUFFER_SRGB);
 		}
 		
-		void SetViewport(const std::weak_ptr<IViewport<scalar_t, size_t>>& _viewport) {
+		void SetViewport(const std::shared_ptr<IViewport<scalar_t, size_t>>& _viewport) {
+			
+			bool reinitalise;
+			
+			if (const auto old_v = m_Viewport.lock()) {
+				reinitalise = _viewport->Dimensions() != old_v->Dimensions();
+			}
+			else {
+				reinitalise = true;
+			}
+			
 			m_Viewport = _viewport;
+		
+			if (reinitalise) {
+				ReinitialiseBuffers(_viewport);
+			}
 		}
 		
-		[[nodiscard]] constexpr const std::weak_ptr<IViewport<scalar_t, size_t>>& GetViewport()const {
+		[[nodiscard]] constexpr const std::weak_ptr<IViewport<scalar_t, size_t>>& GetViewport() const {
 			return m_Viewport;
 		}
 		

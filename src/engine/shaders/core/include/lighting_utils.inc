@@ -55,7 +55,7 @@
 
             vec3 offset = normalize(Random3S(_dir + vec3(i + 1), _seed, 0.1));
 
-            offset *= (float(i + 1) / float(_samples));
+            offset *= Random1S(_dir.xy + vec2(i + 1), _seed, 0.4);
 
             float occluderDepth = Sample1(_shadowMap, _dir + offset);
 
@@ -87,7 +87,7 @@
 
             float penumbraWidth = abs(occluderDepth / (occluderDepth - len));
 
-            result = max(penumbraWidth * _lightSize, 1);
+            result = penumbraWidth * _lightSize;
         }
 
         return result;
@@ -149,18 +149,14 @@
 
         float result = 0.0;
 
-        float multiplier = 1024.0;
+        float multiplier = 64;
 
         int BLOCKER_SEARCH_NUM_SAMPLES = _samples;
         int PCF_NUM_SAMPLES = 24;
 
-        float radius = PCSS_Radius3D(_shadowMap, _dir, _texelSize, _bias, _lightSize * multiplier, _seed, BLOCKER_SEARCH_NUM_SAMPLES);
+        float radius = PCSS_Radius3D(_shadowMap, _dir, _texelSize, _bias, _lightSize * multiplier * _lightRange, _seed, BLOCKER_SEARCH_NUM_SAMPLES);
 
-        radius *= radius;
-
-        result = ShadowCalculationPCF3D(_shadowMap, _dir, _texelSize, _bias, radius, _lightRange, clamp(int(radius), 1, PCF_NUM_SAMPLES));
-
-        return result;
+        return ShadowCalculationPCF3D(_shadowMap, _dir, _texelSize, _bias, radius, _lightRange, clamp(int(radius), 1, PCF_NUM_SAMPLES));
     }
 
     #pragma optionNV(unroll all)
@@ -172,11 +168,12 @@
 
         for (int i = 0; i < _samples; ++i) {
 
-            vec2 dir = Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1);
+            vec2 offset = normalize(Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1));
 
-            dir *= Random1S(dir.xy + vec2(i + 1), _seed, 0.2);
+            offset.x += sign(offset.x) * float(i) * _samples;
+            offset.y += sign(offset.y) * float(i) * _samples;
 
-            float occluderDepth = Sample1(_shadowMap, _fragPos.xy + dir);
+            float occluderDepth = Sample1(_shadowMap, _fragPos.xy + (offset * _texelSize));
 
             if (occluderDepth < _fragPos.z - _bias) {
                 result += occluderDepth;
@@ -186,7 +183,7 @@
         }
 
         if (hits == 0) {
-            result = -1;
+            result = -1.0;
         }
 
         return result / float(max(hits, 1));
@@ -204,7 +201,7 @@
         else {
             float penumbraWidth = (_fragPos.z - occluderDepth) / occluderDepth;
 
-            result = penumbraWidth * _lightSize * (_nearClip / _fragPos.z);
+            result = penumbraWidth * _lightSize;
         }
 
         return result;
@@ -221,21 +218,19 @@
     }
 
     #pragma optionNV(unroll all)
-    float ShadowCalculationPCF2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _radius) {
+    float ShadowCalculationPCF2D(in sampler2D _shadowMap, in vec3 _fragPos, in float _texelSize, in float _bias, in float _radius, in int _samples) {
 
         float result = 0.0;
 
         float hits = 0.0;
 
-        float PCF_SAMPLES = 4.0;
+        float PCF_SAMPLES = _samples;
 
         float axis = sqrt(PCF_SAMPLES);
         for (float x = -_radius; x < _radius; x += _radius / axis) {
         for (float y = -_radius; y < _radius; y += _radius / axis) {
 
-            vec2 dir = vec2(x, y);
-
-            dir *= _texelSize;
+            vec2 dir = vec2(x, y) * _texelSize;
 
             result += ShadowCalculationHard2D(_shadowMap, _fragPos, dir, _bias);
 
@@ -268,11 +263,15 @@
 
         float perspective_multiplier = _lightAngle == -1.0 ? 1.0 : 32.0;
 
-        float radius = PCSS_Radius2D(_shadowMap, _fragPos, _texelSize, _bias, _seed, _samples, _lightSize, _nearClip) / _texelSize;
+        int BLOCKER_SEARCH_NUM_SAMPLES = _samples;
+        int PCF_NUM_SAMPLES = 24;
 
-        result = ShadowCalculationDisk2D(_shadowMap, _fragPos, _texelSize, _bias, radius * perspective_multiplier, _seed, _samples);
+        float radius = PCSS_Radius2D(_shadowMap, _fragPos, _texelSize, _bias, _seed, BLOCKER_SEARCH_NUM_SAMPLES, _lightSize, _nearClip);
 
-        return result;
+        radius *= perspective_multiplier;
+        radius /= _texelSize;
+
+        return ShadowCalculationPCF2D(_shadowMap, _fragPos, _texelSize, _bias, radius, clamp(int(radius), 1, PCF_NUM_SAMPLES));
     }
 
 #endif

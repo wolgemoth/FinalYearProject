@@ -3,12 +3,12 @@
 
 namespace LouiEriksson::Engine::Graphics {
 	
-	template<typename T, glm::length_t U = 4>
+	template<typename T, glm::length_t L = 4>
 	class TextureCPU final {
 		
 	private:
 		
-		std::vector<glm::vec<U, T>> m_Pixels;
+		std::vector<glm::vec<L, T>> m_Pixels;
 		
 		size_t m_Width,
 		       m_Height;
@@ -36,7 +36,7 @@ namespace LouiEriksson::Engine::Graphics {
 		
 	public:
 		
-		TextureCPU(const std::vector<glm::vec<U, T>>& _pixels, const size_t& _width, const size_t& _height) :
+		TextureCPU(const std::vector<glm::vec<L, T>>& _pixels, const size_t& _width, const size_t& _height) :
 			m_Pixels (_pixels),
 			m_Width  (std::max(_width,  static_cast<size_t>(1U))),
 			m_Height (std::max(_height, static_cast<size_t>(1U)))
@@ -62,16 +62,16 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] size_t Width()  const noexcept { return m_Width;  }
 		[[nodiscard]] size_t Height() const noexcept { return m_Height; }
 		
-		[[nodiscard]] const std::vector<glm::vec<U, T>>& Pixels() const noexcept {
+		[[nodiscard]] const std::vector<glm::vec<L, T>>& Pixels() const noexcept {
 			return m_Pixels;
 		}
 		
-		[[nodiscard]] glm::vec<U, T> GetPixel(const glm::vec<2, size_t>& _pixel) const {
+		[[nodiscard]] glm::vec<L, T> GetPixel(const glm::vec<2, size_t>& _pixel) const {
 			return m_Pixels[GetIndex(_pixel)];
 		}
 		
 		template<typename Y = scalar_t, glm::qualifier V = glm::defaultp>
-		[[nodiscard]] glm::vec<U, T> GetPixelBilinear(const glm::vec<2, Y, V>& _uv) const {
+		[[nodiscard]] glm::vec<L, T> GetPixelBilinear(const glm::vec<2, Y, V>& _uv) const {
 			
 			static_assert(std::is_floating_point<Y>::value, "Y must be a floating point type");
 			
@@ -82,9 +82,9 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			const glm::vec<2, Y, V> d(glm::fract(_uv.x), glm::fract(_uv.y));
 			
-			glm::vec<U, T> result{};
+			glm::vec<L, T> result{};
 			
-			for (size_t i = 0U; i < U; ++i) {
+			for (size_t i = 0U; i < L; ++i) {
 				
 				const auto A = GetPixel({ p.x    , p.y     });
 				const auto B = GetPixel({ p.x + 1, p.y     });
@@ -94,7 +94,7 @@ namespace LouiEriksson::Engine::Graphics {
 				result += glm::mix(glm::mix(A, B, d.x), glm::mix(C, D, d.x), d.y);
 			}
 			
-			result /= static_cast<T>(U);
+			result /= static_cast<T>(L);
 			
 			return result;
 		}

@@ -154,38 +154,26 @@ namespace LouiEriksson::Engine::ECS {
 				}
 			}
 			
-			/* UPDATE SCRIPTS */
+			/* TICK SCRIPTS */
 			for (size_t i = 0U; i < size; ++i) {
 				
 				const auto entity = m_Entities[i];
 				
 				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
 					for (const auto& item : *scripts) {
-						std::dynamic_pointer_cast<Script>(item)->Invoke();
+						std::dynamic_pointer_cast<Script>(item)->Invoke(false);
 					}
 				}
 			}
 			
-			/* UPDATE AUDIO LISTENERS */
+			/* LATE-TICK SCRIPTS */
 			for (size_t i = 0U; i < size; ++i) {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioListener))) {
+				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
 					for (const auto& item : *scripts) {
-						std::dynamic_pointer_cast<Script>(item)->Invoke();
-					}
-				}
-			}
-			
-			/* UPDATE AUDIO SOURCES */
-			for (size_t i = 0U; i < size; ++i) {
-				
-				const auto entity = m_Entities[i];
-				
-				if (const auto& scripts = entity->Components().Get(typeid(Audio::AudioSource))) {
-					for (const auto& item : *scripts) {
-						std::dynamic_pointer_cast<Script>(item)->Invoke();
+						std::dynamic_pointer_cast<Script>(item)->Invoke(true);
 					}
 				}
 			}
@@ -241,8 +229,8 @@ namespace LouiEriksson::Engine::ECS {
 								 */
 								{
 									// Get rigidbody on Script's parent.
-									if (const auto  p = script->Parent().lock()) {
-									if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+									if (const auto  p = script->Parent()) {
+									if (const auto rb = p->GetComponent<Physics::Rigidbody>()) {
 										
 										// Invoke collision event for every Collision:
 										const auto collisions = rb->Collisions();
@@ -286,15 +274,15 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		/**
-		 * @brief Creates a new GameObject and attaches it to the specified Scene.
+		 * @brief Creates a new Parent and attaches it to the specified Scene.
 		 *
-		 * This function creates a new GameObject and attaches it to the specified Scene.
+		 * This function creates a new Parent and attaches it to the specified Scene.
 		 *
-		 * @param[in] _scene The Scene to attach the GameObject to.
-		 * @param[in] _name The optional name of the GameObject.
-		 * @return A shared pointer to the newly created GameObject.
+		 * @param[in] _scene The Scene to attach the Parent to.
+		 * @param[in] _name The optional name of the Parent.
+		 * @return A shared pointer to the newly created Parent.
 		 */
-		[[nodiscard]] std::weak_ptr<GameObject> Create(const std::string_view& _name = "")  {
+		[[nodiscard]] std::shared_ptr<GameObject> Create(const std::string_view& _name = "")  {
 			return m_Entities.emplace_back(new GameObject(weak_from_this(), _name.data()), [](GameObject* _ptr) { delete _ptr; });
 		}
 		
@@ -453,7 +441,7 @@ namespace LouiEriksson::Engine::ECS {
 					Debug::Assert(!log, "\tName: \"" + std::string(goName) + "\"", LogType::Info);
 	
 					// Create GameObject to populate.
-					auto go = result->Create(goName).lock();
+					auto go = result->Create(goName);
 			
 					xml.startNode();
 			

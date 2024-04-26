@@ -283,8 +283,8 @@ namespace LouiEriksson::Engine::Audio {
 					if (m_PendingParameters.m_MinAngle != m_CurrentParameters.m_MinAngle) { alSourcef(m_Source, AL_CONE_INNER_ANGLE, m_PendingParameters.m_MinAngle); }
 					if (m_PendingParameters.m_MaxAngle != m_CurrentParameters.m_MaxAngle) { alSourcef(m_Source, AL_CONE_OUTER_ANGLE, m_PendingParameters.m_MaxAngle); }
 					
-					if (const auto p = Parent().lock()) {
-					if (const auto t = p->GetComponent<Transform>().lock()) {
+					if (const auto p = Parent()) {
+					if (const auto t = p->GetComponent<Transform>()) {
 						
 						// Set world position to that of the current transform.
 						if (t->Position() != m_PendingParameters.m_Position) {
@@ -309,7 +309,7 @@ namespace LouiEriksson::Engine::Audio {
 						{
 							glm::vec3 velocity;
 							
-							if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+							if (const auto r = p->GetComponent<Physics::Rigidbody>()) {
 								velocity = r->Velocity();
 							}
 							else {

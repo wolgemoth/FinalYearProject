@@ -20,7 +20,7 @@ namespace LouiEriksson::Engine::Physics {
 	
 	/**
 	 * @class SphereCollider
-	 * @brief Represents a Sphere Collider Component that can be attached to a GameObject.
+	 * @brief Represents a Sphere Collider Component that can be attached to a Parent.
 	 *
 	 * SphereCollider is a concrete implementation of the abstract Collider class.
 	 * It represents a spherical collider used for collision detection and physics simulation.

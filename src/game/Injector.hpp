@@ -47,7 +47,7 @@ namespace LouiEriksson::Game::Core {
 		 *
 		 * If an exception is thrown during initialisation, it is caught and logged using Debug::Log() without interrupting execution.
 		 *
-		 * @return A Hashmap<std::string, std::shared_ptr<Script>(*)(const std::weak_ptr<ECS::GameObject>&)> which contains
+		 * @return A Hashmap<std::string, std::shared_ptr<Script>(*)(const std::weak_ptr<ECS::Parent>&)> which contains
 		 * the typeid name of the game object as the key and corresponding function pointer for their initialisation as the value.
 		 */
 		static const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)>& GetInitialisers() noexcept {

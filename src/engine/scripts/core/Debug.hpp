@@ -640,7 +640,7 @@ namespace LouiEriksson::Engine {
 					/*
 					 * Construct a header containing various pieces of metadata about the current log.
 					 */
-					std::string header = "";
+					std::ostringstream message;
 					
 					const Meta meta {
 						std::time(nullptr),
@@ -650,18 +650,18 @@ namespace LouiEriksson::Engine {
 					
 					// Timestamp:
 					if (!s_LastLog.m_Inline) {
-						std::ostringstream oss;
-						oss << std::put_time(std::localtime(&meta.m_Timestamp), "[%H:%M:%S %d/%m/%Y] ");
-						header += oss.str();
+						message << std::put_time(std::localtime(&meta.m_Timestamp), "[%H:%M:%S %d/%m/%Y] ");
 					}
 					
 					// Thread ID:
 					if (!s_LastLog.m_Inline || s_LastLog.m_ThreadID != meta.m_ThreadID) {
-						header += "[" + std::to_string(meta.m_ThreadID) + "] ";
+						message << "[" + std::to_string(meta.m_ThreadID) + "] ";
 					}
 					
+					message << _message.data();
+					
 					// Print log to console:
-					Print::Multiplatform(header + _message.data(), _type, _inline);
+					Print::Multiplatform(message.str(), _type, _inline);
 					
 					// Add trace information:
 					if (_type == LogType::Trace || _type == LogType::Critical) {

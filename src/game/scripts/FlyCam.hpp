@@ -59,13 +59,13 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		void Begin() override {
 		
-			if (const auto p =      Parent().lock()) {
+			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene().lock()) {
 			
 				// Add a light to the scene for testing purposes.
 				// TODO: Add a light to the scene through the scene's file, not code.
 				{
-					const auto light_gameObject = s->Create("Light").lock();
+					const auto light_gameObject = s->Create("Light");
 					light_gameObject->AddComponent<Transform>();
 					light_gameObject->AddComponent<Graphics::Light>();
 				}

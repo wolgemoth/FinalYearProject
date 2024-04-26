@@ -29,7 +29,7 @@ namespace LouiEriksson::Engine {
 	/**
 	 * @class Script
 	 * @brief Base class to be inherited by scriptable types.
-	 * @details Script is a base class for scriptable types which can be attached to a GameObject.
+	 * @details Script is a base class for scriptable types which can be attached to a Parent.
 	 * It inherits from the Component class and provides virtual functions that can be overridden by derived classes.
 	 *
 	 * @see Component
@@ -44,15 +44,22 @@ namespace LouiEriksson::Engine {
 		
 		bool m_Initialised = false;
 		
-		void Invoke() {
+		void Invoke(const bool& _late) {
 			
 			try {
-				if (!m_Initialised) {
-					Begin();
-					m_Initialised = true;
+				
+				if (!_late) {
+					
+					if (!m_Initialised) {
+						Begin();
+						m_Initialised = true;
+					}
+					else {
+						Tick();
+					}
 				}
-				else {
-					Tick();
+				else if (m_Initialised) {
+					LateTick();
 				}
 			}
 			catch (const std::exception& e) {
@@ -63,9 +70,9 @@ namespace LouiEriksson::Engine {
 	protected:
 		
 		/**
-		 * @brief Construct a new Script object and bind to a GameObject.
+		 * @brief Construct a new Script object and bind to a Parent.
 		 *
-		 * @param[in] _parent A weak pointer to the parent ECS::GameObject that the
+		 * @param[in] _parent A weak pointer to the parent ECS::Parent that the
 		 *                    Script will be associated with.
 		 */
 		explicit Script(const std::weak_ptr<ECS::GameObject>& _parent) : ECS::Component(_parent) {}
@@ -76,8 +83,11 @@ namespace LouiEriksson::Engine {
 		/** @brief Called at the beginning of the first frame. */
 		virtual void Begin() {}
 		
-		/** @brief Called every frame. */
+		/** @brief Called at the beginning of every frame. */
 		virtual void Tick() {}
+		
+		/** @brief Called at the end of every frame. */
+		virtual void LateTick() {}
 		
 		/** @brief Called every tick of the physics engine. */
 		virtual void FixedTick() {}
@@ -86,7 +96,6 @@ namespace LouiEriksson::Engine {
 		 * @brief Called every time a collision event occurs.
 		 *
 		 * This function is called whenever a collision event occurs in the physics engine.
-		 * It receives a constant reference to a Collision object containing information about the collision.
 		 *
 		 * @param[in] _collision A constant reference to a Collision object representing the collision event.
 		 * @see Physics::Collision

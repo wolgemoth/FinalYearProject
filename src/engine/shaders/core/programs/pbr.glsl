@@ -196,7 +196,7 @@
                 break;
             }
             case 1: {
-                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0);
+                result = ShadowCalculationPCF2D(u_ShadowMap2D, projCoords, texelSize, adjustedBias, 1.0, 4);
                 break;
             }
             case 2: {
@@ -255,7 +255,7 @@
                     );
                     break;
                 }
-                case 1: {  /* DIRECTIONAL */
+                case 1: { /* DIRECTIONAL */
                     visibility = (dot(u_LightDirection, u_LightDirection) > u_LightAngle ? 1.0 : 0.0) *
                     1.0 - max(
                         TransferShadow2D(position_lightSpace, normal, u_LightDirection, u_ShadowBias, u_ShadowNormalBias),
@@ -286,7 +286,7 @@
                 lighting = BRDF(
                     albedo.rgb,
                     normal,
-                    u_LightDirection,
+                    normalize(u_LightDirection),
                     viewDir,
                     halfVec,
                     metallic,

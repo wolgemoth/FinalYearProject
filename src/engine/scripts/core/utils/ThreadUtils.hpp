@@ -16,9 +16,9 @@ namespace LouiEriksson::Engine::Threading {
 		
 		private:
 			
-			inline static std::mutex s_Lock;
+			std::mutex m_Lock;
 			
-			inline static std::queue<std::function<void()>> m_Tasks;
+			std::queue<std::function<void()>> m_Tasks;
 		
 		public:
 			
@@ -29,7 +29,7 @@ namespace LouiEriksson::Engine::Threading {
 			 */
 			void Schedule(std::function<void()>&& _task) {
 				
-				std::lock_guard<std::mutex> lock(s_Lock);
+				std::lock_guard<std::mutex> lock(m_Lock);
 				
 				m_Tasks.emplace(_task);
 			}
@@ -41,7 +41,7 @@ namespace LouiEriksson::Engine::Threading {
 			 */
 			void Dispatch(const size_t& _count = 1) {
 				
-				std::lock_guard<std::mutex> lock(s_Lock);
+				std::lock_guard<std::mutex> lock(m_Lock);
 				
 				for (int i = 0; i < _count; ++i) {
 					

@@ -73,9 +73,10 @@ namespace LouiEriksson::Engine::Spatial {
 							
 							std::vector<glm::vec<1, scalar_t>> result;
 							
+							// Elevation data from OpenElevation arrives in a different order to OpenTopoData, so must be reversed:
 							result.reserve(_elevation_result.results.size());
-							for (const auto& item : _elevation_result.results) {
-								result.emplace_back(item.elevation);
+							for (auto it = _elevation_result.results.rbegin(); it != _elevation_result.results.rend(); ++it) {
+								result.emplace_back(it->elevation);
 							}
 							
 							if (_callback != nullptr) {
@@ -118,7 +119,7 @@ namespace LouiEriksson::Engine::Spatial {
 	            }
 	        }
 	    }
-	
+		
         static std::future<void> PostRequestOpenElevationAsync(const std::vector<glm::vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	
 			return std::async([_request, _callback, _timeout, &_cancellationToken]() {
@@ -186,7 +187,7 @@ namespace LouiEriksson::Engine::Spatial {
 					message.Set(CURLOPT_TIMEOUT, std::chrono::duration_cast<std::chrono::seconds>(_timeout).count());
 					
 					auto header = Networking::Requests::Client::Header();
-					message.Set(CURLOPT_HTTPHEADER, curl_slist_append(header.get(), "Content-Type: application/json"));
+					message.Set(CURLOPT_HTTPHEADER, curl_slist_append(header.get(), "Content-TypeID: application/json"));
 			
 			        const auto requestIntervalMs = std::chrono::milliseconds(500);
 					

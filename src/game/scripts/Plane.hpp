@@ -23,11 +23,11 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		void Begin() override {
 		
-			if (const auto p =      Parent().lock()) {
+			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene().lock()) {
 			
 				// Get Transform.
-				if (const auto transform = p->GetComponent<Transform>().lock()) {
+				if (const auto transform = p->GetComponent<Transform>()) {
 				
 					transform->Scale({50.0, 1.0, 50.0});
 				

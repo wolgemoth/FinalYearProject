@@ -41,11 +41,11 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		void Begin() override {
 			
-			if (const auto p =      Parent().lock()) {
+			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene().lock()) {
 				
 				// Get Transform.
-				if (const auto t = p->GetComponent<Transform>().lock()) {
+				if (const auto t = p->GetComponent<Transform>()) {
 					
 					// Get starting position.
 					m_StartingPosition = t->Position();
@@ -86,13 +86,13 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		void FixedTick() override  {
 		
-			if (const auto p = Parent().lock()) {
-			if (const auto t = p->GetComponent<Transform>().lock()) {
+			if (const auto p = Parent()) {
+			if (const auto t = p->GetComponent<Transform>()) {
 				
 				// 'Reset' balls which fall beneath a certain height.
 				if (t->Position().y <= -100.0) {
 					
-					if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+					if (const auto rb = p->GetComponent<Physics::Rigidbody>()) {
 				
 						// Reset position.
 						rb->Position(m_StartingPosition);
@@ -108,8 +108,8 @@ namespace LouiEriksson::Game::Scripts {
 		/** @inheritdoc */
 		void OnCollision(const Physics::Collision& _collision) override {
 			
-			if (const auto  p = Parent().lock()) {
-			if (const auto rb = p->GetComponent<Physics::Rigidbody>().lock()) {
+			if (const auto  p = Parent()) {
+			if (const auto rb = p->GetComponent<Physics::Rigidbody>()) {
 				
 				// Threshold impulse to play a sound.
 				const auto impulse_threshold = rb->Mass() * 3.0;

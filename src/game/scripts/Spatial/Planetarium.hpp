@@ -22,7 +22,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		using scalar     = long double;
 		
 	public:
-	
+		
+		scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
+		scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
+		
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 		
 		/** @inheritdoc */
@@ -58,7 +61,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		/**
 		 * @brief Get the current terrestrial time.
-		 * @tparam T Type to return TT.
+		 * @tparam T TypeID to return TT.
 		 * @return Current TT
 		 */
 		template <typename T = highp_time>
@@ -69,7 +72,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		}
 		/**
 		 * @brief Get the current total atomic time.
-		 * @tparam T Type to return TAI as. Must be floating-point.
+		 * @tparam T TypeID to return TAI as. Must be floating-point.
 		 *
 		 * @warning (Apr 20, 2024) This solution is not future-proof!
 		 *     Future leap seconds will cause this to go out of sync.
@@ -178,11 +181,11 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 			/**
 			 * @brief Sets the time of the planetarium.
-			 * @param[in] _tt The new time value in terrestrial time.
+			 * @param[in] _time The new time value in J2000 centuries.
 			 */
-			void Time(const highp_time& _tt) {
+			void Time(const highp_time& _time) {
 					
-				m_Time = _tt;
+				m_Time = _time;
 		
 #define POS VSOP<T, Q>::V87::A
 #define ROT glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87<T, Q>
@@ -287,9 +290,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		/** @inheritdoc */
 		void Begin() override {
 		
-			if (const auto p =      Parent().lock()) {
+			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene().lock()) {
-			
+				
 				// Get Transform.
 				m_Transform = p->GetComponent<Transform>();
 				
@@ -303,7 +306,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				// Spawn objects for planets;
 				for (const auto& item : m_Positions_From.Names()) {
 				
-					const auto go = s->Create(item).lock();
+					const auto go = s->Create(item);
 					
 					const auto transform = go->AddComponent<Transform>();
 					const auto renderer  = go->AddComponent<Graphics::Renderer>();
@@ -327,9 +330,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			// Prevent the model of the sun from casting shadows:
 			if (const auto sol = m_Planets.Get("Sol")) {
 				
-				if (const auto go = sol->lock()                                  ) {
-				if (const auto t  = go->GetComponent<Transform>().lock()         ) {
-				if (const auto r  = go->GetComponent<Graphics::Renderer>().lock()) {
+				if (const auto go = sol->lock()                           ) {
+				if (const auto t  = go->GetComponent<Transform>()         ) {
+				if (const auto r  = go->GetComponent<Graphics::Renderer>()) {
 					r->Shadows(false);
 				}}}
 			}
@@ -371,11 +374,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			using DISTANCE = Maths::Conversions::Distance;
 			
 			// Get the number of metres in an astronomical unit, to convert to 1:1 scale.
-			const scalar au_to_m = DISTANCE::Convert(1.0, DISTANCE::Unit::AstronomicalUnit, DISTANCE::Unit::Metre);
-			
-			// Establish scale multipliers in AU:
-			const auto distance_multiplier_au = (1.0 / au_to_m) * 1000.0;
-			const auto     size_multiplier_au = (1.0 / au_to_m) * 1000.0;
+			static const scalar au_to_m = DISTANCE::Convert(1.0, DISTANCE::AstronomicalUnit, DISTANCE::Metre);
 			
 			// Get position of earth to use as a point-of-origin.
 			auto existing_from = _from.TryGetTransform(_origin);
@@ -399,29 +398,22 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 					if (const auto go = item.value().lock()) {
 					
-						if (const auto t = go->template GetComponent<Transform>().lock()) {
+						if (const auto t = go->template GetComponent<Transform>()) {
 							
 							auto interpolated = Planets<T, Q>::Transform::InterpolateTransform(from, to, _t);
 							
 							// Adjust the position and rotation of the planet.
-							t->Position((interpolated.m_Position.m_Cartesian - origin.m_Position.m_Cartesian) * au_to_m * distance_multiplier_au);
+							t->Position((interpolated.m_Position.m_Cartesian - origin.m_Position.m_Cartesian) * au_to_m * m_DistanceMultiplier);
 							t->Rotation( interpolated.m_Rotation);
 							
 							// Adjust the scale of the planet.
 							if (const auto scale = Planets<T, Q>::s_Scales_AU.Get(name)) {
-								t->Scale(glm::vec<3, T, Q>(au_to_m * size_multiplier_au * scale.value()));
+								t->Scale(glm::vec<3, T, Q>(au_to_m * m_ScaleMultiplier * scale.value()));
 							}
 						}
 					}
 				}
 			}
-			
-			// Put the light where the sun is.
-			// TODO: Use a 'Light' component instead!
-			const auto sol = m_Planets["Sol"].lock()->GetComponent<Transform>().lock();
-			Settings::Graphics::Material::s_LightPosition = sol->Position();
-//			Settings::Graphics::Material::s_LightRange = 4000.0 * 1000.0;
-//			Settings::Graphics::Material::s_LightIntensity = 1.0;
 		}
 		
 	};

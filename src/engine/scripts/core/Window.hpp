@@ -159,7 +159,7 @@ namespace LouiEriksson::Engine {
 			
 			try {
 				m_Cameras.emplace(_camera);
-				_camera->m_Viewport = shared_from_this();
+				_camera->SetViewport(shared_from_this());
 			}
 			catch (const std::exception& e) {
 				Debug::Log(e);

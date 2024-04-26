@@ -17,9 +17,20 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	 */
 	class Stars final : public Script {
 	
+	private:
+		
+		Threading::Utils::Dispatcher        m_Dispatcher;
+		Threading::Utils::CancellationToken m_CancellationToken;
+		
+		std::future<void> m_Task;
+		
 	public:
 	
 		explicit Stars(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {}
+		
+		~Stars() {
+			m_CancellationToken.Cancel();
+		}
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Stars); };
@@ -29,70 +40,93 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		/** @inheritdoc */
 		void Begin() override  {
 			
+			using vertex_t = GLfloat;
+			
+			/* SET STAR SIZE */
+			glPointSize(2.0);
+			
 			// Change the settings to allow us to see!
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
 			Settings::Graphics::Skybox::s_Exposure     = 0.0;
 			
 			// Parse files and build star mesh:
-			const auto stars = LoadStars({
-				"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
-				"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
-				},
-				6.5
-			);
-			
-			Debug::Log("Spawning " + std::to_string(stars->VertexCount()) + " stars... ", LogType::Info, true);
-			
-			/* SET STAR SIZE */
-			glPointSize(2.0);
-			
-			// Spawn stars:
-			try {
+			m_Task = std::async([this]() {
 				
-				if (const auto p =      Parent().lock()) {
-				if (const auto s = p->GetScene().lock()) {
+				const auto stars = LoadStars<GLfloat>({
+					"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
+					"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
+					},
+					6.5,
+					m_CancellationToken
+				);
 				
-					const auto transform = p->AddComponent<Transform>();
-					const auto renderer  = p->AddComponent<Graphics::Renderer>();
+				if (!stars.empty()) {
 					
-					auto material = Resources::Get<Graphics::Material>("Stars");
+					m_Dispatcher.Schedule([this, stars]() {
+						
+						// Spawn stars:
+						try {
+							
+							Debug::Log("Spawning " + std::to_string(stars.size()) + " stars... ", LogType::Info, true);
+							
+							std::shared_ptr<Mesh> mesh;
+							
+							if (stars.size() > std::numeric_limits<GLushort>::max()) {        // (32-bit)
+								mesh = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLuint>(stars);
+							}
+							else if (stars.size() > std::numeric_limits<GLubyte>::max()) {    // (16-bit)
+								mesh = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLushort>(stars);
+							}
+							else {                                                            // (8-bit)
+								mesh = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLubyte>(stars);
+							}
 					
-					if (material.lock()) {
-						renderer->SetMesh(stars);
-						renderer->SetMaterial(material);
-						renderer->SetTransform(transform);
-					}
-				}}
-				
-				Debug::Log("Done.", LogType::Info);
-			}
-			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
-				Debug::Log(e);
-			}
+							if (const auto p = Parent()) {
+							if (const auto s = p->GetScene().lock()) {
+							
+								const auto transform = p->AddComponent<Transform>();
+								const auto renderer  = p->AddComponent<Graphics::Renderer>();
+								
+								auto material = Resources::Get<Graphics::Material>("Stars");
+								
+								if (material.lock()) {
+									renderer->SetMesh(mesh);
+									renderer->SetMaterial(material);
+									renderer->SetTransform(transform);
+								}
+							}}
+							
+							Debug::Log("Done.", LogType::Info);
+						}
+						catch (const std::exception& e) {
+							Debug::Log("Failed.", LogType::Error);
+							Debug::Log(e);
+						}
+					});
+				}
+			});
 		}
 	
 		/** @inheritdoc */
 		void Tick() override {
-		
+			m_Dispatcher.Dispatch(1);
 		}
 		
-		static std::shared_ptr<Mesh> LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude) {
+		template <typename T, glm::qualifier Q = glm::defaultp>
+		static std::vector<glm::vec<3, T, Q>> LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude, Threading::Utils::CancellationToken& _cancellationToken) {
 		
 			using ATHYG_VERSION = Engine::Spatial::ATHYG::V3;
-			using vertex_t      = GLfloat;
 			
-			std::shared_ptr<Mesh> result;
+			std::vector<glm::vec<3, T, Q>> result;
 			
-			// Pool of tasks.
-			std::vector<std::future<std::vector<glm::vec<3, vertex_t>>>> s_Tasks;
+			std::vector<std::future<std::vector<glm::vec<3, T, Q>>>> m_Tasks;
 			
 			// Load and parse each file in parallel:
 			for (const auto& path : _athyg_paths) {
 				
-				s_Tasks.emplace_back(std::async([&path, &_threshold_magnitude]() {
+				m_Tasks.emplace_back(std::async([&path, &_threshold_magnitude, &_cancellationToken]() {
 				
-					std::vector<glm::vec<3, vertex_t>> result;
+					std::vector<glm::vec<3, T, Q>> parsed;
 					
 					try {
 						
@@ -110,6 +144,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							// Process CSV elements:
 						    while (std::getline(csv, line)) {
 								
+								if (_cancellationToken.IsCancellationRequested()) { break; }
+								
 								auto elements = Utils::Split(line, ',', ATHYG_VERSION::s_ElementCount);
 								
 								if (elements.size() > ATHYG_VERSION::s_ElementCount) {
@@ -121,7 +157,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									const auto star = ATHYG_VERSION((Utils::ToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
 									
 									if (*star.mag <= _threshold_magnitude) {
-										result.emplace_back(*star.x0, *star.y0, *star.z0);
+										parsed.emplace_back(*star.x0, *star.y0, *star.z0);
 									}
 								}
 							}
@@ -134,48 +170,23 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						Debug::Log(e);
 					}
 					
-					return result;
+					return parsed;
 					
 				}));
 			}
 			
-			std::vector<glm::vec<3, vertex_t>> stars;
+			if (_cancellationToken.IsCancellationRequested()) { return result; }
 			
 			/**
 			 * Wait for all parallel tasks to complete and accumulate them sequentially.
 			 *
 			 * @note Results will arrive in the same in the order.
 			 */
-			for (auto& task : s_Tasks) {
-				Utils::MoveInto(task.get(), stars);
+			for (auto& task : m_Tasks) {
+				Utils::MoveInto(task.get(), result);
 			}
 			
-			const auto vertex_count = stars.size();
-			Debug::Log("Parsing of data yielded (" + std::to_string(vertex_count) + ") entries(s).", LogType::Info);
-			
-			if (!stars.empty()) {
-				
-				Debug::Log("Creating Point Cloud...", LogType::Info, true);
-			
-				try {
-					if (vertex_count > std::numeric_limits<GLushort>::max()) {        // (32-bit)
-						result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLuint>(stars);
-					}
-					else if (vertex_count > std::numeric_limits<GLubyte>::max()) {    // (16-bit)
-						result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLushort>(stars);
-					}
-					else {                                                            // (8-bit)
-						result = Engine::Graphics::Mesh::Primitives::PointCloud::Create<vertex_t, GLubyte>(stars);
-					}
-					
-					Debug::Log("Done.", LogType::Info);
-				}
-				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
-					Debug::Log(e);
-					Debug::Break();
-				}
-			}
+			Debug::Log("Parsing of data yielded (" + std::to_string(result.size()) + ") entries(s).", LogType::Info);
 			
 			return result;
 		}

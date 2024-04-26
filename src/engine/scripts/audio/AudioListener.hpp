@@ -27,7 +27,7 @@ namespace LouiEriksson::Engine::Audio {
 	 *
 	 * The AudioListener class is responsible for synchronizing the audio listener with the internal audio engine.
 	 * It provides functionalities to set and value the master gain of the audio listener. The position, orientation,
-	 * and velocity of the audio listener are automatically updated based on the parent GameObject's transform
+	 * and velocity of the audio listener are automatically updated based on the parent Parent's transform
 	 * and rigidbody (if available).
 	 *
 	 * @see Please kindly refer to the <a href="https://github.com/kcat/openal-soft/wiki/Programmer%27s-Guide">OpenAL-Soft spec</a> for more information on OpenAL.
@@ -60,8 +60,8 @@ namespace LouiEriksson::Engine::Audio {
 		/** @brief Synchronise the AudioListener with the internal audio engine. */
 		void Sync() {
 		
-			if (const auto p = Parent().lock()) {
-			if (const auto t = p->GetComponent<Transform>().lock()) {
+			if (const auto p = Parent()) {
+			if (const auto t = p->GetComponent<Transform>()) {
 				
 				m_PendingParameters.m_Position = t->Position();
 				m_PendingParameters.m_Forward  = t->FORWARD;
@@ -92,7 +92,7 @@ namespace LouiEriksson::Engine::Audio {
 				{
 					glm::vec3 velocity;
 					
-					if (const auto r = p->GetComponent<Physics::Rigidbody>().lock()) {
+					if (const auto r = p->GetComponent<Physics::Rigidbody>()) {
 						velocity = r->Velocity();
 					}
 					else {

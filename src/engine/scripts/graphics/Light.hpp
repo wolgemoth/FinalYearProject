@@ -36,7 +36,7 @@ namespace LouiEriksson::Engine::Graphics {
 		public:
 			
 			/**
-			 * @enum Type
+			 * @enum TypeID
 			 * @brief Enum representing different types of lights.
 			 */
 			enum Type : unsigned char {
@@ -210,7 +210,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Size     (  0.2),
 			m_Color    (glm::vec3(1, 1, 1))
 		{
-			if (const auto p = Parent().lock()) {
+			if (const auto p = Parent()) {
 				m_Transform = p->GetComponent<Transform>();
 			}
 			else {
