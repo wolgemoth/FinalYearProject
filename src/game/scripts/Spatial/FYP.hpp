@@ -65,8 +65,14 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				if (auto p2 = c->Parent()) {
 				if (auto t2 = p2->GetComponent<Transform>()) {
 					
+					auto geoPosition = Meshing::Builder::s_Origin;
+
+					auto geoRotation = glm::quat(glm::radians(glm::vec3(geoPosition.y, geoPosition.x, geoPosition.z)));
+					
+					auto earthRotation = glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87("Earth", Planetarium::J2000_Centuries())));
+					
 					t1->Position(t2->Position());
-					t1->Rotation(glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87("Earth", Planetarium::J2000_Centuries()))));
+					t1->Rotation(earthRotation * glm::inverse(geoRotation));
 				}}}
 			}}}
 	    }
