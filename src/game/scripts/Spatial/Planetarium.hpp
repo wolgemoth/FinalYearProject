@@ -26,6 +26,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
 		scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
 		
+		bool m_SunLight = true;
+		
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 		
 		/** @inheritdoc */
@@ -309,20 +311,20 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					const auto go = s->Create(item);
 					
 					const auto planet_transform = go->AddComponent<Transform>();
-					planet_transform->ParentTransform(planetarium_transform);
+					//planet_transform->ParentTransform(planetarium_transform);
 					
 					const auto planet_renderer = go->AddComponent<Graphics::Renderer>();
 					
 					auto planet_mesh     = Resources::Get<Graphics::Mesh>    (item, false);
 					auto planet_material = Resources::Get<Graphics::Material>(item, false);
 					
-					if (    planet_mesh != nullptr) {     planet_mesh = default_mesh;     }
-					if (planet_material != nullptr) { planet_material = default_material; }
+					if (    planet_mesh == nullptr) {     planet_mesh = default_mesh;     }
+					if (planet_material == nullptr) { planet_material = default_material; }
 					
 					if (planet_mesh != nullptr && planet_material != nullptr) {
 						planet_renderer->SetMesh(planet_mesh);
 						planet_renderer->SetMaterial(planet_material);
-						planet_renderer->SetTransform(planetarium_transform);
+						planet_renderer->SetTransform(planet_transform);
 						
 						m_Planets.Assign(item, go);
 					}
@@ -357,6 +359,39 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			}
 			
 			InterpolatePlanets(m_Positions_From, m_Positions_To, Utils::Remap(curr, m_Positions_From.Time(), m_Positions_To.Time(), static_cast<highp_time>(0.0), static_cast<highp_time>(1.0)));
+			
+			// Add a light to the sun.
+			if (m_SunLight) {
+				
+				if (const auto sol = m_Planets.Get("Sol")) {
+					
+					if (const auto go = sol->lock()                           ) {
+					if (const auto t  = go->GetComponent<Transform>()         ) {
+					if (const auto r  = go->GetComponent<Graphics::Renderer>()) {
+						
+						using Material = Settings::Graphics::Material;
+						using Distance = Maths::Conversions::Distance;
+						
+						/*
+						 * The concept of the sun's intensity and range play a completely different
+						 * role in a physical sense to how they do in a traditional rendering engine.
+						 *
+						 * However, for the purposes of practicality, we will set the sun's range to
+						 * 50AU (about the distance of the Kuiper Belt), and scale the intensity so
+						 * that it is roughly "1.0" at the position of earth.
+						 */
+						static constexpr const scalar_t s_LightRange_AU = 50.0;
+						static constexpr const scalar_t s_IntensityMultiplier = 2.0; // Additional manipulation to intensity (e.g if values brighter than 1.0 at Earth are desired for HDR effects).
+						
+						static const scalar_t s_LightIntensity = s_IntensityMultiplier / sqrt(s_LightRange_AU);
+						
+						Material::s_CurrentLightType = Graphics::Light::Parameters::Type::Point;
+						Material::s_LightPosition = t->Position();
+						Material::s_LightIntensity = s_LightIntensity * s_IntensityMultiplier;
+						Material::s_LightRange = Distance::Convert(m_DistanceMultiplier * s_LightRange_AU, Distance::Unit::AstronomicalUnit, Distance::Unit::Metre);
+					}}}
+				}
+			}
 		}
 		
 		/**
