@@ -35,10 +35,6 @@ namespace LouiEriksson::Engine {
 	
 	private:
 		
-		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
-		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
-		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform.    */
-		
 		/**
 		 * @brief Transform and scale components.
 		 *
@@ -50,11 +46,15 @@ namespace LouiEriksson::Engine {
 		 */
 		glm::mat4 m_TS;
 		
+		glm::mat4 m_World;
+		glm::mat4 m_Local;
+		
 		/**< @brief Rotation of the Transform. */
 		glm::quat m_Rotation;
 		
-		glm::mat4 m_World;
-		glm::mat4 m_Local;
+		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
+		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
+		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform.    */
 		
 		/** @brief Parent of this Transform. */
 		std::weak_ptr<Transform> m_Parent;
@@ -65,14 +65,29 @@ namespace LouiEriksson::Engine {
 	public:
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
-			          m_TS(1.0),
+			            m_TS(1.0),
 			         m_World(1.0),
 			         m_Local(1.0),
-			m_LastRotation(QUAT_IDENTITY),
-			    m_Rotation(QUAT_IDENTITY) {}
+			    m_Rotation(QUAT_IDENTITY),
+			m_LastRotation(QUAT_IDENTITY) {}
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
+		
+		void ParentTransform(const std::weak_ptr<Transform>& _value) {
+			m_Parent = _value;
+		}
+		
+		[[nodiscard]] std::shared_ptr<Transform> ParentTransform() {
+			
+			std::shared_ptr<Transform> result;
+			
+			if (const auto p = m_Parent.lock()) {
+				result = p;
+			}
+			
+			return result;
+		}
 		
 		/**
 		 * @brief Get the given vector (local to this transform) as it exists in world space.
@@ -144,6 +159,10 @@ namespace LouiEriksson::Engine {
 			glm::mat4 result;
 			
 			if (const auto p = m_Parent.lock()) {
+				
+				Debug::Log("Has parent!");
+				Debug::Break();
+				
 				m_World = p->World() * Local();
 				
 				result = m_World;

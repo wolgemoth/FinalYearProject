@@ -652,7 +652,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										albedo_texture = texture;
 									}
 								}
@@ -672,7 +672,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										displacement_texture = texture;
 									}
 								}
@@ -683,7 +683,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										roughness_texture = texture;
 									}
 								}
@@ -694,7 +694,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										metallic_texture = texture;
 									}
 								}
@@ -705,7 +705,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										emission_texture = texture;
 									}
 								}
@@ -716,7 +716,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										normal_texture = texture;
 									}
 								}
@@ -727,7 +727,7 @@ namespace LouiEriksson::Engine {
 								
 									const std::filesystem::path path(subStrings.at(1U));
 									
-									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string()).lock()) {
+									if (const auto texture = Resources::Get<Graphics::Texture>(path.stem().string())) {
 										ao_texture = texture;
 									}
 								}
@@ -1017,9 +1017,9 @@ namespace LouiEriksson::Engine {
 		 * @note This function logs an error message if there is an exception while accessing the resource.
 		 */
 		template<typename T>
-		static std::weak_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
+		static std::shared_ptr<T> Get(const std::string& _name, const bool& _fallback = true) noexcept {
 			
-			std::weak_ptr<T> result;
+			std::shared_ptr<T> result;
 			
 			try {
 				
@@ -1151,7 +1151,7 @@ namespace LouiEriksson::Engine {
 			
 			if (exists(m_Path)) {
 				
-				auto format = GL_SRGB;
+				GLenum format = GL_SRGB;
 				
 				if (m_Path.has_extension()) {
 				
@@ -1261,9 +1261,9 @@ namespace LouiEriksson::Engine {
 	}
 	
 	template<>
-	inline std::weak_ptr<Graphics::Cubemap> Resources::Get(const std::string& _name, const bool& _fallback) noexcept {
+	inline std::shared_ptr<Graphics::Cubemap> Resources::Get(const std::string& _name, const bool& _fallback) noexcept {
 		
-		std::weak_ptr<Graphics::Cubemap> result;
+		std::shared_ptr<Graphics::Cubemap> result;
 		
 		try {
 			

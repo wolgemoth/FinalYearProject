@@ -43,7 +43,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			using vertex_t = GLfloat;
 			
 			/* SET STAR SIZE */
-			glPointSize(2.0);
+			glPointSize(4.0);
 			
 			// Change the settings to allow us to see!
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
@@ -56,7 +56,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					"resources/ATHYG-Database-main/data/athyg_v31-1.csv",
 					"resources/ATHYG-Database-main/data/athyg_v31-2.csv"
 					},
-					6.5,
+					6.0,
 					m_CancellationToken
 				);
 				
@@ -82,14 +82,15 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							}
 					
 							if (const auto p = Parent()) {
-							if (const auto s = p->GetScene().lock()) {
+							if (const auto s = p->GetScene()) {
 							
 								const auto transform = p->AddComponent<Transform>();
+								
 								const auto renderer  = p->AddComponent<Graphics::Renderer>();
 								
 								auto material = Resources::Get<Graphics::Material>("Stars");
 								
-								if (material.lock()) {
+								if (material) {
 									renderer->SetMesh(mesh);
 									renderer->SetMaterial(material);
 									renderer->SetTransform(transform);
@@ -109,16 +110,20 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	
 		/** @inheritdoc */
 		void Tick() override {
+			
+			// Dispatch any pending tasks.
 			m_Dispatcher.Dispatch(1);
 		}
 		
 		template <typename T, glm::qualifier Q = glm::defaultp>
-		static std::vector<glm::vec<3, T, Q>> LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const double& _threshold_magnitude, Threading::Utils::CancellationToken& _cancellationToken) {
+		static std::vector<glm::vec<3, T, Q>> LoadStars(const std::vector<std::filesystem::path>& _athyg_paths, const scalar_t& _threshold_magnitude, Threading::Utils::CancellationToken& _cancellationToken) {
 		
 			using ATHYG_VERSION = Engine::Spatial::ATHYG::V3;
 			
+			// Merged result
 			std::vector<glm::vec<3, T, Q>> result;
 			
+			// List of parallel tasks.
 			std::vector<std::future<std::vector<glm::vec<3, T, Q>>>> m_Tasks;
 			
 			// Load and parse each file in parallel:
@@ -148,17 +153,37 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								auto elements = Utils::Split(line, ',', ATHYG_VERSION::s_ElementCount);
 								
+								// Discard elements beyond the count used by this ATHYG version.
 								if (elements.size() > ATHYG_VERSION::s_ElementCount) {
 									elements.resize(ATHYG_VERSION::s_ElementCount);
 								}
 								
+								// Validate number of elements matches the count expected by the ATHYG version.
 								if (elements.size() == ATHYG_VERSION::s_ElementCount) {
 									
+									// Deserialise the star.
 									const auto star = ATHYG_VERSION((Utils::ToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
 									
-									if (*star.mag <= _threshold_magnitude) {
-										parsed.emplace_back(-*star.y0, -*star.x0, *star.z0);
-									}
+//									if (star.proper == "Polaris") {
+//										Debug::Log(*star.proper);
+									
+										/*
+										 * Insert stars under a certain apparent magnitude into the result.
+										 * Stellar magnitude is inverse-logarithmic, meaning that lower values are brighter.
+										 * As a rule of thumb, magnitudes below 6 are visible to the naked eye.
+										 */
+										if (*star.mag <= _threshold_magnitude) {
+											
+											// Insert the star's coordinates in a format compliant with the coordinate system of the engine.
+											// See version info on these coordinates here: https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md
+											parsed.emplace_back(-*star.x0, *star.y0, *star.z0);
+										}
+									
+//										break;
+//									}
+								}
+								else {
+									throw std::runtime_error("Number of elements not consistent with ATHYG version!");
 								}
 							}
 						}

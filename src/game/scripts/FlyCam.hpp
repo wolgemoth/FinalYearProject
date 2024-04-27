@@ -60,7 +60,7 @@ namespace LouiEriksson::Game::Scripts {
 		void Begin() override {
 		
 			if (const auto p = Parent()) {
-			if (const auto s = p->GetScene().lock()) {
+			if (const auto s = p->GetScene()) {
 			
 				// Add a light to the scene for testing purposes.
 				// TODO: Add a light to the scene through the scene's file, not code.

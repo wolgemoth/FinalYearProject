@@ -277,24 +277,24 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			};
 		};
 		
-		/** @brief String-indexed Transform of the planetarium. */
-		std::weak_ptr<Transform> m_Transform;
-		
 		/** @brief Planetary positions computed using the VSOP87 model. */
 		Planets<scalar, glm::highp> m_Positions_From;
 		Planets<scalar, glm::highp> m_Positions_To;
 		
-		/** @brief Hashmap containing planet GameObjects. */
+		/** @brief Hashmap containing references to planet GameObjects. */
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
 		
 		/** @inheritdoc */
 		void Begin() override {
 		
 			if (const auto p = Parent()) {
-			if (const auto s = p->GetScene().lock()) {
+			if (const auto s = p->GetScene()) {
 				
 				// Get Transform.
-				m_Transform = p->GetComponent<Transform>();
+				auto planetarium_transform = p->GetComponent<Transform>();
+				if (planetarium_transform == nullptr) {
+					planetarium_transform = p->AddComponent<Transform>();
+				}
 				
 				// Create GameObjects to represent the different planets in the VSOP87 model...
 				auto default_mesh     = Resources::Get<Graphics::Mesh>("sphere");
@@ -308,19 +308,21 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 					const auto go = s->Create(item);
 					
-					const auto transform = go->AddComponent<Transform>();
-					const auto renderer  = go->AddComponent<Graphics::Renderer>();
+					const auto planet_transform = go->AddComponent<Transform>();
+					planet_transform->ParentTransform(planetarium_transform);
 					
-					auto mesh     = Resources::Get<Graphics::Mesh>    (item, false);
-					auto material = Resources::Get<Graphics::Material>(item, false);
+					const auto planet_renderer = go->AddComponent<Graphics::Renderer>();
 					
-					if (    mesh.expired()) {     mesh = default_mesh;     }
-					if (material.expired()) { material = default_material; }
+					auto planet_mesh     = Resources::Get<Graphics::Mesh>    (item, false);
+					auto planet_material = Resources::Get<Graphics::Material>(item, false);
 					
-					if (mesh.lock() && material.lock()) {
-						renderer->SetMesh(mesh);
-						renderer->SetMaterial(material);
-						renderer->SetTransform(transform);
+					if (    planet_mesh != nullptr) {     planet_mesh = default_mesh;     }
+					if (planet_material != nullptr) { planet_material = default_material; }
+					
+					if (planet_mesh != nullptr && planet_material != nullptr) {
+						planet_renderer->SetMesh(planet_mesh);
+						planet_renderer->SetMaterial(planet_material);
+						planet_renderer->SetTransform(planetarium_transform);
 						
 						m_Planets.Assign(item, go);
 					}
@@ -401,7 +403,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						if (const auto t = go->template GetComponent<Transform>()) {
 							
 							auto interpolated = Planets<T, Q>::Transform::InterpolateTransform(from, to, _t);
-							
+
 							// Adjust the position and rotation of the planet.
 							t->Position((interpolated.m_Position.m_Cartesian - origin.m_Position.m_Cartesian) * au_to_m * m_DistanceMultiplier);
 							t->Rotation( interpolated.m_Rotation);

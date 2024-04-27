@@ -24,7 +24,7 @@ namespace LouiEriksson::Game::Scripts {
 		void Begin() override {
 		
 			if (const auto p = Parent()) {
-			if (const auto s = p->GetScene().lock()) {
+			if (const auto s = p->GetScene()) {
 			
 				// Get Transform.
 				if (const auto transform = p->GetComponent<Transform>()) {

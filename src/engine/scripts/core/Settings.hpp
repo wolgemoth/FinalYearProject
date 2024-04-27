@@ -102,7 +102,7 @@ namespace LouiEriksson::Engine {
 				
 				static void UpdateSkybox(const size_t& _index) {
 					
-					if (const auto item = Resources::Get<Engine::Graphics::Cubemap>(s_AvailableSkyboxes.at(_index)).lock()) {
+					if (const auto item = Resources::Get<Engine::Graphics::Cubemap>(s_AvailableSkyboxes.at(_index))) {
 						s_Skybox = item;
 						
 						s_CurrentSkyboxSelection = _index;
@@ -131,7 +131,7 @@ namespace LouiEriksson::Engine {
 				
 				static void UpdateShader(const size_t& _index) {
 					
-					if (const auto item = Resources::Get<Engine::Graphics::Shader>(s_AvailableShaders.at(_index)).lock()) {
+					if (const auto item = Resources::Get<Engine::Graphics::Shader>(s_AvailableShaders.at(_index))) {
 						s_Shader = item;
 						
 						s_CurrentShaderSelection = _index;

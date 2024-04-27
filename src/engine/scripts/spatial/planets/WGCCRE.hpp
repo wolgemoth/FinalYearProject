@@ -54,7 +54,7 @@ namespace LouiEriksson::Engine::Spatial {
 			
 			return std::cos(std::fmod(_x, static_cast<T>(360.0)) * D2R) * R2D;
 		}
-		
+
 		template<typename T, glm::precision Q = glm::defaultp>
 		static constexpr glm::vec<3, T, Q> ToVSOP87(const glm::vec<3, T, Q>& _alpha_delta_W) {
 			
@@ -64,7 +64,7 @@ namespace LouiEriksson::Engine::Spatial {
 			const auto correction = _alpha_delta_W[2];
 			
 			// Values courtesy of stellarium: https://github.com/Stellarium/stellarium/blob/e57820ca6122fe4353d4d66dfa1104bd60e4deb5/src/core/StelCore.cpp#L59
-			const auto x_offset = 90.0 - 23.4392803055555555556;
+			const auto x_offset = 90.0 - EarthAxialTilt<T>();
 			const auto y_offset = 0.0000275;
 			
 			return {
@@ -76,21 +76,26 @@ namespace LouiEriksson::Engine::Spatial {
 		
 	public:
 		
+		template <typename T>
+		static constexpr T EarthAxialTilt() {
+			return 23.4392803055555555556;
+		}
+		
 		template<typename T, glm::precision Q = glm::defaultp>
 		static constexpr glm::vec<3, T, Q> GetOrientationVSOP87(const std::string_view& _name, const T& _t) {
 			
-			glm::dvec3 result;
+			glm::vec<3, T, Q> result;
 			
-			     if (_name == "Sol"    ) { result = Report_2015::Sol    <double, glm::highp>(_t); }
-			else if (_name == "Mercury") { result = Report_2015::Mercury<double, glm::highp>(_t); }
-			else if (_name == "Venus"  ) { result = Report_2015::Venus  <double, glm::highp>(_t); }
-			else if (_name == "Earth"  ) { result = Report_2009::Earth  <double, glm::highp>(_t); }
-			else if (_name == "Moon"   ) { result = Report_2009::Moon   <double, glm::highp>(_t); }
-			else if (_name == "Mars"   ) { result = Report_2015::Mars   <double, glm::highp>(_t); }
-			else if (_name == "Jupiter") { result = Report_2015::Jupiter<double, glm::highp>(_t); }
-			else if (_name == "Saturn" ) { result = Report_2015::Saturn <double, glm::highp>(_t); }
-			else if (_name == "Uranus" ) { result = Report_2015::Uranus <double, glm::highp>(_t); }
-			else if (_name == "Neptune") { result = Report_2015::Neptune<double, glm::highp>(_t); }
+			     if (_name == "Sol"    ) { result = Report_2015::Sol    <T, Q>(_t); }
+			else if (_name == "Mercury") { result = Report_2015::Mercury<T, Q>(_t); }
+			else if (_name == "Venus"  ) { result = Report_2015::Venus  <T, Q>(_t); }
+			else if (_name == "Earth"  ) { result = Report_2009::Earth  <T, Q>(_t); }
+			else if (_name == "Moon"   ) { result = Report_2009::Moon   <T, Q>(_t); }
+			else if (_name == "Mars"   ) { result = Report_2015::Mars   <T, Q>(_t); }
+			else if (_name == "Jupiter") { result = Report_2015::Jupiter<T, Q>(_t); }
+			else if (_name == "Saturn" ) { result = Report_2015::Saturn <T, Q>(_t); }
+			else if (_name == "Uranus" ) { result = Report_2015::Uranus <T, Q>(_t); }
+			else if (_name == "Neptune") { result = Report_2015::Neptune<T, Q>(_t); }
 			else {
 				Debug::Log("Not implemented!");
 			}

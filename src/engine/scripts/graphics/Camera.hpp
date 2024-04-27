@@ -123,7 +123,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Texture Coordinates:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_texcoords");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -177,7 +177,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Positions:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_positions");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -211,7 +211,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Albedo:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_albedo");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -269,7 +269,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Emission:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_emission");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -324,7 +324,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							/* DRAW SKY */
 							static const auto sky_shader = Resources::Get<Shader>("skybox");
-							if (const auto s = sky_shader.lock()) {
+							if (const auto s = sky_shader) {
 								
 								// Change culling and depth options for skybox rendering.
 								glCullFace (GL_FRONT);
@@ -372,7 +372,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Surface properties Roughness, Metallic, AO, Parallax Shadows:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_material");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -457,7 +457,7 @@ namespace LouiEriksson::Engine::Graphics {
 					// Normals:
 					{
 						static const auto shader = Resources::Get<Shader>("pass_normals");
-						if (const auto p = shader.lock()) {
+						if (const auto p = shader) {
 							
 							// Bind program.
 							Shader::Bind(p->ID());
@@ -562,9 +562,9 @@ namespace LouiEriksson::Engine::Graphics {
 						// Get the correct shader program for the type of light:
 						std::shared_ptr<Shader> p;
 						switch(l->Type()) {
-							case Light::Parameters::Point:       { p = Resources::Get<Shader>("shadowDepthCube").lock(); break; }
-							case Light::Parameters::Directional: { p = Resources::Get<Shader>("shadowDepth"    ).lock(); break; }
-							case Light::Parameters::Spot:        { p = Resources::Get<Shader>("shadowDepthSpot").lock(); break; }
+							case Light::Parameters::Point:       { p = Resources::Get<Shader>("shadowDepthCube"); break; }
+							case Light::Parameters::Directional: { p = Resources::Get<Shader>("shadowDepth"    ); break; }
+							case Light::Parameters::Spot:        { p = Resources::Get<Shader>("shadowDepthSpot"); break; }
 							default: {
 								Debug::Log("Unknown Light type!", LogType::Error);
 							}
@@ -802,8 +802,8 @@ namespace LouiEriksson::Engine::Graphics {
 			static const auto blur_h = Resources::Get<Shader>("blur_horizontal");
 			static const auto blur_v = Resources::Get<Shader>("blur_vertical"  );
 			
-			if (const auto h = blur_h.lock()) {
-			if (const auto v = blur_v.lock()) {
+			if (const auto h = blur_h) {
+			if (const auto v = blur_v) {
 				
 				static const auto h_u_Texture = h->AttributeID("u_Texture");
 				static const auto v_u_Texture = v->AttributeID("u_Texture");
@@ -900,10 +900,10 @@ namespace LouiEriksson::Engine::Graphics {
 				static const auto         mask = Resources::Get<Texture>("exposure_weights");
 				
 				// Load shader program:
-				if (const auto s = autoExposure.lock()) {
+				if (const auto s = autoExposure) {
 					
 					// Load a mask for the average luminosity calculation.
-					if (const auto m = mask.lock()) {
+					if (const auto m = mask) {
 						
 						// Generate the luminosity texture:
 						Shader::Bind(s->ID());
@@ -976,7 +976,7 @@ namespace LouiEriksson::Engine::Graphics {
 			static const auto as = Resources::Get<Shader>("ao");
 			
 			// Get shader program:
-			if (const auto ao = as.lock()) {
+			if (const auto ao = as) {
 				
 				// Get viewport dimensions:
 				glm::ivec4 viewport;
@@ -1071,11 +1071,11 @@ namespace LouiEriksson::Engine::Graphics {
 				static const auto ls = Resources::Get<Shader>("lens_dirt");
 				
 				// Get each shader used for rendering the effect.
-				if (const auto threshold_shader = ts.lock()) {
-				if (const auto downscale_shader = ds.lock()) {
-				if (const auto   upscale_shader = us.lock()) {
-				if (const auto   combine_shader = cs.lock()) {
-				if (const auto lens_dirt_shader = ls.lock()) {
+				if (const auto threshold_shader = ts) {
+				if (const auto downscale_shader = ds) {
+				if (const auto   upscale_shader = us) {
+				if (const auto   combine_shader = cs) {
+				if (const auto lens_dirt_shader = ls) {
 					
 					const auto target_length = static_cast<size_t>(std::max(
 						static_cast<size_t>(target::s_Diffusion * 2),
@@ -1191,7 +1191,7 @@ namespace LouiEriksson::Engine::Graphics {
 						/* LENS DIRT */
 						if (Settings::PostProcessing::Bloom::s_LensDirt > 0.0) {
 							
-							if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65").lock()) {
+							if (const auto t = Resources::Get<Texture>("Bokeh__Lens_Dirt_65")) {
 								
 								Shader::Bind(lens_dirt_shader->ID());
 								
@@ -1201,9 +1201,9 @@ namespace LouiEriksson::Engine::Graphics {
 								static const auto     u_Dirt = lens_dirt_shader->AttributeID("u_Dirt");
 								
 								lens_dirt_shader->Assign(u_Strength, target::s_LensDirt * target::s_Intensity);
-								lens_dirt_shader->Assign(u_Texture0, m_RT,          0);
+								lens_dirt_shader->Assign(u_Texture0, m_RT,                0);
 								lens_dirt_shader->Assign(   u_Bloom, m_Bloom_MipChain[0], 1);
-								lens_dirt_shader->Assign(    u_Dirt,            *t, 2);
+								lens_dirt_shader->Assign(    u_Dirt, *t,                  2);
 								
 								// Blit to main render target:
 								RenderTexture::Bind(m_RT);
@@ -1580,7 +1580,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					static const auto aces = Resources::Get<Shader>("aces");
 					
-					if (const auto t = aces.lock()) {
+					if (const auto t = aces) {
 						
 						Shader::Bind(t->ID());
 						
@@ -1604,7 +1604,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					static const auto fxaa = Resources::Get<Shader>("fxaa");
 					
-					if (const auto aa = fxaa.lock()) {
+					if (const auto aa = fxaa) {
 						
 						Shader::Bind(aa->ID());
 						
@@ -1631,7 +1631,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					static const auto grain = Resources::Get<Shader>("grain");
 					
-					if (const auto g = grain.lock()) {
+					if (const auto g = grain) {
 						
 						Shader::Bind(g->ID());
 						
@@ -1649,7 +1649,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					static const auto vignette = Resources::Get<Shader>("vignette");
 					
-					if (const auto v = vignette.lock()) {
+					if (const auto v = vignette) {
 						
 						Shader::Bind(v->ID());
 						

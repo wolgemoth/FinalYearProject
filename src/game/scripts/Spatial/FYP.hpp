@@ -37,7 +37,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		void Begin() override {
 			
 			if (const auto p = Parent()) {
-			if (const auto s = p->GetScene().lock()) {
+			if (const auto s = p->GetScene()) {
 				
 				auto flyCam_object = s->Create("Player");
 				flyCam_object->AddComponent<Transform>();
@@ -65,14 +65,27 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				if (auto p2 = c->Parent()) {
 				if (auto t2 = p2->GetComponent<Transform>()) {
 					
-					auto geoPosition = Meshing::Builder::s_Origin;
+					const auto time = Planetarium::J2000_Centuries();
 
-					auto geoRotation = glm::quat(glm::radians(glm::vec3(geoPosition.y, geoPosition.x, geoPosition.z)));
+					auto geoPosition = Meshing::Builder::s_Origin;
 					
-					auto earthRotation = glm::quat(glm::radians(WGCCRE::GetOrientationVSOP87("Earth", Planetarium::J2000_Centuries())));
+					auto now = std::chrono::system_clock::now();
+				    std::time_t tt = std::chrono::system_clock::to_time_t(now);
+				
+				    // Get the current time
+				    tm local_tm = *std::localtime(&tt);
+				
+				    // Calculate seconds passed since start of the day
+				    auto seconds_today = local_tm.tm_hour * 3600 + local_tm.tm_min * 60 + local_tm.tm_sec;
+				
+				    scalar_t dayElapsed = seconds_today / 86400.0;
+					
+					// Convert the current geoposition into a rotation.
+					auto geoRotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (dayElapsed * 360.0f) - 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
+							           glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 					
 					t1->Position(t2->Position());
-					t1->Rotation(earthRotation * glm::inverse(geoRotation));
+					t1->Rotation(geoRotation);
 				}}}
 			}}}
 	    }
