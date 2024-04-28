@@ -43,7 +43,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			using vertex_t = GLfloat;
 			
 			/* SET STAR SIZE */
-			glPointSize(2.0);
+			glPointSize(3.0);
 			
 			// Change the settings to allow us to see!
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
@@ -94,6 +94,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									renderer->SetMesh(mesh);
 									renderer->SetMaterial(material);
 									renderer->SetTransform(transform);
+									renderer->Shadows(false);
 								}
 							}}
 							
@@ -164,8 +165,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									// Deserialise the star.
 									const auto star = ATHYG_VERSION((Utils::ToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
 									
-//									if (star.proper == "Polaris") {
-//										Debug::Log(*star.proper);
+									//if (star.proper == "Polaris") {
+									//	Debug::Log(*star.proper);
 									
 										/*
 										 * Insert stars under a certain apparent magnitude into the result.
@@ -176,11 +177,11 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 											
 											// Insert the star's coordinates in a format compliant with the coordinate system of the engine.
 											// See version info on these coordinates here: https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md
-											parsed.emplace_back(-*star.x0, *star.y0, *star.z0);
+											parsed.emplace_back(*star.x0, *star.y0, *star.z0);
 										}
 									
-//										break;
-//									}
+									//	break;
+									//}
 								}
 								else {
 									throw std::runtime_error("Number of elements not consistent with ATHYG version!");

@@ -51,9 +51,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				auto planets_object = s->Create("Planets");
 				auto planets_script = planets_object->AddComponent<Planetarium>();
-				planets_script->m_DistanceMultiplier = 0.00000001;
-				planets_script->m_ScaleMultiplier    = 0.00000001;
-				planets_script->m_SunLight = false;
+				planets_script->m_DistanceMultiplier = 0.0000001;
+				planets_script->m_ScaleMultiplier    = 0.0000001;
+				planets_script->m_SunLight           = false;
+				planets_script->m_PlanetShadows      = false;
 				
 				m_Planets = planets_script;
 			}}
@@ -62,9 +63,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		/** @inheritdoc */
 		void LateTick() override {
 			
-			if (auto camera = m_Camera.lock()) {                                                  // null safety-check
-			if (auto camera_gameobject = camera->Parent()) {                                      // null safety-check
-			if (auto camera_transform = camera_gameobject->GetComponent<Transform>()) {           // null safety-check
+			if (const auto camera = m_Camera.lock()) {                                            // null safety-check
+			if (const auto camera_gameobject = camera->Parent()) {                                // null safety-check
+			if (const auto camera_transform = camera_gameobject->GetComponent<Transform>()) {     // null safety-check
 				
 				if (auto planets = m_Planets.lock()) {                                            // null safety-check
 				if (auto planets_gameobject = planets->Parent()) {                                // null safety-check
@@ -88,17 +89,30 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							{
 								auto earth_rotation = earth_transform->Rotation();
 								
+								// Calculate the amount by which to rotate the planets.
 								auto geo_rotation = glm::angleAxis(glm::radians(90.0f + geoPosition.x + WGCCRE::EarthAxialTilt<scalar_t>()), glm::vec3(1.0, 0.0, 0.0)) *
-										            glm::angleAxis(glm::radians(fmod(geoPosition.y, 360.0f)), glm::vec3(0.0, 0.0, 1.0));
+										            glm::angleAxis(glm::radians(geoPosition.y), glm::vec3(0.0, 0.0, 1.0));
 								
-								planets_transform->Rotation(glm::inverse(earth_rotation) * geo_rotation);
+								planets_transform->Rotation(earth_rotation * geo_rotation);
 								planets_transform->Position(camera_transform->Position() - earth_transform->Position());
+								
+								if (auto sol = planets->m_Planets.Get("Sol")) {
+								if (auto sol_gameobject = sol.value().lock()) {
+								if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) {
+									
+									auto sun_to_camera = glm::normalize(camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]));
+									
+									Settings::Graphics::Material::s_CurrentLightType = Light::Parameters::Type::Directional;
+									Settings::Graphics::Material::s_LightPosition = camera_transform->Position();
+									Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(sun_to_camera, camera_transform->UP)));
+									Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
+								}}}
 							}
 							
 							// Update the transform of the stars:
 							{
-								// Calculate the amount by which to rotate the stars to be correctly represented in the engine.
-								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) - 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
+								// Calculate the amount by which to rotate the stars.
+								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) + 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								
 								stars_transform->Position(camera_transform->Position());

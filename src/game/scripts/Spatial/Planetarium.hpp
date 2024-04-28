@@ -26,7 +26,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
 		scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
 		
-		bool m_SunLight = true;
+		bool m_SunLight      = true;
+		bool m_PlanetShadows = true;
 		
 		/** @brief Hashmap containing references to planet GameObjects. */
 		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
@@ -387,6 +388,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						planet_renderer->SetMesh(planet_mesh);
 						planet_renderer->SetMaterial(planet_material);
 						planet_renderer->SetTransform(planet_transform);
+						planet_renderer->Shadows(m_PlanetShadows);
 						
 						m_Planets.Assign(item, go);
 					}

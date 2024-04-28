@@ -143,7 +143,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(u_CameraPosition,
 								t != nullptr ?
-									t->Position() :
+										t->Position() :
 									glm::vec3(0.0)
 							);
 							
@@ -591,7 +591,7 @@ namespace LouiEriksson::Engine::Graphics {
 									
 									// Compute the position of the light.
 									const glm::vec3 truncatedCamPos = glm::floor(
-										t->Position() / texelSize) * texelSize;
+											t->Position() / texelSize) * texelSize;
 									
 									lightPos = truncatedCamPos + (lightDir * (l->m_Range / static_cast<GLfloat>(2.0)));
 								}
@@ -1410,7 +1410,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(p->AttributeID("u_CameraPosition"),
 								t != nullptr ?
-									t->Position() :
+										t->Position() :
 									glm::vec3(0.0)
 							);
 						}
@@ -1451,7 +1451,7 @@ namespace LouiEriksson::Engine::Graphics {
 											l->m_Shadow.m_Resolution = newResolution;
 											l->m_Shadow.m_Bias       = newBias;
 											l->m_Shadow.m_NormalBias = newNormalBias;
-										
+											
 											t->Position(target_light::s_LightPosition);
 											t->Rotation(glm::inverse(glm::quat(glm::radians(target_light::s_LightRotation))));
 										}
@@ -1687,7 +1687,7 @@ namespace LouiEriksson::Engine::Graphics {
 			//Copy(m_Albedo_gBuffer, m_RT);
 			
 			/* RENDER TO SCREEN */
-			RenderTexture::Unbind();
+			RenderTexture::Unbind(true);
 			
 			// Check if gamma correction is enabled in settings.
 			if (Settings::Graphics::s_GammaCorrection) {
@@ -1883,8 +1883,8 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (const auto transform = GetTransform().lock()) {
 				result = glm::lookAt(
-					transform->Position(),
-					transform->Position() + transform->FORWARD,
+						transform->Position(),
+						transform->Position() + transform->FORWARD,
 					transform->UP
 				);
 			}

@@ -335,14 +335,23 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				using Point = std::array<float, 2U>;
 				std::vector<std::vector<Point>> polygon;
+				polygon.reserve(1);
 				
 				std::vector<Point> polyline;
-				for (auto it = _polyline.rbegin(); it != _polyline.rend(); ++it) {
-					polyline.push_back({ it->x, it->y });
-				}
-				polygon.push_back(polyline);
+				polyline.reserve(_polyline.size());
 				
-				return mapbox::earcut<U>(polygon);
+				for (const auto& item : _polyline) {
+				    polyline.push_back({ item.x, item.y });
+				}
+				
+				polygon.emplace_back(polyline);
+				
+				auto result = mapbox::earcut<U>(polygon);
+				
+				// The earcutting API returns with reverse winding order...
+				std::reverse(result.begin(), result.end());
+				
+				return result;
 			}
 			
 			template<typename T, typename U, glm::precision Q = glm::defaultp>
@@ -358,17 +367,26 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				using Point = std::array<float, 2U>;
 				std::vector<std::vector<Point>> polygon;
+				polygon.reserve(_polygon.size());
 				
 				for (auto& item1 : _polygon) {
 					
 					std::vector<Point> polyline;
-					for (auto it = item1.rbegin(); it != item1.rend(); ++it) {
-						polyline.push_back({ it->x, it->y });
+					polyline.reserve(item1.size());
+					
+					for (const auto& item : item1) {
+					    polyline.push_back({ item.x, item.y });
 					}
-					polygon.push_back(polyline);
+					
+					polygon.emplace_back(polyline);
 				}
 				
-				return mapbox::earcut<U>(polygon);
+				auto result = mapbox::earcut<U>(polygon);
+				
+				// The earcutting API returns with reverse winding order...
+				std::reverse(result.begin(), result.end());
+				
+				return result;
 			}
 			
 			template<typename T, typename U, glm::precision Q = glm::defaultp>
@@ -384,17 +402,26 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				using Point = std::array<float, 2U>;
 				std::vector<std::vector<Point>> polygon;
+				polygon.reserve(1);
 				
 				std::vector<Point> polyline;
-				for (auto it = _polyline.rbegin(); it != _polyline.rend(); ++it) {
-					polyline.push_back({ it->x, it->z });
-				}
-				polygon.push_back(polyline);
+				polyline.reserve(_polyline.size());
 				
-				return mapbox::earcut<U>(polygon);
+				for (const auto& item : _polyline) {
+				    polyline.push_back({item.x, item.z});
+				}
+				
+				polygon.emplace_back(polyline);
+				
+				auto result = mapbox::earcut<U>(polygon);
+				
+				// The earcutting API returns with reverse winding order...
+				std::reverse(result.begin(), result.end());
+				
+				return result;
 			}
 			
-			template<typename T, glm::precision Q = glm::defaultp, typename N>
+			template<typename T, typename U, glm::precision Q = glm::defaultp, typename N>
 			static std::vector<N> TriangulateXZ(const std::vector<std::vector<glm::vec<3, T, Q>>>& _polygon) {
 				
 				validate_index_format<N>();
@@ -407,17 +434,26 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				using Point = std::array<float, 2U>;
 				std::vector<std::vector<Point>> polygon;
+				polygon.reserve(_polygon.size());
 				
 				for (auto& item1 : _polygon) {
 					
 					std::vector<Point> polyline;
-					for (auto it = item1.rbegin(); it != item1.rend(); ++it) {
-						polyline.push_back({ it->x, it->z });
+					polyline.reserve(item1.size());
+					
+					for (const auto& item : item1) {
+					    polyline.push_back({ item.x, item.z });
 					}
-					polygon.push_back(polyline);
+					
+					polygon.emplace_back(polyline);
 				}
 				
-				return mapbox::earcut<N>(polygon);
+				auto result = mapbox::earcut<U>(polygon);
+				
+				// The earcutting API returns with reverse winding order...
+				std::reverse(result.begin(), result.end());
+				
+				return result;
 			}
 		};
 		

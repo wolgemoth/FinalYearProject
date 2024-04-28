@@ -337,7 +337,7 @@ namespace LouiEriksson::Engine::Physics {
 						const auto bRotation = t.getRotation().inverse();
 						
 						// Sync the transform from bullet with the transform in-engine.
-						transform->Position(glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z()));
+						transform->Position(glm::vec3(bOrigin.x(), bOrigin.y(), bOrigin.z()));
 						transform->Rotation(glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z()));
 					}
 				}

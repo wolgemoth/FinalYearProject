@@ -459,7 +459,7 @@ namespace LouiEriksson::Engine::ECS {
 							if (const auto t = go->AddComponent<Transform>()) {
 			
 								xml.startNode();
-				
+								
 								t->Position(Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 								t->Rotation(Serialisation::Deserialise<glm::quat>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 								t->Scale   (Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));

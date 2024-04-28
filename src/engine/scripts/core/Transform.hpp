@@ -65,11 +65,13 @@ namespace LouiEriksson::Engine {
 	public:
 		
 		explicit Transform(const std::weak_ptr<ECS::GameObject>& _parent) noexcept : Component(_parent),
-			            m_TS(1.0),
-			         m_World(1.0),
-			         m_Local(1.0),
+			          m_TS(1.0),
+			       m_World(1.0),
+			       m_Local(1.0),
 			    m_Rotation(QUAT_IDENTITY),
-			m_LastRotation(QUAT_IDENTITY) {}
+			m_LastPosition(0.0),
+			m_LastRotation(QUAT_IDENTITY),
+			m_LastScale   (1.0) {}
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Transform); };
@@ -101,8 +103,8 @@ namespace LouiEriksson::Engine {
 #define RIGHT   ToWorld(VEC_RIGHT)
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
-		
-		[[nodiscard]] glm::vec3 Position() const noexcept {
+
+		[[nodiscard]] glm::vec3 Position() noexcept {
 			return m_TS[3];
 		}
 		
