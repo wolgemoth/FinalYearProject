@@ -51,8 +51,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				auto planets_object = s->Create("Planets");
 				auto planets_script = planets_object->AddComponent<Planetarium>();
-				planets_script->m_DistanceMultiplier = 0.0000001;
-				planets_script->m_ScaleMultiplier    = 0.0000001;
+				planets_script->m_DistanceMultiplier = 0.00000001;
+				planets_script->m_ScaleMultiplier    = 0.00000001;
 				planets_script->m_SunLight           = false;
 				planets_script->m_PlanetShadows      = false;
 				
@@ -83,35 +83,52 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							auto day_elapsed = planets->SolarDayElapsed<scalar_t>();
 							
 							// Retrieve the current geo position.
-							auto geoPosition = Meshing::Builder::s_Origin;
+							auto geoPosition = m_Map.lock()->m_Coord;
 							
 							// Update the transform of the sun and planets:
 							{
 								auto earth_rotation = earth_transform->Rotation();
 								
-								// Calculate the amount by which to rotate the planets.
-								auto geo_rotation = glm::angleAxis(glm::radians(90.0f + geoPosition.x + WGCCRE::EarthAxialTilt<scalar_t>()), glm::vec3(1.0, 0.0, 0.0)) *
-										            glm::angleAxis(glm::radians(geoPosition.y), glm::vec3(0.0, 0.0, 1.0));
+								// Calculate the amount by which to rotate the sun and planets from VSOP into cartesian space.
+								auto geo_rotation = glm::angleAxis(glm::radians(        90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+										            glm::angleAxis(glm::radians(geoPosition.y), glm::vec3(0.0, 0.0, 1.0)) *
+										            glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								
-								planets_transform->Rotation(earth_rotation * geo_rotation);
-								planets_transform->Position(camera_transform->Position() - earth_transform->Position());
+								// Get earth radius at position:
+								auto earth_radius = Maths::Coords::WGS84::EarthRadius(geoPosition.x);
 								
-								if (auto sol = planets->m_Planets.Get("Sol")) {
-								if (auto sol_gameobject = sol.value().lock()) {
-								if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) {
+								// Offset to the position of the planets using the user's position:
+								auto positionOffset = (
+									camera_transform->Position() +
+									glm::vec<3, scalar_t>(
+										0.0,
+										earth_radius + geoPosition.z,
+										0.0
+									)
+								) * static_cast<scalar_t>(planets->m_DistanceMultiplier);
+								
+								// Apply rotation and position adjustments to planets.
+								planets_transform->Rotation(glm::inverse(earth_rotation) * geo_rotation);
+								planets_transform->Position(camera_transform->Position() - earth_transform->Position() + positionOffset);
+								
+								if (auto sol = planets->m_Planets.Get("Sol")) {                       // null safety-check
+								if (auto sol_gameobject = sol.value().lock()) {                       // null safety-check
+								if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) { // null safety-check
 									
+									// Get direction from sun to the camera:
 									auto sun_to_camera = glm::normalize(camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]));
 									
-									Settings::Graphics::Material::s_CurrentLightType = Light::Parameters::Type::Directional;
-									Settings::Graphics::Material::s_LightPosition = camera_transform->Position();
-									Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(sun_to_camera, camera_transform->UP)));
+									// Set up a single directional light using the sun as an illumination source:
+									Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
+									Settings::Graphics::Material::s_LightPosition                    = camera_transform->Position();
+									Settings::Graphics::Material::s_LightRotation                    = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(sun_to_camera, camera_transform->UP)));
 									Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
 								}}}
 							}
 							
 							// Update the transform of the stars:
 							{
-								// Calculate the amount by which to rotate the stars.
+								// Calculate the amount by which to rotate the stars, using the latitude and solar time to calculate offsets for right ascension and declination.
 								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) + 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								

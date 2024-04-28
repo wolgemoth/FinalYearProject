@@ -14,7 +14,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	
 	struct Coords final {
 	
-		class SI final {
+		struct SI final {
 	        
 	        /** @brief Globally-average Earth radius in metres, according to the International System of Units. */
             static constexpr long double s_EarthRadius = 6371000.0;
