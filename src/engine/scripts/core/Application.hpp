@@ -240,7 +240,7 @@ namespace LouiEriksson::Engine {
 					tick_t physics_step = 0.0;
 					
 					// Load a scene and run:
-					s_Scene = ECS::Scene::Load("levels/planets.scene", _initialisers);
+					s_Scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
 					
 					/* LOOP */
 					while (!Application::s_Quit) {

@@ -483,7 +483,7 @@ namespace LouiEriksson::Engine {
 		    const auto d = glm::dot  (_a, _b);
 		    const auto p = glm::cross(_a, _b);
 		    
-		    const auto angle = std::atan(glm::length(p), d);
+		    const auto angle = glm::atan(glm::length(p), d);
 		    
 		    return angle * glm::sign(dot(p, _axis));
 		}

@@ -28,6 +28,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		bool m_SunLight = true;
 		
+		/** @brief Hashmap containing references to planet GameObjects. */
+		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
+		
 		explicit Planetarium(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 		
 		/** @inheritdoc */
@@ -112,6 +115,68 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 *      <ftp://ftp.boulder.nist.gov/pub/T/leap-seconds.list>
 			 */
 			return unix_time_utc + 37.0;
+		}
+		
+		/**
+		 * @brief Calculates the elapsed solar day.
+		 *
+		 * This is a value between 0 at the start of the day and 1 at the end of the day.
+		 *
+		 * @tparam T The type of the elapsed time.
+		 * @return The elapsed solar day.
+		 */
+		template <typename T>
+		T SolarDayElapsed() {
+		
+			scalar_t result;
+			
+			try {
+				if (const auto earth = m_Planets.Get("Earth"),
+						         sol = m_Planets.Get("Sol");
+				               earth && sol
+		        ) {
+				    if (auto earth_gameobject = earth.value().lock(),
+							   sol_gameobject =   sol.value().lock();
+					         earth_gameobject && sol_gameobject
+					 ) {
+				        if (const auto earth_transform = earth_gameobject->GetComponent<Transform>(),
+				                         sol_transform =   sol_gameobject->GetComponent<Transform>();
+									   earth_transform && sol_transform
+					    ) {
+				            auto earth_to_sol = glm::normalize(sol_transform->Position() - earth_transform->Position());
+				            result = (Utils::SignedAngle(earth_transform->FORWARD, earth_to_sol, earth_transform->UP) / (glm::pi<scalar_t>() * 2.0) + 0.5);
+				        }
+						else {
+							throw ("Failed to retrieve Transforms for Earth and Sol");
+						}
+				    }
+					else {
+						throw ("Failed to lock Earth and Sol GameObjects");
+					}
+				}
+				else {
+					throw ("Failed to find GameObjects for Earth and Sol");
+				}
+			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+				result = -1;
+			}
+			
+			return result;
+		}
+		
+		/**
+		 * @brief Calculates the solar time in seconds.
+		 *
+		 * @tparam T The type of the elapsed solar day duration.
+		 * @return T The solar time in seconds.
+		 *
+		 * @see SolarDayElapsed()
+		 */
+		template <typename T>
+		T SolarTime() {
+			return SolarDayElapsed<T>() * 86400.0;
 		}
 		
 	protected:
@@ -283,9 +348,6 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Planets<scalar, glm::highp> m_Positions_From;
 		Planets<scalar, glm::highp> m_Positions_To;
 		
-		/** @brief Hashmap containing references to planet GameObjects. */
-		Hashmap<std::string, std::weak_ptr<ECS::GameObject>> m_Planets;
-		
 		/** @inheritdoc */
 		void Begin() override {
 		
@@ -311,7 +373,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					const auto go = s->Create(item);
 					
 					const auto planet_transform = go->AddComponent<Transform>();
-					//planet_transform->ParentTransform(planetarium_transform);
+					planet_transform->ParentTransform(planetarium_transform);
 					
 					const auto planet_renderer = go->AddComponent<Graphics::Renderer>();
 					

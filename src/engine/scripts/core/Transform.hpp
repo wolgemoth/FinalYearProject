@@ -159,10 +159,6 @@ namespace LouiEriksson::Engine {
 			glm::mat4 result;
 			
 			if (const auto p = m_Parent.lock()) {
-				
-				Debug::Log("Has parent!");
-				Debug::Break();
-				
 				m_World = p->World() * Local();
 				
 				result = m_World;

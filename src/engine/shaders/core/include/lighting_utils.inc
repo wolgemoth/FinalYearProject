@@ -170,9 +170,7 @@
 
             vec2 offset = normalize(Random2S(_fragPos.xy + vec2(i + 1), _seed, 0.1));
 
-            offset.x += sign(offset.x) * float(i) * _samples;
-            offset.y += sign(offset.y) * float(i) * _samples;
-
+            offset *= float(i + 1) / (_samples + 1);
             float occluderDepth = Sample1(_shadowMap, _fragPos.xy + (offset * _texelSize));
 
             if (occluderDepth < _fragPos.z - _bias) {

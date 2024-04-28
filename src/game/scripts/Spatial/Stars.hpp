@@ -43,7 +43,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			using vertex_t = GLfloat;
 			
 			/* SET STAR SIZE */
-			glPointSize(4.0);
+			glPointSize(2.0);
 			
 			// Change the settings to allow us to see!
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
