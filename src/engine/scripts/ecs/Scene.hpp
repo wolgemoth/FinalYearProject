@@ -69,13 +69,16 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& renderers = entity->Components().Get(typeid(Graphics::Renderer))) {
-					for (const auto& item : *renderers) {
-						
-						const auto r = std::dynamic_pointer_cast<Graphics::Renderer>(item);
-						
-						if (auto t = r->GetTransform().lock()) {
-							casted_renderers.emplace_back(r);
+				if (entity->Active()) {
+					
+					if (const auto& renderers = entity->Components().Get(typeid(Graphics::Renderer))) {
+						for (const auto& item : *renderers) {
+							
+							const auto r = std::dynamic_pointer_cast<Graphics::Renderer>(item);
+							
+							if (auto t = r->GetTransform().lock()) {
+								casted_renderers.emplace_back(r);
+							}
 						}
 					}
 				}
@@ -89,9 +92,12 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& lights = entity->Components().Get(typeid(Graphics::Light))) {
-					for (const auto& item : *lights) {
-						casted_lights.emplace_back(std::dynamic_pointer_cast<Graphics::Light>(item));
+				if (entity->Active()) {
+					
+					if (const auto& lights = entity->Components().Get(typeid(Graphics::Light))) {
+						for (const auto& item : *lights) {
+							casted_lights.emplace_back(std::dynamic_pointer_cast<Graphics::Light>(item));
+						}
 					}
 				}
 			}
@@ -101,19 +107,22 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& cameras = entity->Components().Get(typeid(Graphics::Camera))) {
-					for (const auto& item : *cameras) {
-						
-						try {
+				if (entity->Active()) {
+					
+					if (const auto& cameras = entity->Components().Get(typeid(Graphics::Camera))) {
+						for (const auto& item : *cameras) {
 							
-							/* RENDER */
-							const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(item);
-							camera->PreRender(_flags);
-							camera->Render(casted_renderers, casted_lights);
-							camera->PostRender();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
+							try {
+								
+								/* RENDER */
+								const auto camera = std::dynamic_pointer_cast<Graphics::Camera>(item);
+								camera->PreRender(_flags);
+								camera->Render(casted_renderers, casted_lights);
+								camera->PostRender();
+							}
+							catch (const std::exception& e) {
+								Debug::Log(e);
+							}
 						}
 					}
 				}
@@ -138,15 +147,18 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& rigidbodies = entity->Components().Get(typeid(Physics::Rigidbody))) {
-					for (const auto& item : *rigidbodies) {
-						
-						try {
-							const auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
-							rigidbody->Interpolate();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
+				if (entity->Active()) {
+					
+					if (const auto& rigidbodies = entity->Components().Get(typeid(Physics::Rigidbody))) {
+						for (const auto& item : *rigidbodies) {
+							
+							try {
+								const auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
+								rigidbody->Interpolate();
+							}
+							catch (const std::exception& e) {
+								Debug::Log(e);
+							}
 						}
 					}
 				}
@@ -157,9 +169,12 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
-					for (const auto& item : *scripts) {
-						std::dynamic_pointer_cast<Script>(item)->Invoke(false);
+				if (entity->Active()) {
+					
+					if (const auto& scripts = entity->Components().Get(typeid(Script))) {
+						for (const auto& item : *scripts) {
+							std::dynamic_pointer_cast<Script>(item)->Invoke(false);
+						}
 					}
 				}
 			}
@@ -169,9 +184,12 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& scripts = entity->Components().Get(typeid(Script))) {
-					for (const auto& item : *scripts) {
-						std::dynamic_pointer_cast<Script>(item)->Invoke(true);
+				if (entity->Active()) {
+					
+					if (const auto& scripts = entity->Components().Get(typeid(Script))) {
+						for (const auto& item : *scripts) {
+							std::dynamic_pointer_cast<Script>(item)->Invoke(true);
+						}
 					}
 				}
 			}
@@ -194,15 +212,18 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& rigidbodies = entity->Components().Get(typeid(Physics::Rigidbody))) {
-					for (const auto& item : rigidbodies.value()) {
-						
-						try {
-							auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
-							rigidbody->Sync();
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
+				if (entity->Active()) {
+				
+					if (const auto& rigidbodies = entity->Components().Get(typeid(Physics::Rigidbody))) {
+						for (const auto& item : rigidbodies.value()) {
+							
+							try {
+								auto rigidbody = std::dynamic_pointer_cast<Physics::Rigidbody>(item);
+								rigidbody->Sync();
+							}
+							catch (const std::exception& e) {
+								Debug::Log(e);
+							}
 						}
 					}
 				}
@@ -213,52 +234,55 @@ namespace LouiEriksson::Engine::ECS {
 				
 				const auto entity = m_Entities[i];
 				
-				if (const auto& items = entity->Components().Get(typeid(Script))) {
-					for (const auto& item : *items) {
-						
-						try {
-							const auto script = std::dynamic_pointer_cast<Script>(item);
+				if (entity->Active()) {
+					
+					if (const auto& items = entity->Components().Get(typeid(Script))) {
+						for (const auto& item : *items) {
 							
 							try {
+								const auto script = std::dynamic_pointer_cast<Script>(item);
 								
-								/*
-								 * Invoke collision event for every collision that the attached
-								 * rigidbody component has encountered.
-								 */
-								{
-									// Get rigidbody on Script's parent.
-									if (const auto  p = script->Parent()) {
-									if (const auto rb = p->GetComponent<Physics::Rigidbody>()) {
-										
-										// Invoke collision event for every Collision:
-										const auto collisions = rb->Collisions();
-										
-										for (auto collision : collisions) {
+								try {
+									
+									/*
+									 * Invoke collision event for every collision that the attached
+									 * rigidbody component has encountered.
+									 */
+									{
+										// Get rigidbody on Script's parent.
+										if (const auto  p = script->Parent()) {
+										if (const auto rb = p->GetComponent<Physics::Rigidbody>()) {
 											
-											try {
-												script->OnCollision(collision);
+											// Invoke collision event for every Collision:
+											const auto collisions = rb->Collisions();
+											
+											for (auto collision : collisions) {
+												
+												try {
+													script->OnCollision(collision);
+												}
+												catch (const std::exception& e) {
+													Debug::Log(e);
+												}
 											}
-											catch (const std::exception& e) {
-												Debug::Log(e);
-											}
-										}
-									}}
+										}}
+									}
+								}
+								catch (const std::exception& e) {
+									Debug::Log(e);
+								}
+								
+								try {
+									// Run the script's FixedTick().
+									script->FixedTick();
+								}
+								catch (const std::exception& e) {
+									Debug::Log(e);
 								}
 							}
 							catch (const std::exception& e) {
 								Debug::Log(e);
 							}
-							
-							try {
-								// Run the script's FixedTick().
-								script->FixedTick();
-							}
-							catch (const std::exception& e) {
-								Debug::Log(e);
-							}
-						}
-						catch (const std::exception& e) {
-							Debug::Log(e);
 						}
 					}
 				}

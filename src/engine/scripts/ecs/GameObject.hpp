@@ -28,6 +28,9 @@ namespace LouiEriksson::Engine::ECS {
 	
 	private:
 	
+		/* @brief Whether or not the GameObject is active. */
+		bool m_Active;
+		
 		/** @brief Scene the Parent belongs to. */
 		std::weak_ptr<Scene> m_Scene;
 	
@@ -94,12 +97,14 @@ namespace LouiEriksson::Engine::ECS {
 		}
 		
 		GameObject(const std::weak_ptr<Scene>& _scene, std::string _name) noexcept :
+			m_Active(true),
 			m_Scene(_scene),
 			m_Name (std::move(_name)) {}
 		
 	public:
 	
 		GameObject(GameObject&& _other) noexcept :
+			m_Active    (std::move(_other.m_Active    )),
 			m_Scene     (std::move(_other.m_Scene     )),
 			m_Name      (std::move(_other.m_Name      )),
 			m_Components(std::move(_other.m_Components))
@@ -112,6 +117,24 @@ namespace LouiEriksson::Engine::ECS {
 		
 		GameObject             (const GameObject& _other) = delete;
 		GameObject& operator = (const GameObject& _other) = delete;
+		
+		/**
+		 * @brief Sets the active state of the GameObject.
+		 *
+		 * @param[in] _value The active state to set. True for active, false for inactive.
+		 */
+		void Active(const bool& _value) {
+			m_Active = _value;
+		}
+		
+		/**
+		 * @brief Get the active state of the GameObject.
+		 *
+		 * @return A reference to the active state of the GameObject.
+		 */
+		constexpr const bool& Active() const noexcept {
+			return m_Active;
+		}
 		
 		/**
 		 * @brief Set the name of the Parent.

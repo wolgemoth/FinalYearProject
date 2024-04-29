@@ -30,7 +30,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		/** @inheritdoc */
 		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(FYP); };
-	
+		
 	protected:
 	
 		/** @inheritdoc */
@@ -51,8 +51,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				auto planets_object = s->Create("Planets");
 				auto planets_script = planets_object->AddComponent<Planetarium>();
-				planets_script->m_DistanceMultiplier = 0.00000001;
-				planets_script->m_ScaleMultiplier    = 0.00000001;
+				planets_script->m_DistanceMultiplier = 0.000000005;
+				planets_script->m_ScaleMultiplier    = 0.000000005;
 				planets_script->m_SunLight           = false;
 				planets_script->m_PlanetShadows      = false;
 				
@@ -62,6 +62,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		/** @inheritdoc */
 		void LateTick() override {
+			
+			using Distance = Maths::Conversions::Distance;
 			
 			if (const auto camera = m_Camera.lock()) {                                            // null safety-check
 			if (const auto camera_gameobject = camera->Parent()) {                                // null safety-check
@@ -85,7 +87,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							// Retrieve the current geo position.
 							auto geoPosition = m_Map.lock()->m_Coord;
 							
-							// Update the transform of the sun and planets:
+							// Disable the planetarium rendering of earth:
+							earth_gameobject->Active(false);
+							
+							// Update the transform of the planets:
 							{
 								auto earth_rotation = earth_transform->Rotation();
 								
@@ -111,18 +116,34 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								planets_transform->Rotation(glm::inverse(earth_rotation) * geo_rotation);
 								planets_transform->Position(camera_transform->Position() - earth_transform->Position() + positionOffset);
 								
+								// Set up a single directional light using the sun as an illumination source:
 								if (auto sol = planets->m_Planets.Get("Sol")) {                       // null safety-check
 								if (auto sol_gameobject = sol.value().lock()) {                       // null safety-check
 								if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) { // null safety-check
 									
-									// Get direction from sun to the camera:
-									auto sun_to_camera = glm::normalize(camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]));
-									
-									// Set up a single directional light using the sun as an illumination source:
+									// Set default lighting settings:
 									Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
-									Settings::Graphics::Material::s_LightPosition                    = camera_transform->Position();
-									Settings::Graphics::Material::s_LightRotation                    = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(sun_to_camera, camera_transform->UP)));
 									Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
+									Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
+									Settings::Graphics::Material::s_LightSize                        =  0.005;
+									Settings::Graphics::Material::s_LightRange                       = 20.0;
+									Settings::Graphics::Material::s_ShadowBias                       =  0.1;
+									Settings::Graphics::Material::s_ShadowNormalBias                 =  0.2;
+									
+									// Get direction from sun to the camera:
+									auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);
+									
+									// Parameters for sun brightness:
+									auto intensity = 8.0;
+									auto distance_au = Distance::Convert(glm::length(sun_to_camera) / static_cast<scalar_t>(planets->m_DistanceMultiplier), Distance::Metre, Distance::AstronomicalUnit);
+									auto toggle_light = glm::dot(glm::normalize(sun_to_camera), glm::vec<3, scalar_t>(0.0, 1.0, 0.0)) < static_cast<scalar_t>(0.0);
+									
+									// Set position and rotation of light source:
+									Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + glm::vec3(0.0, 1.0, 0.0);
+									Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(glm::normalize(sun_to_camera), camera_transform->UP)));
+									
+									// Adjust the brightness of the sun light according to the inverse square distance from the camera and time of day.
+									Settings::Graphics::Material::s_LightIntensity = (intensity / (distance_au * distance_au)) * toggle_light;
 								}}}
 							}
 							
