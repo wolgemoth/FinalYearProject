@@ -81,17 +81,20 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						if (auto earth_gameobject = earth.value().lock()) {                       // null safety-check
 						if (auto earth_transform = earth_gameobject->GetComponent<Transform>()) { // null safety-check
 							
-							// Get the progress of the current solar day.
-							auto day_elapsed = planets->SolarDayElapsed<scalar_t>();
-							
-							// Retrieve the current geo position.
-							auto geoPosition = m_Map.lock()->m_Coord;
-							
-							// Disable the planetarium rendering of earth:
-							earth_gameobject->Active(false);
-							
-							// Update the transform of the planets:
-							{
+							if (auto sol = planets->m_Planets.Get("Sol")) {                       // null safety-check
+							if (auto sol_gameobject = sol.value().lock()) {                       // null safety-check
+							if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) { // null safety-check
+								
+								// Get the progress of the current solar day.
+								auto day_elapsed = planets->SolarDayElapsed<scalar_t>();
+								
+								// Retrieve the current geo position.
+								auto geoPosition = m_Map.lock()->m_Coord;
+								
+								// Disable the planetarium rendering of earth:
+								earth_gameobject->Active(false);
+								
+								// Update the transform of the planets:
 								auto earth_rotation = earth_transform->Rotation();
 								
 								// Calculate the amount by which to rotate the sun and planets from VSOP into cartesian space.
@@ -117,45 +120,52 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								planets_transform->Position(camera_transform->Position() - earth_transform->Position() + positionOffset);
 								
 								// Set up a single directional light using the sun as an illumination source:
-								if (auto sol = planets->m_Planets.Get("Sol")) {                       // null safety-check
-								if (auto sol_gameobject = sol.value().lock()) {                       // null safety-check
-								if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) { // null safety-check
-									
-									// Set default lighting settings:
-									Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
-									Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
-									Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
-									Settings::Graphics::Material::s_LightSize                        =  0.005;
-									Settings::Graphics::Material::s_LightRange                       = 20.0;
-									Settings::Graphics::Material::s_ShadowBias                       =  0.1;
-									Settings::Graphics::Material::s_ShadowNormalBias                 =  0.2;
-									
-									// Get direction from sun to the camera:
-									auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);
-									
-									// Parameters for sun brightness:
-									auto intensity = 8.0;
-									auto distance_au = Distance::Convert(glm::length(sun_to_camera) / static_cast<scalar_t>(planets->m_DistanceMultiplier), Distance::Metre, Distance::AstronomicalUnit);
-									auto toggle_light = glm::dot(glm::normalize(sun_to_camera), glm::vec<3, scalar_t>(0.0, 1.0, 0.0)) < static_cast<scalar_t>(0.0);
-									
-									// Set position and rotation of light source:
-									Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + glm::vec3(0.0, 1.0, 0.0);
-									Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(glm::normalize(sun_to_camera), camera_transform->UP)));
-									
-									// Adjust the brightness of the sun light according to the inverse square distance from the camera and time of day.
-									Settings::Graphics::Material::s_LightIntensity = (intensity / (distance_au * distance_au)) * toggle_light;
-								}}}
-							}
-							
-							// Update the transform of the stars:
-							{
+								
+								// Set default lighting settings:
+								Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
+								Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
+								Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
+								Settings::Graphics::Material::s_LightSize                        =  0.005;
+								Settings::Graphics::Material::s_LightRange                       = 40.0;
+								Settings::Graphics::Material::s_ShadowBias                       =  0.1;
+								Settings::Graphics::Material::s_ShadowNormalBias                 =  0.2;
+								
+								// Get direction from sun to the camera:
+								auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);
+								
+								bool nighttime = glm::dot(glm::normalize(sun_to_camera), glm::vec<3, scalar_t>(0.0, 1.0, 0.0)) > static_cast<scalar_t>(0.0);
+								
+								// Parameters for sun brightness:
+								auto intensity = 5.0;
+								auto distance_au = Distance::Convert(glm::length(sun_to_camera) / static_cast<scalar_t>(planets->m_DistanceMultiplier), Distance::Metre, Distance::AstronomicalUnit);
+								auto toggle_light = nighttime ? 0.0 : 1.0;
+								
+								// Set position and rotation of light source:
+								Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + glm::vec3(0.0, 1.0, 0.0);
+								Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(glm::normalize(sun_to_camera), camera_transform->UP)));
+								
+								// Adjust the brightness of the sun light according to the inverse square distance from the camera and time of day.
+								Settings::Graphics::Material::s_LightIntensity = (intensity / (distance_au * distance_au)) * toggle_light;
+								
+								// Adjust the skybox for the time of day:
+								Settings::Graphics::Skybox::s_Blur = 0.0; // Blur 100% to avoid being distracting.
+								if (nighttime) {
+									Settings::Graphics::Skybox::UpdateSkybox(0); // (0 = Night Sky)
+									Settings::Graphics::Skybox::s_Exposure = 5.0;
+								}
+								else {
+									Settings::Graphics::Skybox::UpdateSkybox(1); // (2 = Daylight)
+									Settings::Graphics::Skybox::s_Exposure = 2.5;
+								}
+								
+								// Update the transform of the stars:
 								// Calculate the amount by which to rotate the stars, using the latitude and solar time to calculate offsets for right ascension and declination.
 								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) + 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								
 								stars_transform->Position(camera_transform->Position());
 								stars_transform->Rotation(star_rotation);
-							}
+							}}}
 						}}}
 					}}}
 				}}}

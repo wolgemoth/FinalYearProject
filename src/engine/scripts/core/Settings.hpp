@@ -91,12 +91,13 @@ namespace LouiEriksson::Engine {
 				/* SKYBOX TEXTURE */
 				inline static std::vector<const char*> s_AvailableSkyboxes {
 					"assets/textures/linear/cubemaps/8k_stars_milky_way/",
+					"assets/textures/linear/cubemaps/daylight/",
 					"assets/textures/linear/cubemaps/abandoned_workshop_02_1k/",
 					"assets/textures/linear/cubemaps/blue_photo_studio_1k/",
 					"assets/textures/linear/cubemaps/little_paris_eiffel_tower_1k/",
 				};
 				
-				inline static int s_CurrentSkyboxSelection { 0 };
+				inline static int s_CurrentSkyboxSelection { 3 };
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Cubemap> s_Skybox;
 				
@@ -108,7 +109,6 @@ namespace LouiEriksson::Engine {
 						s_CurrentSkyboxSelection = _index;
 					}
 				}
-	
 				
 				/* PARAMETERS */
 				inline static scalar_t s_Blur     { 0.0 };
