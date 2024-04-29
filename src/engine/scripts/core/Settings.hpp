@@ -55,6 +55,13 @@ namespace LouiEriksson::Engine {
 			Settings::Graphics::Material::UpdateShader(Settings::Graphics::Material::s_CurrentShaderSelection);
 		}
 		
+		struct Spatial final {
+			
+			/** @brief Origin coordinate of the coordinate system (in latitude, longitude, and altitude). */
+			inline static glm::vec3 s_Coord;
+			
+		};
+		
 		/** @brief Container for the application's graphics settings. */
 		struct Graphics final {
 			

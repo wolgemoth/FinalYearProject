@@ -51,8 +51,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				auto planets_object = s->Create("Planets");
 				auto planets_script = planets_object->AddComponent<Planetarium>();
-				planets_script->m_DistanceMultiplier = 0.000000005;
-				planets_script->m_ScaleMultiplier    = 0.000000005;
+				planets_script->m_DistanceMultiplier = 0.0000001;
+				planets_script->m_ScaleMultiplier    = 0.0000001;
 				planets_script->m_SunLight           = false;
 				planets_script->m_PlanetShadows      = false;
 				
@@ -89,12 +89,13 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								auto day_elapsed = planets->SolarDayElapsed<scalar_t>();
 								
 								// Retrieve the current geo position.
-								auto geoPosition = m_Map.lock()->m_Coord;
+								auto geoPosition = Settings::Spatial::s_Coord;
 								
 								// Disable the planetarium rendering of earth:
 								earth_gameobject->Active(false);
 								
-								// Update the transform of the planets:
+								/* Update the transform of the planets */
+								
 								auto earth_rotation = earth_transform->Rotation();
 								
 								// Calculate the amount by which to rotate the sun and planets from VSOP into cartesian space.
@@ -119,7 +120,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								planets_transform->Rotation(glm::inverse(earth_rotation) * geo_rotation);
 								planets_transform->Position(camera_transform->Position() - earth_transform->Position() + positionOffset);
 								
-								// Set up a single directional light using the sun as an illumination source:
+								/* Set up a single directional light using the sun as an illumination source */
 								
 								// Set default lighting settings:
 								Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
@@ -127,8 +128,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
 								Settings::Graphics::Material::s_LightSize                        =  0.005;
 								Settings::Graphics::Material::s_LightRange                       = 40.0;
-								Settings::Graphics::Material::s_ShadowBias                       =  0.1;
-								Settings::Graphics::Material::s_ShadowNormalBias                 =  0.2;
+								Settings::Graphics::Material::s_ShadowBias                       =  0.02;
+								Settings::Graphics::Material::s_ShadowNormalBias                 =  0.02;
 								
 								// Get direction from sun to the camera:
 								auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);
@@ -138,7 +139,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								// Parameters for sun brightness:
 								auto intensity = 5.0;
 								auto distance_au = Distance::Convert(glm::length(sun_to_camera) / static_cast<scalar_t>(planets->m_DistanceMultiplier), Distance::Metre, Distance::AstronomicalUnit);
-								auto toggle_light = nighttime ? 0.0 : 1.0;
+								auto toggle_light = 1.0;//nighttime ? 0.0 : 1.0;
 								
 								// Set position and rotation of light source:
 								Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + glm::vec3(0.0, 1.0, 0.0);
@@ -147,8 +148,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								// Adjust the brightness of the sun light according to the inverse square distance from the camera and time of day.
 								Settings::Graphics::Material::s_LightIntensity = (intensity / (distance_au * distance_au)) * toggle_light;
 								
-								// Adjust the skybox for the time of day:
-								Settings::Graphics::Skybox::s_Blur = 0.0; // Blur 100% to avoid being distracting.
+								/* Adjust the skybox for the time of day */
+								
+								Settings::Graphics::Skybox::s_Blur = 1.0; // Blur 100% to avoid being distracting.
 								if (nighttime) {
 									Settings::Graphics::Skybox::UpdateSkybox(0); // (0 = Night Sky)
 									Settings::Graphics::Skybox::s_Exposure = 5.0;
@@ -158,7 +160,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									Settings::Graphics::Skybox::s_Exposure = 2.5;
 								}
 								
-								// Update the transform of the stars:
+								/* Update the transform of the stars */
+								
 								// Calculate the amount by which to rotate the stars, using the latitude and solar time to calculate offsets for right ascension and declination.
 								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) + 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
