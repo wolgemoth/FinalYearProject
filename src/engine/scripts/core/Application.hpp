@@ -56,11 +56,16 @@ namespace LouiEriksson::Engine {
 	
 	private:
 	
+		using ScriptInitialisers = Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>;
+		
 		inline static std::atomic<bool> s_Quit        { false }; // Is Application scheduled to quit?
 		inline static std::atomic<bool> s_Initialised { false }; // Is Application initialised?
+		inline static std::atomic<bool> s_ReloadScene { true  }; // Should the scene be reloaded?
 		
 		inline static std::shared_ptr<ECS::Scene> s_Scene;
 		inline static std::shared_ptr<Window>     s_MainWindow;
+		
+		inline static std::unique_ptr<ScriptInitialisers> s_ScriptInitialisers;
 		
 		/**
 		 * @brief Finalises the application.
@@ -170,6 +175,22 @@ namespace LouiEriksson::Engine {
 			std::exit(343);
 		}
 		
+		/**
+		 * @brief Loads a scene from a file.
+		 *
+		 * @param[in] _path The path to the scene file.
+		 *
+		 * @return A shared pointer to the loaded scene.
+		 *
+		 * @note The function assumes that the scene file is in XML format.
+		 * @warning The function expects the scene file to be correctly formatted and structured.
+		 */
+		static void LoadScene(const std::filesystem::path& _path) {
+			
+			s_Scene.reset();
+			s_Scene = ECS::Scene::Load(_path.string(), *s_ScriptInitialisers);
+		}
+		
 	public:
 	
 		 Application()                          = delete;
@@ -179,6 +200,10 @@ namespace LouiEriksson::Engine {
 		Application& operator = (const Application&  _other) = delete;
 		Application& operator =       (Application&& _other) = delete;
 		
+		static void ReloadScene() {
+			s_ReloadScene = true;
+		}
+		
 		/**
 		 * @brief Entry point of the application.
 		 *
@@ -187,7 +212,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _values A hashmap containing function pointers to initialise different user scripts
 		 * @return An integer error code (0 for successful execution)
 		 */
-		static int Main(const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& _parent)>& _initialisers) {
+		static int Main(const ScriptInitialisers& _initialisers) {
 			
 			// Restrict Main() to one instance.
 			if (s_Initialised) {
@@ -239,8 +264,7 @@ namespace LouiEriksson::Engine {
 					
 					tick_t physics_step = 0.0;
 					
-					// Load a scene and run:
-					s_Scene = ECS::Scene::Load("levels/fyp.scene", _initialisers);
+					s_ScriptInitialisers = std::make_unique<ScriptInitialisers>(_initialisers);
 					
 					/* LOOP */
 					while (!Application::s_Quit) {
@@ -249,6 +273,11 @@ namespace LouiEriksson::Engine {
 							
 							// Get the beginning of the frame for timing purposes.
 							const auto frame_start = std::chrono::high_resolution_clock::now();
+							
+							if (s_ReloadScene) {
+								s_ReloadScene = false;
+								LoadScene("levels/fyp.scene");
+							}
 							
 							Utils:: ALDumpError();
 							Utils:: GLDumpError();
@@ -292,10 +321,7 @@ namespace LouiEriksson::Engine {
 								
 								// Process quit event:
 								if (Input::Input::Event::Get(SDL_QUIT)) {
-									
 									Application::Quit();
-									
-									goto NestedBreak;
 								}
 							}
 							
@@ -357,8 +383,6 @@ namespace LouiEriksson::Engine {
 				catch (const std::exception& e) {
 					Debug::Log(e, LogType::Critical);
 				}
-	
-	NestedBreak:
 				
 				/* FINALISE */
 				Finalise();

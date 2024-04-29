@@ -47,7 +47,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				m_Stars = stars_object->AddComponent<Stars>();
 				
 				auto map_object = s->Create("Map");
-				m_Map = map_object->AddComponent<Map>();
+				auto map_script = map_object->AddComponent<Map>();
+				m_Map = map_script;
 				
 				auto planets_object = s->Create("Planets");
 				auto planets_script = planets_object->AddComponent<Planetarium>();
@@ -55,8 +56,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				planets_script->m_ScaleMultiplier    = 0.0000001;
 				planets_script->m_SunLight           = false;
 				planets_script->m_PlanetShadows      = false;
-				
 				m_Planets = planets_script;
+				
+				// Change AO scale to reflect the size of the map.
+				Settings::PostProcessing::AmbientOcclusion::s_Radius = map_script->m_Scale * 20.0;
 			}}
 	    }
 		
@@ -84,6 +87,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							if (auto sol = planets->m_Planets.Get("Sol")) {                       // null safety-check
 							if (auto sol_gameobject = sol.value().lock()) {                       // null safety-check
 							if (auto sol_transform = sol_gameobject->GetComponent<Transform>()) { // null safety-check
+								
+								if (Input::Input::Key::GetDown(SDL_SCANCODE_R)) {
+									Application::ReloadScene();
+								}
 								
 								// Get the progress of the current solar day.
 								auto day_elapsed = planets->SolarDayElapsed<scalar_t>();
@@ -128,7 +135,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
 								Settings::Graphics::Material::s_LightSize                        =  0.005;
 								Settings::Graphics::Material::s_LightRange                       = 40.0;
-								Settings::Graphics::Material::s_ShadowBias                       =  0.02;
+								Settings::Graphics::Material::s_ShadowBias                       =  0.04;
 								Settings::Graphics::Material::s_ShadowNormalBias                 =  0.02;
 								
 								// Get direction from sun to the camera:

@@ -67,15 +67,6 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				m_Transform = p->AddComponent<Transform>();
 			}
 			
-			Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({ 22.28180, 114.17347 }); // HK
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({ 50.74794, -1.87812 }); // Bournemouth
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({ 0.0, 0.0 }); // Null Island
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({ 40.76956, -73.97380 }); // NY
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({ 51.5028, -0.1105,}); // London
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({35.69067, 139.81876}); // Tokyo
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({-4.0513, 39.6658}); // Mombasa
-			//Settings::Spatial::s_Coord = GenerateCoord<scalar_t>({-33.9894, 18.5555}); // Cape Town
-			
 			m_BuildTask = std::async([this]() {
 				BuildManyAsync(Settings::Spatial::s_Coord, m_GridSizeKm, m_ElevationProvider);
 			});

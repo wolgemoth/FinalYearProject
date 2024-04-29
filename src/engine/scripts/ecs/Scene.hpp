@@ -52,6 +52,8 @@ namespace LouiEriksson::Engine::ECS {
 	
 	private:
 		
+		std::filesystem::path m_Path;
+		
 		/**
 		 * @fn void Scene::Draw(const LouiEriksson::Engine::Graphics::Camera::RenderFlags& _flags)
 		 * @brief Render the Scene.
@@ -440,6 +442,7 @@ namespace LouiEriksson::Engine::ECS {
 			Debug::Log("Loading Scene \"" + _path.string() + "\"... ", LogType::Info, true);
 			
 			auto result = std::make_shared<Scene>();
+			result->m_Path = _path;
 			
 			// TODO: Better logging.
 			const auto log = false;

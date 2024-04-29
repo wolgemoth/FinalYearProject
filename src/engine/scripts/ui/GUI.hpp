@@ -635,7 +635,7 @@ namespace LouiEriksson::Engine::UI {
 							
 							ImGui::DragFloat3("Light Position",  &target::s_LightPosition[0], 0.1                 );
 							ImGui::DragFloat3("Light Rotation",  &target::s_LightRotation[0], 0.1                 );
-							ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                          );
+							ImGui::ColorEdit3("Light Color",     &target::s_LightColor[0]                         );
 							ImGui::DragFloat ("Light Intensity", &target::s_LightIntensity,   0.01, 0.0, 65535.0);
 							ImGui::DragFloat ("Light Range",     &target::s_LightRange,       0.1,  0.0, 65535.0);
 							
@@ -651,6 +651,64 @@ namespace LouiEriksson::Engine::UI {
 				}
 			}
 
+			static void SpatialSettingsWindow(const Window& _window, const bool& _draw) {
+			
+				if (_draw) {
+					
+					/*
+					 * Set minimum size constraints as this window will
+					 * auto-size and we don't want it to be too small.
+					 */
+					ImGui::SetNextWindowSizeConstraints(
+						ImVec2(200.0, 0.0),
+						ImVec2(
+							std::numeric_limits<scalar_t>::infinity(),
+							std::numeric_limits<scalar_t>::infinity()
+						)
+					);
+					
+					ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0) + 400.0, s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
+					
+					using target = Settings::Spatial;
+					
+					/* SPATIAL SETTINGS */
+					ImGui::Begin("Spatial", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+			
+					// Box for coordinates.
+					ImGui::DragFloat3("Coords", &target::s_Coord[0]);
+					
+					// 2D array of coordinates
+				    std::array<std::pair<std::string, glm::vec2>, 10> places = {{
+						{ "Hong Kong",   { 22.28180, 114.17347}},
+						{ "Bournemouth", { 50.74794, -1.87812 }},
+						{ "Null Island", {  0.0,      0.0     }},
+						{ "New York",    { 40.76956, -73.97380}},
+						{ "London",      { 51.5028,   -0.1105 }},
+						{ "Tokyo",       { 35.69067, 139.81876}},
+						{ "Mombasa",     { -4.0513,   39.6658 }},
+						{ "Cape Town",   {-33.9894,  18.5555  }},
+						{ "Exmouth",     { 50.6304,   -3.4084 }},
+						{ "Mt. Everest", { 27.98806, 86.92521 }}
+				    }};
+					
+				    for (const auto& item : places) {
+						
+						const auto label = item.first;
+						const auto coord = item.second;
+
+						ImGui::BeginGroup();
+				        ImGui::Text("%s:", label.c_str());
+						ImGui::SameLine();
+				        ImGui::Text("(%.5f, %.5f)", coord.x, coord.y);
+						ImGui::EndGroup();
+				    }
+					
+			        ImGui::Text("Press [R] to load new coordinates!");
+					
+					ImGui::End();
+				}
+			}
 		};
 		
 		inline static bool s_DrawDebugWindows { false };
@@ -728,9 +786,10 @@ namespace LouiEriksson::Engine::UI {
 				}
 				
 				// Update (and optionally, draw) debugging windows:
-				GUIWindows::   DiagnosticsWindow(*_window, s_DrawDebugWindows);
-				GUIWindows::PostProcessingWindow(*_window, s_DrawDebugWindows);
-				GUIWindows::RenderSettingsWindow(*_window, s_DrawDebugWindows);
+				GUIWindows::    DiagnosticsWindow(*_window, s_DrawDebugWindows);
+				GUIWindows:: PostProcessingWindow(*_window, s_DrawDebugWindows);
+				GUIWindows:: RenderSettingsWindow(*_window, s_DrawDebugWindows);
+				GUIWindows::SpatialSettingsWindow(*_window, s_DrawDebugWindows);
 			}
 			
 			/* FINALIZE GUI FRAME */
