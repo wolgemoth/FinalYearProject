@@ -43,7 +43,7 @@ namespace LouiEriksson::Engine::Physics {
 					m_CollisionShape.reset(
 						new btBoxShape({
 							static_cast<btScalar>(s.x / 2.0),
-							0.0001,
+							static_cast<btScalar>(0.0001),
 							static_cast<btScalar>(s.z / 2.0)
 						})
 					);

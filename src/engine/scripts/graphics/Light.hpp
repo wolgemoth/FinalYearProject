@@ -147,8 +147,8 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							if (_type != Light::Parameters::Type::Point) {
 								
-								const float borderColor[] { 1.0, 1.0, 1.0, 1.0 };
-								glTexParameterfv(m_Target, GL_TEXTURE_BORDER_COLOR, borderColor);
+								const std::array<GLfloat, 4U> borderColor = { 1.0, 1.0, 1.0, 1.0 };
+								glTexParameterfv(m_Target, GL_TEXTURE_BORDER_COLOR, borderColor.data());
 							}
 							
 							// Create FBO for depth.

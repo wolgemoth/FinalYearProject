@@ -120,9 +120,9 @@ namespace LouiEriksson::Engine {
 			
 			std::vector<std::vector<KeyValuePair>> shallow_cpy(m_Buckets);
 			
-			m_Size = 0;
+			m_Size = 0U;
 			m_Buckets.clear();
-			m_Buckets.resize(_newSize > 0 ? _newSize : 1);
+			m_Buckets.resize(_newSize > 0U ? _newSize : 1U);
 			
 			for (auto& bucket : shallow_cpy) {
 				for (auto& kvp : bucket) {
@@ -175,7 +175,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Initialise Hashmap.
 		 * @param[in] _capacity Initial capacity of the Hashmap. Must be larger than 0.
 		 */
-		constexpr Hashmap(const size_t& _capacity = 1) : m_Size(0) {
+		constexpr Hashmap(const size_t& _capacity = 1U) : m_Size(0U) {
 			m_Buckets.resize(_capacity);
 		}
 		
@@ -186,7 +186,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _items A collection of key-value pairs.
 		 * @param[in] _capacity Initial capacity of the Hashmap. If a value less than 1 is assigned, it will use the size of the provided collection.
 		 */
-		constexpr Hashmap(const std::initializer_list<KeyValuePair>& _items, const size_t& _capacity = 0) : m_Size(0) {
+		constexpr Hashmap(const std::initializer_list<KeyValuePair>& _items, const size_t& _capacity = 0U) : m_Size(0U) {
 			
 			size_t auto_capacity = _capacity;
 			
@@ -566,11 +566,11 @@ namespace LouiEriksson::Engine {
 			
 			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
-			size_t trimStart = 1;
+			size_t trimStart = 1U;
 			
 			for (size_t i = trimStart; i < m_Buckets.size(); ++i) {
-				if (m_Buckets[i].size() != 0) {
-					trimStart = i + 1;
+				if (m_Buckets[i].size() != 0U) {
+					trimStart = i + 1U;
 				}
 			}
 			
@@ -659,7 +659,7 @@ namespace LouiEriksson::Engine {
 			
 			try {
 				m_Buckets.clear();
-				m_Size = 0;
+				m_Size = 0U;
 			}
 			catch (const std::exception& e) {
 				std::cerr << e.what() << std::endl;

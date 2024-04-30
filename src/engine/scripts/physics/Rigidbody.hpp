@@ -307,9 +307,9 @@ namespace LouiEriksson::Engine::Physics {
 						rot = glm::identity<glm::quat>();
 					}
 					
-					// Apply new values. Linearly interpolate using length of time since last physics update.
-					transform->Position(lastPos + (Velocity() * static_cast<scalar_t>(Physics::s_LastTick * Time::FixedDeltaTime())));
-					transform->Rotation(glm::slerp(lastRot, lastRot * rot, static_cast<scalar_t>(std::max(Physics::s_LastTick, static_cast<tick_t>(0.0)))));
+					// Apply new values. Linearly interpolate using length of time since last physics update.-
+					transform->Position(lastPos + (Velocity() * Physics::s_LastTick * Time::FixedDeltaTime<scalar_t>()));
+					transform->Rotation(glm::slerp(lastRot, lastRot * rot, std::max(Physics::s_LastTick, static_cast<btScalar>(0.0))));
 				}
 			}
 		}

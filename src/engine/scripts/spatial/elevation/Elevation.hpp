@@ -140,7 +140,7 @@ namespace LouiEriksson::Engine::Spatial {
 						ss << "{\"latitude\":" << location.x << ","
 						   <<  "\"longitude\":" << location.y << "}";
 						
-			            if (i != _request.size() - 1) {
+			            if (i != _request.size() - 1U) {
 			                ss << ',';
 			            }
 			        }

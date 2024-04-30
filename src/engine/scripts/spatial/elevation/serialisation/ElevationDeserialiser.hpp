@@ -24,9 +24,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 				
 				struct ElevationJSONResult {
 					
-					[[nodiscard]] virtual const float&       Lat() const noexcept = 0;
-					[[nodiscard]] virtual const float&      Long() const noexcept = 0;
-					[[nodiscard]] virtual const float& Elevation() const noexcept = 0;
+					[[nodiscard]] virtual const scalar_t&       Lat() const noexcept = 0;
+					[[nodiscard]] virtual const scalar_t&      Long() const noexcept = 0;
+					[[nodiscard]] virtual const scalar_t& Elevation() const noexcept = 0;
 				};
 			};
 		};
@@ -37,13 +37,11 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	
 	            struct Result final : ElevationJSONResult {
 					
-	                float  latitude,
-					      longitude,
-						  elevation;
+	                const scalar_t latitude, longitude, elevation;
 		            
-		            [[nodiscard]] const float&       Lat() const noexcept final { return  latitude; }
-					[[nodiscard]] const float&      Long() const noexcept final { return longitude; }
-					[[nodiscard]] const float& Elevation() const noexcept final { return elevation; }
+		            [[nodiscard]] const scalar_t&       Lat() const noexcept final { return  latitude; }
+					[[nodiscard]] const scalar_t&      Long() const noexcept final { return longitude; }
+					[[nodiscard]] const scalar_t& Elevation() const noexcept final { return elevation; }
 					
 		            explicit Result(json&& _oe_json) :
 						 latitude(_oe_json["latitude" ]),
@@ -64,7 +62,7 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 				}
 	        };
 		
-	        Root m_Root;
+	        const Root m_Root;
 	        
 	        OEJSON(json&& _oe_json) : m_Root(std::move(_oe_json)) {}
 		};
@@ -75,10 +73,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	            
 	            struct Result final : ElevationJSONResult {
 		            
-		            struct Location {
+		            struct Location final {
 		                
-		                float lat,
-						      lng;
+		                scalar_t lat, lng;
 						
 		                explicit Location(json&& _otd_json) :
 							lat(_otd_json["lat"]),
@@ -87,13 +84,13 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 					
 	                std::string dataset;
 					
-	                float elevation;
+	                scalar_t elevation;
 	                
 	                Location location;
 		            
-		            [[nodiscard]] const float&       Lat() const noexcept final { return location.lat; }
-					[[nodiscard]] const float&      Long() const noexcept final { return location.lng; }
-					[[nodiscard]] const float& Elevation() const noexcept final { return elevation;    }
+		            [[nodiscard]] const scalar_t&       Lat() const noexcept final { return location.lat; }
+					[[nodiscard]] const scalar_t&      Long() const noexcept final { return location.lng; }
+					[[nodiscard]] const scalar_t& Elevation() const noexcept final { return elevation;    }
 					
 		            explicit Result(json&& _otd_json) :
 						  dataset(Utils::As<std::string>(_otd_json["dataset"])),

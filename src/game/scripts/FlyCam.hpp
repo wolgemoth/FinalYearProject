@@ -95,7 +95,7 @@ namespace LouiEriksson::Game::Scripts {
 					c->SetTransform(t);
 					c->ClearColor(glm::vec4(0.0));
 					
-					if (const auto w = Window::Get(2).lock()) {
+					if (const auto w = Window::Get(2U).lock()) {
 						w->Attach(c);
 					}
 				}}

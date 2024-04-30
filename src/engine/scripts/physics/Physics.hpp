@@ -134,7 +134,7 @@ namespace LouiEriksson::Engine::Physics {
  		inline static glm::vec3 s_Gravity { 0.0, -9.82, 0.0 };
 		
 		/** @brief Time in seconds since the physics engine was last updated. */
-		inline static tick_t s_LastTick { 0.0 };
+		inline static btScalar s_LastTick { 0.0 };
 		
 		/** @brief Initialise the physics engine.*/
 		static void Init() {
@@ -216,12 +216,12 @@ namespace LouiEriksson::Engine::Physics {
 		}
 		
 		/** @brief Update the physics simulation by one step. */
-		static void Tick(const tick_t& _step) {
+		static void Tick(const btScalar& _step) {
 			
-			const tick_t epsilon = 0.0001;
+			const btScalar epsilon = 0.0001;
 			
 			if (_step > epsilon) {
-				s_DynamicsWorld->stepSimulation(static_cast<btScalar>(_step), 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
+				s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
 			
 				s_LastTick = 0.0;
 			}
@@ -257,10 +257,11 @@ namespace LouiEriksson::Engine::Physics {
 		 * @see https://pybullet.org/Bullet/BulletFull/classbtIDebugDraw.html
 		 */
 		[[deprecated("Not implemented")]]
-		static void Debug(const int& _debugMode = static_cast<unsigned>(btIDebugDraw::DBG_DrawWireframe    ) |
-				                                  static_cast<unsigned>(btIDebugDraw::DBG_DrawAabb         ) |
-												  static_cast<unsigned>(btIDebugDraw::DBG_DrawContactPoints) |
-												  static_cast<unsigned>(btIDebugDraw::DBG_DrawNormals      )
+		static void Debug(const int& _debugMode = static_cast<signed>(
+				static_cast<unsigned>(btIDebugDraw::DBG_DrawWireframe    ) |
+				static_cast<unsigned>(btIDebugDraw::DBG_DrawAabb         ) |
+				static_cast<unsigned>(btIDebugDraw::DBG_DrawContactPoints) |
+				static_cast<unsigned>(btIDebugDraw::DBG_DrawNormals      ))
 		) {
 			
 			try {

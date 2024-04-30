@@ -32,9 +32,9 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		            
 		            struct Member final {
 						
-						std::string type;
-	                         size_t ref;
-	                    std::string role;
+						const std::string type;
+	                    const      size_t ref;
+	                    const std::string role;
 						
 						explicit Member(json&& _osm_json) :
 							type(Utils::As<std::string>(_osm_json["type"])),
@@ -42,15 +42,14 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 							role(Utils::As<std::string>(_osm_json["role"])) {}
 	                };
 					
-					std::string type;
+					const std::string type;
 
-	                size_t id;
+	                const size_t id;
 					
 	                std::vector<size_t> nodes;
 	                std::vector<Member> members;
 	                
-	                float lat,
-					      lon;
+	                scalar_t lat, lon;
 	
 	                Hashmap<std::string, std::string> tags;
 		            
@@ -110,18 +109,16 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 		         */
 	            struct Osm3s final {
 					
-		            std::string timestamp_osm_base,
-					                     copyright;
+		            const std::string timestamp_osm_base, copyright;
 					
 		            explicit Osm3s(json&& _osm_json) :
 						timestamp_osm_base(Utils::As<std::string>(_osm_json["timestamp_osm_base"])),
 						         copyright(Utils::As<std::string>(_osm_json["copyright"         ])) {}
 	            };
 				
-				std::string   version,
-				            generator;
+				const std::string version, generator;
 				
-				Osm3s osm3s;
+				const Osm3s osm3s;
 				
 	            std::vector<Element> elements;
 		        

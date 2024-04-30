@@ -56,8 +56,8 @@ namespace LouiEriksson::Engine::Graphics {
 			m_NormalVBO_ID   (GL_NONE),
 			m_TangentVBO_ID  (GL_NONE),
 			m_BitangentVBO_ID(GL_NONE),
-			m_VertexCount(0),
-			m_IndexCount (0) {}
+			m_VertexCount(0U),
+			m_IndexCount (0U) {}
 		
 	public:
 		

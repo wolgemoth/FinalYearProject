@@ -19,12 +19,12 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	class Planetarium final : public Script {
 	
 		using highp_time = long double;
-		using scalar     = long double;
+		using p_scalar     = long double;
 		
 	public:
 		
-		scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
-		scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
+		p_scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
+		p_scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
 		
 		bool m_SunLight      = true;
 		bool m_PlanetShadows = true;
@@ -182,7 +182,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 	protected:
 		
-		template<typename T = scalar, glm::precision Q = glm::highp>
+		template<typename T = p_scalar, glm::precision Q = glm::highp>
 		class Planets final {
 		
 		public:
@@ -346,8 +346,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		};
 		
 		/** @brief Planetary positions computed using the VSOP87 model. */
-		Planets<scalar, glm::highp> m_Positions_From;
-		Planets<scalar, glm::highp> m_Positions_To;
+		Planets<p_scalar, glm::highp> m_Positions_From;
+		Planets<p_scalar, glm::highp> m_Positions_To;
 		
 		/** @inheritdoc */
 		void Begin() override {
@@ -469,13 +469,13 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		 * @param[in] _t The interpolation factor (0.0 - starting state, 1.0 - ending state)
 		 * @param[in] _origin The point-of-origin for the interpolation (default: "Earth")
 		 */
-		template<typename T = scalar, glm::precision Q = glm::highp>
+		template<typename T = p_scalar, glm::precision Q = glm::highp>
 		void InterpolatePlanets(const Planetarium::Planets<T, Q>& _from, const Planetarium::Planets<T, Q>& _to, const highp_time& _t, const std::string& _origin = "Earth")  {
 			
 			using DISTANCE = Maths::Conversions::Distance;
 			
 			// Get the number of metres in an astronomical unit, to convert to 1:1 scale.
-			static const scalar au_to_m = DISTANCE::Convert(1.0, DISTANCE::AstronomicalUnit, DISTANCE::Metre);
+			static const p_scalar au_to_m = DISTANCE::Convert(1.0, DISTANCE::AstronomicalUnit, DISTANCE::Metre);
 			
 			// Get position of earth to use as a point-of-origin.
 			auto existing_from = _from.TryGetTransform(_origin);

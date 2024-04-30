@@ -742,15 +742,22 @@ namespace LouiEriksson::Engine::UI {
 		 */
 		static void Style(const GUI::Parameters::Style& _style) {
 		
-			// Select a visual style:
-			switch (_style) {
+			try {
 				
-				case GUI::Parameters::Style::Light: { ImGui::StyleColorsLight(); break; }
-				case GUI::Parameters::Style::Dark:  { ImGui::StyleColorsDark();  break; }
-				default: {
-					Debug::Log("Unknown GUI style selection: " + std::to_string(_style), LogType::Error);
+				// Select a visual style:
+				switch (_style) {
+					
+					case GUI::Parameters::Style::Light: { ImGui::StyleColorsLight(); break; }
+					case GUI::Parameters::Style::Dark:  { ImGui::StyleColorsDark();  break; }
+					default: {
+						throw std::runtime_error("Unknown GUI style selection");
+					}
 				}
 			}
+			catch (const std::exception& e) {
+				Debug::Log(e);
+			}
+			
 		}
 		
 		/**

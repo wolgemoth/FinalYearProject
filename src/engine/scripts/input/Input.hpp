@@ -99,7 +99,7 @@ namespace LouiEriksson::Engine::Input {
 				[[nodiscard]] bool Get(const SDL_Scancode& _value) const {
 					return s_Data == nullptr ?
 					       false :
-						   s_Data[static_cast<SDL_Scancode>(std::min(static_cast<int>(_value), s_Length))] != 0U;
+						   s_Data[static_cast<SDL_Scancode>(std::min(static_cast<const int>(_value), s_Length))] != 0U;
 				}
 				
 			};
@@ -349,7 +349,7 @@ namespace LouiEriksson::Engine::Input {
 			/* HANDLE EVENTS */
 			Input::Event::s_Events.Clear(); // Reset collection of events.
 			
-			SDL_Event event { 0 };
+			SDL_Event event { 0U };
 			
 			// Poll for pending events. Calling SDL_PollEvent also updates the internal keyboard state.
 			while (SDL_PollEvent(&event) != 0) {

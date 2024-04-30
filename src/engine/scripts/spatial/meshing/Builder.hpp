@@ -591,7 +591,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				
 				auto coord = s_Points[_ids[i]].m_Coord;
 				
-				if (i == 0 || results.back() != coord) {
+				if (i == 0U || results.back() != coord) {
 					results.emplace_back(coord);
 				}
 			}
@@ -632,7 +632,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 		
             std::vector<glm::vec<2, T, Q>> wall_uvs;
 			
-			constexpr std::array<glm::vec<2, T, Q>, 4> quad_uvs = {{
+			constexpr std::array<glm::vec<2, T, Q>, 4U> quad_uvs = {{
 				{ 0U, 1U },
 				{ 0U, 0U },
 				{ 1U, 1U },
@@ -652,9 +652,9 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			
             std::vector<glm::vec<2, T, Q>> wall_uvs;
 				
-			if (_verts.size() > 2) {
+			if (_verts.size() > 2U) {
 				
-				constexpr std::array<glm::vec<2, T, Q>, 4> quad_uvs = {{
+				constexpr std::array<glm::vec<2, T, Q>, 4U> quad_uvs = {{
 					{ 0U, 1U },
 					{ 0U, 0U },
 					{ 1U, 1U },
@@ -662,15 +662,15 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				}};
 				
 				// Get the total height of the building from the first two vertices (upper, lower).
-				const T height = abs(_verts[0].y - _verts[1].y);
+				const T height = abs(_verts[0U].y - _verts[1U].y);
 				
-				const T u_multiplier = 0.2;
+				const T u_multiplier(0.2);
 				
 				wall_uvs.reserve(_verts.size());
 	            for (size_t i = 0U; i < _verts.size(); ++i) {
 					
 					// Compute the length of the wall using the position of the next wall-defining vertex (offset of 2 away).
-					auto next_wall_vertex = _verts[std::max((i + 2) % (_verts.size() - 2), static_cast<size_t>(0))];
+					auto next_wall_vertex = _verts[std::max((i + 2U) % (_verts.size() - 2U), static_cast<size_t>(0U))];
 					auto wall_length = glm::length(next_wall_vertex - _verts[i]);
 					
 					/*
@@ -701,7 +701,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				throw std::runtime_error("Size of upper and lower vertex rings do not match!");
 			}
 			
-			constexpr std::array<std::array<T, 6>, 2> quad_tris = {{
+			constexpr std::array<std::array<T, 6U>, 2U> quad_tris = {{
 				{{ 0U, 1U, 2U, 2U, 1U, 3U }}, // Forward
 				{{ 3U, 1U, 2U, 2U, 1U, 0U }}  // Reverse
 			}};
@@ -712,9 +712,9 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
             // Compute in forward or reverse depending on the winding order of the top/bottom vertices.
 			if (IsClockwise_XZ(_lower)) {
 				
-				for (int i = 0U, j = 0U; i < vertex_count - 3U; i += 2U, j += 6U) {
+				for (size_t i = 0U, j = 0U; i < vertex_count - 3U; i += 2U, j += 6U) {
 			
-					for (int k = 0U; k < 6U; k++) {
+					for (size_t k = 0U; k < 6U; k++) {
 						wall_tris[j + k] = i + quad_tris[0U][k];
 					}
 				}
@@ -723,8 +723,8 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				
 				for (long i = static_cast<long>(vertex_count - 4U), j = 0U; i >= 0; i -= 2, j += 6U) {
 					
-					for (int k = 0U; k < 6U; k++) {
-						wall_tris[j + k] = i + quad_tris[1U][k];
+					for (size_t k = 0U; k < 6U; k++) {
+						wall_tris[j + k] = static_cast<size_t>(i) + quad_tris[1U][k];
 					}
 				}
 			}

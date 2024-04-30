@@ -114,7 +114,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								auto earth_rotation = earth_transform->Rotation();
 								
 								// Calculate the amount by which to rotate the sun and planets from VSOP into cartesian space.
-								auto geo_rotation = glm::angleAxis(glm::radians(        90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+								auto geo_rotation = glm::angleAxis(glm::radians(        90.0F), glm::vec3(1.0, 0.0, 0.0)) *
 										            glm::angleAxis(glm::radians(geoPosition.y), glm::vec3(0.0, 0.0, 1.0)) *
 										            glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								
@@ -160,18 +160,18 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								Settings::Graphics::Skybox::s_Blur = 1.0; // Blur 100% to avoid being distracting.
 								if (nighttime) {
-									Settings::Graphics::Skybox::UpdateSkybox(0); // (0 = Night Sky)
+									Settings::Graphics::Skybox::UpdateSkybox(0U); // (0 = Night Sky)
 									Settings::Graphics::Skybox::s_Exposure = 5.0;
 								}
 								else {
-									Settings::Graphics::Skybox::UpdateSkybox(1); // (2 = Daylight)
+									Settings::Graphics::Skybox::UpdateSkybox(1U); // (2 = Daylight)
 									Settings::Graphics::Skybox::s_Exposure = 2.5;
 								}
 								
 								/* Update the transform of the stars */
 								
 								// Calculate the amount by which to rotate the stars, using the latitude and solar time to calculate offsets for right ascension and declination.
-								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0f) + 90.0f, 360.0f)), glm::vec3(0.0, 0.0, 1.0)) *
+								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0F) + 90.0F, 360.0F)), glm::vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
 								
 								stars_transform->Position(camera_transform->Position());
