@@ -60,6 +60,14 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				// Change AO scale to reflect the size of the map.
 				Settings::PostProcessing::AmbientOcclusion::s_Radius = map_script->m_Scale * 20.0;
+				
+				// Set default lighting settings:
+				Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
+				Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
+				Settings::Graphics::Material::s_LightSize                        =  0.005;
+				Settings::Graphics::Material::s_LightRange                       = 40.0;
+				Settings::Graphics::Material::s_ShadowBias                       =  0.04;
+				Settings::Graphics::Material::s_ShadowNormalBias                 =  0.02;
 			}}
 	    }
 		
@@ -129,14 +137,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								/* Set up a single directional light using the sun as an illumination source */
 								
-								// Set default lighting settings:
-								Settings::Graphics::Material::s_CurrentLightType                 = Light::Parameters::Type::Directional;
-								Settings::Graphics::Material::s_CurrentShadowResolutionSelection = std::max(static_cast<int>(Settings::Graphics::Material::s_ShadowResolutions.size()) - 1, 1);
-								Settings::Graphics::Material::s_CurrentShadowTechnique           =  1; // (0 = Hard, 1 = PCF, 2 = Disk, 3 = PCSS)
-								Settings::Graphics::Material::s_LightSize                        =  0.005;
-								Settings::Graphics::Material::s_LightRange                       = 40.0;
-								Settings::Graphics::Material::s_ShadowBias                       =  0.04;
-								Settings::Graphics::Material::s_ShadowNormalBias                 =  0.02;
+								Settings::Graphics::Material::s_CurrentLightType = Light::Parameters::Type::Directional;
 								
 								// Get direction from sun to the camera:
 								auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);

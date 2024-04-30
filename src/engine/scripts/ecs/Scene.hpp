@@ -62,14 +62,14 @@ namespace LouiEriksson::Engine::ECS {
 		 */
 		void Draw(const LouiEriksson::Engine::Graphics::Camera::RenderFlags& _flags) {
 			
-			const auto size = m_Entities.size();
+			const auto entities = m_Entities.Values();
 			
 			/* GET ALL RENDERERS */
 			std::vector<std::weak_ptr<Graphics::Renderer>> casted_renderers;
 			
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -90,9 +90,9 @@ namespace LouiEriksson::Engine::ECS {
 			/* GET ALL LIGHTS */
 			std::vector<std::weak_ptr<Graphics::Light>> casted_lights;
 			
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -105,9 +105,9 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* GET ALL CAMERAS */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -134,7 +134,7 @@ namespace LouiEriksson::Engine::ECS {
 	protected:
 	
 		/** @brief Entities within the Scene. */
-		std::vector<std::shared_ptr<GameObject>> m_Entities;
+		Hashmap<std::string, std::shared_ptr<GameObject>> m_Entities;
 		
 		/**
 		 * @brief Called every frame.
@@ -142,12 +142,12 @@ namespace LouiEriksson::Engine::ECS {
 		 */
 		void Tick(const Graphics::Camera::RenderFlags& _flags) {
 			
-			auto size = m_Entities.size();
+			const auto entities = m_Entities.Values();
 			
 			/* INTERPOLATE RIGIDBODIES */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -167,9 +167,9 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* TICK SCRIPTS */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -182,9 +182,9 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* LATE-TICK SCRIPTS */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -207,12 +207,12 @@ namespace LouiEriksson::Engine::ECS {
 		/** @brief Called every physics update. */
 		void FixedTick() {
 		
-			auto size = m_Entities.size();
+			const auto entities = m_Entities.Values();
 			
 			/* UPDATE RIGIDBODIES */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 				
@@ -232,9 +232,9 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* SCRIPT FIXED-TICK */
-			for (size_t i = 0U; i < size; ++i) {
+			for (size_t i = 0U; i < entities.size(); ++i) {
 				
-				const auto entity = m_Entities[i];
+				const auto entity = entities[i];
 				
 				if (entity->Active()) {
 					
@@ -294,7 +294,7 @@ namespace LouiEriksson::Engine::ECS {
 	public:
 	
 		~Scene() {
-			m_Entities.clear();
+			m_Entities.Clear();
 		}
 		
 		/**
@@ -307,7 +307,19 @@ namespace LouiEriksson::Engine::ECS {
 		 * @return A shared pointer to the newly created Parent.
 		 */
 		[[nodiscard]] std::shared_ptr<GameObject> Create(const std::string_view& _name = "")  {
-			return m_Entities.emplace_back(new GameObject(weak_from_this(), _name.data()), [](GameObject* _ptr) { delete _ptr; });
+			
+			std::shared_ptr<GameObject> item(new GameObject(weak_from_this(), _name.data()), [](GameObject* _ptr) { delete _ptr; });
+			
+			m_Entities.Assign(std::string(_name), item);
+			
+			return item;
+		}
+		
+		void Remove(const std::string& _name) {
+			
+			if (m_Entities.ContainsKey(_name)) {
+				m_Entities.Remove(_name);
+			}
 		}
 		
 		/**
@@ -330,10 +342,10 @@ namespace LouiEriksson::Engine::ECS {
 		
 				for (const auto& entity : m_Entities) { // Only serialise things attached to GameObject.
 	
-					xml.setNextName(std::string(entity->Name()).c_str());
+					xml.setNextName(std::string(entity.second->Name()).c_str());
 					xml.startNode();
 					
-					for (const auto& kvp : entity->Components()) {
+					for (const auto& kvp : entity.second->Components()) {
 	
 						const auto& components = kvp.second;
 	

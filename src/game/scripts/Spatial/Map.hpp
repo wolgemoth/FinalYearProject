@@ -22,6 +22,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		Hashmap<std::string_view, std::weak_ptr<ECS::GameObject>> m_Features;
 		
+		Hashmap<std::string, std::pair<std::weak_ptr<ECS::GameObject>, glm::vec3>> m_Aircraft;
+		
 		std::future<void> m_BuildTask;
 		std::future<void> m_OpenSkyTask;
 		
@@ -29,7 +31,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Threading::Utils::CancellationToken m_CancellationToken;
 		
 		std::chrono::system_clock::time_point m_NextOpenSkyRequest;
-		std::chrono::system_clock::duration   m_OpenSkyRequestInterval = std::chrono::seconds(10);
+		std::chrono::system_clock::duration   m_OpenSkyRequestInterval = std::chrono::seconds(20);
 		
 	public:
 	
@@ -84,6 +86,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			
 			m_Dispatcher.Dispatch(m_TimeSliceInterval);
 			
+			// Scale all map features:
 			for (const auto& kvp : m_Features.GetAll()) {
 			
 				if (auto go = kvp.second.lock()) {
@@ -91,6 +94,22 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					auto transform = go->GetComponent<Transform>();
 					
 					if (const auto t = transform) {
+						t->Scale({m_Scale, m_Scale, m_Scale});
+					}
+				}
+			}
+			
+			// Scale all aircraft with the map:
+			for (const auto& kvp : m_Aircraft.GetAll()) {
+			
+				auto entry = kvp.second;
+				
+				if (auto go = entry.first.lock()) {
+					
+					auto transform = go->GetComponent<Transform>();
+					
+					if (const auto t = transform) {
+						t->Position(t->Position() * m_Scale);
 						t->Scale({m_Scale, m_Scale, m_Scale});
 					}
 				}
@@ -117,11 +136,12 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				
 				m_OpenSkyTask = Engine::Spatial::OpenSky::QueryBoundingBoxAsync(
 					bounds,
-					std::chrono::seconds(60),
+					m_OpenSkyRequestInterval,
 					[this](const Engine::Spatial::Serialisation::OpenSkyDeserialiser::OpenSkyJSON::Root& _root) {
 						
-						m_Dispatcher.Schedule([this, _root](){
+						m_Dispatcher.Schedule([this, _root]() {
 							
+							// Print the response from OpenSky:
 							std::ostringstream response;
 							response << "OpenSky Reponse:\n";
 							response << "\tTimestamp: " << _root.time << '\n';
@@ -134,32 +154,150 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								for (const auto& item : _root.states) {
 									
-									response << '\t' << *(item.icao24        )  << '\n';
-									response << '\t' << *(item.callsign      )  << '\n';
-									response << '\t' << *(item.origin_country)  << '\n';
-									response << '\t' << *(item.time_position )  << '\n';
-									response << '\t' << *(item.last_contact  )  << '\n';
-									response << '\t' << *(item.longitude     )  << '\n';
-									response << '\t' << *(item.latitude      )  << '\n';
-									response << '\t' << *(item.baro_altitude )  << '\n';
-									response << '\t' << *(item.on_ground     )  << '\n';
-									response << '\t' << *(item.velocity      )  << '\n';
-									response << '\t' << *(item.true_track    )  << '\n';
-									response << '\t' << *(item.vertical_rate )  << '\n';
+									response << '\n';
+									response << "\t"   << ((item.icao24        ).has_value() ?                *(item.icao24        )  : "null") << '\n';
+									response << "\t\t" << ((item.callsign      ).has_value() ?                *(item.callsign      )  : "null") << '\n';
+									response << "\t\t" << ((item.origin_country).has_value() ?                *(item.origin_country)  : "null") << '\n';
+									response << "\t\t" << ((item.time_position ).has_value() ? std::to_string(*(item.time_position )) : "null") << '\n';
+									response << "\t\t" << ((item.last_contact  ).has_value() ? std::to_string(*(item.last_contact  )) : "null") << '\n';
+									response << "\t\t" << ((item.longitude     ).has_value() ? std::to_string(*(item.longitude     )) : "null") << '\n';
+									response << "\t\t" << ((item.latitude      ).has_value() ? std::to_string(*(item.latitude      )) : "null") << '\n';
+									response << "\t\t" << ((item.baro_altitude ).has_value() ? std::to_string(*(item.baro_altitude )) : "null") << '\n';
+									response << "\t\t" << ((item.on_ground     ).has_value() ? std::to_string(*(item.on_ground     )) : "null") << '\n';
+									response << "\t\t" << ((item.velocity      ).has_value() ? std::to_string(*(item.velocity      )) : "null") << '\n';
+									response << "\t\t" << ((item.true_track    ).has_value() ? std::to_string(*(item.true_track    )) : "null") << '\n';
+									response << "\t\t" << ((item.vertical_rate ).has_value() ? std::to_string(*(item.vertical_rate )) : "null") << '\n';
 									
-									for (const auto& sensor : *(item.sensors)) {
-										response << "\t\t" << sensor << '\n';
+									if (item.sensors.has_value()) {
+										
+										for (const auto& sensor : *(item.sensors)) {
+											response << "\t\t\t" << sensor << '\n';
+										}
+									}
+									else {
+										response << "\t\t" << "null" << '\n';
 									}
 									
-									response << '\t' << *(item.geo_altitude   ) << '\n';
-									response << '\t' << *(item.squawk         ) << '\n';
-									response << '\t' << *(item.spi            ) << '\n';
-									response << '\t' << *(item.position_source) << '\n';
-									response << '\t' << *(item.category       );
+									response << "\t\t" << ((item.geo_altitude   ).has_value() ? std::to_string(*(item.geo_altitude   )) : "null") << '\n';
+									response << "\t\t" << ((item.squawk         ).has_value() ?                *(item.squawk         )  : "null") << '\n';
+									response << "\t\t" << ((item.spi            ).has_value() ? std::to_string(*(item.spi            )) : "null") << '\n';
+									response << "\t\t" << ((item.position_source).has_value() ? std::to_string(*(item.position_source)) : "null") << '\n';
+									response << "\t\t" << ((item.category       ).has_value() ? std::to_string(*(item.category       )) : "null");
+									
 								}
 							}
 							
-							Debug::Log(response.str());
+							Debug::Log(response.str(), LogType::Info);
+							
+							/*
+							 * Spawn, or update aircraft models.
+							 * Keep note of which aircraft were updated, so we can remove the ones for which tracking was lost.
+							 */
+							std::vector<std::string_view> updatedAircraft;
+							for (const auto& item : _root.states) {
+								
+								try {
+									
+									if (     !item.latitude.has_value()) { throw std::runtime_error("Transponder not broadcasting latitude."        ); }
+									if (    !item.longitude.has_value()) { throw std::runtime_error("Transponder not broadcasting longitude."       ); }
+									if (!item.baro_altitude.has_value()) { throw std::runtime_error("Aircraft not broadcasting barometric altitude."); }
+									if (   !item.true_track.has_value()) { throw std::runtime_error("Aircraft is not broadcasting bearing."         ); }
+									
+									std::shared_ptr<ECS::GameObject> gameobject;
+									glm::vec3 velocity;
+									
+									if (auto existing = m_Aircraft.Get(*item.icao24)) {
+										gameobject = existing->first.lock();
+										velocity   = existing->second;
+									}
+									else {
+										
+										if (const auto p = Parent()) {
+											if (const auto s = p->GetScene()) {
+												
+												gameobject = s->Create(*item.icao24);
+												gameobject->AddComponent<Transform>();
+												
+												auto renderer = gameobject->AddComponent<Graphics::Renderer>();
+												renderer->SetMesh(Resources::Get<Graphics::Mesh>("aircraft"));
+												renderer->SetMaterial(Resources::Get<Graphics::Material>("aircraft"));
+												
+												m_Aircraft.Add(std::string(gameobject->Name()), {gameobject, {}});
+											}
+											else {
+												throw std::runtime_error("No scene!");
+											}
+										}
+										else {
+											throw std::runtime_error("Invalid parent!");
+										}
+										
+									}
+									
+									if (gameobject != nullptr) {
+										
+										auto t = gameobject->GetComponent<Transform>();
+										if (t == nullptr) {
+											t = gameobject->AddComponent<Transform>();
+										}
+										
+										// Set the position of the aircraft in world-space using the transponder coordinates:
+										auto position = Meshing::Builder::ToWorldSpace(
+											{ item.latitude.value(), item.longitude.value(), item.baro_altitude.value() },
+											Settings::Spatial::s_Coord
+										);
+										
+										glm::quat rotation = glm::quat(0.0, 0.0, 0.0, 1.0);
+										
+										// If the aircraft is broadcasting velocity data, this can be extrapolated into pitch.
+										if (item.velocity.has_value()) {
+										if (item.vertical_rate.has_value()) {
+											
+											velocity = rotation * glm::vec3(0.0, item.vertical_rate.value(), item.velocity.value());
+											
+											rotation *= glm::quatLookAtRH(glm::normalize(velocity), glm::vec3(0.0, 1.0, 0.0));
+										}}
+										
+										// Deduce the yaw of the aircraft using its bearing.
+										rotation *= glm::angleAxis(item.true_track.value(), glm::vec3(0.0, 1.0, 0.0));
+										
+										t->Position(position);
+										t->Rotation(rotation);
+									}
+									else {
+										throw std::runtime_error("Null reference exception!");
+									}
+									
+									updatedAircraft.emplace_back(item.icao24.value());
+									
+									m_Aircraft.Assign(item.icao24.value(), { gameobject, velocity });
+								}
+								catch(const std::exception& e) {
+									Debug::Log(e);
+								}
+							}
+							
+							// Delete aircraft which we have lost track of:
+							auto existingAircraft = m_Aircraft.Keys();
+							for (const auto& item : existingAircraft) {
+
+								if (std::find(updatedAircraft.begin(), updatedAircraft.end(), item) != updatedAircraft.end()) {
+
+									if (const auto p = Parent()) {
+										if (const auto s = p->GetScene()) {
+											s->Remove(std::string(item));
+										}
+										else {
+											throw std::runtime_error("No scene!");
+										}
+									}
+									else {
+										throw std::runtime_error("Invalid parent!");
+									}
+
+									m_Aircraft.Remove(item);
+								}
+							}
 						});
 					},
 					m_CancellationToken
