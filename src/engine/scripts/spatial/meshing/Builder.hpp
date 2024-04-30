@@ -124,7 +124,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				{
 					using vertex_t = GLfloat;
 					
-					const auto vertex_count = (_resolution.x + 1) * (_resolution.y + 1);
+					const size_t vertex_count = (_resolution.x + 1) * (_resolution.y + 1);
 				
 					if (vertex_count > std::numeric_limits<GLushort>::max()) {          // (32-bit)
 						mesh = Graphics::Mesh::Primitives::Grid::Create<vertex_t, GLuint>(_resolution, _size, _heightmap);
@@ -396,45 +396,23 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			            
 			            /* FLOOR & ROOF */
 			            {
-							using INDEX_T_TMP = GLuint;
+							// Determine if the mesh should use 8, 16, or 32-bit indices:
+							if (upper.size() > std::numeric_limits<GLushort>::max()) {
 							
-							// Roof:
-			                const auto upper_tris = Graphics::Mesh::Earcut::TriangulateXZ<vertex_t, INDEX_T_TMP>(upper);
-							
-							// Only continue if the mesh possesses a valid number of indices.
-							if (upper_tris.size() >= 3) {
-								
-								const auto upper_norms = std::vector<glm::vec<3, vertex_t>>(upper_tris.size(), { 0.0, 1.0, 0.0 });
-								const auto upper_uvs   = GenerateWorldUVs_XZ(upper);
-								const auto upper_tb    = std::array<std::vector<glm::vec<3, vertex_t>>, 2U> {
-									std::vector<glm::vec<3, vertex_t>>(upper.size(), { 1.0, 0.0, 0.0 }),
-									std::vector<glm::vec<3, vertex_t>>(upper.size(), { 0.0, 0.0, 1.0 }),
-								};
-								
-								renderer2->SetMesh(Graphics::Mesh::Create(upper, upper_tris, upper_norms, upper_uvs, upper_tb));
-				                
-				                // Add a "floor" to the building if the min height is non-zero.
-				                if (height.x != 0.0) {
+								// 32-bit:
+								GenerateRoofAndFloor<vertex_t, GLuint>(renderer2, renderer3, upper, lower, height.x != 0.0);
+							}
+							else if (upper.size() > std::numeric_limits<GLubyte>::max()) {
 
-									// Reuse data from the roof to avoid running earcut twice.
-					                std::vector<INDEX_T_TMP> lower_tris;
-					                lower_tris.reserve(upper_tris.size());
-					                for (auto rit = upper_tris.rbegin(); rit != upper_tris.rend(); ++rit) {
-						                lower_tris.emplace_back(*rit);
-					                }
+								// 16-bit:
+								GenerateRoofAndFloor<vertex_t, GLuint>(renderer2, renderer3, upper, lower, height.x != 0.0);
+							}
+							else {
 
-									const std::vector<glm::vec<3, vertex_t>> lower_norms(lower_tris.size(), { 0.0, -1.0, 0.0 });
-
-									const auto& lower_uvs = upper_uvs;
-									const auto lower_tb = std::array<std::vector<glm::vec<3, vertex_t>>, 2U> {
-										std::vector<glm::vec<3, vertex_t>>(lower.size(), { -1.0, 0.0,  0.0 }),
-										std::vector<glm::vec<3, vertex_t>>(lower.size(), {  0.0, 0.0, -1.0 }),
-									};
-
-									renderer3->SetMesh(Graphics::Mesh::Create(lower, lower_tris, lower_norms, lower_uvs, lower_tb));
-				                }
-				            }
-						}
+								// 8-bit:
+								GenerateRoofAndFloor<vertex_t, GLuint>(renderer2, renderer3, upper, lower, height.x != 0.0);
+							}
+			            }
 						
 						result = go;
 					}
@@ -728,13 +706,13 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				{{ 3U, 1U, 2U, 2U, 1U, 0U }}  // Reverse
 			}};
 			
-			const auto vertexCount = _lower.size() + _upper.size();
-			std::vector<T> wall_tris((vertexCount - 2U) * 3U);
+			const auto vertex_count = _lower.size() + _upper.size();
+			std::vector<T> wall_tris((vertex_count - 2U) * 3U);
 			
             // Compute in forward or reverse depending on the winding order of the top/bottom vertices.
 			if (IsClockwise_XZ(_lower)) {
 				
-				for (int i = 0U, j = 0U; i < vertexCount - 3U; i += 2U, j += 6U) {
+				for (int i = 0U, j = 0U; i < vertex_count - 3U; i += 2U, j += 6U) {
 			
 					for (int k = 0U; k < 6U; k++) {
 						wall_tris[j + k] = i + quad_tris[0U][k];
@@ -743,7 +721,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			}
 			else {
 				
-				for (long i = static_cast<long>(vertexCount - 4U), j = 0U; i >= 0; i -= 2, j += 6U) {
+				for (long i = static_cast<long>(vertex_count - 4U), j = 0U; i >= 0; i -= 2, j += 6U) {
 					
 					for (int k = 0U; k < 6U; k++) {
 						wall_tris[j + k] = i + quad_tris[1U][k];
@@ -752,6 +730,48 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			}
 			
 			return wall_tris;
+		}
+		
+		template<typename vertex_t, typename index_t, glm::qualifier Q = glm::defaultp>
+		static void GenerateRoofAndFloor(std::shared_ptr<Graphics::Renderer> _roof, std::shared_ptr<Graphics::Renderer> _floor, const std::vector<glm::vec<3, vertex_t>>& _upper, const std::vector<glm::vec<3, vertex_t>>& _lower, bool _buildFloor) {
+			
+			// Roof:
+			const auto upper_tris = Graphics::Mesh::Earcut::TriangulateXZ<vertex_t, index_t>(_upper);
+			
+			// Only continue if the mesh possesses a valid number of indices.
+			if (upper_tris.size() >= 3U) {
+				
+				const auto upper_norms = std::vector<glm::vec<3, vertex_t>>(upper_tris.size(), { 0.0, 1.0, 0.0 });
+				const auto upper_uvs   = GenerateWorldUVs_XZ(_upper);
+				const auto upper_tb    = std::array<std::vector<glm::vec<3, vertex_t>>, 2U> {
+					std::vector<glm::vec<3, vertex_t>>(_upper.size(), { 1.0, 0.0, 0.0 }),
+					std::vector<glm::vec<3, vertex_t>>(_upper.size(), { 0.0, 0.0, 1.0 }),
+				};
+				
+				_roof->SetMesh(Graphics::Mesh::Create(_upper, upper_tris, upper_norms, upper_uvs, upper_tb));
+			    
+			    // Add a "floor" to the building if the min height is non-zero.
+			    if (_buildFloor) {
+			
+					// Reuse data from the roof to avoid running earcut twice.
+			        std::vector<index_t> lower_tris;
+			        lower_tris.reserve(upper_tris.size());
+			        for (auto rit = upper_tris.rbegin(); rit != upper_tris.rend(); ++rit) {
+			            lower_tris.emplace_back(*rit);
+			        }
+			
+					const std::vector<glm::vec<3, vertex_t>> lower_norms(lower_tris.size(), { 0.0, -1.0, 0.0 });
+			
+					const auto& lower_uvs = upper_uvs;
+					const auto lower_tb = std::array<std::vector<glm::vec<3, vertex_t>>, 2U> {
+						std::vector<glm::vec<3, vertex_t>>(_lower.size(), { -1.0, 0.0,  0.0 }),
+						std::vector<glm::vec<3, vertex_t>>(_lower.size(), {  0.0, 0.0, -1.0 }),
+					};
+			
+					_floor->SetMesh(Graphics::Mesh::Create(_lower, lower_tris, lower_norms, lower_uvs, lower_tb));
+			    }
+			}
+			
 		}
 	};
 	

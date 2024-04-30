@@ -667,7 +667,7 @@ namespace LouiEriksson::Engine::UI {
 						)
 					);
 					
-					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 400.0), s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 450.0), s_WindowMargin.y), ImGuiCond_Once);
 					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 					
 					using target = Settings::Spatial;

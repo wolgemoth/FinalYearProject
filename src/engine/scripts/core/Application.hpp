@@ -276,7 +276,7 @@ namespace LouiEriksson::Engine {
 							
 							if (s_ReloadScene) {
 								s_ReloadScene = false;
-								LoadScene("levels/engine_test.scene");
+								LoadScene("levels/fyp.scene");
 							}
 							
 							Utils:: ALDumpError();
