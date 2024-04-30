@@ -165,23 +165,17 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									// Deserialise the star.
 									const auto star = ATHYG_VERSION((Utils::ToArray<std::string_view, ATHYG_VERSION::s_ElementCount>(std::move(elements))));
 									
-									//if (star.proper == "Polaris") {
-									//	Debug::Log(*star.proper);
-									
-										/*
-										 * Insert stars under a certain apparent magnitude into the result.
-										 * Stellar magnitude is inverse-logarithmic, meaning that lower values are brighter.
-										 * As a rule of thumb, magnitudes below 6 are visible to the naked eye.
-										 */
-										if (*star.mag <= _threshold_magnitude) {
-											
-											// Insert the star's coordinates in a format compliant with the coordinate system of the engine.
-											// See version info on these coordinates here: https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md
-											parsed.emplace_back(*star.x0, *star.y0, *star.z0);
-										}
-									
-									//	break;
-									//}
+									/*
+									 * Insert stars under a certain apparent magnitude into the result.
+									 * Stellar magnitude is inverse-logarithmic, meaning that lower values are brighter.
+									 * As a rule of thumb, magnitudes below 6 are visible to the naked eye.
+									 */
+									if (*star.mag <= _threshold_magnitude) {
+										
+										// Insert the star's coordinates in a format compliant with the coordinate system of the engine.
+										// See version info on these coordinates here: https://github.com/astronexus/ATHYG-Database/blob/main/version-info.md
+										parsed.emplace_back(*star.x0, *star.y0, *star.z0);
+									}
 								}
 								else {
 									throw std::runtime_error("Number of elements not consistent with ATHYG version!");

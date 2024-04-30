@@ -41,7 +41,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_CastShadows(true) {}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(Renderer); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(Renderer); };
 		
 		/**
 		 * @brief Set whether or not the Renderer should cast shadows.

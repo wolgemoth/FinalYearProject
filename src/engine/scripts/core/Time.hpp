@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine {
 		template <typename T>
 		static void Scale(const T& _value) noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 	        s_Scale = _value;
 		}
@@ -50,7 +50,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T Scale() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_Scale);
 		}
@@ -62,7 +62,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T Elapsed() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_Elapsed);
 		}
@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T DeltaTime() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_UnscaledDeltaTime * s_Scale);
 		}
@@ -86,7 +86,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T UnscaledDeltaTime() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_UnscaledDeltaTime);
 		}
@@ -98,7 +98,7 @@ namespace LouiEriksson::Engine {
 		template <typename T>
 		static void FixedDeltaTime(const T& _value) noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			s_FixedUnscaledDeltaTime = _value;
 		}
@@ -110,7 +110,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T FixedDeltaTime() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_FixedUnscaledDeltaTime * s_Scale);
 		}
@@ -122,7 +122,7 @@ namespace LouiEriksson::Engine {
 		template <typename T = tick_t>
 		static constexpr T FixedUnscaledDeltaTime() noexcept {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return static_cast<T>(s_FixedUnscaledDeltaTime);
 		}

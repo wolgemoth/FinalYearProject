@@ -1711,18 +1711,18 @@ namespace LouiEriksson::Engine::Graphics {
 		
 		void SetViewport(const std::shared_ptr<IViewport<scalar_t, size_t>>& _viewport) {
 			
-			bool reinitalise;
+			bool reinitialise;
 			
 			if (const auto old_v = m_Viewport.lock()) {
-				reinitalise = _viewport->Dimensions() != old_v->Dimensions();
+				reinitialise = _viewport->Dimensions() != old_v->Dimensions();
 			}
 			else {
-				reinitalise = true;
+				reinitialise = true;
 			}
 			
 			m_Viewport = _viewport;
 		
-			if (reinitalise) {
+			if (reinitialise) {
 				ReinitialiseBuffers(_viewport);
 			}
 		}

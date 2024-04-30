@@ -21,8 +21,8 @@ namespace std {
 			
 			hash<T> hashing_func;
 			
-	        for (size_t i = 0U; i < L; ++i) {
-                result ^= hashing_func(_value[i]) << i;
+	        for (glm::length_t i = 0; i < L; ++i) {
+                result ^= hashing_func(_value[static_cast<size_t>(i)]) << i;
 	        }
 			
             return result;

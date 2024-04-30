@@ -79,12 +79,12 @@ namespace LouiEriksson::Engine::Audio {
 				if (m_Specification.channels == 1U) {
 					
 					switch (m_Specification.format) {
-				        case AUDIO_U8:
-				        case AUDIO_S8:     { result = AL_FORMAT_MONO8;  break; }
-				        case AUDIO_U16LSB:
-				        case AUDIO_S16LSB:
-				        case AUDIO_U16MSB:
-				        case AUDIO_S16MSB: { result = AL_FORMAT_MONO16; break; }
+				        case static_cast<SDL_AudioFormat>(AUDIO_U8):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S8):     { result = AL_FORMAT_MONO8;  break; }
+				        case static_cast<SDL_AudioFormat>(AUDIO_U16LSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S16LSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_U16MSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S16MSB): { result = AL_FORMAT_MONO16; break; }
 				        default: {
 							Debug::Log("Unimplemented format: " + std::to_string(m_Specification.format), LogType::Error);
 							break;
@@ -93,12 +93,12 @@ namespace LouiEriksson::Engine::Audio {
 				}
 				else {
 					switch (m_Specification.format) {
-				        case AUDIO_U8:
-				        case AUDIO_S8:     { result = AL_FORMAT_STEREO8;  break; }
-				        case AUDIO_U16LSB:
-				        case AUDIO_S16LSB:
-				        case AUDIO_U16MSB:
-				        case AUDIO_S16MSB: { result = AL_FORMAT_STEREO16; break; }
+				        case static_cast<SDL_AudioFormat>(AUDIO_U8):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S8):     { result = AL_FORMAT_STEREO8;  break; }
+				        case static_cast<SDL_AudioFormat>(AUDIO_U16LSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S16LSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_U16MSB):
+				        case static_cast<SDL_AudioFormat>(AUDIO_S16MSB): { result = AL_FORMAT_STEREO16; break; }
 				        default: {
 							Debug::Log("Unimplemented format:" + std::to_string(m_Specification.format), LogType::Error);
 							break;
@@ -120,22 +120,29 @@ namespace LouiEriksson::Engine::Audio {
 			
 		private:
 			
+			/** @brief Raw pointer to the underlying data of the sound file. */
+			Uint8* m_Data;
+			
+			/** @brief Length of m_Data. */
+			Uint32 m_Length;
+			
 			Samples() :
 				m_Data(nullptr),
 				m_Length(0U) {}
 			
 		public:
 			
+			/** @brief Raw pointer to the underlying data of the sound file. */
+			constexpr const Uint8* const Data() const noexcept { return m_Data; }
+			
+			/** @brief Length of m_Data. */
+			constexpr const Uint32& Length() const noexcept { return m_Length; }
+			
+			
 			Samples(const Samples& _other) = delete;
 			
 			Samples& operator = (const Samples&  _other) = delete;
 			Samples& operator =       (Samples&& _other) = delete;
-			
-			/** @brief Raw pointer to the underlying data of the sound file. */
-			Uint8* m_Data;
-			
-			/** @brief Length of m_Data. */
-			Uint32 m_Length;
 			
 			/**
 			 * @brief Releases the underlying samples of the sound file.
@@ -153,7 +160,7 @@ namespace LouiEriksson::Engine::Audio {
 					// Free data using SDL.
 					if (m_Data != nullptr) { SDL_FreeWAV(m_Data); m_Data = nullptr; }
 					
-					m_Length = 0;
+					m_Length = 0U;
 				}
 				catch (const std::exception& e) {
 					
@@ -193,7 +200,7 @@ namespace LouiEriksson::Engine::Audio {
 		explicit AudioClip(const std::filesystem::path& _path) :
 			m_Format({}),
 			m_Samples(),
-			m_ALBuffer(AL_NONE)
+			m_ALBuffer(static_cast<ALuint>(AL_NONE))
 		{
 			// Generate audio buffer.
 			alGenBuffers(1, &m_ALBuffer);

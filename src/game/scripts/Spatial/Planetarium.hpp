@@ -139,24 +139,24 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				    if (auto earth_gameobject = earth.value().lock(),
 							   sol_gameobject =   sol.value().lock();
 					         earth_gameobject && sol_gameobject
-					 ) {
+					) {
 				        if (const auto earth_transform = earth_gameobject->GetComponent<Transform>(),
 				                         sol_transform =   sol_gameobject->GetComponent<Transform>();
 									   earth_transform && sol_transform
-					    ) {
+						) {
 				            auto earth_to_sol = glm::normalize(sol_transform->Position() - earth_transform->Position());
-				            result = (Utils::SignedAngle(earth_transform->FORWARD, earth_to_sol, earth_transform->UP) / (glm::pi<scalar_t>() * 2.0) + 0.5);
+				            result = static_cast<scalar_t>(Utils::SignedAngle(earth_transform->FORWARD, earth_to_sol, earth_transform->UP) / (glm::pi<scalar_t>() * 2.0) + 0.5);
 				        }
 						else {
-							throw ("Failed to retrieve Transforms for Earth and Sol");
+							throw std::runtime_error("Failed to retrieve Transforms for Earth and Sol");
 						}
 				    }
 					else {
-						throw ("Failed to lock Earth and Sol GameObjects");
+						throw std::runtime_error("Failed to lock Earth and Sol GameObjects");
 					}
 				}
 				else {
-					throw ("Failed to find GameObjects for Earth and Sol");
+					throw std::runtime_error("Failed to find GameObjects for Earth and Sol");
 				}
 			}
 			catch (const std::exception& e) {
@@ -218,7 +218,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					return {
 						{
 							{},
-							glm::mix(_a.m_Position.m_Cartesian, _b.m_Position.m_Cartesian, _t),
+							glm::mix(_a.m_Position.Cartesian(), _b.m_Position.Cartesian(), _t),
 							{}
 						},
 						{
@@ -305,7 +305,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			 *
 			 * @return A vector containing the transformations of astronomical objects.
 			 */
-			[[nodiscard]] const std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, Q>::Transform>::KeyValuePair> Transforms() const {
+			[[nodiscard]] std::vector<typename Hashmap<std::string, typename Planetarium::Planets<T, Q>::Transform>::KeyValuePair> Transforms() const {
 				return m_Transforms.GetAll();
 			}
 			
@@ -504,7 +504,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							auto interpolated = Planets<T, Q>::Transform::InterpolateTransform(from, to, _t);
 
 							// Adjust the position and rotation of the planet.
-							t->Position((interpolated.m_Position.m_Cartesian - origin.m_Position.m_Cartesian) * au_to_m * m_DistanceMultiplier);
+							t->Position((interpolated.m_Position.Cartesian() - origin.m_Position.Cartesian()) * au_to_m * m_DistanceMultiplier);
 							t->Rotation( interpolated.m_Rotation);
 							
 							// Adjust the scale of the planet.

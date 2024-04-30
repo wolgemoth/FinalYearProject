@@ -59,7 +59,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			m_ElevationProvider   (Elevation::ElevationProvider::OpenElevation),
 			m_ElevationResolution (  0.5    ) {}
 			
-		~Map() {
+		~Map() override {
 			m_CancellationToken.Cancel();
 		}
 		
@@ -94,7 +94,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 					auto transform = go->GetComponent<Transform>();
 					
-					if (const auto t = transform) {
+					if (const auto& t = transform) {
 						t->Scale({m_Scale, m_Scale, m_Scale});
 					}
 				}
@@ -109,7 +109,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 					auto transform = go->GetComponent<Transform>();
 					
-					if (const auto t = transform) {
+					if (const auto& t = transform) {
 						
 						// Get aircraft values:
 						auto raw_position = entry.second.first;
@@ -175,7 +175,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									response << "\t\t" << ((item.longitude     ).has_value() ? std::to_string(*(item.longitude     )) : "null") << '\n';
 									response << "\t\t" << ((item.latitude      ).has_value() ? std::to_string(*(item.latitude      )) : "null") << '\n';
 									response << "\t\t" << ((item.baro_altitude ).has_value() ? std::to_string(*(item.baro_altitude )) : "null") << '\n';
-									response << "\t\t" << ((item.on_ground     ).has_value() ? std::to_string(*(item.on_ground     )) : "null") << '\n';
+									
+									response << "\t\t" << ((item.on_ground).has_value() ? (*(item.on_ground) ? "true" : "false") : "null") << '\n';
+						
 									response << "\t\t" << ((item.velocity      ).has_value() ? std::to_string(*(item.velocity      )) : "null") << '\n';
 									response << "\t\t" << ((item.true_track    ).has_value() ? std::to_string(*(item.true_track    )) : "null") << '\n';
 									response << "\t\t" << ((item.vertical_rate ).has_value() ? std::to_string(*(item.vertical_rate )) : "null") << '\n';
@@ -190,9 +192,11 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 										response << "\t\t" << "null" << '\n';
 									}
 									
-									response << "\t\t" << ((item.geo_altitude   ).has_value() ? std::to_string(*(item.geo_altitude   )) : "null") << '\n';
-									response << "\t\t" << ((item.squawk         ).has_value() ?                *(item.squawk         )  : "null") << '\n';
-									response << "\t\t" << ((item.spi            ).has_value() ? std::to_string(*(item.spi            )) : "null") << '\n';
+									response << "\t\t" << ((item.geo_altitude).has_value() ? std::to_string(*(item.geo_altitude)) : "null") << '\n';
+									response << "\t\t" << ((item.squawk      ).has_value() ?                *(item.squawk      )  : "null") << '\n';
+									
+									response << "\t\t" << ((item.spi).has_value() ? (*(item.spi) ? "true" : "false") : "null") << '\n';
+									
 									response << "\t\t" << ((item.position_source).has_value() ? std::to_string(*(item.position_source)) : "null") << '\n';
 									response << "\t\t" << ((item.category       ).has_value() ? std::to_string(*(item.category       )) : "null");
 									
@@ -458,8 +462,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		                    
 								if (const auto part = Meshing::Builder::TryGetElement(member.ref)) {
 									
-			                        if (!part->m_Node->tags.empty() && !part->m_Node->nodes.empty() && part->m_Node->Closed()) {
-			                            parts.emplace_back(part->m_Node);
+			                        if (!part->Node()->tags.empty() && !part->Node()->nodes.empty() && part->Node()->Closed()) {
+			                            parts.emplace_back(part->Node());
 			                            
 			                            processedElements.insert(member.ref);
 			                        }

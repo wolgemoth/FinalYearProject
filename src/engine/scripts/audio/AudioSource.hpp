@@ -156,6 +156,10 @@ namespace LouiEriksson::Engine::Audio {
 				m_IsGlobal(false), // Do not start as global.
 				m_Loop    (false), // Do not loop.
 				
+				m_Position (),
+				m_Direction(),
+				m_Velocity (),
+				
 				// Default panning value. (Will only apply if if the audio source is global.)
 				m_Panning( 0.0),
 				
@@ -371,7 +375,7 @@ namespace LouiEriksson::Engine::Audio {
 					if (const auto c = _clip.lock()) {
 					
 						// Only play if the clip actually contains data.
-						if (c->m_Samples.m_Length > 0) {
+						if (c->m_Samples.Length() > 0) {
 						
 							if (c->m_ALBuffer == AL_NONE) {
 								
@@ -385,7 +389,7 @@ namespace LouiEriksson::Engine::Audio {
 								Sound::s_SDL_Device = SDL_OpenAudioDevice(nullptr, 0, &c->m_Format.Specification(), nullptr, 0);
 								
 								// Play using SDL!
-								SDL_QueueAudio(Sound::s_SDL_Device, c->m_Samples.m_Data, c->m_Samples.m_Length);
+								SDL_QueueAudio(Sound::s_SDL_Device, c->m_Samples.Data(), c->m_Samples.Length());
 								SDL_PauseAudioDevice(Sound::s_SDL_Device, 0);
 							}
 							else {
@@ -425,7 +429,8 @@ namespace LouiEriksson::Engine::Audio {
 			           m_Source(static_cast<ALuint>(AL_NONE)),
 			          m_Playing(false),
 			m_PendingParameters(),
-			m_CurrentParameters()
+			m_CurrentParameters(),
+			             m_Clip()
 		{
 			try {
 				
@@ -446,7 +451,7 @@ namespace LouiEriksson::Engine::Audio {
 			}
 		}
 		
-		virtual ~AudioSource() override {
+		~AudioSource() override {
 			
 			if (m_Source != AL_NONE) {
 				alDeleteSources(1, &m_Source);
@@ -454,15 +459,15 @@ namespace LouiEriksson::Engine::Audio {
 		}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioSource); };
 		
 		/** @brief Initialise the AudioSource. */
-		virtual void Begin() override {
+		void Begin() override {
 			Sync();
 		}
 		
 		/** @brief Updates the AudioSource every frame. */
-		virtual void Tick() override {
+		void Tick() override {
 			Sync();
 		}
 		
@@ -481,7 +486,7 @@ namespace LouiEriksson::Engine::Audio {
 				if (const auto c = m_Clip.lock()) {
 					
 					// Only play if the clip actually contains data.
-					if (c->m_Samples.m_Length > 0) {
+					if (c->m_Samples.Length() > 0) {
 						
 						if (c->m_ALBuffer == AL_NONE) {
 							

@@ -27,7 +27,7 @@ namespace LouiEriksson::Engine::Physics {
 						_point.getPositionWorldOnA() :
 						_point.getPositionWorldOnB();
 				
-				m_ContactPoint = glm::vec3(contactPoint.x(), contactPoint.y(), contactPoint.z());
+				m_ContactPoint = glm::vec<3, btScalar>(contactPoint.x(), contactPoint.y(), contactPoint.z());
 			}
 			
 			// Get the normal of the collision from the manifold:
@@ -36,7 +36,7 @@ namespace LouiEriksson::Engine::Physics {
 						-_point.m_normalWorldOnB :
 						 _point.m_normalWorldOnB;
 				
-				m_Normal = glm::vec3(normal.x(), normal.y(), normal.z());
+				m_Normal = glm::vec<3, btScalar>(normal.x(), normal.y(), normal.z());
 			}
 			
 			// Get the impulse of the collision from the manifold:

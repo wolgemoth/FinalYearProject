@@ -78,8 +78,8 @@ namespace LouiEriksson::Engine::UI {
 						
 						if (timestamp < Time::Elapsed() - s_Plot_SamplingWindowSize) {
 							
-							s_Timestamps.erase(s_Timestamps.begin() + static_cast<size_t>(i));
-							   s_Samples.erase(   s_Samples.begin() + static_cast<size_t>(i));
+							s_Timestamps.erase(s_Timestamps.begin() + static_cast<std::vector<  tick_t>::difference_type>(i));
+							   s_Samples.erase(   s_Samples.begin() + static_cast<std::vector<scalar_t>::difference_type>(i));
 						}
 						else {
 							
@@ -242,7 +242,7 @@ namespace LouiEriksson::Engine::UI {
 								ImGui::SetCursorPos(plot_cursor);
 								auto cursor_screenpos = ImGui::GetCursorScreenPos();
 								
-								auto startPos = ImVec2(cursor_screenpos.x + x_offset, cursor_screenpos.y);
+								auto startPos = ImVec2(cursor_screenpos.x + static_cast<float>(x_offset), cursor_screenpos.y);
 								auto   endPos = ImVec2(startPos.x, startPos.y + plot_size.y);
 								
 								ImGui::GetWindowDrawList()->AddLine(startPos, endPos, ImGui::GetColorU32(ImGuiCol_PlotLines));
@@ -257,7 +257,7 @@ namespace LouiEriksson::Engine::UI {
 								
 								auto textSize = ImGui::CalcTextSize(label.str().c_str());
 								
-							    ImGui::SetCursorPosX(plot_cursor.x + x_offset - textSize.x - hMargin);
+							    ImGui::SetCursorPosX(plot_cursor.x + static_cast<float>(x_offset) - textSize.x - hMargin);
 							    ImGui::SetCursorPosY(bottom);
 						        ImGui::Text("%s", label.str().c_str());
 							}
@@ -538,7 +538,7 @@ namespace LouiEriksson::Engine::UI {
 						)
 					);
 					
-					ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0) + 200.0, s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 200.0), s_WindowMargin.y), ImGuiCond_Once);
 					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 					
 					/* RENDERING SETTINGS */
@@ -667,7 +667,7 @@ namespace LouiEriksson::Engine::UI {
 						)
 					);
 					
-					ImGui::SetNextWindowPos(ImVec2((s_WindowMargin.x * 2.0) + 400.0, s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 400.0), s_WindowMargin.y), ImGuiCond_Once);
 					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 					
 					using target = Settings::Spatial;
@@ -679,7 +679,7 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::DragFloat3("Coords", &target::s_Coord[0]);
 					
 					// 2D array of coordinates
-				    std::array<std::pair<std::string, glm::vec2>, 11> places = {{
+				    const std::array<std::pair<std::string, glm::vec2>, 11> places = {{
 						{ "Hong Kong",   { 22.28180, 114.17347 }},
 						{ "Bournemouth", { 50.74794, -1.87812  }},
 						{ "Null Island", {  0.0,      0.0      }},

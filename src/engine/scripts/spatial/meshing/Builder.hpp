@@ -34,9 +34,31 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 
 			friend Builder;
 			
+		private:
+			
 			std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> m_Node;
 			
 	        glm::vec3 m_Coord;
+			
+		public:
+			
+			/**
+			 * @brief Returns the node associated with the Point.
+			 *
+			 * @return A shared_ptr to the node associated with this Point.
+			 */
+			std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> Node() const noexcept {
+				return m_Node;
+			}
+			
+			/**
+			 * @brief Returns the coordinate of the Point.
+			 *
+			 * @return A constant reference to the coordinate of the Point.
+			 */
+			constexpr const glm::vec3& Coord() const noexcept {
+				return m_Coord;
+			}
 			
 			Point(std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> _node, const glm::vec3& _coord) noexcept :
 				m_Node(std::move(_node)),
@@ -209,7 +231,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 				        for (const auto& c : coords) {
 							
 							// Offset from ground, to avoid clipping into terrain.
-							static glm::vec<3, vertex_t> ground_offset(0.0, 1, 0.0);
+							const static constexpr glm::vec<3, vertex_t> ground_offset(0.0, 1.0, 0.0);
 							
 							vertices.emplace_back(ToWorldSpace<vertex_t>(c, Settings::Spatial::s_Coord) + ground_offset + ZFightingMitigation<vertex_t>());
 						}
@@ -679,7 +701,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 					 */
 					auto local_uv = quad_uvs[i % 4U];
 					
-					glm::vec<2, T, Q> world_uv(
+					const glm::vec<2, T, Q> world_uv(
 						 local_uv.x * wall_length * u_multiplier,
 						(local_uv.y * height) / s_StoreyHeight
 					);

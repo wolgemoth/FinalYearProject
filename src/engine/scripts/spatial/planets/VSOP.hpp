@@ -12,10 +12,18 @@ namespace LouiEriksson::Engine::Spatial {
 	struct VSOP final {
 	
 		struct Position final {
+		
+		private:
 			
 			glm::vec<3, T, Q> m_Spherical;
 			glm::vec<3, T, Q> m_Cartesian;
 			glm::qua<   T, Q> m_Rotation;
+			
+		public:
+			
+			constexpr const glm::vec<3, T, Q>& Spherical() const noexcept { return m_Spherical; }
+			constexpr const glm::vec<3, T, Q>& Cartesian() const noexcept { return m_Cartesian; }
+			constexpr const glm::qua<   T, Q>&  Rotation() const noexcept { return m_Rotation;  }
 			
 			constexpr Position(const glm::vec<3, T, Q>& _spherical, const glm::vec<3, T, Q>& _cartesian, const glm::vec<3, T, Q>& _rotation) noexcept :
 				m_Spherical(_spherical),
@@ -94,8 +102,8 @@ namespace LouiEriksson::Engine::Spatial {
 				
 				static Position GetMoon(const Position& _earth, const Position& _emb) {
 					
-					auto e1 = Utils::ChangeHandedness<double, Q>(_earth.m_Cartesian);
-					auto e2 = Utils::ChangeHandedness<double, Q>(  _emb.m_Cartesian);
+					auto e1 = Utils::ChangeHandedness<double, Q>(_earth.Cartesian());
+					auto e2 = Utils::ChangeHandedness<double, Q>(  _emb.Cartesian());
 					
 					double tmp[3];
 					

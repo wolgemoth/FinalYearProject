@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine {
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
 
-		[[nodiscard]] glm::vec3 Position() noexcept {
+		[[nodiscard]] glm::vec3 Position() const noexcept {
 			return m_TS[3];
 		}
 		

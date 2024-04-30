@@ -67,9 +67,7 @@ namespace LouiEriksson::Engine::ECS {
 			/* GET ALL RENDERERS */
 			std::vector<std::weak_ptr<Graphics::Renderer>> casted_renderers;
 			
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -90,9 +88,7 @@ namespace LouiEriksson::Engine::ECS {
 			/* GET ALL LIGHTS */
 			std::vector<std::weak_ptr<Graphics::Light>> casted_lights;
 			
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -105,9 +101,7 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* GET ALL CAMERAS */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -145,9 +139,7 @@ namespace LouiEriksson::Engine::ECS {
 			const auto entities = m_Entities.Values();
 			
 			/* INTERPOLATE RIGIDBODIES */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -167,9 +159,7 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* TICK SCRIPTS */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -182,9 +172,7 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* LATE-TICK SCRIPTS */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					
@@ -210,9 +198,7 @@ namespace LouiEriksson::Engine::ECS {
 			const auto entities = m_Entities.Values();
 			
 			/* UPDATE RIGIDBODIES */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 				
@@ -232,9 +218,7 @@ namespace LouiEriksson::Engine::ECS {
 			}
 			
 			/* SCRIPT FIXED-TICK */
-			for (size_t i = 0U; i < entities.size(); ++i) {
-				
-				const auto entity = entities[i];
+			for (const auto& entity : entities) {
 				
 				if (entity->Active()) {
 					

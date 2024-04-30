@@ -1,10 +1,10 @@
 #ifndef FINALYEARPROJECT_DEBUG_HPP
 #define FINALYEARPROJECT_DEBUG_HPP
 
-#include <chrono>
 #include <cstdlib>
 #include <ctime>
 #include <memory>
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 
@@ -709,7 +709,7 @@ namespace LouiEriksson::Engine {
 				
 				// Capture stack frames:
 				void* array[_frames];
-				auto frames = backtrace(array, _frames);
+				auto frames = backtrace(array, static_cast<int>(_frames));
 				
 				// Convert addresses into an array of human-readable strings
 				const std::unique_ptr<char*, void(*)(void*)> strings(backtrace_symbols(array, frames), std::free);

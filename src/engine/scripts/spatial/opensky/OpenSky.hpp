@@ -20,7 +20,7 @@ namespace LouiEriksson::Engine::Spatial {
 		template <typename T, glm::qualifier Q = glm::defaultp>
 		static std::future<void> QueryBoundingBoxAsync(const glm::vec<4, T, Q>& _bounds, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::OpenSkyDeserialiser::OpenSkyJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 			
-			static_assert(std::is_floating_point<T>::value, "T must be a floating point type");
+			static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 			
 			return std::async([_bounds, _callback, _timeout, &_cancellationToken]() {
 				
@@ -42,7 +42,6 @@ namespace LouiEriksson::Engine::Spatial {
 					
 					const auto status = Threading::Utils::Wait(task, _timeout, _cancellationToken);
 					
-					Networking::Requests::Response response;
 					if (status == std::future_status::ready) {
 					
 						auto result = Serialisation::OpenSkyDeserialiser::Deserialise<Serialisation::OpenSkyDeserialiser::OpenSkyJSON>(task.get().Content().ToStream());

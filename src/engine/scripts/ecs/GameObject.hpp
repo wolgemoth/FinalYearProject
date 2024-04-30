@@ -157,7 +157,7 @@ namespace LouiEriksson::Engine::ECS {
 		 *
 		 * @return A weak pointer to the scene.
 		 */
-		const std::shared_ptr<Scene> GetScene() const noexcept {
+		std::shared_ptr<Scene> GetScene() const noexcept {
 			
 			std::shared_ptr<Scene> result;
 			

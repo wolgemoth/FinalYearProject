@@ -105,8 +105,10 @@ namespace LouiEriksson::Engine::Physics {
 							
 							// Set the collision flags to kinematic, if specified.
 							m_Rigidbody->setCollisionFlags(
-								static_cast<unsigned>((m_Rigidbody->getCollisionFlags())) |
-								static_cast<unsigned>(btCollisionObject::CF_KINEMATIC_OBJECT)
+								static_cast<int>(
+									static_cast<unsigned>((m_Rigidbody->getCollisionFlags())) |
+									static_cast<unsigned>(btCollisionObject::CF_KINEMATIC_OBJECT)
+								)
 							);
 							
 							// Restrict all motion.
@@ -466,7 +468,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Get the position of the Rigidbody.
 		 * @return const glm::vec3& The position of the Rigidbody.
 		 */
-		[[nodiscard]] const glm::vec3& Position() {
+		[[nodiscard]] glm::vec3 Position() {
 			
 			Sync();
 			

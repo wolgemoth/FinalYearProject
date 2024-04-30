@@ -225,32 +225,32 @@ namespace LouiEriksson::Engine::Graphics {
 		 */
 		static void GetFormatData(const GLenum& _pixelFormat, GLenum& _textureFormat, int& _channels) {
 		
-			if (_pixelFormat == GL_R    || _pixelFormat == GL_R8   || _pixelFormat == GL_R16 ||
-				_pixelFormat == GL_R16F || _pixelFormat == GL_R32F || _pixelFormat == GL_R32F_EXT
+			if (_pixelFormat == static_cast<GLenum>(GL_R   ) || _pixelFormat == static_cast<GLenum>(GL_R8  ) || _pixelFormat == static_cast<GLenum>(GL_R16     ) ||
+				_pixelFormat == static_cast<GLenum>(GL_R16F) || _pixelFormat == static_cast<GLenum>(GL_R32F) || _pixelFormat == static_cast<GLenum>(GL_R32F_EXT)
 			) {
 			    _textureFormat = GL_R;
 				_channels      = 1;
 			}
-			else if (_pixelFormat == GL_RG    || _pixelFormat == GL_RG8   || _pixelFormat == GL_RG16 ||
-			         _pixelFormat == GL_RG16F || _pixelFormat == GL_RG32F || _pixelFormat == GL_RG32F_EXT
+			else if (_pixelFormat == static_cast<GLenum>(GL_RG   ) || _pixelFormat == static_cast<GLenum>(GL_RG8  ) || _pixelFormat == static_cast<GLenum>(GL_RG16)      ||
+			         _pixelFormat == static_cast<GLenum>(GL_RG16F) || _pixelFormat == static_cast<GLenum>(GL_RG32F) || _pixelFormat == static_cast<GLenum>(GL_RG32F_EXT)
 			) {
 			    _textureFormat = GL_RG;
 				_channels      = 2;
 			}
-			else if (_pixelFormat == GL_RGB        || _pixelFormat == GL_SRGB       || _pixelFormat == GL_SRGB8        ||
-					 _pixelFormat == GL_SRGB_EXT   || _pixelFormat == GL_RGB8       || _pixelFormat == GL_RGB10        ||
-					 _pixelFormat == GL_RGB10_A2   || _pixelFormat == GL_RGB10_A2UI || _pixelFormat == GL_RGB10_A2_EXT ||
-					 _pixelFormat == GL_RGB10_EXT  || _pixelFormat == GL_RGB12      || _pixelFormat == GL_RGB12_EXT    ||
-					 _pixelFormat == GL_RGB16      || _pixelFormat == GL_RGB16F     || _pixelFormat == GL_RGB32F       ||
-					 _pixelFormat == GL_RGB32F_ARB || _pixelFormat == GL_RGB32F_EXT
+			else if (_pixelFormat == static_cast<GLenum>(GL_RGB       ) || _pixelFormat == static_cast<GLenum>(GL_SRGB      ) || _pixelFormat == static_cast<GLenum>(GL_SRGB8       ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_SRGB_EXT  ) || _pixelFormat == static_cast<GLenum>(GL_RGB8      ) || _pixelFormat == static_cast<GLenum>(GL_RGB10       ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGB10_A2  ) || _pixelFormat == static_cast<GLenum>(GL_RGB10_A2UI) || _pixelFormat == static_cast<GLenum>(GL_RGB10_A2_EXT) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGB10_EXT ) || _pixelFormat == static_cast<GLenum>(GL_RGB12     ) || _pixelFormat == static_cast<GLenum>(GL_RGB12_EXT   ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGB16     ) || _pixelFormat == static_cast<GLenum>(GL_RGB16F    ) || _pixelFormat == static_cast<GLenum>(GL_RGB32F      ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGB32F_ARB) || _pixelFormat == static_cast<GLenum>(GL_RGB32F_EXT)
 			) {
 			    _textureFormat = GL_RGB;
 				_channels      = 3;
 			}
-			else if (_pixelFormat == GL_SRGB_ALPHA || _pixelFormat == GL_SRGB8_ALPHA8 || _pixelFormat == GL_SRGB8_ALPHA8_EXT ||
-					 _pixelFormat == GL_RGBA       || _pixelFormat == GL_RGBA8        || _pixelFormat == GL_RGBA12           ||
-					 _pixelFormat == GL_RGBA12_EXT || _pixelFormat == GL_RGBA16       || _pixelFormat == GL_RGBA16F          ||
-					 _pixelFormat == GL_RGBA32F    || _pixelFormat == GL_RGBA32F_ARB  || _pixelFormat == GL_RGBA32F_EXT
+			else if (_pixelFormat == static_cast<GLenum>(GL_SRGB_ALPHA) || _pixelFormat == static_cast<GLenum>(GL_SRGB8_ALPHA8) || _pixelFormat == static_cast<GLenum>(GL_SRGB8_ALPHA8_EXT) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGBA      ) || _pixelFormat == static_cast<GLenum>(GL_RGBA8       ) || _pixelFormat == static_cast<GLenum>(GL_RGBA12          ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGBA12_EXT) || _pixelFormat == static_cast<GLenum>(GL_RGBA16      ) || _pixelFormat == static_cast<GLenum>(GL_RGBA16F         ) ||
+					 _pixelFormat == static_cast<GLenum>(GL_RGBA32F   ) || _pixelFormat == static_cast<GLenum>(GL_RGBA32F_ARB ) || _pixelFormat == static_cast<GLenum>(GL_RGBA32F_EXT     )
 			) {
 			    _textureFormat = GL_RGBA;
 				_channels      = 4;

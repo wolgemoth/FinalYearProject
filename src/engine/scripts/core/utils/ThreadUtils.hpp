@@ -43,7 +43,7 @@ namespace LouiEriksson::Engine::Threading {
 				
 				std::lock_guard<std::mutex> lock(m_Lock);
 				
-				for (int i = 0; i < _count; ++i) {
+				for (size_t i = 0; i < _count; ++i) {
 					
 					if (!m_Tasks.empty()) {
 						m_Tasks.front()();

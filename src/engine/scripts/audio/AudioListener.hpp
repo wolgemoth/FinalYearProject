@@ -36,7 +36,7 @@ namespace LouiEriksson::Engine::Audio {
 	
 	private:
 		
-		struct Parameters {
+		struct Parameters final {
 			
 			/** @brief Master gain. Should be between zero and one. */
 			ALfloat m_Gain = 0.8;
@@ -52,6 +52,20 @@ namespace LouiEriksson::Engine::Audio {
 			
 			/** @brief The velocity of the AudioListener. */
 			glm::vec3 m_Velocity;
+			
+			constexpr Parameters() noexcept :
+				    m_Gain(0.8),
+				m_Position(),
+				 m_Forward(),
+				      m_Up(),
+				m_Velocity() {}
+			
+			constexpr Parameters(const ALfloat& _gain, const glm::vec3& _position, const glm::vec3& _forward, const glm::vec3& _up, const glm::vec3& _velocity) noexcept :
+				    m_Gain(_gain    ),
+				m_Position(_position),
+				 m_Forward(_forward ),
+				      m_Up(_up      ),
+				m_Velocity(_velocity) {}
 		};
 		
 		Parameters m_CurrentParameters;
@@ -118,15 +132,15 @@ namespace LouiEriksson::Engine::Audio {
 			m_PendingParameters() {}
 		
 		/** @inheritdoc */
-		[[nodiscard]] virtual std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
+		[[nodiscard]] std::type_index TypeID() const noexcept override { return typeid(AudioListener); };
 		
 		/** @brief Initialise the AudioListener. */
-		virtual void Begin() override {
+		void Begin() override {
 			Sync();
 		}
 	
 		/** @brief Updates the AudioListener every frame. */
-		virtual void Tick() override {
+		void Tick() override {
 			Sync();
 		}
 		

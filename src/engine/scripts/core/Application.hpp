@@ -225,17 +225,17 @@ namespace LouiEriksson::Engine {
 				Debug::Log("Application Initialising.", LogType::Info);
 			
 				// Set custom termination behaviour:
-				std::set_terminate(OnTerminate);
+				std::set_terminate(&OnTerminate);
 				
 				try {
 					
 					/* INIT */
-					s_MainWindow = Window::Create(1280, 720, "FinalYearProject");
+					s_MainWindow = Window::Create(1280U, 720U, "FinalYearProject");
 					
 					{
 						const auto glew_status = glewInit();
 						
-						if (glew_status != GLEW_OK) {
+						if (glew_status != static_cast<GLenum>(GLEW_OK)) {
 							
 							// Throw error if GLEW fails to initialise correctly.
 							throw std::runtime_error("Failed to initialise GLEW! Status: [" + std::to_string(glew_status) + "]");
@@ -249,7 +249,7 @@ namespace LouiEriksson::Engine {
 					// Capture the mouse on startup.
 					SDL_CaptureMouse(SDL_TRUE);
 					
-					               Random::Init(0); // Use a constant seed (like '0') for deterministic behaviour.
+					               Random::Init(0U); // Use a constant seed (like '0') for deterministic behaviour.
 					     Audio::    Sound::Init();
 					            Resources::Init();
 					             Settings::Init();
@@ -276,7 +276,7 @@ namespace LouiEriksson::Engine {
 							
 							if (s_ReloadScene) {
 								s_ReloadScene = false;
-								LoadScene("levels/fyp.scene");
+								LoadScene("levels/engine_test.scene");
 							}
 							
 							Utils:: ALDumpError();
@@ -305,8 +305,8 @@ namespace LouiEriksson::Engine {
 										
 										if (const auto w = Window::Get(static_cast<size_t>(item.window.windowID)).lock()) {
 											
-											if (item.window.event == SDL_WINDOWEVENT_RESIZED ||
-											    item.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+											if (item.window.event == static_cast<Uint8>(SDL_WINDOWEVENT_RESIZED) ||
+											    item.window.event == static_cast<Uint8>(SDL_WINDOWEVENT_SIZE_CHANGED)) {
 												
 												// Dirty the window.
 												w->SetDirty();

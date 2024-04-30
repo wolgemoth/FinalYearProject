@@ -42,7 +42,8 @@ namespace LouiEriksson::Engine {
 			
 			m_Window = std::shared_ptr<SDL_Window>(
 				SDL_CreateWindow(_name.data(),
-					SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+					static_cast<int>(SDL_WINDOWPOS_UNDEFINED),
+					static_cast<int>(SDL_WINDOWPOS_UNDEFINED),
 					static_cast<int>(_width), static_cast<int>(_height),
 					static_cast<unsigned>(SDL_WINDOW_RESIZABLE)         |
 						static_cast<unsigned>(SDL_WINDOW_ALLOW_HIGHDPI) |
@@ -59,7 +60,7 @@ namespace LouiEriksson::Engine {
 		
 			// Grab the display mode to further configure parameters.
 		    SDL_DisplayMode displayMode;
-		    SDL_GetCurrentDisplayMode(m_ID, &displayMode);
+		    SDL_GetCurrentDisplayMode(static_cast<int>(m_ID), &displayMode);
 			
 			// Set the display mode to 10bpp if the HDR10 flag is raised.
 			displayMode.format = _hdr10 ?

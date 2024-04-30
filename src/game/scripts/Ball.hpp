@@ -69,7 +69,7 @@ namespace LouiEriksson::Game::Scripts {
 					const auto rigidbody = p->AddComponent<Physics::Rigidbody>();
 					rigidbody->SetTransform(t);
 					rigidbody->SetCollider(collider);
-					rigidbody->Mass(4.0 * glm::pi<scalar_t>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
+					rigidbody->Mass(static_cast<btScalar>(4.0) * glm::pi<btScalar>() * (m_Radius * m_Radius)); // Equation for area of sphere. Courtesy of :https://www.omnicalculator.com/math/area-of-sphere
 					rigidbody->Drag(0.005); // Courtesy of: https://www.engineeringtoolbox.com/drag-coefficient-d_627.html
 					
 					collider->SetRigidbody(rigidbody);
@@ -148,22 +148,26 @@ namespace LouiEriksson::Game::Scripts {
 						
 						// Modify the pitch:
 						as->Pitch(
-							std::clamp(
-								pitch_multiplier / (
-									(m_Radius * pitch_radius_multiplier) *
-									(_collision.Impulse() * pitch_impulse_multiplier)
-								),
-								pitch_min,
-								pitch_max
+							static_cast<btScalar>(
+								std::clamp(
+									pitch_multiplier / (
+										(m_Radius * pitch_radius_multiplier) *
+										(_collision.Impulse() * pitch_impulse_multiplier)
+									),
+									pitch_min,
+									pitch_max
+								)
 							)
 						);
 						
 						// Modify the volume:
 						as->Gain(
-							std::clamp(
-								volume_multiplier / (as->Pitch() * volume_pitch_multiplier),
-								volume_min,
-								volume_max
+							static_cast<btScalar>(
+								std::clamp(
+									volume_multiplier / (as->Pitch() * volume_pitch_multiplier),
+									volume_min,
+									volume_max
+								)
 							)
 						);
 						

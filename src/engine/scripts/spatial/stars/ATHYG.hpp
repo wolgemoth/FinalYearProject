@@ -50,7 +50,7 @@ namespace LouiEriksson::Engine::Spatial {
 			[[maybe_unused]] const std::optional<const double>      absmag;
 			[[maybe_unused]] const std::optional<const std::string> mag_src;
 			
-			[[maybe_unused]] static constexpr size_t s_ElementCount { 23 };
+			[[maybe_unused]] static constexpr size_t s_ElementCount { 23U };
 			
 			template <typename T>
 			explicit V1(const std::array<T, s_ElementCount>& _values) noexcept :
@@ -121,7 +121,7 @@ namespace LouiEriksson::Engine::Spatial {
 			[[maybe_unused]] const std::optional<const double>      spect;
 			[[maybe_unused]] const std::optional<const std::string> spect_src;
 			
-			[[maybe_unused]] static constexpr size_t s_ElementCount { 33 };
+			[[maybe_unused]] static constexpr size_t s_ElementCount { 33U };
 			
 			template <typename T>
 			explicit V2(const std::array<T, s_ElementCount>& _values) noexcept :
@@ -203,7 +203,7 @@ namespace LouiEriksson::Engine::Spatial {
 			[[maybe_unused]] const std::optional<const double>      spect;
 			[[maybe_unused]] const std::optional<const std::string> spect_src;
 			
-			[[maybe_unused]] static constexpr size_t s_ElementCount { 34 };
+			[[maybe_unused]] static constexpr size_t s_ElementCount { 34U };
 				
 			template <typename T>
 			explicit V3(const std::array<T, s_ElementCount>& _values) noexcept :

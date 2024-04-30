@@ -221,7 +221,7 @@ namespace LouiEriksson::Engine::Physics {
 			const tick_t epsilon = 0.0001;
 			
 			if (_step > epsilon) {
-				s_DynamicsWorld->stepSimulation(_step, 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
+				s_DynamicsWorld->stepSimulation(static_cast<btScalar>(_step), 1, std::max(Time::FixedDeltaTime<btScalar>(), std::numeric_limits<btScalar>::min()));
 			
 				s_LastTick = 0.0;
 			}

@@ -231,7 +231,7 @@ namespace LouiEriksson::Engine {
 		 * @return The number of items stored within the Hashmap.
 		 */
 		[[nodiscard]] const size_t& size() const noexcept {
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			return m_Size;
 		}
@@ -253,7 +253,7 @@ namespace LouiEriksson::Engine {
 		 */
 		bool ContainsKey(const Tk& _key, [[maybe_unused]] std::exception_ptr _exception = nullptr) const noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			auto result = false;
 			
@@ -292,7 +292,7 @@ namespace LouiEriksson::Engine {
 		 */
 		bool Add(const Tk& _key, const Tv& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			auto result = true;
 			
@@ -343,7 +343,7 @@ namespace LouiEriksson::Engine {
 		 */
 		bool Add(const Tk&& _key, const Tv&& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			auto result = true;
 			
@@ -392,7 +392,7 @@ namespace LouiEriksson::Engine {
 		 */
 		void Assign(const Tk& _key, const Tv& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			try {
 				
@@ -438,7 +438,7 @@ namespace LouiEriksson::Engine {
 		 */
 		void Assign(Tk&& _key, Tv&& _value, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			try {
 				
@@ -484,7 +484,7 @@ namespace LouiEriksson::Engine {
 		 */
 		bool Remove(const Tk& _key, [[maybe_unused]] std::exception_ptr _exception = nullptr) noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			bool result = false;
 			
@@ -529,7 +529,7 @@ namespace LouiEriksson::Engine {
 		 */
 		optional_ref Get(const Tk& _key, std::exception_ptr _exception = nullptr) const noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			typename optional_ref::optional_t result = std::nullopt;
 			
@@ -564,7 +564,7 @@ namespace LouiEriksson::Engine {
 		 */
 		void Trim() {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			size_t trimStart = 1;
 			
@@ -585,7 +585,7 @@ namespace LouiEriksson::Engine {
 		 */
 		[[nodiscard]] std::vector<Tk> Keys() const {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			std::vector<Tk> result;
 			
@@ -604,7 +604,7 @@ namespace LouiEriksson::Engine {
 		 */
 		[[nodiscard]] std::vector<Tv> Values() const {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			std::vector<Tv> result;
 			
@@ -623,7 +623,7 @@ namespace LouiEriksson::Engine {
 		 */
 		[[nodiscard]] std::vector<KeyValuePair> GetAll() const {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			std::vector<KeyValuePair> result;
 			
@@ -643,7 +643,7 @@ namespace LouiEriksson::Engine {
 		 */
 		void Reserve(const std::size_t& _newSize) {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			if (m_Size < _newSize) {
 				Resize(_newSize);
@@ -655,7 +655,7 @@ namespace LouiEriksson::Engine {
 		 */
 		void Clear() noexcept {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 			try {
 				m_Buckets.clear();
@@ -682,7 +682,7 @@ namespace LouiEriksson::Engine {
 #endif
 		const Tv& operator[](const Tk& _key) const {
 			
-			std::lock_guard<std::recursive_mutex> lock(s_Lock);
+			const std::lock_guard<std::recursive_mutex> lock(s_Lock);
 			
 		    return Return(_key);
 		}
