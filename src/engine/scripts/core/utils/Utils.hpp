@@ -327,7 +327,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			else {
-				static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");
+				static_assert([]{ return false; }(), "No specialisation exists for parsing json to T");
 			}
 
 		    return result;

@@ -72,7 +72,7 @@ namespace LouiEriksson::Engine::Networking {
 				
 				Debug::Assert(
 					result || !_verbose,
-					"Request failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
+					"RequestOpenSky failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
 					LogType::Error
 				);
 				

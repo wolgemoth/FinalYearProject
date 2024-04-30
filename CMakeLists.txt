@@ -140,6 +140,8 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/utils/ThreadUtils.hpp
         src/engine/scripts/core/utils/Random.hpp
         src/game/scripts/Spatial/FYP.hpp
+        src/engine/scripts/spatial/opensky/OpenSky.hpp
+        src/engine/scripts/spatial/opensky/serialisation/OpenSkyDeserialiser.hpp
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)

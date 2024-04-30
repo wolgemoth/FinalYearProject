@@ -22,10 +22,6 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 	 */
 	struct OSMDeserialiser final {
 	
-	private:
-		
-        inline static const json s_Serialiser;
-
 	public:
 		
 		struct OSMJSON final {

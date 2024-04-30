@@ -58,7 +58,7 @@ namespace LouiEriksson::Engine {
 		struct Spatial final {
 			
 			/** @brief Origin coordinate of the coordinate system (in latitude, longitude, and altitude). */
-			inline static glm::vec3 s_Coord;
+			inline static glm::vec3 s_Coord { 22.28180, 114.17347, 0.0 };
 			
 		};
 		

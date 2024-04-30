@@ -23,9 +23,13 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Hashmap<std::string_view, std::weak_ptr<ECS::GameObject>> m_Features;
 		
 		std::future<void> m_BuildTask;
+		std::future<void> m_OpenSkyTask;
 		
 		Threading::Utils::Dispatcher        m_Dispatcher;
 		Threading::Utils::CancellationToken m_CancellationToken;
+		
+		std::chrono::system_clock::time_point m_NextOpenSkyRequest;
+		std::chrono::system_clock::duration   m_OpenSkyRequestInterval = std::chrono::seconds(10);
 		
 	public:
 	
@@ -43,6 +47,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		explicit Map(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent),
 			m_CancellationToken   (          ),
+			m_NextOpenSkyRequest  (          ),
 			m_GridSizeKm          (  3.0     ),
 		    m_RequestDelay        (  5.0     ),
 		    m_Subdivisions        (  0       ),
@@ -75,6 +80,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		/** @inheritdoc */
 		void Tick() override {
 			
+			BuildDynamicAsync(Settings::Spatial::s_Coord, m_GridSizeKm);
+			
 			m_Dispatcher.Dispatch(m_TimeSliceInterval);
 			
 			for (const auto& kvp : m_Features.GetAll()) {
@@ -99,6 +106,65 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				_coord.y,
 				0.0
 			};
+		}
+		
+		void BuildDynamicAsync(const glm::vec3& _coord, const float& _sizeKm) {
+		
+			if (std::chrono::system_clock::now() > m_NextOpenSkyRequest) {
+				m_NextOpenSkyRequest = std::chrono::system_clock::now() + m_OpenSkyRequestInterval;
+				
+				auto bounds = Maths::Coords::GPS::GPSToBounds(_coord, _sizeKm);
+				
+				m_OpenSkyTask = Engine::Spatial::OpenSky::QueryBoundingBoxAsync(
+					bounds,
+					std::chrono::seconds(60),
+					[this](const Engine::Spatial::Serialisation::OpenSkyDeserialiser::OpenSkyJSON::Root& _root) {
+						
+						m_Dispatcher.Schedule([this, _root](){
+							
+							std::ostringstream response;
+							response << "OpenSky Reponse:\n";
+							response << "\tTimestamp: " << _root.time << '\n';
+							response << "\tTransponders: ";
+							
+							if (_root.states.empty()) {
+								response << "No aircraft in region.";
+							}
+							else {
+								
+								for (const auto& item : _root.states) {
+									
+									response << '\t' << *(item.icao24        )  << '\n';
+									response << '\t' << *(item.callsign      )  << '\n';
+									response << '\t' << *(item.origin_country)  << '\n';
+									response << '\t' << *(item.time_position )  << '\n';
+									response << '\t' << *(item.last_contact  )  << '\n';
+									response << '\t' << *(item.longitude     )  << '\n';
+									response << '\t' << *(item.latitude      )  << '\n';
+									response << '\t' << *(item.baro_altitude )  << '\n';
+									response << '\t' << *(item.on_ground     )  << '\n';
+									response << '\t' << *(item.velocity      )  << '\n';
+									response << '\t' << *(item.true_track    )  << '\n';
+									response << '\t' << *(item.vertical_rate )  << '\n';
+									
+									for (const auto& sensor : *(item.sensors)) {
+										response << "\t\t" << sensor << '\n';
+									}
+									
+									response << '\t' << *(item.geo_altitude   ) << '\n';
+									response << '\t' << *(item.squawk         ) << '\n';
+									response << '\t' << *(item.spi            ) << '\n';
+									response << '\t' << *(item.position_source) << '\n';
+									response << '\t' << *(item.category       );
+								}
+							}
+							
+							Debug::Log(response.str());
+						});
+					},
+					m_CancellationToken
+				);
+			}
 		}
 		
 		void Build(const glm::vec4& _bounds, const Elevation::ElevationProvider& _provider)  {

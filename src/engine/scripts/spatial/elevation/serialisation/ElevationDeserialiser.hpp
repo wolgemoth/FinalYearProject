@@ -16,10 +16,6 @@ namespace LouiEriksson::Engine::Spatial::Serialisation {
 
 	class ElevationDeserialiser final {
 	
-	private:
-		
-        inline static const json s_Serialiser;
-
 	public:
 	
 		struct ElevationJSON {

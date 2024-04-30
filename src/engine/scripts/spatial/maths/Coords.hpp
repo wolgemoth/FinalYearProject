@@ -139,10 +139,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		            T pradius = radius * std::cos(latitudeRadians);
 					
 		            result = {
-		                Conversions::Rotation::s_RadiansToDegrees * ( latitudeRadians - (halfSide /  radius)),
-		                Conversions::Rotation::s_RadiansToDegrees * (longitudeRadians - (halfSide / pradius)),
-		                Conversions::Rotation::s_RadiansToDegrees * ( latitudeRadians + (halfSide /  radius)),
-		                Conversions::Rotation::s_RadiansToDegrees * (longitudeRadians + (halfSide / pradius))
+		                static_cast<T>(Conversions::Rotation::s_RadiansToDegrees) * ( latitudeRadians - (halfSide /  radius)),
+		                static_cast<T>(Conversions::Rotation::s_RadiansToDegrees) * (longitudeRadians - (halfSide / pradius)),
+		                static_cast<T>(Conversions::Rotation::s_RadiansToDegrees) * ( latitudeRadians + (halfSide /  radius)),
+		                static_cast<T>(Conversions::Rotation::s_RadiansToDegrees) * (longitudeRadians + (halfSide / pradius))
 		            };
 		        }
 		        else {

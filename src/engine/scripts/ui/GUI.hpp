@@ -679,17 +679,18 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::DragFloat3("Coords", &target::s_Coord[0]);
 					
 					// 2D array of coordinates
-				    std::array<std::pair<std::string, glm::vec2>, 10> places = {{
-						{ "Hong Kong",   { 22.28180, 114.17347}},
-						{ "Bournemouth", { 50.74794, -1.87812 }},
-						{ "Null Island", {  0.0,      0.0     }},
-						{ "New York",    { 40.76956, -73.97380}},
-						{ "London",      { 51.5028,   -0.1105 }},
-						{ "Tokyo",       { 35.69067, 139.81876}},
-						{ "Mombasa",     { -4.0513,   39.6658 }},
-						{ "Cape Town",   {-33.9894,  18.5555  }},
-						{ "Exmouth",     { 50.6304,   -3.4084 }},
-						{ "Mt. Everest", { 27.98806, 86.92521 }}
+				    std::array<std::pair<std::string, glm::vec2>, 11> places = {{
+						{ "Hong Kong",   { 22.28180, 114.17347 }},
+						{ "Bournemouth", { 50.74794, -1.87812  }},
+						{ "Null Island", {  0.0,      0.0      }},
+						{ "New York",    { 40.76956, -73.97380 }},
+						{ "London",      { 51.5028,   -0.1105  }},
+						{ "Tokyo",       { 35.69067, 139.81876 }},
+						{ "Mombasa",     { -4.0513,   39.6658  }},
+						{ "Cape Town",   {-33.9894,  18.5555   }},
+						{ "Exmouth",     { 50.6304,   -3.4084  }},
+						{ "Mt. Everest", { 27.98806, 86.92521  }},
+					    { "Heathrow",    { 51.4678,  -0.4473   }}
 				    }};
 					
 				    for (const auto& item : places) {

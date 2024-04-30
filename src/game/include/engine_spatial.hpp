@@ -13,6 +13,7 @@
 #include "../../engine/scripts/spatial/maths/Conversions.hpp"
 #include "../../engine/scripts/spatial/maths/Coords.hpp"
 #include "../../engine/scripts/spatial/meshing/Builder.hpp"
+#include "../../engine/scripts/spatial/opensky/OpenSky.hpp"
 #include "../../engine/scripts/spatial/osm/OSM.hpp"
 #include "../../engine/scripts/spatial/osm/serialisation/OSMDeserialiser.hpp"
 #include "../../engine/scripts/spatial/planets/VSOP.hpp"
