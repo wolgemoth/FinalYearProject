@@ -22,7 +22,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		Hashmap<std::string_view, std::weak_ptr<ECS::GameObject>> m_Features;
 		
-		Hashmap<std::string, std::pair<std::weak_ptr<ECS::GameObject>, glm::vec3>> m_Aircraft;
+		Hashmap<std::string, std::pair<std::weak_ptr<ECS::GameObject>, std::pair<glm::vec3, glm::vec3>>> m_Aircraft;
 		
 		std::future<void> m_BuildTask;
 		std::future<void> m_OpenSkyTask;
@@ -31,6 +31,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		Threading::Utils::CancellationToken m_CancellationToken;
 		
 		std::chrono::system_clock::time_point m_NextOpenSkyRequest;
+		std::chrono::system_clock::time_point m_LastOpenSkyResponse;
 		std::chrono::system_clock::duration   m_OpenSkyRequestInterval = std::chrono::seconds(20);
 		
 	public:
@@ -99,7 +100,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				}
 			}
 			
-			// Scale all aircraft with the map:
+			// Move and scale all aircraft in realtime:
 			for (const auto& kvp : m_Aircraft.GetAll()) {
 			
 				auto entry = kvp.second;
@@ -109,7 +110,18 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					auto transform = go->GetComponent<Transform>();
 					
 					if (const auto t = transform) {
-						t->Position(t->Position() * m_Scale);
+						
+						// Get aircraft values:
+						auto raw_position = entry.second.first;
+						auto raw_velocity = entry.second.second;
+						
+						// Get time since last update:
+						auto time_since_response = std::chrono::duration<scalar_t>(std::chrono::system_clock::now() - m_LastOpenSkyResponse).count();
+						
+						// Update the aircraft's position by extrapolating its last known velocity across time.
+						t->Position((raw_position + (raw_velocity * time_since_response)) * m_Scale);
+						
+						// Scale the aircraft with the size of the map.
 						t->Scale({m_Scale, m_Scale, m_Scale});
 					}
 				}
@@ -198,31 +210,54 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								
 								try {
 									
-									if (     !item.latitude.has_value()) { throw std::runtime_error("Transponder not broadcasting latitude."        ); }
-									if (    !item.longitude.has_value()) { throw std::runtime_error("Transponder not broadcasting longitude."       ); }
-									if (!item.baro_altitude.has_value()) { throw std::runtime_error("Aircraft not broadcasting barometric altitude."); }
-									if (   !item.true_track.has_value()) { throw std::runtime_error("Aircraft is not broadcasting bearing."         ); }
+									if (     !item.latitude.has_value()) { throw std::runtime_error("Transponder not broadcasting latitude." ); }
+									if (    !item.longitude.has_value()) { throw std::runtime_error("Transponder not broadcasting longitude."); }
+									if (   !item.true_track.has_value()) { throw std::runtime_error("Aircraft is not broadcasting bearing."  ); }
+									
+									/* Compute the altitude of the aircraft based on its state vector. */
+									
+									scalar_t altitude;
+									
+									if (item.on_ground.has_value()) {
+										altitude = 0.0;
+									}
+									else if (item.baro_altitude.has_value()) {
+										altitude = *(item.baro_altitude);
+									}
+									else {
+										Debug::Log("Aircraft is not broadcasting a barometric altitude. A default value of 10000 metres will be used instead.", LogType::Warning);
+										
+										static constexpr auto default_altitude = 10000.0;
+									
+										altitude = default_altitude;
+									}
+									
+									altitude += 30.0; // Offset for the aircraft's y-offset position in the model and lack of landing gear.
 									
 									std::shared_ptr<ECS::GameObject> gameobject;
-									glm::vec3 velocity;
+									glm::vec3 raw_velocity;
+									glm::vec3 raw_position;
 									
 									if (auto existing = m_Aircraft.Get(*item.icao24)) {
 										gameobject = existing->first.lock();
-										velocity   = existing->second;
+										raw_position = existing->second.first;
+										raw_velocity = existing->second.second;
 									}
 									else {
+										
+										raw_position = {};
+										raw_velocity = {};
 										
 										if (const auto p = Parent()) {
 											if (const auto s = p->GetScene()) {
 												
 												gameobject = s->Create(*item.icao24);
-												gameobject->AddComponent<Transform>();
+												auto transform = gameobject->AddComponent<Transform>();
 												
 												auto renderer = gameobject->AddComponent<Graphics::Renderer>();
 												renderer->SetMesh(Resources::Get<Graphics::Mesh>("aircraft"));
 												renderer->SetMaterial(Resources::Get<Graphics::Material>("aircraft"));
-												
-												m_Aircraft.Add(std::string(gameobject->Name()), {gameobject, {}});
+												renderer->SetTransform(transform);
 											}
 											else {
 												throw std::runtime_error("No scene!");
@@ -243,7 +278,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 										
 										// Set the position of the aircraft in world-space using the transponder coordinates:
 										auto position = Meshing::Builder::ToWorldSpace(
-											{ item.latitude.value(), item.longitude.value(), item.baro_altitude.value() },
+											{ item.latitude.value(), item.longitude.value(), altitude },
 											Settings::Spatial::s_Coord
 										);
 										
@@ -253,13 +288,15 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 										if (item.velocity.has_value()) {
 										if (item.vertical_rate.has_value()) {
 											
-											velocity = rotation * glm::vec3(0.0, item.vertical_rate.value(), item.velocity.value());
+											raw_velocity = rotation * glm::vec3(0.0, item.vertical_rate.value(), item.velocity.value());
 											
-											rotation *= glm::quatLookAtRH(glm::normalize(velocity), glm::vec3(0.0, 1.0, 0.0));
+											rotation *= glm::quatLookAtRH(glm::normalize(raw_velocity), glm::vec3(0.0, 1.0, 0.0));
 										}}
 										
 										// Deduce the yaw of the aircraft using its bearing.
-										rotation *= glm::angleAxis(item.true_track.value(), glm::vec3(0.0, 1.0, 0.0));
+										rotation *= glm::angleAxis(glm::radians(item.true_track.value()), glm::vec3(0.0, 1.0, 0.0));
+										
+										raw_position = position;
 										
 										t->Position(position);
 										t->Rotation(rotation);
@@ -270,7 +307,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									
 									updatedAircraft.emplace_back(item.icao24.value());
 									
-									m_Aircraft.Assign(item.icao24.value(), { gameobject, velocity });
+									m_Aircraft.Assign(item.icao24.value(), { gameobject, { raw_position, raw_velocity } });
 								}
 								catch(const std::exception& e) {
 									Debug::Log(e);
@@ -281,7 +318,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 							auto existingAircraft = m_Aircraft.Keys();
 							for (const auto& item : existingAircraft) {
 
-								if (std::find(updatedAircraft.begin(), updatedAircraft.end(), item) != updatedAircraft.end()) {
+								if (std::find(updatedAircraft.begin(), updatedAircraft.end(), item) == updatedAircraft.end()) {
 
 									if (const auto p = Parent()) {
 										if (const auto s = p->GetScene()) {
