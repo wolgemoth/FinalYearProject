@@ -89,13 +89,14 @@ Building for Windows is not yet supported. This will be added in the future.
 - [cereal v1.3.2](https://uscilab.github.io/cereal/)
 - [Dear ImGui v1.90 (IMGUI)](https://www.dearimgui.com/)
 - [libcurl](https://curl.se/libcurl/)
+- [mapbox/earcut.hpp v2.2.4](https://github.com/mapbox/earcut.hpp)
+- [Open Asset Import Library (assimp) v5.4.0](https://github.com/assimp/assimp)
 - [openal-soft-1.23.1](https://github.com/kcat/openal-soft/releases/tag/1.23.1)
 - [OpenGL Extension Wrangler Library 2.1.0 (GLEW)](https://www.opengl.org/sdk/libs/GLEW/)
 - [OpenGL Mathematics 0.9.9.8 (GLM)](https://www.opengl.org/sdk/libs/GLM/)
 - [Simple Direct Media Layer v2.x (SDL2)](https://www.libsdl.org/index.php)
 - [stb_image v2.27](https://github.com/nothings/stb/blob/master/stb_image.h)
 - [vsop87-multilang](https://github.com/gmiller123456/vsop87-multilang)
-
 
 ### References
 
@@ -187,6 +188,10 @@ Building for Windows is not yet supported. This will be added in the future.
 
 
 - INOVE, 2024. Solar System Scope - Online Model of Solar System and Night Sky [online]. Available from: https://www.solarsystemscope.com/ [Accessed 9 Apr 2024].
+
+
+- Mapbox, 2024. mapbox/earcut.hpp. [online]. Available from: https://github.com/mapbox/earcut.hpp [Accessed 1 May 2024].
+
 
 #### Asset Sources
 
