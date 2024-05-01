@@ -67,6 +67,8 @@ A 3D visualisation of the stars in the ATHYG dataset, with Sol positioned in the
 
 A 3D map of a user-defined location in the world. It features to-scale simulations of the stars, planets, sun, and moon in 3D, alongside 3D representations of nearby aircraft broadcasting their positions. The map updates in real time and is accurate to the current time and day.
 
+*Map includes data reconstructed from [OpenStreetMap(c)](https://www.openstreetmap.org/copyright)*
+
 ### Build from Source
 
 #### Linux
@@ -92,6 +94,8 @@ Building for Windows is not yet supported. This will be added in the future.
 - [OpenGL Mathematics 0.9.9.8 (GLM)](https://www.opengl.org/sdk/libs/GLM/)
 - [Simple Direct Media Layer v2.x (SDL2)](https://www.libsdl.org/index.php)
 - [stb_image v2.27](https://github.com/nothings/stb/blob/master/stb_image.h)
+- [vsop87-multilang](https://github.com/gmiller123456/vsop87-multilang)
+
 
 ### References
 
@@ -151,7 +155,46 @@ Building for Windows is not yet supported. This will be added in the future.
 
 - Taylor, M. (2019). Tone Mapping. [online] 64.github.io. Available at: https://64.github.io/tonemapping/ [Accessed 15 Dec. 2023].
 
+
+- Schäfer, M., Strohmeier, M., Lenders, V., Martinovic, I. and Wilhelm, M., 2014. Bringing up OpenSky: A large-scale ADS-B sensor network for research. In: IPSN-14 Proceedings of the 13th International Symposium on Information Processing in Sensor Networks [online]. Presented at the IPSN-14 Proceedings of the 13th International Symposium on Information Processing in Sensor Networks, 83–94. Available from: https://ieeexplore.ieee.org/abstract/document/6846743 [Accessed 8 Apr 2024].
+
+
+- Greg Miller, 2024. vsop87-multilang. [online]. Available from: https://github.com/gmiller123456/vsop87-multilang [Accessed 1 May 2024].
+
+
+- Daniel Stenberg, n.d. libcurl - the multiprotocol file transfer library. [online]. Available from: https://curl.se/libcurl/ [Accessed 1 May 2024].
+
+
+- OSM Foundation, 2024. OpenStreetMap. [online]. Available from: https://www.openstreetmap.org/copyright [Accessed 1 May 2024].
+
+
+- João Ricardo Lourenço., 2024. OpenElevation. [online]. Available from: https://github.com/Jorl17/open-elevation/blob/master/docs/api.md [Accessed 1 May 2024].
+
+
+- Andrew Nisbet, 2024. Open Topo Data. [online]. Available from: https://www.opentopodata.org/ [Accessed 1 May 2024].
+
+
+- Archinal, B. A., Acton, C. H., A’Hearn, M. F., Conrad, A., Consolmagno, G. J., Duxbury, T., Hestroffer, D., Hilton, J. L., Kirk, R. L., Klioner, S. A., McCarthy, D., Meech, K., Oberst, J., Ping, J., Seidelmann, P. K., Tholen, D. J., Thomas, P. C. and Williams, I. P., 2018. Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015. Celestial Mechanics and Dynamical Astronomy, 130 (3), 22.
+
+
+- Archinal, B. A., A’Hearn, M. F., Bowell, E., Conrad, A., Consolmagno, G. J., Courtin, R., Fukushima, T., Hestroffer, D., Hilton, J. L., Krasinsky, G. A., Neumann, G., Oberst, J., Seidelmann, P. K., Stooke, P., Tholen, D. J., Thomas, P. C. and Williams, I. P., 2011. Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2009. Celestial Mechanics and Dynamical Astronomy, 109 (2), 101–135.
+
+
+- David Nash, 2024. The Astronomy Nexus [online]. The Astronomy Nexus. Available from: https://www.astronexus.com/hyg [Accessed 1 May 2024].
+
+
+- Max Bernard, 2023. International Standard Atmosphere. [online]. Available from: https://github.com/maxbernard3/International_Standard_Atmosphere [Accessed 1 May 2024].
+
+
+- INOVE, 2024. Solar System Scope - Online Model of Solar System and Night Sky [online]. Available from: https://www.solarsystemscope.com/ [Accessed 9 Apr 2024].
+
 #### Asset Sources
+
+Photo-realistic moon textures courtesy of NASA, via their CGI moon kit: 
+- https://svs.gsfc.nasa.gov/cgi-bin/details.cgi?aid=4720
+
+Textures of astronomical bodies downloaded from SolarSystemScope under CC Attribution 4 international license:
+- https://www.solarsystemscope.com/textures/
 
 Textures downloaded from Poly Haven under a CC0 permissive license:
 - https://polyhaven.com/a/abandoned_workshop_02
@@ -164,6 +207,8 @@ Textures downloaded from Poly Haven under a CC0 permissive license:
 
 "tavern-wood-planks1" PBR texture pack downloaded from "Free PBR" and edited with GIMP. Non-commercial license. Used non-commercially under fair use (for educational purposes):
 - https://freepbr.com/materials/tavern-wood-planks/
+
+aircraft.obj made by me for this project using [Blender 4.1](https://www.blender.org/)
 
 "Hollow_Bass.wav" made by me for this project using [Audacity](https://www.audacityteam.org/).
 

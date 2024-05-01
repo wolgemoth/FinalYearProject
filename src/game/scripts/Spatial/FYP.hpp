@@ -174,7 +174,12 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0F) + 90.0F, 360.0F)), vec3(0.0, 0.0, 1.0)) *
 										             glm::angleAxis(glm::radians(geoPosition.x), vec3(1.0, 0.0, 0.0));
 								
-								stars_transform->Position(camera_transform->Position());
+								scalar_t m_to_parsec = Distance::Convert(1.0, Distance::Metre, Distance::Parsec);
+								
+								auto sol_position_parsec =
+										(sol_transform->Position() / static_cast<scalar_t>(planets->m_DistanceMultiplier)) * m_to_parsec;
+								
+								stars_transform->Position(camera_transform->Position() + sol_position_parsec);
 								stars_transform->Rotation(star_rotation);
 								
 								// Set camera far clip far enough to see distant stars and planets.
