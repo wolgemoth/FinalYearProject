@@ -14,4 +14,4 @@ int main([[maybe_unused]] int _argc, [[maybe_unused]] char* _argv[]) {
 	 */
 	return LouiEriksson::Engine::Application::Main(LouiEriksson::Game::Core::Injector::GetInitialisers());
 	
-} // LouiEriksson
+}

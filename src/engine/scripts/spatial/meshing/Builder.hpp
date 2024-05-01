@@ -38,7 +38,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			
 			std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> m_Node;
 			
-	        glm::vec3 m_Coord;
+	        vec3 m_Coord;
 			
 		public:
 			
@@ -56,16 +56,16 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 			 *
 			 * @return A constant reference to the coordinate of the Point.
 			 */
-			constexpr const glm::vec3& Coord() const noexcept {
+			constexpr const vec3& Coord() const noexcept {
 				return m_Coord;
 			}
 			
-			Point(std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> _node, const glm::vec3& _coord) noexcept :
+			Point(std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element> _node, const vec3& _coord) noexcept :
 				m_Node(std::move(_node)),
 				m_Coord(_coord) {}
 		};
 		
-	    static void AddElements(Graphics::TextureCPU<scalar_t, 1>& _heightmap, const glm::vec4& _bounds, const std::vector<std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element>>& _elements) {
+	    static void AddElements(Graphics::TextureCPU<scalar_t, 1>& _heightmap, const vec4& _bounds, const std::vector<std::shared_ptr<Serialisation::OSMDeserialiser::OSMJSON::Root::Element>>& _elements) {
 			
 			s_Points.Reserve(_elements.size());
 			
@@ -110,7 +110,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 	        return result;
 		}
 		
-		static std::optional<std::shared_ptr<ECS::GameObject>> TryCreateTerrain(const glm::ivec2& _resolution, const glm::vec2& _size, const Graphics::TextureCPU<scalar_t, 1>& _heightmap, const std::weak_ptr<ECS::GameObject>& _parent) {
+		static std::optional<std::shared_ptr<ECS::GameObject>> TryCreateTerrain(const ivec2& _resolution, const vec2& _size, const Graphics::TextureCPU<scalar_t, 1>& _heightmap, const std::weak_ptr<ECS::GameObject>& _parent) {
 			
 			std::optional<std::shared_ptr<ECS::GameObject>> result;
 			

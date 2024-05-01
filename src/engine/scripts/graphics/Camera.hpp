@@ -68,7 +68,7 @@ namespace LouiEriksson::Engine::Graphics {
 		/* PERSPECTIVE */
 		
 		/** @brief Projection matrix. */
-		glm::mat4 m_Projection;
+		mat4 m_Projection;
 		
 		/** @brief Flag that indicates if the projection matrix needs to be recalculated or not. */
 		bool m_IsDirty;
@@ -144,7 +144,7 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(u_CameraPosition,
 								t != nullptr ?
 										t->Position() :
-									glm::vec3(0.0)
+									vec3(0.0)
 							);
 							
 							RenderTexture::Bind(m_TexCoord_gBuffer);
@@ -229,8 +229,8 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(u_ScreenDimensions,
 								v != nullptr ?
-									(glm::vec2)v->Dimensions() :
-									 glm::vec2(1.0)
+									(vec2)v->Dimensions() :
+									 vec2(1.0)
 							);
 							
 							p->Assign(
@@ -293,8 +293,8 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(u_ScreenDimensions,
 								v != nullptr ?
-									(glm::vec2)v->Dimensions() :
-									 glm::vec2(1.0)
+									(vec2)v->Dimensions() :
+									 vec2(1.0)
 							);
 							
 							RenderTexture::Bind(m_Emission_gBuffer);
@@ -340,13 +340,13 @@ namespace LouiEriksson::Engine::Graphics {
 								static const auto sky_u_Blur       = s->AttributeID("u_Blur");
 								
 								static const auto sky_TRS = glm::scale(
-									glm::mat4(1.0),
-									glm::vec3(2.0)
+									mat4(1.0),
+									vec3(2.0)
 								);
 					
 								// Assign matrices.
 								s->Assign(sky_u_Projection,           Projection()); /* PROJECTION */
-								s->Assign(sky_u_View, glm::mat4(glm::mat3(View()))); /* VIEW       */
+								s->Assign(sky_u_View, mat4(mat3(View()))); /* VIEW       */
 								s->Assign(sky_u_Model,                     sky_TRS); /* MODEL      */
 								
 								// Assign texture:
@@ -409,8 +409,8 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(u_ScreenDimensions,
 								v != nullptr ?
-									(glm::vec2)v->Dimensions() :
-									 glm::vec2(1.0)
+									(vec2)v->Dimensions() :
+									 vec2(1.0)
 							);
 							
 							RenderTexture::Bind(m_Material_gBuffer);
@@ -477,8 +477,8 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							p->Assign(u_ScreenDimensions,
 								v != nullptr ?
-									(glm::vec2)v->Dimensions() :
-									 glm::vec2(1.0)
+									(vec2)v->Dimensions() :
+									 vec2(1.0)
 							);
 							
 							RenderTexture::Bind(m_Normal_gBuffer);
@@ -581,7 +581,7 @@ namespace LouiEriksson::Engine::Graphics {
 							
 							const auto lightDir = VEC_FORWARD * l->m_Transform.lock()->Rotation();
 							
-							glm::vec3 lightPos;
+							vec3 lightPos;
 							{
 								const auto t = GetTransform().lock();
 								
@@ -590,7 +590,7 @@ namespace LouiEriksson::Engine::Graphics {
 								) {
 									
 									// Compute the position of the light.
-									const glm::vec3 truncatedCamPos = glm::floor(
+									const vec3 truncatedCamPos = glm::floor(
 											t->Position() / texelSize) * texelSize;
 									
 									lightPos = truncatedCamPos + (lightDir * (l->m_Range / static_cast<GLfloat>(2.0)));
@@ -603,13 +603,13 @@ namespace LouiEriksson::Engine::Graphics {
 							if (l->Type() == Light::Parameters::Type::Point) {
 								
 								// Collection of shadow transforms for each face of the cubemap.
-								const std::array<glm::mat4, 6U> shadowTransforms {
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0,-1.0, 0.0)),
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)),
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0,-1.0, 0.0), glm::vec3(0.0, 0.0,-1.0)),
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0, 1.0), glm::vec3(0.0,-1.0, 0.0)),
-									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + glm::vec3( 0.0, 0.0,-1.0), glm::vec3(0.0,-1.0, 0.0))
+								const std::array<mat4, 6U> shadowTransforms {
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3( 1.0, 0.0, 0.0), vec3(0.0,-1.0, 0.0)),
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3(-1.0, 0.0, 0.0), vec3(0.0,-1.0, 0.0)),
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3( 0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0)),
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3( 0.0,-1.0, 0.0), vec3(0.0, 0.0,-1.0)),
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3( 0.0, 0.0, 1.0), vec3(0.0,-1.0, 0.0)),
+									l->m_Shadow.m_Projection * glm::lookAt(lightPos, lightPos + vec3( 0.0, 0.0,-1.0), vec3(0.0,-1.0, 0.0))
 								};
 								
 								// Assign the transforms to the shader.
@@ -623,11 +623,11 @@ namespace LouiEriksson::Engine::Graphics {
 								p->Assign(p->AttributeID("u_LightPosition"), lightPos  );
 								p->Assign(p->AttributeID("u_FarPlane"     ), l->m_Range);
 								
-								l->m_Shadow.m_ViewProjection = glm::mat4(1.0);
+								l->m_Shadow.m_ViewProjection = mat4(1.0);
 							}
 							else {
 								
-								glm::mat4 lightView;
+								mat4 lightView;
 								
 								lightView = glm::lookAt(
 									lightPos,
@@ -709,7 +709,7 @@ namespace LouiEriksson::Engine::Graphics {
 			if (const auto s = _shader.lock()) {
 				
 				// Cache the viewport dimensions.
-				glm::ivec4 viewport;
+				ivec4 viewport;
 				glGetIntegerv(GL_VIEWPORT, &viewport[0]);
 				
 				// Determine if the viewport dimensions need to change.
@@ -796,7 +796,7 @@ namespace LouiEriksson::Engine::Graphics {
 		static void Blur(const RenderTexture& _rt, const float& _intensity, const int& _passes, const bool& _highQuality, const bool& _consistentDPI) {
 		
 			// Get dimensions of screen.
-			const auto dimensions = glm::vec2(_rt.Width(), _rt.Height());
+			const auto dimensions = vec2(_rt.Width(), _rt.Height());
 			
 			// Horizontal and vertical blur passes.
 			static const auto blur_h = Resources::Get<Shader>("blur_horizontal");
@@ -979,7 +979,7 @@ namespace LouiEriksson::Engine::Graphics {
 			if (const auto ao = as) {
 				
 				// Get viewport dimensions:
-				glm::ivec4 viewport;
+				ivec4 viewport;
 				glGetIntegerv(GL_VIEWPORT, &viewport[0]);
 				
 				{
@@ -1146,7 +1146,7 @@ namespace LouiEriksson::Engine::Graphics {
 							const auto d = std::min((1.0 / std::log2(target::s_Diffusion + 1.0)), 1.0) * 6.0;
 							
 							// Imitate anamorphic artifacts by morphing the shape of the diffusion vector:
-							const glm::vec2 diffusionVec(
+							const vec2 diffusionVec(
 								glm::mix(0.0, d,       t),
 								glm::mix(0.0, d, 1.0 - t)
 							);
@@ -1411,7 +1411,7 @@ namespace LouiEriksson::Engine::Graphics {
 							p->Assign(p->AttributeID("u_CameraPosition"),
 								t != nullptr ?
 										t->Position() :
-									glm::vec3(0.0)
+									vec3(0.0)
 							);
 						}
 						
@@ -1837,7 +1837,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Set the Camera's clear color.
 		 * @param[in] _color The new clear color.
 		 */
-		static void ClearColor(glm::vec4 _color) {
+		static void ClearColor(vec4 _color) {
 			
 			// Set the clear color to the provided.
 			glClearColor(_color[0], _color[1], _color[2], _color[3]);
@@ -1847,9 +1847,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's clear color.
 		 * @return The Camera's clear color.
 		 */
-		[[nodiscard]] static glm::vec4 ClearColor() {
+		[[nodiscard]] static vec4 ClearColor() {
 			
-			glm::vec4 result;
+			vec4 result;
 			
 			// Read the clear value from opengl into the result.
 			glGetFloatv(GL_COLOR_CLEAR_VALUE, &result[0]);
@@ -1861,7 +1861,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's projection matrix.
 		 * @return The Camera's projection matrix.
 		 */
-		const glm::mat4& Projection() {
+		const mat4& Projection() {
 			
 			// Recalculate the perspective matrix if the camera is dirtied.
 			if (IsDirty()) {
@@ -1877,9 +1877,9 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @brief Get the Camera's view matrix.
 		 * @return The Camera's view matrix.
 		 */
-		[[nodiscard]] glm::mat4 View() const {
+		[[nodiscard]] mat4 View() const {
 		
-			glm::mat4 result;
+			mat4 result;
 			
 			if (const auto transform = GetTransform().lock()) {
 				result = glm::lookAt(
@@ -1889,7 +1889,7 @@ namespace LouiEriksson::Engine::Graphics {
 				);
 			}
 			else {
-				result = glm::mat4(1.0);
+				result = mat4(1.0);
 				
 				Debug::Log("No valid Transform Component on Camera!", LogType::Error);
 			}

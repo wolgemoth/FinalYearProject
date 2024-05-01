@@ -6,13 +6,22 @@
 #include <string>
 
 namespace LouiEriksson::Engine::Spatial::Maths {
-
+	
+	/**
+	 * @mainpage Version 1.0.0
+	 *
+	 * @brief Contains conversion functions for various units of measurement.
+	 */
 	struct Conversions final {
 	
 		using conversion_scalar_t = long double;
 	
 	public:
 	
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of speed.
+		 */
 		struct Speed {
 		
 		public:
@@ -27,14 +36,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Lightspeed,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Speed::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 			
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		protected:
@@ -81,6 +113,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of distance.
+		 */
 		struct Distance final {
 		
 		public:
@@ -100,14 +136,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Parsec,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Distance::Unit>::optional_ref TryGuessUnit(const std::string& _symbol)  {
 				return s_Lookup.Get(_symbol);
 			}
 		
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 			/**
@@ -144,7 +203,7 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 	        static conversion_scalar_t MetresToArcSeconds(const conversion_scalar_t& _metres, const conversion_scalar_t& _lat = 0.0) {
 				return _metres * std::abs(std::cos(Conversions::Rotation::s_DegreesToRadians * _lat) / (1852.0 / 60.0));
 			}
-	        
+	  
 		private:
 			
 			inline static const Hashmap<std::string, Unit> s_Lookup {
@@ -204,6 +263,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of rotation.
+		 */
 		struct Rotation final {
 		
 		public:
@@ -218,14 +281,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			static constexpr conversion_scalar_t s_DegreesToRadians = M_PI / 180.0;
 			static constexpr conversion_scalar_t s_RadiansToDegrees = 180.0 / M_PI;
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Rotation::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 		
 		private:
@@ -264,6 +350,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of time.
+		 */
 		struct Time final {
 		
 		public:
@@ -278,14 +368,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Day,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Time::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
@@ -339,6 +452,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			};
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of temperature.
+		 */
 		struct Temperature final {
 		
 		public:
@@ -352,10 +469,25 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			static constexpr conversion_scalar_t s_PlanckTemperature = 14200000000000000000000000000000000.0;
 			static constexpr conversion_scalar_t s_AbsoluteZero      =                                   0.0;
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Temperature::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 		
 				conversion_scalar_t result{};
@@ -388,6 +520,14 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				return result;
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 			static conversion_scalar_t ClampTemperature(const conversion_scalar_t& _val, Unit& _unit) {
@@ -426,6 +566,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of pressure.
+		 */
 		struct Pressure final {
 		
 		public:
@@ -458,14 +602,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				TonneSquareInch_Long,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Pressure::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
@@ -592,6 +759,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of mass.
+		 */
 		struct Mass final {
 		
 		public:
@@ -610,14 +781,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				Gigaton,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Mass::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
@@ -705,6 +899,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 			
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of area.
+		 */
 		struct Area final {
 		
 		public:
@@ -720,14 +918,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				SquareYard,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Area::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
 
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:
@@ -784,6 +1005,10 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 		
 		};
 		
+		/**
+		 * @struct Volume
+		 * @brief Provides a utility for deducing and converting between various units of volume.
+		 */
 		struct Volume final {
 		
 		public:
@@ -804,14 +1029,37 @@ namespace LouiEriksson::Engine::Spatial::Maths {
 				CubicMetre,
 			};
 			
+			/**
+			 * @brief Tries to guess the Unit based on the provided symbol.
+			 *
+			 * @param[in] _symbol The symbol to try to guess the Unit from.
+			 * @return An optional reference to the Unit enum value if a match is found, otherwise an empty optional reference.
+			 */
 			static Hashmap<std::string, Conversions::Volume::Unit>::optional_ref TryGuessUnit(const std::string& _symbol) {
 				return s_Lookup.Get(_symbol);
 			}
 			
+			/**
+			 * @brief Converts a value from one unit to another.
+			 *
+			 * @param[in] _val The value to be converted.
+			 * @param[in] _from The unit to convert from.
+			 * @param[in] _to The unit to convert to.
+			 *
+			 * @return The converted value.
+			 */
 			[[nodiscard]] static conversion_scalar_t Convert(const conversion_scalar_t& _val, const Unit& _from, const Unit& _to) {
 				return _val * (s_Conversion[_from] / s_Conversion[_to]);
 			}
-
+			
+			/**
+			 * @brief Get the symbol associated with a given Unit.
+			 *
+			 * This function returns the symbol associated with a given Unit.
+			 *
+			 * @param[in] _unit The Unit value.
+			 * @return A reference to the symbol associated with the Unit value.
+			 */
 			static const std::string& Symbol(const Unit& _unit) { return s_Symbol[_unit]; }
 			
 		private:

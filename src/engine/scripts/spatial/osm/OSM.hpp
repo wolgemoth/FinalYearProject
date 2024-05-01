@@ -32,15 +32,15 @@ namespace LouiEriksson::Engine::Spatial {
 			/**
 			* @brief Calculates the minimum and maximum elevation from a vector of coordinate points.
 			*
-			* This function takes a vector of coordinate points as input and returns a glm::vec2 object with the minimum and maximum elevation values. The elevation value is taken from the z-coordinate of each point in the vector.
+			* This function takes a vector of coordinate points as input and returns a vec2 object with the minimum and maximum elevation values. The elevation value is taken from the z-coordinate of each point in the vector.
 			*
 			* @param[in] _coords The vector of coordinate points.
-			* @return A glm::vec2 object representing the minimum and maximum elevation values.
+			* @return A vec2 object representing the minimum and maximum elevation values.
 			*/
 			template<typename T, glm::precision Q = glm::defaultp>
-			static glm::vec2 GetMinMaxElevation(const std::vector<glm::vec<3, T, Q>>& _coords) {
+			static vec2 GetMinMaxElevation(const std::vector<glm::vec<3, T, Q>>& _coords) {
 				
-				auto result = glm::vec2 {
+				auto result = vec2 {
 					 std::numeric_limits<T>::infinity(),
 					-std::numeric_limits<T>::infinity()
 				};

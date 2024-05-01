@@ -23,7 +23,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 	public:
 		
-		p_scalar    m_ScaleMultiplier = 0.000000001;  /**< World-size scale of distance units in the planetarium. */
+		p_scalar    m_ScaleMultiplier = 0.0000000001; /**< World-size scale of distance units in the planetarium. */
 		p_scalar m_DistanceMultiplier = 0.0000000001; /**< World-size scale of size units in the planetarium. */
 		
 		bool m_SunLight      = true;
@@ -352,6 +352,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		/** @inheritdoc */
 		void Begin() override {
 		
+			Settings::Graphics::Skybox::UpdateSkybox(0); // 0 = Milky Way
+			Settings::Graphics::Skybox::s_Exposure = 0.05;
+			Settings::Graphics::Perspective::s_FarClip = 1000.0;
+			
 			if (const auto p = Parent()) {
 			if (const auto s = p->GetScene()) {
 				
@@ -445,9 +449,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						 * that it is roughly "1.0" at the position of earth.
 						 */
 						static constexpr const scalar_t s_LightRange_AU = 50.0;
-						static constexpr const scalar_t s_IntensityMultiplier = 2.0; // Additional manipulation to intensity (e.g if values brighter than 1.0 at Earth are desired for HDR effects).
+						static constexpr const scalar_t s_IntensityMultiplier = 10.0; // Additional manipulation to intensity (e.g if values brighter than 1.0 at Earth are desired for HDR effects).
 						
-						static const scalar_t s_LightIntensity = s_IntensityMultiplier / sqrt(s_LightRange_AU);
+						static const scalar_t s_LightIntensity = s_IntensityMultiplier / (sqrt(s_LightRange_AU) * sqrt(s_LightRange_AU));
 						
 						Material::s_CurrentLightType = Graphics::Light::Parameters::Type::Point;
 						Material::s_LightPosition = t->Position();

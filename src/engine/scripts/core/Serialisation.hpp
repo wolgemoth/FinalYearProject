@@ -69,7 +69,7 @@ namespace LouiEriksson::Engine {
 			return result;
 		}
 	
-		static std::string Serialise(const glm::vec3& _value, const Format& _method = Format::XML) {
+		static std::string Serialise(const vec3& _value, const Format& _method = Format::XML) {
 		
 			std::ostringstream result;
 		

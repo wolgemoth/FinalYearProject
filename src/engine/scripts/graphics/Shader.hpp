@@ -447,7 +447,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _id    The ID of the shader program.
 		 * @param[in] _value The vector to assign.
 		 */
-		static void Assign(const GLint& _id, const glm::vec2& _value) { glUniform2fv(_id, 1, glm::value_ptr(_value)); }
+		static void Assign(const GLint& _id, const vec2& _value) { glUniform2fv(_id, 1, glm::value_ptr(_value)); }
 		
 		/**
 		 * @brief Assigns a 3-dimensional vector to the Shader program.
@@ -457,7 +457,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _id      The ID of the shader program.
 		 * @param[in] _value   The vector to assign.
 		 */
-		static void Assign(const GLint& _id, const glm::vec3& _value) { glUniform3fv(_id, 1, glm::value_ptr(_value)); }
+		static void Assign(const GLint& _id, const vec3& _value) { glUniform3fv(_id, 1, glm::value_ptr(_value)); }
 		
 		/**
 		 * @brief Assigns a 4-dimensional vector to the Shader.
@@ -467,7 +467,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _id    The ID of the shader program.
 		 * @param[in] _value The vector to assign.
 		 */
-		static void Assign(const GLint& _id, const glm::vec4& _value) { glUniform4fv(_id, 1, glm::value_ptr(_value)); }
+		static void Assign(const GLint& _id, const vec4& _value) { glUniform4fv(_id, 1, glm::value_ptr(_value)); }
 		
 		/**
 		 * @brief Assigns a 2x2 matrix to the Shader.
@@ -477,7 +477,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _id The ID of the shader program.
 		 * @param[in] _mat The matrix to assign.
 		 */
-		static void Assign(const GLint& _id, const glm::mat2& _mat) { glUniformMatrix2fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
+		static void Assign(const GLint& _id, const mat2& _mat) { glUniformMatrix2fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 		
 		/**
 		* @brief Assigns a 3x3 matrix to the Shader.
@@ -488,7 +488,7 @@ namespace LouiEriksson::Engine::Graphics {
 		* @param[in] _id The ID of the shader program.
 		* @param[in] _mat The matrix to assign.
 		*/
-		static void Assign(const GLint& _id, const glm::mat3& _mat) { glUniformMatrix3fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
+		static void Assign(const GLint& _id, const mat3& _mat) { glUniformMatrix3fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 		
 		/**
 		 * @brief Assigns a 4x4 matrix to the Shader program.
@@ -498,7 +498,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _id The ID of the shader program.
 		 * @param[in] _mat The matrix to assign.
 		 */
-		static void Assign(const GLint& _id, const glm::mat4& _mat) { glUniformMatrix4fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
+		static void Assign(const GLint& _id, const mat4& _mat) { glUniformMatrix4fv(_id, 1, GL_FALSE, glm::value_ptr(_mat)); }
 	
 		
 		/**

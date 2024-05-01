@@ -200,7 +200,7 @@ namespace LouiEriksson::Engine {
 		/**
 		 * @brief Returns the window's x,y dimensions as a c-style array.
 		 *
-		 * @return glm::ivec2 The window dimensions as a glm::ivec2 object.
+		 * @return ivec2 The window dimensions as a ivec2 object.
 		 */
 		[[nodiscard]] glm::vec<2, size_t> Dimensions() const override {
 		

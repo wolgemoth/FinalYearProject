@@ -8,6 +8,24 @@ namespace LouiEriksson::Engine {
 	
 	using   tick_t = long double;
 	using scalar_t = float;
+	
+	using ivec1 = glm::vec<1, int>;
+	using ivec2 = glm::vec<2, int>;
+	using ivec3 = glm::vec<3, int>;
+	using ivec4 = glm::vec<4, int>;
+	
+	using vec1 = glm::vec<1, scalar_t>;
+	using vec2 = glm::vec<2, scalar_t>;
+	using vec3 = glm::vec<3, scalar_t>;
+	using vec4 = glm::vec<4, scalar_t>;
+	
+	using quat = glm::qua<scalar_t>;
+	
+	using mat1 = glm::mat<1, 1, scalar_t>;
+	using mat2 = glm::mat<2, 2, scalar_t>;
+	using mat3 = glm::mat<3, 3, scalar_t>;
+	using mat4 = glm::mat<4, 4, scalar_t>;
+	
 }
 
 namespace std {

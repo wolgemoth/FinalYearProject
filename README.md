@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [About](#About)
+- [Features](#Features)
 - [Instructions](#Instructions)
   - [Linux](#Linux)
   - [Windows](#Windows)
@@ -19,15 +20,62 @@ It is an extension of my 3DGP assignment from second year, and is expected to un
 
 If you are assessing this project, please refer to the [Dependencies](#Dependencies) and [References](#References) sections of this document for a comprehensive list of sources.
 
+### Features
+
+- Physically-Based Rendering Pipeline
+- Full Post Processing Stack
+- PCSS Shadows
+- Physics with Bullet 3.2.5
+- Entity Component System
+- Concurrent Capabilities
+- Networking Capabilities
+- Multi-Platform Positional Audio Playback
+- Multi-Platform Keyboard and Mouse Input
+- GUI Implemented using IMGUI
+- Custom GLSL Interpreter
+- Resources System with Asset Streaming
+- Passes Valgrind and Google Sanitizers
+
+### Scenes
+
+By default, the project comes with the following scenes:
+
+### Engine Test
+
+![Engine-Test image](preview.png)
+
+This scene contains a demonstration of the engine's core functionality, in a simple PBR-rendered environment.
+
+### Planets
+
+![Planets image](planets.png)
+
+A to-scale simulation of the positions and rotations of the planets in the solar system. It updates in realtime according to the current date and time.
+
+### Stars
+
+![Stars image](stars.png)
+
+A 3D visualisation of the stars in the ATHYG dataset, with Sol positioned in the centre.
+
+
+### FYP
+
+![FYP image](fyp.png)
+![FYP2 image](fyp2.png)
+![FYP3 image](fyp3.png)
+
+A 3D map of a user-defined location in the world. It features to-scale simulations of the stars, planets, sun, and moon in 3D, alongside 3D representations of nearby aircraft broadcasting their positions. The map updates in real time and is accurate to the current time and day.
+
 ### Build from Source
 
 #### Linux
 
-The SDL2, GLEW, and OpenAL-Soft development packages are necessary for this project. If they are not already installed on your system, you may need to install them:
+To minimise project size and simplify setup, the build system is able to link to the necessary packages if they already on your system. You may need to install the following packages:
 
 ##### Debian-Based
 
-```sudo apt-get install libsdl2-dev libglew-dev libopenal-dev```
+```sudo apt-get install libsdl2-dev libglew-dev libopenal-dev libcurl4-openssl-dev libbullet-dev libassimp-dev```
 
 #### Windows
 
@@ -35,14 +83,15 @@ Building for Windows is not yet supported. This will be added in the future.
 
 ### Dependencies
 
+- [Bullet Physics 3.2.5](https://github.com/bulletphysics/bullet3)
 - [cereal v1.3.2](https://uscilab.github.io/cereal/)
+- [Dear ImGui v1.90 (IMGUI)](https://www.dearimgui.com/)
+- [libcurl](https://curl.se/libcurl/)
+- [openal-soft-1.23.1](https://github.com/kcat/openal-soft/releases/tag/1.23.1)
 - [OpenGL Extension Wrangler Library 2.1.0 (GLEW)](https://www.opengl.org/sdk/libs/GLEW/)
 - [OpenGL Mathematics 0.9.9.8 (GLM)](https://www.opengl.org/sdk/libs/GLM/)
-- [Dear ImGui v1.90 (IMGUI)](https://www.dearimgui.com/)
 - [Simple Direct Media Layer v2.x (SDL2)](https://www.libsdl.org/index.php)
 - [stb_image v2.27](https://github.com/nothings/stb/blob/master/stb_image.h)
-- [openal-soft-1.23.1](https://github.com/kcat/openal-soft/releases/tag/1.23.1)
-- [Bullet Physics 3.2.5](https://github.com/bulletphysics/bullet3)
 
 ### References
 

@@ -8,34 +8,8 @@
 
 namespace LouiEriksson::Engine::Spatial::Atmosphere {
 	
-	/*
-	This is free and unencumbered software released into the public domain.
-	
-	Anyone is free to copy, modify, publish, use, compile, sell, or
-	distribute this software, either in source code form or as a compiled
-	binary, for any purpose, commercial or non-commercial, and by any
-	means.
-	
-	In jurisdictions that recognize copyright laws, the author or authors
-	of this software dedicate any and all copyright interest in the
-	software to the public domain. We make this dedication for the benefit
-	of the public at large and to the detriment of our heirs and
-	successors. We intend this dedication to be an overt act of
-	relinquishment in perpetuity of all present and future rights to this
-	software under copyright law.
-	
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-	IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-	OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-	ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-	OTHER DEALINGS IN THE SOFTWARE.
-	
-	For more information, please refer to <https://unlicense.org>
-	 */
-
 	/**
+	 * @mainpage Version 1.0.0
 	 * @class ISA
 	 * @brief Class that represents the International Standard Atmosphere (ISA)
 	 *
@@ -155,12 +129,12 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 */
 		static void Calculate(const T& _height, State& _state, size_t& _counter) {
 	
-			const float x = std::min(_height, s_Alt[_counter]);
+			const T x = std::min(_height, s_Alt[_counter]);
 	        
-	        const float a = s_A_Val[_counter];
+	        const T a = s_A_Val[_counter];
 	        
-	        const float t = _counter == 0U ? _state.m_Temperature + a * (x - s_Alt[s_Alt.size() - 1U]) :
-					                         _state.m_Temperature + a * (x - s_Alt[    _counter - 1U]);
+	        const T t = _counter == 0U ? _state.m_Temperature + a * (x - s_Alt[s_Alt.size() - 1U]) :
+					                     _state.m_Temperature + a * (x - s_Alt[    _counter - 1U]);
 			
 			_state.m_Pressure   *= std::pow(t / _state.m_Temperature, -s_G / (s_R * (a)));
 			_state.m_Density     = _state.m_Pressure / (s_R * t);
@@ -178,7 +152,7 @@ namespace LouiEriksson::Engine::Spatial::Atmosphere {
 		 */
 		static void Pause(const T& _height, State& _state, size_t& _counter) {
 	
-			const float x = std::min(_height, s_Alt[_counter]);
+			const T x = std::min(_height, s_Alt[_counter]);
 	        
 	        _state.m_Pressure *= std::pow(
 				s_E,

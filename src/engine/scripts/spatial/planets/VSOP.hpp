@@ -8,6 +8,14 @@
 
 namespace LouiEriksson::Engine::Spatial {
 	
+	/**
+	 * @brief Class representing the VSOP astronomical coordinate system.
+	 *
+	 * The VSOP class provides functions for obtaining position information of celestial bodies.
+	 *
+	 * @tparam T The underlying type of the vector components.
+	 * @tparam Q The precision of the vector components.
+	 */
 	template <typename T, glm::precision Q>
 	struct VSOP final {
 	

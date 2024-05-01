@@ -49,6 +49,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			Settings::Graphics::Perspective::s_FarClip = 40000.0;
 			Settings::Graphics::Skybox::s_Exposure     = 0.0;
 			
+			Settings::Graphics::Skybox::s_Exposure = 0.0;
+			
 			// Parse files and build star mesh:
 			m_Task = std::async([this]() {
 				

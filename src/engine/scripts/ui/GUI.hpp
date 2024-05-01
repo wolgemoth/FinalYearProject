@@ -105,7 +105,7 @@ namespace LouiEriksson::Engine::UI {
 				if (_draw) {
 					
 					// Set default values (on first run):
-		            const auto screenSize = glm::vec2(_window.Dimensions());
+		            const auto screenSize = vec2(_window.Dimensions());
 					const auto windowSize = ImVec2(300, 200);
 					
 					ImGui::SetNextWindowSize(windowSize, ImGuiCond_Once);
@@ -667,7 +667,7 @@ namespace LouiEriksson::Engine::UI {
 						)
 					);
 					
-					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 450.0), s_WindowMargin.y), ImGuiCond_Once);
+					ImGui::SetNextWindowPos(ImVec2(static_cast<float>((s_WindowMargin.x * 2.0) + 415.0), s_WindowMargin.y), ImGuiCond_Once);
 					ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
 					
 					using target = Settings::Spatial;
@@ -679,7 +679,7 @@ namespace LouiEriksson::Engine::UI {
 					ImGui::DragFloat3("Coords", &target::s_Coord[0]);
 					
 					// 2D array of coordinates
-				    const std::array<std::pair<std::string, glm::vec2>, 11> places = {{
+				    const std::array<std::pair<std::string, vec2>, 11> places = {{
 						{ "Hong Kong",   { 22.28180, 114.17347 }},
 						{ "Bournemouth", { 50.74794, -1.87812  }},
 						{ "Null Island", {  0.0,      0.0      }},

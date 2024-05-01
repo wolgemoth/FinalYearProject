@@ -31,7 +31,7 @@ namespace LouiEriksson::Game::Scripts {
 		std::weak_ptr<Audio::AudioSource> m_AudioSource;
 		
 		/** @brief Position of the ball when it was first spawned. */
-		glm::vec3 m_StartingPosition;
+		vec3 m_StartingPosition;
 		
 		/** @brief Radius of the ball. */
 		float m_Radius;
@@ -98,8 +98,8 @@ namespace LouiEriksson::Game::Scripts {
 						rb->Position(m_StartingPosition);
 						
 						// Reset motion.
-						rb->Velocity       (glm::vec3(0.0));
-						rb->AngularVelocity(glm::vec3(0.0));
+						rb->Velocity       (vec3(0.0));
+						rb->AngularVelocity(vec3(0.0));
 					}
 				}
 			}}

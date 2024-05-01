@@ -63,8 +63,8 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				bool m_TwoSided;
 				
-				glm::mat4 m_Projection;
-				glm::mat4 m_ViewProjection;
+				mat4 m_Projection;
+				mat4 m_ViewProjection;
 				
 				ShadowMap() noexcept :
 					m_ShadowMap_Texture(GL_NONE),
@@ -208,7 +208,7 @@ namespace LouiEriksson::Engine::Graphics {
 			m_Range    (200.0),
 			m_Angle    (120.0),
 			m_Size     (  0.2),
-			m_Color    (glm::vec3(1, 1, 1))
+			m_Color    (vec3(1, 1, 1))
 		{
 			if (const auto p = Parent()) {
 				m_Transform = p->GetComponent<Transform>();
@@ -265,7 +265,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 				default: {
 					
-					m_Shadow.m_Projection = glm::mat4(1.0);
+					m_Shadow.m_Projection = mat4(1.0);
 					
 					Debug::Log("Not implemented!", LogType::Error);
 				}
@@ -290,7 +290,7 @@ namespace LouiEriksson::Engine::Graphics {
 		GLfloat m_Angle;
 		GLfloat m_Size;
 		
-		glm::vec3 m_Color;
+		vec3 m_Color;
 		
 	};
 	

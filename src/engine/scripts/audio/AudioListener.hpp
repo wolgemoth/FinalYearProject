@@ -42,16 +42,16 @@ namespace LouiEriksson::Engine::Audio {
 			ALfloat m_Gain = 0.8;
 			
 			/** @brief The position of the AudioListener. */
-			glm::vec3 m_Position;
+			vec3 m_Position;
 			
 			/** @brief The forward direction of the AudioListener. */
-			glm::vec3 m_Forward;
+			vec3 m_Forward;
 			
 			/** @brief The upward direction of the AudioListener. */
-			glm::vec3 m_Up;
+			vec3 m_Up;
 			
 			/** @brief The velocity of the AudioListener. */
-			glm::vec3 m_Velocity;
+			vec3 m_Velocity;
 			
 			constexpr Parameters() noexcept :
 				    m_Gain(0.8),
@@ -60,7 +60,7 @@ namespace LouiEriksson::Engine::Audio {
 				      m_Up(),
 				m_Velocity() {}
 			
-			constexpr Parameters(const ALfloat& _gain, const glm::vec3& _position, const glm::vec3& _forward, const glm::vec3& _up, const glm::vec3& _velocity) noexcept :
+			constexpr Parameters(const ALfloat& _gain, const vec3& _position, const vec3& _forward, const vec3& _up, const vec3& _velocity) noexcept :
 				    m_Gain(_gain    ),
 				m_Position(_position),
 				 m_Forward(_forward ),
@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine::Audio {
 				
 				// Set velocity (using rigidbody, if available):
 				{
-					glm::vec3 velocity;
+					vec3 velocity;
 					
 					if (const auto r = p->GetComponent<Physics::Rigidbody>()) {
 						velocity = r->Velocity();

@@ -13,8 +13,8 @@ namespace LouiEriksson::Engine::Physics {
 	
 	private:
 	
-		glm::vec3 m_ContactPoint; /**< @brief Collision point. */
-		glm::vec3       m_Normal; /**< @brief Collision normal. */
+		vec3 m_ContactPoint; /**< @brief Collision point. */
+		vec3       m_Normal; /**< @brief Collision normal. */
 		float          m_Impulse; /**< @brief Collision impulse. */
 	
 	public:
@@ -47,11 +47,11 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Get the contact point of the Collision.
 		 *
 		 * This function returns the contact point of the collision. The contact point is a
-		 * glm::vec3 value representing the point where the collision occurred.
+		 * vec3 value representing the point where the collision occurred.
 		 *
-		 * @return const glm::vec3& The contact point.
+		 * @return const vec3& The contact point.
 		 */
-		[[nodiscard]] constexpr const glm::vec3& ContactPoint() const noexcept {
+		[[nodiscard]] constexpr const vec3& ContactPoint() const noexcept {
 			return m_ContactPoint;
 		}
 		
@@ -59,11 +59,11 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Get the normal vector of the Collision.
 		 *
 		 * This function returns the normal vector of the collision. The normal vector is a
-		 * glm::vec3 value representing the direction perpendicular to the collision surface.
+		 * vec3 value representing the direction perpendicular to the collision surface.
 		 *
-		 * @return const glm::vec3& The normal vector.
+		 * @return const vec3& The normal vector.
 		 */
-		[[nodiscard]] constexpr const glm::vec3& Normal() const noexcept {
+		[[nodiscard]] constexpr const vec3& Normal() const noexcept {
 			return m_Normal;
 		}
 		

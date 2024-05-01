@@ -65,25 +65,25 @@ namespace LouiEriksson::Engine::Audio {
 			 * @brief Position of the AudioSource.
 			 * @note This only has an effect on positional sources.
 			 */
-			glm::vec3 m_Position;
+			vec3 m_Position;
 			
 			/**
 			 * @brief Direction of the AudioSource.
 			 * @note This only has an effect on positional sources.
 			 */
-			glm::vec3 m_Direction;
+			vec3 m_Direction;
 			
 			/**
 			 * @brief Velocity of the AudioSource.
 			 * @note This only has an effect on positional sources.
 			 */
-			glm::vec3 m_Velocity;
+			vec3 m_Velocity;
 			
 			/**
 			 * @brief Panning of audio emitted from the AudioSource.
 			 * @note This only has an effect on global sources.
 			 */
-			glm::vec3 m_Panning;
+			vec3 m_Panning;
 			
 			/**
 			 * @brief Minimum distance for this AudioSource.
@@ -311,7 +311,7 @@ namespace LouiEriksson::Engine::Audio {
 					
 						// Set velocity (using rigidbody, if available):
 						{
-							glm::vec3 velocity;
+							vec3 velocity;
 							
 							if (const auto r = p->GetComponent<Physics::Rigidbody>()) {
 								velocity = r->Velocity();

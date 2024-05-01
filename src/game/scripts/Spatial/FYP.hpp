@@ -114,9 +114,9 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								auto earth_rotation = earth_transform->Rotation();
 								
 								// Calculate the amount by which to rotate the sun and planets from VSOP into cartesian space.
-								auto geo_rotation = glm::angleAxis(glm::radians(        90.0F), glm::vec3(1.0, 0.0, 0.0)) *
-										            glm::angleAxis(glm::radians(geoPosition.y), glm::vec3(0.0, 0.0, 1.0)) *
-										            glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
+								auto geo_rotation = glm::angleAxis(glm::radians(        90.0F), vec3(1.0, 0.0, 0.0)) *
+										            glm::angleAxis(glm::radians(geoPosition.y), vec3(0.0, 0.0, 1.0)) *
+										            glm::angleAxis(glm::radians(geoPosition.x), vec3(1.0, 0.0, 0.0));
 								
 								// Get earth radius at position:
 								auto earth_radius = Maths::Coords::WGS84::EarthRadius(geoPosition.x);
@@ -140,7 +140,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								Settings::Graphics::Material::s_CurrentLightType = Light::Parameters::Type::Directional;
 								
 								// Get direction from sun to the camera:
-								auto sun_to_camera = camera_transform->Position() - static_cast<glm::vec3>(sol_transform->World()[3]);
+								auto sun_to_camera = camera_transform->Position() - static_cast<vec3>(sol_transform->World()[3]);
 								
 								bool nighttime = glm::dot(glm::normalize(sun_to_camera), glm::vec<3, scalar_t>(0.0, 1.0, 0.0)) > static_cast<scalar_t>(0.0);
 								
@@ -150,7 +150,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								auto toggle_light = 1.0;//nighttime ? 0.0 : 1.0;
 								
 								// Set position and rotation of light source:
-								Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + glm::vec3(0.0, 1.0, 0.0);
+								Settings::Graphics::Material::s_LightPosition = camera_transform->Position() + vec3(0.0, 1.0, 0.0);
 								Settings::Graphics::Material::s_LightRotation = glm::degrees(glm::eulerAngles(glm::quatLookAtRH(glm::normalize(sun_to_camera), camera_transform->UP)));
 								
 								// Adjust the brightness of the sun light according to the inverse square distance from the camera and time of day.
@@ -171,11 +171,14 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								/* Update the transform of the stars */
 								
 								// Calculate the amount by which to rotate the stars, using the latitude and solar time to calculate offsets for right ascension and declination.
-								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0F) + 90.0F, 360.0F)), glm::vec3(0.0, 0.0, 1.0)) *
-										             glm::angleAxis(glm::radians(geoPosition.x), glm::vec3(1.0, 0.0, 0.0));
+								auto star_rotation = glm::angleAxis(glm::radians(fmod(geoPosition.y + (day_elapsed * 360.0F) + 90.0F, 360.0F)), vec3(0.0, 0.0, 1.0)) *
+										             glm::angleAxis(glm::radians(geoPosition.x), vec3(1.0, 0.0, 0.0));
 								
 								stars_transform->Position(camera_transform->Position());
 								stars_transform->Rotation(star_rotation);
+								
+								// Set camera far clip far enough to see distant stars and planets.
+								Settings::Graphics::Perspective::s_FarClip = 40000;
 							}}}
 						}}}
 					}}}

@@ -39,9 +39,9 @@
 namespace LouiEriksson::Engine {
 	
 	/**
-	 * @mainpage Version 1.0.5
-	 * @details Custom Hashmap implementation accepting a customisable key and value type. Created using a combination of prior knowledge and brief online tutorial,
-	 *          This implementation requires that your "key" type is compatible with std::fnv1a and that the stored data types are copyable.
+	 * @mainpage Version 2.0.1
+	 * @details Custom Hashmap implementation accepting a customisable key and value type.
+	 *          This implementation requires that your "key" type is compatible with std::hash and that the stored data types are copyable.
 	 * @see Wang, Q. (Harry) (2020). Implementing Your Own HashMap (Explanation + Code). YouTube.
 	 *      Available at: https://www.youtube.com/watch?v=_Q-eNqTOxlE [Accessed 2021].
 	 * @tparam Tk Key type of the Hashmap.

@@ -22,7 +22,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 		
 		Hashmap<std::string_view, std::weak_ptr<ECS::GameObject>> m_Features;
 		
-		Hashmap<std::string, std::pair<std::weak_ptr<ECS::GameObject>, std::pair<glm::vec3, glm::vec3>>> m_Aircraft;
+		Hashmap<std::string, std::pair<std::weak_ptr<ECS::GameObject>, std::pair<vec3, vec3>>> m_Aircraft;
 		
 		std::future<void> m_BuildTask;
 		std::future<void> m_OpenSkyTask;
@@ -139,7 +139,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			};
 		}
 		
-		void BuildDynamicAsync(const glm::vec3& _coord, const float& _sizeKm) {
+		void BuildDynamicAsync(const vec3& _coord, const float& _sizeKm) {
 		
 			if (std::chrono::system_clock::now() > m_NextOpenSkyRequest) {
 				m_NextOpenSkyRequest = std::chrono::system_clock::now() + m_OpenSkyRequestInterval;
@@ -239,8 +239,8 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 									altitude += 30.0; // Offset for the aircraft's y-offset position in the model and lack of landing gear.
 									
 									std::shared_ptr<ECS::GameObject> gameobject;
-									glm::vec3 raw_velocity;
-									glm::vec3 raw_position;
+									vec3 raw_velocity;
+									vec3 raw_position;
 									
 									if (auto existing = m_Aircraft.Get(*item.icao24)) {
 										gameobject = existing->first.lock();
@@ -292,13 +292,13 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 										if (item.velocity.has_value()) {
 										if (item.vertical_rate.has_value()) {
 											
-											raw_velocity = rotation * glm::vec3(0.0, item.vertical_rate.value(), item.velocity.value());
+											raw_velocity = rotation * vec3(0.0, item.vertical_rate.value(), item.velocity.value());
 											
-											rotation *= glm::quatLookAtRH(glm::normalize(raw_velocity), glm::vec3(0.0, 1.0, 0.0));
+											rotation *= glm::quatLookAtRH(glm::normalize(raw_velocity), vec3(0.0, 1.0, 0.0));
 										}}
 										
 										// Deduce the yaw of the aircraft using its bearing.
-										rotation *= glm::angleAxis(glm::radians(item.true_track.value()), glm::vec3(0.0, 1.0, 0.0));
+										rotation *= glm::angleAxis(glm::radians(item.true_track.value()), vec3(0.0, 1.0, 0.0));
 										
 										raw_position = position;
 										
@@ -346,7 +346,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 			}
 		}
 		
-		void Build(const glm::vec4& _bounds, const Elevation::ElevationProvider& _provider)  {
+		void Build(const vec4& _bounds, const Elevation::ElevationProvider& _provider)  {
    
 			using OSMDeserialiser = Engine::Spatial::Serialisation::OSMDeserialiser;
 			
@@ -537,7 +537,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	        }
 	    }
 		
-		void BuildManyAsync(const glm::vec3& _coord, const float& _sizeKm, const Elevation::ElevationProvider& _provider) {
+		void BuildManyAsync(const vec3& _coord, const float& _sizeKm, const Elevation::ElevationProvider& _provider) {
 
 			const auto     bounds = Maths::Coords::GPS::GPSToBounds(_coord, _sizeKm);
 			const auto iterations = m_Subdivisions + 1;
@@ -548,7 +548,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	            const auto  width = std::abs(glm::mix(bounds.z, bounds.x, 1.0 / iterations) - bounds.z),
 	                       height = std::abs(glm::mix(bounds.w, bounds.y, 1.0 / iterations) - bounds.w);
 
-				const glm::vec4 tile_bounds {
+				const vec4 tile_bounds {
 		             bounds.x + (static_cast<float>(   i   ) * width ),
 		             bounds.y + (static_cast<float>(   j   ) * height),
 		             bounds.x + (static_cast<float>((i + 1)) * width ),

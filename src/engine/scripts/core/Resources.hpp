@@ -435,9 +435,9 @@ namespace LouiEriksson::Engine {
 					/* VERTEX DATA */
 					
 					// Get vertices, normals, and texture coordinates:
-					std::vector<glm::vec3> vertices;
-					std::vector<glm::vec3>  normals;
-					std::vector<glm::vec2>      uvs;
+					std::vector<vec3> vertices;
+					std::vector<vec3>  normals;
+					std::vector<vec2>      uvs;
 					
 					vertices.reserve(mesh->mNumVertices);
 					 normals.reserve(mesh->mNumVertices);
@@ -455,13 +455,13 @@ namespace LouiEriksson::Engine {
 					}
 					
 					// Get tangents if they exist:
-					std::array<std::vector<glm::vec3>, 2U> tangents;
+					std::array<std::vector<vec3>, 2U> tangents;
 					
 					if (mesh->HasTangentsAndBitangents()) {
 						
 						tangents = {
-							std::vector<glm::vec3>(),
-							std::vector<glm::vec3>()
+							std::vector<vec3>(),
+							std::vector<vec3>()
 						};
 						
 						tangents[0U].reserve(vertices.size());
@@ -580,8 +580,8 @@ namespace LouiEriksson::Engine {
 				std::weak_ptr<Graphics::Texture>       normal_texture;
 				std::weak_ptr<Graphics::Texture>    roughness_texture;
 				
-				std::optional<glm::vec4>   albedo_color;
-				std::optional<glm::vec3> emission_color;
+				std::optional<vec4>   albedo_color;
+				std::optional<vec3> emission_color;
 				
 				std::optional<scalar_t> ao;
 				std::optional<scalar_t> displacement;
@@ -751,8 +751,8 @@ namespace LouiEriksson::Engine {
 					if (      normal_texture.expired()) {       normal_texture = Resources::Get<Graphics::Texture>("normal"); }
 					if (   roughness_texture.expired()) {    roughness_texture = Resources::Get<Graphics::Texture>("black" ); }
 					
-					if (  !albedo_color.has_value()) {   albedo_color = glm::vec4(1.0); }
-					if (!emission_color.has_value()) { emission_color = glm::vec3(0.0); }
+					if (  !albedo_color.has_value()) {   albedo_color = vec4(1.0); }
+					if (!emission_color.has_value()) { emission_color = vec3(0.0); }
 					if (            !ao.has_value()) {             ao = 1.0; }
 					if (  !displacement.has_value()) {   displacement = 0.3; }
 					if (        !normal.has_value()) {         normal = 1.0; }
@@ -823,7 +823,7 @@ namespace LouiEriksson::Engine {
 					
 					for (size_t i = 0U; i < _paths.size(); ++i) {
 						
-						glm::ivec2 loaded_resolution { -1, -1 };
+						ivec2 loaded_resolution { -1, -1 };
 						
 						int channels;
 						GLenum texture_format;

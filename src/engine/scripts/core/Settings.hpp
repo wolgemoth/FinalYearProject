@@ -58,7 +58,7 @@ namespace LouiEriksson::Engine {
 		struct Spatial final {
 			
 			/** @brief Origin coordinate of the coordinate system (in latitude, longitude, and altitude). */
-			inline static glm::vec3 s_Coord { 22.28180, 114.17347, 0.0 };
+			inline static vec3 s_Coord { 22.28180, 114.17347, 0.0 };
 			
 		};
 		
@@ -104,7 +104,7 @@ namespace LouiEriksson::Engine {
 					"assets/textures/linear/cubemaps/little_paris_eiffel_tower_1k/",
 				};
 				
-				inline static int s_CurrentSkyboxSelection { 3 };
+				inline static int s_CurrentSkyboxSelection { 4 };
 				
 				inline static std::weak_ptr<LouiEriksson::Engine::Graphics::Cubemap> s_Skybox;
 				
@@ -145,7 +145,7 @@ namespace LouiEriksson::Engine {
 					}
 				}
 				
-				inline static glm::vec4 s_TextureScaleTranslate { 1.0, 1.0, 0.0, 0.0 };
+				inline static vec4 s_TextureScaleTranslate { 1.0, 1.0, 0.0, 0.0 };
 			
 				/* SHADOWS */
 				inline static std::vector<const char*> s_ShadowTechniques {
@@ -188,9 +188,9 @@ namespace LouiEriksson::Engine {
 				
 				inline static int s_CurrentLightType { 0 };
 				
-			    inline static glm::vec3 s_LightPosition   {   0.0,  2.5,  0.0   }; /**< @brief Position of light in world-space.     */
-			    inline static glm::vec3 s_LightRotation   { -45.0, 45.0,  0.0   }; /**< @brief Position of light in world-space.     */
-			    inline static glm::vec3 s_LightColor      {   1.0,  0.91, 0.874 }; /**< @brief Color of light.                       */
+			    inline static vec3 s_LightPosition   {   0.0,  2.5,  0.0   }; /**< @brief Position of light in world-space.     */
+			    inline static vec3 s_LightRotation   { -45.0, 45.0,  0.0   }; /**< @brief Position of light in world-space.     */
+			    inline static vec3 s_LightColor      {   1.0,  0.91, 0.874 }; /**< @brief Color of light.                       */
 				inline static  scalar_t s_LightIntensity  {   3.0 };               /**< @brief Brightness of light.                  */
 			    inline static  scalar_t s_LightRange      { 100.0 };               /**< @brief Range of light.                       */
 			    inline static  scalar_t s_LightAngle      { 120.0 };               /**< @brief Cos of light's FOV (for spot lights). */

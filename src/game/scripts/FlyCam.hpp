@@ -45,7 +45,7 @@ namespace LouiEriksson::Game::Scripts {
 		std::weak_ptr<Audio::AudioSource> m_GunSound;
 		
 		/** @brief Motion vector of the FlyCam. */
-		glm::vec3 m_Motion;
+		vec3 m_Motion;
 		
 		/** @brief Speed of FlyCam along each axis. */
 		float m_MoveSpeed;
@@ -54,7 +54,7 @@ namespace LouiEriksson::Game::Scripts {
 		float m_LookSpeed;
 		
 		/** @brief Current rotation of the flycam in degrees. */
-		glm::vec3 m_Rotation;
+		vec3 m_Rotation;
 		
 		/** @inheritdoc */
 		void Begin() override {
@@ -93,7 +93,7 @@ namespace LouiEriksson::Game::Scripts {
 				if (const auto t = m_Transform.lock()) {
 					
 					c->SetTransform(t);
-					c->ClearColor(glm::vec4(0.0));
+					c->ClearColor(vec4(0.0));
 					
 					if (const auto w = Window::Get(2U).lock()) {
 						w->Attach(c);
@@ -123,13 +123,13 @@ namespace LouiEriksson::Game::Scripts {
 				
 				/* LOOK & MOVE */
 				{
-					glm::vec3 movement_input;
-					glm::vec3    mouse_input;
+					vec3 movement_input;
+					vec3    mouse_input;
 					
 					// Handle look, move, and shoot input. Disable if cursor is not centered.
 					if (Input::Cursor::GetState().m_LockMode == Input::Cursor::State::LockMode::Centered) {
 						
-						mouse_input = glm::vec3(
+						mouse_input = vec3(
 							 Input::Input::Mouse::Motion().y,
 							 Input::Input::Mouse::Motion().x,
 							 0.0
@@ -137,7 +137,7 @@ namespace LouiEriksson::Game::Scripts {
 						
 						mouse_input *= m_Camera.lock()->FOV() * Time::UnscaledDeltaTime<scalar_t>();
 						
-						movement_input = glm::vec3(
+						movement_input = vec3(
 							static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_A     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_D    ))),
 							static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LSHIFT)) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_LCTRL))),
 							static_cast<float>(static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_W     )) - static_cast<int>(Input::Input::Key::Get(SDL_SCANCODE_S    )))
@@ -149,15 +149,15 @@ namespace LouiEriksson::Game::Scripts {
 						}
 					}
 					else {
-						   mouse_input = glm::vec3(0.0);
-						movement_input = glm::vec3(0.0);
+						   mouse_input = vec3(0.0);
+						movement_input = vec3(0.0);
 					}
 					
 					// Rotate the camera:
 					m_Rotation = Utils::WrapAngle(m_Rotation + (mouse_input * m_LookSpeed));
 					m_Rotation.x = std::clamp(m_Rotation.x, static_cast<scalar_t>(-89.999), static_cast<scalar_t>(89.999));
 					
-					const auto direction = glm::vec3(
+					const auto direction = vec3(
 						glm::cos(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x)),
 						glm::sin(glm::radians(m_Rotation.x)),
 						glm::sin(glm::radians(m_Rotation.y)) * glm::cos(glm::radians(m_Rotation.x))

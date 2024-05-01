@@ -214,16 +214,16 @@ namespace LouiEriksson::Engine::Input {
 			inline static Uint32 s_MouseState { 0U };
 			
 			/** @brief Pixels the mouse has moved since previous tick. */
-			inline static glm::vec2 s_Motion { 0.0, 0.0 };
+			inline static vec2 s_Motion { 0.0, 0.0 };
 			
 		public:
 			
 			/**
-			 * @fn const glm::vec2& Input::Mouse::Motion() noexcept
+			 * @fn const vec2& Input::Mouse::Motion() noexcept
 			 * @brief Retrieves the motion of the mouse.
 			 * @return The pixels the mouse has moved since the previous frame.
 			 */
-			static constexpr const glm::vec2& Motion() noexcept {
+			static constexpr const vec2& Motion() noexcept {
 				return s_Motion;
 			}
 			
@@ -376,10 +376,10 @@ namespace LouiEriksson::Engine::Input {
 			
 			/* HANDLE MOUSE STATE */
 			{
-				glm::ivec2 delta;
+				ivec2 delta;
 				
 				Input::Mouse::s_MouseState = SDL_GetRelativeMouseState(&delta.x, &delta.y);
-				Input::Mouse::s_Motion = (static_cast<glm::vec2>(delta) / Time::UnscaledDeltaTime<scalar_t>() / static_cast<scalar_t>(1000.0)) * static_cast<scalar_t>(0.1);
+				Input::Mouse::s_Motion = (static_cast<vec2>(delta) / Time::UnscaledDeltaTime<scalar_t>() / static_cast<scalar_t>(1000.0)) * static_cast<scalar_t>(0.1);
 			}
 			
 			/* HANDLE KEYBOARD STATES */

@@ -131,7 +131,7 @@ namespace LouiEriksson::Engine::Physics {
 		inline static std::shared_ptr<btDiscreteDynamicsWorld>             s_DynamicsWorld; /**< @brief (Bullet Physics) Dynamics world instance.         */
 		
  		/** @brief Value of gravity. */
- 		inline static glm::vec3 s_Gravity { 0.0, -9.82, 0.0 };
+ 		inline static vec3 s_Gravity { 0.0, -9.82, 0.0 };
 		
 		/** @brief Time in seconds since the physics engine was last updated. */
 		inline static btScalar s_LastTick { 0.0 };
@@ -229,17 +229,17 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/**
 		 * @brief Set the value of gravity within the simulation.
-		 * @param[in] _value The new value of gravity as a glm::vec3 object.
+		 * @param[in] _value The new value of gravity as a vec3 object.
 		 */
-		static void Gravity(const glm::vec3& _value) noexcept {
+		static void Gravity(const vec3& _value) noexcept {
 			s_Gravity = _value;
 		}
 		
 		/**
 		 * @brief Get the value of gravity within the simulation.
-		 * @return The value of gravity as a glm::vec3 object.
+		 * @return The value of gravity as a vec3 object.
 		 */
-		static constexpr const glm::vec3& Gravity() noexcept {
+		static constexpr const vec3& Gravity() noexcept {
 			return s_Gravity;
 		}
 		

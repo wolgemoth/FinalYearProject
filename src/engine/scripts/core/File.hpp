@@ -84,7 +84,19 @@ namespace LouiEriksson::Engine {
 		~File()                   = delete;
 		
 		File& operator = (const File& _other) = delete;
-			
+		
+		/**
+		 * @fn static std::stringstream ReadAllText(const std::filesystem::path& _path)
+		 * @brief Reads the contents of a text file.
+		 * @param _path The path to the file.
+		 * @return A std::stringstream containing the contents of the file.
+		 * @throws std::runtime_error If the file path is invalid.
+		 *
+		 * This function reads the contents of a text file specified by the file path.
+		 * It returns the contents of the file as a std::stringstream object.
+		 *
+		 * If the file does not exist or if the file cannot be opened, an exception is thrown.
+		 */
 		static std::stringstream ReadAllText(const std::filesystem::path& _path) {
 		
 			std::stringstream result;

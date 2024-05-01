@@ -293,7 +293,7 @@ namespace LouiEriksson::Engine::Physics {
 					const auto bRotation = t.getRotation().inverse();
 					
 					// Convert to glm types.
-					const auto lastPos = glm::vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
+					const auto lastPos = vec3(  bOrigin.x(),   bOrigin.y(),   bOrigin.z());
 					const auto lastRot = glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z());
 				
 					// Compute quaternion from angular velocity.
@@ -339,7 +339,7 @@ namespace LouiEriksson::Engine::Physics {
 						const auto bRotation = t.getRotation().inverse();
 						
 						// Sync the transform from bullet with the transform in-engine.
-						transform->Position(glm::vec3(bOrigin.x(), bOrigin.y(), bOrigin.z()));
+						transform->Position(vec3(bOrigin.x(), bOrigin.y(), bOrigin.z()));
 						transform->Rotation(glm::quat(bRotation.w(), bRotation.x(), bRotation.y(), bRotation.z()));
 					}
 				}
@@ -454,10 +454,10 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Manually set the position of the Rigidbody.
 		 * @warning You shouldn't normally need to do this. See AddForce() instead.
 		 *
-		 * @see AddForce(const glm::vec3&, const glm::vec3&)
+		 * @see AddForce(const vec3&, const vec3&)
 		 * @param[in] _value The new position to set.
 		 */
-		void Position(const glm::vec3& _value) {
+		void Position(const vec3& _value) {
 			
 			m_Transform.lock()->Position(_value);
 			
@@ -466,9 +466,9 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/**
 		 * @brief Get the position of the Rigidbody.
-		 * @return const glm::vec3& The position of the Rigidbody.
+		 * @return const vec3& The position of the Rigidbody.
 		 */
-		[[nodiscard]] glm::vec3 Position() {
+		[[nodiscard]] vec3 Position() {
 			
 			Sync();
 			
@@ -479,7 +479,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Manually set the rotation of the Rigidbody.
 		 * @warning You shouldn't normally need to do this. See AddForce() instead.
 		 *
-		 * @see AddForce(const glm::vec3&, const glm::vec3&)
+		 * @see AddForce(const vec3&, const vec3&)
 		 * @param[in] _value The new rotation to set.
 		 */
 		void Rotation(const glm::quat& _value) {
@@ -549,10 +549,10 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Manually set the velocity of the Rigidbody.
 		 * @warning You shouldn't normally need to do this. See AddForce() instead.
 		 *
-		 * @see AddForce(const glm::vec3&, const glm::vec3&)
+		 * @see AddForce(const vec3&, const vec3&)
 		 * @param[in] _value The new velocity to set.
 		 */
-		void Velocity(const glm::vec3& _value) {
+		void Velocity(const vec3& _value) {
 			
 			m_Parameters.m_BulletRigidbody->m_Rigidbody->setLinearVelocity(
 				{ _value.x, _value.y, _value.z }
@@ -561,9 +561,9 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/**
 		 * @brief Get the velocity of the Rigidbody.
-		 * @return The velocity of the Rigidbody as a glm::vec3.
+		 * @return The velocity of the Rigidbody as a vec3.
 		 */
-		[[nodiscard]] glm::vec3 Velocity() const {
+		[[nodiscard]] vec3 Velocity() const {
 			
 			const auto v = m_Parameters.m_BulletRigidbody->m_Rigidbody->getLinearVelocity();
 			
@@ -574,10 +574,10 @@ namespace LouiEriksson::Engine::Physics {
 		 * @brief Manually set the angular velocity of the Rigidbody.
 		 * @warning You shouldn't normally need to do this. See AddForce() instead.
 		 *
-		 * @see AddForce(const glm::vec3&, const glm::vec3&)
+		 * @see AddForce(const vec3&, const vec3&)
 		 * @param[in] _value The new angular velocity to set.
 		 */
-		void AngularVelocity(const glm::vec3& _value) {
+		void AngularVelocity(const vec3& _value) {
 			
 			m_Parameters.m_BulletRigidbody->m_Rigidbody->setAngularVelocity(
 				{ _value.x, _value.y, _value.z }
@@ -586,9 +586,9 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/**
 		 * @brief Get the angular velocity of the Rigidbody.
-		 * @return A glm::vec3 representing the angular velocity.
+		 * @return A vec3 representing the angular velocity.
 		 */
-		[[nodiscard]] glm::vec3 AngularVelocity() const {
+		[[nodiscard]] vec3 AngularVelocity() const {
 			
 			const auto av = m_Parameters.m_BulletRigidbody->m_Rigidbody->getAngularVelocity();
 			
@@ -605,7 +605,7 @@ namespace LouiEriksson::Engine::Physics {
 		 * @param[in] _value            The force vector to be applied.
 		 * @param[in] _relativePosition (optional) The position where the force is applied.
 		 */
-		void AddForce(const glm::vec3& _value, const glm::vec3& _relativePosition) {
+		void AddForce(const vec3& _value, const vec3& _relativePosition) {
 		
 			m_Parameters.m_BulletRigidbody->m_Rigidbody->applyForce(
 				{            _value.x,            _value.y,            _value.z },
@@ -615,9 +615,9 @@ namespace LouiEriksson::Engine::Physics {
 		
 		/**
 		 * @brief Get the force of the Rigidbody.
-		 * @return The force of the Rigidbody as a glm::vec3.
+		 * @return The force of the Rigidbody as a vec3.
 		 */
-		[[nodiscard]] glm::vec3 GetForce() const {
+		[[nodiscard]] vec3 GetForce() const {
 			
 			const auto f = m_Parameters.m_BulletRigidbody->m_Rigidbody->getTotalForce();
 			

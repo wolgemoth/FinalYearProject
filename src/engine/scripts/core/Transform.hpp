@@ -9,11 +9,11 @@
 #include <memory>
 #include <typeindex>
 
-#define VEC_ZERO    glm::vec3(0)
-#define VEC_ONE     glm::vec3(1)
-#define VEC_RIGHT   glm::vec3(1, 0, 0)
-#define VEC_UP      glm::vec3(0, 1, 0)
-#define VEC_FORWARD glm::vec3(0, 0, 1)
+#define VEC_ZERO    vec3(0)
+#define VEC_ONE     vec3(1)
+#define VEC_RIGHT   vec3(1, 0, 0)
+#define VEC_UP      vec3(0, 1, 0)
+#define VEC_FORWARD vec3(0, 0, 1)
 
 #define QUAT_IDENTITY     glm::quat( 1, 0, 0, 0)
 #define QUAT_IDENTITY_NEG glm::quat(-1, 0, 0, 0)
@@ -44,17 +44,17 @@ namespace LouiEriksson::Engine {
 		 *       0,   0, s.z,   0,
 		 *     t.x, t.y, t.z,   1
 		 */
-		glm::mat4 m_TS;
+		mat4 m_TS;
 		
-		glm::mat4 m_World;
-		glm::mat4 m_Local;
+		mat4 m_World;
+		mat4 m_Local;
 		
 		/**< @brief Rotation of the Transform. */
 		glm::quat m_Rotation;
 		
-		glm::vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
+		vec3 m_LastPosition; /**< @brief Previous position of the Transform. */
 		glm::quat m_LastRotation; /**< @brief Previous rotation of the Transform. */
-		glm::vec3 m_LastScale;    /**< @brief Previous scale of the Transform.    */
+		vec3 m_LastScale;    /**< @brief Previous scale of the Transform.    */
 		
 		/** @brief Parent of this Transform. */
 		std::weak_ptr<Transform> m_Parent;
@@ -96,7 +96,7 @@ namespace LouiEriksson::Engine {
 		 * @param[in] _vector The vector to transform.
 		 * @return The vector transformed to world space.
 		 */
-		[[nodiscard]] glm::vec3 ToWorld(const glm::vec3& _vector) const {
+		[[nodiscard]] vec3 ToWorld(const vec3& _vector) const {
 			return _vector * m_Rotation;
 		}
 		
@@ -104,12 +104,12 @@ namespace LouiEriksson::Engine {
 #define UP      ToWorld(VEC_UP)
 #define FORWARD ToWorld(VEC_FORWARD)
 
-		[[nodiscard]] glm::vec3 Position() const noexcept {
+		[[nodiscard]] vec3 Position() const noexcept {
 			return m_TS[3];
 		}
 		
-		void Position(const glm::vec3& _position) noexcept {
-			m_TS[3] = glm::vec4(_position, 1.0);
+		void Position(const vec3& _position) noexcept {
+			m_TS[3] = vec4(_position, 1.0);
 		}
 		
 		[[nodiscard]] constexpr const glm::quat& Rotation() const noexcept {
@@ -120,11 +120,11 @@ namespace LouiEriksson::Engine {
 			m_Rotation = _rotation;
 		}
 		
-		[[nodiscard]] glm::vec3 Scale() const noexcept {
+		[[nodiscard]] vec3 Scale() const noexcept {
 			return { m_TS[0].x, m_TS[1].y, m_TS[2].z };
 		}
 		
-		void Scale(const glm::vec3& _scale) noexcept  {
+		void Scale(const vec3& _scale) noexcept  {
 			m_TS[0].x = _scale.x;
 			m_TS[1].y = _scale.y;
 			m_TS[2].z = _scale.z;
@@ -134,7 +134,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Returns the model / World matrix of this transform.
 		 * @return The World matrix of the Transform.
 		 */
-		[[nodiscard]] const glm::mat4& Local() {
+		[[nodiscard]] const mat4& Local() {
 		
 			if (m_Rotation != QUAT_IDENTITY && m_Rotation != QUAT_IDENTITY_NEG) {
 				
@@ -146,7 +146,7 @@ namespace LouiEriksson::Engine {
 					m_LastRotation = Rotation();
 					m_LastScale    = Scale();
 					
-					m_Local = m_TS * glm::mat4_cast(glm::inverse(m_Rotation));
+					m_Local = m_TS * mat4_cast(glm::inverse(m_Rotation));
 				}
 			}
 			else {
@@ -156,9 +156,9 @@ namespace LouiEriksson::Engine {
 			return m_Local;
 		}
 		
-		[[nodiscard]] glm::mat4 World() {
+		[[nodiscard]] mat4 World() {
 			
-			glm::mat4 result;
+			mat4 result;
 			
 			if (const auto p = m_Parent.lock()) {
 				m_World = p->World() * Local();

@@ -23,6 +23,11 @@ namespace LouiEriksson::Engine::Networking {
 	 *      Interrupting operation with Ctrl+D enables user to type a custom response.
 	 */
 	
+	/**
+	 * @mainpage Version 1.0.0
+	 * @class Requests
+	 * @brief A class that wrapping libcurl, providing the functionality to send HTTP requests and receive responses.
+	 */
 	struct Requests final {
 		
 		class Client;
@@ -33,6 +38,10 @@ namespace LouiEriksson::Engine::Networking {
 			
 		public:
 			
+			/**
+			 * @class Data
+			 * @brief Represents data returned from a request.
+			 */
 			class Data final {
 			
 				friend Client;
@@ -66,13 +75,29 @@ namespace LouiEriksson::Engine::Networking {
 			[[nodiscard]] constexpr const CURLcode&  Status() const noexcept { return  m_Status; }
 			[[nodiscard]] constexpr const     Data& Content() const noexcept { return m_Content; }
 			
+			/**
+			 * @brief Checks if a request was successful.
+			 *
+			 * This function checks if a request was successful by inspecting the status code of the response object.
+			 *
+			 * @param[in] _response The response object to check.
+			 * @param[in] _verbose Optional parameter indicating whether to print an error message if the request fails.
+			 *                 Default value is true.
+			 *
+			 * @return True if the request was successful, False otherwise.
+			 *
+			 * @note This function assumes that the response object has already been initialized with a status code
+			 *       and content data. It uses the Status() method of the Response class to get the status code.
+			 *       If the status code is not CURLE_OK, it considers the request as failed.
+			 *       If _verbose is true and the request fails, it prints an error message.
+			 */
 			static bool Success(const Requests::Response& _response, const bool& _verbose = true) {
 				
 				const bool result = _response.Status() == CURLE_OK;
 				
 				Debug::Assert(
 					result || !_verbose,
-					"RequestOpenSky failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
+					"Request failed. Status code: " + std::to_string(_response.Status()) + ". Meaning: \"" + curl_easy_strerror(_response.Status()) + "\"",
 					LogType::Error
 				);
 				
@@ -86,6 +111,10 @@ namespace LouiEriksson::Engine::Networking {
 			
 		};
 		
+		/**
+		 * @class Client
+		 * @brief Represents a client used to send HTTP requests using libcurl.
+		 */
 		class Client final {
 		
 		private:
@@ -95,8 +124,25 @@ namespace LouiEriksson::Engine::Networking {
 			
 			Handle_t m_Handle;
 			
+			static size_t WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData) {
+		
+			const auto len = _stride * _count;
+		 
+			const auto* const addr = reinterpret_cast<char*>(_data);
+			_userData->insert(_userData->end(), addr, addr + len);
+			
+			return len;
+		}
+		
 		public:
 			
+			/**
+			 * @brief Returns the handle associated with the Client object.
+			 *
+			 * @note If the handle is null, a new handle is created.
+			 *
+			 * @return A const reference to the handle associated with the Client object.
+			 */
 			[[nodiscard]] const Handle_t& Handle() {
 				
 				if (m_Handle == nullptr) {
@@ -110,11 +156,33 @@ namespace LouiEriksson::Engine::Networking {
 				return Header_t({}, [](curl_slist* _ptr) { if (_ptr != nullptr) { curl_slist_free_all(_ptr); }});
 			}
 			
+			/**
+			 * @brief Set the value of a specified option for the libcurl handle.
+			 *
+			 * This function sets the value of a specified option for the libcurl handle used in the Client class.
+			 * The option to be set is specified by the _option parameter, and the value to be set is specified
+			 * by the _value parameter. The curl_easy_setopt function is called to set the option and value.
+			 *
+			 * @tparam T The type of the value to be set.
+			 * @param[in] _option The CURLoption specifying the option to set.
+			 * @param[in] _value The value to set for the specified option.
+			 */
 			template <typename T>
 			constexpr void Set(const CURLoption& _option, const T& _value) {
 				curl_easy_setopt(Handle().get(), _option, _value);
 			}
 			
+			/**
+			 * @brief Retrieves information from a libcurl handle.
+			 *
+			 * This function is used to retrieve information about a libcurl handle. It takes as input the CURLINFO option to specify what information should be retrieved.
+			 * The specified CURLINFO option is passed to the curl_easy_getinfo function along with the libcurl handle and a pointer to the result buffer.
+			 * The result buffer needs to be provided by the caller and should have the appropriate type to store the result.
+			 *
+			 * @tparam T The type of the result. It should match the type expected by the specified CURLINFO option.
+			 * @param _info The CURLINFO option specifying the information to retrieve.
+			 * @return The retrieved information.
+			 */
 			template <typename T>
 			[[nodiscard]] constexpr T Get(const CURLINFO _info) {
 				
@@ -125,6 +193,11 @@ namespace LouiEriksson::Engine::Networking {
 				return result;
 			}
 			
+			/**
+			 * @brief Sends an HTTP request and returns the response.
+			 *
+			 * @return A `Response` object representing the response of the HTTP request.
+			 */
 			Response Send() {
 			
 				Response r;
@@ -145,6 +218,11 @@ namespace LouiEriksson::Engine::Networking {
 				return r;
 			}
 			
+			/**
+			 * @brief Asynchronously sends an HTTP request and returns a future representing the response.
+			 *
+			 * @return A std::future object representing the response of the HTTP request.
+			 */
 			std::future<Requests::Response> SendAsync() {
 				
 				return std::async([this]() {
@@ -163,27 +241,43 @@ namespace LouiEriksson::Engine::Networking {
 			
 		};
 		
-		static size_t WriteFunction(void* _data, size_t _stride, size_t _count, std::vector<char>* _userData) {
-		
-			const auto len = _stride * _count;
-		 
-			const auto* const addr = reinterpret_cast<char*>(_data);
-			_userData->insert(_userData->end(), addr, addr + len);
-			
-			return len;
-		}
-		
+		/**
+		 * @brief Initialize the Curl library.
+		 *
+		 * This static method is used to initialize the Curl library by calling `curl_global_init(CURL_GLOBAL_ALL)`.
+		 *
+		 * @par Related Functions
+		 * - curl_global_init()
+		 *
+		 * @see curl_global_init()
+		 */
 		static void Init() {
 			curl_global_init(CURL_GLOBAL_ALL);
 		}
 		
+		/**
+		 * @brief Dispose the Curl library.
+		 *
+		 * This static method is used to dispose the Curl library by calling `curl_global_cleanup()`.
+		 * If an exception occurs during the cleanup, it will be caught and logged.
+		 *
+		 * @note This method is declared `noexcept`, indicating that it does not throw any exceptions.
+		 *
+		 * @par Dependency
+		 * - Requires the Curl library to be initialized.
+		 *
+		 * @par Related Functions
+		 * - Debug::Log(const std::exception&, const LogType&)
+		 *
+		 * @see curl_global_cleanup()
+		 */
 		static void Dispose() noexcept {
 			
 			try {
 	            curl_global_cleanup();
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e);
 			}
 		}
 	};

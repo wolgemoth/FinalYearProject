@@ -2,6 +2,7 @@
 #define FINALYEARPROJECT_WGCCRE_HPP
 
 #include <glm/detail/qualifier.hpp>
+#include <glm/common.hpp>
 
 #include <cmath>
 #include <string_view>

@@ -34,9 +34,9 @@ namespace LouiEriksson::Engine::Graphics {
 		                       m_Normal_Texture,
 		                       m_Roughness_Texture;
 		
-		glm::vec4 m_Albedo_Color;
+		vec4 m_Albedo_Color;
 		
-		glm::vec3 m_Emission_Color;
+		vec3 m_Emission_Color;
 		
 		GLfloat m_AO,
 			    m_Displacement,
@@ -52,8 +52,8 @@ namespace LouiEriksson::Engine::Graphics {
 				const std::weak_ptr<Texture>& _metallicTexture,
 				const std::weak_ptr<Texture>& _normalTexture,
 				const std::weak_ptr<Texture>& _roughnessTexture,
-				const glm::vec4&   _albedoColor,
-				const glm::vec3& _emissionColor,
+				const vec4&   _albedoColor,
+				const vec3& _emissionColor,
 				GLfloat _ao,
 				GLfloat _displacement,
 				GLfloat _normal,
@@ -91,8 +91,8 @@ namespace LouiEriksson::Engine::Graphics {
 		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetNormalTexture()       const noexcept { return m_Normal_Texture;       }
 		[[nodiscard]] constexpr const std::weak_ptr<Texture>& GetRoughnessTexture()    const noexcept { return m_Roughness_Texture;    }
 		
-		[[nodiscard]] constexpr const glm::vec4& GetAlbedoColor()   const noexcept { return m_Albedo_Color;   }
-		[[nodiscard]] constexpr const glm::vec3& GetEmissionColor() const noexcept { return m_Emission_Color; }
+		[[nodiscard]] constexpr const vec4& GetAlbedoColor()   const noexcept { return m_Albedo_Color;   }
+		[[nodiscard]] constexpr const vec3& GetEmissionColor() const noexcept { return m_Emission_Color; }
 		
 		[[nodiscard]] constexpr const GLfloat& GetAOAmount()           const noexcept { return m_AO;           }
 		[[nodiscard]] constexpr const GLfloat& GetDisplacementAmount() const noexcept { return m_Displacement; }

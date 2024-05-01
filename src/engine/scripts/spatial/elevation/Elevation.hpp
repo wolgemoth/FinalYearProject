@@ -33,13 +33,13 @@ namespace LouiEriksson::Engine::Spatial {
             OpenTopoData  = 1U, /**< @brief <a href="https://www.opentopodata.org/">OpenTopoData</a> */
         };
 		
-		static std::future<void> LoadElevationAsync(const glm::vec4& _bounds, const ElevationProvider& _provider, const glm::ivec2& _dimensions, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
+		static std::future<void> LoadElevationAsync(const vec4& _bounds, const ElevationProvider& _provider, const ivec2& _dimensions, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	
 			return std::async([_bounds, _provider, _dimensions, _timeout, _callback, &_cancellationToken]() {
 				
 				try {
 					
-			        auto elevation_points = std::vector<glm::vec2>();
+			        auto elevation_points = std::vector<vec2>();
 			
 			        for (long y = _dimensions.y - 1; y >= 0; --y) {
 			        for (long x = _dimensions.x - 1; x >= 0; --x) {
@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine::Spatial {
 	
 	private:
 	
-        static void LoadElevation(const std::vector<glm::vec2>& _points, const ElevationProvider& _provider, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
+        static void LoadElevation(const std::vector<vec2>& _points, const ElevationProvider& _provider, const std::chrono::system_clock::duration& _timeout, const std::function<void(const std::vector<glm::vec<1, scalar_t>>&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	        
 	        switch (_provider) {
 	        
@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine::Spatial {
 	        }
 	    }
 		
-        static std::future<void> PostRequestOpenElevationAsync(const std::vector<glm::vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
+        static std::future<void> PostRequestOpenElevationAsync(const std::vector<vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OEJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	
 			return std::async([_request, _callback, _timeout, &_cancellationToken]() {
 				
@@ -175,7 +175,7 @@ namespace LouiEriksson::Engine::Spatial {
 			});
 	    }
 
-        static std::future<void> PostRequestOpenTopoDataAsync(const std::vector<glm::vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OTDJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
+        static std::future<void> PostRequestOpenTopoDataAsync(const std::vector<vec2>& _request, const std::chrono::system_clock::duration& _timeout, const std::function<void(const Serialisation::ElevationDeserialiser::OTDJSON::Root&)>& _callback, Threading::Utils::CancellationToken& _cancellationToken) {
 	    
 			return std::async([_request, _callback, _timeout, &_cancellationToken]() {
 				

@@ -483,9 +483,9 @@ namespace LouiEriksson::Engine::ECS {
 			
 								xml.startNode();
 								
-								t->Position(Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+								t->Position(Serialisation::Deserialise<vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 								t->Rotation(Serialisation::Deserialise<glm::quat>(Serialisation::ParseNext(xml, log ? 3 : -1)));
-								t->Scale   (Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+								t->Scale   (Serialisation::Deserialise<vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 				
 								xml.finishNode();
 							}
@@ -496,8 +496,8 @@ namespace LouiEriksson::Engine::ECS {
 			
 								xml.startNode();
 				
-								r->       Velocity(Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
-								r->AngularVelocity(Serialisation::Deserialise<glm::vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+								r->       Velocity(Serialisation::Deserialise<vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
+								r->AngularVelocity(Serialisation::Deserialise<vec3>(Serialisation::ParseNext(xml, log ? 3 : -1)));
 								r->           Mass(Serialisation::Deserialise<float>    (Serialisation::ParseNext(xml, log ? 3 : -1)));
 								r->           Drag(Serialisation::Deserialise<float>    (Serialisation::ParseNext(xml, log ? 3 : -1)));
 								r->    AngularDrag(Serialisation::Deserialise<float>    (Serialisation::ParseNext(xml, log ? 3 : -1)));

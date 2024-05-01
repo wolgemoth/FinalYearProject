@@ -16,6 +16,7 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <cstdlib>
 #include <exception>
 #include <optional>
 #include <queue>
@@ -52,7 +53,7 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @tparam T The type of the resulting substrings. Must be either std::string or std::string_view.
 		 *
-		 * @return std::vector<T> A vector containing the splitted substrings.
+		 * @return std::vector<T> A vector containing the substrings.
 		 *
 		 * @note The function assumes that the provided delimiter is a single character.
 		 * @note If _capacity is specified, the internal vector capacity is set to that value.
@@ -289,7 +290,7 @@ namespace LouiEriksson::Engine {
 		 *
 		 * @param[in] _degrees The angle in degrees to be wrapped.
 		 *
-		 * @return glm::vec3 The wrapped angle in degrees within the range -180 to 180.
+		 * @return vec3 The wrapped angle in degrees within the range -180 to 180.
 		 */
 		template <typename T, glm::qualifier Q = glm::defaultp>
 		static constexpr glm::vec<3, T, Q> WrapAngle(const glm::vec<3, T, Q> _degrees) {
