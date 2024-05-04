@@ -107,13 +107,17 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/core/Application.hpp
         src/engine/scripts/core/Debug.hpp
         src/engine/scripts/core/File.hpp
+        src/engine/scripts/core/IViewport.hpp
         src/engine/scripts/core/Resources.hpp
         src/engine/scripts/core/Script.hpp
         src/engine/scripts/core/Serialisation.hpp
         src/engine/scripts/core/Settings.hpp
         src/engine/scripts/core/Time.hpp
         src/engine/scripts/core/Transform.hpp
+        src/engine/scripts/core/Types.hpp
         src/engine/scripts/core/utils/Hashmap.hpp
+        src/engine/scripts/core/utils/Random.hpp
+        src/engine/scripts/core/utils/ThreadUtils.hpp
         src/engine/scripts/core/utils/Utils.hpp
         src/engine/scripts/core/Window.hpp
         src/engine/scripts/ecs/Component.hpp
@@ -126,6 +130,7 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/graphics/Renderer.hpp
         src/engine/scripts/graphics/Shader.hpp
         src/engine/scripts/graphics/Texture.hpp
+        src/engine/scripts/graphics/TextureCPU.hpp
         src/engine/scripts/graphics/textures/Cubemap.hpp
         src/engine/scripts/graphics/textures/RenderTexture.hpp
         src/engine/scripts/input/Cursor.hpp
@@ -143,21 +148,16 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/spatial/maths/Conversions.hpp
         src/engine/scripts/spatial/maths/Coords.hpp
         src/engine/scripts/spatial/meshing/Builder.hpp
+        src/engine/scripts/spatial/opensky/OpenSky.hpp
+        src/engine/scripts/spatial/opensky/serialisation/OpenSkyDeserialiser.hpp
         src/engine/scripts/spatial/osm/OSM.hpp
         src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.hpp
         src/engine/scripts/spatial/planets/VSOP.hpp
         src/engine/scripts/spatial/planets/WGCCRE.hpp
         src/engine/scripts/spatial/stars/ATHYG.hpp
         src/engine/scripts/ui/GUI.hpp
-        src/engine/scripts/graphics/TextureCPU.hpp
-        src/engine/scripts/core/Types.hpp
-        src/engine/scripts/core/IViewport.hpp
         src/game/include/engine_networking.hpp
-        src/engine/scripts/core/utils/ThreadUtils.hpp
-        src/engine/scripts/core/utils/Random.hpp
         src/game/scripts/Spatial/FYP.hpp
-        src/engine/scripts/spatial/opensky/OpenSky.hpp
-        src/engine/scripts/spatial/opensky/serialisation/OpenSkyDeserialiser.hpp
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)
@@ -212,8 +212,8 @@ add_executable(Game
         src/game/scripts/Ball.hpp
         src/game/scripts/FlyCam.hpp
         src/game/scripts/Plane.hpp
-        src/game/scripts/Spatial/Planetarium.hpp
         src/game/scripts/Spatial/Map.hpp
+        src/game/scripts/Spatial/Planetarium.hpp
         src/game/scripts/Spatial/Stars.hpp
 )
 
