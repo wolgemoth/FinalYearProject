@@ -4,11 +4,27 @@ project(FinalYearProject)
 set(CMAKE_CXX_STANDARD 17)
 
 # DETECT ARCHITECTURE FOR SIMD OPTIMISATION
+include(CheckCXXCompilerFlag)
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86|AMD64)$")
-    set(ARCH_SSE2_FLAGS "-msse2")
-    set(ARCH_AVX_FLAGS "-mavx")
-    set(ARCH_AVX2_FLAGS "-mavx2")
-    set(ARCH_AVX512_FLAGS "-mavx512f -mavx512dq -mavx512bw -mavx512vl")
+    check_cxx_compiler_flag("-msse2" COMPILER_SUPPORTS_SSE2)
+    if(COMPILER_SUPPORTS_SSE2)
+        set(ARCH_SSE2_FLAGS "-msse2")
+    endif()
+
+    check_cxx_compiler_flag("-mavx" COMPILER_SUPPORTS_AVX)
+    if(COMPILER_SUPPORTS_AVX)
+        set(ARCH_AVX_FLAGS "-mavx")
+    endif()
+
+    check_cxx_compiler_flag("-mavx2" COMPILER_SUPPORTS_AVX2)
+    if(COMPILER_SUPPORTS_AVX2)
+        set(ARCH_AVX2_FLAGS "-mavx2")
+    endif()
+
+    check_cxx_compiler_flag("-mavx512f" COMPILER_SUPPORTS_AVX512)
+    if(COMPILER_SUPPORTS_AVX512)
+        set(ARCH_AVX512_FLAGS "-mavx512f -mavx512dq -mavx512bw -mavx512vl")
+    endif()
 endif()
 
 # APPEND ARCHITECTURE-SPECIFIC FLAGS FOR SIMD OPTIMISATION
