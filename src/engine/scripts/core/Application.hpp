@@ -200,8 +200,24 @@ namespace LouiEriksson::Engine {
 		Application& operator = (const Application&  _other) = delete;
 		Application& operator =       (Application&& _other) = delete;
 		
+		/**
+		 * @brief Reloads the current scene.
+		 *
+		 * This function sets the s_ReloadScene flag to true, indicating that the current scene should be reloaded.
+		 *
+		 * @see Application::s_ReloadScene
+		 */
 		static void ReloadScene() {
 			s_ReloadScene = true;
+		}
+		
+		/**
+		 * @brief Returns a weak pointer to the main window.
+		 *
+		 * @return A weak pointer to the main window.
+		 */
+		static std::weak_ptr<Window> MainWindow() {
+			return s_MainWindow;
 		}
 		
 		/**
