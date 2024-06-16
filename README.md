@@ -25,7 +25,7 @@ If you are assessing this project, please refer to the [Dependencies](#Dependenc
 - Physically-Based Rendering Pipeline
 - Full Post Processing Stack
 - PCSS Shadows
-- Physics with Bullet 3.2.5
+- Physics with Bullet 3
 - Entity Component System
 - Concurrent Capabilities
 - Networking Capabilities
