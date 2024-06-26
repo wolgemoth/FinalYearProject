@@ -73,7 +73,7 @@ A 3D map of a user-defined location in the world. It features to-scale simulatio
 
 #### Linux
 
-To minimise project size and simplify setup, the build system is able to link to the necessary packages if they already on your system. You may need to install the following packages:
+To minimise project size and simplify setup, the build system is able to link to the necessary packages if they are already installed on your system. You may need to install the following packages:
 
 ##### Debian-Based
 
