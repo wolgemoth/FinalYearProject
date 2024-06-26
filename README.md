@@ -14,7 +14,7 @@
 
 ### About
 
-This project represents the culmination of all the programming work I have completed throughout my (ongoing) final year at university.
+This project represents the culmination of the programming work I completed throughout my final year at university.
 
 It is an extension of my 3DGP assignment from second year, and is expected to undergo changes and transformations in the upcoming months as more additions and modifications are implemented.
 
