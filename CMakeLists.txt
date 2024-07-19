@@ -47,7 +47,52 @@ add_library(IMGUI STATIC
 )
 
 # FIND PACKAGES:
-find_package(GLEW   REQUIRED)
+
+# GLEW:
+find_package(GLEW)
+if (NOT GLEW_FOUND)
+
+    # Define the path to the GLEW directory
+    set(GLEW_DIR "${PROJECT_SOURCE_DIR}/contrib/glew")
+
+    # Looking for GLEW header files
+    find_path(GLEW_INCLUDE_DIR
+        NAMES GL/glew.h
+        PATHS ${GLEW_DIR}/include
+        NO_DEFAULT_PATH           # Do not search other directories
+    )
+
+    if(WIN32)
+        # Choose the correct library directory based on the system architecture
+        if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
+            set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/Release/x64)
+        else()
+            set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/Release/Win32)
+        endif()
+    else()
+        # This might be the case for Unix-based systems
+        set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib)
+    endif()
+
+    # Construct the full file path to the GLEW library
+    find_library(GLEW_LIBRARY
+        NAMES GLEW glew32 glew glew32.lib libglew32.lib libglew32.a
+        HINTS ${GLEW_LIBRARY_DIR}
+    )
+
+    if (GLEW_INCLUDE_DIR AND GLEW_LIBRARY)
+        message(STATUS "Found GLEW")
+        include_directories(${GLEW_INCLUDE_DIR})
+    else()
+        if (NOT GLEW_INCLUDE_DIR)
+            message(STATUS "GLEW_INCLUDE_DIR not found")
+        endif()
+        if (NOT GLEW_LIBRARY)
+            message(STATUS "GLEW_LIBRARY not found")
+        endif()
+    endif()
+endif()
+
 find_package(SDL2   REQUIRED)
 find_package(Bullet REQUIRED)
 find_package(OpenAL REQUIRED)
