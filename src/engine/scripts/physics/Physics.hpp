@@ -77,7 +77,7 @@ namespace LouiEriksson::Engine::Physics {
 					}
 				}
 				catch (const std::exception& e) {
-					Debug::Log(e, LogType::Critical);
+					Debug::Log(e, Critical);
 				}
 			}
 			
@@ -139,78 +139,78 @@ namespace LouiEriksson::Engine::Physics {
 		/** @brief Initialise the physics engine.*/
 		static void Init() {
 		
-			Debug::Log("Initialising Bullet Physics Engine...", LogType::Info);
+			Debug::Log("Initialising Bullet Physics Engine...", Info);
 			
 			try {
 				
 				// Initialise the configuration of the physics system.
-				Debug::Log("\tInitialising Default Configuration... ", LogType::Info, true);
+				Debug::Log("\tInitialising Default Configuration... ", Info, true);
 				try {
 					s_Configuration = std::make_shared<btDefaultCollisionConfiguration>();
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					throw e;
 				}
 				
 				// Initialise the collision dispatcher.
-				Debug::Log("\tInitialising Dispatcher... ", LogType::Info, true);
+				Debug::Log("\tInitialising Dispatcher... ", Info, true);
 				try {
 					s_Dispatcher = std::make_shared<btCollisionDispatcher>(s_Configuration.get());
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					throw e;
 				}
 				
 				// Initialise the broadphase.
-				Debug::Log("\tInitialising Broadphase... ", LogType::Info, true);
+				Debug::Log("\tInitialising Broadphase... ", Info, true);
 				try {
 					s_Broadphase = std::make_shared<btDbvtBroadphase>();
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					throw e;
 				}
 				
 				// Initialise the solver.
-				Debug::Log("\tInitialising Solver... ", LogType::Info, true);
+				Debug::Log("\tInitialising Solver... ", Info, true);
 				try {
 					s_Solver = std::make_shared<btSequentialImpulseConstraintSolver>();
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					throw e;
 				}
 				
 				// Initialise the dynamics world.
-				Debug::Log("\tInitialising Dynamics World... ", LogType::Info, true);
+				Debug::Log("\tInitialising Dynamics World... ", Info, true);
 				try {
 					s_DynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(s_Dispatcher.get(), s_Broadphase.get(), s_Solver.get(), s_Configuration.get());
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					throw e;
 				}
 				
 	//			// Create and initialise an instance of the visual debugging class.
-	//			Debug::Log("\tInitialising Debug Drawer... ", LogType::Info, true);
+	//			Debug::Log("\tInitialising Debug Drawer... ", Info, true);
 	//			try {
 	//				s_Debugger.reset(new Debugger(s_DynamicsWorld));
-	//				Debug::Log("Done.", LogType::Info);
+	//				Debug::Log("Done.", Info);
 	//			}
 	//			catch (const std::exception& e) {
-	//				Debug::Log("Failed.", LogType::Error);
+	//				Debug::Log("Failed.", Error);
 	//				throw e;
 	//			}
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 		}

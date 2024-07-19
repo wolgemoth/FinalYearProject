@@ -505,11 +505,11 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 				}
 				else {
-					Debug::Log("Camera has no valid transform!", LogType::Error);
+					Debug::Log("Camera has no valid transform!", Error);
 				}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid viewport!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid viewport!", Error);
 			}
 		}
 		
@@ -566,7 +566,7 @@ namespace LouiEriksson::Engine::Graphics {
 							case Light::Parameters::Directional: { p = Resources::Get<Shader>("shadowDepth"    ); break; }
 							case Light::Parameters::Spot:        { p = Resources::Get<Shader>("shadowDepthSpot"); break; }
 							default: {
-								Debug::Log("Unknown Light type!", LogType::Error);
+								Debug::Log("Unknown Light type!", Error);
 							}
 						}
 						
@@ -661,7 +661,7 @@ namespace LouiEriksson::Engine::Graphics {
 							}
 						}
 						else {
-							Debug::Log("Couldn't lock shadow shader program!", LogType::Error);
+							Debug::Log("Couldn't lock shadow shader program!", Error);
 						}
 						
 						// Restore original culling settings:
@@ -693,7 +693,7 @@ namespace LouiEriksson::Engine::Graphics {
 				Blit(_src, _dest, p);
 			}
 			else {
-				Debug::Log("Couldn't value passthrough shader!", LogType::Error);
+				Debug::Log("Couldn't value passthrough shader!", Error);
 			}
 		}
 		
@@ -744,7 +744,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Couldn't lock _shader!", LogType::Error);
+				Debug::Log("Couldn't lock _shader!", Error);
 			}
 		}
 		
@@ -966,7 +966,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid Window!", Error);
 			}
 		}
 		
@@ -1049,7 +1049,7 @@ namespace LouiEriksson::Engine::Graphics {
 					glDisable(GL_BLEND);
 				}
 				else {
-					Debug::Log("Error initialising the render target!", LogType::Error);
+					Debug::Log("Error initialising the render target!", Error);
 				}
 			}
 		}
@@ -1214,12 +1214,12 @@ namespace LouiEriksson::Engine::Graphics {
 						}
 					}
 					else {
-						Debug::Log("Error creating mip chain!", LogType::Error);
+						Debug::Log("Error creating mip chain!", Error);
 					}
 				}}}}}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid Window!", Error);
 			}
 		}
 		
@@ -1268,14 +1268,14 @@ namespace LouiEriksson::Engine::Graphics {
 				s_Passthrough = Resources::Get<Shader>("passthrough");
 			}
 			else {
-				Debug::Log("Couldn't bind passthrough texture!", LogType::Error);
+				Debug::Log("Couldn't bind passthrough texture!", Error);
 			}
 			
 			if (s_Cube.expired()) {
 				s_Cube = Resources::Get<Mesh>("cube");
 			}
 			else {
-				Debug::Log("Couldn't get cube mesh!", LogType::Error);
+				Debug::Log("Couldn't get cube mesh!", Error);
 			}
 		}
 		
@@ -1316,7 +1316,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid Window!", Error);
 			}
 		}
 		
@@ -1529,7 +1529,7 @@ namespace LouiEriksson::Engine::Graphics {
 									}
 								}
 								else {
-									Debug::Log("Light has no valid transform!", LogType::Error);
+									Debug::Log("Light has no valid transform!", Error);
 								}
 							}
 						}
@@ -1537,7 +1537,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid Window!", Error);
 			}
 		}
 		
@@ -1761,7 +1761,7 @@ namespace LouiEriksson::Engine::Graphics {
 			else {
 				result = -1.0;
 				
-				Debug::Log("Camera is not bound to a valid Window!", LogType::Error);
+				Debug::Log("Camera is not bound to a valid Window!", Error);
 			}
 			
 			return result;
@@ -1891,7 +1891,7 @@ namespace LouiEriksson::Engine::Graphics {
 			else {
 				result = mat4(1.0);
 				
-				Debug::Log("No valid Transform Component on Camera!", LogType::Error);
+				Debug::Log("No valid Transform Component on Camera!", Error);
 			}
 			
 			return result;

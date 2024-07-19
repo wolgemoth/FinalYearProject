@@ -189,7 +189,7 @@ namespace LouiEriksson::Engine::Graphics {
 							case GL_TEXTURE_2D:       { Texture::Unbind(); break; }
 							case GL_TEXTURE_CUBE_MAP: { Cubemap::Unbind(); break; }
 							default: {
-								Debug::Log("Unknown target \"" + std::to_string(m_Target) + "\"", LogType::Error);
+								Debug::Log("Unknown target \"" + std::to_string(m_Target) + "\"", Error);
 							}
 						}
 						
@@ -214,7 +214,7 @@ namespace LouiEriksson::Engine::Graphics {
 				m_Transform = p->GetComponent<Transform>();
 			}
 			else {
-				Debug::Log("Light has no Transform!", LogType::Error);
+				Debug::Log("Light has no Transform!", Error);
 			}
 			
 			Type(m_Type);
@@ -267,7 +267,7 @@ namespace LouiEriksson::Engine::Graphics {
 					
 					m_Shadow.m_Projection = mat4(1.0);
 					
-					Debug::Log("Not implemented!", LogType::Error);
+					Debug::Log("Not implemented!", Error);
 				}
 			}
 			

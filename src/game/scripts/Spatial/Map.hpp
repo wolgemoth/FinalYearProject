@@ -203,7 +203,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								}
 							}
 							
-							Debug::Log(response.str(), LogType::Info);
+							Debug::Log(response.str(), Info);
 							
 							/*
 							 * Spawn, or update aircraft models.
@@ -229,7 +229,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 										altitude = *(item.baro_altitude);
 									}
 									else {
-										Debug::Log("Aircraft is not broadcasting a barometric altitude. A default value of 10000 metres will be used instead.", LogType::Warning);
+										Debug::Log("Aircraft is not broadcasting a barometric altitude. A default value of 10000 metres will be used instead.", Warning);
 										
 										static constexpr auto default_altitude = 10000.0;
 									
@@ -366,7 +366,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	        
 				Debug::Log("Requested elevation resolution for this tile (" + std::to_string(r) + ") "
 			        "has reached the 128p hard limit. Elevation resolution will be clamped to 128.",
-					LogType::Warning
+					Warning
 				);
 				
 	            r = 128;
@@ -376,7 +376,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	        std::vector<std::shared_ptr<OSMDeserialiser::OSMJSON::Root::Element>> elements;
 			std::vector<glm::vec<1, scalar_t>> elevations;
 			
-			Debug::Log("Starting Map Queries...", LogType::Info);
+			Debug::Log("Starting Map Queries...", Info);
 			
 	        const auto osm_query = OSM::QueryOverpassBoundingBoxAsync(_bounds, std::chrono::seconds(60),
 				[&elements](const Networking::Requests::Response& _response) {

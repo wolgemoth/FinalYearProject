@@ -69,7 +69,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						// Spawn stars:
 						try {
 							
-							Debug::Log("Spawning " + std::to_string(stars.size()) + " stars... ", LogType::Info, true);
+							Debug::Log("Spawning " + std::to_string(stars.size()) + " stars... ", Info, true);
 							
 							std::shared_ptr<Mesh> mesh;
 							
@@ -100,10 +100,10 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 								}
 							}}
 							
-							Debug::Log("Done.", LogType::Info);
+							Debug::Log("Done.", Info);
 						}
 						catch (const std::exception& e) {
-							Debug::Log("Failed.", LogType::Error);
+							Debug::Log("Failed.", Error);
 							Debug::Log(e);
 						}
 					});
@@ -138,7 +138,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 					
 					try {
 						
-						Debug::Log("Parsing \"" + path.string() + "\"... ", LogType::Info);
+						Debug::Log("Parsing \"" + path.string() + "\"... ", Info);
 					
 						if (exists(path)) {
 							
@@ -208,7 +208,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 				Utils::MoveInto(task.get(), result);
 			}
 			
-			Debug::Log("Parsing of data yielded (" + std::to_string(result.size()) + ") entries(s).", LogType::Info);
+			Debug::Log("Parsing of data yielded (" + std::to_string(result.size()) + ") entries(s).", Info);
 			
 			return result;
 		}

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION ${CMAKE_VERSION})
-project(FinalYearProject)
+project(FinalYearProject LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -142,6 +142,9 @@ add_library(FinalYearProject STATIC
         src/engine/scripts/ui/GUI.hpp
         src/game/include/engine_networking.hpp
         src/game/scripts/Spatial/FYP.hpp
+        src/engine/scripts/graphics/api/Graphics.hpp
+        src/engine/scripts/graphics/api/OpenGLGraphics.hpp
+        src/engine/scripts/graphics/api/Graphics.hpp
 )
 
 target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)

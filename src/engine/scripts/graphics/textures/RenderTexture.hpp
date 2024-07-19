@@ -120,7 +120,7 @@ namespace LouiEriksson::Engine::Graphics {
 						break;
 					}
 					default: {
-						Debug::Log("Unknown Depth Mode \"" + std::to_string(m_DepthMode) + "\".", LogType::Error);
+						Debug::Log("Unknown Depth Mode \"" + std::to_string(m_DepthMode) + "\".", Error);
 	
 						break;
 					}
@@ -131,7 +131,7 @@ namespace LouiEriksson::Engine::Graphics {
 				m_DepthMode = _depthMode;
 			}
 			else {
-				Debug::Log("Failed generating Frame Buffer Object for new RenderTexture!", LogType::Error);
+				Debug::Log("Failed generating Frame Buffer Object for new RenderTexture!", Error);
 			}
 		}
 		

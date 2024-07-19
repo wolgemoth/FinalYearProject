@@ -815,9 +815,9 @@ namespace LouiEriksson::Engine::UI {
 		static void Dispose() noexcept {
 			
 			// Dispose of the IMGUI context.
-			try { ImGui_ImplOpenGL3_Shutdown(); } catch (const std::exception& e) {Debug::Log(e, LogType::Critical); }
-			try { ImGui_ImplSDL2_Shutdown();    } catch (const std::exception& e) {Debug::Log(e, LogType::Critical); }
-			try { ImGui::DestroyContext();      } catch (const std::exception& e) {Debug::Log(e, LogType::Critical); }
+			try { ImGui_ImplOpenGL3_Shutdown(); } catch (const std::exception& e) {Debug::Log(e, Critical); }
+			try { ImGui_ImplSDL2_Shutdown();    } catch (const std::exception& e) {Debug::Log(e, Critical); }
+			try { ImGui::DestroyContext();      } catch (const std::exception& e) {Debug::Log(e, Critical); }
 		}
 		
 	};

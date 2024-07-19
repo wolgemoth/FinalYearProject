@@ -141,10 +141,10 @@ namespace LouiEriksson::Engine::Spatial {
 						response = task.get();
 					}
 					else if (status == std::future_status::timeout) {
-						Debug::Log("OpenStreetMap Query timeout!", LogType::Error);
+						Debug::Log("OpenStreetMap Query timeout!", Error);
 					}
 					else {
-						Debug::Log("OpenStreetMap Query failure!", LogType::Error);
+						Debug::Log("OpenStreetMap Query failure!", Error);
 					}
 					
 					if (_callback != nullptr) {

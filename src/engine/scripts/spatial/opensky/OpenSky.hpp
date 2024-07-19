@@ -51,10 +51,10 @@ namespace LouiEriksson::Engine::Spatial {
 						}
 					}
 					else if (status == std::future_status::timeout) {
-						Debug::Log("OpenSky Query timeout!", LogType::Error);
+						Debug::Log("OpenSky Query timeout!", Error);
 					}
 					else {
-						Debug::Log("OpenSky Query failure!", LogType::Error);
+						Debug::Log("OpenSky Query failure!", Error);
 					}
 				}
 				catch (const std::exception& e) {

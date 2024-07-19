@@ -176,7 +176,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 //							vertices.emplace_back(ToWorldSpace<vertex_t>(c, Settings::Spatial::s_Coord));
 //						}
 //
-//						Debug::Log("Please implement a line renderer!", LogType::Info);
+//						Debug::Log("Please implement a line renderer!", Info);
 //
 ////		                auto lr = _output.GetComponent<LineRenderer>();
 ////		                lr->positionCount = points.size();
@@ -688,7 +688,7 @@ namespace LouiEriksson::Engine::Spatial::Meshing {
 	            }
 			}
 			else {
-				Debug::Log("Invalid size of vertex buffer for world-scale UV generation!", LogType::Error);
+				Debug::Log("Invalid size of vertex buffer for world-scale UV generation!", Error);
 			}
 			
 			return wall_uvs;

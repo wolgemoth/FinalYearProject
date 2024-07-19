@@ -164,13 +164,13 @@ namespace LouiEriksson::Engine {
 		    if ((error != AL_NO_ERROR) && !_silent) {
 			   
 			    switch (error) {
-					case AL_INVALID_NAME:      { Debug::Log("OpenAL Error \"AL_INVALID_NAME\"",      LogType::Error); break; }
-					case AL_INVALID_ENUM:      { Debug::Log("OpenAL Error \"AL_INVALID_ENUM\"",      LogType::Error); break; }
-					case AL_INVALID_VALUE:     { Debug::Log("OpenAL Error \"AL_INVALID_VALUE\"",     LogType::Error); break; }
-					case AL_INVALID_OPERATION: { Debug::Log("OpenAL Error \"AL_INVALID_OPERATION\"", LogType::Error); break; }
-					case AL_OUT_OF_MEMORY:     { Debug::Log("OpenAL Error \"AL_OUT_OF_MEMORY\"",     LogType::Error); break; }
+					case AL_INVALID_NAME:      { Debug::Log("OpenAL Error \"AL_INVALID_NAME\"",      Error); break; }
+					case AL_INVALID_ENUM:      { Debug::Log("OpenAL Error \"AL_INVALID_ENUM\"",      Error); break; }
+					case AL_INVALID_VALUE:     { Debug::Log("OpenAL Error \"AL_INVALID_VALUE\"",     Error); break; }
+					case AL_INVALID_OPERATION: { Debug::Log("OpenAL Error \"AL_INVALID_OPERATION\"", Error); break; }
+					case AL_OUT_OF_MEMORY:     { Debug::Log("OpenAL Error \"AL_OUT_OF_MEMORY\"",     Error); break; }
 					default: {
-						Debug::Log("OpenAL Error \"Unknown\"", LogType::Error);
+						Debug::Log("OpenAL Error \"Unknown\"", Error);
 						break;
 					}
 			    }
@@ -196,7 +196,7 @@ namespace LouiEriksson::Engine {
 				ss << "OpenGL Error [" << glError << "]: \"" <<
 					glewGetErrorString(glError) << "\"";
 				
-				Debug::Log(ss.str(), LogType::Error);
+				Debug::Log(ss.str(), Error);
 				Debug::Break();
 			}
 		}
@@ -214,7 +214,7 @@ namespace LouiEriksson::Engine {
 				std::ostringstream ss;
 				ss << "SDL Error \"" << sdlError << "\"";
 				
-				Debug::Log(ss.str(), LogType::Error);
+				Debug::Log(ss.str(), Error);
 				Debug::Break();
 				
 			    SDL_ClearError();

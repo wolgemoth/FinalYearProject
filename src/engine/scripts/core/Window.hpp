@@ -68,20 +68,20 @@ namespace LouiEriksson::Engine {
 					SDL_PIXELFORMAT_RGB24;
 			
 			if (SDL_SetWindowDisplayMode(m_Window.get(), &displayMode) != 0) {
-				Debug::Log(SDL_GetError(), LogType::Error);
+				Debug::Log(SDL_GetError(), Error);
 			}
 			else {
 				Debug::Log(
 					"Output Format: \"" + std::string(SDL_GetPixelFormatName(displayMode.format)) + "\" (" +
 							std::to_string(SDL_BITSPERPIXEL(displayMode.format)) + "bpp)",
-					LogType::Info
+					Info
 				);
 			}
 			
 			m_Context = SDL_GL_CreateContext(m_Window.get());
 			
 			if (m_Context == nullptr) {
-				Debug::Log("SDL failed to create GL context! " + std::string(SDL_GetError()), LogType::Error);
+				Debug::Log("SDL failed to create GL context! " + std::string(SDL_GetError()), Error);
 			}
 		}
 	
@@ -91,7 +91,7 @@ namespace LouiEriksson::Engine {
 				m_Cameras.clear();
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 			
 			m_Window.reset();
@@ -119,7 +119,7 @@ namespace LouiEriksson::Engine {
 				result = existing.value();
 			}
 			else {
-				Debug::Log("Failed getting window with ID: \"" + std::to_string(_id) + "\"", LogType::Error);
+				Debug::Log("Failed getting window with ID: \"" + std::to_string(_id) + "\"", Error);
 			}
 			
 			return result;
@@ -148,7 +148,7 @@ namespace LouiEriksson::Engine {
 					window->m_Cameras.clear();
 				}
 				else {
-					Debug::Log("Failed to destroy window with ID: \"" + std::to_string(_id) + "\"", LogType::Error);
+					Debug::Log("Failed to destroy window with ID: \"" + std::to_string(_id) + "\"", Error);
 				}
 			}
 		}

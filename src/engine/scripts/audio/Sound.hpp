@@ -55,18 +55,18 @@ namespace LouiEriksson::Engine::Audio {
 		/** @brief Initialise the audio subsystems. */
 		static void Init() {
 			
-			Debug::Log("Initialising audio subsystems...", LogType::Info);
+			Debug::Log("Initialising audio subsystems...", Info);
 			
 			try {
 				
 				// Init SDL audio subsystem (as fallback).
 				try {
-					Debug::Log("\tSDL...", LogType::Info, true);
+					Debug::Log("\tSDL...", Info, true);
 					SDL_InitSubSystem(SDL_INIT_AUDIO);
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					
 					throw e;
 				}
@@ -74,7 +74,7 @@ namespace LouiEriksson::Engine::Audio {
 				// Init OpenAL audio subsystem.
 				try {
 					
-					Debug::Log("\tOpenAL...", LogType::Info, true);
+					Debug::Log("\tOpenAL...", Info, true);
 				
 					// Initialise audio device.
 					if (s_Device == nullptr) {
@@ -108,10 +108,10 @@ namespace LouiEriksson::Engine::Audio {
 					DopplerFactor(1.0);
 					SpeedOfSound(343.3);
 					
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				catch (const std::exception& e) {
-					Debug::Log("Failed.", LogType::Error);
+					Debug::Log("Failed.", Error);
 					
 					throw e;
 				}
@@ -235,28 +235,28 @@ namespace LouiEriksson::Engine::Audio {
 		        alcMakeContextCurrent(nullptr);
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 			
 			try {
 				if (s_Context != nullptr) { alcDestroyContext(s_Context); s_Context = nullptr; }
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 			
 			try {
 				if (s_Device  != nullptr) { alcCloseDevice(s_Device); s_Device = nullptr; }
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 			
 			try {
 				if (s_SDL_Device > 0U) { SDL_CloseAudioDevice(s_SDL_Device); s_SDL_Device = 0U; }
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 		}
 		

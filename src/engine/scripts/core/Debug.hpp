@@ -193,7 +193,7 @@ namespace LouiEriksson::Engine {
 			
 			std::cout << Print::ToString(_type) << ": " << _message;
 			
-			if (_inline && _type != LogType::Info) {
+			if (_inline && _type != Info) {
 				std::cout << std::flush;
 			}
 			else {
@@ -603,7 +603,7 @@ namespace LouiEriksson::Engine {
 		 * @brief Logs an exception with a specified log type.
 		 *
 		 * This static method is used to log an exception with a specified log type.
-		 * By default, the log type is set to `LogType::Error`.
+		 * By default, the log type is set to `Error`.
 		 *
 		 * @param[in] e The exception to log.
 		 * @param[in] _type (optional) The log type of the message.
@@ -614,7 +614,7 @@ namespace LouiEriksson::Engine {
 		 * @par Related Functions
 		 * - Debug::Log(const std::string_view&, const LogType&, const bool&)
 		 */
-		static void Log(const std::exception& e, const LogType& _type = LogType::Error, const bool& _inline = false) noexcept  {
+		static void Log(const std::exception& e, const LogType& _type = Error, const bool& _inline = false) noexcept  {
 			Debug::Log(e.what(), _type, _inline);
 		}
 		
@@ -625,7 +625,7 @@ namespace LouiEriksson::Engine {
 		 * By default, the log type is set to `Debug`.
 		 *
 		 * @param[in] _message The message to be logged.
-		 * @param[in] _type (optional) The log type for the message (default is `LogType::Debug`).
+		 * @param[in] _type (optional) The log type for the message (default is `Debug`).
 		 * @param[in] _inline (optional) Specifies whether the log message should be displayed inline (default is `false`).
 		 */
 		static void Log(const std::string_view& _message, const LogType& _type = LogType::Debug, const bool& _inline = false) noexcept {
@@ -664,13 +664,13 @@ namespace LouiEriksson::Engine {
 					Print::Multiplatform(message.str(), _type, _inline);
 					
 					// Add trace information:
-					if (_type == LogType::Trace || _type == LogType::Critical) {
+					if (_type == Trace || _type == Critical) {
 						
 						// Start trace on new line always.
 						if (s_LastLog.m_Inline) {
 							std::cout << "\n";
 						}
-						
+
 						auto trace = StackTrace(max_frames);
 						for (size_t i = 0; i < trace.size(); ++i) {
 							
@@ -679,7 +679,7 @@ namespace LouiEriksson::Engine {
 								std::cout << '\t';
 							}
 							
-							Print::Multiplatform(trace[i], LogType::Trace, false);
+							Print::Multiplatform(trace[i], Trace, false);
 						}
 						
 						// Flush the console.
@@ -687,7 +687,7 @@ namespace LouiEriksson::Engine {
 					}
 
 #if !defined(NDEBUG) || _DEBUG
-					if (_type == LogType::Critical) { Break(); }
+					if (_type == Critical) { Break(); }
 #endif
 					s_LastLog = meta;
 					
@@ -722,7 +722,7 @@ namespace LouiEriksson::Engine {
 					result.emplace_back("...");
 				}
 	#else
-				Debug::Log("Stack trace support not been implemented for this platform!", LogType::Warning);
+				Debug::Log("Stack trace support not been implemented for this platform!", Warning);
 	#endif
 			
 			}

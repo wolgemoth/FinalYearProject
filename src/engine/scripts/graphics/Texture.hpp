@@ -267,7 +267,7 @@ namespace LouiEriksson::Engine::Graphics {
 				_textureFormat = GL_NONE;
 				_channels      = 0;
 				
-				Debug::Log("Unknown format \"" + std::to_string(_pixelFormat) + "\"", LogType::Error);
+				Debug::Log("Unknown format \"" + std::to_string(_pixelFormat) + "\"", Error);
 			}
 		}
 		/**

@@ -19,7 +19,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 	class Planetarium final : public Script {
 	
 		using highp_time = long double;
-		using p_scalar     = long double;
+		using p_scalar   = long double;
 		
 	public:
 		

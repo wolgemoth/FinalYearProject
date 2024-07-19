@@ -42,7 +42,7 @@ namespace LouiEriksson::Game::Scripts {
 					const auto collider = p->AddComponent<Physics::PlaneCollider>();
 					collider->SetTransform(transform);
 					collider->SetType(Physics::Collider::Type::Plane);
-					
+
 					// Add Rigidbody.
 					const auto rigidbody = p->AddComponent<Physics::Rigidbody>();
 					rigidbody->SetTransform(transform);
@@ -56,7 +56,7 @@ namespace LouiEriksson::Game::Scripts {
 		}
 	
 	public:
-	
+
 		explicit Plane(const std::weak_ptr<ECS::GameObject>& _parent) : Script(_parent) {};
 	
 		/** @inheritdoc */

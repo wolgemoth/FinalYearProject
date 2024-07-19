@@ -59,10 +59,10 @@ namespace LouiEriksson::Engine {
 				if (name != nullptr) {
 					
 					for (auto i = 0; i < _log; ++i) {
-						Debug::Log("\t", LogType::Info, true);
+						Debug::Log("\t", Info, true);
 					}
 				
-					Debug::Log(std::string(name) + " " + "\"" + result + "\"", LogType::Info);
+					Debug::Log(std::string(name) + " " + "\"" + result + "\"", Info);
 				}
 			}
 		

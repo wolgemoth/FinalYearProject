@@ -45,7 +45,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 			if (m_Pixels.empty()) {
 				
-				Debug::Log("Texture initialised with no pixels!", LogType::Warning);
+				Debug::Log("Texture initialised with no pixels!", Warning);
 				
 				m_Pixels.emplace_back(1.0);
 				m_Width  = 1U;
@@ -53,7 +53,7 @@ namespace LouiEriksson::Engine::Graphics {
 			}
 			else if (m_Width * m_Height != m_Pixels.size()) {
 				
-				Debug::Log("The width and height of the texture does not match the length of the provided buffer!", LogType::Warning);
+				Debug::Log("The width and height of the texture does not match the length of the provided buffer!", Warning);
 				
 				m_Pixels.resize(m_Width * m_Height);
 			}

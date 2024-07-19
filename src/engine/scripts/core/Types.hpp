@@ -57,7 +57,7 @@ namespace std {
 			hash<T> hashing_func;
 			
 	        for (size_t i = 0U; i < 4U; ++i) {
-                result ^= hasher(_value[i]) << i;
+                result ^= hashing_func(_value[i]) << i;
 	        }
 			
             return result;

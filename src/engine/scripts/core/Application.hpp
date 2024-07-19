@@ -4,6 +4,8 @@
 #include "../audio/Sound.hpp"
 #include "../ecs/Scene.hpp"
 #include "../graphics/Camera.hpp"
+#include "../graphics/api/Graphics.hpp"
+#include "../graphics/api/OpenGLGraphics.hpp"
 #include "../input/Cursor.hpp"
 #include "../input/Input.hpp"
 #include "../networking/Requests.hpp"
@@ -61,7 +63,7 @@ namespace LouiEriksson::Engine {
 		inline static std::atomic<bool> s_Quit        { false }; // Is Application scheduled to quit?
 		inline static std::atomic<bool> s_Initialised { false }; // Is Application initialised?
 		inline static std::atomic<bool> s_ReloadScene { true  }; // Should the scene be reloaded?
-		
+
 		inline static std::shared_ptr<ECS::Scene> s_Scene;
 		inline static std::shared_ptr<Window>     s_MainWindow;
 		
@@ -88,20 +90,20 @@ namespace LouiEriksson::Engine {
 		
 			try {
 				
-				Debug::Log("Application::Finalise()", LogType::Info);
+				Debug::Log("Application::Finalise()", Info);
 				
 			         s_Scene.reset();
 				s_MainWindow.reset();
 			 
-				try { Utils:: ALDumpError(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); }
-				try { Utils:: GLDumpError(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); }
-				try { Utils::SDLDumpError(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); }
+				try { Utils:: ALDumpError(); } catch (const std::exception& e) { Debug::Log(e, Critical); }
+				try { Utils:: GLDumpError(); } catch (const std::exception& e) { Debug::Log(e, Critical); }
+				try { Utils::SDLDumpError(); } catch (const std::exception& e) { Debug::Log(e, Critical); }
 				
 				try {
 					Input::Cursor::Reset();
 				}
 				catch (const std::exception& e) {
-					Debug::Log(e, LogType::Critical);
+					Debug::Log(e, Critical);
 				}
 				
 				        UI::     GUI::Dispose();
@@ -115,13 +117,13 @@ namespace LouiEriksson::Engine {
 					SDL_Quit();
 				}
 				catch (const std::exception& e) {
-					Debug::Log(e, LogType::Critical);
+					Debug::Log(e, Critical);
 					
 					try {
 						Utils::SDLDumpError();
 					}
 					catch (const std::exception& e) {
-						Debug::Log(e, LogType::Critical);
+						Debug::Log(e, Critical);
 					}
 				}
 				
@@ -162,13 +164,13 @@ namespace LouiEriksson::Engine {
 					    }
 					}
 					
-					Debug::Log("Application::OnTerminate()! [REASON]: \"" + reason + "\"", LogType::Critical);
+					Debug::Log("Application::OnTerminate()! [REASON]: \"" + reason + "\"", Critical);
 				}
 				catch (...) {}
 				
 				Finalise();
 				
-				Debug::Log("Finalised.", LogType::Trace);
+				Debug::Log("Finalised.", Trace);
 			}
 			catch (...) {}
 			
@@ -232,19 +234,21 @@ namespace LouiEriksson::Engine {
 			
 			// Restrict Main() to one instance.
 			if (s_Initialised) {
-				Debug::Log("Attempted to call Application::Main() while it is already running! Do you have multiple instances?", LogType::Warning);
+				Debug::Log("Attempted to call Application::Main() while it is already running! Do you have multiple instances?", Warning);
 			}
 			else {
 				s_Quit        = false;
 				s_Initialised =  true;
 				
-				Debug::Log("Application Initialising.", LogType::Info);
+				Debug::Log("Application Initialising.", Info);
 			
 				// Set custom termination behaviour:
 				std::set_terminate(&OnTerminate);
 				
 				try {
-					
+
+					Graphics::Graphics::SetGraphicsAPI(Graphics::OpenGLGraphics());
+
 					/* INIT */
 					s_MainWindow = Window::Create(1280U, 720U, "FinalYearProject");
 					
@@ -292,7 +296,7 @@ namespace LouiEriksson::Engine {
 							
 							if (s_ReloadScene) {
 								s_ReloadScene = false;
-								LoadScene("levels/fyp.scene");
+								LoadScene("levels/stars.scene");
 							}
 							
 							Utils:: ALDumpError();
@@ -392,23 +396,23 @@ namespace LouiEriksson::Engine {
 							                physics_step += Time::UnscaledDeltaTime<tick_t>(); // Increment the physics step (used for computing number of fixed updates per frame).
 						}
 						catch (const std::exception& e) {
-							Debug::Log(e, LogType::Critical);
+							Debug::Log(e, Critical);
 						}
 					}
 				}
 				catch (const std::exception& e) {
-					Debug::Log(e, LogType::Critical);
+					Debug::Log(e, Critical);
 				}
 				
 				/* FINALISE */
 				Finalise();
 				
-				Debug::Log("Application Terminated Normally.", LogType::Info);
+				Debug::Log("Application Terminated Normally.", Info);
 			}
 			
 			return 0;
 		}
-		
+
 		/**
 		 * @brief Quit function.
 		 *
@@ -419,7 +423,7 @@ namespace LouiEriksson::Engine {
 		 */
 		static void Quit() noexcept {
 		
-			Debug::Log("Application::Quit()", LogType::Info);
+			Debug::Log("Application::Quit()", Info);
 			
 			Application::s_Quit = true;
 		}

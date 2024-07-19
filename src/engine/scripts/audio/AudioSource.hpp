@@ -570,7 +570,7 @@ namespace LouiEriksson::Engine::Audio {
 				}
 			}
 			else {
-				Debug::Log("Invalid weak pointer!", LogType::Error);
+				Debug::Log("Invalid weak pointer!", Error);
 			}
 		}
 		

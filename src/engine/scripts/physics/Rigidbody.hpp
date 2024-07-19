@@ -176,7 +176,7 @@ namespace LouiEriksson::Engine::Physics {
 						
 					}
 					else {
-						Debug::Log("Couldn't lock _collider!", LogType::Error);
+						Debug::Log("Couldn't lock _collider!", Error);
 					}
 				}
 				catch (const std::exception& e) {

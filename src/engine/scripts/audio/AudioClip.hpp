@@ -86,7 +86,7 @@ namespace LouiEriksson::Engine::Audio {
 				        case static_cast<SDL_AudioFormat>(AUDIO_U16MSB):
 				        case static_cast<SDL_AudioFormat>(AUDIO_S16MSB): { result = AL_FORMAT_MONO16; break; }
 				        default: {
-							Debug::Log("Unimplemented format: " + std::to_string(m_Specification.format), LogType::Error);
+							Debug::Log("Unimplemented format: " + std::to_string(m_Specification.format), Error);
 							break;
 						}
 					}
@@ -100,7 +100,7 @@ namespace LouiEriksson::Engine::Audio {
 				        case static_cast<SDL_AudioFormat>(AUDIO_U16MSB):
 				        case static_cast<SDL_AudioFormat>(AUDIO_S16MSB): { result = AL_FORMAT_STEREO16; break; }
 				        default: {
-							Debug::Log("Unimplemented format:" + std::to_string(m_Specification.format), LogType::Error);
+							Debug::Log("Unimplemented format:" + std::to_string(m_Specification.format), Error);
 							break;
 						}
 					}
@@ -166,7 +166,7 @@ namespace LouiEriksson::Engine::Audio {
 					
 					Debug::Log(
 						std::string("Exception occurred when freeing allocated audio data. This is a potential memory leak! ") + e.what(),
-						LogType::Critical
+						Critical
 					);
 				}
 			}
@@ -256,7 +256,7 @@ namespace LouiEriksson::Engine::Audio {
 				if (m_ALBuffer != static_cast<ALuint>(AL_NONE)) { alDeleteBuffers(1, &m_ALBuffer); m_ALBuffer = static_cast<ALuint>(AL_NONE); }
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 		}
 	};

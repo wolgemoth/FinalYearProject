@@ -113,7 +113,7 @@ namespace LouiEriksson::Engine::Graphics {
 					err << buff.data();
 				}
 				
-				Debug::Log(err.str(), LogType::Error);
+				Debug::Log(err.str(), Error);
 			}
 		}
 		
@@ -131,7 +131,7 @@ namespace LouiEriksson::Engine::Graphics {
 					type_string = "UNKNOWN TYPE";
 				}
 				
-				Debug::Log("Compiling Shader \"" + m_Name + "\" (" + type_string + ")... ", LogType::Info, true);
+				Debug::Log("Compiling Shader \"" + m_Name + "\" (" + type_string + ")... ", Info, true);
 			}
 			
 			const auto* const src = _src.data();
@@ -142,7 +142,7 @@ namespace LouiEriksson::Engine::Graphics {
 			glGetShaderiv(m_SubShaders.back(), GL_COMPILE_STATUS, &success);
 			
 			if (success != 0) {
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 			}
 			else {
 				
@@ -160,8 +160,8 @@ namespace LouiEriksson::Engine::Graphics {
 					ss << error;
 				}
 				
-				Debug::Log("Failed.", LogType::Error);
-				Debug::Log(ss.str(), LogType::Error);
+				Debug::Log("Failed.", Error);
+				Debug::Log(ss.str(), Error);
 			}
 		}
 		
@@ -236,11 +236,11 @@ namespace LouiEriksson::Engine::Graphics {
 				
 				for (const auto& shader: _subShaders) {
 					
-					Debug::Log("Loading Shader Asset \"" + std::string(shader.m_Path) + "\"... ", LogType::Info, true);
+					Debug::Log("Loading Shader Asset \"" + std::string(shader.m_Path) + "\"... ", Info, true);
 					
 					Compile((File::ReadAllText(shader.m_Path) << "\n").str(), shader.m_Type);
 					
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				
 				m_ProgramID = glCreateProgram();
@@ -357,7 +357,7 @@ namespace LouiEriksson::Engine::Graphics {
 						"No parameter with name \"" + std::string(_name) +
 						"\" exists in program with ID \"" + std::to_string(ID()) +
 						"\"\n If you are sure this parameter exists, check that it is used in the shader as it could have been optimised-out.",
-						LogType::Info
+						Info
 					);
 				}
 			}
@@ -557,7 +557,7 @@ namespace LouiEriksson::Engine::Graphics {
 				case GL_TEXTURE_2D:       { Texture::Bind(_texture.m_ShadowMap_Texture, true); break; }
 				case GL_TEXTURE_CUBE_MAP: { Cubemap::Bind(_texture.m_ShadowMap_Texture, true); break; }
 				default: {
-					Debug::Log("Unknown target \"" + std::to_string(_texture.m_Target) + "\"", LogType::Error);
+					Debug::Log("Unknown target \"" + std::to_string(_texture.m_Target) + "\"", Error);
 				}
 			}
 		}

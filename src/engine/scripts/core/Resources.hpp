@@ -156,12 +156,12 @@ namespace LouiEriksson::Engine {
 		}
 		
 		static void Dispose() noexcept {
-			try {     m_Audio.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
-			try { m_Materials.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
-			try {    m_Meshes.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
-			try {   m_Shaders.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
-			try {  m_Textures.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
-			try {  m_Cubemaps.Clear(); } catch (const std::exception& e) { Debug::Log(e, LogType::Critical); };
+			try {     m_Audio.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
+			try { m_Materials.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
+			try {    m_Meshes.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
+			try {   m_Shaders.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
+			try {  m_Textures.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
+			try {  m_Cubemaps.Clear(); } catch (const std::exception& e) { Debug::Log(e, Critical); };
 		}
 		
 		/**
@@ -188,7 +188,7 @@ namespace LouiEriksson::Engine {
 						else if (*type == typeid(Graphics::Texture  )) {  m_Textures.Assign(item.stem().string(), { item }); }
 					}
 					else {
-						Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), LogType::Warning);
+						Debug::Log("Unable to determine the type of asset with extension " + item.extension().string(), Warning);
 					}
 				}
 			}
@@ -214,7 +214,7 @@ namespace LouiEriksson::Engine {
 				
 				for (const auto& dependency : dependencies) {
 				
-					Debug::Log("Loading Shader Dependency \"" + dependency.string() + "\"... ", LogType::Info, true);
+					Debug::Log("Loading Shader Dependency \"" + dependency.string() + "\"... ", Info, true);
 					
 					try {
 						const auto name = "/" + dependency.string();
@@ -229,10 +229,10 @@ namespace LouiEriksson::Engine {
 							contents.c_str()
 						);
 						
-						Debug::Log("Done.", LogType::Info);
+						Debug::Log("Done.", Info);
 					}
 					catch (const std::exception& e) {
-						Debug::Log("Failed.", LogType::Error);
+						Debug::Log("Failed.", Error);
 						Debug::Log(e);
 					}
 				}
@@ -243,16 +243,16 @@ namespace LouiEriksson::Engine {
 			
 			bool result;
 			
-			Debug::Log("Loading AudioClip \"" + _path.string() + "\"...", LogType::Info, true);
+			Debug::Log("Loading AudioClip \"" + _path.string() + "\"...", Info, true);
 			
 			try {
 				_output = std::make_shared<Audio::AudioClip>(_path);
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 				
 				result = true;
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 				
 				result = false;
@@ -269,7 +269,7 @@ namespace LouiEriksson::Engine {
 			
 			bool result = false;
 			
-			Debug::Log("Loading Texture \"" + _path.string() + "\"... ", LogType::Info, true);
+			Debug::Log("Loading Texture \"" + _path.string() + "\"... ", Info, true);
 			
 			try {
 				
@@ -353,7 +353,7 @@ namespace LouiEriksson::Engine {
 								}
 								default: {
 									
-									Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", LogType::Warning, true);
+									Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", Warning, true);
 									
 									glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 									break;
@@ -377,7 +377,7 @@ namespace LouiEriksson::Engine {
 						
 						result = true;
 						
-						Debug::Log("Done.", LogType::Info);
+						Debug::Log("Done.", Info);
 					}
 					else {
 						throw std::runtime_error("Failed loading texture data!");
@@ -385,7 +385,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 			
@@ -396,7 +396,7 @@ namespace LouiEriksson::Engine {
 			
 			bool result = false;
 			
-			Debug::Log("Loading Mesh \"" + _path.string() + "\"... ", LogType::Info, true);
+			Debug::Log("Loading Mesh \"" + _path.string() + "\"... ", Info, true);
 			
 			/*
 			 * Implementation derived from Mesh.cpp and Mesh.h
@@ -487,7 +487,7 @@ namespace LouiEriksson::Engine {
 						const size_t limit32 = std::numeric_limits<GLuint>::max();
 						Debug::Assert(
 								mesh->mNumVertices <= limit32, "Vertex count exceeds the 32-bit limit and will be truncated. ",
-								LogType::Warning, true
+								Warning, true
 						);
 						
 						// 32-bit:
@@ -549,12 +549,12 @@ namespace LouiEriksson::Engine {
 					break;
 				}
 				
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 				
 				result = true;
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 			
@@ -565,7 +565,7 @@ namespace LouiEriksson::Engine {
 			
 			bool result = false;
 			
-			Debug::Log("Loading Material \"" + _path.string() + "\"... ", LogType::Info, true);
+			Debug::Log("Loading Material \"" + _path.string() + "\"... ", Info, true);
 			
 			try {
 				
@@ -606,7 +606,7 @@ namespace LouiEriksson::Engine {
 							const auto& key = subStrings.at(0U);
 							
 							if (key == "Ka") {
-								Debug::Log("Ambient color loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Ambient color loading not implemented... ", Warning, true);
 							}
 							else if (key == "Kd") {
 								
@@ -624,10 +624,10 @@ namespace LouiEriksson::Engine {
 								albedo_color.value().a = static_cast<float>(1.0 - std::clamp(Utils::Parse<double>(subStrings.at(1U)), 0.0, 1.0));
 							}
 							else if (key == "Ks") {
-								Debug::Log("Specular color loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Specular color loading not implemented... ", Warning, true);
 							}
 							else if (key == "illum") {
-								Debug::Log("Support for different lighting models is not implemented... ", LogType::Warning, true);
+								Debug::Log("Support for different lighting models is not implemented... ", Warning, true);
 							}
 							else if (key == "Ao") {
 								ao = Utils::Parse<float>(subStrings.at(1U));
@@ -644,7 +644,7 @@ namespace LouiEriksson::Engine {
 								};
 							}
 							else if (key == "Ni") {
-								Debug::Log("Optical density loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Optical density loading not implemented... ", Warning, true);
 							}
 							else if (key == "map_Kd") {
 								
@@ -658,13 +658,13 @@ namespace LouiEriksson::Engine {
 								}
 							}
 							else if (key == "map_Ks") {
-								Debug::Log("Specular map loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Specular map loading not implemented... ", Warning, true);
 							}
 							else if (key == "map_Tr" || key == "map_d") {
-								Debug::Log("Transparency map loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Transparency map loading not implemented... ", Warning, true);
 							}
 							else if (key == "bump" || key == "map_bump" || key == "bm") {
-								Debug::Log("Bump map loading not implemented... ", LogType::Warning, true);
+								Debug::Log("Bump map loading not implemented... ", Warning, true);
 							}
 							else if (key == "disp") {
 								
@@ -733,7 +733,7 @@ namespace LouiEriksson::Engine {
 								}
 							}
 							else {
-								Debug::Log("Unknown MTL key \"" + std::string(key.data()) + "\" ", LogType::Warning, true);
+								Debug::Log("Unknown MTL key \"" + std::string(key.data()) + "\" ", Warning, true);
 							}
 						}
 					}
@@ -781,14 +781,14 @@ namespace LouiEriksson::Engine {
 					
 					result = true;
 					
-					Debug::Log("Done.", LogType::Info);
+					Debug::Log("Done.", Info);
 				}
 				else {
 					throw std::runtime_error("Couldn't open filestream.");
 				}
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 			
@@ -803,7 +803,7 @@ namespace LouiEriksson::Engine {
 			
 			bool result = false;
 			
-			Debug::Log("Loading Cubemap... ", LogType::Info, true);
+			Debug::Log("Loading Cubemap... ", Info, true);
 			
 			try {
 				
@@ -907,7 +907,7 @@ namespace LouiEriksson::Engine {
 								break;
 							}
 							default: {
-								Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", LogType::Warning);
+								Debug::Log("Unknown (possibly unsupported) mipmap filtering value \"" + std::to_string(min) + "\". ", Warning);
 								
 								glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min));
 								break;
@@ -928,10 +928,10 @@ namespace LouiEriksson::Engine {
 				
 				result = true;
 				
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 			
@@ -1059,7 +1059,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Error accessing resource \"" + _name + "\". Reason : " + std::string(e.what()), LogType::Error);
+				Debug::Log("Error accessing resource \"" + _name + "\". Reason : " + std::string(e.what()), Error);
 			}
 			
 			return result;
@@ -1209,7 +1209,7 @@ namespace LouiEriksson::Engine {
 						else if (suffix == "pz") { faces[4] = file; }
 						else if (suffix == "nz") { faces[5] = file; }
 						else {
-							Debug::Log("Unknown cubemap face \"" + suffix + "\"", LogType::Warning);
+							Debug::Log("Unknown cubemap face \"" + suffix + "\"", Warning);
 						}
 					}
 					
@@ -1305,7 +1305,7 @@ namespace LouiEriksson::Engine {
 			Resources::GetBucket<Graphics::Cubemap>().Assign(_name, item);
 		}
 		catch (const std::exception& e) {
-			Debug::Log("Error accessing resource \"" + _name + "\". Reason : " + std::string(e.what()), LogType::Error);
+			Debug::Log("Error accessing resource \"" + _name + "\". Reason : " + std::string(e.what()), Error);
 		}
 		
 		return result;

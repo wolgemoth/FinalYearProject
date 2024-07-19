@@ -409,7 +409,7 @@ namespace LouiEriksson::Engine::Input {
 				Event::s_Events.Clear();
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 			
 			try {
@@ -422,7 +422,7 @@ namespace LouiEriksson::Engine::Input {
 				}
 			}
 			catch (const std::exception& e) {
-				Debug::Log(e, LogType::Critical);
+				Debug::Log(e, Critical);
 			}
 		}
 		

@@ -314,7 +314,7 @@ namespace LouiEriksson::Engine::ECS {
 		 */
 		void Save(const std::filesystem::path& _path) {
 		
-			Debug::Log("Saving Scene... ", LogType::Info, true);
+			Debug::Log("Saving Scene... ", Info, true);
 			
 			try {
 				auto ofStream = std::ofstream(_path);
@@ -409,7 +409,7 @@ namespace LouiEriksson::Engine::ECS {
 							xml.finishNode();
 						}
 						else {
-							Debug::Log("Serialisation for type \"" + std::string(kvp.first.name()) + "\" has not been implemented.", LogType::Warning);
+							Debug::Log("Serialisation for type \"" + std::string(kvp.first.name()) + "\" has not been implemented.", Warning);
 						}
 					}
 					
@@ -418,10 +418,10 @@ namespace LouiEriksson::Engine::ECS {
 				
 				xml.finishNode();
 				
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 		}
@@ -435,7 +435,7 @@ namespace LouiEriksson::Engine::ECS {
 		 */
 		static std::shared_ptr<Scene> Load(const std::filesystem::path& _path, const Hashmap<std::string, std::shared_ptr<Script> (*)(const std::weak_ptr<ECS::GameObject>& parent)>& _initialisers) {
 		
-			Debug::Log("Loading Scene \"" + _path.string() + "\"... ", LogType::Info, true);
+			Debug::Log("Loading Scene \"" + _path.string() + "\"... ", Info, true);
 			
 			auto result = std::make_shared<Scene>();
 			result->m_Path = _path;
@@ -453,13 +453,13 @@ namespace LouiEriksson::Engine::ECS {
 				auto gameObjectCount = 0;
 				xml.loadSize(gameObjectCount);
 			
-				Debug::Assert(!log, "GameObjects: " + std::to_string(gameObjectCount), LogType::Info);
+				Debug::Assert(!log, "GameObjects: " + std::to_string(gameObjectCount), Info);
 				
 				for (auto i = 0; i < gameObjectCount; ++i) {
 			
 					const char* const goName = xml.getNodeName();
 					
-					Debug::Assert(!log, "\tName: \"" + std::string(goName) + "\"", LogType::Info);
+					Debug::Assert(!log, "\tName: \"" + std::string(goName) + "\"", Info);
 	
 					// Create GameObject to populate.
 					auto go = result->Create(goName);
@@ -469,13 +469,13 @@ namespace LouiEriksson::Engine::ECS {
 					auto count = 0;
 					xml.loadSize(count);
 					
-					Debug::Assert(!log, "\tComponents: " + std::to_string(count), LogType::Info);
+					Debug::Assert(!log, "\tComponents: " + std::to_string(count), Info);
 					
 					for (auto j = 0; j < count; j++) {
 			
 						const auto* const name = xml.getNodeName();
 						
-						Debug::Assert(!log, "\t\t" + std::string(name), LogType::Info);
+						Debug::Assert(!log, "\t\t" + std::string(name), Info);
 						
 						if (strcmp(name, typeid(Transform).name()) == 0) {			// Deserialise Transform.
 			
@@ -536,7 +536,7 @@ namespace LouiEriksson::Engine::ECS {
 							std::string type;
 							xml(type);
 							
-							Debug::Assert(!log, "\t\t\t\"" + std::string(type) + "\"", LogType::Info);
+							Debug::Assert(!log, "\t\t\t\"" + std::string(type) + "\"", Info);
 							
 							try {
 							
@@ -561,7 +561,7 @@ namespace LouiEriksson::Engine::ECS {
 							xml.finishNode();
 						}
 						else {
-							Debug::Log("Deserialisation for type \"" + std::string(name) + "\" has not been implemented.", LogType::Warning);
+							Debug::Log("Deserialisation for type \"" + std::string(name) + "\" has not been implemented.", Warning);
 						}
 					}
 			
@@ -570,10 +570,10 @@ namespace LouiEriksson::Engine::ECS {
 			
 				xml.finishNode();
 				
-				Debug::Log("Done.", LogType::Info);
+				Debug::Log("Done.", Info);
 			}
 			catch (const std::exception& e) {
-				Debug::Log("Failed.", LogType::Error);
+				Debug::Log("Failed.", Error);
 				Debug::Log(e);
 			}
 			

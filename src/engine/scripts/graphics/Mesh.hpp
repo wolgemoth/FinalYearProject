@@ -270,11 +270,11 @@ namespace LouiEriksson::Engine::Graphics {
 					}
 				}
 				else {
-					Debug::Log("Vertices / UVs collection length mismatch!", LogType::Error);
+					Debug::Log("Vertices / UVs collection length mismatch!", Error);
 				}
 			}
 			else {
-				Debug::Log("Vertices / UVs cannot be empty!", LogType::Error);
+				Debug::Log("Vertices / UVs cannot be empty!", Error);
 			}
 			
 			return result;
@@ -314,7 +314,7 @@ namespace LouiEriksson::Engine::Graphics {
 				}
 			}
 			else {
-				Debug::Log("Invalid vertex / index buffer size!", LogType::Error);
+				Debug::Log("Invalid vertex / index buffer size!", Error);
 			}
 			
 		    return result;
@@ -329,7 +329,7 @@ namespace LouiEriksson::Engine::Graphics {
 
 				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
-				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", Error);
 				
 				// TODO: Make this better.
 				
@@ -361,7 +361,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
-				Debug::Assert(_polygon.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polygon.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", Error);
 				
 				// TODO: Make this better.
 				
@@ -396,7 +396,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
-				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polyline.size() <= std::numeric_limits<U>::max(), "Vertex count exceeds the type's limit!", Error);
 				
 				// TODO: Make this better.
 				
@@ -428,7 +428,7 @@ namespace LouiEriksson::Engine::Graphics {
 			
 				static_assert(std::is_floating_point_v<T>, "T must be a floating point type");
 				
-				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", LogType::Error);
+				Debug::Assert(_polygon.size() <= std::numeric_limits<N>::max(), "Vertex count exceeds the type's limit!", Error);
 				
 				// TODO: Make this better.
 				
@@ -697,7 +697,7 @@ namespace LouiEriksson::Engine::Graphics {
 						
 						const size_t limit32 = std::numeric_limits<U>::max();
 						
-						Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", LogType::Warning);
+						Debug::Assert(_vertices.size() <= limit32, "Point cloud has too many vertices! Exceeds the 32-bit limit and will be truncated.", Warning);
 						
 						result->m_VertexCount = std::min(_vertices.size(), limit32);
 						
