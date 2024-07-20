@@ -32,7 +32,7 @@ set(CMAKE_CXX_FLAGS_NOSANITIZERS "-Wall -Wextra -fno-omit-frame-pointer -g -O0")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native -funroll-loops -DNDEBUG")
 
-# ADD IMGUI:
+# IMGUI:
 set(IMGUI_DIR          ${PROJECT_SOURCE_DIR}/contrib/imgui)
 set(IMGUI_BACKENDS_DIR ${PROJECT_SOURCE_DIR}/contrib/imgui/backends)
 
@@ -45,8 +45,6 @@ add_library(IMGUI STATIC
         ${IMGUI_BACKENDS_DIR}/imgui_impl_opengl3.cpp
         ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl2.cpp      # BACKENDS ...
 )
-
-# FIND PACKAGES:
 
 # GLEW:
 find_package(GLEW)
@@ -93,7 +91,38 @@ if (NOT GLEW_FOUND)
     endif()
 endif()
 
-find_package(SDL2   REQUIRED)
+# SDL2:
+find_package(SDL2)
+if (NOT SDL2_FOUND)
+
+    set(SDL2_PATH ${PROJECT_SOURCE_DIR}/contrib/SDL2)
+    set(SDL2_INCLUDE_DIRS ${SDL2_PATH}/include)
+
+    if(WIN32)
+        if(CMAKE_SIZEOF_VOID_P EQUAL 8) # It is 64-bit, so:
+            set(SDL2_LIBRARIES ${SDL2_PATH}/win32-x64/SDL2.dll)
+        else() # It is 32-bit
+            set(SDL2_LIBRARIES ${SDL2_PATH}/win32-x86/SDL2.dll)
+        endif()
+    elseif(APPLE)
+        set(SDL2_DIR "${PROJECT_SOURCE_DIR}/contrib/SDL2/macos/SDL2.framework")
+        find_package(SDL2 REQUIRED COMPONENTS SDL2)
+    else() # Assuming Linux for else
+        #support both 32 and 64 bit builds
+        if (${CMAKE_SIZEOF_VOID_P} MATCHES 8)
+            set(SDL2_LIBRARIES
+                    ${SDL2_PATH}/linux/lib64/libSDL2.a
+                    ${SDL2_PATH}/linux/lib64/libSDL2-2.0.so
+            )
+        else ()
+            set(SDL2_LIBRARIES
+                ${SDL2_PATH}/linux/lib/libSDL2.a
+                ${SDL2_PATH}/linux/lib/libSDL2-2.0.so
+            )
+        endif()
+    endif()
+endif()
+
 find_package(Bullet REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(CURL   REQUIRED)
