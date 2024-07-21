@@ -759,7 +759,7 @@ namespace LouiEriksson::Engine::Graphics {
 		 * @param[in] _mesh The mesh to draw.
 		 */
 		static void Draw(const Graphics::Mesh& _mesh) {
-		
+
 			// Bind VAO.
 			Mesh::Bind(_mesh);
 			
@@ -1285,7 +1285,7 @@ namespace LouiEriksson::Engine::Graphics {
 		void ReinitialiseBuffers(const std::shared_ptr<IViewport<scalar_t, size_t>>& _viewport) {
 			
 			const auto& d = _viewport->Dimensions();
-			
+
 			// Reinitialise the g-buffer:
 			              m_RT.Reinitialise(d.x, d.y);
 			  m_Albedo_gBuffer.Reinitialise(d.x, d.y);

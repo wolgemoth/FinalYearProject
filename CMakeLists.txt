@@ -61,18 +61,22 @@ if (NOT GLEW_FOUND)
     )
 
     if(WIN32)
-        # Choose the correct library directory based on the system architecture
+
+        # Support for both 32 and 64 bit builds:
         if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
             set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/Release/x64)
         else()
             set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib/Release/Win32)
         endif()
+
     else()
+
         # This might be the case for Unix-based systems
         set(GLEW_LIBRARY_DIR ${GLEW_ROOT_DIR}/lib)
+
     endif()
 
-    # Construct the full file path to the GLEW library
+    # Construct the full file path to the GLEW library:
     find_library(GLEW_LIBRARY
         NAMES GLEW glew32 glew glew32.lib libglew32.lib libglew32.a
         HINTS ${GLEW_LIBRARY_DIR}
@@ -99,16 +103,22 @@ if (NOT SDL2_FOUND)
     set(SDL2_INCLUDE_DIRS ${SDL2_PATH}/include)
 
     if(WIN32)
-        if(CMAKE_SIZEOF_VOID_P EQUAL 8) # It is 64-bit, so:
+
+        # Support for both 32 and 64 bit builds:
+        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
             set(SDL2_LIBRARIES ${SDL2_PATH}/win32-x64/SDL2.dll)
-        else() # It is 32-bit
+        else()
             set(SDL2_LIBRARIES ${SDL2_PATH}/win32-x86/SDL2.dll)
         endif()
+
     elseif(APPLE)
+
         set(SDL2_DIR "${SDL2_PATH}/macos/SDL2.framework")
         find_package(SDL2 REQUIRED COMPONENTS SDL2)
-    else() # Assuming Linux for else
-        #support both 32 and 64 bit builds
+
+    else() # Assuming Linux / Unix environment:
+
+        # Support for both 32 and 64 bit builds:
         if (${CMAKE_SIZEOF_VOID_P} MATCHES 8)
             set(SDL2_LIBRARIES
                     ${SDL2_PATH}/linux/lib64/libSDL2.a
@@ -245,8 +255,9 @@ file(GLOB_RECURSE GAME_SOURCES
         "${CMAKE_SOURCE_DIR}/src/game/scripts/*.hpp"
 )
 add_executable(Game
-        "${CMAKE_SOURCE_DIR}/src/main.cpp"
         ${GAME_SOURCES}
+
+        "${CMAKE_SOURCE_DIR}/src/main.cpp"
 )
 
 # PRECOMPILE INCLUDED HEADERS FOR GAME

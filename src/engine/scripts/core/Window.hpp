@@ -18,6 +18,18 @@
 #include <cstddef>
 #include <memory>
 
+#ifdef WIN32
+
+#include <windows.h>
+
+// only for PROCESS_Dpi_AWARENESS enum, optional, if you know the
+// values and don't want to include the header file:
+// PROCESS_DPI_UNAWARE = 0, PROCESS_SYSTEM_DPI_AWARE = 1, PROCESS_PER_MONITOR_DPI_AWARE = 2
+#include <ShellScalingApi.h>
+
+#endif //WIN32
+
+
 namespace LouiEriksson::Engine {
 
 	class Window final : public IViewport<scalar_t, size_t>, public std::enable_shared_from_this<Window> {
@@ -38,13 +50,40 @@ namespace LouiEriksson::Engine {
 		
 		std::unordered_set<std::shared_ptr<Graphics::Camera>> m_Cameras;
 		
-		Window(const size_t& _width, const size_t& _height, const std::string_view& _name, bool _fullscreen = false, bool _hdr10 = true) : m_IsDirty(true) {
-			
+		Window(const size_t& _width, const size_t& _height, const std::string_view& _name, bool _fullscreen = false, bool _ignoreSystemScaling = true, bool _hdr10 = true) : m_IsDirty(true) {
+
+			// Ignore system-specific window-scaling.
+			if (_ignoreSystemScaling) {
+
+#ifdef _WIN32
+				HMODULE Shcore = LoadLibrary(TEXT("Shcore.dll"));
+				if (Shcore) {
+					auto dllSetProcessDpiAwareness = (HRESULT (WINAPI *)(PROCESS_DPI_AWARENESS))GetProcAddress(Shcore, "SetProcessDpiAwareness");
+					if (dllSetProcessDpiAwareness) {
+						HRESULT result = dllSetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
+						if (FAILED(result ) {
+							// Handle error
+						}
+					} else {
+						// fall back to less granular system DPI awareness setting
+						SetProcessDPIAware();
+					}
+					FreeLibrary(Shcore);
+				} else {
+					// fall back to less granular system DPI awareness setting
+					SetProcessDPIAware();
+				}
+#elif __linux__
+				(void)putenv((char*)"SDL_VIDEO_X11_XRANDR=0");
+#endif
+			}
+
 			m_Window = std::shared_ptr<SDL_Window>(
 				SDL_CreateWindow(_name.data(),
-					static_cast<int>(SDL_WINDOWPOS_UNDEFINED),
-					static_cast<int>(SDL_WINDOWPOS_UNDEFINED),
-					static_cast<int>(_width), static_cast<int>(_height),
+					SDL_WINDOWPOS_UNDEFINED,
+					SDL_WINDOWPOS_UNDEFINED,
+					static_cast<int>(_width),
+					static_cast<int>(_height),
 					static_cast<unsigned>(SDL_WINDOW_RESIZABLE)         |
 						static_cast<unsigned>(SDL_WINDOW_ALLOW_HIGHDPI) |
 						static_cast<unsigned>(SDL_WINDOW_OPENGL)
@@ -105,7 +144,7 @@ namespace LouiEriksson::Engine {
 		static std::shared_ptr<Window> Create(const size_t& _width, const size_t& _height, const std::string_view& _name)  {
 		
 			std::shared_ptr<Window> result(new Window(_width, _height, _name), [](Window* _ptr) { delete _ptr; });
-		
+
 			s_Windows.Add(result->ID(), result);
 		
 			return result;
@@ -207,11 +246,11 @@ namespace LouiEriksson::Engine {
 			glm::vec<2, int> size(-1, -1);
 		
 			SDL_GetWindowSize(m_Window.get(), &size[0], &size[1]);
-		
+
 			size.x = std::max(size.x, 0);
 			size.y = std::max(size.y, 0);
 			
-			return static_cast<glm::vec<2, size_t>>(size);
+			return size;
 		}
 	
 		[[nodiscard]] bool Focused() const {
