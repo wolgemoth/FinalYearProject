@@ -1,0 +1,1 @@
+cmd='/snap/clion/284/bin/cmake/linux/x64/bin/cmake;-DCMAKE_INSTALL_PREFIX:PATH=/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft;-GCodeBlocks - Unix Makefiles;-S;<SOURCE_DIR><SOURCE_SUBDIR>;-B;<BINARY_DIR>'

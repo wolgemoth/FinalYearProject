@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="OpenAL"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\cmake\;CMake Files\utils\;CMake Files\utils\alsoft-config\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="build_version">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 build_version"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libcommon.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 common"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="common/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libcommon.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 common/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OpenAL">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libopenal.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DAL_BUILD_LIBRARY"/>
+					<Add option="-DAL_ALEXT_PROTOTYPES"/>
+					<Add option="-DALC_API=__attribute__((visibility(&quot;protected&quot;)))"/>
+					<Add option="-DAL_API=__attribute__((visibility(&quot;protected&quot;)))"/>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/usr/include/dbus-1.0"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/dbus-1.0/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 OpenAL"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OpenAL/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libopenal.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DAL_BUILD_LIBRARY"/>
+					<Add option="-DAL_ALEXT_PROTOTYPES"/>
+					<Add option="-DALC_API=__attribute__((visibility(&quot;protected&quot;)))"/>
+					<Add option="-DAL_API=__attribute__((visibility(&quot;protected&quot;)))"/>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/usr/include/dbus-1.0"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/dbus-1.0/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 OpenAL/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="openal-info">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/openal-info" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 openal-info"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="openal-info/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/openal-info" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 openal-info/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uhjdecoder">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/uhjdecoder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 uhjdecoder"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uhjdecoder/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/uhjdecoder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 uhjdecoder/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uhjencoder">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/uhjencoder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 uhjencoder"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uhjencoder/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/uhjencoder" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 uhjencoder/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ex-common">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libex-common.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 ex-common"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ex-common/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/libex-common.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 ex-common/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="altonegen">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/altonegen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 altonegen"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="altonegen/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/altonegen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 altonegen/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alrecord">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alrecord" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alrecord"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alrecord/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alrecord" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alrecord/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alplay">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alplay" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alplay"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alplay/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alplay" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alplay/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alstream">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alstream" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alstream"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alstream/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alstream" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alstream/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alreverb">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alreverb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alreverb"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alreverb/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alreverb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alreverb/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="almultireverb">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/almultireverb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 almultireverb"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="almultireverb/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/almultireverb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 almultireverb/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="allatency">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/allatency" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 allatency"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="allatency/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/allatency" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 allatency/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alhrtf">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alhrtf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alhrtf"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alhrtf/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alhrtf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alhrtf/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alstreamcb">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alstreamcb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alstreamcb"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alstreamcb/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alstreamcb" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alstreamcb/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alconvolve">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alconvolve" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alconvolve"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alconvolve/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alconvolve" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alconvolve/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alloopback">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alloopback" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alloopback"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alloopback/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alloopback" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DRESTRICT=__restrict"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 alloopback/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alsoft-config">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alsoft-config" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 alsoft-config"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alsoft-config/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alsoft-config" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 alsoft-config/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/default_hrtf.txt">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/default_hrtf.txt.rule">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/moc_mainwindow.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/moc_mainwindow.cpp.rule">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/ui_mainwindow.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/auxeffectslot.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/auxeffectslot.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/buffer.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/buffer.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effect.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effect.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/autowah.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/chorus.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/compressor.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/convolution.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/dedicated.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/distortion.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/echo.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/effects.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/effects.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/equalizer.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/fshifter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/modulator.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/null.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/pshifter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/reverb.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/effects/vmorpher.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/error.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/event.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/event.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/extension.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/filter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/filter.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/listener.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/listener.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/source.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/source.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/al/state.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/alc.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/alconfig.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/alconfig.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/alu.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/alu.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/alsa.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/alsa.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/base.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/base.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/loopback.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/loopback.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/null.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/null.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/oss.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/oss.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/pulseaudio.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/pulseaudio.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/sndio.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/sndio.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/wave.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/backends/wave.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/context.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/context.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/device.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/device.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/autowah.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/base.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/chorus.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/compressor.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/convolution.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/dedicated.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/distortion.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/echo.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/equalizer.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/fshifter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/modulator.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/null.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/pshifter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/reverb.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/effects/vmorpher.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/inprogext.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/alc/panning.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/albit.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/albyte.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alcomplex.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alcomplex.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/aldeque.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alfstream.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alfstream.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/almalloc.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/almalloc.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alnumbers.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alnumeric.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/aloptional.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alspan.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alstring.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/alstring.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/altraits.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/atomic.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/comptr.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/dynload.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/dynload.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/intrusive_ptr.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/opthelpers.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/phase_shifter.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/polyphase_resampler.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/polyphase_resampler.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/pragmadefs.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/ringbuffer.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/ringbuffer.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/strutils.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/strutils.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/threads.cpp">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/threads.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/vecmat.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/common/vector.h">
+			<Option target="common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/ambdec.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/ambdec.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/ambidefs.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/ambidefs.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/async_event.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bformatdec.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bformatdec.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bs2b.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bs2b.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bsinc_defs.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bsinc_tables.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bsinc_tables.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/buffer_storage.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/buffer_storage.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/bufferline.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/context.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/context.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/converter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/converter.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/cpu_caps.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/cpu_caps.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/cubic_defs.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/cubic_tables.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/cubic_tables.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/dbus_wrap.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/dbus_wrap.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/devformat.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/devformat.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/device.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/device.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/effects/base.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/effectslot.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/effectslot.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/except.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/except.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/biquad.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/biquad.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/nfc.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/nfc.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/splitter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/filters/splitter.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/fmt_traits.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/fmt_traits.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/fpu_ctrl.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/fpu_ctrl.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/front_stablizer.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/helpers.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/helpers.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/hrtf.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/hrtf.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/logging.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/logging.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mastering.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mastering.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/defs.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/hrtfbase.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/hrtfdefs.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/mixer_c.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/mixer_sse.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/mixer_sse2.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/mixer_sse3.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/mixer/mixer_sse41.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/resampler_limits.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/rtkit.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/rtkit.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/uhjfilter.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/uhjfilter.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/uiddefs.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/voice.cpp">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/voice.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/core/voice_change.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alconvolve.c">
+			<Option target="alconvolve"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alhrtf.c">
+			<Option target="alhrtf"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/allatency.c">
+			<Option target="allatency"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alloopback.c">
+			<Option target="alloopback"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/almultireverb.c">
+			<Option target="almultireverb"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alplay.c">
+			<Option target="alplay"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alrecord.c">
+			<Option target="alrecord"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alreverb.c">
+			<Option target="alreverb"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alstream.c">
+			<Option target="alstream"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/alstreamcb.cpp">
+			<Option target="alstreamcb"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/altonegen.c">
+			<Option target="altonegen"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/common/alhelpers.c">
+			<Option target="ex-common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/examples/common/alhelpers.h">
+			<Option target="ex-common"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL/al.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL/alc.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL/alext.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL/efx-presets.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/include/AL/efx.h">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/resources/openal32.rc">
+			<Option target="OpenAL"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/main.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.ui">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/verstr.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/verstr.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/openal-info.c">
+			<Option target="openal-info"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/uhjdecoder.cpp">
+			<Option target="uhjdecoder"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/uhjencoder.cpp">
+			<Option target="uhjencoder"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/version.h.in">
+			<Option target="build_version"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/OpenALConfig.cmake.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/config.h.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/openal.pc.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/DBus1/DBus1Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/DBus1/DBus1ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindALSA.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindAudioIO.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindFFmpeg.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindJACK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindMySOFA.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindOSS.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindOpenSL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindPortAudio.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindPulseAudio.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindSndFile.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindSoundIO.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\utils\alsoft-config\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

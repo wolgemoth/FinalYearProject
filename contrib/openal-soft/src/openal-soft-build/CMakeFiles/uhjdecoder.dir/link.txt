@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -D_DEBUG -rdynamic CMakeFiles/uhjdecoder.dir/utils/uhjdecoder.cpp.o -o uhjdecoder  libcommon.a -pthread /usr/lib/x86_64-linux-gnu/libsndfile.so 

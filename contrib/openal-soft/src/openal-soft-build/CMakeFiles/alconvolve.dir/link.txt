@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -D_DEBUG -rdynamic CMakeFiles/alconvolve.dir/examples/alconvolve.c.o -o alconvolve  -Wl,-rpath,/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build -pthread libcommon.a /usr/lib/x86_64-linux-gnu/libsndfile.so libex-common.a libopenal.so.1.23.1 -lrt 

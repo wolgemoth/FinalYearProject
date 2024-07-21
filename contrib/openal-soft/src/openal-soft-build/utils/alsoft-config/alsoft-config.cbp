@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="alsoft-config"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\cmake\;CMake Files\utils\;CMake Files\utils\alsoft-config\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alsoft-config">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alsoft-config" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 alsoft-config"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="alsoft-config/fast">
+				<Option output="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/alsoft-config" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config"/>
+					<Add directory="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 alsoft-config/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/moc_mainwindow.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/moc_mainwindow.cpp.rule">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft-build/utils/alsoft-config/ui_mainwindow.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/main.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/mainwindow.ui">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/verstr.cpp">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/verstr.h">
+			<Option target="alsoft-config"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/OpenALConfig.cmake.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/config.h.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/openal.pc.in">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/DBus1/DBus1Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/DBus1/DBus1ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DBus1\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/../../../../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindALSA.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindAudioIO.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindFFmpeg.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindJACK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindMySOFA.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindOSS.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindOpenSL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindPortAudio.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindPulseAudio.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindSndFile.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/cmake/FindSoundIO.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/Projects/FinalYearProject/contrib/openal-soft/src/openal-soft/utils/alsoft-config/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\utils\alsoft-config\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

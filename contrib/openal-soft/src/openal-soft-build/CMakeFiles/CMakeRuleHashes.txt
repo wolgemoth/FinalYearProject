@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+70651352a261009262b6fe984c105fee CMakeFiles/build_version
+04405315323b12075836710779d95786 default_hrtf.txt
+33172de43f9c99e3eb31eafe56a41456 utils/alsoft-config/moc_mainwindow.cpp
+c45a82a6bdddf3f801ade8a6f06a82ed utils/alsoft-config/ui_mainwindow.h
+b3d15a30ab308b388c5dcb51bc4d5e82 version_witness.txt

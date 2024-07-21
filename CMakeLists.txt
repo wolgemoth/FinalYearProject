@@ -105,7 +105,7 @@ if (NOT SDL2_FOUND)
             set(SDL2_LIBRARIES ${SDL2_PATH}/win32-x86/SDL2.dll)
         endif()
     elseif(APPLE)
-        set(SDL2_DIR "${PROJECT_SOURCE_DIR}/contrib/SDL2/macos/SDL2.framework")
+        set(SDL2_DIR "${SDL2_PATH}/macos/SDL2.framework")
         find_package(SDL2 REQUIRED COMPONENTS SDL2)
     else() # Assuming Linux for else
         #support both 32 and 64 bit builds
@@ -123,8 +123,33 @@ if (NOT SDL2_FOUND)
     endif()
 endif()
 
+# BULLET:
 find_package(Bullet REQUIRED)
-find_package(OpenAL REQUIRED)
+
+# OPEN-AL:
+find_package(OpenAL)
+if (NOT OpenAL_FOUND)
+
+    # See if OpenAL has been downloaded into the contrib folder:
+    set(OpenAL_DIR "${CMAKE_SOURCE_DIR}/contrib/openal-soft/lib/cmake/OpenAL")
+    find_package(OpenAL NO_DEFAULT_PATH)
+
+    if (NOT OpenAL_FOUND)
+
+        include(ExternalProject)
+
+        set(OpenAL_DOWNLOAD_VERSION 1.23.1)
+
+        # Download OpenAL-Soft.
+        ExternalProject_Add(openal-soft
+                GIT_REPOSITORY https://github.com/kcat/openal-soft.git
+                GIT_TAG ${OpenAL_DOWNLOAD_VERSION}
+                PREFIX ${CMAKE_SOURCE_DIR}/contrib/openal-soft
+                CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_SOURCE_DIR}/contrib/openal-soft
+        )
+    endif()
+endif()
+
 find_package(CURL   REQUIRED)
 find_package(assimp REQUIRED)
 
@@ -158,70 +183,32 @@ include_directories(
 )
 
 # ADD FINALYEARPROJECT:
-add_library(FinalYearProject STATIC
-        src/engine/scripts/audio/AudioClip.hpp
-        src/engine/scripts/audio/AudioSource.hpp
-        src/engine/scripts/audio/Sound.hpp
-        src/engine/scripts/core/Application.hpp
-        src/engine/scripts/core/Debug.hpp
-        src/engine/scripts/core/File.hpp
-        src/engine/scripts/core/IViewport.hpp
-        src/engine/scripts/core/Resources.hpp
-        src/engine/scripts/core/Script.hpp
-        src/engine/scripts/core/Serialisation.hpp
-        src/engine/scripts/core/Settings.hpp
-        src/engine/scripts/core/Time.hpp
-        src/engine/scripts/core/Transform.hpp
-        src/engine/scripts/core/Types.hpp
-        src/engine/scripts/core/utils/Hashmap.hpp
-        src/engine/scripts/core/utils/Random.hpp
-        src/engine/scripts/core/utils/ThreadUtils.hpp
-        src/engine/scripts/core/utils/Utils.hpp
-        src/engine/scripts/core/Window.hpp
-        src/engine/scripts/ecs/Component.hpp
-        src/engine/scripts/ecs/GameObject.hpp
-        src/engine/scripts/ecs/Scene.hpp
-        src/engine/scripts/graphics/Camera.hpp
-        src/engine/scripts/graphics/Light.hpp
-        src/engine/scripts/graphics/Material.hpp
-        src/engine/scripts/graphics/Mesh.hpp
-        src/engine/scripts/graphics/Renderer.hpp
-        src/engine/scripts/graphics/Shader.hpp
-        src/engine/scripts/graphics/Texture.hpp
-        src/engine/scripts/graphics/TextureCPU.hpp
-        src/engine/scripts/graphics/textures/Cubemap.hpp
-        src/engine/scripts/graphics/textures/RenderTexture.hpp
-        src/engine/scripts/input/Cursor.hpp
-        src/engine/scripts/input/Input.hpp
-        src/engine/scripts/networking/Requests.hpp
-        src/engine/scripts/physics/Collider.hpp
-        src/engine/scripts/physics/colliders/PlaneCollider.hpp
-        src/engine/scripts/physics/colliders/SphereCollider.hpp
-        src/engine/scripts/physics/Collision.hpp
-        src/engine/scripts/physics/Physics.hpp
-        src/engine/scripts/physics/Rigidbody.hpp
-        src/engine/scripts/spatial/atmosphere/ISA.hpp
-        src/engine/scripts/spatial/elevation/Elevation.hpp
-        src/engine/scripts/spatial/elevation/serialisation/ElevationDeserialiser.hpp
-        src/engine/scripts/spatial/maths/Conversions.hpp
-        src/engine/scripts/spatial/maths/Coords.hpp
-        src/engine/scripts/spatial/meshing/Builder.hpp
-        src/engine/scripts/spatial/opensky/OpenSky.hpp
-        src/engine/scripts/spatial/opensky/serialisation/OpenSkyDeserialiser.hpp
-        src/engine/scripts/spatial/osm/OSM.hpp
-        src/engine/scripts/spatial/osm/serialisation/OSMDeserialiser.hpp
-        src/engine/scripts/spatial/planets/VSOP.hpp
-        src/engine/scripts/spatial/planets/WGCCRE.hpp
-        src/engine/scripts/spatial/stars/ATHYG.hpp
-        src/engine/scripts/ui/GUI.hpp
-        src/game/include/engine_networking.hpp
-        src/game/scripts/Spatial/FYP.hpp
-        src/engine/scripts/graphics/api/Graphics.hpp
-        src/engine/scripts/graphics/api/OpenGLGraphics.hpp
-        src/engine/scripts/graphics/api/Graphics.hpp
+
+# Find source files:
+file(GLOB_RECURSE FINALYEARPROJECT_SOURCES "${CMAKE_SOURCE_DIR}/src/engine/scripts/*.hpp")
+
+# Find precompiled headers:
+file(GLOB_RECURSE FINALYEARPROJECT_PCH
+        "${CMAKE_SOURCE_DIR}/src/engine/**/stdafx.h"
+        "${CMAKE_SOURCE_DIR}/src/engine/**/pch.h"
 )
 
-target_precompile_headers(FinalYearProject PRIVATE src/engine/scripts/stdafx.hpp)
+# Exclude precompiled headers from the target source, as referring to them directly is bad design.
+foreach(PCH_FILE ${FINALYEARPROJECT_PCH})
+  list(REMOVE_ITEM FINALYEARPROJECT_SOURCES ${PCH_FILE})
+endforeach()
+
+# Define FinalYearProject as a lib.
+add_library(FinalYearProject STATIC ${FINALYEARPROJECT_SOURCES})
+
+# If OpenAL is not found, build the downloaded version.
+if (NOT OpenAL_FOUND)
+    add_dependencies(FinalYearProject openal-soft)
+    find_package(OpenAL REQUIRED)
+endif()
+
+# Specify precompiled headers:
+target_precompile_headers(FinalYearProject PRIVATE ${FINALYEARPROJECT_PCH})
 
 # Set libs to compile with release flags and no sanitizers or rtti.
 set(LIB_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -fno-rtti")
@@ -240,55 +227,37 @@ else()
 endif()
 
 target_link_libraries(FinalYearProject
-
-        # CORE:
+        ${BULLET_LIBRARIES}
+        ${SDL2_LIBRARIES}
         assimp::assimp
         CURL::libcurl
         GL
         GLEW
         IMGUI
         OpenAL::OpenAL
-        ${BULLET_LIBRARIES}
-        ${SDL2_LIBRARIES}
-
-        # SPATIAL:
         VSOP87
 )
 
 # ADD GAME:
+file(GLOB_RECURSE GAME_SOURCES
+        "${CMAKE_SOURCE_DIR}/src/game/scripts/*.cpp"
+        "${CMAKE_SOURCE_DIR}/src/game/scripts/*.h"
+        "${CMAKE_SOURCE_DIR}/src/game/scripts/*.hpp"
+)
 add_executable(Game
-        src/main.cpp
-
-        src/game/include/engine_audio.hpp
-        src/game/include/engine_core.hpp
-        src/game/include/engine_ecs.hpp
-        src/game/include/engine_graphics.hpp
-        src/game/include/engine_input.hpp
-        src/game/include/engine_networking.hpp
-        src/game/include/engine_physics.hpp
-        src/game/include/engine_spatial.hpp
-        src/game/include/engine_ui.hpp
-
-        src/game/Injector.hpp
-        src/game/scripts/Ball.hpp
-        src/game/scripts/FlyCam.hpp
-        src/game/scripts/Plane.hpp
-        src/game/scripts/Spatial/Map.hpp
-        src/game/scripts/Spatial/Planetarium.hpp
-        src/game/scripts/Spatial/Stars.hpp
+        "${CMAKE_SOURCE_DIR}/src/main.cpp"
+        ${GAME_SOURCES}
 )
 
-target_precompile_headers(Game PRIVATE
-        src/game/include/engine_audio.hpp
-        src/game/include/engine_core.hpp
-        src/game/include/engine_ecs.hpp
-        src/game/include/engine_graphics.hpp
-        src/game/include/engine_input.hpp
-        src/game/include/engine_networking.hpp
-        src/game/include/engine_physics.hpp
-        src/game/include/engine_spatial.hpp
-        src/game/include/engine_ui.hpp
+# PRECOMPILE INCLUDED HEADERS FOR GAME
+file(GLOB_RECURSE GAME_PCH
+        "${CMAKE_SOURCE_DIR}/src/game/**/stdafx.h"
+        "${CMAKE_SOURCE_DIR}/src/game/**/pch.h"
+
+        "${CMAKE_SOURCE_DIR}/src/game/include/*.h"
+        "${CMAKE_SOURCE_DIR}/src/game/include/*.hpp"
 )
+target_precompile_headers(Game PRIVATE ${GAME_PCH})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_link_options(Game PRIVATE  -flto=auto -Wl,--strip-all -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
@@ -296,9 +265,10 @@ else()
     target_link_options(Game PRIVATE -flto=auto -Wl,--gc-sections -Wl,--as-needed -Wl,--no-undefined)
 endif()
 
+# Link FinalYearProject to Game
 target_link_libraries(Game PRIVATE FinalYearProject)
 
-# COPY FILES:
+# Copy Assets to the Binary location:
 set(    AUDIO_DIR ${PROJECT_SOURCE_DIR}/src/engine/audio    )
 set(   LEVELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/levels   )
 set(   MODELS_DIR ${PROJECT_SOURCE_DIR}/src/engine/models   )
