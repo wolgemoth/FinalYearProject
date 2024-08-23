@@ -452,7 +452,7 @@ namespace LouiEriksson::Engine {
 				}
 			}
 			else if constexpr (std::is_same_v<T, bool>) {
-		        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "T" || _str == "1";
+		        r = _str == "true" || _str == "True" || _str == "TRUE" || _str == "t" || _str == "T" || _str == "1";
 			}
 			else {
 				static_assert([]{ return false; }(), "No specialisation exists for parsing string to T");

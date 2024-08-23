@@ -74,10 +74,16 @@ namespace LouiEriksson::Engine {
 					SetProcessDPIAware();
 				}
 #elif __linux__
-				(void)putenv((char*)"SDL_VIDEO_X11_XRANDR=0");
+
+				// Disable Xrandr extension for X11 which can lead to a better high-DPI OpenGL context provided by SDL.
+				(void)putenv(static_cast<char*>("SDL_VIDEO_X11_XRANDR=0"));
+
+				// Hint SDL2 to provide a true high-DPI OpenGL context.
+				(void)SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
 #endif
 			}
 
+			// Create the window:
 			m_Window = std::shared_ptr<SDL_Window>(
 				SDL_CreateWindow(_name.data(),
 					SDL_WINDOWPOS_UNDEFINED,
@@ -94,7 +100,7 @@ namespace LouiEriksson::Engine {
 			if (_fullscreen) {
 				SDL_SetWindowFullscreen(m_Window.get(), SDL_WINDOW_FULLSCREEN);
 			}
-			
+
 			m_ID = static_cast<size_t>(SDL_GetWindowID(m_Window.get()));
 		
 			// Grab the display mode to further configure parameters.
@@ -118,7 +124,7 @@ namespace LouiEriksson::Engine {
 			}
 			
 			m_Context = SDL_GL_CreateContext(m_Window.get());
-			
+
 			if (m_Context == nullptr) {
 				Debug::Log("SDL failed to create GL context! " + std::string(SDL_GetError()), Error);
 			}
@@ -141,9 +147,9 @@ namespace LouiEriksson::Engine {
 		Window             (const Window& _other) = delete;
 		Window& operator = (const Window& _other) = delete;
 	
-		static std::shared_ptr<Window> Create(const size_t& _width, const size_t& _height, const std::string_view& _name)  {
+		static std::shared_ptr<Window> Create(const size_t& _width, const size_t& _height, const std::string_view& _name, bool _fullscreen = false, bool _ignoreSystemScaling = false, bool _hdr10 = true)  {
 		
-			std::shared_ptr<Window> result(new Window(_width, _height, _name), [](Window* _ptr) { delete _ptr; });
+			std::shared_ptr<Window> result(new Window(_width, _height, _name, _fullscreen, _ignoreSystemScaling, _hdr10), [](Window* _ptr) { delete _ptr; });
 
 			s_Windows.Add(result->ID(), result);
 		

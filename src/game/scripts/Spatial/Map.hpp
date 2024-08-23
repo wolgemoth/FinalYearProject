@@ -541,7 +541,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 
 			const auto     bounds = Maths::Coords::GPS::GPSToBounds(_coord, _sizeKm);
 			const auto iterations = m_Subdivisions + 1;
-			
+
 	        for (auto i = 0; i < iterations; ++i) {
 	        for (auto j = 0; j < iterations; ++j) {
 
