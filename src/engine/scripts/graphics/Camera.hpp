@@ -250,7 +250,7 @@ namespace LouiEriksson::Engine::Graphics {
 								if (const auto me = r->GetMesh().lock()     ) {
 								
 									// Assign matrices.
-									p->Assign(u_Model, tr->World()); /* MODEL      */
+									p->Assign(u_Model, tr->World()); /* MODEL */
 									
 									p->Assign(u_AlbedoColor, ma->GetAlbedoColor());
 							

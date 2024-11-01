@@ -42,7 +42,7 @@ namespace LouiEriksson::Engine::ECS {
 	
 	class GameObject;
 	
-}; // LouiEriksson::Engine::ECS
+} // LouiEriksson::Engine::ECS
 
 namespace LouiEriksson::Engine {
 
@@ -243,7 +243,7 @@ namespace LouiEriksson::Engine {
 				Debug::Log("Application Initialising.", Info);
 			
 				// Set custom termination behaviour:
-				std::set_terminate(&OnTerminate);
+				(void)std::set_terminate(&OnTerminate);
 				
 				try {
 
@@ -267,7 +267,7 @@ namespace LouiEriksson::Engine {
 					Input::Cursor::SetState({ Input::Cursor::State::LockMode::Absolute, true });
 					
 					// Capture the mouse on startup.
-					SDL_CaptureMouse(SDL_TRUE);
+					(void)SDL_CaptureMouse(SDL_TRUE);
 					
 					               Random::Init(0U); // Use a constant seed (like '0') for deterministic behaviour.
 					     Audio::    Sound::Init();
@@ -310,7 +310,7 @@ namespace LouiEriksson::Engine {
 							{
 								const auto selected = Settings::Graphics::VSync::s_CurrentSelection - 1;
 								
-								if (selected != SDL_GL_GetSwapInterval()) { SDL_GL_SetSwapInterval(selected); }
+								if (selected != SDL_GL_GetSwapInterval()) { (void)SDL_GL_SetSwapInterval(selected); }
 							}
 							
 							/* INPUT */

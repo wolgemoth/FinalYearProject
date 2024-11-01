@@ -386,7 +386,7 @@ namespace LouiEriksson::Game::Scripts::Spatial {
 						
 						elements.reserve(result.size());
 						for (const auto& item : result) {
-							elements.emplace_back(std::make_shared<OSMDeserialiser::OSMJSON::Root::Element>(item));
+							(void)elements.emplace_back(std::make_shared<OSMDeserialiser::OSMJSON::Root::Element>(item));
 						}
 						
 						Debug::Log("OpenStreetMap Query Success!");

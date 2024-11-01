@@ -118,11 +118,11 @@
         mediump float NdH = max(0.0, dot(_normal, _halfVec));
         mediump float NdV = max(0.0, dot(_normal, _viewDir));
 
-        mediump vec3 F0 = mix(vec3(0.04), _albedo, _metallic);
+        mediump vec3 F0 = mix(vec3(0.04), vec3(1.0), _metallic);
 
         mediump vec3 fresnel = Fresnel(F0, max(0.0, dot(_halfVec, _viewDir)));
 
-        mediump vec3 diffuse = Irradiance(fresnel, _metallic);
+        mediump vec3 diffuse = Irradiance(fresnel, _metallic) * _albedo;
 
         mediump vec3 specular =
             (fresnel * Distrib(NdH, _roughness) *
