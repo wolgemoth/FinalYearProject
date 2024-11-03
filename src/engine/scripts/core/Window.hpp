@@ -61,7 +61,7 @@ namespace LouiEriksson::Engine {
 					auto dllSetProcessDpiAwareness = (HRESULT (WINAPI *)(PROCESS_DPI_AWARENESS))GetProcAddress(Shcore, "SetProcessDpiAwareness");
 					if (dllSetProcessDpiAwareness) {
 						HRESULT result = dllSetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
-						if (FAILED(result ) {
+						if (FAILED(result)) {
 							// Handle error
 						}
 					} else {
@@ -76,7 +76,7 @@ namespace LouiEriksson::Engine {
 #elif __linux__
 
 				// Disable Xrandr extension for X11 which can lead to a better high-DPI OpenGL context provided by SDL.
-				(void)putenv(static_cast<char*>("SDL_VIDEO_X11_XRANDR=0"));
+				(void)putenv(const_cast<char*>("SDL_VIDEO_X11_XRANDR=0"));
 
 				// Hint SDL2 to provide a true high-DPI OpenGL context.
 				(void)SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");

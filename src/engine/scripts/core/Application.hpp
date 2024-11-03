@@ -359,7 +359,7 @@ namespace LouiEriksson::Engine {
 							while (physics_step >= 0.0) {
 								
 								// Tick the physics engine.
-								Physics::Physics::Tick(Time::FixedDeltaTime<tick_t>());
+								Physics::Physics::Tick(Time::FixedDeltaTime<btScalar>());
 								
 								// Tick the scene's fixed update.
 								s_Scene->FixedTick();
@@ -391,9 +391,9 @@ namespace LouiEriksson::Engine {
 									frame_start
 								).count(); // Calculate delta time.
 							
-							            Time::s_Elapsed  += Time::UnscaledDeltaTime<tick_t>(); // Increment total elapsed time.
-							Physics::Physics::s_LastTick += Time::UnscaledDeltaTime<tick_t>(); // Increment time since last physics update.
-							                physics_step += Time::UnscaledDeltaTime<tick_t>(); // Increment the physics step (used for computing number of fixed updates per frame).
+							            Time::s_Elapsed  += Time::UnscaledDeltaTime<tick_t>();      // Increment total elapsed time.
+							Physics::Physics::s_LastTick += Time::UnscaledDeltaTime<btScalar>();    // Increment time since last physics update.
+							                physics_step += Time::UnscaledDeltaTime<tick_t>();      // Increment the physics step (used for computing number of fixed updates per frame).
 						}
 						catch (const std::exception& e) {
 							Debug::Log(e, Critical);

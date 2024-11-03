@@ -345,9 +345,9 @@ namespace LouiEriksson::Engine::Graphics {
 								);
 					
 								// Assign matrices.
-								s->Assign(sky_u_Projection,           Projection()); /* PROJECTION */
-								s->Assign(sky_u_View, mat4(mat3(View()))); /* VIEW       */
-								s->Assign(sky_u_Model,                     sky_TRS); /* MODEL      */
+								s->Assign(sky_u_Projection, Projection()      ); /* PROJECTION */
+								s->Assign(sky_u_View,       mat4(mat3(View()))); /* VIEW       */
+								s->Assign(sky_u_Model,      sky_TRS           ); /* MODEL      */
 								
 								// Assign texture:
 								if (const auto sky = Settings::Graphics::Skybox::s_Skybox.lock()) {
